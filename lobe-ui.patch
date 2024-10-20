@@ -1,0 +1,63 @@
+From 531906dd88e620c96e10d1889c6dc4e1441b1800 Mon Sep 17 00:00:00 2001
+From: MaySoMusician <maysomusician@gmail.com>
+Date: Mon, 14 Oct 2024 10:15:38 +0000
+Subject: [PATCH 1/2] Change font list for Japanese
+
+---
+ src/styles/theme/token/base.ts | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/src/styles/theme/token/base.ts b/src/styles/theme/token/base.ts
+index 5dc5e4a..05bf5ef 100644
+--- a/src/styles/theme/token/base.ts
++++ b/src/styles/theme/token/base.ts
+@@ -1,9 +1,9 @@
+ import { AliasToken } from 'antd/es/theme/interface';
+ 
+ const FONT_EMOJI = `"Segoe UI Emoji","Segoe UI Symbol","Apple Color Emoji","Twemoji Mozilla","Noto Color Emoji","Android Emoji"`;
+-const FONT_EN = `"HarmonyOS Sans","Segoe UI","SF Pro Display",-apple-system,BlinkMacSystemFont,Roboto,Oxygen,Ubuntu,Cantarell,"Open Sans","Helvetica Neue",sans-serif`;
+-const FONT_CN = `"HarmonyOS Sans SC","PingFang SC","Hiragino Sans GB","Microsoft Yahei UI","Microsoft Yahei","Source Han Sans CN",sans-serif`;
+-const FONT_CODE = `Hack,ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas,Liberation Mono,monospace`;
++const FONT_EN = `"IBM Plex Sans JP","Segoe UI","SF Pro Display",-apple-system,BlinkMacSystemFont,Roboto,Oxygen,Ubuntu,Cantarell,"Open Sans","Helvetica Neue",sans-serif`;
++const FONT_CN = ``;
++const FONT_CODE = `"Mgen+ 1mn",ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas,Liberation Mono,monospace`;
+ 
+ export const baseToken: Partial<AliasToken> = {
+   borderRadius: 5,
+-- 
+2.39.5
+
+
+From 20172ce6caafab2b1ba276ee6162e289c31a53fe Mon Sep 17 00:00:00 2001
+From: MaySoMusician <maysomusician@gmail.com>
+Date: Sun, 20 Oct 2024 07:28:14 +0000
+Subject: [PATCH 2/2] Remove FONT_CN
+
+---
+ src/styles/theme/token/base.ts | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
+
+diff --git a/src/styles/theme/token/base.ts b/src/styles/theme/token/base.ts
+index 05bf5ef..02e37d6 100644
+--- a/src/styles/theme/token/base.ts
++++ b/src/styles/theme/token/base.ts
+@@ -2,7 +2,6 @@ import { AliasToken } from 'antd/es/theme/interface';
+ 
+ const FONT_EMOJI = `"Segoe UI Emoji","Segoe UI Symbol","Apple Color Emoji","Twemoji Mozilla","Noto Color Emoji","Android Emoji"`;
+ const FONT_EN = `"IBM Plex Sans JP","Segoe UI","SF Pro Display",-apple-system,BlinkMacSystemFont,Roboto,Oxygen,Ubuntu,Cantarell,"Open Sans","Helvetica Neue",sans-serif`;
+-const FONT_CN = ``;
+ const FONT_CODE = `"Mgen+ 1mn",ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas,Liberation Mono,monospace`;
+ 
+ export const baseToken: Partial<AliasToken> = {
+@@ -11,6 +10,6 @@ export const baseToken: Partial<AliasToken> = {
+   borderRadiusSM: 3,
+   borderRadiusXS: 3,
+   controlHeight: 36,
+-  fontFamily: [FONT_EN, FONT_CN, FONT_EMOJI].join(','),
+-  fontFamilyCode: [FONT_CODE, FONT_CN, FONT_EMOJI].join(','),
++  fontFamily: [FONT_EN, FONT_EMOJI].join(','),
++  fontFamilyCode: [FONT_CODE, FONT_EMOJI].join(','),
+ };
+-- 
+2.39.5
+
