@@ -64,5 +64,5 @@ jobs:
              . -f Dockerfile.database
       - name: Push Docker image
         run: |
-          docker push ghcr.io/$GITHUB_ACTOR/lobe-msm-build:latest:latest
-          docker push ghcr.io/$GITHUB_ACTOR/lobe-msm-build:latest:$(echo $GITHUB_SHA | head -c7)
+          docker push ghcr.io/$GITHUB_ACTOR/lobe-msm-build:latest
+          docker push ghcr.io/$GITHUB_ACTOR/lobe-msm-build:$(echo $GITHUB_SHA | head -c7)
