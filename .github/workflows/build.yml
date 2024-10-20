@@ -60,9 +60,9 @@ jobs:
           sed -i "s|COPY package.json ./|COPY package.json lobehub-ui.tgz ./|" Dockerfile.database
           pnpm install ./lobehub-ui.tgz
           echo ".pnpm-store" >> .dockerignore
-          docker build -t ghcr.io/$GITHUB_ACTOR/lobe-msm-build:latest -t ghcr.io/$GITHUB_ACTOR/lobe-msm-build:$(echo $GITHUB_SHA | head -c7) \
+          docker build -t ghcr.io/${GITHUB_ACTOR,,}/lobe-msm-build:latest -t ghcr.io/${GITHUB_ACTOR,,}/lobe-msm-build:$(echo $GITHUB_SHA | head -c7) \
              . -f Dockerfile.database
       - name: Push Docker image
         run: |
-          docker push ghcr.io/$GITHUB_ACTOR/lobe-msm-build:latest
-          docker push ghcr.io/$GITHUB_ACTOR/lobe-msm-build:$(echo $GITHUB_SHA | head -c7)
+          docker push ghcr.io/${GITHUB_ACTOR,,}/lobe-msm-build:latest
+          docker push ghcr.io/${GITHUB_ACTOR,,}/lobe-msm-build:$(echo $GITHUB_SHA | head -c7)
