@@ -29,16 +29,11 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Check out our repo
         uses: actions/checkout@v4
-      - name: Clone and check out `lobe-ui` repo
-        uses: actions/checkout@v4
-        with:
-          repository: lobehub/lobe-ui
-          path: ../lobe-ui
-      - name: Clone and check out `lobe-chat` repo
-        uses: actions/checkout@v4
-        with:
-          repository: lobehub/lobe-chat
-          path: ../lobe-chat
+      - name: Clone and checkout lobe repos
+        run: |
+          cd ../
+          git clone https://github.com/lobehub/lobe-ui.git --depth 1
+          git clone https://github.com/lobehub/lobe-chat.git --depth 1
       - uses: pnpm/action-setup@v4
         with:
           package_json_file: ../lobe-chat/package.json
