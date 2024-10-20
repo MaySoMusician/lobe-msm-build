@@ -50,7 +50,7 @@ jobs:
       - name: Build lobe-ui with patches
         working-directory: ../lobe-ui
         run: |
-          git am ../lobe-ui.patch
+          git am ../lobe-msm-build/lobe-ui.patch
           bun install && bun run build
           npm pack --pack-destination ../lobe-chat
       - name: Build lobe-chat Docker image
