@@ -9,6 +9,10 @@ on:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
+  GIT_AUTHOR_NAME: actions-user
+  GIT_AUTHOR_EMAIL: action@github.com
+  GIT_COMMITTER_NAME: actions-user
+  GIT_COMMITTER_EMAIL: action@github.com
 
 jobs:
   build:
