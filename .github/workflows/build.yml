@@ -1,0 +1,67 @@
+name: Build lobechat-msm
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - default
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+      attestations: write
+      id-token: write
+
+    steps:
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      - name: Check out our repo
+        uses: actions/checkout@v4
+      - name: Clone and check out `lobe-ui` repo
+        uses: actions/checkout@v4
+        with:
+          repository: lobehub/lobe-ui
+          path: ../lobe-ui
+      - name: Clone and check out `lobe-chat` repo
+        uses: actions/checkout@v4
+        with:
+          repository: lobehub/lobe-chat
+          path: ../lobe-chat
+      - name: Build lobe-ui with patches
+        working-directory: ../lobe-ui
+        run: |
+          git am ../lobe-ui.patch
+          bun install && bun run build
+          npm pack --pack-destination ../lobe-chat
+      - name: Build lobe-chat Docker image
+        working-directory: ../lobe-chat
+        run: |
+          mv lobehub-ui-*.tgz lobehub-ui.tgz
+          sed -i "s|COPY package.json ./|COPY package.json lobehub-ui.tgz ./|" Dockerfile.database
+          pnpm install ./lobehub-ui.tgz
+          echo ".pnpm-store" >> .dockerignore
+          docker build -t ghcr.io/$GITHUB_ACTOR/lobe-msm-build:latest -t ghcr.io/$GITHUB_ACTOR/lobe-msm-build:$(echo $GITHUB_SHA | head -c7) \
+             . -f Dockerfile.database
+      - name: Push Docker image
+        run: |
+          docker push ghcr.io/$GITHUB_ACTOR/lobe-msm-build:latest:latest
+          docker push ghcr.io/$GITHUB_ACTOR/lobe-msm-build:latest:$(echo $GITHUB_SHA | head -c7)
