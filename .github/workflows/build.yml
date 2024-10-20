@@ -39,6 +39,9 @@ jobs:
         with:
           repository: lobehub/lobe-chat
           path: ../lobe-chat
+      - uses: pnpm/action-setup@v4
+        with:
+          package_json_file: ../lobe-chat/package.json
       - uses: actions/setup-node@v4
         with:
           node-version: 20
