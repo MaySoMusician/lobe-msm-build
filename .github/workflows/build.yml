@@ -27,13 +27,6 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: 'pnpm'
-      - uses: oven-sh/setup-bun@v2
-        with:
-          bun-version: latest
       - name: Check out our repo
         uses: actions/checkout@v4
       - name: Clone and check out `lobe-ui` repo
@@ -46,6 +39,13 @@ jobs:
         with:
           repository: lobehub/lobe-chat
           path: ../lobe-chat
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
       - name: Build lobe-ui with patches
         working-directory: ../lobe-ui
         run: |
