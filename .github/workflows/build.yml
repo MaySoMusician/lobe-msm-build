@@ -94,7 +94,9 @@ jobs:
       - name: Prepare lobe-chat build environment
         working-directory: ../lobe-chat
         run: |
+          ls -al
           sed -i "s|COPY package.json ./|COPY package.json lobehub-ui.tgz ./|" Dockerfile.database
+          echo "installing..."
           pnpm install ./lobehub-ui.tgz
           echo ".pnpm-store" >> .dockerignore
       - name: Build lobe-chat Docker image
