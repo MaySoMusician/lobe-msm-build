@@ -15,7 +15,44 @@ env:
   GIT_COMMITTER_EMAIL: action@github.com
 
 jobs:
-  build:
+  build-lobe-ui:
+    name: Build lobe-ui
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out the patch repo
+        uses: actions/checkout@v4
+      - name: Clone and checkout `lobehub/lobe-ui`
+        run: |
+          cd ../
+          git clone https://github.com/lobehub/lobe-ui.git --depth 1
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      - name: Build `lobe-ui` with the patches
+        working-directory: ../lobe-ui
+        run: |
+          git am ../lobe-msm-build/lobe-ui.patch
+          bun install && bun run build
+      - name: Pack `lobe-ui`
+        working-directory: ../lobe-ui
+        run: |
+          npm pack
+          mv lobehub-ui-*.tgz lobehub-ui.tgz
+      - name: Upload the tarball of the patched lobe-ui
+        uses: actions/upload-artifact@v4
+        with:
+          name: lobe-ui-tarball
+          path: ../lobe-ui/lobehub-ui.tgz
+          if-no-files-found: "error"
+          retention-days: 7
+          compression-level: 0
+
+  build-lobe-chat:
+    name: Build lobe-chat and upload the image
     runs-on: ubuntu-latest
 
     permissions:
@@ -31,35 +68,33 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Check out our repo
+      - name: Check out the patch repo
         uses: actions/checkout@v4
       - name: Clone and checkout lobe repos
         run: |
           cd ../
-          git clone https://github.com/lobehub/lobe-ui.git --depth 1
           git clone https://github.com/lobehub/lobe-chat.git --depth 1
+          git checkout --detach HEAD
       - uses: pnpm/action-setup@v4
         with:
           package_json_file: ../lobe-chat/package.json
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-      - uses: oven-sh/setup-bun@v2
+      - name: Download the lobe-ui tarball
+        uses: actions/download-artifact@v4
         with:
-          bun-version: latest
-      - name: Build lobe-ui with patches
-        working-directory: ../lobe-ui
-        run: |
-          git am ../lobe-msm-build/lobe-ui.patch
-          bun install && bun run build
-          npm pack --pack-destination ../lobe-chat
-      - name: Build lobe-chat Docker image
+          name: lobe-ui-tarball
+          path: ../lobe-chat/lobehub-ui.tgz
+      - name: Prepare lobe-chat build environment
         working-directory: ../lobe-chat
         run: |
-          mv lobehub-ui-*.tgz lobehub-ui.tgz
           sed -i "s|COPY package.json ./|COPY package.json lobehub-ui.tgz ./|" Dockerfile.database
           pnpm install ./lobehub-ui.tgz
           echo ".pnpm-store" >> .dockerignore
+      - name: Build lobe-chat Docker image
+        working-directory: ../lobe-chat
+        run: |
           docker build -t ghcr.io/${GITHUB_ACTOR,,}/lobe-msm-build:latest -t ghcr.io/${GITHUB_ACTOR,,}/lobe-msm-build:$(echo $GITHUB_SHA | head -c7) \
              . -f Dockerfile.database
       - name: Push Docker image
