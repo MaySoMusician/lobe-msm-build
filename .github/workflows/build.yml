@@ -54,6 +54,7 @@ jobs:
   build-lobe-chat:
     name: Build lobe-chat and upload the image
     runs-on: ubuntu-latest
+    needs: build-lobe-ui
 
     permissions:
       contents: read
