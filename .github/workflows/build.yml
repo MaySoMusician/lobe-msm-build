@@ -42,11 +42,14 @@ jobs:
         run: |
           npm pack
           mv lobehub-ui-*.tgz lobehub-ui.tgz
+      - name: Workaround actions/upload-artifact#176
+        run: |
+          echo "artifacts_path=$(realpath ../lobe-ui/lobehub-ui.tgz)" >> $GITHUB_ENV
       - name: Upload the tarball of the patched lobe-ui
         uses: actions/upload-artifact@v4
         with:
           name: lobe-ui-tarball
-          path: ../lobe-ui/lobehub-ui.tgz
+          path: ${{ env.artifacts_path }}
           if-no-files-found: "error"
           retention-days: 7
           compression-level: 0
