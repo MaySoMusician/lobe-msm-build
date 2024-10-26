@@ -97,6 +97,7 @@ jobs:
           sed -i "s|COPY package.json ./|COPY package.json lobehub-ui.tgz ./|" Dockerfile.database
           pnpm install ./lobehub-ui.tgz
           echo ".pnpm-store" >> .dockerignore
+          git am ../lobe-msm-build/lobe-chat.patch
       - name: Build lobe-chat Docker image
         working-directory: ../lobe-chat
         run: |
