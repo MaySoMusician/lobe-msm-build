@@ -57,3 +57,7 @@ jobs:
     needs: check
     if: ${{ needs.check.outputs.new_commit }} == 'true'
     uses: ./.github/workflows/build.yml
+    permissions:
+      packages: write
+      attestations: write
+      id-token: write
