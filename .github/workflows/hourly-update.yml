@@ -16,7 +16,7 @@ env:
 
 jobs:
   check:
-    name: Check lobe-chat updates
+    name: Check for updates in Lobe Chat
     runs-on: ubuntu-latest
     outputs:
       new_commit: ${{ steps.check-updates.outputs.new_commit }}
@@ -24,13 +24,13 @@ jobs:
     steps:
       - name: Check out patch repo
         uses: actions/checkout@v4
-      - name: Clone and checkout `lobehub/lobe-chat`
+      - name: Clone and check out `lobehub/lobe-chat`
         run: |
           cd ../
           git clone https://github.com/lobehub/lobe-chat.git --depth 50
           cd ./lobe-chat
           git checkout HEAD
-      - name: Check for updates in Lobe Chat
+      - name: Check latest commit hash of Lobe Chat
         id: check-updates
         working-directory: ../lobe-chat
         run: |
