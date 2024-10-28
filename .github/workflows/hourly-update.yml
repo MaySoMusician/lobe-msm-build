@@ -38,6 +38,7 @@ jobs:
           LAST_COMMIT=$(cat ../lobe-msm-build/lobe-chat-HEAD | tr -d '\n')
           if [ "$FETCHED_COMMIT" != "$LAST_COMMIT" ]; then
             echo "new_commit=true" >> $GITHUB_OUTPUT
+            echo "FETCHED_COMMIT=$FETCHED_COMMIT" >> $GITHUB_ENV
             echo "Fetched Commit: $FETCHED_COMMIT"
           else
             echo "new_commit=false" >> $GITHUB_OUTPUT
