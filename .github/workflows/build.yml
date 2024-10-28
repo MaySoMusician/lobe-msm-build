@@ -79,7 +79,7 @@ jobs:
       - name: Clone and checkout lobe repos
         run: |
           cd ../
-          git clone https://github.com/lobehub/lobe-chat.git --depth 1
+          git clone https://github.com/lobehub/lobe-chat.git --depth 50
           cd ./lobe-chat
           git checkout --detach ${{ env.LOBECHAT_HEAD }}
       - uses: pnpm/action-setup@v4
