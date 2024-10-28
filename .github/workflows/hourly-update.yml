@@ -22,15 +22,15 @@ jobs:
       new_commit: ${{ steps.check-updates.outputs.new_commit }}
 
     steps:
-      - name: Check out the patch repo
+      - name: Check out patch repo
         uses: actions/checkout@v4
-      - name: Clone and checkout lobe-chat repo
+      - name: Clone and checkout `lobehub/lobe-chat`
         run: |
           cd ../
           git clone https://github.com/lobehub/lobe-chat.git --depth 50
           cd ./lobe-chat
           git checkout HEAD
-      - name: Check if lobe-chat repo got updates
+      - name: Check for updates in Lobe Chat
         id: check-updates
         working-directory: ../lobe-chat
         run: |
@@ -43,7 +43,7 @@ jobs:
           else
             echo "new_commit=false" >> $GITHUB_OUTPUT
           fi
-      - name: Update stored commit
+      - name: Update commit hash file
         if: steps.check-updates.outputs.new_commit == 'true'
         run: |
           echo "Updating last known commit to: $FETCHED_COMMIT"
@@ -54,7 +54,7 @@ jobs:
           git push
 
   build-image:
-    name: Build new image
+    name: Build
     needs: check
     if: needs.check.outputs.new_commit == 'true'
     uses: ./.github/workflows/build.yml

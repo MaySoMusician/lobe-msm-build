@@ -17,13 +17,13 @@ env:
 
 jobs:
   build-lobe-ui:
-    name: Build lobe-ui
+    name: Build Lobe UI
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check out the patch repo
+      - name: Check out patch repo
         uses: actions/checkout@v4
-      - name: Clone and checkout `lobehub/lobe-ui`
+      - name: Clone and check out `lobehub/lobe-ui`
         run: |
           cd ../
           git clone https://github.com/lobehub/lobe-ui.git --depth 1
@@ -33,12 +33,12 @@ jobs:
       - uses: oven-sh/setup-bun@v2
         with:
           bun-version: latest
-      - name: Build `lobe-ui` with the patches
+      - name: Build Lobe UI with patches
         working-directory: ../lobe-ui
         run: |
           git am ../lobe-msm-build/lobe-ui.patch
           bun install && bun run build
-      - name: Pack `lobe-ui`
+      - name: Pack Lobe UI package
         working-directory: ../lobe-ui
         run: |
           npm pack
@@ -46,7 +46,7 @@ jobs:
       - name: Workaround actions/upload-artifact#176
         run: |
           echo "artifacts_path=$(realpath ../lobe-ui/lobehub-ui.tgz)" >> $GITHUB_ENV
-      - name: Upload the tarball of the patched lobe-ui
+      - name: Upload tarball of patched Lobe UI package
         uses: actions/upload-artifact@v4
         with:
           name: lobe-ui-tarball
@@ -56,7 +56,7 @@ jobs:
           compression-level: 0
 
   build-lobe-chat:
-    name: Build lobe-chat and upload the image
+    name: Build Lobe Chat and upload Docker image
     runs-on: ubuntu-latest
     needs: build-lobe-ui
 
@@ -67,17 +67,17 @@ jobs:
       id-token: write
 
     steps:
-      - name: Login to GitHub Container Registry
+      - name: Log in to GitHub Container Registry
         uses: docker/login-action@v2
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Check out the patch repo
+      - name: Check out patch repo
         uses: actions/checkout@v4
-      - name: Retrieve HEAD hash of lobehub/lobe-chat
+      - name: Retrieve HEAD hash of `lobehub/lobe-chat`
         run: echo "LOBECHAT_HEAD=$(cat lobe-chat-HEAD | tr -d '\n')" >> $GITHUB_ENV
-      - name: Clone and checkout lobe repos
+      - name: Clone and check out `lobehub/lobe-chat`
         run: |
           cd ../
           git clone https://github.com/lobehub/lobe-chat.git --depth 50
@@ -89,19 +89,19 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-      - name: Download the lobe-ui tarball
+      - name: Download Lobe UI tarball
         uses: actions/download-artifact@v4
         with:
           name: lobe-ui-tarball
           path: ../lobe-chat/
-      - name: Prepare lobe-chat build environment
+      - name: Prepare Lobe Chat build environment
         working-directory: ../lobe-chat
         run: |
           sed -i "s|COPY package.json ./|COPY package.json lobehub-ui.tgz ./|" Dockerfile.database
           pnpm install ./lobehub-ui.tgz
           echo ".pnpm-store" >> .dockerignore
           git am ../lobe-msm-build/lobe-chat.patch
-      - name: Build lobe-chat Docker image
+      - name: Build Lobe Chat Docker image
         working-directory: ../lobe-chat
         run: |
           docker build -t $REGISTRY/${IMAGE_NAME,,}:latest -t $REGISTRY/${IMAGE_NAME,,}:$(echo $GITHUB_SHA | head -c7) \
