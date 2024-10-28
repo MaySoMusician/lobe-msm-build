@@ -103,9 +103,9 @@ jobs:
       - name: Build lobe-chat Docker image
         working-directory: ../lobe-chat
         run: |
-          docker build -t ghcr.io/${GITHUB_ACTOR,,}/lobe-msm-build:latest -t ghcr.io/${GITHUB_ACTOR,,}/lobe-msm-build:$(echo $GITHUB_SHA | head -c7) \
+          docker build -t $REGISTRY/${IMAGE_NAME,,}:latest -t $REGISTRY/${IMAGE_NAME,,}:$(echo $GITHUB_SHA | head -c7) \
              . -f Dockerfile.database
       - name: Push Docker image
         run: |
-          docker push ghcr.io/${GITHUB_ACTOR,,}/lobe-msm-build:latest
-          docker push ghcr.io/${GITHUB_ACTOR,,}/lobe-msm-build:$(echo $GITHUB_SHA | head -c7)
+          docker push $REGISTRY/${IMAGE_NAME,,}:latest
+          docker push $REGISTRY/${IMAGE_NAME,,}:$(echo $GITHUB_SHA | head -c7)
