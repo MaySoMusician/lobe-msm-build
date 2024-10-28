@@ -74,12 +74,14 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Check out the patch repo
         uses: actions/checkout@v4
+      - name: Retrieve HEAD hash of lobehub/lobe-chat
+        run: echo "LOBECHAT_HEAD=$(cat lobe-chat-HEAD | tr -d '\n')" >> $GITHUB_ENV
       - name: Clone and checkout lobe repos
         run: |
           cd ../
           git clone https://github.com/lobehub/lobe-chat.git --depth 1
           cd ./lobe-chat
-          git checkout --detach HEAD
+          git checkout --detach ${{ env.LOBECHAT_HEAD }}
       - uses: pnpm/action-setup@v4
         with:
           package_json_file: ../lobe-chat/package.json
