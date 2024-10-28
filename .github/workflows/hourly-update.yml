@@ -1,4 +1,4 @@
-name: Check latest lobe-chat commit
+name: Hourly Update
 
 on:
   workflow_dispatch:
@@ -16,8 +16,10 @@ env:
 
 jobs:
   check:
-    name: Check
+    name: Check lobe-chat updates
     runs-on: ubuntu-latest
+    outputs:
+      new_commit: ${{ steps.check-updates.outputs.new_commit }}
 
     steps:
       - name: Check out the patch repo
@@ -28,19 +30,20 @@ jobs:
           git clone https://github.com/lobehub/lobe-chat.git --depth 50
           cd ./lobe-chat
           git checkout HEAD
-      - name: Check if lobe-chat repo has updates
+      - name: Check if lobe-chat repo got updates
+        id: check-updates
         working-directory: ../lobe-chat
         run: |
           FETCHED_COMMIT=$(git rev-parse HEAD)
           LAST_COMMIT=$(cat ../lobe-msm-build/lobe-chat-HEAD | tr -d '\n')
           if [ "$FETCHED_COMMIT" != "$LAST_COMMIT" ]; then
-            echo "new_commit=true" >> $GITHUB_ENV
-            echo "Fetched Commit: $FETCHED_COMMIT"  # Log the fetched commit
+            echo "new_commit=true" >> $GITHUB_OUTPUT
+            echo "Fetched Commit: $FETCHED_COMMIT"
           else
-            echo "new_commit=false" >> $GITHUB_ENV
+            echo "new_commit=false" >> $GITHUB_OUTPUT
           fi
       - name: Update stored commit
-        if: env.new_commit == 'true'
+        if: steps.check-updates.outputs.new_commit == 'true'
         run: |
           echo "Updating last known commit to: $FETCHED_COMMIT"
           echo "$FETCHED_COMMIT" > ./lobe-chat-HEAD
@@ -48,3 +51,9 @@ jobs:
           git add .
           git commit -m "Update lobe-chat-HEAD to: $FETCHED_COMMIT"
           git push
+
+  build-image:
+    name: Build new image
+    needs: check
+    if: ${{ needs.check.outputs.new_commit }} == 'true'
+    uses: ./.github/workflows/build.yml

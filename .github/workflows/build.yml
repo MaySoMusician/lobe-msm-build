@@ -1,10 +1,11 @@
 name: Build lobechat-msm
 
 on:
+  workflow_call:
   workflow_dispatch:
-  push:
-    branches:
-      - default
+  # push:
+  #   branches:
+  #     - default
 
 env:
   REGISTRY: ghcr.io
