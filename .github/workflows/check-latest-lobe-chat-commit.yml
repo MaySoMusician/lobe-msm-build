@@ -1,0 +1,47 @@
+name: Check latest lobe-chat commit
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 * * * *"
+
+env:
+  GIT_AUTHOR_NAME: actions-user
+  GIT_AUTHOR_EMAIL: action@github.com
+  GIT_COMMITTER_NAME: actions-user
+  GIT_COMMITTER_EMAIL: action@github.com
+
+jobs:
+  check:
+    name: Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out the patch repo
+        uses: actions/checkout@v4
+      - name: Clone and checkout lobe-chat repo
+        run: |
+          cd ../
+          git clone https://github.com/lobehub/lobe-chat.git --depth 50
+          cd ./lobe-chat
+          git checkout HEAD
+      - name: Check if lobe-chat repo has updates
+        working-directory: ../lobe-chat
+        run: |
+          FETCHED_COMMIT=$(git rev-parse HEAD)
+          LAST_COMMIT=$(cat ../lobe-msm-build/lobe-chat-HEAD | tr -d '\n')
+          if [ "$FETCHED_COMMIT" != "$LAST_COMMIT" ]; then
+            echo "new_commit=true" >> $GITHUB_ENV
+            echo "Fetched Commit: $FETCHED_COMMIT"  # Log the fetched commit
+          else
+            echo "new_commit=false" >> $GITHUB_ENV
+          fi
+      - name: Update stored commit
+        if: env.new_commit == 'true'
+        run: |
+          echo "Updating last known commit to: $FETCHED_COMMIT"
+          echo "$FETCHED_COMMIT" > ./lobe-chat-HEAD
+
+          git add .
+          git commit -m "Update lobe-chat-HEAD to: $FETCHED_COMMIT"
+          git push
