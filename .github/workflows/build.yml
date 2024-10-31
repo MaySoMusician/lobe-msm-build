@@ -115,4 +115,4 @@ jobs:
           DEPLOY_API_ENDPOINT: ${{ secrets.DEPLOY_API_ENDPOINT }}
           DEPLOY_AUTH_KEY: ${{ secrets.DEPLOY_AUTH_KEY }}
         run: |
-          curl -H "Authorization: $DEPLOY_AUTH_KEY" -X POST $DEPLOY_API_ENDPOINT
+          curl -s -f -H "Authorization: $DEPLOY_AUTH_KEY" -X POST $DEPLOY_API_ENDPOINT
