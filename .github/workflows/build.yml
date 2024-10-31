@@ -110,3 +110,9 @@ jobs:
         run: |
           docker push $REGISTRY/${IMAGE_NAME,,}:latest
           docker push $REGISTRY/${IMAGE_NAME,,}:$(echo $GITHUB_SHA | head -c7)
+      - name: Deploy
+        env:
+          DEPLOY_API_ENDPOINT: ${{ secrets.DEPLOY_API_ENDPOINT }}
+          DEPLOY_AUTH_KEY: ${{ secrets.DEPLOY_AUTH_KEY }}
+        run: |
+          curl -H "Authorization: $DEPLOY_AUTH_KEY" -X POST $DEPLOY_API_ENDPOINT
