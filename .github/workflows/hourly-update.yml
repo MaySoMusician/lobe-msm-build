@@ -42,21 +42,11 @@ jobs:
             echo "new_commit=true" >> $GITHUB_OUTPUT
             echo "fetched_commit=$FETCHED_COMMIT" >> $GITHUB_OUTPUT
             echo "last_commit=$LAST_COMMIT" >> $GITHUB_OUTPUT
-            echo "FETCHED_COMMIT=$FETCHED_COMMIT" >> $GITHUB_ENV
 
             echo "Fetched Commit: $FETCHED_COMMIT"
           else
             echo "new_commit=false" >> $GITHUB_OUTPUT
           fi
-      - name: Update commit hash file
-        if: steps.check-updates.outputs.new_commit == 'true'
-        run: |
-          echo "Updating last known commit to: $FETCHED_COMMIT"
-          echo "$FETCHED_COMMIT" > ./lobe-chat-HEAD
-
-          git add .
-          git commit -m "Update lobe-chat-HEAD to: $FETCHED_COMMIT"
-          git push
 
   release-notes:
     name: Release notes
@@ -143,3 +133,19 @@ jobs:
       attestations: write
       id-token: write
     secrets: inherit
+
+  update-commit-hash:
+    name: Update commit hash file
+    runs-on: ubuntu-latest
+    needs: [check, build-image]
+
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          FETCHED_COMMIT=${{ needs.check.outputs.fetched_commit }}
+          echo "Updating last known commit to: $FETCHED_COMMIT"
+          echo "$FETCHED_COMMIT" > ./lobe-chat-HEAD
+
+          git add .
+          git commit -m "Update lobe-chat-HEAD to: $FETCHED_COMMIT"
+          git push
