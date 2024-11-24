@@ -1,4 +1,4 @@
-From 83495cee514b70fed7f9a7a34ab4ea25646ed7bb Mon Sep 17 00:00:00 2001
+From b020463bc84ca56fe190e139f3c403ffbe21df65 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sat, 26 Oct 2024 07:28:59 +0000
 Subject: [PATCH] Load Google Fonts script and IBM Plex Sans JP
@@ -8,13 +8,13 @@ Subject: [PATCH] Load Google Fonts script and IBM Plex Sans JP
  1 file changed, 8 insertions(+)
 
 diff --git a/src/app/layout.tsx b/src/app/layout.tsx
-index df39d0f4..f7f361aa 100644
+index ddd34bcf..c448bb3f 100644
 --- a/src/app/layout.tsx
 +++ b/src/app/layout.tsx
-@@ -27,6 +27,14 @@ const RootLayout = async ({ children, modal }: RootLayoutProps) => {
+@@ -29,6 +29,14 @@ const RootLayout = async ({ children, modal }: RootLayoutProps) => {
  
    return (
-     <html dir={direction} lang={lang?.value || DEFAULT_LANG} suppressHydrationWarning>
+     <html dir={direction} lang={locale} suppressHydrationWarning>
 +      <head>
 +        <link href="https://fonts.googleapis.com" rel="preconnect" />
 +        <link crossOrigin="anonymous" href="https://fonts.gstatic.com" rel="preconnect" />
