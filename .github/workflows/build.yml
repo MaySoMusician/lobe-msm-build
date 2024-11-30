@@ -36,9 +36,6 @@ jobs:
       - name: Build Lobe UI with patches
         working-directory: ../lobe-ui
         run: |
-          # Temporary workaround for build failure after v1.153.2
-          # cf. https://github.com/lobehub/lobe-ui/actions/workflows/release.yml
-          git checkout --detach 10d498ea9d1db24e43aa5ee6e453a7f071360fdd
           git am ../lobe-msm-build/lobe-ui.patch
           bun install && bun run build
       - name: Pack Lobe UI package
