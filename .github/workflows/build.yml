@@ -2,6 +2,10 @@ name: Build lobechat-msm
 
 on:
   workflow_call:
+      inputs:
+        update_run_id:
+          type: number
+          default: -1
   workflow_dispatch:
 
 env:
@@ -112,4 +116,9 @@ jobs:
           DEPLOY_API_ENDPOINT: ${{ secrets.DEPLOY_API_ENDPOINT }}
           DEPLOY_AUTH_KEY: ${{ secrets.DEPLOY_AUTH_KEY }}
         run: |
-          curl -s -f -H "Authorization: $DEPLOY_AUTH_KEY" -X POST $DEPLOY_API_ENDPOINT
+          UPDATE_RUN_ID=${{ inputs.update_run_id }}
+          if [ "$UPDATE_RUN_ID" -gt 0 ]; then
+            curl -s -f -H "Authorization: $DEPLOY_AUTH_KEY" -H "Content-Type: application/json" -X POST $DEPLOY_API_ENDPOINT -d '{"run_id":${UPDATE_RUN_ID}}'
+          else
+            curl -s -f -H "Authorization: $DEPLOY_AUTH_KEY" -X POST $DEPLOY_API_ENDPOINT
+          fi

@@ -133,6 +133,8 @@ jobs:
       attestations: write
       id-token: write
     secrets: inherit
+    with:
+      update_run_id: ${{ github.run_id }}
 
   update-commit-hash:
     name: Update commit hash file
