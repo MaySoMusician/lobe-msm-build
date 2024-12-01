@@ -4,8 +4,8 @@ on:
   workflow_call:
       inputs:
         update_run_id:
-          type: number
-          default: -1
+          type: string
+          default: "-1"
   workflow_dispatch:
 
 env:
