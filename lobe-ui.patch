@@ -1,4 +1,4 @@
-From a06e7cf9081f3bb6809d72ef79a9830c4cd8d6a7 Mon Sep 17 00:00:00 2001
+From 9c1f7b86e4ce134414ab3498f2ec3bc5f19930b4 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 14 Oct 2024 10:15:38 +0000
 Subject: [PATCH 1/4] Change font list for Japanese
@@ -28,7 +28,7 @@ index 5dc5e4a..05bf5ef 100644
 2.39.5
 
 
-From b99846e4269bc1540c049edddb3f985ef65c0806 Mon Sep 17 00:00:00 2001
+From 5900841455e576f6590b40d38f22b331757f187c Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 20 Oct 2024 07:28:14 +0000
 Subject: [PATCH 2/4] Remove FONT_CN
@@ -62,7 +62,7 @@ index 05bf5ef..02e37d6 100644
 2.39.5
 
 
-From dff1cd749990e1339812eba46ebb888074ed3452 Mon Sep 17 00:00:00 2001
+From 880251a423eaa79cab6d6f85a89caa0b9f31959d Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 28 Oct 2024 15:09:31 +0000
 Subject: [PATCH 3/4] Do not load Chinese fonts
@@ -72,10 +72,10 @@ Subject: [PATCH 3/4] Do not load Chinese fonts
  1 file changed, 11 deletions(-)
 
 diff --git a/src/ThemeProvider/index.tsx b/src/ThemeProvider/index.tsx
-index 60f6d48..26bbbf8 100644
+index 2255156..46b89cf 100644
 --- a/src/ThemeProvider/index.tsx
 +++ b/src/ThemeProvider/index.tsx
-@@ -57,17 +57,6 @@ const ThemeProvider = memo<ThemeProviderProps>(
+@@ -62,17 +62,6 @@ const ThemeProvider = memo<ThemeProviderProps>(
    }) => {
      const genCdnUrl = useCdnFn();
      const webfontUrls = customFonts || [
@@ -97,7 +97,7 @@ index 60f6d48..26bbbf8 100644
 2.39.5
 
 
-From 8b84472cabc134bbd6671ef6670c50fea1db4004 Mon Sep 17 00:00:00 2001
+From cad7a09194eefcee3bfe976fe5384fd8d1137ad4 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 4 Nov 2024 05:53:45 +0000
 Subject: [PATCH 4/4] Temporarily ban click-to-react-component@1.1.2
@@ -108,7 +108,7 @@ cf: https://github.com/ericclemmons/click-to-component/issues/93
  1 file changed, 3 insertions(+)
 
 diff --git a/package.json b/package.json
-index 715f70e..8ef9da3 100644
+index 3525434..8287ae2 100644
 --- a/package.json
 +++ b/package.json
 @@ -176,5 +176,8 @@
