@@ -14,6 +14,9 @@ env:
   GIT_COMMITTER_NAME: actions-user
   GIT_COMMITTER_EMAIL: action@github.com
 
+concurrency:
+  group: ${{ github.workflow }}
+
 jobs:
   check:
     name: Check for updates in LobeChat
