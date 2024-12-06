@@ -135,6 +135,7 @@ jobs:
     secrets: inherit
     with:
       update_run_id: ${{ github.run_id }}
+      new_lobechat_head: ${{ needs.check.outputs.fetched_commit }}
 
   update-commit-hash:
     name: Update commit hash file
