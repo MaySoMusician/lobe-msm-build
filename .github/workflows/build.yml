@@ -80,10 +80,10 @@ jobs:
       - name: Check out patch repo
         uses: actions/checkout@v4
       - name: Retrieve `lobehub/lobe-chat` HEAD hash from workflow inputs
-        if: ${{github.event_name}} == "workflow_call"
+        if: github.event_name == 'workflow_call'
         run: echo "LOBECHAT_HEAD=${{ inputs.new_lobechat_head }}" >> $GITHUB_ENV
       - name: Retrieve `lobehub/lobe-chat` HEAD hash from patch repo
-        if: ${{github.event_name}} != "workflow_call"
+        if: github.event_name != 'workflow_call'
         run: echo "LOBECHAT_HEAD=$(cat lobe-chat-HEAD | tr -d '\n')" >> $GITHUB_ENV
       - name: Clone and check out `lobehub/lobe-chat`
         run: |
