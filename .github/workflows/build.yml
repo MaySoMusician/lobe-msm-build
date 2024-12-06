@@ -89,7 +89,7 @@ jobs:
           package_json_file: ../lobe-chat/package.json
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 20
       - name: Download Lobe UI tarball
         uses: actions/download-artifact@v4
         with:
