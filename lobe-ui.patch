@@ -1,4 +1,4 @@
-From f41bfefe9efcf0315a73ec482466d37a70ad87d5 Mon Sep 17 00:00:00 2001
+From e5a0bdd7a82f3c310aec2f1a6a77686a5659e373 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 14 Oct 2024 10:15:38 +0000
 Subject: [PATCH 1/4] Change font list for Japanese
@@ -25,10 +25,10 @@ index 5dc5e4a..05bf5ef 100644
  export const baseToken: Partial<AliasToken> = {
    borderRadius: 5,
 -- 
-2.39.5
+2.39.2
 
 
-From 4b1d0f2166f8c833d8637e0a4bfbaf342497ad10 Mon Sep 17 00:00:00 2001
+From 9490878427407476d240fa8e4a777fea2e21c421 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 20 Oct 2024 07:28:14 +0000
 Subject: [PATCH 2/4] Remove FONT_CN
@@ -59,10 +59,10 @@ index 05bf5ef..02e37d6 100644
 +  fontFamilyCode: [FONT_CODE, FONT_EMOJI].join(','),
  };
 -- 
-2.39.5
+2.39.2
 
 
-From 1ecb6d199166e34d19b50399d3d9bb2375d74410 Mon Sep 17 00:00:00 2001
+From 36a0e5ec03b1b580ee918b207bb4cab50d3a0ad3 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 28 Oct 2024 15:09:31 +0000
 Subject: [PATCH 3/4] Do not load Chinese fonts
@@ -92,10 +92,10 @@ index 7d7b373..de736cd 100644
          ],
        [customFonts, genCdnUrl],
 -- 
-2.39.5
+2.39.2
 
 
-From a700cf71e248a32bfa51cd4f6da1ecb5d14c4504 Mon Sep 17 00:00:00 2001
+From 969676f517317045162041fea41c843f0f9b300a Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 4 Nov 2024 05:53:45 +0000
 Subject: [PATCH 4/4] Temporarily ban click-to-react-component@1.1.2
@@ -106,10 +106,10 @@ cf: https://github.com/ericclemmons/click-to-component/issues/93
  1 file changed, 3 insertions(+)
 
 diff --git a/package.json b/package.json
-index 75ada1f..7800d87 100644
+index 4bc36e6..78ef445 100644
 --- a/package.json
 +++ b/package.json
-@@ -186,5 +186,8 @@
+@@ -196,5 +196,8 @@
    "publishConfig": {
      "access": "public",
      "registry": "https://registry.npmjs.org"
@@ -119,5 +119,5 @@ index 75ada1f..7800d87 100644
    }
  }
 -- 
-2.39.5
+2.39.2
 

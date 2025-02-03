@@ -1,4 +1,4 @@
-From 74a173ae44fb2ca81fc080c4344977901ac354cb Mon Sep 17 00:00:00 2001
+From 8a2b90fe622f400bfcb50528338ed2857bb1f819 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sat, 26 Oct 2024 07:28:59 +0000
 Subject: [PATCH] Load Google Fonts script and IBM Plex Sans JP
@@ -8,7 +8,7 @@ Subject: [PATCH] Load Google Fonts script and IBM Plex Sans JP
  1 file changed, 8 insertions(+)
 
 diff --git a/src/app/layout.tsx b/src/app/layout.tsx
-index ddd34bcf..c448bb3f 100644
+index aac32d1a..0ef40785 100644
 --- a/src/app/layout.tsx
 +++ b/src/app/layout.tsx
 @@ -29,6 +29,14 @@ const RootLayout = async ({ children, modal }: RootLayoutProps) => {
@@ -27,5 +27,5 @@ index ddd34bcf..c448bb3f 100644
          <GlobalProvider>
            <AuthProvider>
 -- 
-2.39.5
+2.39.2
 
