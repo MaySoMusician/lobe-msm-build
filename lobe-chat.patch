@@ -1,17 +1,17 @@
-From 8a2b90fe622f400bfcb50528338ed2857bb1f819 Mon Sep 17 00:00:00 2001
+From 830085a7275c308632a18cea2f9036a5e64c52aa Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
-Date: Sat, 26 Oct 2024 07:28:59 +0000
+Date: Thu, 6 Feb 2025 20:34:05 +0000
 Subject: [PATCH] Load Google Fonts script and IBM Plex Sans JP
 
 ---
- src/app/layout.tsx | 8 ++++++++
+ src/app/[variants]/layout.tsx | 8 ++++++++
  1 file changed, 8 insertions(+)
 
-diff --git a/src/app/layout.tsx b/src/app/layout.tsx
-index aac32d1a..0ef40785 100644
---- a/src/app/layout.tsx
-+++ b/src/app/layout.tsx
-@@ -29,6 +29,14 @@ const RootLayout = async ({ children, modal }: RootLayoutProps) => {
+diff --git a/src/app/[variants]/layout.tsx b/src/app/[variants]/layout.tsx
+index a5fc074d..dae24cbf 100644
+--- a/src/app/[variants]/layout.tsx
++++ b/src/app/[variants]/layout.tsx
+@@ -29,6 +29,14 @@ const RootLayout = async ({ children, params, modal }: RootLayoutProps) => {
  
    return (
      <html dir={direction} lang={locale} suppressHydrationWarning>
@@ -24,8 +24,8 @@ index aac32d1a..0ef40785 100644
 +        />
 +      </head>
        <body>
-         <GlobalProvider>
-           <AuthProvider>
+         <GlobalProvider
+           appearance={theme}
 -- 
 2.39.2
 
