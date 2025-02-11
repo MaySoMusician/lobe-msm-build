@@ -1,7 +1,7 @@
-From e5a0bdd7a82f3c310aec2f1a6a77686a5659e373 Mon Sep 17 00:00:00 2001
+From 0f60199b7da2d575dfb743e95b421df20ede786e Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 14 Oct 2024 10:15:38 +0000
-Subject: [PATCH 1/4] Change font list for Japanese
+Subject: [PATCH 1/5] Change font list for Japanese
 
 ---
  src/styles/theme/token/base.ts | 6 +++---
@@ -25,13 +25,13 @@ index 5dc5e4a..05bf5ef 100644
  export const baseToken: Partial<AliasToken> = {
    borderRadius: 5,
 -- 
-2.39.2
+2.39.5
 
 
-From 9490878427407476d240fa8e4a777fea2e21c421 Mon Sep 17 00:00:00 2001
+From bdbf15a2245ecc4523eff1ea0cbde1b43ca5f513 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 20 Oct 2024 07:28:14 +0000
-Subject: [PATCH 2/4] Remove FONT_CN
+Subject: [PATCH 2/5] Remove FONT_CN
 
 ---
  src/styles/theme/token/base.ts | 5 ++---
@@ -59,13 +59,13 @@ index 05bf5ef..02e37d6 100644
 +  fontFamilyCode: [FONT_CODE, FONT_EMOJI].join(','),
  };
 -- 
-2.39.2
+2.39.5
 
 
-From 36a0e5ec03b1b580ee918b207bb4cab50d3a0ad3 Mon Sep 17 00:00:00 2001
+From fab8260977795ad5ed62c90cacf7992563a2c374 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 28 Oct 2024 15:09:31 +0000
-Subject: [PATCH 3/4] Do not load Chinese fonts
+Subject: [PATCH 3/5] Do not load Chinese fonts
 
 ---
  src/ThemeProvider/index.tsx | 9 ---------
@@ -92,13 +92,13 @@ index 7d7b373..de736cd 100644
          ],
        [customFonts, genCdnUrl],
 -- 
-2.39.2
+2.39.5
 
 
-From 969676f517317045162041fea41c843f0f9b300a Mon Sep 17 00:00:00 2001
+From 480eebb6ee44af54cc7849ab0a9d51327985f7d2 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 4 Nov 2024 05:53:45 +0000
-Subject: [PATCH 4/4] Temporarily ban click-to-react-component@1.1.2
+Subject: [PATCH 4/5] Temporarily ban click-to-react-component@1.1.2
 
 cf: https://github.com/ericclemmons/click-to-component/issues/93
 ---
@@ -106,7 +106,7 @@ cf: https://github.com/ericclemmons/click-to-component/issues/93
  1 file changed, 3 insertions(+)
 
 diff --git a/package.json b/package.json
-index 4bc36e6..78ef445 100644
+index 3518dad..9ed9af2 100644
 --- a/package.json
 +++ b/package.json
 @@ -196,5 +196,8 @@
@@ -119,5 +119,41 @@ index 4bc36e6..78ef445 100644
    }
  }
 -- 
-2.39.2
+2.39.5
+
+
+From 75826640d5538a58ff83d06b281651a49d51e6d3 Mon Sep 17 00:00:00 2001
+From: MaySoMusician <maysomusician@gmail.com>
+Date: Tue, 11 Feb 2025 14:49:55 +0000
+Subject: [PATCH 5/5] Use beta version of react-avatar-editor to fix
+ AvatarEditor type error
+
+```
+Its type 'typeof AvatarEditor' is not a valid JSX element type.
+  Type 'typeof AvatarEditor' is not assignable to type 'new (props: any) => Component<any, any, any>'.
+    Construct signature return types 'AvatarEditor' and 'Component<any, any, any>' are incompatible.
+      The types returned by 'render()' are incompatible between these types.
+        Type 'import("/root/lobe-ui/node_modules/@types/react-avatar-editor/node_modules/@types/react/index").ReactNode' is not assignable to type 'React.ReactNode'.
+          Type 'ReactElement<any, string | JSXElementConstructor<any>>' is not assignable to type 'ReactNode'.
+            Property 'children' is missing in type 'ReactElement<any, string | JSXElementConstructor<any>>' but required in type 'ReactPortal'.
+```
+---
+ package.json | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/package.json b/package.json
+index 9ed9af2..c9cd1cd 100644
+--- a/package.json
++++ b/package.json
+@@ -125,7 +125,7 @@
+     "query-string": "^9.1.1",
+     "rc-footer": "^0.6.8",
+     "re-resizable": "^6.10.3",
+-    "react-avatar-editor": "^13.0.2",
++    "react-avatar-editor": "^14.0.0-beta.6",
+     "react-error-boundary": "^5.0.0",
+     "react-layout-kit": "^1.9.1",
+     "react-markdown": "^9.0.3",
+-- 
+2.39.5
 
