@@ -2,13 +2,13 @@ name: Build lobechat-msm
 
 on:
   workflow_call:
-      inputs:
-        update_run_id:
-          type: string
-          default: "-1"
-        new_lobechat_head:
-          type: string
-          required: true
+    inputs:
+      update_run_id:
+        type: string
+        default: "-1"
+      new_lobechat_head:
+        type: string
+        required: true
   workflow_dispatch:
 
 env:

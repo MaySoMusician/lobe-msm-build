@@ -124,7 +124,6 @@ jobs:
             fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, output);
           "
 
-
   build-image:
     name: Build
     needs: check
