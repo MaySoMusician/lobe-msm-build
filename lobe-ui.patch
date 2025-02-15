@@ -1,4 +1,4 @@
-From 0f60199b7da2d575dfb743e95b421df20ede786e Mon Sep 17 00:00:00 2001
+From e93dd19304a7a3201844cb241b440b09009065da Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 14 Oct 2024 10:15:38 +0000
 Subject: [PATCH 1/5] Change font list for Japanese
@@ -28,7 +28,7 @@ index 5dc5e4a..05bf5ef 100644
 2.39.5
 
 
-From bdbf15a2245ecc4523eff1ea0cbde1b43ca5f513 Mon Sep 17 00:00:00 2001
+From 69d98997436085b58ab5e5d489ac3edb4eafd96c Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 20 Oct 2024 07:28:14 +0000
 Subject: [PATCH 2/5] Remove FONT_CN
@@ -62,7 +62,7 @@ index 05bf5ef..02e37d6 100644
 2.39.5
 
 
-From fab8260977795ad5ed62c90cacf7992563a2c374 Mon Sep 17 00:00:00 2001
+From d71aeee4a0d1edc6ec6d6b8109a3bedbbcd17b87 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 28 Oct 2024 15:09:31 +0000
 Subject: [PATCH 3/5] Do not load Chinese fonts
@@ -95,7 +95,7 @@ index 7d7b373..de736cd 100644
 2.39.5
 
 
-From 480eebb6ee44af54cc7849ab0a9d51327985f7d2 Mon Sep 17 00:00:00 2001
+From bae8c122ceac9dd90bfc0e4a1d66c742f17e1fa4 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 4 Nov 2024 05:53:45 +0000
 Subject: [PATCH 4/5] Temporarily ban click-to-react-component@1.1.2
@@ -106,7 +106,7 @@ cf: https://github.com/ericclemmons/click-to-component/issues/93
  1 file changed, 3 insertions(+)
 
 diff --git a/package.json b/package.json
-index 3518dad..9ed9af2 100644
+index c611ce0..2692e81 100644
 --- a/package.json
 +++ b/package.json
 @@ -196,5 +196,8 @@
@@ -122,7 +122,7 @@ index 3518dad..9ed9af2 100644
 2.39.5
 
 
-From eb6485f3f77cab77e401abd341472946684eab4d Mon Sep 17 00:00:00 2001
+From 93aab07e00d27c1fdc1a782c247f8a6aa1e6c117 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Tue, 11 Feb 2025 15:33:30 +0000
 Subject: [PATCH 5/5] Use father@4.5.2 to avoid ajv/dist/core error
@@ -145,7 +145,7 @@ index 7878d79..0ef935c 100755
 -npx --no -- commitlint --edit ${1}
 +# npx --no -- commitlint --edit ${1}
 diff --git a/package.json b/package.json
-index 9ed9af2..131621a 100644
+index 2692e81..d60ca54 100644
 --- a/package.json
 +++ b/package.json
 @@ -170,7 +170,7 @@
@@ -155,7 +155,7 @@ index 9ed9af2..131621a 100644
 -    "father": "^4.5.1",
 +    "father": "4.5.2",
      "husky": "^9.1.7",
-     "jsdom": "^25.0.1",
+     "jsdom": "^26.0.0",
      "lint-staged": "^15.3.0",
 -- 
 2.39.5
