@@ -1,7 +1,7 @@
-From e93dd19304a7a3201844cb241b440b09009065da Mon Sep 17 00:00:00 2001
+From a96d7dc8e0009b25a45d264ba56f2f864ea2f3c4 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 14 Oct 2024 10:15:38 +0000
-Subject: [PATCH 1/5] Change font list for Japanese
+Subject: [PATCH 1/4] Change font list for Japanese
 
 ---
  src/styles/theme/token/base.ts | 6 +++---
@@ -25,13 +25,13 @@ index 5dc5e4a..05bf5ef 100644
  export const baseToken: Partial<AliasToken> = {
    borderRadius: 5,
 -- 
-2.39.5
+2.39.2
 
 
-From 69d98997436085b58ab5e5d489ac3edb4eafd96c Mon Sep 17 00:00:00 2001
+From d5b708eb456e529635ebf3fb55859c5b2a24ed5f Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 20 Oct 2024 07:28:14 +0000
-Subject: [PATCH 2/5] Remove FONT_CN
+Subject: [PATCH 2/4] Remove FONT_CN
 
 ---
  src/styles/theme/token/base.ts | 5 ++---
@@ -59,13 +59,13 @@ index 05bf5ef..02e37d6 100644
 +  fontFamilyCode: [FONT_CODE, FONT_EMOJI].join(','),
  };
 -- 
-2.39.5
+2.39.2
 
 
-From d71aeee4a0d1edc6ec6d6b8109a3bedbbcd17b87 Mon Sep 17 00:00:00 2001
+From 9f2df63a3fd2b20d572dd687c9c8008928197c7c Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 28 Oct 2024 15:09:31 +0000
-Subject: [PATCH 3/5] Do not load Chinese fonts
+Subject: [PATCH 3/4] Do not load Chinese fonts
 
 ---
  src/ThemeProvider/index.tsx | 9 ---------
@@ -92,13 +92,13 @@ index 7d7b373..de736cd 100644
          ],
        [customFonts, genCdnUrl],
 -- 
-2.39.5
+2.39.2
 
 
-From bae8c122ceac9dd90bfc0e4a1d66c742f17e1fa4 Mon Sep 17 00:00:00 2001
+From 3a2f4a34ead0bed99983d5b3d3dba1c8bb7ac0dd Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 4 Nov 2024 05:53:45 +0000
-Subject: [PATCH 4/5] Temporarily ban click-to-react-component@1.1.2
+Subject: [PATCH 4/4] Temporarily ban click-to-react-component@1.1.2
 
 cf: https://github.com/ericclemmons/click-to-component/issues/93
 ---
@@ -106,10 +106,10 @@ cf: https://github.com/ericclemmons/click-to-component/issues/93
  1 file changed, 3 insertions(+)
 
 diff --git a/package.json b/package.json
-index c611ce0..2692e81 100644
+index d0d35bd..7275947 100644
 --- a/package.json
 +++ b/package.json
-@@ -196,5 +196,8 @@
+@@ -197,5 +197,8 @@
    "publishConfig": {
      "access": "public",
      "registry": "https://registry.npmjs.org"
@@ -119,44 +119,5 @@ index c611ce0..2692e81 100644
    }
  }
 -- 
-2.39.5
-
-
-From 93aab07e00d27c1fdc1a782c247f8a6aa1e6c117 Mon Sep 17 00:00:00 2001
-From: MaySoMusician <maysomusician@gmail.com>
-Date: Tue, 11 Feb 2025 15:33:30 +0000
-Subject: [PATCH 5/5] Use father@4.5.2 to avoid ajv/dist/core error
-
-```
-Error: Register plugin /root/lobe-ui/node_modules/father/dist/commands/doctor.js failed, since Cannot find module 'ajv/dist/core'
-```
----
- .husky/commit-msg | 2 +-
- package.json      | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/.husky/commit-msg b/.husky/commit-msg
-index 7878d79..0ef935c 100755
---- a/.husky/commit-msg
-+++ b/.husky/commit-msg
-@@ -1,3 +1,3 @@
- #!/usr/bin/env sh
- 
--npx --no -- commitlint --edit ${1}
-+# npx --no -- commitlint --edit ${1}
-diff --git a/package.json b/package.json
-index 2692e81..d60ca54 100644
---- a/package.json
-+++ b/package.json
-@@ -170,7 +170,7 @@
-     "dumi": "^2.4.17",
-     "dumi-theme-lobehub": "^1.15.0",
-     "eslint": "^8.57.1",
--    "father": "^4.5.1",
-+    "father": "4.5.2",
-     "husky": "^9.1.7",
-     "jsdom": "^26.0.0",
-     "lint-staged": "^15.3.0",
--- 
-2.39.5
+2.39.2
 
