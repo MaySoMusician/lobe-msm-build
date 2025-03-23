@@ -19,7 +19,7 @@ concurrency:
 
 jobs:
   check:
-    name: Check for updates in LobeChat
+    name: Check for updates in Lobe Chat
     runs-on: ubuntu-latest
     outputs:
       new_commit: ${{ steps.check-updates.outputs.new_commit }}
