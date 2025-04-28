@@ -1,4 +1,4 @@
-From c723053698094c8d1c9336cc9fde1bbe7f88e27c Mon Sep 17 00:00:00 2001
+From 801c31f9e129f558f657106975122dfe51ef3998 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 14 Oct 2024 10:15:38 +0000
 Subject: [PATCH 1/4] Change font list for Japanese
@@ -8,7 +8,7 @@ Subject: [PATCH 1/4] Change font list for Japanese
  1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/src/styles/theme/token/base.ts b/src/styles/theme/token/base.ts
-index 5dc5e4a..05bf5ef 100644
+index 395f40f..84d2d8a 100644
 --- a/src/styles/theme/token/base.ts
 +++ b/src/styles/theme/token/base.ts
 @@ -1,9 +1,9 @@
@@ -23,12 +23,12 @@ index 5dc5e4a..05bf5ef 100644
 +const FONT_CODE = `"Mgen+ 1mn",ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas,Liberation Mono,monospace`;
  
  export const baseToken: Partial<AliasToken> = {
-   borderRadius: 5,
+   borderRadius: 6,
 -- 
 2.39.2
 
 
-From a38aaeb26fa5afda59edf6dadf084980535fd5f4 Mon Sep 17 00:00:00 2001
+From b02f91162ec70b06b150af7380b7f6ecfef57273 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 20 Oct 2024 07:28:14 +0000
 Subject: [PATCH 2/4] Remove FONT_CN
@@ -38,7 +38,7 @@ Subject: [PATCH 2/4] Remove FONT_CN
  1 file changed, 2 insertions(+), 3 deletions(-)
 
 diff --git a/src/styles/theme/token/base.ts b/src/styles/theme/token/base.ts
-index 05bf5ef..02e37d6 100644
+index 84d2d8a..5144719 100644
 --- a/src/styles/theme/token/base.ts
 +++ b/src/styles/theme/token/base.ts
 @@ -2,7 +2,6 @@ import { AliasToken } from 'antd/es/theme/interface';
@@ -50,8 +50,8 @@ index 05bf5ef..02e37d6 100644
  
  export const baseToken: Partial<AliasToken> = {
 @@ -11,6 +10,6 @@ export const baseToken: Partial<AliasToken> = {
-   borderRadiusSM: 3,
-   borderRadiusXS: 3,
+   borderRadiusSM: 4,
+   borderRadiusXS: 4,
    controlHeight: 36,
 -  fontFamily: [FONT_EN, FONT_CN, FONT_EMOJI].join(','),
 -  fontFamilyCode: [FONT_CODE, FONT_CN, FONT_EMOJI].join(','),
@@ -62,20 +62,20 @@ index 05bf5ef..02e37d6 100644
 2.39.2
 
 
-From ca1b176fb809082437758181358af6338ab81732 Mon Sep 17 00:00:00 2001
+From 428e357a1c8bee6b2abfcf9cf4a70791a3186afe Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 28 Oct 2024 15:09:31 +0000
 Subject: [PATCH 3/4] Do not load Chinese fonts
 
 ---
- src/ThemeProvider/index.tsx | 9 ---------
+ src/ThemeProvider/ThemeProvider.tsx | 9 ---------
  1 file changed, 9 deletions(-)
 
-diff --git a/src/ThemeProvider/index.tsx b/src/ThemeProvider/index.tsx
-index 7d7b373..de736cd 100644
---- a/src/ThemeProvider/index.tsx
-+++ b/src/ThemeProvider/index.tsx
-@@ -59,15 +59,6 @@ const ThemeProvider = memo<ThemeProviderProps>(
+diff --git a/src/ThemeProvider/ThemeProvider.tsx b/src/ThemeProvider/ThemeProvider.tsx
+index 3c95f3c..9362e4c 100644
+--- a/src/ThemeProvider/ThemeProvider.tsx
++++ b/src/ThemeProvider/ThemeProvider.tsx
+@@ -38,15 +38,6 @@ const ThemeProvider = memo<ThemeProviderProps>(
      const webfontUrls = useMemo(
        () =>
          customFonts || [
@@ -95,7 +95,7 @@ index 7d7b373..de736cd 100644
 2.39.2
 
 
-From bf1ab3926f20235e335601c1b520485131afa764 Mon Sep 17 00:00:00 2001
+From 07805312f7395369ea6b4c5309fa422730784993 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 4 Nov 2024 05:53:45 +0000
 Subject: [PATCH 4/4] Temporarily ban click-to-react-component@1.1.2
@@ -106,10 +106,10 @@ cf: https://github.com/ericclemmons/click-to-component/issues/93
  1 file changed, 3 insertions(+)
 
 diff --git a/package.json b/package.json
-index c5a5ca6..f7b4718 100644
+index 5ca6d23..0fc2cc4 100644
 --- a/package.json
 +++ b/package.json
-@@ -198,5 +198,8 @@
+@@ -203,5 +203,8 @@
    "publishConfig": {
      "access": "public",
      "registry": "https://registry.npmjs.org"
