@@ -1,7 +1,7 @@
-From 801c31f9e129f558f657106975122dfe51ef3998 Mon Sep 17 00:00:00 2001
+From 1017dcf8aa20e84c371253244012a8cd06a758cb Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 14 Oct 2024 10:15:38 +0000
-Subject: [PATCH 1/4] Change font list for Japanese
+Subject: [PATCH 1/5] Change font list for Japanese
 
 ---
  src/styles/theme/token/base.ts | 6 +++---
@@ -28,10 +28,10 @@ index 395f40f..84d2d8a 100644
 2.39.2
 
 
-From b02f91162ec70b06b150af7380b7f6ecfef57273 Mon Sep 17 00:00:00 2001
+From f083ab402e6ea57a53bd049b77aabc87d90a4058 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 20 Oct 2024 07:28:14 +0000
-Subject: [PATCH 2/4] Remove FONT_CN
+Subject: [PATCH 2/5] Remove FONT_CN
 
 ---
  src/styles/theme/token/base.ts | 5 ++---
@@ -62,10 +62,10 @@ index 84d2d8a..5144719 100644
 2.39.2
 
 
-From 428e357a1c8bee6b2abfcf9cf4a70791a3186afe Mon Sep 17 00:00:00 2001
+From 0873b499c074a9f8c5657f1d6f0fc155cf5a0a9f Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 28 Oct 2024 15:09:31 +0000
-Subject: [PATCH 3/4] Do not load Chinese fonts
+Subject: [PATCH 3/5] Do not load Chinese fonts
 
 ---
  src/ThemeProvider/ThemeProvider.tsx | 9 ---------
@@ -95,10 +95,10 @@ index 3c95f3c..9362e4c 100644
 2.39.2
 
 
-From 07805312f7395369ea6b4c5309fa422730784993 Mon Sep 17 00:00:00 2001
+From 26ebfae7547529abd8e02b33459701cd66a29a72 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 4 Nov 2024 05:53:45 +0000
-Subject: [PATCH 4/4] Temporarily ban click-to-react-component@1.1.2
+Subject: [PATCH 4/5] Temporarily ban click-to-react-component@1.1.2
 
 cf: https://github.com/ericclemmons/click-to-component/issues/93
 ---
@@ -106,7 +106,7 @@ cf: https://github.com/ericclemmons/click-to-component/issues/93
  1 file changed, 3 insertions(+)
 
 diff --git a/package.json b/package.json
-index 5ca6d23..0fc2cc4 100644
+index 1bc6b63..09f8995 100644
 --- a/package.json
 +++ b/package.json
 @@ -203,5 +203,8 @@
@@ -118,6 +118,87 @@ index 5ca6d23..0fc2cc4 100644
 +    "click-to-react-component": ">=1.0.8 <1.1.2"
    }
  }
+-- 
+2.39.2
+
+
+From 7ce5c759fa8c4489bf6103eee36b92b819735073 Mon Sep 17 00:00:00 2001
+From: MaySoMusician <maysomusician@gmail.com>
+Date: Fri, 9 May 2025 11:33:46 +0000
+Subject: [PATCH 5/5] :rotating_light: fix: do not directly re-export antd's
+ internal type
+
+(cherry picked from commit 46a604a941056200227e100980e73a5ea77e59bb)
+---
+ src/Img/index.tsx          | 32 ++++++++++++++++----------------
+ src/brand/Logo3d/index.tsx |  8 +++++---
+ 2 files changed, 21 insertions(+), 19 deletions(-)
+
+diff --git a/src/Img/index.tsx b/src/Img/index.tsx
+index fb7eebc..4b07151 100644
+--- a/src/Img/index.tsx
++++ b/src/Img/index.tsx
+@@ -4,25 +4,25 @@ import type { ImageProps } from 'antd';
+ import { type ElementType, Ref, createElement, memo, use, useMemo } from 'react';
+ 
+ import { ConfigContext } from '@/ConfigProvider';
+-import type { ImgProps } from '@/types';
++import type { ImgProps as HtmlImgeProps } from '@/types';
+ 
+ const createContainer = (as: ElementType) => memo((props: any) => createElement(as, props));
+ 
+-const Img = memo<ImgProps & ImageProps & { ref?: Ref<HTMLImageElement>; unoptimized?: boolean }>(
+-  ({ unoptimized, ...rest }) => {
+-    const config = use(ConfigContext);
+-    const render = config?.imgAs || 'img';
+-
+-    const ImgContainer = useMemo(() => createContainer(render), [render]);
+-
+-    return (
+-      <ImgContainer
+-        unoptimized={unoptimized === undefined ? config?.imgUnoptimized : unoptimized}
+-        {...rest}
+-      />
+-    );
+-  },
+-);
++type ImgProps = HtmlImgeProps & ImageProps & { ref?: Ref<HTMLImageElement>; unoptimized?: boolean };
++
++const Img = memo<ImgProps>(({ unoptimized, ...rest }) => {
++  const config = use(ConfigContext);
++  const render = config?.imgAs || 'img';
++
++  const ImgContainer = useMemo(() => createContainer(render), [render]);
++
++  return (
++    <ImgContainer
++      unoptimized={unoptimized === undefined ? config?.imgUnoptimized : unoptimized}
++      {...rest}
++    />
++  );
++});
+ 
+ Img.displayName = 'Img';
+ 
+diff --git a/src/brand/Logo3d/index.tsx b/src/brand/Logo3d/index.tsx
+index d1920f6..752fe00 100644
+--- a/src/brand/Logo3d/index.tsx
++++ b/src/brand/Logo3d/index.tsx
+@@ -9,9 +9,11 @@ import { ImgProps } from '@/types';
+ 
+ import { LOGO_3D } from '../LobeHub/style';
+ 
+-const Logo3d = memo<
+-  Omit<ImgProps & ImageProps, 'width' | 'height' | 'src'> & { size?: number | string }
+->(({ size = '1em', style, alt = 'LobeHub', ...rest }) => {
++type Logo3dProps = Omit<ImgProps & ImageProps, 'width' | 'height' | 'src'> & {
++  size?: number | string;
++};
++
++const Logo3d = memo<Logo3dProps>(({ size = '1em', style, alt = 'LobeHub', ...rest }) => {
+   const genCdnUrl = useCdnFn();
+   return (
+     <Img alt={alt} height={size} src={genCdnUrl(LOGO_3D)} style={style} width={size} {...rest} />
 -- 
 2.39.2
 
