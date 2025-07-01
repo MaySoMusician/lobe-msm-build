@@ -1,7 +1,7 @@
 From 10cf50cc754dcd7fbc2283922a54e256bbc4c792 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 6 Feb 2025 20:34:05 +0000
-Subject: [PATCH 1/5] Load Google Fonts script and IBM Plex Sans JP
+Subject: [PATCH 1/6] Load Google Fonts script and IBM Plex Sans JP
 
 ---
  src/app/[variants]/layout.tsx | 8 ++++++++
@@ -33,7 +33,7 @@ index f7e0a11f4..36322349b 100644
 From 5c27620b1ee5f6fa00ef75e17891a90ceae08c3f Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 7 Feb 2025 08:18:42 +0000
-Subject: [PATCH 2/5] Force to use en-US as language
+Subject: [PATCH 2/6] Force to use en-US as language
 
 ---
  src/utils/locale.ts | 2 +-
@@ -59,7 +59,7 @@ index b7276c172..1b7d0545c 100644
 From 4712000560cb94261ccd19756aebb9eda7e5af7b Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 7 Feb 2025 08:28:43 +0000
-Subject: [PATCH 3/5] Show only English and Japanese option for language
+Subject: [PATCH 3/6] Show only English and Japanese option for language
  options in global menu
 
 ---
@@ -96,7 +96,7 @@ index 3b625746e..b0870dfde 100644
 From f1b38e43f4130b0741c7f4089ca89013e65349dc Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 19 May 2025 05:51:10 +0000
-Subject: [PATCH 4/5] Use custom summaryTitle prompt written in English
+Subject: [PATCH 4/6] Use custom summaryTitle prompt written in English
 
 ---
  src/chains/summaryTitle.ts | 10 ++++++----
@@ -138,7 +138,7 @@ index 4e25cfb44..ca73e7b9b 100644
 From a067354f2a6e10e971b75320f94ea9982b714e59 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Tue, 1 Jul 2025 18:35:39 +0000
-Subject: [PATCH 5/5] Overwrite reasoning.summary to undefined for requests for
+Subject: [PATCH 5/6] Overwrite reasoning.summary to undefined for requests for
  openai
 
 ---
@@ -162,6 +162,41 @@ index 946054ec3..76f1a50a2 100644
            stream: payload.stream ?? true,
            tools: openaiTools as any,
            // computer-use series must set truncation as auto
+-- 
+2.39.5
+
+
+From 592306981bc2d85556e4a53a5dda38aa42a5694f Mon Sep 17 00:00:00 2001
+From: MaySoMusician <maysomusician@gmail.com>
+Date: Tue, 1 Jul 2025 19:43:22 +0000
+Subject: [PATCH 6/6] Always stream response for Responses API, even for o1
+ model
+
+---
+ src/libs/model-runtime/openai/index.ts | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/src/libs/model-runtime/openai/index.ts b/src/libs/model-runtime/openai/index.ts
+index 76f1a50a2..2eceb0e3c 100644
+--- a/src/libs/model-runtime/openai/index.ts
++++ b/src/libs/model-runtime/openai/index.ts
+@@ -76,7 +76,7 @@ export const LobeOpenAI = createOpenAICompatibleRuntime({
+         : tools;
+ 
+       if (prunePrefixes.some((prefix) => model.startsWith(prefix))) {
+-        return pruneReasoningPayload({
++        const pruned = pruneReasoningPayload({
+           ...rest,
+           model,
+           reasoning: payload.reasoning
+@@ -87,6 +87,7 @@ export const LobeOpenAI = createOpenAICompatibleRuntime({
+           // computer-use series must set truncation as auto
+           ...(model.startsWith('computer-use') && { truncation: 'auto' }),
+         }) as any;
++        return { ...pruned, stream: true }; // Always streaming for Responses API
+       }
+ 
+       return { ...rest, model, stream: payload.stream ?? true, tools: openaiTools } as any;
 -- 
 2.39.5
 
