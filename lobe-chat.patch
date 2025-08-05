@@ -1,22 +1,23 @@
-From 3e033725bbe22d1d2386b54024c972565a9970fd Mon Sep 17 00:00:00 2001
+From 858062b39734d8934a89cf06ad933add8c16d810 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 6 Feb 2025 20:34:05 +0000
 Subject: [PATCH 1/6] Load Google Fonts script and IBM Plex Sans JP
 
 ---
- src/app/[variants]/layout.tsx | 6 ++++++
- 1 file changed, 6 insertions(+)
+ src/app/[variants]/layout.tsx | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
 diff --git a/src/app/[variants]/layout.tsx b/src/app/[variants]/layout.tsx
-index 2a43a94ed..6ba0a1b09 100644
+index 1e268e9bd..52de4dfc4 100644
 --- a/src/app/[variants]/layout.tsx
 +++ b/src/app/[variants]/layout.tsx
-@@ -36,6 +36,12 @@ const RootLayout = async ({ children, params, modal }: RootLayoutProps) => {
-         {process.env.DEBUG_REACT_SCAN === '1' && (
+@@ -37,6 +37,13 @@ const RootLayout = async ({ children, params, modal }: RootLayoutProps) => {
+           // eslint-disable-next-line @next/next/no-sync-scripts
            <script crossOrigin="anonymous" src="https://unpkg.com/react-scan/dist/auto.global.js" />
          )}
 +        <link href="https://fonts.googleapis.com" rel="preconnect" />
 +        <link crossOrigin="anonymous" href="https://fonts.gstatic.com" rel="preconnect" />
++        {/* eslint-disable-next-line @next/next/no-page-custom-font */}
 +        <link
 +          href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+JP:wght@400;500;600;700&display=swap"
 +          rel="stylesheet"
@@ -28,7 +29,7 @@ index 2a43a94ed..6ba0a1b09 100644
 2.39.2
 
 
-From 61defc16214baf1f603153006b0d147951e27a01 Mon Sep 17 00:00:00 2001
+From a83a7e55bd5e49fa95b843973118ae82194600b5 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 7 Feb 2025 08:18:42 +0000
 Subject: [PATCH 2/6] Force to use en-US as language
@@ -54,7 +55,7 @@ index 0fe495d86..608a9a50a 100644
 2.39.2
 
 
-From 86aaeec06c95eaa80fc428ae6738f71459d2bc79 Mon Sep 17 00:00:00 2001
+From 975de3e869e03d7973d942f21f508f0284730c1d Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 7 Feb 2025 08:28:43 +0000
 Subject: [PATCH 3/6] Show only English and Japanese option for language
@@ -91,7 +92,7 @@ index 3b625746e..b0870dfde 100644
 2.39.2
 
 
-From 36730539af91b60914128986f87487871213d2f8 Mon Sep 17 00:00:00 2001
+From 897d57316ab03e95c35628a3f9e428a11ca810d0 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 19 May 2025 05:51:10 +0000
 Subject: [PATCH 4/6] Use custom summaryTitle prompt written in English
@@ -133,7 +134,7 @@ index 4e25cfb44..ca73e7b9b 100644
 2.39.2
 
 
-From 01c1f8183b7cca52c36dcd96d32645604f09bdb9 Mon Sep 17 00:00:00 2001
+From 6b0aaf0198b98903fc0e9dfce5dfaf224678aeca Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Tue, 1 Jul 2025 18:35:39 +0000
 Subject: [PATCH 5/6] Overwrite reasoning.summary to undefined for requests for
@@ -162,7 +163,7 @@ index fe18c2e44..05ecdb79b 100644
 2.39.2
 
 
-From 9fe88209dddadca536e93811729f2a2b46430060 Mon Sep 17 00:00:00 2001
+From b477187a46c7af04b4d6ef4c592ab10fa86688d6 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Tue, 1 Jul 2025 19:43:22 +0000
 Subject: [PATCH 6/6] Always stream response for Responses API, even for o1
