@@ -1,14 +1,14 @@
-From 858062b39734d8934a89cf06ad933add8c16d810 Mon Sep 17 00:00:00 2001
+From 402e4748ac19721a6af6bb30a7bc95cd1d05f9f9 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 6 Feb 2025 20:34:05 +0000
-Subject: [PATCH 1/6] Load Google Fonts script and IBM Plex Sans JP
+Subject: [PATCH 1/8] Load Google Fonts script and IBM Plex Sans JP
 
 ---
  src/app/[variants]/layout.tsx | 7 +++++++
  1 file changed, 7 insertions(+)
 
 diff --git a/src/app/[variants]/layout.tsx b/src/app/[variants]/layout.tsx
-index 1e268e9bd..52de4dfc4 100644
+index 2a4b01642..6cf933390 100644
 --- a/src/app/[variants]/layout.tsx
 +++ b/src/app/[variants]/layout.tsx
 @@ -37,6 +37,13 @@ const RootLayout = async ({ children, params, modal }: RootLayoutProps) => {
@@ -26,13 +26,13 @@ index 1e268e9bd..52de4dfc4 100644
        <body>
          <NuqsAdapter>
 -- 
-2.39.2
+2.39.5
 
 
-From a83a7e55bd5e49fa95b843973118ae82194600b5 Mon Sep 17 00:00:00 2001
+From 74053e2aa019cdb0029baa7ef0acdf836e1ffeb6 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 7 Feb 2025 08:18:42 +0000
-Subject: [PATCH 2/6] Force to use en-US as language
+Subject: [PATCH 2/8] Force to use en-US as language
 
 ---
  src/utils/locale.ts | 2 +-
@@ -52,13 +52,13 @@ index 0fe495d86..608a9a50a 100644
  
  /**
 -- 
-2.39.2
+2.39.5
 
 
-From 975de3e869e03d7973d942f21f508f0284730c1d Mon Sep 17 00:00:00 2001
+From 5a6af560d3b603f0308b085b5cbc1e6e0ae4da09 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 7 Feb 2025 08:28:43 +0000
-Subject: [PATCH 3/6] Show only English and Japanese option for language
+Subject: [PATCH 3/8] Show only English and Japanese option for language
  options in global menu
 
 ---
@@ -89,13 +89,13 @@ index 3b625746e..b0870dfde 100644
      [t],
    );
 -- 
-2.39.2
+2.39.5
 
 
-From 897d57316ab03e95c35628a3f9e428a11ca810d0 Mon Sep 17 00:00:00 2001
+From c107cb67906e727fc41da45e1cdb3b1b075db8a2 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 19 May 2025 05:51:10 +0000
-Subject: [PATCH 4/6] Use custom summaryTitle prompt written in English
+Subject: [PATCH 4/8] Use custom summaryTitle prompt written in English
 
 ---
  src/chains/summaryTitle.ts | 10 ++++++----
@@ -131,13 +131,13 @@ index 4e25cfb44..ca73e7b9b 100644
        },
      ],
 -- 
-2.39.2
+2.39.5
 
 
-From 6b0aaf0198b98903fc0e9dfce5dfaf224678aeca Mon Sep 17 00:00:00 2001
+From 7179f236754188f2be251eb0d883dc1a606a5678 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Tue, 1 Jul 2025 18:35:39 +0000
-Subject: [PATCH 5/6] Overwrite reasoning.summary to undefined for requests for
+Subject: [PATCH 5/8] Overwrite reasoning.summary to undefined for requests for
  openai
 
 ---
@@ -145,7 +145,7 @@ Subject: [PATCH 5/6] Overwrite reasoning.summary to undefined for requests for
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/src/libs/model-runtime/openai/index.ts b/src/libs/model-runtime/openai/index.ts
-index fe18c2e44..05ecdb79b 100644
+index a5b99a7ad..b15d53afc 100644
 --- a/src/libs/model-runtime/openai/index.ts
 +++ b/src/libs/model-runtime/openai/index.ts
 @@ -79,8 +79,8 @@ export const LobeOpenAI = createOpenAICompatibleRuntime({
@@ -160,40 +160,387 @@ index fe18c2e44..05ecdb79b 100644
            tools: openaiTools as any,
            // computer-use series must set truncation as auto
 -- 
-2.39.2
+2.39.5
 
 
-From b477187a46c7af04b4d6ef4c592ab10fa86688d6 Mon Sep 17 00:00:00 2001
+From ec81ea590934d0b6db3df30bd5d91409408cd2fd Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
-Date: Tue, 1 Jul 2025 19:43:22 +0000
-Subject: [PATCH 6/6] Always stream response for Responses API, even for o1
- model
+Date: Sun, 10 Aug 2025 05:01:38 +0000
+Subject: [PATCH 6/8] Mark page and components in main as force-dynamic
+
+cf. https://github.com/lobehub/lobe-chat/issues/8732#issuecomment-3171917869
+---
+ src/app/[variants]/(main)/chat/(workspace)/page.tsx | 2 ++
+ src/app/[variants]/(main)/chat/settings/page.tsx    | 2 ++
+ 2 files changed, 4 insertions(+)
+
+diff --git a/src/app/[variants]/(main)/chat/(workspace)/page.tsx b/src/app/[variants]/(main)/chat/(workspace)/page.tsx
+index 132fd8b8f..883df5c43 100644
+--- a/src/app/[variants]/(main)/chat/(workspace)/page.tsx
++++ b/src/app/[variants]/(main)/chat/(workspace)/page.tsx
+@@ -14,6 +14,8 @@ import PageTitle from '../features/PageTitle';
+ import Changelog from './features/ChangelogModal';
+ import TelemetryNotification from './features/TelemetryNotification';
+ 
++export const dynamic = 'force-dynamic';
++
+ export const generateMetadata = async (props: DynamicLayoutProps) => {
+   const locale = await RouteVariants.getLocale(props);
+   const { t } = await translation('metadata', locale);
+diff --git a/src/app/[variants]/(main)/chat/settings/page.tsx b/src/app/[variants]/(main)/chat/settings/page.tsx
+index 884df6f91..df085893e 100644
+--- a/src/app/[variants]/(main)/chat/settings/page.tsx
++++ b/src/app/[variants]/(main)/chat/settings/page.tsx
+@@ -16,6 +16,8 @@ import { ChatSettingsTabs } from '@/store/global/initialState';
+ import { useSessionStore } from '@/store/session';
+ import { sessionMetaSelectors } from '@/store/session/selectors';
+ 
++export const dynamic = 'force-dynamic';
++
+ const EditPage = memo(() => {
+   const { t } = useTranslation('setting');
+   const [tab, setTab] = useState(ChatSettingsTabs.Prompt);
+-- 
+2.39.5
+
+
+From e8e0911ca2a01bdb0749957da2ad4812ecac80b9 Mon Sep 17 00:00:00 2001
+From: MaySoMusician <maysomusician@gmail.com>
+Date: Sun, 10 Aug 2025 05:03:35 +0000
+Subject: [PATCH 7/8] Disable stream for gpt-5 for unverified organizations
 
 ---
- src/libs/model-runtime/openai/index.ts | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ src/const/models.ts | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/src/libs/model-runtime/openai/index.ts b/src/libs/model-runtime/openai/index.ts
-index 05ecdb79b..92cb65b46 100644
---- a/src/libs/model-runtime/openai/index.ts
-+++ b/src/libs/model-runtime/openai/index.ts
-@@ -75,7 +75,7 @@ export const LobeOpenAI = createOpenAICompatibleRuntime({
-         : tools;
+diff --git a/src/const/models.ts b/src/const/models.ts
+index 3aed6761e..5393692ad 100644
+--- a/src/const/models.ts
++++ b/src/const/models.ts
+@@ -18,6 +18,10 @@ export const disableStreamModels = new Set([
+   */
+   'computer-use-preview',
+   'computer-use-preview-2025-03-11',
++  'gpt-5',
++  'gpt-5-2025-08-07',
++  'gpt-5-mini',
++  'gpt-5-mini-2025-08-07',
+ ]);
  
-       if (prunePrefixes.some((prefix) => model.startsWith(prefix))) {
--        return pruneReasoningPayload({
-+        const pruned = pruneReasoningPayload({
-           ...rest,
-           model,
-           reasoning: payload.reasoning
-@@ -86,6 +86,7 @@ export const LobeOpenAI = createOpenAICompatibleRuntime({
-           // computer-use series must set truncation as auto
-           ...(model.startsWith('computer-use') && { truncation: 'auto' }),
-         }) as any;
-+        return { ...pruned, stream: true }; // Always streaming for Responses API
-       }
- 
-       return { ...rest, model, stream: payload.stream ?? true, tools: openaiTools } as any;
+ /**
 -- 
-2.39.2
+2.39.5
+
+
+From 89c1a9dccb793a5d236e64bd67001f131aa69eac Mon Sep 17 00:00:00 2001
+From: MaySoMusician <maysomusician@gmail.com>
+Date: Sun, 10 Aug 2025 05:43:06 +0000
+Subject: [PATCH 8/8] Implement faking response stream
+
+---
+ .../utils/openaiCompatibleFactory/index.ts    |  41 ++--
+ .../openaiCompatibleFactory/transform2.ts     | 220 ++++++++++++++++++
+ 2 files changed, 248 insertions(+), 13 deletions(-)
+ create mode 100644 src/libs/model-runtime/utils/openaiCompatibleFactory/transform2.ts
+
+diff --git a/src/libs/model-runtime/utils/openaiCompatibleFactory/index.ts b/src/libs/model-runtime/utils/openaiCompatibleFactory/index.ts
+index 509dd9ee6..b5dbdd774 100644
+--- a/src/libs/model-runtime/utils/openaiCompatibleFactory/index.ts
++++ b/src/libs/model-runtime/utils/openaiCompatibleFactory/index.ts
+@@ -37,6 +37,7 @@ import {
+ } from '../openaiHelpers';
+ import { StreamingResponse } from '../response';
+ import { OpenAIResponsesStream, OpenAIStream, OpenAIStreamOptions } from '../streams';
++import { transformNonStreamingResponseToStream } from './transform2';
+ 
+ // the model contains the following keywords is not a chat model, so we should filter them out
+ export const CHAT_MODELS_BLOCK_LIST = [
+@@ -643,7 +644,9 @@ export const createOpenAICompatibleRuntime = <T extends Record<string, any> = an
+         input,
+         store: false,
+         tools: tools?.map((tool) => this.convertChatCompletionToolToResponseTool(tool)),
+-      } as OpenAI.Responses.ResponseCreateParamsStreaming;
++      } as
++        | OpenAI.Responses.ResponseCreateParamsStreaming
++        | OpenAI.Responses.ResponseCreateParamsNonStreaming;
+ 
+       if (debug?.responses?.()) {
+         console.log('[requestPayload]');
+@@ -655,24 +658,36 @@ export const createOpenAICompatibleRuntime = <T extends Record<string, any> = an
+         signal: options?.signal,
+       });
+ 
+-      const [prod, useForDebug] = response.tee();
+-
+-      if (debug?.responses?.()) {
+-        const useForDebugStream =
+-          useForDebug instanceof ReadableStream ? useForDebug : useForDebug.toReadableStream();
+-
+-        debugStream(useForDebugStream).catch(console.error);
+-      }
+-
+       const streamOptions: OpenAIStreamOptions = {
+         bizErrorTypeTransformer: chatCompletion?.handleStreamBizErrorType,
+         callbacks: options?.callback,
+         provider: this.id,
+       };
+ 
+-      return StreamingResponse(OpenAIResponsesStream(prod, { ...streamOptions, inputStartAt }), {
+-        headers: options?.headers,
+-      });
++      if ('tee' in response) {
++        const [prod, useForDebug] = response.tee();
++
++        if (debug?.responses?.()) {
++          const useForDebugStream =
++            useForDebug instanceof ReadableStream ? useForDebug : useForDebug.toReadableStream();
++
++          debugStream(useForDebugStream).catch(console.error);
++        }
++
++        return StreamingResponse(OpenAIResponsesStream(prod, { ...streamOptions, inputStartAt }), {
++          headers: options?.headers,
++        });
++      }
++
++      return StreamingResponse(
++        OpenAIResponsesStream(transformNonStreamingResponseToStream(response), {
++          ...streamOptions,
++          inputStartAt,
++        }),
++        {
++          headers: options?.headers,
++        },
++      );
+     }
+ 
+     private convertChatCompletionToolToResponseTool = (tool: ChatCompletionTool) => {
+diff --git a/src/libs/model-runtime/utils/openaiCompatibleFactory/transform2.ts b/src/libs/model-runtime/utils/openaiCompatibleFactory/transform2.ts
+new file mode 100644
+index 000000000..8247dd243
+--- /dev/null
++++ b/src/libs/model-runtime/utils/openaiCompatibleFactory/transform2.ts
+@@ -0,0 +1,220 @@
++import OpenAI from 'openai';
++
++function convertNonStreamingResponseToStreamEvents(
++  nonStreamingResponse: OpenAI.Responses.Response,
++): OpenAI.Responses.ResponseStreamEvent[] {
++  const events: OpenAI.Responses.ResponseStreamEvent[] = [];
++  let seq = 1;
++
++  // 1. First, create the "response.created" event.
++  events.push({
++    response: {
++      created_at: 0, // dummy placeholder
++      error: null, // dummy placeholder
++      id: nonStreamingResponse.id,
++      incomplete_details: null, // dummy placeholder
++      instructions: null, // dummy placeholder
++      metadata: null, // dummy placeholder
++      model: '', // dummy placeholder
++      object: 'response', // dummy placeholder
++      output: [], // dummy placeholder
++      output_text: '', // dummy placeholder
++      parallel_tool_calls: false, // dummy placeholder
++      status:
++        nonStreamingResponse.status === 'completed' ? 'in_progress' : nonStreamingResponse.status,
++      temperature: null, // dummy placeholder
++      tool_choice: 'auto', // dummy placeholder
++      tools: [], // dummy placeholder
++      top_p: null, // dummy placeholder
++      usage: undefined,
++    },
++    sequence_number: seq++,
++    type: 'response.created',
++  });
++
++  // 2. Traverse the output array and generate events according to each item's type.
++  for (const item of nonStreamingResponse.output) {
++    // Send the "response.output_item.added" event first.
++    events.push({
++      item: {
++        arguments: (item as any).arguments,
++        call_id: (item as any).call_id,
++        content: (item as any).content,
++        id: item.id,
++        name: (item as any).name,
++        role: (item as any).role,
++        status: (item as any).status,
++        summary: (item as any).summary,
++        type: item.type,
++      },
++      sequence_number: seq++,
++      type: 'response.output_item.added',
++    } as any);
++
++    // Branch processing according to item.type.
++    switch (item.type) {
++      case 'function_call': {
++        // In src/utils/fetch/fetchSSE.ts, the argument duplication occurs during parse, so we won't send a delta.
++        events.push({
++          item: {
++            arguments: item.arguments, // dummy placeholder
++            call_id: item.call_id,
++            id: item.id,
++            name: '', // dummy placeholder
++            type: 'function_call',
++          },
++          output_index: 1,
++          sequence_number: seq++,
++          type: 'response.output_item.done',
++        });
++        break;
++      }
++
++      case 'message': {
++        // For "message" type, send the entire content as a single "response.output_text.delta" event.
++        if (item.content) {
++          for (const contentObj of item.content) {
++            if (contentObj.type === 'output_text') {
++              // Combine text into a single delta.
++              events.push({
++                content_index: 1, // dummy placeholder
++                delta: contentObj.text,
++                item_id: item.id,
++                output_index: 1, // dummy placeholder
++                sequence_number: seq++,
++                type: 'response.output_text.delta',
++              });
++
++              // If there are annotations, send them individually as "response.output_text.annotation.added" events.
++              if (Array.isArray(contentObj.annotations)) {
++                for (const ann of contentObj.annotations) {
++                  const ann2 = ann as OpenAI.Responses.ResponseOutputText.URLCitation;
++                  events.push({
++                    annotation: {
++                      end_index: ann2.end_index,
++                      start_index: ann2.start_index,
++                      title: ann2.title,
++                      type: 'url_citation',
++                      url: ann2.url,
++                    },
++                    item_id: item.id,
++                    sequence_number: seq++,
++                    type: 'response.output_text.annotation.added' as any,
++                  });
++                }
++              }
++            }
++          }
++        }
++
++        // Finally, send "response.output_item.done".
++        events.push({
++          item: {
++            content: [], // dummy placeholder
++            id: item.id,
++            role: 'assistant', // dummy placeholder
++            status: 'in_progress', // dummy placeholder
++            type: 'message',
++          },
++          output_index: 1, // dummy placeholder
++          sequence_number: seq++,
++          type: 'response.output_item.done',
++        });
++        break;
++      }
++
++      case 'reasoning': {
++        // For "reasoning" type, send the summary all at once.
++        // (In transformOpenAIStream, the events go in the order "response.reasoning_summary_part.added" -> "response.reasoning_summary_text.delta" -> done.)
++        events.push({
++          item_id: item.id,
++          output_index: 1, // dummy placeholder
++          part: {
++            text: '', // dummy placeholder
++            type: 'summary_text',
++          },
++          sequence_number: seq++,
++          summary_index: 1, // dummy placeholder
++          type: 'response.reasoning_summary_part.added',
++        });
++
++        // If there's a summary array, concatenate it into a single delta.
++        const entireSummary = Array.isArray(item.summary) ? item.summary.join('\n') : '';
++        if (entireSummary) {
++          events.push({
++            delta: entireSummary,
++            item_id: item.id,
++            output_index: 1, // dummy placeholder
++            sequence_number: seq++,
++            summary_index: 1, // dummy placeholder
++            type: 'response.reasoning_summary_text.delta',
++          });
++        }
++
++        events.push({
++          item: {
++            id: item.id,
++            summary: [], // dummy placeholder
++            type: 'reasoning',
++          },
++          output_index: 1, // dummy placeholder
++          sequence_number: seq++,
++          type: 'response.output_item.done',
++        });
++        break;
++      }
++
++      default: {
++        // For an unknown type, just send "response.output_item.done".
++        events.push({
++          item: {
++            id: item.id,
++            type: item.type,
++          },
++          sequence_number: seq++,
++          type: 'response.output_item.done',
++        } as any);
++        break;
++      }
++    }
++  }
++
++  // 3. Finally, send the "response.completed" event.
++  events.push({
++    response: {
++      created_at: 0, // dummy placeholder
++      error: null, // dummy placeholder
++      id: nonStreamingResponse.id,
++      incomplete_details: null, // dummy placeholder
++      instructions: null, // dummy placeholder
++      metadata: null, // dummy placeholder
++      model: '', // dummy placeholder
++      object: 'response', // dummy placeholder
++      output: [], // dummy placeholder
++      output_text: '', // dummy placeholder
++      parallel_tool_calls: false, // dummy placeholder
++      temperature: null, // dummy placeholder
++      tool_choice: 'auto', // dummy placeholder
++      tools: [], // dummy placeholder
++      top_p: null, // dummy placeholder
++      usage: nonStreamingResponse.usage ?? undefined,
++    },
++    sequence_number: seq++,
++    type: 'response.completed',
++  });
++
++  return events;
++}
++
++export function transformNonStreamingResponseToStream(data: OpenAI.Responses.Response) {
++  return new ReadableStream({
++    start(controller) {
++      const events = convertNonStreamingResponseToStreamEvents(data);
++
++      for (const event of events) {
++        controller.enqueue(event);
++      }
++      controller.close();
++    },
++  });
++}
+-- 
+2.39.5
 
