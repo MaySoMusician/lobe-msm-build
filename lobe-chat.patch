@@ -1,4 +1,4 @@
-From 402e4748ac19721a6af6bb30a7bc95cd1d05f9f9 Mon Sep 17 00:00:00 2001
+From 4651888e0af0ffafb9314aa92c1d16caca8c9420 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 6 Feb 2025 20:34:05 +0000
 Subject: [PATCH 1/8] Load Google Fonts script and IBM Plex Sans JP
@@ -29,7 +29,7 @@ index 2a4b01642..6cf933390 100644
 2.39.5
 
 
-From 74053e2aa019cdb0029baa7ef0acdf836e1ffeb6 Mon Sep 17 00:00:00 2001
+From 8f6c62da9010ef8e4fd920cf3e2b2534616d88bf Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 7 Feb 2025 08:18:42 +0000
 Subject: [PATCH 2/8] Force to use en-US as language
@@ -55,7 +55,7 @@ index 0fe495d86..608a9a50a 100644
 2.39.5
 
 
-From 5a6af560d3b603f0308b085b5cbc1e6e0ae4da09 Mon Sep 17 00:00:00 2001
+From eedaa1390fb88388257cb917fd8ae2e7567f776f Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 7 Feb 2025 08:28:43 +0000
 Subject: [PATCH 3/8] Show only English and Japanese option for language
@@ -92,7 +92,7 @@ index 3b625746e..b0870dfde 100644
 2.39.5
 
 
-From c107cb67906e727fc41da45e1cdb3b1b075db8a2 Mon Sep 17 00:00:00 2001
+From e32edc358fbb868fa6f4472b62b53c043bea2853 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 19 May 2025 05:51:10 +0000
 Subject: [PATCH 4/8] Use custom summaryTitle prompt written in English
@@ -134,20 +134,20 @@ index 4e25cfb44..ca73e7b9b 100644
 2.39.5
 
 
-From 7179f236754188f2be251eb0d883dc1a606a5678 Mon Sep 17 00:00:00 2001
+From 868562bc71b9ec37690802add10f78cb655dbd67 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Tue, 1 Jul 2025 18:35:39 +0000
 Subject: [PATCH 5/8] Overwrite reasoning.summary to undefined for requests for
  openai
 
 ---
- src/libs/model-runtime/openai/index.ts | 4 ++--
+ packages/model-runtime/src/openai/index.ts | 4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/src/libs/model-runtime/openai/index.ts b/src/libs/model-runtime/openai/index.ts
+diff --git a/packages/model-runtime/src/openai/index.ts b/packages/model-runtime/src/openai/index.ts
 index a5b99a7ad..b15d53afc 100644
---- a/src/libs/model-runtime/openai/index.ts
-+++ b/src/libs/model-runtime/openai/index.ts
+--- a/packages/model-runtime/src/openai/index.ts
++++ b/packages/model-runtime/src/openai/index.ts
 @@ -79,8 +79,8 @@ export const LobeOpenAI = createOpenAICompatibleRuntime({
            ...rest,
            model,
@@ -163,7 +163,7 @@ index a5b99a7ad..b15d53afc 100644
 2.39.5
 
 
-From ec81ea590934d0b6db3df30bd5d91409408cd2fd Mon Sep 17 00:00:00 2001
+From 5710e43c8ee5a0ad60cf3e9646eee5c9718f61cf Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 10 Aug 2025 05:01:38 +0000
 Subject: [PATCH 6/8] Mark page and components in main as force-dynamic
@@ -204,7 +204,7 @@ index 884df6f91..df085893e 100644
 2.39.5
 
 
-From e8e0911ca2a01bdb0749957da2ad4812ecac80b9 Mon Sep 17 00:00:00 2001
+From 70ed9a779057c445aa8926e2536967999a0421e4 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 10 Aug 2025 05:03:35 +0000
 Subject: [PATCH 7/8] Disable stream for gpt-5 for unverified organizations
@@ -232,7 +232,7 @@ index 3aed6761e..5393692ad 100644
 2.39.5
 
 
-From 89c1a9dccb793a5d236e64bd67001f131aa69eac Mon Sep 17 00:00:00 2001
+From 3528fffcc27265ad40c1cf3b16cf0743dec26360 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 10 Aug 2025 05:43:06 +0000
 Subject: [PATCH 8/8] Implement faking response stream
@@ -241,12 +241,12 @@ Subject: [PATCH 8/8] Implement faking response stream
  .../utils/openaiCompatibleFactory/index.ts    |  41 ++--
  .../openaiCompatibleFactory/transform2.ts     | 220 ++++++++++++++++++
  2 files changed, 248 insertions(+), 13 deletions(-)
- create mode 100644 src/libs/model-runtime/utils/openaiCompatibleFactory/transform2.ts
+ create mode 100644 packages/model-runtime/src/utils/openaiCompatibleFactory/transform2.ts
 
-diff --git a/src/libs/model-runtime/utils/openaiCompatibleFactory/index.ts b/src/libs/model-runtime/utils/openaiCompatibleFactory/index.ts
+diff --git a/packages/model-runtime/src/utils/openaiCompatibleFactory/index.ts b/packages/model-runtime/src/utils/openaiCompatibleFactory/index.ts
 index 509dd9ee6..b5dbdd774 100644
---- a/src/libs/model-runtime/utils/openaiCompatibleFactory/index.ts
-+++ b/src/libs/model-runtime/utils/openaiCompatibleFactory/index.ts
+--- a/packages/model-runtime/src/utils/openaiCompatibleFactory/index.ts
++++ b/packages/model-runtime/src/utils/openaiCompatibleFactory/index.ts
 @@ -37,6 +37,7 @@ import {
  } from '../openaiHelpers';
  import { StreamingResponse } from '../response';
@@ -315,11 +315,11 @@ index 509dd9ee6..b5dbdd774 100644
      }
  
      private convertChatCompletionToolToResponseTool = (tool: ChatCompletionTool) => {
-diff --git a/src/libs/model-runtime/utils/openaiCompatibleFactory/transform2.ts b/src/libs/model-runtime/utils/openaiCompatibleFactory/transform2.ts
+diff --git a/packages/model-runtime/src/utils/openaiCompatibleFactory/transform2.ts b/packages/model-runtime/src/utils/openaiCompatibleFactory/transform2.ts
 new file mode 100644
 index 000000000..8247dd243
 --- /dev/null
-+++ b/src/libs/model-runtime/utils/openaiCompatibleFactory/transform2.ts
++++ b/packages/model-runtime/src/utils/openaiCompatibleFactory/transform2.ts
 @@ -0,0 +1,220 @@
 +import OpenAI from 'openai';
 +
