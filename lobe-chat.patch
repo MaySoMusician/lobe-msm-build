@@ -1,4 +1,4 @@
-From 4651888e0af0ffafb9314aa92c1d16caca8c9420 Mon Sep 17 00:00:00 2001
+From 01edd88e00c864b0a792c9ece116758b5b7639ac Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 6 Feb 2025 20:34:05 +0000
 Subject: [PATCH 1/8] Load Google Fonts script and IBM Plex Sans JP
@@ -29,7 +29,7 @@ index 2a4b01642..6cf933390 100644
 2.39.5
 
 
-From 8f6c62da9010ef8e4fd920cf3e2b2534616d88bf Mon Sep 17 00:00:00 2001
+From ec6df82669b220d0beb7e2700fb0fe964659886a Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 7 Feb 2025 08:18:42 +0000
 Subject: [PATCH 2/8] Force to use en-US as language
@@ -55,7 +55,7 @@ index 0fe495d86..608a9a50a 100644
 2.39.5
 
 
-From eedaa1390fb88388257cb917fd8ae2e7567f776f Mon Sep 17 00:00:00 2001
+From c66c30e99e6ee42408194404dc7579d37f18fe8e Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 7 Feb 2025 08:28:43 +0000
 Subject: [PATCH 3/8] Show only English and Japanese option for language
@@ -92,7 +92,7 @@ index 3b625746e..b0870dfde 100644
 2.39.5
 
 
-From e32edc358fbb868fa6f4472b62b53c043bea2853 Mon Sep 17 00:00:00 2001
+From 86e1846d97938c6c6c941c7434934e8abe9ad88e Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 19 May 2025 05:51:10 +0000
 Subject: [PATCH 4/8] Use custom summaryTitle prompt written in English
@@ -134,7 +134,7 @@ index 4e25cfb44..ca73e7b9b 100644
 2.39.5
 
 
-From 868562bc71b9ec37690802add10f78cb655dbd67 Mon Sep 17 00:00:00 2001
+From 62915cdbc403a30c6ee2698d12fb8ae65210301f Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Tue, 1 Jul 2025 18:35:39 +0000
 Subject: [PATCH 5/8] Overwrite reasoning.summary to undefined for requests for
@@ -145,7 +145,7 @@ Subject: [PATCH 5/8] Overwrite reasoning.summary to undefined for requests for
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/packages/model-runtime/src/openai/index.ts b/packages/model-runtime/src/openai/index.ts
-index a5b99a7ad..b15d53afc 100644
+index 2fc6dbada..4eab6c182 100644
 --- a/packages/model-runtime/src/openai/index.ts
 +++ b/packages/model-runtime/src/openai/index.ts
 @@ -79,8 +79,8 @@ export const LobeOpenAI = createOpenAICompatibleRuntime({
@@ -163,7 +163,7 @@ index a5b99a7ad..b15d53afc 100644
 2.39.5
 
 
-From 5710e43c8ee5a0ad60cf3e9646eee5c9718f61cf Mon Sep 17 00:00:00 2001
+From ded8c5aca6dfdd02fa5e2acf7cc47fb2ab256778 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 10 Aug 2025 05:01:38 +0000
 Subject: [PATCH 6/8] Mark page and components in main as force-dynamic
@@ -204,19 +204,19 @@ index 884df6f91..df085893e 100644
 2.39.5
 
 
-From 70ed9a779057c445aa8926e2536967999a0421e4 Mon Sep 17 00:00:00 2001
+From 2ad251ffd48ea246593bd5fc79ae45cbf733782a Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 10 Aug 2025 05:03:35 +0000
 Subject: [PATCH 7/8] Disable stream for gpt-5 for unverified organizations
 
 ---
- src/const/models.ts | 4 ++++
+ packages/const/src/models.ts | 4 ++++
  1 file changed, 4 insertions(+)
 
-diff --git a/src/const/models.ts b/src/const/models.ts
+diff --git a/packages/const/src/models.ts b/packages/const/src/models.ts
 index 3aed6761e..5393692ad 100644
---- a/src/const/models.ts
-+++ b/src/const/models.ts
+--- a/packages/const/src/models.ts
++++ b/packages/const/src/models.ts
 @@ -18,6 +18,10 @@ export const disableStreamModels = new Set([
    */
    'computer-use-preview',
@@ -232,7 +232,7 @@ index 3aed6761e..5393692ad 100644
 2.39.5
 
 
-From 3528fffcc27265ad40c1cf3b16cf0743dec26360 Mon Sep 17 00:00:00 2001
+From f64793dc422f00f92458939b0bd4e7321c347c4c Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 10 Aug 2025 05:43:06 +0000
 Subject: [PATCH 8/8] Implement faking response stream
