@@ -1,7 +1,7 @@
-From 01edd88e00c864b0a792c9ece116758b5b7639ac Mon Sep 17 00:00:00 2001
+From 12fcd283ac13991236af14cfc05eab524ebe61ec Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 6 Feb 2025 20:34:05 +0000
-Subject: [PATCH 1/8] Load Google Fonts script and IBM Plex Sans JP
+Subject: [PATCH 1/9] Load Google Fonts script and IBM Plex Sans JP
 
 ---
  src/app/[variants]/layout.tsx | 7 +++++++
@@ -29,10 +29,10 @@ index 2a4b01642..6cf933390 100644
 2.39.5
 
 
-From ec6df82669b220d0beb7e2700fb0fe964659886a Mon Sep 17 00:00:00 2001
+From 368b28edc485d6ac63cf809f2bbb0cf6fb1bbcea Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 7 Feb 2025 08:18:42 +0000
-Subject: [PATCH 2/8] Force to use en-US as language
+Subject: [PATCH 2/9] Force to use en-US as language
 
 ---
  src/utils/locale.ts | 2 +-
@@ -55,10 +55,10 @@ index 0fe495d86..608a9a50a 100644
 2.39.5
 
 
-From c66c30e99e6ee42408194404dc7579d37f18fe8e Mon Sep 17 00:00:00 2001
+From 4791d876816b820b50f755284019784038cf236a Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 7 Feb 2025 08:28:43 +0000
-Subject: [PATCH 3/8] Show only English and Japanese option for language
+Subject: [PATCH 3/9] Show only English and Japanese option for language
  options in global menu
 
 ---
@@ -92,10 +92,10 @@ index 3b625746e..b0870dfde 100644
 2.39.5
 
 
-From 86e1846d97938c6c6c941c7434934e8abe9ad88e Mon Sep 17 00:00:00 2001
+From 9925140e777bd955776ae776514e6074f88530c5 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 19 May 2025 05:51:10 +0000
-Subject: [PATCH 4/8] Use custom summaryTitle prompt written in English
+Subject: [PATCH 4/9] Use custom summaryTitle prompt written in English
 
 ---
  src/chains/summaryTitle.ts | 10 ++++++----
@@ -134,10 +134,10 @@ index 4e25cfb44..ca73e7b9b 100644
 2.39.5
 
 
-From 62915cdbc403a30c6ee2698d12fb8ae65210301f Mon Sep 17 00:00:00 2001
+From d20d7b7c95652cd29489653786f704e96bbe1104 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
-Date: Tue, 1 Jul 2025 18:35:39 +0000
-Subject: [PATCH 5/8] Overwrite reasoning.summary to undefined for requests for
+Date: Tue, 19 Aug 2025 08:45:11 +0000
+Subject: [PATCH 5/9] Overwrite reasoning.summary to undefined for requests for
  openai
 
 ---
@@ -145,10 +145,10 @@ Subject: [PATCH 5/8] Overwrite reasoning.summary to undefined for requests for
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/packages/model-runtime/src/openai/index.ts b/packages/model-runtime/src/openai/index.ts
-index 2fc6dbada..4eab6c182 100644
+index 4f24e6629..1ed1fee99 100644
 --- a/packages/model-runtime/src/openai/index.ts
 +++ b/packages/model-runtime/src/openai/index.ts
-@@ -79,8 +79,8 @@ export const LobeOpenAI = createOpenAICompatibleRuntime({
+@@ -90,8 +90,8 @@ export const LobeOpenAI = createOpenAICompatibleRuntime({
            ...rest,
            model,
            reasoning: payload.reasoning
@@ -156,17 +156,17 @@ index 2fc6dbada..4eab6c182 100644
 -            : { summary: 'auto' },
 +            ? { ...payload.reasoning, summary: undefined }
 +            : { summary: undefined },
+           ...(enableServiceTierFlex && supportsFlexTier(model) && { service_tier: 'flex' }),
            stream: payload.stream ?? true,
            tools: openaiTools as any,
-           // computer-use series must set truncation as auto
 -- 
 2.39.5
 
 
-From ded8c5aca6dfdd02fa5e2acf7cc47fb2ab256778 Mon Sep 17 00:00:00 2001
+From d50a3a1b422ee609e5cbdb9cf70b820ba43bb64f Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 10 Aug 2025 05:01:38 +0000
-Subject: [PATCH 6/8] Mark page and components in main as force-dynamic
+Subject: [PATCH 6/9] Mark page and components in main as force-dynamic
 
 cf. https://github.com/lobehub/lobe-chat/issues/8732#issuecomment-3171917869
 ---
@@ -204,17 +204,17 @@ index 884df6f91..df085893e 100644
 2.39.5
 
 
-From 2ad251ffd48ea246593bd5fc79ae45cbf733782a Mon Sep 17 00:00:00 2001
+From 9266858590145928b2660baba714e84928585f17 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 10 Aug 2025 05:03:35 +0000
-Subject: [PATCH 7/8] Disable stream for gpt-5 for unverified organizations
+Subject: [PATCH 7/9] Disable stream for gpt-5 for unverified organizations
 
 ---
  packages/const/src/models.ts | 4 ++++
  1 file changed, 4 insertions(+)
 
 diff --git a/packages/const/src/models.ts b/packages/const/src/models.ts
-index 3aed6761e..5393692ad 100644
+index 6d5773cf8..848ca579e 100644
 --- a/packages/const/src/models.ts
 +++ b/packages/const/src/models.ts
 @@ -18,6 +18,10 @@ export const disableStreamModels = new Set([
@@ -232,10 +232,10 @@ index 3aed6761e..5393692ad 100644
 2.39.5
 
 
-From f64793dc422f00f92458939b0bd4e7321c347c4c Mon Sep 17 00:00:00 2001
+From 3dd1fc40efb822c2c33611c7aeb23ed878dc2848 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 10 Aug 2025 05:43:06 +0000
-Subject: [PATCH 8/8] Implement faking response stream
+Subject: [PATCH 8/9] Implement faking response stream
 
 ---
  .../utils/openaiCompatibleFactory/index.ts    |  41 ++--
@@ -541,6 +541,36 @@ index 000000000..8247dd243
 +    },
 +  });
 +}
+-- 
+2.39.5
+
+
+From 139344996fb5e042741ad1ccd0e49fdf94c52f15 Mon Sep 17 00:00:00 2001
+From: MaySoMusician <maysomusician@gmail.com>
+Date: Tue, 19 Aug 2025 08:34:32 +0000
+Subject: [PATCH 9/9] Re-enable Response API for gpt-5 family
+
+---
+ packages/const/src/models.ts | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/packages/const/src/models.ts b/packages/const/src/models.ts
+index 848ca579e..38fa205cd 100644
+--- a/packages/const/src/models.ts
++++ b/packages/const/src/models.ts
+@@ -39,6 +39,12 @@ export const responsesAPIModels = new Set([
+   'codex-mini-latest',
+   'computer-use-preview',
+   'computer-use-preview-2025-03-11',
++  'gpt-5',
++  'gpt-5-2025-08-07',
++  'gpt-5-mini',
++  'gpt-5-mini-2025-08-07',
++  'gpt-5-nano',
++  'gpt-5-nano-2025-08-07',
+ ]);
+ 
+ /**
 -- 
 2.39.5
 
