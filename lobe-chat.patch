@@ -1,4 +1,4 @@
-From 12fcd283ac13991236af14cfc05eab524ebe61ec Mon Sep 17 00:00:00 2001
+From a5d200ec5a77910e0ba4769bb04c3b5d4b5eebee Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 6 Feb 2025 20:34:05 +0000
 Subject: [PATCH 1/9] Load Google Fonts script and IBM Plex Sans JP
@@ -29,7 +29,7 @@ index 2a4b01642..6cf933390 100644
 2.39.5
 
 
-From 368b28edc485d6ac63cf809f2bbb0cf6fb1bbcea Mon Sep 17 00:00:00 2001
+From 5a61291550054391a094867e6c4c05d061588ac3 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 7 Feb 2025 08:18:42 +0000
 Subject: [PATCH 2/9] Force to use en-US as language
@@ -55,7 +55,7 @@ index 0fe495d86..608a9a50a 100644
 2.39.5
 
 
-From 4791d876816b820b50f755284019784038cf236a Mon Sep 17 00:00:00 2001
+From 011f4409cdaf61902b592095fff67890892434a0 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 7 Feb 2025 08:28:43 +0000
 Subject: [PATCH 3/9] Show only English and Japanese option for language
@@ -92,26 +92,24 @@ index 3b625746e..b0870dfde 100644
 2.39.5
 
 
-From 9925140e777bd955776ae776514e6074f88530c5 Mon Sep 17 00:00:00 2001
+From df7bb420806f73fb3fab8a728887fb529e072547 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 19 May 2025 05:51:10 +0000
 Subject: [PATCH 4/9] Use custom summaryTitle prompt written in English
 
 ---
- src/chains/summaryTitle.ts | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
+ packages/prompts/src/chains/summaryTitle.ts | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
-diff --git a/src/chains/summaryTitle.ts b/src/chains/summaryTitle.ts
-index 4e25cfb44..ca73e7b9b 100644
---- a/src/chains/summaryTitle.ts
-+++ b/src/chains/summaryTitle.ts
-@@ -2,18 +2,20 @@ import { globalHelpers } from '@/store/global/helpers';
- import { ChatStreamPayload, OpenAIChatMessage } from '@/types/openai/chat';
- 
- export const chainSummaryTitle = (messages: OpenAIChatMessage[]): Partial<ChatStreamPayload> => {
--  const lang = globalHelpers.getCurrentLanguage();
-+  globalHelpers.getCurrentLanguage();
- 
+diff --git a/packages/prompts/src/chains/summaryTitle.ts b/packages/prompts/src/chains/summaryTitle.ts
+index ab11849aa..ca8e16d0b 100644
+--- a/packages/prompts/src/chains/summaryTitle.ts
++++ b/packages/prompts/src/chains/summaryTitle.ts
+@@ -4,16 +4,19 @@ export const chainSummaryTitle = (
+   messages: OpenAIChatMessage[],
+   locale: string,
+ ): Partial<ChatStreamPayload> => {
++  void locale;
    return {
      messages: [
        {
@@ -124,7 +122,7 @@ index 4e25cfb44..ca73e7b9b 100644
 -        content: `${messages.map((message) => `${message.role}: ${message.content}`).join('\n')}
 +        content: `${messages.map((message) => `[${message.role}]\n${message.content}`).join('\n\n')}
  
--请总结上述对话为10个字以内的标题，不需要包含标点符号，输出语言语种为：${lang}`,
+-请总结上述对话为10个字以内的标题，不需要包含标点符号，输出语言语种为：${locale}`,
 +@@@Instructions@@@
 +Please summarize the above conversation as a title in the same language used within it. If the conversation is in a European language (e.g., English), the title should be within around 5 words and omit any punctuation. If the conversation is in a CJK language (e.g., Japanese), the title should be within around 10 characters and also omit any punctuation.`,
          role: 'user',
@@ -134,7 +132,7 @@ index 4e25cfb44..ca73e7b9b 100644
 2.39.5
 
 
-From d20d7b7c95652cd29489653786f704e96bbe1104 Mon Sep 17 00:00:00 2001
+From 8c4f16bb97c6d8e5716bca586a6ef14acd1ac18d Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Tue, 19 Aug 2025 08:45:11 +0000
 Subject: [PATCH 5/9] Overwrite reasoning.summary to undefined for requests for
@@ -163,7 +161,7 @@ index 4f24e6629..1ed1fee99 100644
 2.39.5
 
 
-From d50a3a1b422ee609e5cbdb9cf70b820ba43bb64f Mon Sep 17 00:00:00 2001
+From 75fa57b819697137a6f2dfbdd8cffea98e1925f2 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 10 Aug 2025 05:01:38 +0000
 Subject: [PATCH 6/9] Mark page and components in main as force-dynamic
@@ -204,7 +202,7 @@ index 884df6f91..df085893e 100644
 2.39.5
 
 
-From 9266858590145928b2660baba714e84928585f17 Mon Sep 17 00:00:00 2001
+From 79696a153db565e6653c180f46806664bb864312 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 10 Aug 2025 05:03:35 +0000
 Subject: [PATCH 7/9] Disable stream for gpt-5 for unverified organizations
@@ -232,7 +230,7 @@ index 6d5773cf8..848ca579e 100644
 2.39.5
 
 
-From 3dd1fc40efb822c2c33611c7aeb23ed878dc2848 Mon Sep 17 00:00:00 2001
+From 3a0be680a0d4ce023b61cdd53866238e206bdd2c Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 10 Aug 2025 05:43:06 +0000
 Subject: [PATCH 8/9] Implement faking response stream
@@ -545,7 +543,7 @@ index 000000000..8247dd243
 2.39.5
 
 
-From 139344996fb5e042741ad1ccd0e49fdf94c52f15 Mon Sep 17 00:00:00 2001
+From 8d452d20e1d69d851757ad91dff66393762bf80a Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Tue, 19 Aug 2025 08:34:32 +0000
 Subject: [PATCH 9/9] Re-enable Response API for gpt-5 family
