@@ -1,4 +1,4 @@
-From a5d200ec5a77910e0ba4769bb04c3b5d4b5eebee Mon Sep 17 00:00:00 2001
+From 532bd4037a36ad2e3757c93959b029634b2b6525 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 6 Feb 2025 20:34:05 +0000
 Subject: [PATCH 1/9] Load Google Fonts script and IBM Plex Sans JP
@@ -29,20 +29,20 @@ index 2a4b01642..6cf933390 100644
 2.39.5
 
 
-From 5a61291550054391a094867e6c4c05d061588ac3 Mon Sep 17 00:00:00 2001
+From 7020d58619090620223328fb1bc9a73c9c74c3e1 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 7 Feb 2025 08:18:42 +0000
 Subject: [PATCH 2/9] Force to use en-US as language
 
 ---
- src/utils/locale.ts | 2 +-
+ packages/utils/src/locale.ts | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/src/utils/locale.ts b/src/utils/locale.ts
-index 0fe495d86..608a9a50a 100644
---- a/src/utils/locale.ts
-+++ b/src/utils/locale.ts
-@@ -43,7 +43,7 @@ export const parseBrowserLanguage = (headers: Headers, defaultLang: string = DEF
+diff --git a/packages/utils/src/locale.ts b/packages/utils/src/locale.ts
+index 9d4fe1ffe..65737fa87 100644
+--- a/packages/utils/src/locale.ts
++++ b/packages/utils/src/locale.ts
+@@ -44,7 +44,7 @@ export const parseBrowserLanguage = (headers: Headers, defaultLang: string = DEF
    // if match the ar-EG then fallback to ar
    if (browserLang === 'ar-EG') browserLang = 'ar';
  
@@ -55,7 +55,7 @@ index 0fe495d86..608a9a50a 100644
 2.39.5
 
 
-From 011f4409cdaf61902b592095fff67890892434a0 Mon Sep 17 00:00:00 2001
+From 89d03a6b891b0b875bc9d0623bc852b2e39f338f Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 7 Feb 2025 08:28:43 +0000
 Subject: [PATCH 3/9] Show only English and Japanese option for language
@@ -92,7 +92,7 @@ index 3b625746e..b0870dfde 100644
 2.39.5
 
 
-From df7bb420806f73fb3fab8a728887fb529e072547 Mon Sep 17 00:00:00 2001
+From cc71ebb91dc87d71140406f3d279620ee2840c88 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 19 May 2025 05:51:10 +0000
 Subject: [PATCH 4/9] Use custom summaryTitle prompt written in English
@@ -132,7 +132,7 @@ index ab11849aa..ca8e16d0b 100644
 2.39.5
 
 
-From 8c4f16bb97c6d8e5716bca586a6ef14acd1ac18d Mon Sep 17 00:00:00 2001
+From a03531a58086ccb3273c354c71e72e12fe2dae3b Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Tue, 19 Aug 2025 08:45:11 +0000
 Subject: [PATCH 5/9] Overwrite reasoning.summary to undefined for requests for
@@ -161,7 +161,7 @@ index 4f24e6629..1ed1fee99 100644
 2.39.5
 
 
-From 75fa57b819697137a6f2dfbdd8cffea98e1925f2 Mon Sep 17 00:00:00 2001
+From 977ad5f656b62036a98b71635dbb45e0bf13574e Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 10 Aug 2025 05:01:38 +0000
 Subject: [PATCH 6/9] Mark page and components in main as force-dynamic
@@ -202,7 +202,7 @@ index 884df6f91..df085893e 100644
 2.39.5
 
 
-From 79696a153db565e6653c180f46806664bb864312 Mon Sep 17 00:00:00 2001
+From 167c7a1fc100664731634459568eb6771ea5ec3e Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 10 Aug 2025 05:03:35 +0000
 Subject: [PATCH 7/9] Disable stream for gpt-5 for unverified organizations
@@ -230,7 +230,7 @@ index 6d5773cf8..848ca579e 100644
 2.39.5
 
 
-From 3a0be680a0d4ce023b61cdd53866238e206bdd2c Mon Sep 17 00:00:00 2001
+From 14f0426ad1cf2ccc3895d4a391681f5f912f068b Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 10 Aug 2025 05:43:06 +0000
 Subject: [PATCH 8/9] Implement faking response stream
@@ -242,7 +242,7 @@ Subject: [PATCH 8/9] Implement faking response stream
  create mode 100644 packages/model-runtime/src/utils/openaiCompatibleFactory/transform2.ts
 
 diff --git a/packages/model-runtime/src/utils/openaiCompatibleFactory/index.ts b/packages/model-runtime/src/utils/openaiCompatibleFactory/index.ts
-index 509dd9ee6..b5dbdd774 100644
+index 07c4d656c..af4c139ec 100644
 --- a/packages/model-runtime/src/utils/openaiCompatibleFactory/index.ts
 +++ b/packages/model-runtime/src/utils/openaiCompatibleFactory/index.ts
 @@ -37,6 +37,7 @@ import {
@@ -543,7 +543,7 @@ index 000000000..8247dd243
 2.39.5
 
 
-From 8d452d20e1d69d851757ad91dff66393762bf80a Mon Sep 17 00:00:00 2001
+From 7f023e3a0ec1a2c1f751f7f565c72c201bbfb39a Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Tue, 19 Aug 2025 08:34:32 +0000
 Subject: [PATCH 9/9] Re-enable Response API for gpt-5 family
