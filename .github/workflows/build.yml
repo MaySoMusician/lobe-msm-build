@@ -109,6 +109,10 @@ jobs:
           pnpm install ./lobehub-ui.tgz -w
           echo ".pnpm-store" >> .dockerignore
           git am ../lobe-msm-build/lobe-chat.patch
+      - name: Prebuild checks
+        working-directory: ../lobe-chat
+        run: |
+          pnpm run lint && pnpm run type-check
       - name: Build Lobe Chat Docker image
         working-directory: ../lobe-chat
         run: |
