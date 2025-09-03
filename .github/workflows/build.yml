@@ -106,9 +106,9 @@ jobs:
         working-directory: ../lobe-chat
         run: |
           sed -i "s|COPY package.json pnpm-workspace.yaml ./|COPY package.json pnpm-workspace.yaml lobehub-ui.tgz ./|" Dockerfile.database
+          git am ../lobe-msm-build/lobe-chat.patch
           pnpm install ./lobehub-ui.tgz -w
           echo ".pnpm-store" >> .dockerignore
-          git am ../lobe-msm-build/lobe-chat.patch
       - name: Prebuild checks
         working-directory: ../lobe-chat
         run: |
