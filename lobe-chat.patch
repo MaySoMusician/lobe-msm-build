@@ -1,4 +1,4 @@
-From dfe96c56979a3b35e173b3b5b2e9a9938d4521af Mon Sep 17 00:00:00 2001
+From 8f8b95834a3fe93ef9ec1f9a956489d84e9c516f Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 6 Feb 2025 20:34:05 +0000
 Subject: [PATCH 1/9] Load Google Fonts script and IBM Plex Sans JP
@@ -29,7 +29,7 @@ index 2a4b01642..6cf933390 100644
 2.39.5
 
 
-From 820b0a5927a0b629e50ceb3bcc546c3f9d51f00d Mon Sep 17 00:00:00 2001
+From 1413c47c92b65fd9bdfe9e2fe83f659c36ac3262 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 7 Feb 2025 08:18:42 +0000
 Subject: [PATCH 2/9] Force to use en-US as language
@@ -55,7 +55,7 @@ index 9d4fe1ffe..65737fa87 100644
 2.39.5
 
 
-From 0da9f8fbb2a4e7567a940b605100d94130d54645 Mon Sep 17 00:00:00 2001
+From 8891a9d1d4054bfd7341ec75f58069f74e82a227 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 7 Feb 2025 08:28:43 +0000
 Subject: [PATCH 3/9] Show only English and Japanese option for language
@@ -92,7 +92,7 @@ index 3b625746e..b0870dfde 100644
 2.39.5
 
 
-From 7bf36528b4c35d1794021791b1a2f3a17d536e3b Mon Sep 17 00:00:00 2001
+From ed50949ebb79e794ebe5a8927449b5151af43776 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 19 May 2025 05:51:10 +0000
 Subject: [PATCH 4/9] Use custom summaryTitle prompt written in English
@@ -132,7 +132,7 @@ index ab11849aa..ca8e16d0b 100644
 2.39.5
 
 
-From c8c706acaf6c4b5fbb9e9e9794ac50c327816edd Mon Sep 17 00:00:00 2001
+From f7164157d4e155c3503bfdf340ed35341099466b Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Tue, 19 Aug 2025 08:45:11 +0000
 Subject: [PATCH 5/9] Overwrite reasoning.summary to undefined for requests for
@@ -161,7 +161,7 @@ index 5d8001605..1c05c4c53 100644
 2.39.5
 
 
-From 7747afcc2ea5d2895f847396d869025b9501cb4c Mon Sep 17 00:00:00 2001
+From aee671ca05dd37305bcd0f8b285177d0e8173dec Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 10 Aug 2025 05:03:35 +0000
 Subject: [PATCH 6/9] Disable stream for gpt-5 for unverified organizations
@@ -205,7 +205,7 @@ index 6d5773cf8..848ca579e 100644
 2.39.5
 
 
-From 5ac0dd2fb59c63885bbb314daa1fe0b7509b0f7c Mon Sep 17 00:00:00 2001
+From 417215c205dac6a467825cb2db1f2c0f9e29376b Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 10 Aug 2025 05:43:06 +0000
 Subject: [PATCH 7/9] Implement faking response stream
@@ -518,7 +518,7 @@ index 000000000..8247dd243
 2.39.5
 
 
-From 147f893e72babfb89aaac47afed166d3c0af6878 Mon Sep 17 00:00:00 2001
+From fd21ea2ad78c16038ea21f0fe478b587e1f6b7f1 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Tue, 19 Aug 2025 08:34:32 +0000
 Subject: [PATCH 8/9] Re-enable Response API for gpt-5 family
@@ -566,10 +566,10 @@ index 848ca579e..38fa205cd 100644
 2.39.5
 
 
-From 194a4c035a7e1070d4309aef4d78eb486f35ae70 Mon Sep 17 00:00:00 2001
+From c82b0e77911a382a5d783b9cbabccc96ca4780ce Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 3 Sep 2025 00:27:04 +0000
-Subject: [PATCH 9/9] Avoid build OOM error
+Subject: [PATCH 9/9] More workarounds to avoid build OOM error
 
 ---
  next.config.ts | 7 +++++++
@@ -577,7 +577,7 @@ Subject: [PATCH 9/9] Avoid build OOM error
  2 files changed, 8 insertions(+), 1 deletion(-)
 
 diff --git a/next.config.ts b/next.config.ts
-index 42a67303a..e6428054a 100644
+index 1939e0ea1..cd39cedc1 100644
 --- a/next.config.ts
 +++ b/next.config.ts
 @@ -23,6 +23,9 @@ const standaloneConfig: NextConfig = {
@@ -590,7 +590,7 @@ index 42a67303a..e6428054a 100644
    experimental: {
      optimizePackageImports: [
        'emoji-mart',
-@@ -264,6 +267,10 @@ const nextConfig: NextConfig = {
+@@ -265,6 +268,10 @@ const nextConfig: NextConfig = {
  
    transpilePackages: ['pdfjs-dist', 'mermaid'],
  
@@ -602,14 +602,14 @@ index 42a67303a..e6428054a 100644
      config.experiments = {
        asyncWebAssembly: true,
 diff --git a/package.json b/package.json
-index 1e714fa5e..6ebac1d77 100644
+index 984f9b617..161d869c9 100644
 --- a/package.json
 +++ b/package.json
 @@ -35,7 +35,7 @@
      "build-migrate-db": "bun run db:migrate",
      "build-sitemap": "tsx ./scripts/buildSitemapIndex/index.ts",
      "build:analyze": "NODE_OPTIONS=--max-old-space-size=6144 ANALYZE=true next build",
--    "build:docker": "npm run prebuild && DOCKER=true next build && npm run build-sitemap",
+-    "build:docker": "npm run prebuild && NODE_OPTIONS=--max-old-space-size=6144 DOCKER=true next build && npm run build-sitemap",
 +    "build:docker": "npm run prebuild && NODE_OPTIONS=--max-old-space-size=12288 DOCKER=true next build && npm run build-sitemap",
      "prebuild:electron": "cross-env NEXT_PUBLIC_IS_DESKTOP_APP=1 tsx scripts/prebuild.mts",
      "build:electron": "cross-env NODE_OPTIONS=--max-old-space-size=6144 NEXT_PUBLIC_IS_DESKTOP_APP=1 NEXT_PUBLIC_SERVICE_MODE=server next build",
