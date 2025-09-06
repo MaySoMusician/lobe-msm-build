@@ -1,4 +1,4 @@
-From 8f8b95834a3fe93ef9ec1f9a956489d84e9c516f Mon Sep 17 00:00:00 2001
+From 3b080ab32f2523b64f8ba8c661639bf95cf9b27f Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 6 Feb 2025 20:34:05 +0000
 Subject: [PATCH 1/9] Load Google Fonts script and IBM Plex Sans JP
@@ -29,7 +29,7 @@ index 2a4b01642..6cf933390 100644
 2.39.5
 
 
-From 1413c47c92b65fd9bdfe9e2fe83f659c36ac3262 Mon Sep 17 00:00:00 2001
+From bd0f30c95b65f34f5e1f2eaf75e7a26d00c0f46f Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 7 Feb 2025 08:18:42 +0000
 Subject: [PATCH 2/9] Force to use en-US as language
@@ -55,7 +55,7 @@ index 9d4fe1ffe..65737fa87 100644
 2.39.5
 
 
-From 8891a9d1d4054bfd7341ec75f58069f74e82a227 Mon Sep 17 00:00:00 2001
+From 9211c94167a6f1a1efec6b43118fff5c17d5dd5b Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 7 Feb 2025 08:28:43 +0000
 Subject: [PATCH 3/9] Show only English and Japanese option for language
@@ -92,7 +92,7 @@ index 3b625746e..b0870dfde 100644
 2.39.5
 
 
-From ed50949ebb79e794ebe5a8927449b5151af43776 Mon Sep 17 00:00:00 2001
+From 380c33ea4aad75d033cd59c1e69cd736a75f8233 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 19 May 2025 05:51:10 +0000
 Subject: [PATCH 4/9] Use custom summaryTitle prompt written in English
@@ -132,7 +132,7 @@ index ab11849aa..ca8e16d0b 100644
 2.39.5
 
 
-From f7164157d4e155c3503bfdf340ed35341099466b Mon Sep 17 00:00:00 2001
+From 757efce385e94b3a78935b5dc5046d87097fac26 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Tue, 19 Aug 2025 08:45:11 +0000
 Subject: [PATCH 5/9] Overwrite reasoning.summary to undefined for requests for
@@ -161,7 +161,7 @@ index 5d8001605..1c05c4c53 100644
 2.39.5
 
 
-From aee671ca05dd37305bcd0f8b285177d0e8173dec Mon Sep 17 00:00:00 2001
+From 3319b2f53de4f39426937567746f83a87d17b75d Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 10 Aug 2025 05:03:35 +0000
 Subject: [PATCH 6/9] Disable stream for gpt-5 for unverified organizations
@@ -205,7 +205,7 @@ index 6d5773cf8..848ca579e 100644
 2.39.5
 
 
-From 417215c205dac6a467825cb2db1f2c0f9e29376b Mon Sep 17 00:00:00 2001
+From 2f31b478818aaedd0a6a38332e52ef8681426d35 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 10 Aug 2025 05:43:06 +0000
 Subject: [PATCH 7/9] Implement faking response stream
@@ -518,7 +518,7 @@ index 000000000..8247dd243
 2.39.5
 
 
-From fd21ea2ad78c16038ea21f0fe478b587e1f6b7f1 Mon Sep 17 00:00:00 2001
+From c2452d0f5eb94c1623a70ee6c30b5a199237f3f4 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Tue, 19 Aug 2025 08:34:32 +0000
 Subject: [PATCH 8/9] Re-enable Response API for gpt-5 family
@@ -566,7 +566,7 @@ index 848ca579e..38fa205cd 100644
 2.39.5
 
 
-From c82b0e77911a382a5d783b9cbabccc96ca4780ce Mon Sep 17 00:00:00 2001
+From 7d4ecde548c47b3f5f5d2fabc907479f7577954a Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 3 Sep 2025 00:27:04 +0000
 Subject: [PATCH 9/9] More workarounds to avoid build OOM error
@@ -577,12 +577,12 @@ Subject: [PATCH 9/9] More workarounds to avoid build OOM error
  2 files changed, 8 insertions(+), 1 deletion(-)
 
 diff --git a/next.config.ts b/next.config.ts
-index 1939e0ea1..cd39cedc1 100644
+index a84209c27..dd3de504e 100644
 --- a/next.config.ts
 +++ b/next.config.ts
-@@ -23,6 +23,9 @@ const standaloneConfig: NextConfig = {
- const nextConfig: NextConfig = {
-   ...(isStandaloneMode ? standaloneConfig : {}),
+@@ -26,6 +26,9 @@ const nextConfig: NextConfig = {
+     emotion: true,
+   },
    compress: isProd,
 +  eslint: {
 +    ignoreDuringBuilds: true,
@@ -590,7 +590,7 @@ index 1939e0ea1..cd39cedc1 100644
    experimental: {
      optimizePackageImports: [
        'emoji-mart',
-@@ -265,6 +268,10 @@ const nextConfig: NextConfig = {
+@@ -269,6 +272,10 @@ const nextConfig: NextConfig = {
  
    transpilePackages: ['pdfjs-dist', 'mermaid'],
  
@@ -602,7 +602,7 @@ index 1939e0ea1..cd39cedc1 100644
      config.experiments = {
        asyncWebAssembly: true,
 diff --git a/package.json b/package.json
-index 984f9b617..161d869c9 100644
+index c8d690ce3..62ed58246 100644
 --- a/package.json
 +++ b/package.json
 @@ -35,7 +35,7 @@
