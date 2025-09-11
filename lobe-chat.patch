@@ -1,4 +1,4 @@
-From 3b080ab32f2523b64f8ba8c661639bf95cf9b27f Mon Sep 17 00:00:00 2001
+From 123324848ce5a05eb803d834cc1e83d454be2a27 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 6 Feb 2025 20:34:05 +0000
 Subject: [PATCH 1/9] Load Google Fonts script and IBM Plex Sans JP
@@ -29,7 +29,7 @@ index 2a4b01642..6cf933390 100644
 2.39.5
 
 
-From bd0f30c95b65f34f5e1f2eaf75e7a26d00c0f46f Mon Sep 17 00:00:00 2001
+From a73f9381f88a483918c75db84e379a76b9f351a2 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 7 Feb 2025 08:18:42 +0000
 Subject: [PATCH 2/9] Force to use en-US as language
@@ -55,7 +55,7 @@ index 9d4fe1ffe..65737fa87 100644
 2.39.5
 
 
-From 9211c94167a6f1a1efec6b43118fff5c17d5dd5b Mon Sep 17 00:00:00 2001
+From 451b753e9285cdd4b4ce879ff2c13f7762cf37c8 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 7 Feb 2025 08:28:43 +0000
 Subject: [PATCH 3/9] Show only English and Japanese option for language
@@ -92,7 +92,7 @@ index 3b625746e..b0870dfde 100644
 2.39.5
 
 
-From 380c33ea4aad75d033cd59c1e69cd736a75f8233 Mon Sep 17 00:00:00 2001
+From d7bc489d83e16c3c02ccc0fc5c30b41dbd08d404 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 19 May 2025 05:51:10 +0000
 Subject: [PATCH 4/9] Use custom summaryTitle prompt written in English
@@ -132,21 +132,21 @@ index ab11849aa..ca8e16d0b 100644
 2.39.5
 
 
-From 757efce385e94b3a78935b5dc5046d87097fac26 Mon Sep 17 00:00:00 2001
+From 4f6c4e68f7b984a87b5b84cafed4d8ec6278d5b4 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Tue, 19 Aug 2025 08:45:11 +0000
 Subject: [PATCH 5/9] Overwrite reasoning.summary to undefined for requests for
  openai
 
 ---
- packages/model-runtime/src/openai/index.ts | 4 ++--
+ packages/model-runtime/src/providers/openai/index.ts | 4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/packages/model-runtime/src/openai/index.ts b/packages/model-runtime/src/openai/index.ts
-index 5d8001605..1c05c4c53 100644
---- a/packages/model-runtime/src/openai/index.ts
-+++ b/packages/model-runtime/src/openai/index.ts
-@@ -94,8 +94,8 @@ export const LobeOpenAI = createOpenAICompatibleRuntime({
+diff --git a/packages/model-runtime/src/providers/openai/index.ts b/packages/model-runtime/src/providers/openai/index.ts
+index 8be1c27c4..13c96ea28 100644
+--- a/packages/model-runtime/src/providers/openai/index.ts
++++ b/packages/model-runtime/src/providers/openai/index.ts
+@@ -95,8 +95,8 @@ export const LobeOpenAI = createOpenAICompatibleRuntime({
            ...rest,
            model,
            reasoning: payload.reasoning
@@ -161,7 +161,7 @@ index 5d8001605..1c05c4c53 100644
 2.39.5
 
 
-From 3319b2f53de4f39426937567746f83a87d17b75d Mon Sep 17 00:00:00 2001
+From 711a8291fccd1de85c22aabd29b322a29997a3a1 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 10 Aug 2025 05:03:35 +0000
 Subject: [PATCH 6/9] Disable stream for gpt-5 for unverified organizations
@@ -205,23 +205,23 @@ index 6d5773cf8..848ca579e 100644
 2.39.5
 
 
-From 2f31b478818aaedd0a6a38332e52ef8681426d35 Mon Sep 17 00:00:00 2001
+From 7000c07f479b2265e444fbd013d4d2dcf402870d Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 10 Aug 2025 05:43:06 +0000
 Subject: [PATCH 7/9] Implement faking response stream
 
 ---
- .../utils/openaiCompatibleFactory/index.ts    |  41 ++--
+ .../src/core/openaiCompatibleFactory/index.ts |  41 ++--
  .../openaiCompatibleFactory/transform2.ts     | 220 ++++++++++++++++++
  2 files changed, 248 insertions(+), 13 deletions(-)
- create mode 100644 packages/model-runtime/src/utils/openaiCompatibleFactory/transform2.ts
+ create mode 100644 packages/model-runtime/src/core/openaiCompatibleFactory/transform2.ts
 
-diff --git a/packages/model-runtime/src/utils/openaiCompatibleFactory/index.ts b/packages/model-runtime/src/utils/openaiCompatibleFactory/index.ts
-index 9084dc567..dbba5dda7 100644
---- a/packages/model-runtime/src/utils/openaiCompatibleFactory/index.ts
-+++ b/packages/model-runtime/src/utils/openaiCompatibleFactory/index.ts
-@@ -34,6 +34,7 @@ import { postProcessModelList } from '../postProcessModelList';
- import { StreamingResponse } from '../response';
+diff --git a/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts b/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
+index 50a24db49..d291231e9 100644
+--- a/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
++++ b/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
+@@ -34,6 +34,7 @@ import { StreamingResponse } from '../../utils/response';
+ import { LobeRuntimeAI } from '../BaseAI';
  import { OpenAIResponsesStream, OpenAIStream, OpenAIStreamOptions } from '../streams';
  import { createOpenAICompatibleImage } from './createImage';
 +import { transformNonStreamingResponseToStream } from './transform2';
@@ -288,11 +288,11 @@ index 9084dc567..dbba5dda7 100644
      }
  
      private convertChatCompletionToolToResponseTool = (tool: ChatCompletionTool) => {
-diff --git a/packages/model-runtime/src/utils/openaiCompatibleFactory/transform2.ts b/packages/model-runtime/src/utils/openaiCompatibleFactory/transform2.ts
+diff --git a/packages/model-runtime/src/core/openaiCompatibleFactory/transform2.ts b/packages/model-runtime/src/core/openaiCompatibleFactory/transform2.ts
 new file mode 100644
 index 000000000..8247dd243
 --- /dev/null
-+++ b/packages/model-runtime/src/utils/openaiCompatibleFactory/transform2.ts
++++ b/packages/model-runtime/src/core/openaiCompatibleFactory/transform2.ts
 @@ -0,0 +1,220 @@
 +import OpenAI from 'openai';
 +
@@ -518,7 +518,7 @@ index 000000000..8247dd243
 2.39.5
 
 
-From c2452d0f5eb94c1623a70ee6c30b5a199237f3f4 Mon Sep 17 00:00:00 2001
+From 60cc472584377ea95f31357aeb6d2b133a8d14ad Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Tue, 19 Aug 2025 08:34:32 +0000
 Subject: [PATCH 8/9] Re-enable Response API for gpt-5 family
@@ -566,7 +566,7 @@ index 848ca579e..38fa205cd 100644
 2.39.5
 
 
-From 7d4ecde548c47b3f5f5d2fabc907479f7577954a Mon Sep 17 00:00:00 2001
+From f81f0926d58f49914df50538f31ae46ca183b7d5 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 3 Sep 2025 00:27:04 +0000
 Subject: [PATCH 9/9] More workarounds to avoid build OOM error
@@ -602,7 +602,7 @@ index a84209c27..dd3de504e 100644
      config.experiments = {
        asyncWebAssembly: true,
 diff --git a/package.json b/package.json
-index c8d690ce3..62ed58246 100644
+index 8581ae104..bbc8e530b 100644
 --- a/package.json
 +++ b/package.json
 @@ -35,7 +35,7 @@
