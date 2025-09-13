@@ -1,4 +1,4 @@
-From 123324848ce5a05eb803d834cc1e83d454be2a27 Mon Sep 17 00:00:00 2001
+From 8e5e35349c3c054c868e7914a4f3e3f773d19901 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 6 Feb 2025 20:34:05 +0000
 Subject: [PATCH 1/9] Load Google Fonts script and IBM Plex Sans JP
@@ -29,7 +29,7 @@ index 2a4b01642..6cf933390 100644
 2.39.5
 
 
-From a73f9381f88a483918c75db84e379a76b9f351a2 Mon Sep 17 00:00:00 2001
+From 94e15ae7b8092ceb751ebb9e5f80f87eae2999cc Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 7 Feb 2025 08:18:42 +0000
 Subject: [PATCH 2/9] Force to use en-US as language
@@ -55,7 +55,7 @@ index 9d4fe1ffe..65737fa87 100644
 2.39.5
 
 
-From 451b753e9285cdd4b4ce879ff2c13f7762cf37c8 Mon Sep 17 00:00:00 2001
+From 84c2858de1f9581b76163fd678e8310ff0789e59 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 7 Feb 2025 08:28:43 +0000
 Subject: [PATCH 3/9] Show only English and Japanese option for language
@@ -92,7 +92,7 @@ index 3b625746e..b0870dfde 100644
 2.39.5
 
 
-From d7bc489d83e16c3c02ccc0fc5c30b41dbd08d404 Mon Sep 17 00:00:00 2001
+From b1cea7693dbcd86b4f022052a7da470823002f4b Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 19 May 2025 05:51:10 +0000
 Subject: [PATCH 4/9] Use custom summaryTitle prompt written in English
@@ -132,7 +132,7 @@ index ab11849aa..ca8e16d0b 100644
 2.39.5
 
 
-From 4f6c4e68f7b984a87b5b84cafed4d8ec6278d5b4 Mon Sep 17 00:00:00 2001
+From 779721220739b9fcc791605d0301212a9ff8aca2 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Tue, 19 Aug 2025 08:45:11 +0000
 Subject: [PATCH 5/9] Overwrite reasoning.summary to undefined for requests for
@@ -161,7 +161,7 @@ index 8be1c27c4..13c96ea28 100644
 2.39.5
 
 
-From 711a8291fccd1de85c22aabd29b322a29997a3a1 Mon Sep 17 00:00:00 2001
+From 4b7a39dad6f2e73a51c01f7ac8c1d5fee7395561 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 10 Aug 2025 05:03:35 +0000
 Subject: [PATCH 6/9] Disable stream for gpt-5 for unverified organizations
@@ -205,7 +205,7 @@ index 6d5773cf8..848ca579e 100644
 2.39.5
 
 
-From 7000c07f479b2265e444fbd013d4d2dcf402870d Mon Sep 17 00:00:00 2001
+From b6f2de053b7ac5e2fd13fffd8c6683239a7914e6 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 10 Aug 2025 05:43:06 +0000
 Subject: [PATCH 7/9] Implement faking response stream
@@ -518,7 +518,7 @@ index 000000000..8247dd243
 2.39.5
 
 
-From 60cc472584377ea95f31357aeb6d2b133a8d14ad Mon Sep 17 00:00:00 2001
+From 2d1329b717ed44aca73e2dddd7d15fb7e31ad470 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Tue, 19 Aug 2025 08:34:32 +0000
 Subject: [PATCH 8/9] Re-enable Response API for gpt-5 family
@@ -566,33 +566,23 @@ index 848ca579e..38fa205cd 100644
 2.39.5
 
 
-From f81f0926d58f49914df50538f31ae46ca183b7d5 Mon Sep 17 00:00:00 2001
+From 410ec3cb6d900f58d452d3fac6abea7ba2e95d8f Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 3 Sep 2025 00:27:04 +0000
 Subject: [PATCH 9/9] More workarounds to avoid build OOM error
 
 ---
- next.config.ts | 7 +++++++
+ next.config.ts | 4 ++++
  package.json   | 2 +-
- 2 files changed, 8 insertions(+), 1 deletion(-)
+ 2 files changed, 5 insertions(+), 1 deletion(-)
 
 diff --git a/next.config.ts b/next.config.ts
-index a84209c27..dd3de504e 100644
+index 46f0eb706..99a92aabf 100644
 --- a/next.config.ts
 +++ b/next.config.ts
-@@ -26,6 +26,9 @@ const nextConfig: NextConfig = {
-     emotion: true,
+@@ -276,6 +276,10 @@ const nextConfig: NextConfig = {
+     ignoreBuildErrors: true,
    },
-   compress: isProd,
-+  eslint: {
-+    ignoreDuringBuilds: true,
-+  },
-   experimental: {
-     optimizePackageImports: [
-       'emoji-mart',
-@@ -269,6 +272,10 @@ const nextConfig: NextConfig = {
- 
-   transpilePackages: ['pdfjs-dist', 'mermaid'],
  
 +  typescript: {
 +    ignoreBuildErrors: true,
@@ -602,7 +592,7 @@ index a84209c27..dd3de504e 100644
      config.experiments = {
        asyncWebAssembly: true,
 diff --git a/package.json b/package.json
-index 8581ae104..bbc8e530b 100644
+index 10836dd90..dcd131b1a 100644
 --- a/package.json
 +++ b/package.json
 @@ -35,7 +35,7 @@
@@ -611,9 +601,9 @@ index 8581ae104..bbc8e530b 100644
      "build:analyze": "NODE_OPTIONS=--max-old-space-size=6144 ANALYZE=true next build",
 -    "build:docker": "npm run prebuild && NODE_OPTIONS=--max-old-space-size=6144 DOCKER=true next build && npm run build-sitemap",
 +    "build:docker": "npm run prebuild && NODE_OPTIONS=--max-old-space-size=12288 DOCKER=true next build && npm run build-sitemap",
-     "prebuild:electron": "cross-env NEXT_PUBLIC_IS_DESKTOP_APP=1 tsx scripts/prebuild.mts",
+     "prebuild:electron": "cross-env NEXT_PUBLIC_IS_DESKTOP_APP=1 tsx scripts/prebuild.mts && npm run lint",
      "build:electron": "cross-env NODE_OPTIONS=--max-old-space-size=6144 NEXT_PUBLIC_IS_DESKTOP_APP=1 NEXT_PUBLIC_SERVICE_MODE=server next build",
-     "db:generate": "drizzle-kit generate && npm run db:generate-client && npm run workflow:dbml",
+     "clean:node_modules": "bash -lc 'set -e; echo \"Removing all node_modules...\"; rm -rf node_modules; pnpm -r exec rm -rf node_modules; rm -rf apps/desktop/node_modules; echo \"All node_modules removed.\"'",
 -- 
 2.39.5
 
