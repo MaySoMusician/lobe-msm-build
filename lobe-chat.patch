@@ -1,4 +1,4 @@
-From 8e5e35349c3c054c868e7914a4f3e3f773d19901 Mon Sep 17 00:00:00 2001
+From 2c4538fcb24825a52f2f4d2a68564fbe2cb24de4 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 6 Feb 2025 20:34:05 +0000
 Subject: [PATCH 1/9] Load Google Fonts script and IBM Plex Sans JP
@@ -29,7 +29,7 @@ index 2a4b01642..6cf933390 100644
 2.39.5
 
 
-From 94e15ae7b8092ceb751ebb9e5f80f87eae2999cc Mon Sep 17 00:00:00 2001
+From 527b4546382696df933aad06f69c94d5d8b17f85 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 7 Feb 2025 08:18:42 +0000
 Subject: [PATCH 2/9] Force to use en-US as language
@@ -55,7 +55,7 @@ index 9d4fe1ffe..65737fa87 100644
 2.39.5
 
 
-From 84c2858de1f9581b76163fd678e8310ff0789e59 Mon Sep 17 00:00:00 2001
+From 18ed36dc627ccbb03a28f14b8729da72c8d2641b Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 7 Feb 2025 08:28:43 +0000
 Subject: [PATCH 3/9] Show only English and Japanese option for language
@@ -92,7 +92,7 @@ index 3b625746e..b0870dfde 100644
 2.39.5
 
 
-From b1cea7693dbcd86b4f022052a7da470823002f4b Mon Sep 17 00:00:00 2001
+From 01f7548d7deae1f26ab47bc2753ffa94fb06fabc Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 19 May 2025 05:51:10 +0000
 Subject: [PATCH 4/9] Use custom summaryTitle prompt written in English
@@ -132,7 +132,7 @@ index ab11849aa..ca8e16d0b 100644
 2.39.5
 
 
-From 779721220739b9fcc791605d0301212a9ff8aca2 Mon Sep 17 00:00:00 2001
+From 2e50041ee1bb6714da510c964b80360c34acbba6 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Tue, 19 Aug 2025 08:45:11 +0000
 Subject: [PATCH 5/9] Overwrite reasoning.summary to undefined for requests for
@@ -161,7 +161,7 @@ index 8be1c27c4..13c96ea28 100644
 2.39.5
 
 
-From 4b7a39dad6f2e73a51c01f7ac8c1d5fee7395561 Mon Sep 17 00:00:00 2001
+From d7762aeafaef6c459d3e84b1dfb00646a873d325 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 10 Aug 2025 05:03:35 +0000
 Subject: [PATCH 6/9] Disable stream for gpt-5 for unverified organizations
@@ -205,7 +205,7 @@ index 6d5773cf8..848ca579e 100644
 2.39.5
 
 
-From b6f2de053b7ac5e2fd13fffd8c6683239a7914e6 Mon Sep 17 00:00:00 2001
+From e529a2761d51800642d8e5e098cefac1dd45990f Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 10 Aug 2025 05:43:06 +0000
 Subject: [PATCH 7/9] Implement faking response stream
@@ -518,7 +518,7 @@ index 000000000..8247dd243
 2.39.5
 
 
-From 2d1329b717ed44aca73e2dddd7d15fb7e31ad470 Mon Sep 17 00:00:00 2001
+From 9138a3d5102d629456865edfc83ad1fe7c6a65ff Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Tue, 19 Aug 2025 08:34:32 +0000
 Subject: [PATCH 8/9] Re-enable Response API for gpt-5 family
@@ -566,31 +566,15 @@ index 848ca579e..38fa205cd 100644
 2.39.5
 
 
-From 410ec3cb6d900f58d452d3fac6abea7ba2e95d8f Mon Sep 17 00:00:00 2001
+From b594ee571d5457a13350281e633866812baeb67e Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 3 Sep 2025 00:27:04 +0000
 Subject: [PATCH 9/9] More workarounds to avoid build OOM error
 
 ---
- next.config.ts | 4 ++++
- package.json   | 2 +-
- 2 files changed, 5 insertions(+), 1 deletion(-)
+ package.json | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/next.config.ts b/next.config.ts
-index 46f0eb706..99a92aabf 100644
---- a/next.config.ts
-+++ b/next.config.ts
-@@ -276,6 +276,10 @@ const nextConfig: NextConfig = {
-     ignoreBuildErrors: true,
-   },
- 
-+  typescript: {
-+    ignoreBuildErrors: true,
-+  },
-+
-   webpack(config) {
-     config.experiments = {
-       asyncWebAssembly: true,
 diff --git a/package.json b/package.json
 index 10836dd90..dcd131b1a 100644
 --- a/package.json
