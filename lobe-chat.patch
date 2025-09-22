@@ -1,7 +1,7 @@
-From c432b9634bd2e042f22873cb0cea5a6ec5985c06 Mon Sep 17 00:00:00 2001
+From 3c2f16e19736f22c76ec63eb1c9a302daece225a Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 6 Feb 2025 20:34:05 +0000
-Subject: [PATCH 1/9] Load Google Fonts script and IBM Plex Sans JP
+Subject: [PATCH 01/10] Load Google Fonts script and IBM Plex Sans JP
 
 ---
  src/app/[variants]/layout.tsx | 7 +++++++
@@ -29,10 +29,10 @@ index 2a4b01642..6cf933390 100644
 2.39.5
 
 
-From 5647010c31e5ed47b57e657bc9ccce0848f620d4 Mon Sep 17 00:00:00 2001
+From 6a9847f4c7d27d255bb4e054a9fec5863a8fd3ca Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 7 Feb 2025 08:18:42 +0000
-Subject: [PATCH 2/9] Force to use en-US as language
+Subject: [PATCH 02/10] Force to use en-US as language
 
 ---
  src/utils/locale.ts | 2 +-
@@ -55,10 +55,10 @@ index 9d4fe1ffe..65737fa87 100644
 2.39.5
 
 
-From 54d9285f9b1355f325818b15206e65e512fc5c87 Mon Sep 17 00:00:00 2001
+From 4b20b2d4f425a222cb8eb5cdcafe371ada098d00 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 7 Feb 2025 08:28:43 +0000
-Subject: [PATCH 3/9] Show only English and Japanese option for language
+Subject: [PATCH 03/10] Show only English and Japanese option for language
  options in global menu
 
 ---
@@ -92,10 +92,10 @@ index 3b625746e..b0870dfde 100644
 2.39.5
 
 
-From 27623b41121407d0f9f0fb36219376fb4053c11b Mon Sep 17 00:00:00 2001
+From b8c4554706560fbbe7a711e36701db5f725cdf3f Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 19 May 2025 05:51:10 +0000
-Subject: [PATCH 4/9] Use custom summaryTitle prompt written in English
+Subject: [PATCH 04/10] Use custom summaryTitle prompt written in English
 
 ---
  packages/prompts/src/chains/summaryTitle.ts | 9 ++++++---
@@ -132,21 +132,21 @@ index ab11849aa..ca8e16d0b 100644
 2.39.5
 
 
-From ae75a7878843c5e0ac57683333174c32b758be03 Mon Sep 17 00:00:00 2001
+From e3014594e7a92af0428d5839c978221bd08dddd0 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Tue, 19 Aug 2025 08:45:11 +0000
-Subject: [PATCH 5/9] Overwrite reasoning.summary to undefined for requests for
- openai
+Subject: [PATCH 05/10] Overwrite reasoning.summary to undefined for requests
+ for openai
 
 ---
  packages/model-runtime/src/providers/openai/index.ts | 4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/packages/model-runtime/src/providers/openai/index.ts b/packages/model-runtime/src/providers/openai/index.ts
-index 8be1c27c4..13c96ea28 100644
+index 8db424e2d..0cd10b610 100644
 --- a/packages/model-runtime/src/providers/openai/index.ts
 +++ b/packages/model-runtime/src/providers/openai/index.ts
-@@ -95,8 +95,8 @@ export const LobeOpenAI = createOpenAICompatibleRuntime({
+@@ -96,8 +96,8 @@ export const LobeOpenAI = createOpenAICompatibleRuntime({
            ...rest,
            model,
            reasoning: payload.reasoning
@@ -161,10 +161,10 @@ index 8be1c27c4..13c96ea28 100644
 2.39.5
 
 
-From 18d3a4ef3c911dd30b29dc60295a34444d65049b Mon Sep 17 00:00:00 2001
+From 7270b99c09bc620fe78ec9a0281396baec946d29 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 10 Aug 2025 05:03:35 +0000
-Subject: [PATCH 6/9] Disable stream for gpt-5 for unverified organizations
+Subject: [PATCH 06/10] Disable stream for gpt-5 for unverified organizations
 
 ---
  packages/const/src/models.ts               | 4 ++++
@@ -205,97 +205,152 @@ index 6d5773cf8..848ca579e 100644
 2.39.5
 
 
-From 3963e370bd470f7f8ef38a0aecd00483a43ef349 Mon Sep 17 00:00:00 2001
+From 8e6d6a2e2caa6f2da789e921a86253b6136bcebe Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
-Date: Sun, 10 Aug 2025 05:43:06 +0000
-Subject: [PATCH 7/9] Implement faking response stream
+Date: Tue, 19 Aug 2025 08:34:32 +0000
+Subject: [PATCH 07/10] Re-enable Response API for gpt-5 family
 
 ---
- .../src/core/openaiCompatibleFactory/index.ts |  41 ++--
- .../openaiCompatibleFactory/transform2.ts     | 220 ++++++++++++++++++
- 2 files changed, 248 insertions(+), 13 deletions(-)
- create mode 100644 packages/model-runtime/src/core/openaiCompatibleFactory/transform2.ts
+ packages/const/src/models.ts               | 6 ++++++
+ packages/model-runtime/src/const/models.ts | 6 ++++++
+ 2 files changed, 12 insertions(+)
+
+diff --git a/packages/const/src/models.ts b/packages/const/src/models.ts
+index 848ca579e..38fa205cd 100644
+--- a/packages/const/src/models.ts
++++ b/packages/const/src/models.ts
+@@ -39,6 +39,12 @@ export const responsesAPIModels = new Set([
+   'codex-mini-latest',
+   'computer-use-preview',
+   'computer-use-preview-2025-03-11',
++  'gpt-5',
++  'gpt-5-2025-08-07',
++  'gpt-5-mini',
++  'gpt-5-mini-2025-08-07',
++  'gpt-5-nano',
++  'gpt-5-nano-2025-08-07',
+ ]);
+ 
+ /**
+diff --git a/packages/model-runtime/src/const/models.ts b/packages/model-runtime/src/const/models.ts
+index 848ca579e..38fa205cd 100644
+--- a/packages/model-runtime/src/const/models.ts
++++ b/packages/model-runtime/src/const/models.ts
+@@ -39,6 +39,12 @@ export const responsesAPIModels = new Set([
+   'codex-mini-latest',
+   'computer-use-preview',
+   'computer-use-preview-2025-03-11',
++  'gpt-5',
++  'gpt-5-2025-08-07',
++  'gpt-5-mini',
++  'gpt-5-mini-2025-08-07',
++  'gpt-5-nano',
++  'gpt-5-nano-2025-08-07',
+ ]);
+ 
+ /**
+-- 
+2.39.5
+
+
+From f7c33d5c48301234b776fb11a4c93cc3dd1cbdc9 Mon Sep 17 00:00:00 2001
+From: MaySoMusician <maysomusician@gmail.com>
+Date: Wed, 3 Sep 2025 00:27:04 +0000
+Subject: [PATCH 08/10] More workarounds to avoid build OOM error
+
+---
+ package.json | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/package.json b/package.json
+index 522f17e02..bfd41e19f 100644
+--- a/package.json
++++ b/package.json
+@@ -35,7 +35,7 @@
+     "build-migrate-db": "bun run db:migrate",
+     "build-sitemap": "tsx ./scripts/buildSitemapIndex/index.ts",
+     "build:analyze": "NODE_OPTIONS=--max-old-space-size=6144 ANALYZE=true next build",
+-    "build:docker": "npm run prebuild && NODE_OPTIONS=--max-old-space-size=6144 DOCKER=true next build && npm run build-sitemap",
++    "build:docker": "npm run prebuild && NODE_OPTIONS=--max-old-space-size=12288 DOCKER=true next build && npm run build-sitemap",
+     "prebuild:electron": "cross-env NEXT_PUBLIC_IS_DESKTOP_APP=1 tsx scripts/prebuild.mts",
+     "build:electron": "cross-env NODE_OPTIONS=--max-old-space-size=6144 NEXT_PUBLIC_IS_DESKTOP_APP=1 NEXT_PUBLIC_SERVICE_MODE=server next build",
+     "clean:node_modules": "bash -lc 'set -e; echo \"Removing all node_modules...\"; rm -rf node_modules; pnpm -r exec rm -rf node_modules; rm -rf apps/desktop/node_modules; echo \"All node_modules removed.\"'",
+-- 
+2.39.5
+
+
+From 8df0ebc621b7432bbbc224e12cee1d73fa3b5974 Mon Sep 17 00:00:00 2001
+From: MaySoMusician <maysomusician@gmail.com>
+Date: Mon, 22 Sep 2025 15:02:20 +0000
+Subject: [PATCH 09/10] Use stream flag value from handled payload
+
+---
+ .../model-runtime/src/core/openaiCompatibleFactory/index.ts     | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts b/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
-index 50a24db49..d291231e9 100644
+index b4afe5d69..85b5d7dd5 100644
 --- a/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
 +++ b/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
-@@ -34,6 +34,7 @@ import { StreamingResponse } from '../../utils/response';
- import { LobeRuntimeAI } from '../BaseAI';
- import { OpenAIResponsesStream, OpenAIStream, OpenAIStreamOptions } from '../streams';
- import { createOpenAICompatibleImage } from './createImage';
-+import { transformNonStreamingResponseToStream } from './transform2';
+@@ -472,7 +472,7 @@ export const createOpenAICompatibleRuntime = <T extends Record<string, any> = an
  
- // the model contains the following keywords is not a chat model, so we should filter them out
- export const CHAT_MODELS_BLOCK_LIST = [
-@@ -536,7 +537,9 @@ export const createOpenAICompatibleRuntime = <T extends Record<string, any> = an
-         input,
-         store: false,
-         tools: tools?.map((tool) => this.convertChatCompletionToolToResponseTool(tool)),
--      } as OpenAI.Responses.ResponseCreateParamsStreaming;
-+      } as
-+        | OpenAI.Responses.ResponseCreateParamsStreaming
-+        | OpenAI.Responses.ResponseCreateParamsNonStreaming;
+       const input = await convertOpenAIResponseInputs(messages as any);
  
-       if (debug?.responses?.()) {
-         console.log('[requestPayload]');
-@@ -548,24 +551,36 @@ export const createOpenAICompatibleRuntime = <T extends Record<string, any> = an
-         signal: options?.signal,
-       });
+-      const isStreaming = payload.stream !== false;
++      const isStreaming = res.stream !== false;
  
--      const [prod, useForDebug] = response.tee();
--
--      if (debug?.responses?.()) {
--        const useForDebugStream =
--          useForDebug instanceof ReadableStream ? useForDebug : useForDebug.toReadableStream();
--
--        debugStream(useForDebugStream).catch(console.error);
--      }
--
-       const streamOptions: OpenAIStreamOptions = {
-         bizErrorTypeTransformer: chatCompletion?.handleStreamBizErrorType,
-         callbacks: options?.callback,
-         provider: this.id,
-       };
+       const postPayload = {
+         ...res,
+-- 
+2.39.5
+
+
+From 8e0d3cc81f4fcf345d3e3a9fe698ff8f8c6fecae Mon Sep 17 00:00:00 2001
+From: MaySoMusician <maysomusician@gmail.com>
+Date: Mon, 22 Sep 2025 15:03:21 +0000
+Subject: [PATCH 10/10] Introduce more detailed non-streaming response
+ converter
+
+e.g. handling url_citations
+---
+ .../nonStreamToStream.ts                      | 244 +++++++++++++++---
+ 1 file changed, 210 insertions(+), 34 deletions(-)
+
+diff --git a/packages/model-runtime/src/core/openaiCompatibleFactory/nonStreamToStream.ts b/packages/model-runtime/src/core/openaiCompatibleFactory/nonStreamToStream.ts
+index 033b9d130..e0f8c7805 100644
+--- a/packages/model-runtime/src/core/openaiCompatibleFactory/nonStreamToStream.ts
++++ b/packages/model-runtime/src/core/openaiCompatibleFactory/nonStreamToStream.ts
+@@ -85,47 +85,223 @@ export const transformResponseToStream = (data: OpenAI.ChatCompletion) =>
+     },
+   });
  
--      return StreamingResponse(OpenAIResponsesStream(prod, { ...streamOptions, inputStartAt }), {
--        headers: options?.headers,
--      });
-+      if ('tee' in response) {
-+        const [prod, useForDebug] = response.tee();
-+
-+        if (debug?.responses?.()) {
-+          const useForDebugStream =
-+            useForDebug instanceof ReadableStream ? useForDebug : useForDebug.toReadableStream();
-+
-+          debugStream(useForDebugStream).catch(console.error);
-+        }
-+
-+        return StreamingResponse(OpenAIResponsesStream(prod, { ...streamOptions, inputStartAt }), {
-+          headers: options?.headers,
-+        });
-+      }
-+
-+      return StreamingResponse(
-+        OpenAIResponsesStream(transformNonStreamingResponseToStream(response), {
-+          ...streamOptions,
-+          inputStartAt,
-+        }),
-+        {
-+          headers: options?.headers,
-+        },
-+      );
-     }
- 
-     private convertChatCompletionToolToResponseTool = (tool: ChatCompletionTool) => {
-diff --git a/packages/model-runtime/src/core/openaiCompatibleFactory/transform2.ts b/packages/model-runtime/src/core/openaiCompatibleFactory/transform2.ts
-new file mode 100644
-index 000000000..8247dd243
---- /dev/null
-+++ b/packages/model-runtime/src/core/openaiCompatibleFactory/transform2.ts
-@@ -0,0 +1,220 @@
-+import OpenAI from 'openai';
-+
+-/**
+- * transform the OpenAI Response API data to stream format for non-streaming responses
+- */
+-export const transformResponseAPIToStream = (data: OpenAI.Responses.Response) =>
+-  new ReadableStream({
+-    start(controller) {
+-      // Check if output exists and is an array
+-      if (data.output && Array.isArray(data.output)) {
+-        data.output.forEach((output) => {
+-          switch (output.type) {
+-            case 'message': {
+-              // Check if content exists and is an array
+-              if (output.content && Array.isArray(output.content)) {
+-                output.content.forEach((content) => {
+-                  switch (content.type) {
+-                    case 'output_text': {
+-                      // Only emit delta if text exists
+-                      if (content.text) {
+-                        controller.enqueue({
+-                          delta: content.text,
+-                          type: 'response.output_text.delta',
+-                        });
+-                      }
+-                      break;
+-                    }
+-                  }
+-                });
 +function convertNonStreamingResponseToStreamEvents(
 +  nonStreamingResponse: OpenAI.Responses.Response,
 +): OpenAI.Responses.ResponseStreamEvent[] {
@@ -398,9 +453,10 @@ index 000000000..8247dd243
 +                    type: 'response.output_text.annotation.added' as any,
 +                  });
 +                }
-+              }
-+            }
-+          }
+               }
+-              break;
+             }
+           }
 +        }
 +
 +        // Finally, send "response.output_item.done".
@@ -415,10 +471,16 @@ index 000000000..8247dd243
 +          output_index: 1, // dummy placeholder
 +          sequence_number: seq++,
 +          type: 'response.output_item.done',
-+        });
+         });
 +        break;
-+      }
-+
+       }
+ 
+-      // Always send response.completed event
+-      controller.enqueue({
+-        response: data,
+-        sequence_number: 999,
+-        type: 'response.completed',
+-      } as OpenAI.Responses.ResponseStreamEvent);
 +      case 'reasoning': {
 +        // For "reasoning" type, send the summary all at once.
 +        // (In transformOpenAIStream, the events go in the order "response.reasoning_summary_part.added" -> "response.reasoning_summary_text.delta" -> done.)
@@ -433,7 +495,7 @@ index 000000000..8247dd243
 +          summary_index: 1, // dummy placeholder
 +          type: 'response.reasoning_summary_part.added',
 +        });
-+
+ 
 +        // If there's a summary array, concatenate it into a single delta.
 +        const entireSummary = Array.isArray(item.summary) ? item.summary.join('\n') : '';
 +        if (entireSummary) {
@@ -502,92 +564,20 @@ index 000000000..8247dd243
 +  return events;
 +}
 +
-+export function transformNonStreamingResponseToStream(data: OpenAI.Responses.Response) {
-+  return new ReadableStream({
++/**
++ * transform the OpenAI Response API data to stream format for non-streaming responses
++ */
++export const transformResponseAPIToStream = (data: OpenAI.Responses.Response) =>
++  new ReadableStream({
 +    start(controller) {
 +      const events = convertNonStreamingResponseToStreamEvents(data);
 +
 +      for (const event of events) {
 +        controller.enqueue(event);
 +      }
-+      controller.close();
-+    },
-+  });
-+}
--- 
-2.39.5
-
-
-From 5b8f73baf4c0401751d39179b299c66b6c949b5a Mon Sep 17 00:00:00 2001
-From: MaySoMusician <maysomusician@gmail.com>
-Date: Tue, 19 Aug 2025 08:34:32 +0000
-Subject: [PATCH 8/9] Re-enable Response API for gpt-5 family
-
----
- packages/const/src/models.ts               | 6 ++++++
- packages/model-runtime/src/const/models.ts | 6 ++++++
- 2 files changed, 12 insertions(+)
-
-diff --git a/packages/const/src/models.ts b/packages/const/src/models.ts
-index 848ca579e..38fa205cd 100644
---- a/packages/const/src/models.ts
-+++ b/packages/const/src/models.ts
-@@ -39,6 +39,12 @@ export const responsesAPIModels = new Set([
-   'codex-mini-latest',
-   'computer-use-preview',
-   'computer-use-preview-2025-03-11',
-+  'gpt-5',
-+  'gpt-5-2025-08-07',
-+  'gpt-5-mini',
-+  'gpt-5-mini-2025-08-07',
-+  'gpt-5-nano',
-+  'gpt-5-nano-2025-08-07',
- ]);
- 
- /**
-diff --git a/packages/model-runtime/src/const/models.ts b/packages/model-runtime/src/const/models.ts
-index 848ca579e..38fa205cd 100644
---- a/packages/model-runtime/src/const/models.ts
-+++ b/packages/model-runtime/src/const/models.ts
-@@ -39,6 +39,12 @@ export const responsesAPIModels = new Set([
-   'codex-mini-latest',
-   'computer-use-preview',
-   'computer-use-preview-2025-03-11',
-+  'gpt-5',
-+  'gpt-5-2025-08-07',
-+  'gpt-5-mini',
-+  'gpt-5-mini-2025-08-07',
-+  'gpt-5-nano',
-+  'gpt-5-nano-2025-08-07',
- ]);
- 
- /**
--- 
-2.39.5
-
-
-From 8752583fb1c4fb03813950722f3fe92251b5e252 Mon Sep 17 00:00:00 2001
-From: MaySoMusician <maysomusician@gmail.com>
-Date: Wed, 3 Sep 2025 00:27:04 +0000
-Subject: [PATCH 9/9] More workarounds to avoid build OOM error
-
----
- package.json | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/package.json b/package.json
-index 4ee1c5d39..c73ca88a0 100644
---- a/package.json
-+++ b/package.json
-@@ -35,7 +35,7 @@
-     "build-migrate-db": "bun run db:migrate",
-     "build-sitemap": "tsx ./scripts/buildSitemapIndex/index.ts",
-     "build:analyze": "NODE_OPTIONS=--max-old-space-size=6144 ANALYZE=true next build",
--    "build:docker": "npm run prebuild && NODE_OPTIONS=--max-old-space-size=6144 DOCKER=true next build && npm run build-sitemap",
-+    "build:docker": "npm run prebuild && NODE_OPTIONS=--max-old-space-size=12288 DOCKER=true next build && npm run build-sitemap",
-     "prebuild:electron": "cross-env NEXT_PUBLIC_IS_DESKTOP_APP=1 tsx scripts/prebuild.mts",
-     "build:electron": "cross-env NODE_OPTIONS=--max-old-space-size=6144 NEXT_PUBLIC_IS_DESKTOP_APP=1 NEXT_PUBLIC_SERVICE_MODE=server next build",
-     "clean:node_modules": "bash -lc 'set -e; echo \"Removing all node_modules...\"; rm -rf node_modules; pnpm -r exec rm -rf node_modules; rm -rf apps/desktop/node_modules; echo \"All node_modules removed.\"'",
+       controller.close();
+     },
+   });
 -- 
 2.39.5
 
