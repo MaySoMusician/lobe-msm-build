@@ -1,4 +1,4 @@
-From 3c2f16e19736f22c76ec63eb1c9a302daece225a Mon Sep 17 00:00:00 2001
+From 6aba954974369a44b38132690845e762a21f3f3e Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 6 Feb 2025 20:34:05 +0000
 Subject: [PATCH 01/10] Load Google Fonts script and IBM Plex Sans JP
@@ -29,7 +29,7 @@ index 2a4b01642..6cf933390 100644
 2.39.5
 
 
-From 6a9847f4c7d27d255bb4e054a9fec5863a8fd3ca Mon Sep 17 00:00:00 2001
+From 3561cdf91364fee5c399f704ca08aac53055467b Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 7 Feb 2025 08:18:42 +0000
 Subject: [PATCH 02/10] Force to use en-US as language
@@ -55,7 +55,7 @@ index 9d4fe1ffe..65737fa87 100644
 2.39.5
 
 
-From 4b20b2d4f425a222cb8eb5cdcafe371ada098d00 Mon Sep 17 00:00:00 2001
+From 08c743751d6f73fcaa1e196b28a93e03ef56bc82 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 7 Feb 2025 08:28:43 +0000
 Subject: [PATCH 03/10] Show only English and Japanese option for language
@@ -92,7 +92,7 @@ index 3b625746e..b0870dfde 100644
 2.39.5
 
 
-From b8c4554706560fbbe7a711e36701db5f725cdf3f Mon Sep 17 00:00:00 2001
+From 52abce24d06c1d7621b93d1e5070591889fda7b7 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 19 May 2025 05:51:10 +0000
 Subject: [PATCH 04/10] Use custom summaryTitle prompt written in English
@@ -132,7 +132,7 @@ index ab11849aa..ca8e16d0b 100644
 2.39.5
 
 
-From e3014594e7a92af0428d5839c978221bd08dddd0 Mon Sep 17 00:00:00 2001
+From 80478b20e46b748cc440b339040f67ecf261de4b Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Tue, 19 Aug 2025 08:45:11 +0000
 Subject: [PATCH 05/10] Overwrite reasoning.summary to undefined for requests
@@ -161,7 +161,7 @@ index 8db424e2d..0cd10b610 100644
 2.39.5
 
 
-From 7270b99c09bc620fe78ec9a0281396baec946d29 Mon Sep 17 00:00:00 2001
+From 35c664189389fd782f1fd7978bcfe83841fb0903 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 10 Aug 2025 05:03:35 +0000
 Subject: [PATCH 06/10] Disable stream for gpt-5 for unverified organizations
@@ -187,7 +187,7 @@ index 6d5773cf8..848ca579e 100644
  
  /**
 diff --git a/packages/model-runtime/src/const/models.ts b/packages/model-runtime/src/const/models.ts
-index 6d5773cf8..848ca579e 100644
+index 374199955..764f68b3f 100644
 --- a/packages/model-runtime/src/const/models.ts
 +++ b/packages/model-runtime/src/const/models.ts
 @@ -18,6 +18,10 @@ export const disableStreamModels = new Set([
@@ -205,7 +205,7 @@ index 6d5773cf8..848ca579e 100644
 2.39.5
 
 
-From 8e6d6a2e2caa6f2da789e921a86253b6136bcebe Mon Sep 17 00:00:00 2001
+From cc074ffbeace4afa21b8d65c8dc84d8a5956a5b2 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Tue, 19 Aug 2025 08:34:32 +0000
 Subject: [PATCH 07/10] Re-enable Response API for gpt-5 family
@@ -233,13 +233,13 @@ index 848ca579e..38fa205cd 100644
  
  /**
 diff --git a/packages/model-runtime/src/const/models.ts b/packages/model-runtime/src/const/models.ts
-index 848ca579e..38fa205cd 100644
+index 764f68b3f..c82cdc957 100644
 --- a/packages/model-runtime/src/const/models.ts
 +++ b/packages/model-runtime/src/const/models.ts
-@@ -39,6 +39,12 @@ export const responsesAPIModels = new Set([
-   'codex-mini-latest',
+@@ -40,6 +40,12 @@ export const responsesAPIModels = new Set([
    'computer-use-preview',
    'computer-use-preview-2025-03-11',
+   'gpt-5-codex',
 +  'gpt-5',
 +  'gpt-5-2025-08-07',
 +  'gpt-5-mini',
@@ -253,7 +253,7 @@ index 848ca579e..38fa205cd 100644
 2.39.5
 
 
-From f7c33d5c48301234b776fb11a4c93cc3dd1cbdc9 Mon Sep 17 00:00:00 2001
+From c8332d9c3a78fe5a440c89b61c5df4f1556a284e Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 3 Sep 2025 00:27:04 +0000
 Subject: [PATCH 08/10] More workarounds to avoid build OOM error
@@ -263,7 +263,7 @@ Subject: [PATCH 08/10] More workarounds to avoid build OOM error
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/package.json b/package.json
-index 522f17e02..bfd41e19f 100644
+index 0faa9d3e7..feaa5663c 100644
 --- a/package.json
 +++ b/package.json
 @@ -35,7 +35,7 @@
@@ -279,7 +279,7 @@ index 522f17e02..bfd41e19f 100644
 2.39.5
 
 
-From 8df0ebc621b7432bbbc224e12cee1d73fa3b5974 Mon Sep 17 00:00:00 2001
+From 39e95d304bd428d405f47c130f47ab7cd11e7ea6 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 22 Sep 2025 15:02:20 +0000
 Subject: [PATCH 09/10] Use stream flag value from handled payload
@@ -289,10 +289,10 @@ Subject: [PATCH 09/10] Use stream flag value from handled payload
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts b/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
-index b4afe5d69..85b5d7dd5 100644
+index 23241d13d..479864286 100644
 --- a/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
 +++ b/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
-@@ -472,7 +472,7 @@ export const createOpenAICompatibleRuntime = <T extends Record<string, any> = an
+@@ -550,7 +550,7 @@ export const createOpenAICompatibleRuntime = <T extends Record<string, any> = an
  
        const input = await convertOpenAIResponseInputs(messages as any);
  
@@ -305,7 +305,7 @@ index b4afe5d69..85b5d7dd5 100644
 2.39.5
 
 
-From 8e0d3cc81f4fcf345d3e3a9fe698ff8f8c6fecae Mon Sep 17 00:00:00 2001
+From c16cdd790a54c3050d011df7ed0235f8e52885a8 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 22 Sep 2025 15:03:21 +0000
 Subject: [PATCH 10/10] Introduce more detailed non-streaming response
