@@ -1,7 +1,7 @@
-From 6aba954974369a44b38132690845e762a21f3f3e Mon Sep 17 00:00:00 2001
+From 87225da8263ff4ef6593a97bc6027fab8d4045d2 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 6 Feb 2025 20:34:05 +0000
-Subject: [PATCH 01/10] Load Google Fonts script and IBM Plex Sans JP
+Subject: [PATCH 1/9] Load Google Fonts script and IBM Plex Sans JP
 
 ---
  src/app/[variants]/layout.tsx | 7 +++++++
@@ -29,10 +29,10 @@ index 2a4b01642..6cf933390 100644
 2.39.5
 
 
-From 3561cdf91364fee5c399f704ca08aac53055467b Mon Sep 17 00:00:00 2001
+From abc672285dbe2b788b34bc9ec300ab2177a4d08a Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 7 Feb 2025 08:18:42 +0000
-Subject: [PATCH 02/10] Force to use en-US as language
+Subject: [PATCH 2/9] Force to use en-US as language
 
 ---
  src/utils/locale.ts | 2 +-
@@ -55,10 +55,10 @@ index 9d4fe1ffe..65737fa87 100644
 2.39.5
 
 
-From 08c743751d6f73fcaa1e196b28a93e03ef56bc82 Mon Sep 17 00:00:00 2001
+From 80ca7340a197b82ce48926556db9514c1825b461 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 7 Feb 2025 08:28:43 +0000
-Subject: [PATCH 03/10] Show only English and Japanese option for language
+Subject: [PATCH 3/9] Show only English and Japanese option for language
  options in global menu
 
 ---
@@ -92,51 +92,11 @@ index 3b625746e..b0870dfde 100644
 2.39.5
 
 
-From 52abce24d06c1d7621b93d1e5070591889fda7b7 Mon Sep 17 00:00:00 2001
-From: MaySoMusician <maysomusician@gmail.com>
-Date: Mon, 19 May 2025 05:51:10 +0000
-Subject: [PATCH 04/10] Use custom summaryTitle prompt written in English
-
----
- packages/prompts/src/chains/summaryTitle.ts | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
-
-diff --git a/packages/prompts/src/chains/summaryTitle.ts b/packages/prompts/src/chains/summaryTitle.ts
-index ab11849aa..ca8e16d0b 100644
---- a/packages/prompts/src/chains/summaryTitle.ts
-+++ b/packages/prompts/src/chains/summaryTitle.ts
-@@ -4,16 +4,19 @@ export const chainSummaryTitle = (
-   messages: OpenAIChatMessage[],
-   locale: string,
- ): Partial<ChatStreamPayload> => {
-+  void locale;
-   return {
-     messages: [
-       {
--        content: '你是一名擅长会话的助理，你需要将用户的会话总结为 10 个字以内的标题',
-+        content:
-+          'You are an assistant proficient in conversation. Your task is to summarize the user’s conversation into a short title. Read the conversation and follow `@@@Instructions@@@`.',
-         role: 'system',
-       },
-       {
--        content: `${messages.map((message) => `${message.role}: ${message.content}`).join('\n')}
-+        content: `${messages.map((message) => `[${message.role}]\n${message.content}`).join('\n\n')}
- 
--请总结上述对话为10个字以内的标题，不需要包含标点符号，输出语言语种为：${locale}`,
-+@@@Instructions@@@
-+Please summarize the above conversation as a title in the same language used within it. If the conversation is in a European language (e.g., English), the title should be within around 5 words and omit any punctuation. If the conversation is in a CJK language (e.g., Japanese), the title should be within around 10 characters and also omit any punctuation.`,
-         role: 'user',
-       },
-     ],
--- 
-2.39.5
-
-
-From 80478b20e46b748cc440b339040f67ecf261de4b Mon Sep 17 00:00:00 2001
+From 2c814c3ebe18643bab79dbf011a8733509eca433 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Tue, 19 Aug 2025 08:45:11 +0000
-Subject: [PATCH 05/10] Overwrite reasoning.summary to undefined for requests
- for openai
+Subject: [PATCH 4/9] Overwrite reasoning.summary to undefined for requests for
+ openai
 
 ---
  packages/model-runtime/src/providers/openai/index.ts | 4 ++--
@@ -161,10 +121,10 @@ index 8db424e2d..0cd10b610 100644
 2.39.5
 
 
-From 35c664189389fd782f1fd7978bcfe83841fb0903 Mon Sep 17 00:00:00 2001
+From 4475c88e4e9ffc5fcb1e7fdddfc4d705348a3447 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 10 Aug 2025 05:03:35 +0000
-Subject: [PATCH 06/10] Disable stream for gpt-5 for unverified organizations
+Subject: [PATCH 5/9] Disable stream for gpt-5 for unverified organizations
 
 ---
  packages/const/src/models.ts               | 4 ++++
@@ -172,7 +132,7 @@ Subject: [PATCH 06/10] Disable stream for gpt-5 for unverified organizations
  2 files changed, 8 insertions(+)
 
 diff --git a/packages/const/src/models.ts b/packages/const/src/models.ts
-index 6d5773cf8..848ca579e 100644
+index 3ba32f47e..178a07559 100644
 --- a/packages/const/src/models.ts
 +++ b/packages/const/src/models.ts
 @@ -18,6 +18,10 @@ export const disableStreamModels = new Set([
@@ -205,10 +165,10 @@ index 374199955..764f68b3f 100644
 2.39.5
 
 
-From cc074ffbeace4afa21b8d65c8dc84d8a5956a5b2 Mon Sep 17 00:00:00 2001
+From 83164322739d6b049384186a2ff81d23036779bc Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Tue, 19 Aug 2025 08:34:32 +0000
-Subject: [PATCH 07/10] Re-enable Response API for gpt-5 family
+Subject: [PATCH 6/9] Re-enable Response API for gpt-5 family
 
 ---
  packages/const/src/models.ts               | 6 ++++++
@@ -216,7 +176,7 @@ Subject: [PATCH 07/10] Re-enable Response API for gpt-5 family
  2 files changed, 12 insertions(+)
 
 diff --git a/packages/const/src/models.ts b/packages/const/src/models.ts
-index 848ca579e..38fa205cd 100644
+index 178a07559..8168345d6 100644
 --- a/packages/const/src/models.ts
 +++ b/packages/const/src/models.ts
 @@ -39,6 +39,12 @@ export const responsesAPIModels = new Set([
@@ -253,17 +213,17 @@ index 764f68b3f..c82cdc957 100644
 2.39.5
 
 
-From c8332d9c3a78fe5a440c89b61c5df4f1556a284e Mon Sep 17 00:00:00 2001
+From 8eee6b450f3cfed47796f10e96b6f09f6fefeff7 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 3 Sep 2025 00:27:04 +0000
-Subject: [PATCH 08/10] More workarounds to avoid build OOM error
+Subject: [PATCH 7/9] More workarounds to avoid build OOM error
 
 ---
  package.json | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/package.json b/package.json
-index 0faa9d3e7..feaa5663c 100644
+index 887a00563..031af476e 100644
 --- a/package.json
 +++ b/package.json
 @@ -35,7 +35,7 @@
@@ -279,20 +239,20 @@ index 0faa9d3e7..feaa5663c 100644
 2.39.5
 
 
-From 39e95d304bd428d405f47c130f47ab7cd11e7ea6 Mon Sep 17 00:00:00 2001
+From 020a367f2f8a4f4f689e1f0a26c15105908e1c90 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 22 Sep 2025 15:02:20 +0000
-Subject: [PATCH 09/10] Use stream flag value from handled payload
+Subject: [PATCH 8/9] Use stream flag value from handled payload
 
 ---
  .../model-runtime/src/core/openaiCompatibleFactory/index.ts     | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts b/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
-index 23241d13d..479864286 100644
+index 78909b784..ac14687e2 100644
 --- a/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
 +++ b/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
-@@ -550,7 +550,7 @@ export const createOpenAICompatibleRuntime = <T extends Record<string, any> = an
+@@ -561,7 +561,7 @@ export const createOpenAICompatibleRuntime = <T extends Record<string, any> = an
  
        const input = await convertOpenAIResponseInputs(messages as any);
  
@@ -305,11 +265,10 @@ index 23241d13d..479864286 100644
 2.39.5
 
 
-From c16cdd790a54c3050d011df7ed0235f8e52885a8 Mon Sep 17 00:00:00 2001
+From 2f368c825f8b422ab4a650e532d1b94a3ba8dadb Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 22 Sep 2025 15:03:21 +0000
-Subject: [PATCH 10/10] Introduce more detailed non-streaming response
- converter
+Subject: [PATCH 9/9] Introduce more detailed non-streaming response converter
 
 e.g. handling url_citations
 ---
