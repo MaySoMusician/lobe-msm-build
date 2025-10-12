@@ -1,7 +1,7 @@
-From a7afeab82c92c570a5e8e6fd1708607cc70870e2 Mon Sep 17 00:00:00 2001
+From 730e4e6d6514d5aa883c9ef0e80071701cfee5bf Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 6 Feb 2025 20:34:05 +0000
-Subject: [PATCH 1/9] Load Google Fonts script and IBM Plex Sans JP
+Subject: [PATCH 01/10] Load Google Fonts script and IBM Plex Sans JP
 
 ---
  src/app/[variants]/layout.tsx | 7 +++++++
@@ -29,10 +29,10 @@ index 2a4b01642..6cf933390 100644
 2.39.5
 
 
-From 57f76ac6e795ede592b9e7fabc1ff599907256fe Mon Sep 17 00:00:00 2001
+From c4aaec3fd54854a4b4b9a260be6d426d12603f35 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 7 Feb 2025 08:18:42 +0000
-Subject: [PATCH 2/9] Force to use en-US as language
+Subject: [PATCH 02/10] Force to use en-US as language
 
 ---
  src/utils/locale.ts | 2 +-
@@ -55,10 +55,10 @@ index 9d4fe1ffe..65737fa87 100644
 2.39.5
 
 
-From 6adb3e8c03dc441beccbd951a78e4000c0731e07 Mon Sep 17 00:00:00 2001
+From f083b1240d05772f247d25dda693a463a3977f48 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 7 Feb 2025 08:28:43 +0000
-Subject: [PATCH 3/9] Show only English and Japanese option for language
+Subject: [PATCH 03/10] Show only English and Japanese option for language
  options in global menu
 
 ---
@@ -92,18 +92,18 @@ index 3b625746e..b0870dfde 100644
 2.39.5
 
 
-From f7917a98df73f16ac3ce207936352db8d90f06ee Mon Sep 17 00:00:00 2001
+From 789bdcbcd9eba808f130d39ad43f18ddd79923f9 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 8 Oct 2025 14:38:00 +0000
-Subject: [PATCH 4/9] Overwrite reasoning.summary to undefined for requests for
- openai
+Subject: [PATCH 04/10] Overwrite reasoning.summary to undefined for requests
+ for openai
 
 ---
  packages/model-runtime/src/providers/openai/index.ts | 4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/packages/model-runtime/src/providers/openai/index.ts b/packages/model-runtime/src/providers/openai/index.ts
-index b0d03233d..87ea12851 100644
+index 8740b4503..b17482afe 100644
 --- a/packages/model-runtime/src/providers/openai/index.ts
 +++ b/packages/model-runtime/src/providers/openai/index.ts
 @@ -93,8 +93,8 @@ export const LobeOpenAI = createOpenAICompatibleRuntime({
@@ -121,54 +121,10 @@ index b0d03233d..87ea12851 100644
 2.39.5
 
 
-From 6f49dc5d6bb754dbce37a63276d56c5d9c49c963 Mon Sep 17 00:00:00 2001
+From c25a371d8985e4f9447aae799711c7212e2c5f20 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 10 Aug 2025 05:03:35 +0000
-Subject: [PATCH 5/9] Disable stream for gpt-5 for unverified organizations
-
----
- packages/const/src/models.ts               | 4 ++++
- packages/model-runtime/src/const/models.ts | 4 ++++
- 2 files changed, 8 insertions(+)
-
-diff --git a/packages/const/src/models.ts b/packages/const/src/models.ts
-index 3ba32f47e..178a07559 100644
---- a/packages/const/src/models.ts
-+++ b/packages/const/src/models.ts
-@@ -18,6 +18,10 @@ export const disableStreamModels = new Set([
-   */
-   'computer-use-preview',
-   'computer-use-preview-2025-03-11',
-+  'gpt-5',
-+  'gpt-5-2025-08-07',
-+  'gpt-5-mini',
-+  'gpt-5-mini-2025-08-07',
- ]);
- 
- /**
-diff --git a/packages/model-runtime/src/const/models.ts b/packages/model-runtime/src/const/models.ts
-index a681fa860..9dbb2a5f3 100644
---- a/packages/model-runtime/src/const/models.ts
-+++ b/packages/model-runtime/src/const/models.ts
-@@ -18,6 +18,10 @@ export const disableStreamModels = new Set([
-   */
-   'computer-use-preview',
-   'computer-use-preview-2025-03-11',
-+  'gpt-5',
-+  'gpt-5-2025-08-07',
-+  'gpt-5-mini',
-+  'gpt-5-mini-2025-08-07',
- ]);
- 
- /**
--- 
-2.39.5
-
-
-From f61a47db54fc3bdff043d6ef60e354f3e54e7b9e Mon Sep 17 00:00:00 2001
-From: MaySoMusician <maysomusician@gmail.com>
-Date: Tue, 19 Aug 2025 08:34:32 +0000
-Subject: [PATCH 6/9] Re-enable Response API for gpt-5 family
+Subject: [PATCH 05/10] Disable stream for gpt-5 for unverified organizations
 
 ---
  packages/const/src/models.ts               | 6 ++++++
@@ -176,10 +132,58 @@ Subject: [PATCH 6/9] Re-enable Response API for gpt-5 family
  2 files changed, 12 insertions(+)
 
 diff --git a/packages/const/src/models.ts b/packages/const/src/models.ts
-index 178a07559..8168345d6 100644
+index 3ba32f47e..11f6f032c 100644
 --- a/packages/const/src/models.ts
 +++ b/packages/const/src/models.ts
-@@ -39,6 +39,12 @@ export const responsesAPIModels = new Set([
+@@ -18,6 +18,12 @@ export const disableStreamModels = new Set([
+   */
+   'computer-use-preview',
+   'computer-use-preview-2025-03-11',
++  'gpt-5',
++  'gpt-5-2025-08-07',
++  'gpt-5-mini',
++  'gpt-5-mini-2025-08-07',
++  'gpt-5-pro',
++  'gpt-5-pro-2025-10-06',
+ ]);
+ 
+ /**
+diff --git a/packages/model-runtime/src/const/models.ts b/packages/model-runtime/src/const/models.ts
+index a681fa860..4d9d0d53b 100644
+--- a/packages/model-runtime/src/const/models.ts
++++ b/packages/model-runtime/src/const/models.ts
+@@ -18,6 +18,12 @@ export const disableStreamModels = new Set([
+   */
+   'computer-use-preview',
+   'computer-use-preview-2025-03-11',
++  'gpt-5',
++  'gpt-5-2025-08-07',
++  'gpt-5-mini',
++  'gpt-5-mini-2025-08-07',
++  'gpt-5-pro',
++  'gpt-5-pro-2025-10-06',
+ ]);
+ 
+ /**
+-- 
+2.39.5
+
+
+From 06b5cf44a37b680228d943bbeff12919e7658c9a Mon Sep 17 00:00:00 2001
+From: MaySoMusician <maysomusician@gmail.com>
+Date: Tue, 19 Aug 2025 08:34:32 +0000
+Subject: [PATCH 06/10] Re-enable Response API for gpt-5 family
+
+---
+ packages/const/src/models.ts               | 6 ++++++
+ packages/model-runtime/src/const/models.ts | 6 ++++++
+ 2 files changed, 12 insertions(+)
+
+diff --git a/packages/const/src/models.ts b/packages/const/src/models.ts
+index 11f6f032c..808902a00 100644
+--- a/packages/const/src/models.ts
++++ b/packages/const/src/models.ts
+@@ -41,6 +41,12 @@ export const responsesAPIModels = new Set([
    'codex-mini-latest',
    'computer-use-preview',
    'computer-use-preview-2025-03-11',
@@ -193,10 +197,10 @@ index 178a07559..8168345d6 100644
  
  /**
 diff --git a/packages/model-runtime/src/const/models.ts b/packages/model-runtime/src/const/models.ts
-index 9dbb2a5f3..e1e0736cb 100644
+index 4d9d0d53b..b6c4f722a 100644
 --- a/packages/model-runtime/src/const/models.ts
 +++ b/packages/model-runtime/src/const/models.ts
-@@ -40,6 +40,12 @@ export const responsesAPIModels = new Set([
+@@ -42,6 +42,12 @@ export const responsesAPIModels = new Set([
    'computer-use-preview',
    'computer-use-preview-2025-03-11',
    'gpt-5-codex',
@@ -213,17 +217,17 @@ index 9dbb2a5f3..e1e0736cb 100644
 2.39.5
 
 
-From 162196b4410d741734057f9b7b0a2f83d64d578a Mon Sep 17 00:00:00 2001
+From 84281521c8677c445e8e5c200289fa64206aabb4 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 3 Sep 2025 00:27:04 +0000
-Subject: [PATCH 7/9] More workarounds to avoid build OOM error
+Subject: [PATCH 07/10] More workarounds to avoid build OOM error
 
 ---
  package.json | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/package.json b/package.json
-index 58d48fbe2..dc1eb95a1 100644
+index 8bde628a0..7bf5b0061 100644
 --- a/package.json
 +++ b/package.json
 @@ -35,7 +35,7 @@
@@ -239,20 +243,20 @@ index 58d48fbe2..dc1eb95a1 100644
 2.39.5
 
 
-From 4730a88323e5f3b3a0753bd138bc2d807e1c06d3 Mon Sep 17 00:00:00 2001
+From 18c4755cf8a2f97420beb4ca4a37cff024c42e44 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 22 Sep 2025 15:02:20 +0000
-Subject: [PATCH 8/9] Use stream flag value from handled payload
+Subject: [PATCH 08/10] Use stream flag value from handled payload
 
 ---
  .../model-runtime/src/core/openaiCompatibleFactory/index.ts     | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts b/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
-index 78909b784..ac14687e2 100644
+index 234ea8820..d1d7d377c 100644
 --- a/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
 +++ b/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
-@@ -561,7 +561,7 @@ export const createOpenAICompatibleRuntime = <T extends Record<string, any> = an
+@@ -606,7 +606,7 @@ export const createOpenAICompatibleRuntime = <T extends Record<string, any> = an
  
        const input = await convertOpenAIResponseInputs(messages as any);
  
@@ -265,10 +269,11 @@ index 78909b784..ac14687e2 100644
 2.39.5
 
 
-From 72fec51c7e99ab21a5c2ba3e85907e58e4bb0237 Mon Sep 17 00:00:00 2001
+From 800683b813f0a50467261bcfec2bdef2e8230801 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 22 Sep 2025 15:03:21 +0000
-Subject: [PATCH 9/9] Introduce more detailed non-streaming response converter
+Subject: [PATCH 09/10] Introduce more detailed non-streaming response
+ converter
 
 e.g. handling url_citations
 ---
@@ -537,6 +542,32 @@ index 033b9d130..e0f8c7805 100644
        controller.close();
      },
    });
+-- 
+2.39.5
+
+
+From fb2afc82e5733674d713368fbfd2689b0aec2f20 Mon Sep 17 00:00:00 2001
+From: MaySoMusician <maysomusician@gmail.com>
+Date: Sun, 12 Oct 2025 16:37:16 +0000
+Subject: [PATCH 10/10] Use conversation language for summaryTitle
+
+---
+ packages/prompts/src/chains/summaryTitle.ts | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/packages/prompts/src/chains/summaryTitle.ts b/packages/prompts/src/chains/summaryTitle.ts
+index 5c9206bec..669f9f2e9 100644
+--- a/packages/prompts/src/chains/summaryTitle.ts
++++ b/packages/prompts/src/chains/summaryTitle.ts
+@@ -13,7 +13,7 @@ Rules:
+ - Maximum 10 words
+ - Maximum 50 characters
+ - No punctuation marks
+-- Use the language specified by the locale code: ${locale}
++- Use the language mainly used in the conversation. If ambiguous, use "${locale}".
+ - The title should accurately reflect the main topic of the conversation
+ - Keep it short and to the point`,
+       role: 'system',
 -- 
 2.39.5
 
