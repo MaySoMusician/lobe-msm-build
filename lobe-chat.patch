@@ -1,4 +1,4 @@
-From 730e4e6d6514d5aa883c9ef0e80071701cfee5bf Mon Sep 17 00:00:00 2001
+From ff3619ad3d0e37a72ba4ad83a2b6ba6af44bdecf Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 6 Feb 2025 20:34:05 +0000
 Subject: [PATCH 01/10] Load Google Fonts script and IBM Plex Sans JP
@@ -29,7 +29,7 @@ index 2a4b01642..6cf933390 100644
 2.39.5
 
 
-From c4aaec3fd54854a4b4b9a260be6d426d12603f35 Mon Sep 17 00:00:00 2001
+From 613a9ae532a6c7ec44a1c1cbf9165d4b28eef1ff Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 7 Feb 2025 08:18:42 +0000
 Subject: [PATCH 02/10] Force to use en-US as language
@@ -55,7 +55,7 @@ index 9d4fe1ffe..65737fa87 100644
 2.39.5
 
 
-From f083b1240d05772f247d25dda693a463a3977f48 Mon Sep 17 00:00:00 2001
+From 4e85ddf7e4a260a8d2487c4e60dc626d642f4136 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 7 Feb 2025 08:28:43 +0000
 Subject: [PATCH 03/10] Show only English and Japanese option for language
@@ -92,7 +92,7 @@ index 3b625746e..b0870dfde 100644
 2.39.5
 
 
-From 789bdcbcd9eba808f130d39ad43f18ddd79923f9 Mon Sep 17 00:00:00 2001
+From 731d092b672785906fdeb4db2a3fdee46310fc56 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 8 Oct 2025 14:38:00 +0000
 Subject: [PATCH 04/10] Overwrite reasoning.summary to undefined for requests
@@ -103,10 +103,10 @@ Subject: [PATCH 04/10] Overwrite reasoning.summary to undefined for requests
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/packages/model-runtime/src/providers/openai/index.ts b/packages/model-runtime/src/providers/openai/index.ts
-index 8740b4503..b17482afe 100644
+index 328ebaf00..0f17139bd 100644
 --- a/packages/model-runtime/src/providers/openai/index.ts
 +++ b/packages/model-runtime/src/providers/openai/index.ts
-@@ -93,8 +93,8 @@ export const LobeOpenAI = createOpenAICompatibleRuntime({
+@@ -96,8 +96,8 @@ export const params = {
  
        if (prunePrefixes.some((prefix) => model.startsWith(prefix))) {
          const reasoning = payload.reasoning
@@ -121,7 +121,7 @@ index 8740b4503..b17482afe 100644
 2.39.5
 
 
-From c25a371d8985e4f9447aae799711c7212e2c5f20 Mon Sep 17 00:00:00 2001
+From 5345bf03b1b2299651b935aa16bad0b5da19a7ad Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 10 Aug 2025 05:03:35 +0000
 Subject: [PATCH 05/10] Disable stream for gpt-5 for unverified organizations
@@ -132,7 +132,7 @@ Subject: [PATCH 05/10] Disable stream for gpt-5 for unverified organizations
  2 files changed, 12 insertions(+)
 
 diff --git a/packages/const/src/models.ts b/packages/const/src/models.ts
-index 3ba32f47e..11f6f032c 100644
+index 504516a9a..8e449d36a 100644
 --- a/packages/const/src/models.ts
 +++ b/packages/const/src/models.ts
 @@ -18,6 +18,12 @@ export const disableStreamModels = new Set([
@@ -169,7 +169,7 @@ index a681fa860..4d9d0d53b 100644
 2.39.5
 
 
-From 06b5cf44a37b680228d943bbeff12919e7658c9a Mon Sep 17 00:00:00 2001
+From 0a8c7a581da68f7b2ef57334938127b38a9fc6da Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Tue, 19 Aug 2025 08:34:32 +0000
 Subject: [PATCH 06/10] Re-enable Response API for gpt-5 family
@@ -180,7 +180,7 @@ Subject: [PATCH 06/10] Re-enable Response API for gpt-5 family
  2 files changed, 12 insertions(+)
 
 diff --git a/packages/const/src/models.ts b/packages/const/src/models.ts
-index 11f6f032c..808902a00 100644
+index 8e449d36a..f1335a660 100644
 --- a/packages/const/src/models.ts
 +++ b/packages/const/src/models.ts
 @@ -41,6 +41,12 @@ export const responsesAPIModels = new Set([
@@ -217,7 +217,7 @@ index 4d9d0d53b..b6c4f722a 100644
 2.39.5
 
 
-From 84281521c8677c445e8e5c200289fa64206aabb4 Mon Sep 17 00:00:00 2001
+From 2007c14060414afaa05fdfa0c6eb15d644e9a7e9 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 3 Sep 2025 00:27:04 +0000
 Subject: [PATCH 07/10] More workarounds to avoid build OOM error
@@ -227,7 +227,7 @@ Subject: [PATCH 07/10] More workarounds to avoid build OOM error
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/package.json b/package.json
-index 8bde628a0..7bf5b0061 100644
+index cb8fad139..4b2d7a8b2 100644
 --- a/package.json
 +++ b/package.json
 @@ -35,7 +35,7 @@
@@ -243,7 +243,7 @@ index 8bde628a0..7bf5b0061 100644
 2.39.5
 
 
-From 18c4755cf8a2f97420beb4ca4a37cff024c42e44 Mon Sep 17 00:00:00 2001
+From f9549839c93460056095a252f45036da4b034ccc Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 22 Sep 2025 15:02:20 +0000
 Subject: [PATCH 08/10] Use stream flag value from handled payload
@@ -253,23 +253,23 @@ Subject: [PATCH 08/10] Use stream flag value from handled payload
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts b/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
-index 234ea8820..d1d7d377c 100644
+index c76f79cbf..042e3b739 100644
 --- a/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
 +++ b/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
-@@ -606,7 +606,7 @@ export const createOpenAICompatibleRuntime = <T extends Record<string, any> = an
+@@ -750,7 +750,7 @@ export const createOpenAICompatibleRuntime = <T extends Record<string, any> = an
  
        const input = await convertOpenAIResponseInputs(messages as any);
  
 -      const isStreaming = payload.stream !== false;
 +      const isStreaming = res.stream !== false;
- 
-       const postPayload = {
-         ...res,
+       log(
+         'isStreaming: %s, hasTools: %s, hasReasoning: %s',
+         isStreaming,
 -- 
 2.39.5
 
 
-From 800683b813f0a50467261bcfec2bdef2e8230801 Mon Sep 17 00:00:00 2001
+From c972254355b35ed378b6c3537e49b27f7446f59e Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 22 Sep 2025 15:03:21 +0000
 Subject: [PATCH 09/10] Introduce more detailed non-streaming response
@@ -546,7 +546,7 @@ index 033b9d130..e0f8c7805 100644
 2.39.5
 
 
-From fb2afc82e5733674d713368fbfd2689b0aec2f20 Mon Sep 17 00:00:00 2001
+From 02cdaa1f03580958ef232fb7c6bea831cb518f5b Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 12 Oct 2025 16:37:16 +0000
 Subject: [PATCH 10/10] Use conversation language for summaryTitle
@@ -556,10 +556,10 @@ Subject: [PATCH 10/10] Use conversation language for summaryTitle
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/packages/prompts/src/chains/summaryTitle.ts b/packages/prompts/src/chains/summaryTitle.ts
-index 5c9206bec..669f9f2e9 100644
+index 4952beaeb..498dcf587 100644
 --- a/packages/prompts/src/chains/summaryTitle.ts
 +++ b/packages/prompts/src/chains/summaryTitle.ts
-@@ -13,7 +13,7 @@ Rules:
+@@ -14,7 +14,7 @@ Rules:
  - Maximum 10 words
  - Maximum 50 characters
  - No punctuation marks
