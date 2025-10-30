@@ -88,8 +88,10 @@ jobs:
       - name: Clone and check out `lobehub/lobe-chat`
         run: |
           cd ../
-          git clone https://github.com/lobehub/lobe-chat.git
-          cd ./lobe-chat
+          mkdir lobe-chat
+          git init
+          git remote add upstream https://github.com/lobehub/lobe-chat.git
+          git fetch --depth 1 upstream ${{ env.LOBECHAT_LATEST_MAIN }}
           git checkout --detach ${{ env.LOBECHAT_LATEST_MAIN }}
       - uses: pnpm/action-setup@v4
         with:
