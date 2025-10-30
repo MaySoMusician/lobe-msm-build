@@ -32,7 +32,7 @@ jobs:
       - name: Clone and check out `lobehub/lobe-chat`
         run: |
           cd ../
-          git clone https://github.com/lobehub/lobe-chat.git --depth 5
+          git clone https://github.com/lobehub/lobe-chat.git
           cd ./lobe-chat
           git checkout main
       - name: Check latest (main branch) commit hash of Lobe Chat
@@ -63,7 +63,7 @@ jobs:
       - name: Clone and check out `lobehub/lobe-chat`
         run: |
           cd ../
-          git clone https://github.com/lobehub/lobe-chat.git --depth 500
+          git clone https://github.com/lobehub/lobe-chat.git
           cd ./lobe-chat
           git checkout main
       - name: Find relevant commits and tags
