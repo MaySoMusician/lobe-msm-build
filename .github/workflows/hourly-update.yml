@@ -34,13 +34,13 @@ jobs:
           cd ../
           git clone https://github.com/lobehub/lobe-chat.git --depth 5
           cd ./lobe-chat
-          git checkout HEAD
-      - name: Check latest commit hash of Lobe Chat
+          git checkout main
+      - name: Check latest (main branch) commit hash of Lobe Chat
         id: check-updates
         working-directory: ../lobe-chat
         run: |
-          FETCHED_COMMIT=$(git rev-parse HEAD)
-          LAST_COMMIT=$(cat ../lobe-msm-build/lobe-chat-HEAD | tr -d '\n')
+          FETCHED_COMMIT=$(git rev-parse main)
+          LAST_COMMIT=$(cat ../lobe-msm-build/lobe-chat-main | tr -d '\n')
           if [ "$FETCHED_COMMIT" != "$LAST_COMMIT" ]; then
             echo "new_commit=true" >> $GITHUB_OUTPUT
             echo "fetched_commit=$FETCHED_COMMIT" >> $GITHUB_OUTPUT
@@ -65,7 +65,7 @@ jobs:
           cd ../
           git clone https://github.com/lobehub/lobe-chat.git --depth 500
           cd ./lobe-chat
-          git checkout HEAD
+          git checkout main
       - name: Find relevant commits and tags
         id: tags
         working-directory: ../lobe-chat
@@ -81,7 +81,7 @@ jobs:
           COMMITS=$(git log --pretty=format:"%H" "$LAST_COMMIT..$FETCHED_COMMIT" | tr '\n' ' ')
           echo "Commits between: $COMMITS"
 
-          FUTURE_COMMIT=$(git log --pretty=format:"%H" $FETCHED_COMMIT..HEAD --reverse | head -1)
+          FUTURE_COMMIT=$(git log --pretty=format:"%H" $FETCHED_COMMIT..main --reverse | head -1)
           if [ -n "$FUTURE_COMMIT" ]; then
             TAGS=$(git tag --contains "$LAST_COMMIT" --no-contains "$FUTURE_COMMIT")
           else
@@ -137,7 +137,7 @@ jobs:
     secrets: inherit
     with:
       update_run_id: ${{ github.run_id }}
-      new_lobechat_head: ${{ needs.check.outputs.fetched_commit }}
+      new_lobechat_main_commit: ${{ needs.check.outputs.fetched_commit }}
 
   update-commit-hash:
     name: Update commit hash file
@@ -149,8 +149,8 @@ jobs:
       - run: |
           FETCHED_COMMIT=${{ needs.check.outputs.fetched_commit }}
           echo "Updating last known commit to: $FETCHED_COMMIT"
-          echo "$FETCHED_COMMIT" > ./lobe-chat-HEAD
+          echo "$FETCHED_COMMIT" > ./lobe-chat-main
 
           git add .
-          git commit -m "Update lobe-chat-HEAD to: $FETCHED_COMMIT"
+          git commit -m "Update lobe-chat-main to: $FETCHED_COMMIT"
           git push
