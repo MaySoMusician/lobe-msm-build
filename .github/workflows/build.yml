@@ -89,6 +89,7 @@ jobs:
         run: |
           cd ../
           mkdir lobe-chat
+          cd lobe-chat
           git init
           git remote add upstream https://github.com/lobehub/lobe-chat.git
           git fetch --depth 1 upstream ${{ env.LOBECHAT_LATEST_MAIN }}
