@@ -1,14 +1,14 @@
-From 4d13dd252e1925c2e323676f4a30820b4d38b137 Mon Sep 17 00:00:00 2001
+From 1c196da1dde503ef63298c531e97c4439a133017 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 14 Oct 2024 10:15:38 +0000
-Subject: [PATCH 1/4] Change font list for Japanese
+Subject: [PATCH 1/3] Change font list for Japanese
 
 ---
  src/styles/theme/token/base.ts | 6 +++---
  1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/src/styles/theme/token/base.ts b/src/styles/theme/token/base.ts
-index 395f40f..84d2d8a 100644
+index 59d0192..ccc1894 100644
 --- a/src/styles/theme/token/base.ts
 +++ b/src/styles/theme/token/base.ts
 @@ -1,9 +1,9 @@
@@ -23,22 +23,22 @@ index 395f40f..84d2d8a 100644
 +const FONT_CODE = `"Mgen+ 1mn",ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas,Liberation Mono,monospace`;
  
  export const baseToken: Partial<AliasToken> = {
-   borderRadius: 6,
+   borderRadius: 8,
 -- 
 2.39.5
 
 
-From a8286aabd9783f615aade3a8e0843fc852d39837 Mon Sep 17 00:00:00 2001
+From e773e3a456be8322018a75a272c0b3f1c594555f Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 20 Oct 2024 07:28:14 +0000
-Subject: [PATCH 2/4] Remove FONT_CN
+Subject: [PATCH 2/3] Remove FONT_CN
 
 ---
  src/styles/theme/token/base.ts | 5 ++---
  1 file changed, 2 insertions(+), 3 deletions(-)
 
 diff --git a/src/styles/theme/token/base.ts b/src/styles/theme/token/base.ts
-index 84d2d8a..5144719 100644
+index ccc1894..5f20089 100644
 --- a/src/styles/theme/token/base.ts
 +++ b/src/styles/theme/token/base.ts
 @@ -2,7 +2,6 @@ import { AliasToken } from 'antd/es/theme/interface';
@@ -50,7 +50,7 @@ index 84d2d8a..5144719 100644
  
  export const baseToken: Partial<AliasToken> = {
 @@ -11,6 +10,6 @@ export const baseToken: Partial<AliasToken> = {
-   borderRadiusSM: 4,
+   borderRadiusSM: 6,
    borderRadiusXS: 4,
    controlHeight: 36,
 -  fontFamily: [FONT_EN, FONT_CN, FONT_EMOJI].join(','),
@@ -62,10 +62,10 @@ index 84d2d8a..5144719 100644
 2.39.5
 
 
-From 501f4455875a505efa0e83e059f5d6e4eff0bc44 Mon Sep 17 00:00:00 2001
+From 5b55768480a9708f1f76847782bf07253cb9de24 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 28 Oct 2024 15:09:31 +0000
-Subject: [PATCH 3/4] Do not load Chinese fonts
+Subject: [PATCH 3/3] Do not load Chinese fonts
 
 ---
  src/ThemeProvider/ThemeProvider.tsx | 9 ---------
@@ -91,40 +91,6 @@ index 3c95f3c..9362e4c 100644
            genCdnUrl({ path: 'dist/katex.min.css', pkg: 'katex' }),
          ],
        [customFonts, genCdnUrl],
--- 
-2.39.5
-
-
-From 16e13fbd7ef2cdb2df97e65588d9caa1e2fdd136 Mon Sep 17 00:00:00 2001
-From: MaySoMusician <maysomusician@gmail.com>
-Date: Mon, 3 Nov 2025 04:59:57 +0000
-Subject: [PATCH 4/4] Use InputNumberRef instead of HTMLInputElement type
-
----
- src/Input/type.ts | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/src/Input/type.ts b/src/Input/type.ts
-index 62078f9..dc280b1 100644
---- a/src/Input/type.ts
-+++ b/src/Input/type.ts
-@@ -6,6 +6,7 @@ import type {
- import type { OTPProps as AntdOPTProps, OTPRef } from 'antd/es/input/OTP';
- import type { PasswordProps as AntdPasswordProps } from 'antd/es/input/Password';
- import type { TextAreaProps as AntdTextAreaProps, TextAreaRef } from 'antd/es/input/TextArea';
-+import type { InputNumberRef } from 'rc-input-number';
- import type { Ref } from 'react';
- 
- export interface InputProps extends AntdInputProps {
-@@ -20,7 +21,7 @@ export interface TextAreaProps extends AntdTextAreaProps {
- }
- 
- export interface InputNumberProps extends AntdInputNumberProps {
--  ref?: Ref<HTMLInputElement>;
-+  ref?: Ref<InputNumberRef>;
-   shadow?: boolean;
- }
- 
 -- 
 2.39.5
 
