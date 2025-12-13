@@ -1,7 +1,7 @@
-From e5c52417122ceb5e4e377c08b8ef99ce17fc6669 Mon Sep 17 00:00:00 2001
+From 564bea688c2a9732d62208e8609fe07d04b72f9e Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 14 Oct 2024 10:15:38 +0000
-Subject: [PATCH 1/3] Change font list for Japanese
+Subject: [PATCH 1/4] Change font list for Japanese
 
 ---
  src/styles/theme/token/base.ts | 6 +++---
@@ -28,10 +28,10 @@ index 340d7ab..6154cbb 100644
 2.39.5
 
 
-From 486ee45d73b477d9ae4b7e415e13e7098e2f0276 Mon Sep 17 00:00:00 2001
+From 006f1ba947ba46104c52c1e3412a5425e33acb52 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 20 Oct 2024 07:28:14 +0000
-Subject: [PATCH 2/3] Remove FONT_CN
+Subject: [PATCH 2/4] Remove FONT_CN
 
 ---
  src/styles/theme/token/base.ts | 5 ++---
@@ -62,10 +62,10 @@ index 6154cbb..dfeca78 100644
 2.39.5
 
 
-From 22b9c1d1f1838a2b18b686739d6b63895549dbea Mon Sep 17 00:00:00 2001
+From 03f752189fe0bd8cd48ec6385ca21268d08ea524 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 28 Oct 2024 15:09:31 +0000
-Subject: [PATCH 3/3] Do not load Chinese fonts
+Subject: [PATCH 3/4] Do not load Chinese fonts
 
 ---
  src/ThemeProvider/ThemeProvider.tsx | 9 ---------
@@ -91,6 +91,32 @@ index d3f0244..ead6de7 100644
            genCdnUrl({ path: 'dist/katex.min.css', pkg: 'katex' }),
          ],
        [customFonts, genCdnUrl],
+-- 
+2.39.5
+
+
+From a8c727290a91678a73e83993fee3413d9799da22 Mon Sep 17 00:00:00 2001
+From: MaySoMusician <maysomusician@gmail.com>
+Date: Sat, 13 Dec 2025 07:36:47 +0000
+Subject: [PATCH 4/4] Change colorTextSecondary color
+
+---
+ src/styles/theme/generateColorPalette.ts | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/styles/theme/generateColorPalette.ts b/src/styles/theme/generateColorPalette.ts
+index 46898d2..2a4b153 100644
+--- a/src/styles/theme/generateColorPalette.ts
++++ b/src/styles/theme/generateColorPalette.ts
+@@ -53,7 +53,7 @@ export const generateColorNeutralPalette = ({
+     colorFillTertiary: scale[`${appearance}A`][1],
+     colorText: scale[appearance][12],
+     colorTextQuaternary: scale[appearance][6],
+-    colorTextSecondary: scale[appearance][10],
++    colorTextSecondary: scale[appearance][11],
+     colorTextTertiary: scale[appearance][8],
+   };
+ };
 -- 
 2.39.5
 
