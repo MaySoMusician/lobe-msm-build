@@ -1,4 +1,4 @@
-From 3625c9cb8ed87dc4fd33a05e75d18ecde2013392 Mon Sep 17 00:00:00 2001
+From fc01919e90103dddc28b7e6cf77cc64bd3a6fb13 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 6 Feb 2025 20:34:05 +0000
 Subject: [PATCH 01/16] Load Google Fonts script and IBM Plex Sans JP
@@ -29,7 +29,7 @@ index 2a4b01642..6cf933390 100644
 2.39.5
 
 
-From f6e1f099ef4877dc735ee30df41d8737ccd16bdd Mon Sep 17 00:00:00 2001
+From 73d4e4621283bbb2b95058133ff0e2d207131335 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 7 Feb 2025 08:18:42 +0000
 Subject: [PATCH 02/16] Force to use en-US as language
@@ -55,7 +55,7 @@ index 9d4fe1ffe..65737fa87 100644
 2.39.5
 
 
-From adb86916f3ef8e7a6300f3ff1c24c0ad4b9ac09e Mon Sep 17 00:00:00 2001
+From 5edb5ff1a8f31e1891568a6e1159be7d0cfcfd9f Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 7 Feb 2025 08:28:43 +0000
 Subject: [PATCH 03/16] Show only English and Japanese option for language
@@ -92,7 +92,7 @@ index 3b625746e..b0870dfde 100644
 2.39.5
 
 
-From 4918cdef3c9ba86b29dc04948d50cf97bf236aa2 Mon Sep 17 00:00:00 2001
+From 39b47db86fcc689056d2972dffc140b7a5ac8123 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 8 Oct 2025 14:38:00 +0000
 Subject: [PATCH 04/16] Overwrite reasoning.summary to undefined for requests
@@ -121,7 +121,7 @@ index 328ebaf00..0f17139bd 100644
 2.39.5
 
 
-From 1f86bb8f31f37ec635a3aa6b77d953e22c13bf23 Mon Sep 17 00:00:00 2001
+From 033ca977176d41214ac0662ce3954a793e8f5045 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 10 Aug 2025 05:03:35 +0000
 Subject: [PATCH 05/16] Disable stream for gpt-5 for unverified organizations
@@ -169,7 +169,7 @@ index a681fa860..4d9d0d53b 100644
 2.39.5
 
 
-From ff6d34c288700e2fc7dd9e1c33a96ac79ca44fc6 Mon Sep 17 00:00:00 2001
+From 550c859e2f42aed327d04e825d91de24f3f47bc9 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Tue, 19 Aug 2025 08:34:32 +0000
 Subject: [PATCH 06/16] Re-enable Response API for gpt-5 family
@@ -217,7 +217,7 @@ index 4d9d0d53b..b6c4f722a 100644
 2.39.5
 
 
-From b74ebd7ed55556182c2b321b657781643fe00821 Mon Sep 17 00:00:00 2001
+From cd17ea010b79e3161f8a39a0e006a68bb1400c5c Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 3 Sep 2025 00:27:04 +0000
 Subject: [PATCH 07/16] More workarounds to avoid build OOM error
@@ -227,23 +227,23 @@ Subject: [PATCH 07/16] More workarounds to avoid build OOM error
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/package.json b/package.json
-index 43b27b4fb..3d61bc016 100644
+index ffce4c439..71339f07b 100644
 --- a/package.json
 +++ b/package.json
-@@ -36,7 +36,7 @@
-     "build-migrate-db": "bun run db:migrate",
-     "build-sitemap": "tsx ./scripts/buildSitemapIndex/index.ts",
+@@ -34,7 +34,7 @@
+     "build": "cross-env NODE_OPTIONS=--max-old-space-size=6144 next build",
+     "postbuild": "npm run build-sitemap && npm run build-migrate-db",
      "build:analyze": "NODE_OPTIONS=--max-old-space-size=6144 ANALYZE=true next build",
 -    "build:docker": "npm run prebuild && NODE_OPTIONS=--max-old-space-size=6144 DOCKER=true next build && npm run build-sitemap",
 +    "build:docker": "npm run prebuild && NODE_OPTIONS=--max-old-space-size=12288 DOCKER=true next build && npm run build-sitemap",
      "prebuild:electron": "cross-env NEXT_PUBLIC_IS_DESKTOP_APP=1 tsx scripts/prebuild.mts",
      "build:electron": "cross-env NODE_OPTIONS=--max-old-space-size=6144 NEXT_PUBLIC_IS_DESKTOP_APP=1 NEXT_PUBLIC_SERVICE_MODE=server next build",
-     "clean:node_modules": "bash -lc 'set -e; echo \"Removing all node_modules...\"; rm -rf node_modules; pnpm -r exec rm -rf node_modules; rm -rf apps/desktop/node_modules; echo \"All node_modules removed.\"'",
+     "build-migrate-db": "bun run db:migrate",
 -- 
 2.39.5
 
 
-From 18bad5e3947a16a70db6dc6b0dfdf130b7ebbe96 Mon Sep 17 00:00:00 2001
+From 328e5cd396f56214fd1cd8274882399131d77466 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 22 Sep 2025 15:02:20 +0000
 Subject: [PATCH 08/16] Use stream flag value from handled payload
@@ -269,7 +269,7 @@ index c83accd39..64ea8a6b4 100644
 2.39.5
 
 
-From 5ecc3541accc7cc347d99def0a677ae7266246fe Mon Sep 17 00:00:00 2001
+From 2edcb0a103ecf293e6198acc99c280c080a9cf77 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 22 Sep 2025 15:03:21 +0000
 Subject: [PATCH 09/16] Introduce more detailed non-streaming response
@@ -546,7 +546,7 @@ index 033b9d130..e0f8c7805 100644
 2.39.5
 
 
-From 5b2c5a91a76c774cfc2c63b255644866adac07a3 Mon Sep 17 00:00:00 2001
+From 0daa074f7946de21ecb9d9adbc73242d5f5a7364 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 12 Oct 2025 16:37:16 +0000
 Subject: [PATCH 10/16] Use conversation language for summaryTitle
@@ -572,7 +572,7 @@ index 6952d932c..c5abac52a 100644
 2.39.5
 
 
-From 640c4add64258d7d99bfbce7f58617ee84042c23 Mon Sep 17 00:00:00 2001
+From 128cb8ddbe565a9005c28ee7bd824c447aecfa82 Mon Sep 17 00:00:00 2001
 From: sxjeru <sxjeru@gmail.com>
 Date: Fri, 14 Nov 2025 12:53:09 +0800
 Subject: [PATCH 11/16] =?UTF-8?q?=E2=9C=A8=20feat:=20Add=20GPT-5.1=20model?=
@@ -1197,7 +1197,7 @@ index ea9bddd0e..d2b36489d 100644
 2.39.5
 
 
-From 6df2e232c76de419fccb853a999b3ab8552fde77 Mon Sep 17 00:00:00 2001
+From dd52476827a196cac52160d3bd177dc2332e822b Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 14 Nov 2025 15:50:45 +0000
 Subject: [PATCH 12/16] Additional fixes for gpt-5.1
@@ -1256,7 +1256,7 @@ index b6c4f722a..e3a9cf31a 100644
 2.39.5
 
 
-From bf8ef3b6920b95562b572e670a9399b4792b9b62 Mon Sep 17 00:00:00 2001
+From bb9694b9bebf9a34dda14991e099ef3830eb2cdc Mon Sep 17 00:00:00 2001
 From: sxjeru <sxjeru@gmail.com>
 Date: Fri, 12 Dec 2025 23:28:51 +0800
 Subject: [PATCH 13/16] =?UTF-8?q?=F0=9F=92=84=20style:=20Update=20GPT-5.2?=
@@ -1568,7 +1568,7 @@ index df62c9b2d..120d02f00 100644
 2.39.5
 
 
-From 6bf390e017bddcc2be656a9bb360122507514399 Mon Sep 17 00:00:00 2001
+From 2fe741dc885b19eae9b2795572057440a01629f4 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sat, 13 Dec 2025 08:02:45 +0000
 Subject: [PATCH 14/16] Disable streaming & use Responses API for gpt-5.2
@@ -1632,7 +1632,7 @@ index f4023f3b5..4f99d26ad 100644
 2.39.5
 
 
-From 1c591e92af0704ea2ff9a5257104b0a9fad5b841 Mon Sep 17 00:00:00 2001
+From 4b2b020d99aaa69d2d2b1cded79ddf3075d10a9d Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sat, 13 Dec 2025 08:43:22 +0000
 Subject: [PATCH 15/16] Add config and UI for gpt-5.2 reasoning effort
@@ -1825,7 +1825,7 @@ index d2b36489d..2ef424a7d 100644
 2.39.5
 
 
-From 6ef885f2cd0e9d75c7faa03efa23cabc2a595c05 Mon Sep 17 00:00:00 2001
+From 5daf9d5ae8e84ccdfd521459f60ece288fffffd0 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 14 Dec 2025 04:12:53 +0000
 Subject: [PATCH 16/16] Add config and UI for gpt-5.2-pro reasoning effort
