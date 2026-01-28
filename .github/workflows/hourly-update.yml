@@ -99,7 +99,7 @@ jobs:
       - name: Fetch release notes
         if: steps.tags.outputs.tags != ''
         run: |
-          curl -s "https://api.github.com/repos/lobehub/lobe-chat/releases" > releases.json
+          curl -s "https://api.github.com/repositories/643445235/releases" > releases.json
           node -e "
             const fs = require('fs');
             const releases = JSON.parse(fs.readFileSync('releases.json', 'utf-8'));
