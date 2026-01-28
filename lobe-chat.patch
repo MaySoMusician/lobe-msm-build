@@ -1,19 +1,19 @@
-From fc01919e90103dddc28b7e6cf77cc64bd3a6fb13 Mon Sep 17 00:00:00 2001
+From aa8ddcf25bffc42d1158c41207ede5b0fa849393 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 6 Feb 2025 20:34:05 +0000
-Subject: [PATCH 01/16] Load Google Fonts script and IBM Plex Sans JP
+Subject: [PATCH 1/8] Load Google Fonts script and IBM Plex Sans JP
 
 ---
  src/app/[variants]/layout.tsx | 7 +++++++
  1 file changed, 7 insertions(+)
 
 diff --git a/src/app/[variants]/layout.tsx b/src/app/[variants]/layout.tsx
-index 2a4b01642..6cf933390 100644
+index e05f448565..9fca5b2a20 100644
 --- a/src/app/[variants]/layout.tsx
 +++ b/src/app/[variants]/layout.tsx
-@@ -37,6 +37,13 @@ const RootLayout = async ({ children, params, modal }: RootLayoutProps) => {
-           // eslint-disable-next-line @next/next/no-sync-scripts
-           <script crossOrigin="anonymous" src="https://unpkg.com/react-scan/dist/auto.global.js" />
+@@ -55,6 +55,13 @@ const RootLayout = async ({ children, params }: RootLayoutProps) => {
+             strategy={'lazyOnload'}
+           />
          )}
 +        <link href="https://fonts.googleapis.com" rel="preconnect" />
 +        <link crossOrigin="anonymous" href="https://fonts.gstatic.com" rel="preconnect" />
@@ -24,22 +24,22 @@ index 2a4b01642..6cf933390 100644
 +        />
        </head>
        <body>
-         <NuqsAdapter>
+         {ENABLE_BUSINESS_FEATURES ? (
 -- 
 2.39.5
 
 
-From 73d4e4621283bbb2b95058133ff0e2d207131335 Mon Sep 17 00:00:00 2001
+From e884ff65c199c579f1b888fea0c21c4a7e0fb1dd Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 7 Feb 2025 08:18:42 +0000
-Subject: [PATCH 02/16] Force to use en-US as language
+Subject: [PATCH 2/8] Force to use en-US as language
 
 ---
  src/utils/locale.ts | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/src/utils/locale.ts b/src/utils/locale.ts
-index 9d4fe1ffe..65737fa87 100644
+index 6aa68279e4..85f73ae4e9 100644
 --- a/src/utils/locale.ts
 +++ b/src/utils/locale.ts
 @@ -44,7 +44,7 @@ export const parseBrowserLanguage = (headers: Headers, defaultLang: string = DEF
@@ -55,55 +55,83 @@ index 9d4fe1ffe..65737fa87 100644
 2.39.5
 
 
-From 5edb5ff1a8f31e1891568a6e1159be7d0cfcfd9f Mon Sep 17 00:00:00 2001
+From 700d023c857adaf112ea77ba64bbc4acbab804ce Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
-Date: Fri, 7 Feb 2025 08:28:43 +0000
-Subject: [PATCH 03/16] Show only English and Japanese option for language
+Date: Wed, 28 Jan 2026 01:28:48 +0000
+Subject: [PATCH 3/8] Show only English and Japanese option for language
  options in global menu
 
 ---
- src/features/User/UserPanel/LangButton.tsx | 12 +++++++-----
- 1 file changed, 7 insertions(+), 5 deletions(-)
+ src/features/User/UserPanel/LangButton.tsx | 40 ++++++++++++----------
+ 1 file changed, 21 insertions(+), 19 deletions(-)
 
 diff --git a/src/features/User/UserPanel/LangButton.tsx b/src/features/User/UserPanel/LangButton.tsx
-index 3b625746e..b0870dfde 100644
+index 4d714ea3b8..5ba1ae8437 100644
 --- a/src/features/User/UserPanel/LangButton.tsx
 +++ b/src/features/User/UserPanel/LangButton.tsx
-@@ -29,11 +29,13 @@ const LangButton = memo<{ placement?: PopoverProps['placement'] }>(({ placement
-         label: t('settingCommon.lang.autoMode'),
-         onClick: () => handleLangChange('auto'),
-       },
--      ...localeOptions.map((item) => ({
+@@ -44,25 +44,27 @@ const LangButton = memo<{ placement?: DropdownMenuProps['placement']; size?: num
+         type: 'checkbox',
+       };
+ 
+-      const localeItems = localeOptions.map<DropdownMenuCheckboxItem>((item) => ({
+-        checked: language === item.value,
+-        closeOnClick: true,
 -        key: item.value,
--        label: item.label,
--        onClick: () => handleLangChange(item.value),
--      })),
-+      ...localeOptions
+-        label: (
+-          <Flexbox gap={4} key={item.value}>
+-            <Text style={{ lineHeight: 1.2 }}>{item.label}</Text>
+-            <Text fontSize={12} style={{ lineHeight: 1.2 }} type={'secondary'}>
+-              {t(`lang.${item.value}` as any, { ns: 'common' })}
+-            </Text>
+-          </Flexbox>
+-        ),
+-        onCheckedChange: (checked: boolean) => {
+-          if (checked) {
+-            switchLocale(item.value);
+-          }
+-        },
+-        type: 'checkbox',
+-      }));
++      const localeItems = localeOptions
 +        .filter((item) => ['en-US', 'ja-JP'].includes(item.value))
-+        .map((item) => ({
++        .map<DropdownMenuCheckboxItem>((item) => ({
++          checked: language === item.value,
++          closeOnClick: true,
 +          key: item.value,
-+          label: item.label,
-+          onClick: () => handleLangChange(item.value),
-+        })),
-     ],
-     [t],
-   );
++          label: (
++            <Flexbox gap={4} key={item.value}>
++              <Text style={{ lineHeight: 1.2 }}>{item.label}</Text>
++              <Text fontSize={12} style={{ lineHeight: 1.2 }} type={'secondary'}>
++                {t(`lang.${item.value}` as any, { ns: 'common' })}
++              </Text>
++            </Flexbox>
++          ),
++          onCheckedChange: (checked: boolean) => {
++            if (checked) {
++              switchLocale(item.value);
++            }
++          },
++          type: 'checkbox',
++        }));
+ 
+       return [autoItem, ...localeItems];
+     }, [language, switchLocale, t]);
 -- 
 2.39.5
 
 
-From 39b47db86fcc689056d2972dffc140b7a5ac8123 Mon Sep 17 00:00:00 2001
+From 4f241ea6ee898fb02eb446b14ea66f5dc1d99d79 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 8 Oct 2025 14:38:00 +0000
-Subject: [PATCH 04/16] Overwrite reasoning.summary to undefined for requests
- for openai
+Subject: [PATCH 4/8] Overwrite reasoning.summary to undefined for requests for
+ openai
 
 ---
  packages/model-runtime/src/providers/openai/index.ts | 4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/packages/model-runtime/src/providers/openai/index.ts b/packages/model-runtime/src/providers/openai/index.ts
-index 328ebaf00..0f17139bd 100644
+index 0ce3727a95..adde3635d4 100644
 --- a/packages/model-runtime/src/providers/openai/index.ts
 +++ b/packages/model-runtime/src/providers/openai/index.ts
 @@ -96,8 +96,8 @@ export const params = {
@@ -121,21 +149,21 @@ index 328ebaf00..0f17139bd 100644
 2.39.5
 
 
-From 033ca977176d41214ac0662ce3954a793e8f5045 Mon Sep 17 00:00:00 2001
+From 0ed6f509f336a6d677fd318ad86184404630f257 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
-Date: Sun, 10 Aug 2025 05:03:35 +0000
-Subject: [PATCH 05/16] Disable stream for gpt-5 for unverified organizations
+Date: Wed, 28 Jan 2026 01:29:51 +0000
+Subject: [PATCH 5/8] Disable streaming and allow Responses API for gpt-5
+ family
 
 ---
- packages/const/src/models.ts               | 6 ++++++
- packages/model-runtime/src/const/models.ts | 6 ++++++
- 2 files changed, 12 insertions(+)
+ packages/model-runtime/src/const/models.ts | 21 +++++++++++++++++++++
+ 1 file changed, 21 insertions(+)
 
-diff --git a/packages/const/src/models.ts b/packages/const/src/models.ts
-index 504516a9a..8e449d36a 100644
---- a/packages/const/src/models.ts
-+++ b/packages/const/src/models.ts
-@@ -18,6 +18,12 @@ export const disableStreamModels = new Set([
+diff --git a/packages/model-runtime/src/const/models.ts b/packages/model-runtime/src/const/models.ts
+index f5ff8e9a0f..3792d502c9 100644
+--- a/packages/model-runtime/src/const/models.ts
++++ b/packages/model-runtime/src/const/models.ts
+@@ -18,6 +18,18 @@ export const disableStreamModels = new Set([
    */
    'computer-use-preview',
    'computer-use-preview-2025-03-11',
@@ -145,62 +173,16 @@ index 504516a9a..8e449d36a 100644
 +  'gpt-5-mini-2025-08-07',
 +  'gpt-5-pro',
 +  'gpt-5-pro-2025-10-06',
++  'gpt-5.1',
++  'gpt-5.1-2025-11-13',
++  'gpt-5.2-pro-2025-12-11',
++  'gpt-5.2-pro',
++  'gpt-5.2',
++  'gpt-5.2-2025-12-11',
  ]);
  
  /**
-diff --git a/packages/model-runtime/src/const/models.ts b/packages/model-runtime/src/const/models.ts
-index a681fa860..4d9d0d53b 100644
---- a/packages/model-runtime/src/const/models.ts
-+++ b/packages/model-runtime/src/const/models.ts
-@@ -18,6 +18,12 @@ export const disableStreamModels = new Set([
-   */
-   'computer-use-preview',
-   'computer-use-preview-2025-03-11',
-+  'gpt-5',
-+  'gpt-5-2025-08-07',
-+  'gpt-5-mini',
-+  'gpt-5-mini-2025-08-07',
-+  'gpt-5-pro',
-+  'gpt-5-pro-2025-10-06',
- ]);
- 
- /**
--- 
-2.39.5
-
-
-From 550c859e2f42aed327d04e825d91de24f3f47bc9 Mon Sep 17 00:00:00 2001
-From: MaySoMusician <maysomusician@gmail.com>
-Date: Tue, 19 Aug 2025 08:34:32 +0000
-Subject: [PATCH 06/16] Re-enable Response API for gpt-5 family
-
----
- packages/const/src/models.ts               | 6 ++++++
- packages/model-runtime/src/const/models.ts | 6 ++++++
- 2 files changed, 12 insertions(+)
-
-diff --git a/packages/const/src/models.ts b/packages/const/src/models.ts
-index 8e449d36a..f1335a660 100644
---- a/packages/const/src/models.ts
-+++ b/packages/const/src/models.ts
-@@ -41,6 +41,12 @@ export const responsesAPIModels = new Set([
-   'codex-mini-latest',
-   'computer-use-preview',
-   'computer-use-preview-2025-03-11',
-+  'gpt-5',
-+  'gpt-5-2025-08-07',
-+  'gpt-5-mini',
-+  'gpt-5-mini-2025-08-07',
-+  'gpt-5-nano',
-+  'gpt-5-nano-2025-08-07',
- ]);
- 
- /**
-diff --git a/packages/model-runtime/src/const/models.ts b/packages/model-runtime/src/const/models.ts
-index 4d9d0d53b..b6c4f722a 100644
---- a/packages/model-runtime/src/const/models.ts
-+++ b/packages/model-runtime/src/const/models.ts
-@@ -42,6 +42,12 @@ export const responsesAPIModels = new Set([
+@@ -36,13 +48,22 @@ export const responsesAPIModels = new Set([
    'computer-use-preview',
    'computer-use-preview-2025-03-11',
    'gpt-5-codex',
@@ -212,51 +194,35 @@ index 4d9d0d53b..b6c4f722a 100644
 +  'gpt-5-nano-2025-08-07',
    'gpt-5-pro',
    'gpt-5-pro-2025-10-06',
+   'gpt-5.1-codex',
+   'gpt-5.1-codex-mini',
++  'gpt-5.1',
++  'gpt-5.1-2025-11-13',
+   'gpt-5.2',
+   'gpt-5.2-pro-2025-12-11',
+   'gpt-5.2-pro',
++  'gpt-5.2-2025-12-11',
  ]);
+ 
+ /**
 -- 
 2.39.5
 
 
-From cd17ea010b79e3161f8a39a0e006a68bb1400c5c Mon Sep 17 00:00:00 2001
-From: MaySoMusician <maysomusician@gmail.com>
-Date: Wed, 3 Sep 2025 00:27:04 +0000
-Subject: [PATCH 07/16] More workarounds to avoid build OOM error
-
----
- package.json | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/package.json b/package.json
-index ffce4c439..71339f07b 100644
---- a/package.json
-+++ b/package.json
-@@ -34,7 +34,7 @@
-     "build": "cross-env NODE_OPTIONS=--max-old-space-size=6144 next build",
-     "postbuild": "npm run build-sitemap && npm run build-migrate-db",
-     "build:analyze": "NODE_OPTIONS=--max-old-space-size=6144 ANALYZE=true next build",
--    "build:docker": "npm run prebuild && NODE_OPTIONS=--max-old-space-size=6144 DOCKER=true next build && npm run build-sitemap",
-+    "build:docker": "npm run prebuild && NODE_OPTIONS=--max-old-space-size=12288 DOCKER=true next build && npm run build-sitemap",
-     "prebuild:electron": "cross-env NEXT_PUBLIC_IS_DESKTOP_APP=1 tsx scripts/prebuild.mts",
-     "build:electron": "cross-env NODE_OPTIONS=--max-old-space-size=6144 NEXT_PUBLIC_IS_DESKTOP_APP=1 NEXT_PUBLIC_SERVICE_MODE=server next build",
-     "build-migrate-db": "bun run db:migrate",
--- 
-2.39.5
-
-
-From 328e5cd396f56214fd1cd8274882399131d77466 Mon Sep 17 00:00:00 2001
+From d29eab9384e7aa091aa40746b542b3ec4e2a6e07 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 22 Sep 2025 15:02:20 +0000
-Subject: [PATCH 08/16] Use stream flag value from handled payload
+Subject: [PATCH 6/8] Use stream flag value from handled payload
 
 ---
  .../model-runtime/src/core/openaiCompatibleFactory/index.ts     | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts b/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
-index c83accd39..64ea8a6b4 100644
+index 0c5c5547df..3ae0121afe 100644
 --- a/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
 +++ b/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
-@@ -778,7 +778,7 @@ export const createOpenAICompatibleRuntime = <T extends Record<string, any> = an
+@@ -879,7 +879,7 @@ export const createOpenAICompatibleRuntime = <T extends Record<string, any> = an
  
        const input = await convertOpenAIResponseInputs(messages as any);
  
@@ -269,11 +235,10 @@ index c83accd39..64ea8a6b4 100644
 2.39.5
 
 
-From 2edcb0a103ecf293e6198acc99c280c080a9cf77 Mon Sep 17 00:00:00 2001
+From 992a1291d3c411a6b48699471fccae3b91981329 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 22 Sep 2025 15:03:21 +0000
-Subject: [PATCH 09/16] Introduce more detailed non-streaming response
- converter
+Subject: [PATCH 7/8] Introduce more detailed non-streaming response converter
 
 e.g. handling url_citations
 ---
@@ -281,7 +246,7 @@ e.g. handling url_citations
  1 file changed, 210 insertions(+), 34 deletions(-)
 
 diff --git a/packages/model-runtime/src/core/openaiCompatibleFactory/nonStreamToStream.ts b/packages/model-runtime/src/core/openaiCompatibleFactory/nonStreamToStream.ts
-index 033b9d130..e0f8c7805 100644
+index 033b9d1302..e0f8c7805c 100644
 --- a/packages/model-runtime/src/core/openaiCompatibleFactory/nonStreamToStream.ts
 +++ b/packages/model-runtime/src/core/openaiCompatibleFactory/nonStreamToStream.ts
 @@ -85,47 +85,223 @@ export const transformResponseToStream = (data: OpenAI.ChatCompletion) =>
@@ -546,17 +511,17 @@ index 033b9d130..e0f8c7805 100644
 2.39.5
 
 
-From 0daa074f7946de21ecb9d9adbc73242d5f5a7364 Mon Sep 17 00:00:00 2001
+From 3f79a4239c0461fbf5bf68f16d945310404b2ca6 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 12 Oct 2025 16:37:16 +0000
-Subject: [PATCH 10/16] Use conversation language for summaryTitle
+Subject: [PATCH 8/8] Use conversation language for summaryTitle
 
 ---
  packages/prompts/src/chains/summaryTitle.ts | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/packages/prompts/src/chains/summaryTitle.ts b/packages/prompts/src/chains/summaryTitle.ts
-index 6952d932c..c5abac52a 100644
+index 6952d932cb..c5abac52ab 100644
 --- a/packages/prompts/src/chains/summaryTitle.ts
 +++ b/packages/prompts/src/chains/summaryTitle.ts
 @@ -13,7 +13,7 @@ Rules:
@@ -568,1433 +533,6 @@ index 6952d932c..c5abac52a 100644
  - The title should accurately reflect the main topic of the conversation
  - Keep it short and to the point`,
        role: 'system',
--- 
-2.39.5
-
-
-From 128cb8ddbe565a9005c28ee7bd824c447aecfa82 Mon Sep 17 00:00:00 2001
-From: sxjeru <sxjeru@gmail.com>
-Date: Fri, 14 Nov 2025 12:53:09 +0800
-Subject: [PATCH 11/16] =?UTF-8?q?=E2=9C=A8=20feat:=20Add=20GPT-5.1=20model?=
- =?UTF-8?q?s=20(#10206)?=
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-(cherry picked from commit afd3a47e3d5152ab97eb8495c56392502c888b48)
----
- packages/const/src/models.ts                  |   5 +
- packages/model-bank/src/aiModels/aihubmix.ts  | 108 ++++++++++++++++-
- packages/model-bank/src/aiModels/openai.ts    | 110 +++++++++++++++++-
- packages/model-bank/src/aiModels/qwen.ts      |  83 +++++++++++--
- packages/model-bank/src/types/aiModel.ts      |   1 +
- packages/types/src/agent/chatConfig.ts        |   9 ++
- .../ActionBar/Model/ControlsForm.tsx          |  12 ++
- .../Model/GPT51ReasoningEffortSlider.tsx      |  58 +++++++++
- src/services/chat/index.ts                    |   7 ++
- 9 files changed, 381 insertions(+), 12 deletions(-)
- create mode 100644 src/features/ChatInput/ActionBar/Model/GPT51ReasoningEffortSlider.tsx
-
-diff --git a/packages/const/src/models.ts b/packages/const/src/models.ts
-index f1335a660..71231201b 100644
---- a/packages/const/src/models.ts
-+++ b/packages/const/src/models.ts
-@@ -47,6 +47,11 @@ export const responsesAPIModels = new Set([
-   'gpt-5-mini-2025-08-07',
-   'gpt-5-nano',
-   'gpt-5-nano-2025-08-07',
-+  'gpt-5-codex',
-+  'gpt-5-pro',
-+  'gpt-5-pro-2025-10-06',
-+  'gpt-5.1-codex',
-+  'gpt-5.1-codex-mini',
- ]);
- 
- /**
-diff --git a/packages/model-bank/src/aiModels/aihubmix.ts b/packages/model-bank/src/aiModels/aihubmix.ts
-index 9ad5a867b..d42de79fc 100644
---- a/packages/model-bank/src/aiModels/aihubmix.ts
-+++ b/packages/model-bank/src/aiModels/aihubmix.ts
-@@ -1,6 +1,112 @@
- import { AIChatModelCard } from '../types/aiModel';
- 
- const aihubmixModels: AIChatModelCard[] = [
-+  {
-+    abilities: {
-+      functionCall: true,
-+      imageOutput: true,
-+      reasoning: true,
-+      search: true,
-+      vision: true,
-+    },
-+    contextWindowTokens: 400_000,
-+    description:
-+      'GPT-5.1 — 针对编码和 agent 任务优化的旗舰模型，支持可配置的推理强度与更长上下文。',
-+    displayName: 'GPT-5.1',
-+    enabled: true,
-+    id: 'gpt-5.1',
-+    maxOutput: 128_000,
-+    pricing: {
-+      units: [
-+        { name: 'textInput', rate: 1.25, strategy: 'fixed', unit: 'millionTokens' },
-+        { name: 'textInput_cacheRead', rate: 0.125, strategy: 'fixed', unit: 'millionTokens' },
-+        { name: 'textOutput', rate: 10, strategy: 'fixed', unit: 'millionTokens' },
-+      ],
-+    },
-+    releasedAt: '2025-11-13',
-+    settings: {
-+      extendParams: ['gpt5_1ReasoningEffort', 'textVerbosity'],
-+      searchImpl: 'params',
-+    },
-+    type: 'chat',
-+  },
-+  {
-+    abilities: {
-+      functionCall: true,
-+      vision: true,
-+    },
-+    contextWindowTokens: 128_000,
-+    description: 'GPT-5.1 Chat：用于 ChatGPT 的 GPT-5.1 变体，适合聊天场景。',
-+    displayName: 'GPT-5.1 Chat',
-+    enabled: true,
-+    id: 'gpt-5.1-chat-latest',
-+    maxOutput: 16_384,
-+    pricing: {
-+      units: [
-+        { name: 'textInput', rate: 1.25, strategy: 'fixed', unit: 'millionTokens' },
-+        { name: 'textInput_cacheRead', rate: 0.125, strategy: 'fixed', unit: 'millionTokens' },
-+        { name: 'textOutput', rate: 10, strategy: 'fixed', unit: 'millionTokens' },
-+      ],
-+    },
-+    releasedAt: '2025-11-13',
-+    type: 'chat',
-+  },
-+  {
-+    abilities: {
-+      functionCall: true,
-+      imageOutput: true,
-+      reasoning: true,
-+      search: true,
-+      vision: true,
-+    },
-+    contextWindowTokens: 400_000,
-+    description:
-+      'GPT-5.1 Codex：针对 agentic 编码任务优化的 GPT-5.1 版本，可在 Responses API 中用于更复杂的代码/代理工作流。',
-+    displayName: 'GPT-5.1 Codex',
-+    id: 'gpt-5.1-codex',
-+    maxOutput: 128_000,
-+    pricing: {
-+      units: [
-+        { name: 'textInput', rate: 1.25, strategy: 'fixed', unit: 'millionTokens' },
-+        { name: 'textInput_cacheRead', rate: 0.125, strategy: 'fixed', unit: 'millionTokens' },
-+        { name: 'textOutput', rate: 10, strategy: 'fixed', unit: 'millionTokens' },
-+      ],
-+    },
-+    releasedAt: '2025-11-13',
-+    settings: {
-+      extendParams: ['gpt5_1ReasoningEffort'],
-+      searchImpl: 'params',
-+    },
-+    type: 'chat',
-+  },
-+  {
-+    abilities: {
-+      functionCall: true,
-+      imageOutput: true,
-+      reasoning: true,
-+      search: true,
-+      vision: true,
-+    },
-+    contextWindowTokens: 400_000,
-+    description:
-+      'GPT-5.1 Codex mini：体积更小、成本更低的 Codex 变体，针对 agentic 编码任务进行了优化。',
-+    displayName: 'GPT-5.1 Codex mini',
-+    id: 'gpt-5.1-codex-mini',
-+    maxOutput: 128_000,
-+    pricing: {
-+      units: [
-+        { name: 'textInput', rate: 0.25, strategy: 'fixed', unit: 'millionTokens' },
-+        { name: 'textInput_cacheRead', rate: 0.025, strategy: 'fixed', unit: 'millionTokens' },
-+        { name: 'textOutput', rate: 2, strategy: 'fixed', unit: 'millionTokens' },
-+      ],
-+    },
-+    releasedAt: '2025-11-13',
-+    settings: {
-+      extendParams: ['gpt5_1ReasoningEffort'],
-+      searchImpl: 'params',
-+    },
-+    type: 'chat',
-+  },
-   {
-     abilities: {
-       functionCall: true,
-@@ -64,7 +170,6 @@ const aihubmixModels: AIChatModelCard[] = [
-     description:
-       '跨领域编码和代理任务的最佳模型。GPT-5 在准确性、速度、推理、上下文识别、结构化思维和问题解决方面实现了飞跃。',
-     displayName: 'GPT-5',
--    enabled: true,
-     id: 'gpt-5',
-     maxOutput: 128_000,
-     pricing: {
-@@ -144,7 +249,6 @@ const aihubmixModels: AIChatModelCard[] = [
-     description:
-       'ChatGPT 中使用的 GPT-5 模型。结合了强大的语言理解与生成能力，适合对话式交互应用。',
-     displayName: 'GPT-5 Chat',
--    enabled: true,
-     id: 'gpt-5-chat-latest',
-     maxOutput: 128_000,
-     pricing: {
-diff --git a/packages/model-bank/src/aiModels/openai.ts b/packages/model-bank/src/aiModels/openai.ts
-index 4ae5798a5..24a3608b0 100644
---- a/packages/model-bank/src/aiModels/openai.ts
-+++ b/packages/model-bank/src/aiModels/openai.ts
-@@ -18,6 +18,112 @@ export const gptImage1ParamsSchema: ModelParamsSchema = {
- };
- 
- export const openaiChatModels: AIChatModelCard[] = [
-+  {
-+    abilities: {
-+      functionCall: true,
-+      imageOutput: true,
-+      reasoning: true,
-+      search: true,
-+      vision: true,
-+    },
-+    contextWindowTokens: 400_000,
-+    description:
-+      'GPT-5.1 — 针对编码和 agent 任务优化的旗舰模型，支持可配置的推理强度与更长上下文。',
-+    displayName: 'GPT-5.1',
-+    enabled: true,
-+    id: 'gpt-5.1',
-+    maxOutput: 128_000,
-+    pricing: {
-+      units: [
-+        { name: 'textInput', rate: 1.25, strategy: 'fixed', unit: 'millionTokens' },
-+        { name: 'textInput_cacheRead', rate: 0.125, strategy: 'fixed', unit: 'millionTokens' },
-+        { name: 'textOutput', rate: 10, strategy: 'fixed', unit: 'millionTokens' },
-+      ],
-+    },
-+    releasedAt: '2025-11-13',
-+    settings: {
-+      extendParams: ['gpt5_1ReasoningEffort', 'textVerbosity'],
-+      searchImpl: 'params',
-+    },
-+    type: 'chat',
-+  },
-+  {
-+    abilities: {
-+      functionCall: true,
-+      vision: true,
-+    },
-+    contextWindowTokens: 128_000,
-+    description: 'GPT-5.1 Chat：用于 ChatGPT 的 GPT-5.1 变体，适合聊天场景。',
-+    displayName: 'GPT-5.1 Chat',
-+    enabled: true,
-+    id: 'gpt-5.1-chat-latest',
-+    maxOutput: 16_384,
-+    pricing: {
-+      units: [
-+        { name: 'textInput', rate: 1.25, strategy: 'fixed', unit: 'millionTokens' },
-+        { name: 'textInput_cacheRead', rate: 0.125, strategy: 'fixed', unit: 'millionTokens' },
-+        { name: 'textOutput', rate: 10, strategy: 'fixed', unit: 'millionTokens' },
-+      ],
-+    },
-+    releasedAt: '2025-11-13',
-+    type: 'chat',
-+  },
-+  {
-+    abilities: {
-+      functionCall: true,
-+      imageOutput: true,
-+      reasoning: true,
-+      search: true,
-+      vision: true,
-+    },
-+    contextWindowTokens: 400_000,
-+    description:
-+      'GPT-5.1 Codex：针对 agentic 编码任务优化的 GPT-5.1 版本，可在 Responses API 中用于更复杂的代码/代理工作流。',
-+    displayName: 'GPT-5.1 Codex',
-+    id: 'gpt-5.1-codex',
-+    maxOutput: 128_000,
-+    pricing: {
-+      units: [
-+        { name: 'textInput', rate: 1.25, strategy: 'fixed', unit: 'millionTokens' },
-+        { name: 'textInput_cacheRead', rate: 0.125, strategy: 'fixed', unit: 'millionTokens' },
-+        { name: 'textOutput', rate: 10, strategy: 'fixed', unit: 'millionTokens' },
-+      ],
-+    },
-+    releasedAt: '2025-11-13',
-+    settings: {
-+      extendParams: ['gpt5_1ReasoningEffort'],
-+      searchImpl: 'params',
-+    },
-+    type: 'chat',
-+  },
-+  {
-+    abilities: {
-+      functionCall: true,
-+      imageOutput: true,
-+      reasoning: true,
-+      search: true,
-+      vision: true,
-+    },
-+    contextWindowTokens: 400_000,
-+    description:
-+      'GPT-5.1 Codex mini：体积更小、成本更低的 Codex 变体，针对 agentic 编码任务进行了优化。',
-+    displayName: 'GPT-5.1 Codex mini',
-+    id: 'gpt-5.1-codex-mini',
-+    maxOutput: 128_000,
-+    pricing: {
-+      units: [
-+        { name: 'textInput', rate: 0.25, strategy: 'fixed', unit: 'millionTokens' },
-+        { name: 'textInput_cacheRead', rate: 0.025, strategy: 'fixed', unit: 'millionTokens' },
-+        { name: 'textOutput', rate: 2, strategy: 'fixed', unit: 'millionTokens' },
-+      ],
-+    },
-+    releasedAt: '2025-11-13',
-+    settings: {
-+      extendParams: ['gpt5_1ReasoningEffort'],
-+      searchImpl: 'params',
-+    },
-+    type: 'chat',
-+  },
-   {
-     abilities: {
-       functionCall: true,
-@@ -64,7 +170,7 @@ export const openaiChatModels: AIChatModelCard[] = [
-     },
-     releasedAt: '2024-09-15',
-     settings: {
--      extendParams: ['gpt5ReasoningEffort', 'textVerbosity'],
-+      extendParams: ['gpt5ReasoningEffort'],
-       searchImpl: 'params',
-     },
-     type: 'chat',
-@@ -81,7 +187,6 @@ export const openaiChatModels: AIChatModelCard[] = [
-     description:
-       '跨领域编码和代理任务的最佳模型。GPT-5 在准确性、速度、推理、上下文识别、结构化思维和问题解决方面实现了飞跃。',
-     displayName: 'GPT-5',
--    enabled: true,
-     id: 'gpt-5',
-     maxOutput: 128_000,
-     pricing: {
-@@ -159,7 +264,6 @@ export const openaiChatModels: AIChatModelCard[] = [
-     description:
-       'ChatGPT 中使用的 GPT-5 模型。结合了强大的语言理解与生成能力，适合对话式交互应用。',
-     displayName: 'GPT-5 Chat',
--    enabled: true,
-     id: 'gpt-5-chat-latest',
-     maxOutput: 128_000,
-     pricing: {
-diff --git a/packages/model-bank/src/aiModels/qwen.ts b/packages/model-bank/src/aiModels/qwen.ts
-index 5e2de2056..65c69a826 100644
---- a/packages/model-bank/src/aiModels/qwen.ts
-+++ b/packages/model-bank/src/aiModels/qwen.ts
-@@ -1016,6 +1016,71 @@ const qwenChatModels: AIChatModelCard[] = [
-     id: 'qwen3-max',
-     maxOutput: 65_536,
-     organization: 'Qwen',
-+    pricing: {
-+      currency: 'CNY',
-+      units: [
-+        {
-+          lookup: {
-+            prices: {
-+              '[0, 0.032]': 3.2 * 0.2,
-+              '[0.032, 0.128]': 6.4 * 0.2,
-+              '[0.128, infinity]': 9.6 * 0.2,
-+            },
-+            pricingParams: ['textInputRange'],
-+          },
-+          name: 'textInput_cacheRead',
-+          strategy: 'lookup',
-+          unit: 'millionTokens',
-+        },
-+        {
-+          lookup: {
-+            prices: {
-+              '[0, 0.032]': 3.2,
-+              '[0.032, 0.128]': 6.4,
-+              '[0.128, infinity]': 9.6,
-+            },
-+            pricingParams: ['textInputRange'],
-+          },
-+          name: 'textInput',
-+          strategy: 'lookup',
-+          unit: 'millionTokens',
-+        },
-+        {
-+          lookup: {
-+            prices: {
-+              '[0, 0.032]': 12.8,
-+              '[0.032, 0.128]': 25.6,
-+              '[0.128, infinity]': 38.4,
-+            },
-+            pricingParams: ['textInputRange'],
-+          },
-+          name: 'textOutput',
-+          strategy: 'lookup',
-+          unit: 'millionTokens',
-+        },
-+      ],
-+    },
-+    releasedAt: '2025-09-23',
-+    settings: {
-+      searchImpl: 'params',
-+    },
-+    type: 'chat',
-+  },
-+  {
-+    abilities: {
-+      functionCall: true,
-+      reasoning: true,
-+      search: true,
-+    },
-+    config: {
-+      deploymentName: 'qwen3-max-preview', // 其支持上下文缓存
-+    },
-+    contextWindowTokens: 262_144,
-+    description: '通义千问系列效果最好的模型，适合复杂、多步骤的任务。预览版已支持思考。',
-+    displayName: 'Qwen3 Max Preview',
-+    id: 'qwen3-max-preview',
-+    maxOutput: 65_536,
-+    organization: 'Qwen',
-     pricing: {
-       currency: 'CNY',
-       units: [
-@@ -1060,8 +1125,9 @@ const qwenChatModels: AIChatModelCard[] = [
-         },
-       ],
-     },
--    releasedAt: '2025-09-23',
-+    releasedAt: '2025-10-30',
-     settings: {
-+      extendParams: ['enableReasoning', 'reasoningBudgetToken'],
-       searchImpl: 'params',
-     },
-     type: 'chat',
-@@ -1260,8 +1326,8 @@ const qwenChatModels: AIChatModelCard[] = [
-   },
-   {
-     abilities: {
--      vision: true,
-       reasoning: true,
-+      vision: true,
-     },
-     contextWindowTokens: 131_072,
-     description:
-@@ -1287,7 +1353,8 @@ const qwenChatModels: AIChatModelCard[] = [
-       vision: true,
-     },
-     contextWindowTokens: 131_072,
--    description: 'Qwen3 VL 30B 非思考模式（Instruct），面向普通指令跟随场景，保持较高的多模态理解与生成能力。',
-+    description:
-+      'Qwen3 VL 30B 非思考模式（Instruct），面向普通指令跟随场景，保持较高的多模态理解与生成能力。',
-     displayName: 'Qwen3 VL 30B A3B Instruct',
-     id: 'qwen3-vl-30b-a3b-instruct',
-     maxOutput: 32_768,
-@@ -1303,8 +1370,8 @@ const qwenChatModels: AIChatModelCard[] = [
-   },
-   {
-     abilities: {
--      vision: true,
-       reasoning: true,
-+      vision: true,
-     },
-     contextWindowTokens: 131_072,
-     description: 'Qwen3 VL 8B 思考模式，面向轻量级多模态推理与交互场景，保留长上下文理解能力。',
-@@ -1342,11 +1409,12 @@ const qwenChatModels: AIChatModelCard[] = [
-   },
-   {
-     abilities: {
--      vision: true,
-       reasoning: true,
-+      vision: true,
-     },
-     contextWindowTokens: 131_072,
--    description: 'Qwen3 VL 235B A22B 思考模式（开源版），针对高难度强推理与长视频理解场景，提供顶尖的视觉+文本推理能力。',
-+    description:
-+      'Qwen3 VL 235B A22B 思考模式（开源版），针对高难度强推理与长视频理解场景，提供顶尖的视觉+文本推理能力。',
-     displayName: 'Qwen3 VL 235B A22B Thinking',
-     id: 'qwen3-vl-235b-a22b-thinking',
-     maxOutput: 32_768,
-@@ -1368,7 +1436,8 @@ const qwenChatModels: AIChatModelCard[] = [
-       vision: true,
-     },
-     contextWindowTokens: 131_072,
--    description: 'Qwen3 VL 235B A22B 非思考模式（Instruct），适用于非思考指令场景，保持强大的视觉理解能力。',
-+    description:
-+      'Qwen3 VL 235B A22B 非思考模式（Instruct），适用于非思考指令场景，保持强大的视觉理解能力。',
-     displayName: 'Qwen3 VL 235B A22B Instruct',
-     id: 'qwen3-vl-235b-a22b-instruct',
-     maxOutput: 32_768,
-diff --git a/packages/model-bank/src/types/aiModel.ts b/packages/model-bank/src/types/aiModel.ts
-index 592ac79b4..0b7bfdfc0 100644
---- a/packages/model-bank/src/types/aiModel.ts
-+++ b/packages/model-bank/src/types/aiModel.ts
-@@ -234,6 +234,7 @@ export type ExtendParamsType =
-   | 'disableContextCaching'
-   | 'reasoningEffort'
-   | 'gpt5ReasoningEffort'
-+  | 'gpt5_1ReasoningEffort'
-   | 'textVerbosity'
-   | 'thinking'
-   | 'thinkingBudget'
-diff --git a/packages/types/src/agent/chatConfig.ts b/packages/types/src/agent/chatConfig.ts
-index 340b31751..2286e7364 100644
---- a/packages/types/src/agent/chatConfig.ts
-+++ b/packages/types/src/agent/chatConfig.ts
-@@ -32,6 +32,7 @@ export interface LobeAgentChatConfig {
-   reasoningBudgetToken?: number;
-   reasoningEffort?: 'low' | 'medium' | 'high';
-   gpt5ReasoningEffort?: 'minimal' | 'low' | 'medium' | 'high';
-+  gpt5_1ReasoningEffort?: 'none' | 'low' | 'medium' | 'high';
-   /**
-    * 输出文本详细程度控制
-    */
-@@ -66,6 +67,7 @@ export interface LobeAgentChatConfig {
- 
- export const AgentChatConfigSchema = z.object({
-   autoCreateTopicThreshold: z.number().default(2),
-+  disableContextCaching: z.boolean().optional(),
-   displayMode: z.enum(['chat', 'docs']).optional(),
-   enableAutoCreateTopic: z.boolean().optional(),
-   enableCompressHistory: z.boolean().optional(),
-@@ -74,8 +76,11 @@ export const AgentChatConfigSchema = z.object({
-   enableReasoning: z.boolean().optional(),
-   enableReasoningEffort: z.boolean().optional(),
-   enableStreaming: z.boolean().optional(),
-+  gpt5ReasoningEffort: z.enum(['minimal', 'low', 'medium', 'high']).optional(),
-+  gpt5_1ReasoningEffort: z.enum(['none', 'low', 'medium', 'high']).optional(),
-   historyCount: z.number().optional(),
-   reasoningBudgetToken: z.number().optional(),
-+  reasoningEffort: z.enum(['low', 'medium', 'high']).optional(),
-   searchFCModel: z
-     .object({
-       model: z.string(),
-@@ -84,4 +89,8 @@ export const AgentChatConfigSchema = z.object({
-     .optional(),
-   searchMode: z.enum(['off', 'on', 'auto']).optional(),
-   textVerbosity: z.enum(['low', 'medium', 'high']).optional(),
-+  thinking: z.enum(['disabled', 'auto', 'enabled']).optional(),
-+  thinkingBudget: z.number().optional(),
-+  urlContext: z.boolean().optional(),
-+  useModelBuiltinSearch: z.boolean().optional(),
- });
-diff --git a/src/features/ChatInput/ActionBar/Model/ControlsForm.tsx b/src/features/ChatInput/ActionBar/Model/ControlsForm.tsx
-index 8c9634b43..be9d052a7 100644
---- a/src/features/ChatInput/ActionBar/Model/ControlsForm.tsx
-+++ b/src/features/ChatInput/ActionBar/Model/ControlsForm.tsx
-@@ -12,6 +12,7 @@ import { aiModelSelectors, useAiInfraStore } from '@/store/aiInfra';
- 
- import ContextCachingSwitch from './ContextCachingSwitch';
- import GPT5ReasoningEffortSlider from './GPT5ReasoningEffortSlider';
-+import GPT51ReasoningEffortSlider from './GPT51ReasoningEffortSlider';
- import ReasoningEffortSlider from './ReasoningEffortSlider';
- import ReasoningTokenSlider from './ReasoningTokenSlider';
- import TextVerbositySlider from './TextVerbositySlider';
-@@ -119,6 +120,17 @@ const ControlsForm = memo(() => {
-         paddingBottom: 0,
-       },
-     },
-+    {
-+      children: <GPT51ReasoningEffortSlider />,
-+      desc: 'reasoning_effort',
-+      label: t('extendParams.reasoningEffort.title'),
-+      layout: 'horizontal',
-+      minWidth: undefined,
-+      name: 'gpt5_1ReasoningEffort',
-+      style: {
-+        paddingBottom: 0,
-+      },
-+    },
-     {
-       children: <TextVerbositySlider />,
-       desc: 'text_verbosity',
-diff --git a/src/features/ChatInput/ActionBar/Model/GPT51ReasoningEffortSlider.tsx b/src/features/ChatInput/ActionBar/Model/GPT51ReasoningEffortSlider.tsx
-new file mode 100644
-index 000000000..fed0e87d6
---- /dev/null
-+++ b/src/features/ChatInput/ActionBar/Model/GPT51ReasoningEffortSlider.tsx
-@@ -0,0 +1,58 @@
-+import { Slider } from 'antd';
-+import { memo, useCallback } from 'react';
-+import { Flexbox } from 'react-layout-kit';
-+
-+import { useAgentStore } from '@/store/agent';
-+import { agentChatConfigSelectors } from '@/store/agent/selectors';
-+
-+const GPT51ReasoningEffortSlider = memo(() => {
-+  const [config, updateAgentChatConfig] = useAgentStore((s) => [
-+    agentChatConfigSelectors.currentChatConfig(s),
-+    s.updateAgentChatConfig,
-+  ]);
-+
-+  const gpt5_1ReasoningEffort = config.gpt5_1ReasoningEffort || 'none'; // Default to 'none' if not set
-+
-+  const marks = {
-+    0: 'none',
-+    1: 'low',
-+    2: 'medium',
-+    3: 'high',
-+  };
-+
-+  const effortValues = ['none', 'low', 'medium', 'high'];
-+  const indexValue = effortValues.indexOf(gpt5_1ReasoningEffort);
-+  const currentValue = indexValue === -1 ? 0 : indexValue;
-+
-+  const updateGPT51ReasoningEffort = useCallback(
-+    (value: number) => {
-+      const effort = effortValues[value] as 'none' | 'low' | 'medium' | 'high';
-+      updateAgentChatConfig({ gpt5_1ReasoningEffort: effort });
-+    },
-+    [updateAgentChatConfig],
-+  );
-+
-+  return (
-+    <Flexbox
-+      align={'center'}
-+      gap={12}
-+      horizontal
-+      paddingInline={'0 20px'}
-+      style={{ minWidth: 200, width: '100%' }}
-+    >
-+      <Flexbox flex={1}>
-+        <Slider
-+          marks={marks}
-+          max={3}
-+          min={0}
-+          onChange={updateGPT51ReasoningEffort}
-+          step={1}
-+          tooltip={{ open: false }}
-+          value={currentValue}
-+        />
-+      </Flexbox>
-+    </Flexbox>
-+  );
-+});
-+
-+export default GPT51ReasoningEffortSlider;
-diff --git a/src/services/chat/index.ts b/src/services/chat/index.ts
-index ea9bddd0e..d2b36489d 100644
---- a/src/services/chat/index.ts
-+++ b/src/services/chat/index.ts
-@@ -177,6 +177,13 @@ class ChatService {
-         extendParams.reasoning_effort = chatConfig.gpt5ReasoningEffort;
-       }
- 
-+      if (
-+        modelExtendParams!.includes('gpt5_1ReasoningEffort') &&
-+        chatConfig.gpt5_1ReasoningEffort
-+      ) {
-+        extendParams.reasoning_effort = chatConfig.gpt5_1ReasoningEffort;
-+      }
-+
-       if (modelExtendParams!.includes('textVerbosity') && chatConfig.textVerbosity) {
-         extendParams.verbosity = chatConfig.textVerbosity;
-       }
--- 
-2.39.5
-
-
-From dd52476827a196cac52160d3bd177dc2332e822b Mon Sep 17 00:00:00 2001
-From: MaySoMusician <maysomusician@gmail.com>
-Date: Fri, 14 Nov 2025 15:50:45 +0000
-Subject: [PATCH 12/16] Additional fixes for gpt-5.1
-
-disable streaming, responses api only
----
- packages/const/src/models.ts               | 4 ++++
- packages/model-runtime/src/const/models.ts | 4 ++++
- 2 files changed, 8 insertions(+)
-
-diff --git a/packages/const/src/models.ts b/packages/const/src/models.ts
-index 71231201b..bceae96c1 100644
---- a/packages/const/src/models.ts
-+++ b/packages/const/src/models.ts
-@@ -24,6 +24,8 @@ export const disableStreamModels = new Set([
-   'gpt-5-mini-2025-08-07',
-   'gpt-5-pro',
-   'gpt-5-pro-2025-10-06',
-+  'gpt-5.1',
-+  'gpt-5.1-2025-11-13',
- ]);
- 
- /**
-@@ -50,6 +52,8 @@ export const responsesAPIModels = new Set([
-   'gpt-5-codex',
-   'gpt-5-pro',
-   'gpt-5-pro-2025-10-06',
-+  'gpt-5.1',
-+  'gpt-5.1-2025-11-13',
-   'gpt-5.1-codex',
-   'gpt-5.1-codex-mini',
- ]);
-diff --git a/packages/model-runtime/src/const/models.ts b/packages/model-runtime/src/const/models.ts
-index b6c4f722a..e3a9cf31a 100644
---- a/packages/model-runtime/src/const/models.ts
-+++ b/packages/model-runtime/src/const/models.ts
-@@ -24,6 +24,8 @@ export const disableStreamModels = new Set([
-   'gpt-5-mini-2025-08-07',
-   'gpt-5-pro',
-   'gpt-5-pro-2025-10-06',
-+  'gpt-5.1',
-+  'gpt-5.1-2025-11-13',
- ]);
- 
- /**
-@@ -50,6 +52,8 @@ export const responsesAPIModels = new Set([
-   'gpt-5-nano-2025-08-07',
-   'gpt-5-pro',
-   'gpt-5-pro-2025-10-06',
-+  'gpt-5.1',
-+  'gpt-5.1-2025-11-13',
- ]);
- 
- /**
--- 
-2.39.5
-
-
-From bb9694b9bebf9a34dda14991e099ef3830eb2cdc Mon Sep 17 00:00:00 2001
-From: sxjeru <sxjeru@gmail.com>
-Date: Fri, 12 Dec 2025 23:28:51 +0800
-Subject: [PATCH 13/16] =?UTF-8?q?=F0=9F=92=84=20style:=20Update=20GPT-5.2?=
- =?UTF-8?q?=20models=20(#10749)?=
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-* ✨ feat: 添加 GPT-5.2 和 GPT-5.2 Pro 模型及其推理努力滑块
-
-* ✨ feat: 添加 GPT-5.2 和 GPT-5.2 Pro 模型，更新 GPT-5.2 推理努力滑块的标签
-
-* 🔨 chore: 移除 GPT-5.2 和 GPT-5.2 Pro 模型的推理努力参数及相关组件
-
-* ✨ feat: 更新模型设置，添加 gpt5_1ReasoningEffort 参数
-
-(cherry picked from commit 044612791065d9c49319d0da2f5fec7237234ae4)
----
- packages/model-bank/src/aiModels/aihubmix.ts  | 76 +++++++++++++++++-
- .../model-bank/src/aiModels/ollamacloud.ts    | 11 +++
- packages/model-bank/src/aiModels/openai.ts    | 79 +++++++++++++++++--
- packages/model-runtime/src/const/models.ts    |  4 +
- .../src/core/contextBuilders/openai.ts        |  8 +-
- 5 files changed, 169 insertions(+), 9 deletions(-)
-
-diff --git a/packages/model-bank/src/aiModels/aihubmix.ts b/packages/model-bank/src/aiModels/aihubmix.ts
-index d42de79fc..4e4bdfc3e 100644
---- a/packages/model-bank/src/aiModels/aihubmix.ts
-+++ b/packages/model-bank/src/aiModels/aihubmix.ts
-@@ -1,6 +1,80 @@
- import { AIChatModelCard } from '../types/aiModel';
- 
- const aihubmixModels: AIChatModelCard[] = [
-+  {
-+    abilities: {
-+      functionCall: true,
-+      reasoning: true,
-+      search: true,
-+      structuredOutput: true,
-+      vision: true,
-+    },
-+    contextWindowTokens: 400_000,
-+    description: 'GPT-5.2 — 面向编码与 agentic 工作流的旗舰模型，提供更强推理与长上下文能力。',
-+    displayName: 'GPT-5.2',
-+    enabled: true,
-+    id: 'gpt-5.2',
-+    maxOutput: 128_000,
-+    pricing: {
-+      units: [
-+        { name: 'textInput', rate: 1.75, strategy: 'fixed', unit: 'millionTokens' },
-+        { name: 'textInput_cacheRead', rate: 0.175, strategy: 'fixed', unit: 'millionTokens' },
-+        { name: 'textOutput', rate: 14, strategy: 'fixed', unit: 'millionTokens' },
-+      ],
-+    },
-+    releasedAt: '2025-12-11',
-+    settings: {
-+      extendParams: ['gpt5_1ReasoningEffort', 'textVerbosity'],
-+      searchImpl: 'params',
-+    },
-+    type: 'chat',
-+  },
-+  {
-+    abilities: {
-+      functionCall: true,
-+      reasoning: true,
-+      search: true,
-+      vision: true,
-+    },
-+    contextWindowTokens: 400_000,
-+    description:
-+      'GPT-5.2 pro：更聪明、更精确的 GPT-5.2 版本（Responses API Only），适合高难度问题与更长的多轮推理。',
-+    displayName: 'GPT-5.2 pro',
-+    id: 'gpt-5.2-pro',
-+    maxOutput: 128_000,
-+    pricing: {
-+      units: [
-+        { name: 'textInput', rate: 21, strategy: 'fixed', unit: 'millionTokens' },
-+        { name: 'textOutput', rate: 168, strategy: 'fixed', unit: 'millionTokens' },
-+      ],
-+    },
-+    releasedAt: '2025-12-11',
-+    settings: {
-+      searchImpl: 'params',
-+    },
-+    type: 'chat',
-+  },
-+  {
-+    abilities: {
-+      functionCall: true,
-+      vision: true,
-+    },
-+    contextWindowTokens: 128_000,
-+    description: 'GPT-5.2 Chat：ChatGPT 使用的 GPT-5.2 变体（chat-latest），用于体验最新对话改进。',
-+    displayName: 'GPT-5.2 Chat',
-+    enabled: true,
-+    id: 'gpt-5.2-chat-latest',
-+    maxOutput: 16_384,
-+    pricing: {
-+      units: [
-+        { name: 'textInput', rate: 1.75, strategy: 'fixed', unit: 'millionTokens' },
-+        { name: 'textInput_cacheRead', rate: 0.175, strategy: 'fixed', unit: 'millionTokens' },
-+        { name: 'textOutput', rate: 14, strategy: 'fixed', unit: 'millionTokens' },
-+      ],
-+    },
-+    releasedAt: '2025-12-11',
-+    type: 'chat',
-+  },
-   {
-     abilities: {
-       functionCall: true,
-@@ -13,7 +87,6 @@ const aihubmixModels: AIChatModelCard[] = [
-     description:
-       'GPT-5.1 — 针对编码和 agent 任务优化的旗舰模型，支持可配置的推理强度与更长上下文。',
-     displayName: 'GPT-5.1',
--    enabled: true,
-     id: 'gpt-5.1',
-     maxOutput: 128_000,
-     pricing: {
-@@ -38,7 +111,6 @@ const aihubmixModels: AIChatModelCard[] = [
-     contextWindowTokens: 128_000,
-     description: 'GPT-5.1 Chat：用于 ChatGPT 的 GPT-5.1 变体，适合聊天场景。',
-     displayName: 'GPT-5.1 Chat',
--    enabled: true,
-     id: 'gpt-5.1-chat-latest',
-     maxOutput: 16_384,
-     pricing: {
-diff --git a/packages/model-bank/src/aiModels/ollamacloud.ts b/packages/model-bank/src/aiModels/ollamacloud.ts
-index 44131a441..e02d2951a 100644
---- a/packages/model-bank/src/aiModels/ollamacloud.ts
-+++ b/packages/model-bank/src/aiModels/ollamacloud.ts
-@@ -1,6 +1,17 @@
- import { AIChatModelCard } from '../types/aiModel';
- 
- const ollamaCloudModels: AIChatModelCard[] = [
-+  {
-+    abilities: {
-+      functionCall: true,
-+    },
-+    contextWindowTokens: 262_144,
-+    description:
-+      'Devstral 2 123B 模型，擅长使用工具探索代码库、编辑多个文件并为软件工程代理提供支持。',
-+    displayName: 'Devstral 2',
-+    id: 'devstral-2:123b',
-+    type: 'chat',
-+  },
-   {
-     abilities: {
-       functionCall: true,
-diff --git a/packages/model-bank/src/aiModels/openai.ts b/packages/model-bank/src/aiModels/openai.ts
-index 24a3608b0..b4699e5c4 100644
---- a/packages/model-bank/src/aiModels/openai.ts
-+++ b/packages/model-bank/src/aiModels/openai.ts
-@@ -21,7 +21,80 @@ export const openaiChatModels: AIChatModelCard[] = [
-   {
-     abilities: {
-       functionCall: true,
--      imageOutput: true,
-+      reasoning: true,
-+      search: true,
-+      structuredOutput: true,
-+      vision: true,
-+    },
-+    contextWindowTokens: 400_000,
-+    description: 'GPT-5.2 — 面向编码与 agentic 工作流的旗舰模型，提供更强推理与长上下文能力。',
-+    displayName: 'GPT-5.2',
-+    enabled: true,
-+    id: 'gpt-5.2',
-+    maxOutput: 128_000,
-+    pricing: {
-+      units: [
-+        { name: 'textInput', rate: 1.75, strategy: 'fixed', unit: 'millionTokens' },
-+        { name: 'textInput_cacheRead', rate: 0.175, strategy: 'fixed', unit: 'millionTokens' },
-+        { name: 'textOutput', rate: 14, strategy: 'fixed', unit: 'millionTokens' },
-+      ],
-+    },
-+    releasedAt: '2025-12-11',
-+    settings: {
-+      extendParams: ['gpt5_1ReasoningEffort', 'textVerbosity'],
-+      searchImpl: 'params',
-+    },
-+    type: 'chat',
-+  },
-+  {
-+    abilities: {
-+      functionCall: true,
-+      reasoning: true,
-+      search: true,
-+      vision: true,
-+    },
-+    contextWindowTokens: 400_000,
-+    description:
-+      'GPT-5.2 pro：更聪明、更精确的 GPT-5.2 版本（Responses API Only），适合高难度问题与更长的多轮推理。',
-+    displayName: 'GPT-5.2 pro',
-+    id: 'gpt-5.2-pro',
-+    maxOutput: 128_000,
-+    pricing: {
-+      units: [
-+        { name: 'textInput', rate: 21, strategy: 'fixed', unit: 'millionTokens' },
-+        { name: 'textOutput', rate: 168, strategy: 'fixed', unit: 'millionTokens' },
-+      ],
-+    },
-+    releasedAt: '2025-12-11',
-+    settings: {
-+      searchImpl: 'params',
-+    },
-+    type: 'chat',
-+  },
-+  {
-+    abilities: {
-+      functionCall: true,
-+      vision: true,
-+    },
-+    contextWindowTokens: 128_000,
-+    description: 'GPT-5.2 Chat：ChatGPT 使用的 GPT-5.2 变体（chat-latest），用于体验最新对话改进。',
-+    displayName: 'GPT-5.2 Chat',
-+    enabled: true,
-+    id: 'gpt-5.2-chat-latest',
-+    maxOutput: 16_384,
-+    pricing: {
-+      units: [
-+        { name: 'textInput', rate: 1.75, strategy: 'fixed', unit: 'millionTokens' },
-+        { name: 'textInput_cacheRead', rate: 0.175, strategy: 'fixed', unit: 'millionTokens' },
-+        { name: 'textOutput', rate: 14, strategy: 'fixed', unit: 'millionTokens' },
-+      ],
-+    },
-+    releasedAt: '2025-12-11',
-+    type: 'chat',
-+  },
-+  {
-+    abilities: {
-+      functionCall: true,
-       reasoning: true,
-       search: true,
-       vision: true,
-@@ -30,7 +103,6 @@ export const openaiChatModels: AIChatModelCard[] = [
-     description:
-       'GPT-5.1 — 针对编码和 agent 任务优化的旗舰模型，支持可配置的推理强度与更长上下文。',
-     displayName: 'GPT-5.1',
--    enabled: true,
-     id: 'gpt-5.1',
-     maxOutput: 128_000,
-     pricing: {
-@@ -55,7 +127,6 @@ export const openaiChatModels: AIChatModelCard[] = [
-     contextWindowTokens: 128_000,
-     description: 'GPT-5.1 Chat：用于 ChatGPT 的 GPT-5.1 变体，适合聊天场景。',
-     displayName: 'GPT-5.1 Chat',
--    enabled: true,
-     id: 'gpt-5.1-chat-latest',
-     maxOutput: 16_384,
-     pricing: {
-@@ -71,7 +142,6 @@ export const openaiChatModels: AIChatModelCard[] = [
-   {
-     abilities: {
-       functionCall: true,
--      imageOutput: true,
-       reasoning: true,
-       search: true,
-       vision: true,
-@@ -99,7 +169,6 @@ export const openaiChatModels: AIChatModelCard[] = [
-   {
-     abilities: {
-       functionCall: true,
--      imageOutput: true,
-       reasoning: true,
-       search: true,
-       vision: true,
-diff --git a/packages/model-runtime/src/const/models.ts b/packages/model-runtime/src/const/models.ts
-index e3a9cf31a..f4023f3b5 100644
---- a/packages/model-runtime/src/const/models.ts
-+++ b/packages/model-runtime/src/const/models.ts
-@@ -54,6 +54,10 @@ export const responsesAPIModels = new Set([
-   'gpt-5-pro-2025-10-06',
-   'gpt-5.1',
-   'gpt-5.1-2025-11-13',
-+  'gpt-5.1-codex',
-+  'gpt-5.1-codex-mini',
-+  'gpt-5.2-pro-2025-12-11',
-+  'gpt-5.2-pro',
- ]);
- 
- /**
-diff --git a/packages/model-runtime/src/core/contextBuilders/openai.ts b/packages/model-runtime/src/core/contextBuilders/openai.ts
-index df62c9b2d..120d02f00 100644
---- a/packages/model-runtime/src/core/contextBuilders/openai.ts
-+++ b/packages/model-runtime/src/core/contextBuilders/openai.ts
-@@ -134,6 +134,10 @@ export const pruneReasoningPayload = (payload: ChatStreamPayload) => {
-   const shouldStream = !disableStreamModels.has(payload.model);
-   const { stream_options, ...cleanedPayload } = payload as any;
- 
-+  // When reasoning_effort is 'none', allow user-defined temperature/top_p
-+  const effort = payload.reasoning?.effort || payload.reasoning_effort;
-+  const isEffortNone = effort === 'none';
-+
-   return {
-     ...cleanedPayload,
-     frequency_penalty: 0,
-@@ -150,8 +154,8 @@ export const pruneReasoningPayload = (payload: ChatStreamPayload) => {
-     stream: shouldStream,
-     // Only include stream_options when stream is enabled
-     ...(shouldStream && stream_options && { stream_options }),
--    temperature: 1,
--    top_p: 1,
-+    temperature: isEffortNone ? payload.temperature : 1,
-+    top_p: isEffortNone ? payload.top_p : 1,
-   };
- };
- 
--- 
-2.39.5
-
-
-From 2fe741dc885b19eae9b2795572057440a01629f4 Mon Sep 17 00:00:00 2001
-From: MaySoMusician <maysomusician@gmail.com>
-Date: Sat, 13 Dec 2025 08:02:45 +0000
-Subject: [PATCH 14/16] Disable streaming & use Responses API for gpt-5.2
-
----
- packages/const/src/models.ts               | 8 ++++++++
- packages/model-runtime/src/const/models.ts | 6 ++++++
- 2 files changed, 14 insertions(+)
-
-diff --git a/packages/const/src/models.ts b/packages/const/src/models.ts
-index bceae96c1..0802f609f 100644
---- a/packages/const/src/models.ts
-+++ b/packages/const/src/models.ts
-@@ -26,6 +26,10 @@ export const disableStreamModels = new Set([
-   'gpt-5-pro-2025-10-06',
-   'gpt-5.1',
-   'gpt-5.1-2025-11-13',
-+  'gpt-5.2-pro-2025-12-11',
-+  'gpt-5.2-pro',
-+  'gpt-5.2',
-+  'gpt-5.2-2025-12-11',
- ]);
- 
- /**
-@@ -56,6 +60,10 @@ export const responsesAPIModels = new Set([
-   'gpt-5.1-2025-11-13',
-   'gpt-5.1-codex',
-   'gpt-5.1-codex-mini',
-+  'gpt-5.2-pro-2025-12-11',
-+  'gpt-5.2-pro',
-+  'gpt-5.2',
-+  'gpt-5.2-2025-12-11',
- ]);
- 
- /**
-diff --git a/packages/model-runtime/src/const/models.ts b/packages/model-runtime/src/const/models.ts
-index f4023f3b5..4f99d26ad 100644
---- a/packages/model-runtime/src/const/models.ts
-+++ b/packages/model-runtime/src/const/models.ts
-@@ -26,6 +26,10 @@ export const disableStreamModels = new Set([
-   'gpt-5-pro-2025-10-06',
-   'gpt-5.1',
-   'gpt-5.1-2025-11-13',
-+  'gpt-5.2-pro-2025-12-11',
-+  'gpt-5.2-pro',
-+  'gpt-5.2',
-+  'gpt-5.2-2025-12-11',
- ]);
- 
- /**
-@@ -58,6 +62,8 @@ export const responsesAPIModels = new Set([
-   'gpt-5.1-codex-mini',
-   'gpt-5.2-pro-2025-12-11',
-   'gpt-5.2-pro',
-+  'gpt-5.2',
-+  'gpt-5.2-2025-12-11',
- ]);
- 
- /**
--- 
-2.39.5
-
-
-From 4b2b020d99aaa69d2d2b1cded79ddf3075d10a9d Mon Sep 17 00:00:00 2001
-From: MaySoMusician <maysomusician@gmail.com>
-Date: Sat, 13 Dec 2025 08:43:22 +0000
-Subject: [PATCH 15/16] Add config and UI for gpt-5.2 reasoning effort
-
----
- packages/model-bank/src/aiModels/openai.ts    |  2 +-
- packages/model-bank/src/types/aiModel.ts      |  1 +
- .../src/core/contextBuilders/openai.ts        |  4 +-
- packages/types/src/agent/chatConfig.ts        |  2 +
- .../ActionBar/Model/ControlsForm.tsx          | 12 ++++
- .../Model/GPT52ReasoningEffortSlider.tsx      | 59 +++++++++++++++++++
- src/services/chat/index.ts                    |  7 +++
- 7 files changed, 84 insertions(+), 3 deletions(-)
- create mode 100644 src/features/ChatInput/ActionBar/Model/GPT52ReasoningEffortSlider.tsx
-
-diff --git a/packages/model-bank/src/aiModels/openai.ts b/packages/model-bank/src/aiModels/openai.ts
-index b4699e5c4..c421367e0 100644
---- a/packages/model-bank/src/aiModels/openai.ts
-+++ b/packages/model-bank/src/aiModels/openai.ts
-@@ -41,7 +41,7 @@ export const openaiChatModels: AIChatModelCard[] = [
-     },
-     releasedAt: '2025-12-11',
-     settings: {
--      extendParams: ['gpt5_1ReasoningEffort', 'textVerbosity'],
-+      extendParams: ['gpt5_2ReasoningEffort', 'textVerbosity'],
-       searchImpl: 'params',
-     },
-     type: 'chat',
-diff --git a/packages/model-bank/src/types/aiModel.ts b/packages/model-bank/src/types/aiModel.ts
-index 0b7bfdfc0..6830d7853 100644
---- a/packages/model-bank/src/types/aiModel.ts
-+++ b/packages/model-bank/src/types/aiModel.ts
-@@ -235,6 +235,7 @@ export type ExtendParamsType =
-   | 'reasoningEffort'
-   | 'gpt5ReasoningEffort'
-   | 'gpt5_1ReasoningEffort'
-+  | 'gpt5_2ReasoningEffort'
-   | 'textVerbosity'
-   | 'thinking'
-   | 'thinkingBudget'
-diff --git a/packages/model-runtime/src/core/contextBuilders/openai.ts b/packages/model-runtime/src/core/contextBuilders/openai.ts
-index 120d02f00..6b68f7f96 100644
---- a/packages/model-runtime/src/core/contextBuilders/openai.ts
-+++ b/packages/model-runtime/src/core/contextBuilders/openai.ts
-@@ -154,8 +154,8 @@ export const pruneReasoningPayload = (payload: ChatStreamPayload) => {
-     stream: shouldStream,
-     // Only include stream_options when stream is enabled
-     ...(shouldStream && stream_options && { stream_options }),
--    temperature: isEffortNone ? payload.temperature : 1,
--    top_p: isEffortNone ? payload.top_p : 1,
-+    temperature: isEffortNone ? payload.temperature : undefined,
-+    top_p: isEffortNone ? payload.top_p : undefined,
-   };
- };
- 
-diff --git a/packages/types/src/agent/chatConfig.ts b/packages/types/src/agent/chatConfig.ts
-index 2286e7364..a329aacec 100644
---- a/packages/types/src/agent/chatConfig.ts
-+++ b/packages/types/src/agent/chatConfig.ts
-@@ -33,6 +33,7 @@ export interface LobeAgentChatConfig {
-   reasoningEffort?: 'low' | 'medium' | 'high';
-   gpt5ReasoningEffort?: 'minimal' | 'low' | 'medium' | 'high';
-   gpt5_1ReasoningEffort?: 'none' | 'low' | 'medium' | 'high';
-+  gpt5_2ReasoningEffort?: 'none' | 'low' | 'medium' | 'high' | 'xhigh';
-   /**
-    * 输出文本详细程度控制
-    */
-@@ -78,6 +79,7 @@ export const AgentChatConfigSchema = z.object({
-   enableStreaming: z.boolean().optional(),
-   gpt5ReasoningEffort: z.enum(['minimal', 'low', 'medium', 'high']).optional(),
-   gpt5_1ReasoningEffort: z.enum(['none', 'low', 'medium', 'high']).optional(),
-+  gpt5_2ReasoningEffort: z.enum(['none', 'low', 'medium', 'high', 'xhigh']).optional(),
-   historyCount: z.number().optional(),
-   reasoningBudgetToken: z.number().optional(),
-   reasoningEffort: z.enum(['low', 'medium', 'high']).optional(),
-diff --git a/src/features/ChatInput/ActionBar/Model/ControlsForm.tsx b/src/features/ChatInput/ActionBar/Model/ControlsForm.tsx
-index be9d052a7..40ffa7fa9 100644
---- a/src/features/ChatInput/ActionBar/Model/ControlsForm.tsx
-+++ b/src/features/ChatInput/ActionBar/Model/ControlsForm.tsx
-@@ -13,6 +13,7 @@ import { aiModelSelectors, useAiInfraStore } from '@/store/aiInfra';
- import ContextCachingSwitch from './ContextCachingSwitch';
- import GPT5ReasoningEffortSlider from './GPT5ReasoningEffortSlider';
- import GPT51ReasoningEffortSlider from './GPT51ReasoningEffortSlider';
-+import GPT52ReasoningEffortSlider from './GPT52ReasoningEffortSlider';
- import ReasoningEffortSlider from './ReasoningEffortSlider';
- import ReasoningTokenSlider from './ReasoningTokenSlider';
- import TextVerbositySlider from './TextVerbositySlider';
-@@ -131,6 +132,17 @@ const ControlsForm = memo(() => {
-         paddingBottom: 0,
-       },
-     },
-+    {
-+      children: <GPT52ReasoningEffortSlider />,
-+      desc: 'reasoning_effort',
-+      label: t('extendParams.reasoningEffort.title'),
-+      layout: 'horizontal',
-+      minWidth: undefined,
-+      name: 'gpt5_2ReasoningEffort',
-+      style: {
-+        paddingBottom: 0,
-+      },
-+    },
-     {
-       children: <TextVerbositySlider />,
-       desc: 'text_verbosity',
-diff --git a/src/features/ChatInput/ActionBar/Model/GPT52ReasoningEffortSlider.tsx b/src/features/ChatInput/ActionBar/Model/GPT52ReasoningEffortSlider.tsx
-new file mode 100644
-index 000000000..779574f5a
---- /dev/null
-+++ b/src/features/ChatInput/ActionBar/Model/GPT52ReasoningEffortSlider.tsx
-@@ -0,0 +1,59 @@
-+import { Slider } from 'antd';
-+import { memo, useCallback } from 'react';
-+import { Flexbox } from 'react-layout-kit';
-+
-+import { useAgentStore } from '@/store/agent';
-+import { agentChatConfigSelectors } from '@/store/agent/selectors';
-+
-+const GPT52ReasoningEffortSlider = memo(() => {
-+  const [config, updateAgentChatConfig] = useAgentStore((s) => [
-+    agentChatConfigSelectors.currentChatConfig(s),
-+    s.updateAgentChatConfig,
-+  ]);
-+
-+  const gpt5_2ReasoningEffort = config.gpt5_2ReasoningEffort || 'none'; // Default to 'none' if not set
-+
-+  const marks = {
-+    0: 'none',
-+    1: 'low',
-+    2: 'medium',
-+    3: 'high',
-+    4: 'xhigh',
-+  };
-+
-+  const effortValues = ['none', 'low', 'medium', 'high', 'xhigh'];
-+  const indexValue = effortValues.indexOf(gpt5_2ReasoningEffort);
-+  const currentValue = indexValue === -1 ? 0 : indexValue;
-+
-+  const updateGPT52ReasoningEffort = useCallback(
-+    (value: number) => {
-+      const effort = effortValues[value] as 'none' | 'low' | 'medium' | 'high' | 'xhigh';
-+      updateAgentChatConfig({ gpt5_2ReasoningEffort: effort });
-+    },
-+    [updateAgentChatConfig],
-+  );
-+
-+  return (
-+    <Flexbox
-+      align={'center'}
-+      gap={12}
-+      horizontal
-+      paddingInline={'0 20px'}
-+      style={{ minWidth: 220, width: '100%' }}
-+    >
-+      <Flexbox flex={1}>
-+        <Slider
-+          marks={marks}
-+          max={4}
-+          min={0}
-+          onChange={updateGPT52ReasoningEffort}
-+          step={1}
-+          tooltip={{ open: false }}
-+          value={currentValue}
-+        />
-+      </Flexbox>
-+    </Flexbox>
-+  );
-+});
-+
-+export default GPT52ReasoningEffortSlider;
-diff --git a/src/services/chat/index.ts b/src/services/chat/index.ts
-index d2b36489d..2ef424a7d 100644
---- a/src/services/chat/index.ts
-+++ b/src/services/chat/index.ts
-@@ -184,6 +184,13 @@ class ChatService {
-         extendParams.reasoning_effort = chatConfig.gpt5_1ReasoningEffort;
-       }
- 
-+      if (
-+        modelExtendParams!.includes('gpt5_2ReasoningEffort') &&
-+        chatConfig.gpt5_2ReasoningEffort
-+      ) {
-+        extendParams.reasoning_effort = chatConfig.gpt5_2ReasoningEffort;
-+      }
-+
-       if (modelExtendParams!.includes('textVerbosity') && chatConfig.textVerbosity) {
-         extendParams.verbosity = chatConfig.textVerbosity;
-       }
--- 
-2.39.5
-
-
-From 5daf9d5ae8e84ccdfd521459f60ece288fffffd0 Mon Sep 17 00:00:00 2001
-From: MaySoMusician <maysomusician@gmail.com>
-Date: Sun, 14 Dec 2025 04:12:53 +0000
-Subject: [PATCH 16/16] Add config and UI for gpt-5.2-pro reasoning effort
-
----
- packages/model-bank/src/aiModels/openai.ts    |  1 +
- packages/model-bank/src/types/aiModel.ts      |  1 +
- packages/types/src/agent/chatConfig.ts        |  2 +
- .../ActionBar/Model/ControlsForm.tsx          | 12 ++++
- .../Model/GPT52ProReasoningEffortSlider.tsx   | 57 +++++++++++++++++++
- src/services/chat/index.ts                    |  7 +++
- 6 files changed, 80 insertions(+)
- create mode 100644 src/features/ChatInput/ActionBar/Model/GPT52ProReasoningEffortSlider.tsx
-
-diff --git a/packages/model-bank/src/aiModels/openai.ts b/packages/model-bank/src/aiModels/openai.ts
-index c421367e0..4c1ba627b 100644
---- a/packages/model-bank/src/aiModels/openai.ts
-+++ b/packages/model-bank/src/aiModels/openai.ts
-@@ -67,6 +67,7 @@ export const openaiChatModels: AIChatModelCard[] = [
-     },
-     releasedAt: '2025-12-11',
-     settings: {
-+      extendParams: ['gpt5_2ProReasoningEffort', 'textVerbosity'],
-       searchImpl: 'params',
-     },
-     type: 'chat',
-diff --git a/packages/model-bank/src/types/aiModel.ts b/packages/model-bank/src/types/aiModel.ts
-index 6830d7853..e2ae1b49c 100644
---- a/packages/model-bank/src/types/aiModel.ts
-+++ b/packages/model-bank/src/types/aiModel.ts
-@@ -236,6 +236,7 @@ export type ExtendParamsType =
-   | 'gpt5ReasoningEffort'
-   | 'gpt5_1ReasoningEffort'
-   | 'gpt5_2ReasoningEffort'
-+  | 'gpt5_2ProReasoningEffort'
-   | 'textVerbosity'
-   | 'thinking'
-   | 'thinkingBudget'
-diff --git a/packages/types/src/agent/chatConfig.ts b/packages/types/src/agent/chatConfig.ts
-index a329aacec..b7739d308 100644
---- a/packages/types/src/agent/chatConfig.ts
-+++ b/packages/types/src/agent/chatConfig.ts
-@@ -34,6 +34,7 @@ export interface LobeAgentChatConfig {
-   gpt5ReasoningEffort?: 'minimal' | 'low' | 'medium' | 'high';
-   gpt5_1ReasoningEffort?: 'none' | 'low' | 'medium' | 'high';
-   gpt5_2ReasoningEffort?: 'none' | 'low' | 'medium' | 'high' | 'xhigh';
-+  gpt5_2ProReasoningEffort?: 'medium' | 'high' | 'xhigh';
-   /**
-    * 输出文本详细程度控制
-    */
-@@ -79,6 +80,7 @@ export const AgentChatConfigSchema = z.object({
-   enableStreaming: z.boolean().optional(),
-   gpt5ReasoningEffort: z.enum(['minimal', 'low', 'medium', 'high']).optional(),
-   gpt5_1ReasoningEffort: z.enum(['none', 'low', 'medium', 'high']).optional(),
-+  gpt5_2ProReasoningEffort: z.enum(['medium', 'high', 'xhigh']).optional(),
-   gpt5_2ReasoningEffort: z.enum(['none', 'low', 'medium', 'high', 'xhigh']).optional(),
-   historyCount: z.number().optional(),
-   reasoningBudgetToken: z.number().optional(),
-diff --git a/src/features/ChatInput/ActionBar/Model/ControlsForm.tsx b/src/features/ChatInput/ActionBar/Model/ControlsForm.tsx
-index 40ffa7fa9..9e10532a8 100644
---- a/src/features/ChatInput/ActionBar/Model/ControlsForm.tsx
-+++ b/src/features/ChatInput/ActionBar/Model/ControlsForm.tsx
-@@ -13,6 +13,7 @@ import { aiModelSelectors, useAiInfraStore } from '@/store/aiInfra';
- import ContextCachingSwitch from './ContextCachingSwitch';
- import GPT5ReasoningEffortSlider from './GPT5ReasoningEffortSlider';
- import GPT51ReasoningEffortSlider from './GPT51ReasoningEffortSlider';
-+import GPT52ProReasoningEffortSlider from './GPT52ProReasoningEffortSlider';
- import GPT52ReasoningEffortSlider from './GPT52ReasoningEffortSlider';
- import ReasoningEffortSlider from './ReasoningEffortSlider';
- import ReasoningTokenSlider from './ReasoningTokenSlider';
-@@ -143,6 +144,17 @@ const ControlsForm = memo(() => {
-         paddingBottom: 0,
-       },
-     },
-+    {
-+      children: <GPT52ProReasoningEffortSlider />,
-+      desc: 'reasoning_effort',
-+      label: t('extendParams.reasoningEffort.title'),
-+      layout: 'horizontal',
-+      minWidth: undefined,
-+      name: 'gpt5_2ProReasoningEffort',
-+      style: {
-+        paddingBottom: 0,
-+      },
-+    },
-     {
-       children: <TextVerbositySlider />,
-       desc: 'text_verbosity',
-diff --git a/src/features/ChatInput/ActionBar/Model/GPT52ProReasoningEffortSlider.tsx b/src/features/ChatInput/ActionBar/Model/GPT52ProReasoningEffortSlider.tsx
-new file mode 100644
-index 000000000..242e447c9
---- /dev/null
-+++ b/src/features/ChatInput/ActionBar/Model/GPT52ProReasoningEffortSlider.tsx
-@@ -0,0 +1,57 @@
-+import { Slider } from 'antd';
-+import { memo, useCallback } from 'react';
-+import { Flexbox } from 'react-layout-kit';
-+
-+import { useAgentStore } from '@/store/agent';
-+import { agentChatConfigSelectors } from '@/store/agent/selectors';
-+
-+const GPT52ProReasoningEffortSlider = memo(() => {
-+  const [config, updateAgentChatConfig] = useAgentStore((s) => [
-+    agentChatConfigSelectors.currentChatConfig(s),
-+    s.updateAgentChatConfig,
-+  ]);
-+
-+  const gpt5_2ProReasoningEffort = config.gpt5_2ProReasoningEffort || 'medium'; // Default to 'medium' if not set
-+
-+  const marks = {
-+    0: 'medium',
-+    1: 'high',
-+    2: 'xhigh',
-+  };
-+
-+  const effortValues = ['medium', 'high', 'xhigh'];
-+  const indexValue = effortValues.indexOf(gpt5_2ProReasoningEffort);
-+  const currentValue = indexValue === -1 ? 0 : indexValue;
-+
-+  const updateGPT52ProReasoningEffort = useCallback(
-+    (value: number) => {
-+      const effort = effortValues[value] as 'medium' | 'high' | 'xhigh';
-+      updateAgentChatConfig({ gpt5_2ProReasoningEffort: effort });
-+    },
-+    [updateAgentChatConfig],
-+  );
-+
-+  return (
-+    <Flexbox
-+      align={'center'}
-+      gap={12}
-+      horizontal
-+      paddingInline={'0 20px'}
-+      style={{ minWidth: 200, width: '100%' }}
-+    >
-+      <Flexbox flex={1}>
-+        <Slider
-+          marks={marks}
-+          max={2}
-+          min={0}
-+          onChange={updateGPT52ProReasoningEffort}
-+          step={1}
-+          tooltip={{ open: false }}
-+          value={currentValue}
-+        />
-+      </Flexbox>
-+    </Flexbox>
-+  );
-+});
-+
-+export default GPT52ProReasoningEffortSlider;
-diff --git a/src/services/chat/index.ts b/src/services/chat/index.ts
-index 2ef424a7d..d60f16ba8 100644
---- a/src/services/chat/index.ts
-+++ b/src/services/chat/index.ts
-@@ -191,6 +191,13 @@ class ChatService {
-         extendParams.reasoning_effort = chatConfig.gpt5_2ReasoningEffort;
-       }
- 
-+      if (
-+        modelExtendParams!.includes('gpt5_2ProReasoningEffort') &&
-+        chatConfig.gpt5_2ProReasoningEffort
-+      ) {
-+        extendParams.reasoning_effort = chatConfig.gpt5_2ProReasoningEffort;
-+      }
-+
-       if (modelExtendParams!.includes('textVerbosity') && chatConfig.textVerbosity) {
-         extendParams.verbosity = chatConfig.textVerbosity;
-       }
 -- 
 2.39.5
 
