@@ -1,4 +1,4 @@
-From 3fdb130d6cd7a98e902583f358c31583319bf7e9 Mon Sep 17 00:00:00 2001
+From 0292cf2125501b70d9a31a9519d1b800dded01a9 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 14 Oct 2024 10:15:38 +0000
 Subject: [PATCH 1/5] Change font list for Japanese
@@ -28,7 +28,7 @@ index 340d7ab9..6154cbbb 100644
 2.39.5
 
 
-From 0e772d06e1e73b4086fc6eba531fed40a91ba3ee Mon Sep 17 00:00:00 2001
+From 45bd56b02ba58aa41efc6c853f991cf9d7c303be Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 20 Oct 2024 07:28:14 +0000
 Subject: [PATCH 2/5] Remove FONT_CN
@@ -62,7 +62,7 @@ index 6154cbbb..dfeca78d 100644
 2.39.5
 
 
-From 0a1364ef21950982bead4972a3192bdc3f82bd9e Mon Sep 17 00:00:00 2001
+From 5c342422efb9ca2b936b6f7d3dd4c663cae9c751 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 28 Oct 2024 15:09:31 +0000
 Subject: [PATCH 3/5] Do not load Chinese fonts
@@ -72,10 +72,10 @@ Subject: [PATCH 3/5] Do not load Chinese fonts
  1 file changed, 9 deletions(-)
 
 diff --git a/src/ThemeProvider/ThemeProvider.tsx b/src/ThemeProvider/ThemeProvider.tsx
-index d3f02440..ead6de70 100644
+index 22e0537f..3f946acd 100644
 --- a/src/ThemeProvider/ThemeProvider.tsx
 +++ b/src/ThemeProvider/ThemeProvider.tsx
-@@ -39,15 +39,6 @@ const ThemeProvider = memo<ThemeProviderProps>(
+@@ -40,15 +40,6 @@ const ThemeProvider = memo<ThemeProviderProps>(
      const webfontUrls = useMemo(
        () =>
          customFonts || [
@@ -95,7 +95,7 @@ index d3f02440..ead6de70 100644
 2.39.5
 
 
-From 1904a3019d2068f5321d60e231262e71f61e487f Mon Sep 17 00:00:00 2001
+From c02c56ef52aead62e1f3c3ffe7adc37e4d17cb6e Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sat, 13 Dec 2025 07:36:47 +0000
 Subject: [PATCH 4/5] Change colorTextSecondary color
@@ -105,7 +105,7 @@ Subject: [PATCH 4/5] Change colorTextSecondary color
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/src/styles/theme/generateColorPalette.ts b/src/styles/theme/generateColorPalette.ts
-index 46898d23..2a4b1533 100644
+index 41535437..ee5f8010 100644
 --- a/src/styles/theme/generateColorPalette.ts
 +++ b/src/styles/theme/generateColorPalette.ts
 @@ -53,7 +53,7 @@ export const generateColorNeutralPalette = ({
@@ -121,7 +121,7 @@ index 46898d23..2a4b1533 100644
 2.39.5
 
 
-From 5986c8da3aab13fcec15de691a49a97bcaf0949d Mon Sep 17 00:00:00 2001
+From 9d2ae18dbda8acf22db5b80bf0ddaea04316ec3e Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sat, 10 Jan 2026 01:03:48 +0000
 Subject: [PATCH 5/5] Darken slate[12] dark color for text

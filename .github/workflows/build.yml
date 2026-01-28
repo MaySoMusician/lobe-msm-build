@@ -30,12 +30,7 @@ jobs:
       - name: Clone and check out `lobehub/lobe-ui`
         run: |
           cd ../
-          mkdir lobe-ui
-          cd lobe-ui
-          git init
-          git remote add upstream https://github.com/lobehub/lobe-ui.git
-          git fetch --depth 1 upstream 959bf458f4746cf6c060a1260058bcd47f422cb9 # v2.24.3
-          git checkout --detach 959bf458f4746cf6c060a1260058bcd47f422cb9
+          git clone https://github.com/lobehub/lobe-ui.git --depth 50
       - uses: actions/setup-node@v4
         with:
           node-version: 22
