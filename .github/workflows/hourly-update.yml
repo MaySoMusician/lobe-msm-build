@@ -100,7 +100,6 @@ jobs:
         if: steps.tags.outputs.tags != ''
         run: |
           curl -s "https://api.github.com/repositories/643445235/releases" > releases.json
-          cat ./releases.json
           node -e "
             const fs = require('fs');
             const releases = JSON.parse(fs.readFileSync('releases.json', 'utf-8'));
