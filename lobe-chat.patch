@@ -1,4 +1,4 @@
-From aa8ddcf25bffc42d1158c41207ede5b0fa849393 Mon Sep 17 00:00:00 2001
+From bc94e580beedab11dde017d81e89198a7b1d8adc Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 6 Feb 2025 20:34:05 +0000
 Subject: [PATCH 1/8] Load Google Fonts script and IBM Plex Sans JP
@@ -29,7 +29,7 @@ index e05f448565..9fca5b2a20 100644
 2.39.5
 
 
-From e884ff65c199c579f1b888fea0c21c4a7e0fb1dd Mon Sep 17 00:00:00 2001
+From c14e43e446bda14a8f4ef5f41ddc36d870f45026 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 7 Feb 2025 08:18:42 +0000
 Subject: [PATCH 2/8] Force to use en-US as language
@@ -55,7 +55,7 @@ index 6aa68279e4..85f73ae4e9 100644
 2.39.5
 
 
-From 700d023c857adaf112ea77ba64bbc4acbab804ce Mon Sep 17 00:00:00 2001
+From b4debf26b39728deeb0ca2447046280a1f633901 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 28 Jan 2026 01:28:48 +0000
 Subject: [PATCH 3/8] Show only English and Japanese option for language
@@ -120,7 +120,7 @@ index 4d714ea3b8..5ba1ae8437 100644
 2.39.5
 
 
-From 4f241ea6ee898fb02eb446b14ea66f5dc1d99d79 Mon Sep 17 00:00:00 2001
+From 5f4c11f4461e4d520d1385d36b5913d72f1f8f01 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 8 Oct 2025 14:38:00 +0000
 Subject: [PATCH 4/8] Overwrite reasoning.summary to undefined for requests for
@@ -149,7 +149,7 @@ index 0ce3727a95..adde3635d4 100644
 2.39.5
 
 
-From 0ed6f509f336a6d677fd318ad86184404630f257 Mon Sep 17 00:00:00 2001
+From 20aaebc1035b941755d87a488edee79eec7348ef Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 28 Jan 2026 01:29:51 +0000
 Subject: [PATCH 5/8] Disable streaming and allow Responses API for gpt-5
@@ -209,7 +209,7 @@ index f5ff8e9a0f..3792d502c9 100644
 2.39.5
 
 
-From d29eab9384e7aa091aa40746b542b3ec4e2a6e07 Mon Sep 17 00:00:00 2001
+From e76c86fe86cc6ad4961524ccf10cc88c5c0d4ca6 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 22 Sep 2025 15:02:20 +0000
 Subject: [PATCH 6/8] Use stream flag value from handled payload
@@ -219,12 +219,12 @@ Subject: [PATCH 6/8] Use stream flag value from handled payload
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts b/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
-index 0c5c5547df..3ae0121afe 100644
+index d5fbc5dd39..045c73f955 100644
 --- a/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
 +++ b/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
-@@ -879,7 +879,7 @@ export const createOpenAICompatibleRuntime = <T extends Record<string, any> = an
- 
-       const input = await convertOpenAIResponseInputs(messages as any);
+@@ -884,7 +884,7 @@ export const createOpenAICompatibleRuntime = <T extends Record<string, any> = an
+         forceImageBase64: chatCompletion?.forceImageBase64,
+       });
  
 -      const isStreaming = payload.stream !== false;
 +      const isStreaming = res.stream !== false;
@@ -235,7 +235,7 @@ index 0c5c5547df..3ae0121afe 100644
 2.39.5
 
 
-From 992a1291d3c411a6b48699471fccae3b91981329 Mon Sep 17 00:00:00 2001
+From b59e11719cbc61dfd73d2b4fa03db18896450a49 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 22 Sep 2025 15:03:21 +0000
 Subject: [PATCH 7/8] Introduce more detailed non-streaming response converter
@@ -511,7 +511,7 @@ index 033b9d1302..e0f8c7805c 100644
 2.39.5
 
 
-From 3f79a4239c0461fbf5bf68f16d945310404b2ca6 Mon Sep 17 00:00:00 2001
+From 54e299b830eb333d030d552e8961a66180ab8305 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 12 Oct 2025 16:37:16 +0000
 Subject: [PATCH 8/8] Use conversation language for summaryTitle
