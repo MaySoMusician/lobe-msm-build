@@ -1,4 +1,4 @@
-From 5bdd34f0f13bd03cf1104ba84ce8f57aa446e3c0 Mon Sep 17 00:00:00 2001
+From b88b509de6cd789f7f52bc6442ac774178d10d7a Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 6 Feb 2025 20:34:05 +0000
 Subject: [PATCH 1/9] Load Google Fonts script and IBM Plex Sans JP
@@ -8,10 +8,10 @@ Subject: [PATCH 1/9] Load Google Fonts script and IBM Plex Sans JP
  1 file changed, 7 insertions(+)
 
 diff --git a/src/app/[variants]/layout.tsx b/src/app/[variants]/layout.tsx
-index e05f44856..9fca5b2a2 100644
+index b3f801076..0be3b018e 100644
 --- a/src/app/[variants]/layout.tsx
 +++ b/src/app/[variants]/layout.tsx
-@@ -55,6 +55,13 @@ const RootLayout = async ({ children, params }: RootLayoutProps) => {
+@@ -57,6 +57,13 @@ const RootLayout = async ({ children, params }: RootLayoutProps) => {
              strategy={'lazyOnload'}
            />
          )}
@@ -29,7 +29,7 @@ index e05f44856..9fca5b2a2 100644
 2.39.5
 
 
-From 02680adca25b1c9a679a20da1d675dbe02b51c0e Mon Sep 17 00:00:00 2001
+From be08535e85f6f78896868a421585fb895c841be8 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 7 Feb 2025 08:18:42 +0000
 Subject: [PATCH 2/9] Force to use en-US as language
@@ -39,10 +39,10 @@ Subject: [PATCH 2/9] Force to use en-US as language
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/src/utils/locale.ts b/src/utils/locale.ts
-index 6aa68279e..85f73ae4e 100644
+index 93f89f334..44afe2003 100644
 --- a/src/utils/locale.ts
 +++ b/src/utils/locale.ts
-@@ -44,7 +44,7 @@ export const parseBrowserLanguage = (headers: Headers, defaultLang: string = DEF
+@@ -45,7 +45,7 @@ export const parseBrowserLanguage = (headers: Headers, defaultLang: string = DEF
    // if match the ar-EG then fallback to ar
    if (browserLang === 'ar-EG') browserLang = 'ar';
  
@@ -55,7 +55,7 @@ index 6aa68279e..85f73ae4e 100644
 2.39.5
 
 
-From 256b83326d45dce53bf04db2bf2da109a3289694 Mon Sep 17 00:00:00 2001
+From 5542aee7982a29e6939dbb1f5bc0b4e59f9d906f Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 28 Jan 2026 01:28:48 +0000
 Subject: [PATCH 3/9] Show only English and Japanese option for language
@@ -66,10 +66,10 @@ Subject: [PATCH 3/9] Show only English and Japanese option for language
  1 file changed, 21 insertions(+), 19 deletions(-)
 
 diff --git a/src/features/User/UserPanel/LangButton.tsx b/src/features/User/UserPanel/LangButton.tsx
-index 4d714ea3b..5ba1ae843 100644
+index 8a96ac237..c813b9d4d 100644
 --- a/src/features/User/UserPanel/LangButton.tsx
 +++ b/src/features/User/UserPanel/LangButton.tsx
-@@ -44,25 +44,27 @@ const LangButton = memo<{ placement?: DropdownMenuProps['placement']; size?: num
+@@ -38,25 +38,27 @@ const LangButton = memo<{ placement?: DropdownMenuProps['placement']; size?: num
          type: 'checkbox',
        };
  
@@ -120,7 +120,7 @@ index 4d714ea3b..5ba1ae843 100644
 2.39.5
 
 
-From 59ff1a8b571df112793166b9480b407e321661cc Mon Sep 17 00:00:00 2001
+From 23e3ca2f873657405475794cd9b0c8dd2c644cc0 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 8 Oct 2025 14:38:00 +0000
 Subject: [PATCH 4/9] Overwrite reasoning.summary to undefined for requests for
@@ -131,10 +131,10 @@ Subject: [PATCH 4/9] Overwrite reasoning.summary to undefined for requests for
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/packages/model-runtime/src/providers/openai/index.ts b/packages/model-runtime/src/providers/openai/index.ts
-index 0ce3727a9..adde3635d 100644
+index e1e192242..73755181b 100644
 --- a/packages/model-runtime/src/providers/openai/index.ts
 +++ b/packages/model-runtime/src/providers/openai/index.ts
-@@ -96,8 +96,8 @@ export const params = {
+@@ -94,8 +94,8 @@ export const params = {
  
        if (prunePrefixes.some((prefix) => model.startsWith(prefix))) {
          const reasoning = payload.reasoning
@@ -149,7 +149,7 @@ index 0ce3727a9..adde3635d 100644
 2.39.5
 
 
-From 7eee4695b93743ff614ba81978524cb7ea03361a Mon Sep 17 00:00:00 2001
+From 7a9d4699ec2cd204b9578b8053b3f72670544771 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 28 Jan 2026 01:29:51 +0000
 Subject: [PATCH 5/9] Disable streaming and allow Responses API for gpt-5
@@ -209,7 +209,7 @@ index f5ff8e9a0..3792d502c 100644
 2.39.5
 
 
-From 3ceadf0e0b4f0406ed7b2c6d416e8125521a4fb5 Mon Sep 17 00:00:00 2001
+From 65fe83ff450136a73a9de5edbcc9876e9d89ac0a Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 22 Sep 2025 15:02:20 +0000
 Subject: [PATCH 6/9] Use stream flag value from handled payload
@@ -219,10 +219,10 @@ Subject: [PATCH 6/9] Use stream flag value from handled payload
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts b/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
-index d5fbc5dd3..045c73f95 100644
+index 4424b88d0..8bfeb6571 100644
 --- a/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
 +++ b/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
-@@ -884,7 +884,7 @@ export const createOpenAICompatibleRuntime = <T extends Record<string, any> = an
+@@ -887,7 +887,7 @@ export const createOpenAICompatibleRuntime = <T extends Record<string, any> = an
          forceImageBase64: chatCompletion?.forceImageBase64,
        });
  
@@ -235,7 +235,7 @@ index d5fbc5dd3..045c73f95 100644
 2.39.5
 
 
-From cda7bb0bbacfeb8780e323f9558e8900b0f7a859 Mon Sep 17 00:00:00 2001
+From cc5f2d2e3aea9b219bff8ec8d7d38a153ef0742a Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 22 Sep 2025 15:03:21 +0000
 Subject: [PATCH 7/9] Introduce more detailed non-streaming response converter
@@ -246,7 +246,7 @@ e.g. handling url_citations
  1 file changed, 210 insertions(+), 34 deletions(-)
 
 diff --git a/packages/model-runtime/src/core/openaiCompatibleFactory/nonStreamToStream.ts b/packages/model-runtime/src/core/openaiCompatibleFactory/nonStreamToStream.ts
-index 033b9d130..e0f8c7805 100644
+index 2350fbde5..d6841b9c9 100644
 --- a/packages/model-runtime/src/core/openaiCompatibleFactory/nonStreamToStream.ts
 +++ b/packages/model-runtime/src/core/openaiCompatibleFactory/nonStreamToStream.ts
 @@ -85,47 +85,223 @@ export const transformResponseToStream = (data: OpenAI.ChatCompletion) =>
@@ -511,7 +511,7 @@ index 033b9d130..e0f8c7805 100644
 2.39.5
 
 
-From 86b22dc6ff472891f1b05235b5ac71da0cd65884 Mon Sep 17 00:00:00 2001
+From 24cbde1427506a54a8da16cf9dda0e2c92039091 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 12 Oct 2025 16:37:16 +0000
 Subject: [PATCH 8/9] Use conversation language for summaryTitle
@@ -521,7 +521,7 @@ Subject: [PATCH 8/9] Use conversation language for summaryTitle
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/packages/prompts/src/chains/summaryTitle.ts b/packages/prompts/src/chains/summaryTitle.ts
-index 6952d932c..c5abac52a 100644
+index d5fa974a3..8a30b816e 100644
 --- a/packages/prompts/src/chains/summaryTitle.ts
 +++ b/packages/prompts/src/chains/summaryTitle.ts
 @@ -13,7 +13,7 @@ Rules:
@@ -537,30 +537,21 @@ index 6952d932c..c5abac52a 100644
 2.39.5
 
 
-From 0ad8bfbec046812f15fa306fd916ea883f0feff9 Mon Sep 17 00:00:00 2001
+From f7abdabf4968b1ed6818b9c9692855563d3d3daa Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 8 Feb 2026 08:53:26 +0000
 Subject: [PATCH 9/9] Force to use Japanese fonts
 
 The patches that are applied to lobe-ui suddenly stopped working, I have no idea...
 ---
- src/layout/GlobalProvider/AppTheme.tsx | 21 ++++++++-------------
- 1 file changed, 8 insertions(+), 13 deletions(-)
+ src/layout/GlobalProvider/AppTheme.tsx | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
 diff --git a/src/layout/GlobalProvider/AppTheme.tsx b/src/layout/GlobalProvider/AppTheme.tsx
-index e2c2f7c35..84fc51555 100644
+index 26ad8a366..21f3e59a9 100644
 --- a/src/layout/GlobalProvider/AppTheme.tsx
 +++ b/src/layout/GlobalProvider/AppTheme.tsx
-@@ -9,7 +9,7 @@ import {
-   ThemeProvider,
- } from '@lobehub/ui';
- import { message as antdMessage } from 'antd';
--import { createStaticStyles, cx, useTheme } from 'antd-style';
-+import { createStaticStyles, cx } from 'antd-style';
- import 'antd/dist/reset.css';
- import { AppConfigContext } from 'antd/es/app/context';
- import * as motion from 'motion/react-m';
-@@ -85,6 +85,10 @@ const styles = createStaticStyles(({ css, cssVar }) => ({
+@@ -82,6 +82,10 @@ const styles = createStaticStyles(({ css, cssVar }) => ({
    `,
  }));
  
@@ -571,25 +562,7 @@ index e2c2f7c35..84fc51555 100644
  export interface AppThemeProps {
    children?: ReactNode;
    customFontFamily?: string;
-@@ -95,16 +99,8 @@ export interface AppThemeProps {
- }
- 
- const AppTheme = memo<AppThemeProps>(
--  ({
--    children,
--    defaultPrimaryColor,
--    defaultNeutralColor,
--    globalCDN,
--    customFontURL,
--    customFontFamily,
--  }) => {
-+  ({ children, defaultPrimaryColor, defaultNeutralColor, globalCDN, customFontURL }) => {
-     const language = useGlobalStore(systemStatusSelectors.language);
--    const antdTheme = useTheme();
-     const isDark = useIsDark();
- 
-     const [primaryColor, neutralColor, animationMode] = useUserStore((s) => [
-@@ -166,9 +162,8 @@ const AppTheme = memo<AppThemeProps>(
+@@ -163,9 +167,8 @@ const AppTheme = memo<AppThemeProps>(
            theme={{
              cssVar: { key: 'lobe-vars' },
              token: {
