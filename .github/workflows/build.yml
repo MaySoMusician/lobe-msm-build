@@ -129,7 +129,7 @@ jobs:
         run: |
           UPDATE_RUN_ID=${{ inputs.update_run_id }}
           if [ "$UPDATE_RUN_ID" -gt 0 ]; then
-            curl -H "Authorization: $DEPLOY_AUTH_KEY" -H "Content-Type: application/json" -X POST $DEPLOY_API_ENDPOINT -d "{\"runId\":$UPDATE_RUN_ID}"
+            curl -sSf -H "Authorization: $DEPLOY_AUTH_KEY" -H "Content-Type: application/json" -X POST $DEPLOY_API_ENDPOINT -d "{\"runId\":$UPDATE_RUN_ID}"
           else
-            curl -H "Authorization: $DEPLOY_AUTH_KEY" -X POST $DEPLOY_API_ENDPOINT
+            curl -sSf -H "Authorization: $DEPLOY_AUTH_KEY" -X POST $DEPLOY_API_ENDPOINT
           fi
