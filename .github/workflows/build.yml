@@ -30,13 +30,7 @@ jobs:
       - name: Clone and check out `lobehub/lobe-ui`
         run: |
           cd ../
-          mkdir lobe-ui
-          cd lobe-ui
-          git init
-          git remote add upstream https://github.com/lobehub/lobe-ui.git
-          # Workaround of type mismatch
-          git fetch --depth 1 upstream 89d95ef5345304d0604faef68a0955bcb90ddbfa
-          git checkout --detach 89d95ef5345304d0604faef68a0955bcb90ddbfa
+          git clone https://github.com/lobehub/lobe-ui.git --depth 50
       - uses: actions/setup-node@v4
         with:
           node-version: 22
