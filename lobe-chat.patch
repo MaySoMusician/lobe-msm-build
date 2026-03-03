@@ -1,45 +1,62 @@
-From b88b509de6cd789f7f52bc6442ac774178d10d7a Mon Sep 17 00:00:00 2001
+From e36ab7d3e5bacea19c08596bc30000e3ae3341e0 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 6 Feb 2025 20:34:05 +0000
-Subject: [PATCH 1/9] Load Google Fonts script and IBM Plex Sans JP
+Subject: [PATCH 1/8] Load Google Fonts script and IBM Plex Sans JP
 
 ---
- src/app/[variants]/layout.tsx | 7 +++++++
- 1 file changed, 7 insertions(+)
+ index.html        | 6 ++++++
+ index.mobile.html | 6 ++++++
+ 2 files changed, 12 insertions(+)
 
-diff --git a/src/app/[variants]/layout.tsx b/src/app/[variants]/layout.tsx
-index b3f801076..0be3b018e 100644
---- a/src/app/[variants]/layout.tsx
-+++ b/src/app/[variants]/layout.tsx
-@@ -57,6 +57,13 @@ const RootLayout = async ({ children, params }: RootLayoutProps) => {
-             strategy={'lazyOnload'}
-           />
-         )}
-+        <link href="https://fonts.googleapis.com" rel="preconnect" />
-+        <link crossOrigin="anonymous" href="https://fonts.gstatic.com" rel="preconnect" />
-+        {/* eslint-disable-next-line @next/next/no-page-custom-font */}
-+        <link
-+          href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+JP:wght@400;500;600;700&display=swap"
-+          rel="stylesheet"
-+        />
-       </head>
-       <body>
-         {ENABLE_BUSINESS_FEATURES ? (
+diff --git a/index.html b/index.html
+index 124faa05d0..44b95fd206 100644
+--- a/index.html
++++ b/index.html
+@@ -122,6 +122,12 @@
+     <script>
+       window.__SERVER_CONFIG__ = undefined; /* SERVER_CONFIG */
+     </script>
++    <link href="https://fonts.googleapis.com" rel="preconnect" />
++    <link crossorigin="anonymous" href="https://fonts.gstatic.com" rel="preconnect" />
++    <link
++      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+JP:wght@400;500;600;700&display=swap"
++      rel="stylesheet"
++    />
+   </head>
+ 
+   <body>
+diff --git a/index.mobile.html b/index.mobile.html
+index d92a9c36d4..0e60782fe1 100644
+--- a/index.mobile.html
++++ b/index.mobile.html
+@@ -57,6 +57,12 @@
+     <script>
+       window.__SERVER_CONFIG__ = undefined; /* SERVER_CONFIG */
+     </script>
++    <link href="https://fonts.googleapis.com" rel="preconnect" />
++    <link crossorigin="anonymous" href="https://fonts.gstatic.com" rel="preconnect" />
++    <link
++      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+JP:wght@400;500;600;700&display=swap"
++      rel="stylesheet"
++    />
+   </head>
+ 
+   <body>
 -- 
 2.39.5
 
 
-From be08535e85f6f78896868a421585fb895c841be8 Mon Sep 17 00:00:00 2001
+From af240ba7edfe6b57675ae3efb1e0e5fc82bacdc9 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 7 Feb 2025 08:18:42 +0000
-Subject: [PATCH 2/9] Force to use en-US as language
+Subject: [PATCH 2/8] Force to use en-US as language
 
 ---
  src/utils/locale.ts | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/src/utils/locale.ts b/src/utils/locale.ts
-index 93f89f334..44afe2003 100644
+index 93f89f3346..44afe2003b 100644
 --- a/src/utils/locale.ts
 +++ b/src/utils/locale.ts
 @@ -45,7 +45,7 @@ export const parseBrowserLanguage = (headers: Headers, defaultLang: string = DEF
@@ -55,10 +72,10 @@ index 93f89f334..44afe2003 100644
 2.39.5
 
 
-From 5542aee7982a29e6939dbb1f5bc0b4e59f9d906f Mon Sep 17 00:00:00 2001
+From 020ff90d97cd14c613a830f1166236d4ab778717 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 28 Jan 2026 01:28:48 +0000
-Subject: [PATCH 3/9] Show only English and Japanese option for language
+Subject: [PATCH 3/8] Show only English and Japanese option for language
  options in global menu
 
 ---
@@ -66,7 +83,7 @@ Subject: [PATCH 3/9] Show only English and Japanese option for language
  1 file changed, 21 insertions(+), 19 deletions(-)
 
 diff --git a/src/features/User/UserPanel/LangButton.tsx b/src/features/User/UserPanel/LangButton.tsx
-index 8a96ac237..c813b9d4d 100644
+index 8a96ac2370..c813b9d4d9 100644
 --- a/src/features/User/UserPanel/LangButton.tsx
 +++ b/src/features/User/UserPanel/LangButton.tsx
 @@ -38,25 +38,27 @@ const LangButton = memo<{ placement?: DropdownMenuProps['placement']; size?: num
@@ -120,10 +137,10 @@ index 8a96ac237..c813b9d4d 100644
 2.39.5
 
 
-From 23e3ca2f873657405475794cd9b0c8dd2c644cc0 Mon Sep 17 00:00:00 2001
+From f7b91b896ee9ec56ae4ca39ba410875bb000abfb Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 8 Oct 2025 14:38:00 +0000
-Subject: [PATCH 4/9] Overwrite reasoning.summary to undefined for requests for
+Subject: [PATCH 4/8] Overwrite reasoning.summary to undefined for requests for
  openai
 
 ---
@@ -131,7 +148,7 @@ Subject: [PATCH 4/9] Overwrite reasoning.summary to undefined for requests for
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/packages/model-runtime/src/providers/openai/index.ts b/packages/model-runtime/src/providers/openai/index.ts
-index e1e192242..73755181b 100644
+index e1e1922420..73755181b6 100644
 --- a/packages/model-runtime/src/providers/openai/index.ts
 +++ b/packages/model-runtime/src/providers/openai/index.ts
 @@ -94,8 +94,8 @@ export const params = {
@@ -149,10 +166,10 @@ index e1e192242..73755181b 100644
 2.39.5
 
 
-From 7a9d4699ec2cd204b9578b8053b3f72670544771 Mon Sep 17 00:00:00 2001
+From 9b73bdaf66d70f21e4c2463791dc5c92e3ea358a Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 28 Jan 2026 01:29:51 +0000
-Subject: [PATCH 5/9] Disable streaming and allow Responses API for gpt-5
+Subject: [PATCH 5/8] Disable streaming and allow Responses API for gpt-5
  family
 
 ---
@@ -160,7 +177,7 @@ Subject: [PATCH 5/9] Disable streaming and allow Responses API for gpt-5
  1 file changed, 21 insertions(+)
 
 diff --git a/packages/model-runtime/src/const/models.ts b/packages/model-runtime/src/const/models.ts
-index f5ff8e9a0..3792d502c 100644
+index f5ff8e9a0f..3792d502c9 100644
 --- a/packages/model-runtime/src/const/models.ts
 +++ b/packages/model-runtime/src/const/models.ts
 @@ -18,6 +18,18 @@ export const disableStreamModels = new Set([
@@ -209,20 +226,20 @@ index f5ff8e9a0..3792d502c 100644
 2.39.5
 
 
-From 65fe83ff450136a73a9de5edbcc9876e9d89ac0a Mon Sep 17 00:00:00 2001
+From e4e9250f46d2b6c7c89a3d11f7ee52a265c40c3d Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 22 Sep 2025 15:02:20 +0000
-Subject: [PATCH 6/9] Use stream flag value from handled payload
+Subject: [PATCH 6/8] Use stream flag value from handled payload
 
 ---
  .../model-runtime/src/core/openaiCompatibleFactory/index.ts     | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts b/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
-index 4424b88d0..8bfeb6571 100644
+index 61e1196527..5b9548fd2f 100644
 --- a/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
 +++ b/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
-@@ -887,7 +887,7 @@ export const createOpenAICompatibleRuntime = <T extends Record<string, any> = an
+@@ -930,7 +930,7 @@ export const createOpenAICompatibleRuntime = <T extends Record<string, any> = an
          forceImageBase64: chatCompletion?.forceImageBase64,
        });
  
@@ -235,10 +252,10 @@ index 4424b88d0..8bfeb6571 100644
 2.39.5
 
 
-From cc5f2d2e3aea9b219bff8ec8d7d38a153ef0742a Mon Sep 17 00:00:00 2001
+From 74c6e499e7c0a8608f8bd38ccd252da0c8336476 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 22 Sep 2025 15:03:21 +0000
-Subject: [PATCH 7/9] Introduce more detailed non-streaming response converter
+Subject: [PATCH 7/8] Introduce more detailed non-streaming response converter
 
 e.g. handling url_citations
 ---
@@ -246,7 +263,7 @@ e.g. handling url_citations
  1 file changed, 210 insertions(+), 34 deletions(-)
 
 diff --git a/packages/model-runtime/src/core/openaiCompatibleFactory/nonStreamToStream.ts b/packages/model-runtime/src/core/openaiCompatibleFactory/nonStreamToStream.ts
-index 2350fbde5..d6841b9c9 100644
+index 2350fbde56..d6841b9c9a 100644
 --- a/packages/model-runtime/src/core/openaiCompatibleFactory/nonStreamToStream.ts
 +++ b/packages/model-runtime/src/core/openaiCompatibleFactory/nonStreamToStream.ts
 @@ -85,47 +85,223 @@ export const transformResponseToStream = (data: OpenAI.ChatCompletion) =>
@@ -511,17 +528,17 @@ index 2350fbde5..d6841b9c9 100644
 2.39.5
 
 
-From 24cbde1427506a54a8da16cf9dda0e2c92039091 Mon Sep 17 00:00:00 2001
+From ee09ddfe3665aeddfaf70cf2ab7aa60f2057add5 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 12 Oct 2025 16:37:16 +0000
-Subject: [PATCH 8/9] Use conversation language for summaryTitle
+Subject: [PATCH 8/8] Use conversation language for summaryTitle
 
 ---
  packages/prompts/src/chains/summaryTitle.ts | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/packages/prompts/src/chains/summaryTitle.ts b/packages/prompts/src/chains/summaryTitle.ts
-index d5fa974a3..8a30b816e 100644
+index d5fa974a32..8a30b816ea 100644
 --- a/packages/prompts/src/chains/summaryTitle.ts
 +++ b/packages/prompts/src/chains/summaryTitle.ts
 @@ -13,7 +13,7 @@ Rules:
@@ -533,47 +550,6 @@ index d5fa974a3..8a30b816e 100644
  - The title should accurately reflect the main topic of the conversation
  - Keep it short and to the point`,
        role: 'system',
--- 
-2.39.5
-
-
-From f7abdabf4968b1ed6818b9c9692855563d3d3daa Mon Sep 17 00:00:00 2001
-From: MaySoMusician <maysomusician@gmail.com>
-Date: Sun, 8 Feb 2026 08:53:26 +0000
-Subject: [PATCH 9/9] Force to use Japanese fonts
-
-The patches that are applied to lobe-ui suddenly stopped working, I have no idea...
----
- src/layout/GlobalProvider/AppTheme.tsx | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
-
-diff --git a/src/layout/GlobalProvider/AppTheme.tsx b/src/layout/GlobalProvider/AppTheme.tsx
-index 26ad8a366..21f3e59a9 100644
---- a/src/layout/GlobalProvider/AppTheme.tsx
-+++ b/src/layout/GlobalProvider/AppTheme.tsx
-@@ -82,6 +82,10 @@ const styles = createStaticStyles(({ css, cssVar }) => ({
-   `,
- }));
- 
-+const FONT_EMOJI = `"Segoe UI Emoji","Segoe UI Symbol","Apple Color Emoji","Twemoji Mozilla","Noto Color Emoji","Android Emoji"`;
-+const FONT_EN = `"IBM Plex Sans JP","Segoe UI","SF Pro Display",-apple-system,BlinkMacSystemFont,Roboto,Oxygen,Ubuntu,Cantarell,"Open Sans","Helvetica Neue",sans-serif`;
-+const FONT_CODE = `"Mgen+ 1mn",ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas`;
-+
- export interface AppThemeProps {
-   children?: ReactNode;
-   customFontFamily?: string;
-@@ -163,9 +167,8 @@ const AppTheme = memo<AppThemeProps>(
-           theme={{
-             cssVar: { key: 'lobe-vars' },
-             token: {
--              fontFamily: customFontFamily
--                ? `${customFontFamily},${antdTheme.fontFamily}`
--                : undefined,
-+              fontFamily: [FONT_EN, FONT_EMOJI].join(','),
-+              fontFamilyCode: [FONT_CODE, FONT_EMOJI].join(','),
-               motion: animationMode !== 'disabled',
-               motionUnit: animationMode === 'agile' ? 0.05 : 0.1,
-             },
 -- 
 2.39.5
 
