@@ -6,7 +6,7 @@ on:
     - cron: "0 * * * *"
 
 permissions:
-  contents: read # Default: read-only; jobs that must write will override at job-level.
+  contents: write
 
 env:
   GIT_AUTHOR_NAME: actions-user
@@ -28,12 +28,9 @@ jobs:
 
     steps:
       - name: Check out patch repo
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-        with:
-          persist-credentials: false
+        uses: actions/checkout@v4
       - name: Clone and check out `lobehub/lobe-chat`
         run: |
-          set -euo pipefail
           cd ../
           git clone https://github.com/lobehub/lobe-chat.git -b main --depth 5
           cd ./lobe-chat
@@ -41,7 +38,6 @@ jobs:
         id: check-updates
         working-directory: ../lobe-chat
         run: |
-          set -euo pipefail
           FETCHED_COMMIT=$(git rev-parse main)
           LAST_COMMIT=$(cat ../lobe-msm-build/lobe-chat-main | tr -d '\n')
           if [ "$FETCHED_COMMIT" != "$LAST_COMMIT" ]; then
@@ -60,33 +56,20 @@ jobs:
     needs: check
     if: needs.check.outputs.new_commit == 'true'
     steps:
-      - uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
+      - uses: actions/setup-node@v4
         with:
-          node-version: 24
+          node-version: 22
       - name: Clone and check out `lobehub/lobe-chat`
         run: |
-          set -euo pipefail
           cd ../
           git clone https://github.com/lobehub/lobe-chat.git -b main --depth 500
           cd ./lobe-chat
       - name: Find relevant commits and tags
         id: tags
         working-directory: ../lobe-chat
-        env:
-          FETCHED_COMMIT: ${{ needs.check.outputs.fetched_commit }}
-          LAST_COMMIT: ${{ needs.check.outputs.last_commit }}
         run: |
-          set -euo pipefail
-
-          if ! [[ "$FETCHED_COMMIT" =~ ^[0-9a-fA-F]{7,40}$ ]]; then
-            echo "Invalid fetched_commit: '$FETCHED_COMMIT'" >&2
-            exit 1
-          fi
-          if ! [[ "$LAST_COMMIT" =~ ^[0-9a-fA-F]{7,40}$ ]]; then
-            echo "Invalid last_commit: '$LAST_COMMIT'" >&2
-            exit 1
-          fi
-
+          FETCHED_COMMIT=${{ needs.check.outputs.fetched_commit }}
+          LAST_COMMIT=${{ needs.check.outputs.last_commit }}
           echo "Fetching releases between $LAST_COMMIT and $FETCHED_COMMIT"
           if ! git cat-file -t "$LAST_COMMIT" &>/dev/null; then
             echo "$LAST_COMMIT is not a valid commit. Skipping release notes fetch."
@@ -116,8 +99,7 @@ jobs:
       - name: Fetch release notes
         if: steps.tags.outputs.tags != ''
         run: |
-          set -euo pipefail
-          curl -sSf "https://api.github.com/repositories/643445235/releases" > releases.json
+          curl -s "https://api.github.com/repositories/643445235/releases" > releases.json
           node -e "
             const fs = require('fs');
             const releases = JSON.parse(fs.readFileSync('releases.json', 'utf-8'));
@@ -146,11 +128,11 @@ jobs:
     if: needs.check.outputs.new_commit == 'true'
     uses: ./.github/workflows/build.yml
     permissions:
-      contents: read # Called workflow needs to read/checkout sources.
-      packages: write # Called workflow needs to push images to GHCR.
-    secrets:
-      DEPLOY_API_ENDPOINT: ${{ secrets.DEPLOY_API_ENDPOINT }}
-      DEPLOY_AUTH_KEY: ${{ secrets.DEPLOY_AUTH_KEY }}
+      contents: read
+      packages: write
+      attestations: write
+      id-token: write
+    secrets: inherit
     with:
       update_run_id: ${{ github.run_id }}
       new_lobechat_main_commit: ${{ needs.check.outputs.fetched_commit }}
@@ -159,69 +141,14 @@ jobs:
     name: Update commit hash file
     runs-on: ubuntu-latest
     needs: [check, build-image]
-    permissions:
-      contents: write # Required to update lobe-chat-main in-repo.
 
     steps:
-      - name: Update lobe-chat-main via GitHub Contents API
-        shell: bash
-        env:
-          REPO: ${{ github.repository }}
-          BRANCH: ${{ github.ref_name }}
-          FETCHED_COMMIT: ${{ needs.check.outputs.fetched_commit }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          set -euo pipefail
+      - uses: actions/checkout@v4
+      - run: |
+          FETCHED_COMMIT=${{ needs.check.outputs.fetched_commit }}
+          echo "Updating last known commit to: $FETCHED_COMMIT"
+          echo "$FETCHED_COMMIT" > ./lobe-chat-main
 
-          if ! [[ "$FETCHED_COMMIT" =~ ^[0-9a-fA-F]{40}$ ]]; then
-            echo "Invalid fetched_commit: '$FETCHED_COMMIT'" >&2
-            exit 1
-          fi
-
-          FILE_PATH="lobe-chat-main"
-          API_BASE="https://api.github.com"
-          AUTH_HEADER="Authorization: Bearer $GITHUB_TOKEN"
-          ACCEPT_HEADER="Accept: application/vnd.github+json"
-
-          # 1) Get current file SHA (needed for update; omitted for create).
-          GET_URL="$API_BASE/repos/$REPO/contents/$FILE_PATH?ref=$BRANCH"
-          HTTP_STATUS="$(curl -sS -o current.json -w '%{http_code}' -H "$AUTH_HEADER" -H "$ACCEPT_HEADER" "$GET_URL")"
-          FILE_SHA=""
-          if [ "$HTTP_STATUS" = "200" ]; then
-            FILE_SHA="$(jq -r .sha < current.json)"
-          elif [ "$HTTP_STATUS" = "404" ]; then
-            FILE_SHA=""
-          else
-            cat current.json >&2
-            echo "Failed to fetch $FILE_PATH metadata (HTTP $HTTP_STATUS)" >&2
-            exit 1
-          fi
-
-          CONTENT_B64="$(printf '%s\n' "$FETCHED_COMMIT" | base64 -w0)"
-
-          PAYLOAD="$(jq -n \
-            --arg message "Update lobe-chat-main to: $FETCHED_COMMIT" \
-            --arg content "$CONTENT_B64" \
-            --arg branch "$BRANCH" \
-            --arg sha "$FILE_SHA" \
-            '{
-                message: $message,
-                content: $content,
-                branch: $branch
-              } + ( ($sha | length) > 0 ? { sha: $sha } : {} )'
-          )"
-
-          PUT_URL="$API_BASE/repos/$REPO/contents/$FILE_PATH"
-          HTTP_STATUS="$(curl -sS -o response.json -w '%{http_code}' \
-            -X PUT \
-            -H "$AUTH_HEADER" \
-            -H "$ACCEPT_HEADER" \
-            -H "Content-Type: application/json" \
-            -d "$PAYLOAD" \
-            "$PUT_URL")"
-
-          if [ "$HTTP_STATUS" != "200" ] && [ "$HTTP_STATUS" != "201" ]; then
-            cat response.json >&2
-            echo "Failed to update $FILE_PATH (HTTP $HTTP_STATUS)" >&2
-            exit 1
-          fi
+          git add .
+          git commit -m "Update lobe-chat-main to: $FETCHED_COMMIT"
+          git push
