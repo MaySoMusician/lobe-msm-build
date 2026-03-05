@@ -1,7 +1,7 @@
 From e36ab7d3e5bacea19c08596bc30000e3ae3341e0 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 6 Feb 2025 20:34:05 +0000
-Subject: [PATCH 1/8] Load Google Fonts script and IBM Plex Sans JP
+Subject: [PATCH 1/9] Load Google Fonts script and IBM Plex Sans JP
 
 ---
  index.html        | 6 ++++++
@@ -49,7 +49,7 @@ index d92a9c36d4..0e60782fe1 100644
 From af240ba7edfe6b57675ae3efb1e0e5fc82bacdc9 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 7 Feb 2025 08:18:42 +0000
-Subject: [PATCH 2/8] Force to use en-US as language
+Subject: [PATCH 2/9] Force to use en-US as language
 
 ---
  src/utils/locale.ts | 2 +-
@@ -75,7 +75,7 @@ index 93f89f3346..44afe2003b 100644
 From 020ff90d97cd14c613a830f1166236d4ab778717 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 28 Jan 2026 01:28:48 +0000
-Subject: [PATCH 3/8] Show only English and Japanese option for language
+Subject: [PATCH 3/9] Show only English and Japanese option for language
  options in global menu
 
 ---
@@ -140,7 +140,7 @@ index 8a96ac2370..c813b9d4d9 100644
 From f7b91b896ee9ec56ae4ca39ba410875bb000abfb Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 8 Oct 2025 14:38:00 +0000
-Subject: [PATCH 4/8] Overwrite reasoning.summary to undefined for requests for
+Subject: [PATCH 4/9] Overwrite reasoning.summary to undefined for requests for
  openai
 
 ---
@@ -169,7 +169,7 @@ index e1e1922420..73755181b6 100644
 From 9b73bdaf66d70f21e4c2463791dc5c92e3ea358a Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 28 Jan 2026 01:29:51 +0000
-Subject: [PATCH 5/8] Disable streaming and allow Responses API for gpt-5
+Subject: [PATCH 5/9] Disable streaming and allow Responses API for gpt-5
  family
 
 ---
@@ -229,7 +229,7 @@ index f5ff8e9a0f..3792d502c9 100644
 From e4e9250f46d2b6c7c89a3d11f7ee52a265c40c3d Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 22 Sep 2025 15:02:20 +0000
-Subject: [PATCH 6/8] Use stream flag value from handled payload
+Subject: [PATCH 6/9] Use stream flag value from handled payload
 
 ---
  .../model-runtime/src/core/openaiCompatibleFactory/index.ts     | 2 +-
@@ -255,7 +255,7 @@ index 61e1196527..5b9548fd2f 100644
 From 74c6e499e7c0a8608f8bd38ccd252da0c8336476 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 22 Sep 2025 15:03:21 +0000
-Subject: [PATCH 7/8] Introduce more detailed non-streaming response converter
+Subject: [PATCH 7/9] Introduce more detailed non-streaming response converter
 
 e.g. handling url_citations
 ---
@@ -531,7 +531,7 @@ index 2350fbde56..d6841b9c9a 100644
 From ee09ddfe3665aeddfaf70cf2ab7aa60f2057add5 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 12 Oct 2025 16:37:16 +0000
-Subject: [PATCH 8/8] Use conversation language for summaryTitle
+Subject: [PATCH 8/9] Use conversation language for summaryTitle
 
 ---
  packages/prompts/src/chains/summaryTitle.ts | 2 +-
@@ -550,6 +550,59 @@ index d5fa974a32..8a30b816ea 100644
  - The title should accurately reflect the main topic of the conversation
  - Keep it short and to the point`,
        role: 'system',
+-- 
+2.39.5
+
+
+From 95fbadd39653faf4fbf18838116c3946b9c6ae39 Mon Sep 17 00:00:00 2001
+From: MaySoMusician <maysomusician@gmail.com>
+Date: Thu, 5 Mar 2026 10:44:37 +0000
+Subject: [PATCH 9/9] Do not load default tools like lobe-tools etc.
+
+Also show them in the skill list
+---
+ packages/builtin-tools/src/index.ts | 9 +++------
+ 1 file changed, 3 insertions(+), 6 deletions(-)
+
+diff --git a/packages/builtin-tools/src/index.ts b/packages/builtin-tools/src/index.ts
+index 6bbb0d4b9b..2463c216fe 100644
+--- a/packages/builtin-tools/src/index.ts
++++ b/packages/builtin-tools/src/index.ts
+@@ -22,9 +22,6 @@ import { type LobeBuiltinTool } from '@lobechat/types';
+  * Shared between frontend (createAgentToolsEngine) and server (createServerAgentToolsEngine).
+  */
+ export const defaultToolIds = [
+-  LobeToolsManifest.identifier,
+-  SkillsManifest.identifier,
+-  SkillStoreManifest.identifier,
+   WebBrowsingManifest.identifier,
+   KnowledgeBaseManifest.identifier,
+   MemoryManifest.identifier,
+@@ -33,21 +30,21 @@ export const defaultToolIds = [
+ export const builtinTools: LobeBuiltinTool[] = [
+   {
+     discoverable: false,
+-    hidden: true,
++    hidden: false,
+     identifier: LobeToolsManifest.identifier,
+     manifest: LobeToolsManifest,
+     type: 'builtin',
+   },
+   {
+     discoverable: false,
+-    hidden: true,
++    hidden: false,
+     identifier: SkillsManifest.identifier,
+     manifest: SkillsManifest,
+     type: 'builtin',
+   },
+   {
+     discoverable: false,
+-    hidden: true,
++    hidden: false,
+     identifier: SkillStoreManifest.identifier,
+     manifest: SkillStoreManifest,
+     type: 'builtin',
 -- 
 2.39.5
 
