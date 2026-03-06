@@ -208,7 +208,7 @@ jobs:
                 message: $message,
                 content: $content,
                 branch: $branch
-              } + ( ($sha | length) > 0 ? { sha: $sha } : {} )'
+              } + (if ($sha | length) > 0 then { sha: $sha } else {} end)'
           )"
 
           PUT_URL="$API_BASE/repos/$REPO/contents/$FILE_PATH"
