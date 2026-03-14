@@ -1,4 +1,4 @@
-From f9eaf1ef41717d4a27456b0e0ba288c0902d8d56 Mon Sep 17 00:00:00 2001
+From 201f9beba7880ff64b8cbadd3a40c63d18eebe3e Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 6 Feb 2025 20:34:05 +0000
 Subject: [PATCH 1/9] Load Google Fonts script and IBM Plex Sans JP
@@ -46,7 +46,7 @@ index d92a9c36d4..0e60782fe1 100644
 2.39.5
 
 
-From 8c39e5a2b928de215385252bcad9b1df52efdb30 Mon Sep 17 00:00:00 2001
+From a96cfae549f9274dca7ae5dc8cc866b4ac85c936 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 7 Feb 2025 08:18:42 +0000
 Subject: [PATCH 2/9] Force to use en-US as language
@@ -72,7 +72,7 @@ index 93f89f3346..44afe2003b 100644
 2.39.5
 
 
-From e47b8ee41b77f43b6d00e5f0232cb83ec9bc2744 Mon Sep 17 00:00:00 2001
+From 7cab23a16a8717d383322de474387a4dc82c40f5 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 28 Jan 2026 01:28:48 +0000
 Subject: [PATCH 3/9] Show only English and Japanese option for language
@@ -137,7 +137,7 @@ index 8a96ac2370..c813b9d4d9 100644
 2.39.5
 
 
-From 6a036b4ee5397b53f4389821dccb0c8b5c2fd3d7 Mon Sep 17 00:00:00 2001
+From 0fd8779ef39cef2e1ba0fe76e4af7ddf8ee98290 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 8 Oct 2025 14:38:00 +0000
 Subject: [PATCH 4/9] Overwrite reasoning.summary to undefined for requests for
@@ -166,7 +166,7 @@ index e1e1922420..73755181b6 100644
 2.39.5
 
 
-From 28885f16f68f7ba96ac966e66e48b66a068bc724 Mon Sep 17 00:00:00 2001
+From 01e3807b5acf3c4a4f51e9957c94e590bc81bec5 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 28 Jan 2026 01:29:51 +0000
 Subject: [PATCH 5/9] Disable streaming and allow Responses API for gpt-5
@@ -177,7 +177,7 @@ Subject: [PATCH 5/9] Disable streaming and allow Responses API for gpt-5
  1 file changed, 27 insertions(+)
 
 diff --git a/packages/model-runtime/src/const/models.ts b/packages/model-runtime/src/const/models.ts
-index 9180201413..2257066448 100644
+index b595ec09ab..dbe81a913b 100644
 --- a/packages/model-runtime/src/const/models.ts
 +++ b/packages/model-runtime/src/const/models.ts
 @@ -18,6 +18,22 @@ export const disableStreamModels = new Set([
@@ -203,7 +203,7 @@ index 9180201413..2257066448 100644
  ]);
  
  /**
-@@ -36,15 +52,26 @@ export const responsesAPIModels = new Set([
+@@ -36,18 +52,29 @@ export const responsesAPIModels = new Set([
    'computer-use-preview',
    'computer-use-preview-2025-03-11',
    'gpt-5-codex',
@@ -217,11 +217,14 @@ index 9180201413..2257066448 100644
    'gpt-5-pro-2025-10-06',
    'gpt-5.1-codex',
    'gpt-5.1-codex-mini',
+   'gpt-5.1-codex-max',
 +  'gpt-5.1',
 +  'gpt-5.1-2025-11-13',
    'gpt-5.2',
+   'gpt-5.2-codex',
    'gpt-5.2-pro-2025-12-11',
    'gpt-5.2-pro',
+   'gpt-5.3-codex',
 +  'gpt-5.2-2025-12-11',
    'gpt-5.4',
    'gpt-5.4-pro',
@@ -234,7 +237,7 @@ index 9180201413..2257066448 100644
 2.39.5
 
 
-From 065c8de00b2907b26b99adeb817bb1cc3943c572 Mon Sep 17 00:00:00 2001
+From ce5b1d8762a00731b4d9094c494228f2e996a36d Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 22 Sep 2025 15:02:20 +0000
 Subject: [PATCH 6/9] Use stream flag value from handled payload
@@ -244,11 +247,11 @@ Subject: [PATCH 6/9] Use stream flag value from handled payload
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts b/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
-index 2834fad666..ea6bbc2e51 100644
+index 2fbf2fa473..7336545507 100644
 --- a/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
 +++ b/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
-@@ -932,7 +932,7 @@ export const createOpenAICompatibleRuntime = <T extends Record<string, any> = an
-         forceImageBase64: chatCompletion?.forceImageBase64,
+@@ -978,7 +978,7 @@ export const createOpenAICompatibleRuntime = <T extends Record<string, any> = an
+         forceVideoBase64: chatCompletion?.forceVideoBase64,
        });
  
 -      const isStreaming = payload.stream !== false;
@@ -260,7 +263,7 @@ index 2834fad666..ea6bbc2e51 100644
 2.39.5
 
 
-From 13dac6ef879b57302fc5d70eb1801b3392eefede Mon Sep 17 00:00:00 2001
+From 60816c8476c978a8d0140b4328e48845f314aa5f Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 22 Sep 2025 15:03:21 +0000
 Subject: [PATCH 7/9] Introduce more detailed non-streaming response converter
@@ -536,7 +539,7 @@ index 2350fbde56..d6841b9c9a 100644
 2.39.5
 
 
-From 0392dc0d5e5a7f61ed643e7dc0d0b717f91eb611 Mon Sep 17 00:00:00 2001
+From a8951d5b537cd7de110b77c0acd491334ab4351d Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 12 Oct 2025 16:37:16 +0000
 Subject: [PATCH 8/9] Use conversation language for summaryTitle
@@ -562,31 +565,27 @@ index d5fa974a32..8a30b816ea 100644
 2.39.5
 
 
-From b056cf70bf8e0fa73ab4f1568b73f7ccc3497d5a Mon Sep 17 00:00:00 2001
+From e414840ce17779b4300534338ed15c2b1264c5d8 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 5 Mar 2026 10:44:37 +0000
 Subject: [PATCH 9/9] Do not load default tools like lobe-tools etc.
 
 Also show them in the skill list
 ---
- packages/builtin-tools/src/index.ts | 9 +++------
- 1 file changed, 3 insertions(+), 6 deletions(-)
+ packages/builtin-tools/src/index.ts | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/packages/builtin-tools/src/index.ts b/packages/builtin-tools/src/index.ts
-index 6bbb0d4b9b..2463c216fe 100644
+index 85cd2e10f1..cba3254a96 100644
 --- a/packages/builtin-tools/src/index.ts
 +++ b/packages/builtin-tools/src/index.ts
-@@ -22,9 +22,6 @@ import { type LobeBuiltinTool } from '@lobechat/types';
-  * Shared between frontend (createAgentToolsEngine) and server (createServerAgentToolsEngine).
+@@ -37,26 +37,26 @@ export const defaultToolIds = [
+  * Tool IDs that are always enabled regardless of user selection.
+  * These are core system tools that the agent needs to function properly.
   */
- export const defaultToolIds = [
--  LobeToolsManifest.identifier,
--  SkillsManifest.identifier,
--  SkillStoreManifest.identifier,
-   WebBrowsingManifest.identifier,
-   KnowledgeBaseManifest.identifier,
-   MemoryManifest.identifier,
-@@ -33,21 +30,21 @@ export const defaultToolIds = [
+-export const alwaysOnToolIds = [LobeToolsManifest.identifier, SkillsManifest.identifier];
++export const alwaysOnToolIds = [];
+ 
  export const builtinTools: LobeBuiltinTool[] = [
    {
      discoverable: false,
