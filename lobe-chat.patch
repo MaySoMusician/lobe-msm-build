@@ -1,7 +1,7 @@
 From ee4da8016be41c117a9467a349b4c389f79659d8 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 6 Feb 2025 20:34:05 +0000
-Subject: [PATCH 1/9] Load Google Fonts script and IBM Plex Sans JP
+Subject: [PATCH 01/10] Load Google Fonts script and IBM Plex Sans JP
 
 ---
  index.html        | 6 ++++++
@@ -49,7 +49,7 @@ index d92a9c36d4..0e60782fe1 100644
 From 447a047216a3aed2f7a3111a81aeecaa17e8cb71 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 7 Feb 2025 08:18:42 +0000
-Subject: [PATCH 2/9] Force to use en-US as language
+Subject: [PATCH 02/10] Force to use en-US as language
 
 ---
  src/utils/locale.ts | 2 +-
@@ -75,7 +75,7 @@ index 93f89f3346..44afe2003b 100644
 From a94749a73fc170cd40b3730e0c1147957d083d0a Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 28 Jan 2026 01:28:48 +0000
-Subject: [PATCH 3/9] Show only English and Japanese option for language
+Subject: [PATCH 03/10] Show only English and Japanese option for language
  options in global menu
 
 ---
@@ -140,8 +140,8 @@ index 2858b8e413..82659beac5 100644
 From dbbf477c61ae30eaaf82d9f39a62ba6185b2f48f Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 8 Oct 2025 14:38:00 +0000
-Subject: [PATCH 4/9] Overwrite reasoning.summary to undefined for requests for
- openai
+Subject: [PATCH 04/10] Overwrite reasoning.summary to undefined for requests
+ for openai
 
 ---
  packages/model-runtime/src/providers/openai/index.ts | 4 ++--
@@ -169,7 +169,7 @@ index e1e1922420..73755181b6 100644
 From 2843c03745c291d0e16a6c6808d13ac2077b9579 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 28 Jan 2026 01:29:51 +0000
-Subject: [PATCH 5/9] Disable streaming and allow Responses API for gpt-5
+Subject: [PATCH 05/10] Disable streaming and allow Responses API for gpt-5
  family
 
 ---
@@ -242,7 +242,7 @@ index 3b7cc903cd..b9de4a8384 100644
 From b7664ced50a86351b3fe5705bdeaa489a9ba1f2a Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 22 Sep 2025 15:02:20 +0000
-Subject: [PATCH 6/9] Use stream flag value from handled payload
+Subject: [PATCH 06/10] Use stream flag value from handled payload
 
 ---
  .../model-runtime/src/core/openaiCompatibleFactory/index.ts     | 2 +-
@@ -268,7 +268,8 @@ index b1eb49e0a4..92cb11fcc8 100644
 From 727c8b5097e609c00861995bbe56a538e552a568 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 22 Sep 2025 15:03:21 +0000
-Subject: [PATCH 7/9] Introduce more detailed non-streaming response converter
+Subject: [PATCH 07/10] Introduce more detailed non-streaming response
+ converter
 
 e.g. handling url_citations
 ---
@@ -544,7 +545,7 @@ index 2350fbde56..d6841b9c9a 100644
 From a642f532efe1be0dcc227eac800c0303b7c0f9c9 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 12 Oct 2025 16:37:16 +0000
-Subject: [PATCH 8/9] Use conversation language for summaryTitle
+Subject: [PATCH 08/10] Use conversation language for summaryTitle
 
 ---
  packages/prompts/src/chains/summaryTitle.ts | 2 +-
@@ -570,7 +571,7 @@ index d5fa974a32..8a30b816ea 100644
 From ed37d03ab8ed9db7554287c7cc0d42a738163075 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 5 Mar 2026 10:44:37 +0000
-Subject: [PATCH 9/9] Do not load default tools like lobe-tools etc.
+Subject: [PATCH 09/10] Do not load default tools like lobe-tools etc.
 
 Also show them in the skill list
 ---
@@ -612,6 +613,98 @@ index 5e561c4bdf..86c2ad633a 100644
      identifier: SkillStoreManifest.identifier,
      manifest: SkillStoreManifest,
      type: 'builtin',
+-- 
+2.39.5
+
+
+From a06532d893a48e0b05bc9b9ec77f736f4e891704 Mon Sep 17 00:00:00 2001
+From: MaySoMusician <maysomusician@gmail.com>
+Date: Fri, 20 Mar 2026 18:26:33 +0000
+Subject: [PATCH 10/10] Disable Markdown Editor for user messages
+
+Until the editor can edit as text and save as markdown
+---
+ .../User/components/MessageContent.tsx        |  7 +-----
+ src/features/EditorModal/EditorCanvas.tsx     | 23 ++++++++++++++++---
+ 2 files changed, 21 insertions(+), 9 deletions(-)
+
+diff --git a/src/features/Conversation/Messages/User/components/MessageContent.tsx b/src/features/Conversation/Messages/User/components/MessageContent.tsx
+index a1fb88a5d6..25a9956cde 100644
+--- a/src/features/Conversation/Messages/User/components/MessageContent.tsx
++++ b/src/features/Conversation/Messages/User/components/MessageContent.tsx
+@@ -9,7 +9,6 @@ import { useMarkdown } from '../useMarkdown';
+ import FileListViewer from './FileListViewer';
+ import ImageFileListViewer from './ImageFileListViewer';
+ import PageSelections from './PageSelections';
+-import RichTextMessage from './RichTextMessage';
+ import VideoFileListViewer from './VideoFileListViewer';
+ 
+ const UserMessageContent = memo<UIChatMessage>(
+@@ -26,11 +25,7 @@ const UserMessageContent = memo<UIChatMessage>(
+         {pageSelections && pageSelections.length > 0 && (
+           <PageSelections selections={pageSelections} />
+         )}
+-        {hasEditorData ? (
+-          <RichTextMessage editorState={editorData} />
+-        ) : (
+-          displayContent && <MarkdownMessage {...markdownProps}>{displayContent}</MarkdownMessage>
+-        )}
++        {displayContent && <MarkdownMessage {...markdownProps}>{displayContent}</MarkdownMessage>}
+         {imageList && imageList?.length > 0 && <ImageFileListViewer items={imageList} />}
+         {videoList && videoList?.length > 0 && <VideoFileListViewer items={videoList} />}
+         {fileList && fileList?.length > 0 && <FileListViewer items={fileList} />}
+diff --git a/src/features/EditorModal/EditorCanvas.tsx b/src/features/EditorModal/EditorCanvas.tsx
+index 6be65103f0..3750283a15 100644
+--- a/src/features/EditorModal/EditorCanvas.tsx
++++ b/src/features/EditorModal/EditorCanvas.tsx
+@@ -5,6 +5,8 @@ import { Flexbox } from '@lobehub/ui';
+ import { type FC, useMemo } from 'react';
+ 
+ import { createChatInputRichPlugins } from '@/features/ChatInput/InputEditor/plugins';
++import { useUserStore } from '@/store/user';
++import { labPreferSelectors } from '@/store/user/selectors';
+ 
+ import TypoBar from './Typobar';
+ 
+@@ -29,12 +31,27 @@ const EditorCanvas: FC<EditorCanvasProps> = ({ defaultValue, editor, editorData
+       return { content: JSON.stringify(editorData), type: 'json' as const };
+     }
+ 
+-    return { content: defaultValue || '', type: 'markdown' as const };
++    return { content: defaultValue || '', type: 'text' as const };
+   }, [editorData, defaultValue]);
+ 
++  const enableRichRender = useUserStore(labPreferSelectors.enableInputMarkdown);
++  const richRenderProps = useMemo(
++    () =>
++      !enableRichRender
++        ? {
++            enablePasteMarkdown: false,
++            markdownOption: false,
++            plugins: [],
++          }
++        : {
++            plugins: EDITOR_PLUGINS,
++          },
++    [enableRichRender],
++  );
++
+   return (
+     <>
+-      <TypoBar editor={editor} />
++      {enableRichRender && <TypoBar editor={editor} />}
+       <Flexbox
+         padding={16}
+         style={{ cursor: 'text', maxHeight: '80vh', minHeight: '50vh', overflowY: 'auto' }}
+@@ -43,7 +60,7 @@ const EditorCanvas: FC<EditorCanvasProps> = ({ defaultValue, editor, editorData
+           autoFocus
+           content={content}
+           editor={editor}
+-          plugins={EDITOR_PLUGINS}
++          {...richRenderProps}
+           type={type}
+           variant={'chat'}
+           style={{
 -- 
 2.39.5
 
