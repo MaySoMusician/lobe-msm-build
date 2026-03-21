@@ -145,14 +145,14 @@ jobs:
           git remote add upstream https://github.com/lobehub/lobe-chat.git
           git fetch --depth 1 upstream "$LOBECHAT_LATEST_MAIN"
           git checkout --detach "$LOBECHAT_LATEST_MAIN"
-      - uses: pnpm/action-setup@41ff72655975bd51cab0327fa583b6e92b6d3061 # v4.2.0
+      - uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v5.0.0
         with:
           package_json_file: ../lobe-chat/package.json
       - uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
         with:
           node-version: 24
       - name: Download Lobe UI tarball
-        uses: actions/download-artifact@70fc10c6e5e1ce46ad2ea6f2b72d43f7d47b13c3 # v8.0.0
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
         with:
           name: lobe-ui-tarball
           path: ../lobe-chat/
