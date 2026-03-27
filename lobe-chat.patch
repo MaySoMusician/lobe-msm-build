@@ -1,4 +1,4 @@
-From ee4da8016be41c117a9467a349b4c389f79659d8 Mon Sep 17 00:00:00 2001
+From 7fb8a43459e8584f0930a379d6c3215c096fa0ca Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 6 Feb 2025 20:34:05 +0000
 Subject: [PATCH 01/10] Load Google Fonts script and IBM Plex Sans JP
@@ -46,7 +46,7 @@ index d92a9c36d4..0e60782fe1 100644
 2.39.5
 
 
-From 447a047216a3aed2f7a3111a81aeecaa17e8cb71 Mon Sep 17 00:00:00 2001
+From cd0c132d81bfa14c760b4855dedc905487c6dd3e Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 7 Feb 2025 08:18:42 +0000
 Subject: [PATCH 02/10] Force to use en-US as language
@@ -72,7 +72,7 @@ index 93f89f3346..44afe2003b 100644
 2.39.5
 
 
-From a94749a73fc170cd40b3730e0c1147957d083d0a Mon Sep 17 00:00:00 2001
+From d4b01223388722aec3a60f3a9b323e4eb6d702a7 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 28 Jan 2026 01:28:48 +0000
 Subject: [PATCH 03/10] Show only English and Japanese option for language
@@ -137,7 +137,7 @@ index 2858b8e413..82659beac5 100644
 2.39.5
 
 
-From dbbf477c61ae30eaaf82d9f39a62ba6185b2f48f Mon Sep 17 00:00:00 2001
+From 4972cebd84b7512147ad36a519ac32f67db6187d Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 8 Oct 2025 14:38:00 +0000
 Subject: [PATCH 04/10] Overwrite reasoning.summary to undefined for requests
@@ -166,7 +166,7 @@ index e1e1922420..73755181b6 100644
 2.39.5
 
 
-From 2843c03745c291d0e16a6c6808d13ac2077b9579 Mon Sep 17 00:00:00 2001
+From 800a8dbb91a2370155870a9b2cab1918c73a9e7c Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 28 Jan 2026 01:29:51 +0000
 Subject: [PATCH 05/10] Disable streaming and allow Responses API for gpt-5
@@ -239,7 +239,7 @@ index 3b7cc903cd..b9de4a8384 100644
 2.39.5
 
 
-From b7664ced50a86351b3fe5705bdeaa489a9ba1f2a Mon Sep 17 00:00:00 2001
+From a8f882d67a92d50ba3ff1c98b0fb422115c90b52 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 22 Sep 2025 15:02:20 +0000
 Subject: [PATCH 06/10] Use stream flag value from handled payload
@@ -249,10 +249,10 @@ Subject: [PATCH 06/10] Use stream flag value from handled payload
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts b/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
-index b1eb49e0a4..92cb11fcc8 100644
+index 1693198f95..7e2c26a3a6 100644
 --- a/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
 +++ b/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
-@@ -1020,7 +1020,7 @@ export const createOpenAICompatibleRuntime = <T extends Record<string, any> = an
+@@ -1026,7 +1026,7 @@ export const createOpenAICompatibleRuntime = <T extends Record<string, any> = an
          strictToolPairing: true,
        });
  
@@ -265,7 +265,7 @@ index b1eb49e0a4..92cb11fcc8 100644
 2.39.5
 
 
-From 727c8b5097e609c00861995bbe56a538e552a568 Mon Sep 17 00:00:00 2001
+From 9ea59e2c93e6546f6316bc0e66590e81e0ad7bd3 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 22 Sep 2025 15:03:21 +0000
 Subject: [PATCH 07/10] Introduce more detailed non-streaming response
@@ -542,7 +542,7 @@ index 2350fbde56..d6841b9c9a 100644
 2.39.5
 
 
-From a642f532efe1be0dcc227eac800c0303b7c0f9c9 Mon Sep 17 00:00:00 2001
+From 65b594839dab7a2fbce314376e0c47c41ae2fe79 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 12 Oct 2025 16:37:16 +0000
 Subject: [PATCH 08/10] Use conversation language for summaryTitle
@@ -568,34 +568,41 @@ index d5fa974a32..8a30b816ea 100644
 2.39.5
 
 
-From ed37d03ab8ed9db7554287c7cc0d42a738163075 Mon Sep 17 00:00:00 2001
+From 0ec07d6c74a5e23338d580171b4d92de3699138d Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 5 Mar 2026 10:44:37 +0000
 Subject: [PATCH 09/10] Do not load default tools like lobe-tools etc.
 
 Also show them in the skill list
 ---
- packages/builtin-tools/src/index.ts | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ packages/builtin-tools/src/index.ts | 10 +++-------
+ 1 file changed, 3 insertions(+), 7 deletions(-)
 
 diff --git a/packages/builtin-tools/src/index.ts b/packages/builtin-tools/src/index.ts
-index 5e561c4bdf..86c2ad633a 100644
+index 5826d2968d..5a3acb78e4 100644
 --- a/packages/builtin-tools/src/index.ts
 +++ b/packages/builtin-tools/src/index.ts
-@@ -40,26 +40,26 @@ export const defaultToolIds = [
+@@ -44,11 +44,7 @@ export const defaultToolIds = [
   * Tool IDs that are always enabled regardless of user selection.
   * These are core system tools that the agent needs to function properly.
   */
--export const alwaysOnToolIds = [LobeToolsManifest.identifier, SkillsManifest.identifier];
+-export const alwaysOnToolIds = [
+-  LobeActivatorManifest.identifier,
+-  SkillsManifest.identifier,
+-  SkillStoreManifest.identifier,
+-];
 +export const alwaysOnToolIds = [];
  
+ /**
+  * Tool IDs to exclude from defaults when in manual skill-activate mode.
+@@ -63,14 +59,14 @@ export const manualModeExcludeToolIds = [
  export const builtinTools: LobeBuiltinTool[] = [
    {
      discoverable: false,
 -    hidden: true,
 +    hidden: false,
-     identifier: LobeToolsManifest.identifier,
-     manifest: LobeToolsManifest,
+     identifier: LobeActivatorManifest.identifier,
+     manifest: LobeActivatorManifest,
      type: 'builtin',
    },
    {
@@ -605,19 +612,11 @@ index 5e561c4bdf..86c2ad633a 100644
      identifier: SkillsManifest.identifier,
      manifest: SkillsManifest,
      type: 'builtin',
-   },
-   {
-     discoverable: false,
--    hidden: true,
-+    hidden: false,
-     identifier: SkillStoreManifest.identifier,
-     manifest: SkillStoreManifest,
-     type: 'builtin',
 -- 
 2.39.5
 
 
-From a06532d893a48e0b05bc9b9ec77f736f4e891704 Mon Sep 17 00:00:00 2001
+From 03410de7ec9279c656bdbc12249300fe3f58b864 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 20 Mar 2026 18:26:33 +0000
 Subject: [PATCH 10/10] Disable Markdown Editor for user messages
