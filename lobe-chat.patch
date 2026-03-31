@@ -1,7 +1,42 @@
-From 7fb8a43459e8584f0930a379d6c3215c096fa0ca Mon Sep 17 00:00:00 2001
+From 3f83a5da212b29928ba8ea79153b6bbcd616f32a Mon Sep 17 00:00:00 2001
+From: MaySoMusician <maysomusician@gmail.com>
+Date: Tue, 31 Mar 2026 19:01:33 +0000
+Subject: [PATCH 01/12] Add optional arg to set npm registry for Dockerfile
+
+---
+ Dockerfile | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/Dockerfile b/Dockerfile
+index 9466d0614d..9ffa0c27b9 100644
+--- a/Dockerfile
++++ b/Dockerfile
+@@ -29,6 +29,7 @@ RUN set -e && \
+ ## Builder image, install all the dependencies and build the app
+ FROM base AS builder
+ 
++ARG NPM_REGISTRY=""
+ ARG USE_CN_MIRROR
+ ARG NEXT_PUBLIC_BASE_PATH
+ ARG NEXT_PUBLIC_SENTRY_DSN
+@@ -82,6 +83,9 @@ RUN set -e && \
+         npm config set registry "https://registry.npmmirror.com/"; \
+         echo 'canvas_binary_host_mirror=https://npmmirror.com/mirrors/canvas' >> .npmrc; \
+     fi && \
++    if [ -n "${NPM_REGISTRY:-}" ]; then \
++        npm config set registry "${NPM_REGISTRY}"; \
++    fi && \
+     export COREPACK_NPM_REGISTRY=$(npm config get registry | sed 's/\/$//') && \
+     npm i -g corepack@latest && \
+     corepack enable && \
+-- 
+2.39.5
+
+
+From 5d6e28afab981f0dc9979fbb477ceec53b89212d Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 6 Feb 2025 20:34:05 +0000
-Subject: [PATCH 01/11] Load Google Fonts script and IBM Plex Sans JP
+Subject: [PATCH 02/12] Load Google Fonts script and IBM Plex Sans JP
 
 ---
  index.html        | 6 ++++++
@@ -46,10 +81,10 @@ index d92a9c36d4..0e60782fe1 100644
 2.39.5
 
 
-From cd0c132d81bfa14c760b4855dedc905487c6dd3e Mon Sep 17 00:00:00 2001
+From df926c84432b5ba6b5b847b2b01d608b905ccdb2 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 7 Feb 2025 08:18:42 +0000
-Subject: [PATCH 02/11] Force to use en-US as language
+Subject: [PATCH 03/12] Force to use en-US as language
 
 ---
  src/utils/locale.ts | 2 +-
@@ -72,10 +107,10 @@ index 93f89f3346..44afe2003b 100644
 2.39.5
 
 
-From d4b01223388722aec3a60f3a9b323e4eb6d702a7 Mon Sep 17 00:00:00 2001
+From cbcda39ccdb2ebaee000d5d5fb2cc3419192fea2 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 28 Jan 2026 01:28:48 +0000
-Subject: [PATCH 03/11] Show only English and Japanese option for language
+Subject: [PATCH 04/12] Show only English and Japanese option for language
  options in global menu
 
 ---
@@ -137,10 +172,10 @@ index 2858b8e413..82659beac5 100644
 2.39.5
 
 
-From 4972cebd84b7512147ad36a519ac32f67db6187d Mon Sep 17 00:00:00 2001
+From 0d2579401a08bb93970b5f21cea7711ca35ef761 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 8 Oct 2025 14:38:00 +0000
-Subject: [PATCH 04/11] Overwrite reasoning.summary to undefined for requests
+Subject: [PATCH 05/12] Overwrite reasoning.summary to undefined for requests
  for openai
 
 ---
@@ -166,10 +201,10 @@ index e1e1922420..73755181b6 100644
 2.39.5
 
 
-From 800a8dbb91a2370155870a9b2cab1918c73a9e7c Mon Sep 17 00:00:00 2001
+From 402fd4eda3ee7edec037e392c77625ddaee5cbfc Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 28 Jan 2026 01:29:51 +0000
-Subject: [PATCH 05/11] Disable streaming and allow Responses API for gpt-5
+Subject: [PATCH 06/12] Disable streaming and allow Responses API for gpt-5
  family
 
 ---
@@ -239,10 +274,10 @@ index 3b7cc903cd..b9de4a8384 100644
 2.39.5
 
 
-From a8f882d67a92d50ba3ff1c98b0fb422115c90b52 Mon Sep 17 00:00:00 2001
+From 5f1facf168dd593f77ffdee675448bea43cef2a2 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 22 Sep 2025 15:02:20 +0000
-Subject: [PATCH 06/11] Use stream flag value from handled payload
+Subject: [PATCH 07/12] Use stream flag value from handled payload
 
 ---
  .../model-runtime/src/core/openaiCompatibleFactory/index.ts     | 2 +-
@@ -265,10 +300,10 @@ index 1693198f95..7e2c26a3a6 100644
 2.39.5
 
 
-From 9ea59e2c93e6546f6316bc0e66590e81e0ad7bd3 Mon Sep 17 00:00:00 2001
+From 0c56ce33d612ea0cea6b14db8550fc036934547c Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 22 Sep 2025 15:03:21 +0000
-Subject: [PATCH 07/11] Introduce more detailed non-streaming response
+Subject: [PATCH 08/12] Introduce more detailed non-streaming response
  converter
 
 e.g. handling url_citations
@@ -542,10 +577,10 @@ index 2350fbde56..d6841b9c9a 100644
 2.39.5
 
 
-From 65b594839dab7a2fbce314376e0c47c41ae2fe79 Mon Sep 17 00:00:00 2001
+From f76649c96693d618b88ad678af35b622bbfce063 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 12 Oct 2025 16:37:16 +0000
-Subject: [PATCH 08/11] Use conversation language for summaryTitle
+Subject: [PATCH 09/12] Use conversation language for summaryTitle
 
 ---
  packages/prompts/src/chains/summaryTitle.ts | 2 +-
@@ -568,10 +603,10 @@ index d5fa974a32..8a30b816ea 100644
 2.39.5
 
 
-From 0ec07d6c74a5e23338d580171b4d92de3699138d Mon Sep 17 00:00:00 2001
+From 94b8c1dd7ae9365cf59e3992f0a2663c419e2af5 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 5 Mar 2026 10:44:37 +0000
-Subject: [PATCH 09/11] Do not load default tools like lobe-tools etc.
+Subject: [PATCH 10/12] Do not load default tools like lobe-tools etc.
 
 Also show them in the skill list
 ---
@@ -616,10 +651,10 @@ index 5826d2968d..5a3acb78e4 100644
 2.39.5
 
 
-From 03410de7ec9279c656bdbc12249300fe3f58b864 Mon Sep 17 00:00:00 2001
+From dc0b52256b0f1dc9d1dc78a4fb990645bbbb6ab5 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 20 Mar 2026 18:26:33 +0000
-Subject: [PATCH 10/11] Disable Markdown Editor for user messages
+Subject: [PATCH 11/12] Disable Markdown Editor for user messages
 
 Until the editor can edit as text and save as markdown
 ---
@@ -708,10 +743,10 @@ index 6be65103f0..3750283a15 100644
 2.39.5
 
 
-From 3d3c5a20bbbaa6da41a650c50479db51b72fc9b8 Mon Sep 17 00:00:00 2001
+From 552f5c34c0f7bc970c4a7485e1acdb181b141023 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 29 Mar 2026 12:25:13 +0000
-Subject: [PATCH 11/11] Always show exact token number
+Subject: [PATCH 12/12] Always show exact token number
 
 ---
  src/features/ChatInput/ActionBar/Token/TokenProgress.tsx | 2 --

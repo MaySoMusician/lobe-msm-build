@@ -39,6 +39,7 @@ concurrency:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
+  AUDITED_NPM_REGISTRY: https://npm.flatt.tech/
   GIT_AUTHOR_NAME: actions-user
   GIT_AUTHOR_EMAIL: action@github.com
   GIT_COMMITTER_NAME: actions-user
@@ -72,6 +73,8 @@ jobs:
         run: |
           set -euo pipefail
           git am ../lobe-msm-build/lobe-ui.patch
+          npm config set --location=project registry "$AUDITED_NPM_REGISTRY"
+          test "$(npm config get registry | sed 's#/*$#/#')" = "$AUDITED_NPM_REGISTRY"
           bun install && bun run build
       - name: Pack Lobe UI package
         working-directory: ../lobe-ui
@@ -162,6 +165,8 @@ jobs:
           set -euo pipefail
           sed -i "s|COPY package.json pnpm-workspace.yaml ./|COPY package.json pnpm-workspace.yaml lobehub-ui.tgz ./|" Dockerfile
           git am ../lobe-msm-build/lobe-chat.patch
+          npm config set --location=project registry "$AUDITED_NPM_REGISTRY"
+          test "$(npm config get registry | sed 's#/*$#/#')" = "$AUDITED_NPM_REGISTRY"
           pnpm install ./lobehub-ui.tgz -w
           sed -i "s|file:lobehub-ui.tgz|file:/app/lobehub-ui.tgz|" ./package.json
           echo ".pnpm-store" >> .dockerignore
@@ -169,8 +174,11 @@ jobs:
         working-directory: ../lobe-chat
         run: |
           set -euo pipefail
-          docker build -t $REGISTRY/${IMAGE_NAME,,}:latest -t $REGISTRY/${IMAGE_NAME,,}:$(echo $GITHUB_SHA | head -c7) \
-             . -f Dockerfile
+          docker build \
+            --build-arg NPM_REGISTRY="$AUDITED_NPM_REGISTRY" \
+            -t $REGISTRY/${IMAGE_NAME,,}:latest \
+            -t $REGISTRY/${IMAGE_NAME,,}:$(echo $GITHUB_SHA | head -c7) \
+            . -f Dockerfile
       - name: Push Docker image
         run: |
           set -euo pipefail
