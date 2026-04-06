@@ -75,7 +75,19 @@ jobs:
           git am ../lobe-msm-build/lobe-ui.patch
           npm config set --location=project registry "$AUDITED_NPM_REGISTRY"
           test "$(npm config get registry | sed 's#/*$#/#')" = "$AUDITED_NPM_REGISTRY"
-          bun install && bun run build
+          max_attempts=5
+          for attempt in $(seq 1 "$max_attempts"); do
+            if bun install --network-concurrency 8; then
+              break
+            fi
+            if [ "$attempt" -eq "$max_attempts" ]; then
+              echo "bun install failed after ${max_attempts} attempts" >&2
+              exit 1
+            fi
+            echo "bun install failed on attempt ${attempt}/${max_attempts}; waiting 60 seconds before retrying..." >&2
+            sleep 30
+          done
+          bun run build
       - name: Pack Lobe UI package
         working-directory: ../lobe-ui
         run: |
@@ -167,6 +179,8 @@ jobs:
           git am ../lobe-msm-build/lobe-chat.patch
           npm config set --location=project registry "$AUDITED_NPM_REGISTRY"
           test "$(npm config get registry | sed 's#/*$#/#')" = "$AUDITED_NPM_REGISTRY"
+          pnpm config --location=project set fetchRetries 5
+          pnpm config --location=project set fetchRetryMintimeout 30000
           pnpm install ./lobehub-ui.tgz -w
           sed -i "s|file:lobehub-ui.tgz|file:/app/lobehub-ui.tgz|" ./package.json
           echo ".pnpm-store" >> .dockerignore
