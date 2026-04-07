@@ -1,4 +1,4 @@
-From 1e824a6a68b9dcca7b26014dc4845cf4e3b27b7a Mon Sep 17 00:00:00 2001
+From 5e0208611d135a58f625737e628913d47d57d561 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Tue, 31 Mar 2026 19:01:33 +0000
 Subject: [PATCH 01/13] Add optional arg to set npm registry for Dockerfile
@@ -33,25 +33,26 @@ index 534b64337c..7b4a2ff31c 100644
 2.39.5
 
 
-From 5b3089a382c6a37478f62c2c60a2dd2a51fe6754 Mon Sep 17 00:00:00 2001
+From 6e84a6580325675b0be908c698d376cdd7e424ed Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 6 Apr 2026 20:40:07 +0000
 Subject: [PATCH 02/13] Set retry options for pnpm install inside Dockerfile
 
 ---
- Dockerfile | 2 ++
- 1 file changed, 2 insertions(+)
+ Dockerfile | 3 +++
+ 1 file changed, 3 insertions(+)
 
 diff --git a/Dockerfile b/Dockerfile
-index 7b4a2ff31c..90578eb9de 100644
+index 7b4a2ff31c..a5b5f85fcb 100644
 --- a/Dockerfile
 +++ b/Dockerfile
-@@ -90,6 +90,8 @@ RUN set -e && \
+@@ -90,6 +90,9 @@ RUN set -e && \
      npm i -g corepack@latest && \
      corepack enable && \
      corepack use $(sed -n 's/.*"packageManager": "\(.*\)".*/\1/p' package.json) && \
 +    pnpm config set fetchRetries 5 \
 +    pnpm config set fetchRetryMintimeout 30000 \
++    pnpm config set networkConcurrency 8 \
      pnpm i && \
      mkdir -p /deps && \
      cd /deps && \
@@ -59,7 +60,7 @@ index 7b4a2ff31c..90578eb9de 100644
 2.39.5
 
 
-From 854ba057c86508dccc7b21a89f280ada22941c02 Mon Sep 17 00:00:00 2001
+From 77bd1d1b6ebb9275d088f8b37beccea754e2e28c Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 6 Feb 2025 20:34:05 +0000
 Subject: [PATCH 03/13] Load Google Fonts script and IBM Plex Sans JP
@@ -107,7 +108,7 @@ index c2c14c88bb..dc37e0ff19 100644
 2.39.5
 
 
-From 147299ee170daa27f672103683cd8da4fb8d51f8 Mon Sep 17 00:00:00 2001
+From 9a9139b4fc9c9e125f634c3f07e73e0c9be6856c Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 7 Feb 2025 08:18:42 +0000
 Subject: [PATCH 04/13] Force to use en-US as language
@@ -133,7 +134,7 @@ index 93f89f3346..44afe2003b 100644
 2.39.5
 
 
-From e389abad8212e80267d844e985f16704fe4a816f Mon Sep 17 00:00:00 2001
+From cde301380ddb2efef1fe661cd7fa5775fa441ee3 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 28 Jan 2026 01:28:48 +0000
 Subject: [PATCH 05/13] Show only English and Japanese option for language
@@ -198,7 +199,7 @@ index 6b301a2958..d696410d1b 100644
 2.39.5
 
 
-From 6f5e2cedf4bf0b8c3820625b57c1948ea733433e Mon Sep 17 00:00:00 2001
+From 62f3d54145e0db2abf1cfe53867236688e2d053a Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 8 Oct 2025 14:38:00 +0000
 Subject: [PATCH 06/13] Overwrite reasoning.summary to undefined for requests
@@ -227,7 +228,7 @@ index e1e1922420..73755181b6 100644
 2.39.5
 
 
-From 2e1950de1914493795c25f14775355e260399e78 Mon Sep 17 00:00:00 2001
+From 2b45d6b4b0142a514f63b93bcbde16cb4221884b Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 28 Jan 2026 01:29:51 +0000
 Subject: [PATCH 07/13] Disable streaming and allow Responses API for gpt-5
@@ -300,7 +301,7 @@ index 3b7cc903cd..b9de4a8384 100644
 2.39.5
 
 
-From 26b9d7f4c220ebd0508d6ba34df10e0009e9a731 Mon Sep 17 00:00:00 2001
+From ed07e8b519fc775aac16dd4379f429e667b199b4 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 22 Sep 2025 15:02:20 +0000
 Subject: [PATCH 08/13] Use stream flag value from handled payload
@@ -326,7 +327,7 @@ index a8a4df966f..c002757291 100644
 2.39.5
 
 
-From c8066c84caf742a2de692377a4f09e43b4257103 Mon Sep 17 00:00:00 2001
+From befb351d98fd7c451e196804c2eeb04a79979d5c Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 22 Sep 2025 15:03:21 +0000
 Subject: [PATCH 09/13] Introduce more detailed non-streaming response
@@ -603,7 +604,7 @@ index 2350fbde56..d6841b9c9a 100644
 2.39.5
 
 
-From e4af55182831e1cff08c0d85506fb91608fad9c2 Mon Sep 17 00:00:00 2001
+From 717c0155bc99fc70554f78749d2a6c10b2c91e16 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 12 Oct 2025 16:37:16 +0000
 Subject: [PATCH 10/13] Use conversation language for summaryTitle
@@ -629,7 +630,7 @@ index d5fa974a32..8a30b816ea 100644
 2.39.5
 
 
-From 50f6dc264a88d3eaf7f7da14798772d2fd0044d4 Mon Sep 17 00:00:00 2001
+From 1b5ae2e3e2d0773154ee04d2643137a82558d8b8 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 5 Mar 2026 10:44:37 +0000
 Subject: [PATCH 11/13] Do not load default tools like lobe-tools etc.
@@ -677,7 +678,7 @@ index e8694b0a59..113f26d99d 100644
 2.39.5
 
 
-From 8bdc0b773805668fd64e186854eba4b6e7d64110 Mon Sep 17 00:00:00 2001
+From d3f098c5b1d124ab244421e34569f27e5ebb7012 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 20 Mar 2026 18:26:33 +0000
 Subject: [PATCH 12/13] Disable Markdown Editor for user messages
@@ -769,7 +770,7 @@ index 8bf7cf234d..e99c6246b2 100644
 2.39.5
 
 
-From efd1b324dc57907e9244dcf228defd6bc653292e Mon Sep 17 00:00:00 2001
+From efcee9896d39dd6142055c954938c03d94662242 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 29 Mar 2026 12:25:13 +0000
 Subject: [PATCH 13/13] Always show exact token number

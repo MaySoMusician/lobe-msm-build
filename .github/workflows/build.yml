@@ -181,6 +181,7 @@ jobs:
           test "$(npm config get registry | sed 's#/*$#/#')" = "$AUDITED_NPM_REGISTRY"
           pnpm config --location=project set fetchRetries 5
           pnpm config --location=project set fetchRetryMintimeout 30000
+          pnpm config --location=project set networkConcurrency 8
           pnpm install ./lobehub-ui.tgz -w
           sed -i "s|file:lobehub-ui.tgz|file:/app/lobehub-ui.tgz|" ./package.json
           echo ".pnpm-store" >> .dockerignore
