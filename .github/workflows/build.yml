@@ -175,8 +175,8 @@ jobs:
         working-directory: ../lobe-chat
         run: |
           set -euo pipefail
-          sed -i "s|COPY package.json pnpm-workspace.yaml ./|COPY package.json pnpm-workspace.yaml lobehub-ui.tgz ./|" Dockerfile
           git am ../lobe-msm-build/lobe-chat.patch
+          sed -i "s|COPY package.json pnpm-workspace.yaml ./|COPY package.json pnpm-workspace.yaml lobehub-ui.tgz ./|" Dockerfile
           npm config set --location=project registry "$AUDITED_NPM_REGISTRY"
           test "$(npm config get registry | sed 's#/*$#/#')" = "$AUDITED_NPM_REGISTRY"
           pnpm config --location=project set fetchRetries 5
