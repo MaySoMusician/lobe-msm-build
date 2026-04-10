@@ -1,7 +1,7 @@
 From 5e0208611d135a58f625737e628913d47d57d561 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Tue, 31 Mar 2026 19:01:33 +0000
-Subject: [PATCH 01/14] Add optional arg to set npm registry for Dockerfile
+Subject: [PATCH 01/13] Add optional arg to set npm registry for Dockerfile
 
 ---
  Dockerfile | 4 ++++
@@ -36,7 +36,7 @@ index 534b64337c..7b4a2ff31c 100644
 From 6e84a6580325675b0be908c698d376cdd7e424ed Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 6 Apr 2026 20:40:07 +0000
-Subject: [PATCH 02/14] Set retry options for pnpm install inside Dockerfile
+Subject: [PATCH 02/13] Set retry options for pnpm install inside Dockerfile
 
 ---
  Dockerfile | 3 +++
@@ -63,7 +63,7 @@ index 7b4a2ff31c..a5b5f85fcb 100644
 From 77bd1d1b6ebb9275d088f8b37beccea754e2e28c Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 6 Feb 2025 20:34:05 +0000
-Subject: [PATCH 03/14] Load Google Fonts script and IBM Plex Sans JP
+Subject: [PATCH 03/13] Load Google Fonts script and IBM Plex Sans JP
 
 ---
  index.html        | 6 ++++++
@@ -111,7 +111,7 @@ index c2c14c88bb..dc37e0ff19 100644
 From 9a9139b4fc9c9e125f634c3f07e73e0c9be6856c Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 7 Feb 2025 08:18:42 +0000
-Subject: [PATCH 04/14] Force to use en-US as language
+Subject: [PATCH 04/13] Force to use en-US as language
 
 ---
  src/utils/locale.ts | 2 +-
@@ -137,7 +137,7 @@ index 93f89f3346..44afe2003b 100644
 From cde301380ddb2efef1fe661cd7fa5775fa441ee3 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 28 Jan 2026 01:28:48 +0000
-Subject: [PATCH 05/14] Show only English and Japanese option for language
+Subject: [PATCH 05/13] Show only English and Japanese option for language
  options in global menu
 
 ---
@@ -202,7 +202,7 @@ index 6b301a2958..d696410d1b 100644
 From 62f3d54145e0db2abf1cfe53867236688e2d053a Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 8 Oct 2025 14:38:00 +0000
-Subject: [PATCH 06/14] Overwrite reasoning.summary to undefined for requests
+Subject: [PATCH 06/13] Overwrite reasoning.summary to undefined for requests
  for openai
 
 ---
@@ -231,7 +231,7 @@ index e1e1922420..73755181b6 100644
 From 2b45d6b4b0142a514f63b93bcbde16cb4221884b Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 28 Jan 2026 01:29:51 +0000
-Subject: [PATCH 07/14] Disable streaming and allow Responses API for gpt-5
+Subject: [PATCH 07/13] Disable streaming and allow Responses API for gpt-5
  family
 
 ---
@@ -304,7 +304,7 @@ index 3b7cc903cd..b9de4a8384 100644
 From ed07e8b519fc775aac16dd4379f429e667b199b4 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 22 Sep 2025 15:02:20 +0000
-Subject: [PATCH 08/14] Use stream flag value from handled payload
+Subject: [PATCH 08/13] Use stream flag value from handled payload
 
 ---
  .../model-runtime/src/core/openaiCompatibleFactory/index.ts     | 2 +-
@@ -330,7 +330,7 @@ index a8a4df966f..c002757291 100644
 From befb351d98fd7c451e196804c2eeb04a79979d5c Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 22 Sep 2025 15:03:21 +0000
-Subject: [PATCH 09/14] Introduce more detailed non-streaming response
+Subject: [PATCH 09/13] Introduce more detailed non-streaming response
  converter
 
 e.g. handling url_citations
@@ -607,7 +607,7 @@ index 2350fbde56..d6841b9c9a 100644
 From 717c0155bc99fc70554f78749d2a6c10b2c91e16 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 12 Oct 2025 16:37:16 +0000
-Subject: [PATCH 10/14] Use conversation language for summaryTitle
+Subject: [PATCH 10/13] Use conversation language for summaryTitle
 
 ---
  packages/prompts/src/chains/summaryTitle.ts | 2 +-
@@ -633,7 +633,7 @@ index d5fa974a32..8a30b816ea 100644
 From 1b5ae2e3e2d0773154ee04d2643137a82558d8b8 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 5 Mar 2026 10:44:37 +0000
-Subject: [PATCH 11/14] Do not load default tools like lobe-tools etc.
+Subject: [PATCH 11/13] Do not load default tools like lobe-tools etc.
 
 Also show them in the skill list
 ---
@@ -681,7 +681,7 @@ index e8694b0a59..113f26d99d 100644
 From d3f098c5b1d124ab244421e34569f27e5ebb7012 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 20 Mar 2026 18:26:33 +0000
-Subject: [PATCH 12/14] Disable Markdown Editor for user messages
+Subject: [PATCH 12/13] Disable Markdown Editor for user messages
 
 Until the editor can edit as text and save as markdown
 ---
@@ -773,7 +773,7 @@ index 8bf7cf234d..e99c6246b2 100644
 From efcee9896d39dd6142055c954938c03d94662242 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 29 Mar 2026 12:25:13 +0000
-Subject: [PATCH 13/14] Always show exact token number
+Subject: [PATCH 13/13] Always show exact token number
 
 ---
  src/features/ChatInput/ActionBar/Token/TokenProgress.tsx | 2 --
@@ -792,82 +792,6 @@ index a025e1a73a..6fcf19b055 100644
    return numeral(number).format('0,0');
  };
  
--- 
-2.39.5
-
-
-From 5e2d92e2af09562160bb0cd391e9dcb596fc3722 Mon Sep 17 00:00:00 2001
-From: MaySoMusician <maysomusician@gmail.com>
-Date: Fri, 10 Apr 2026 04:55:17 +0000
-Subject: [PATCH 14/14] Dedupe @lobehub/ui package
-
-Patching the package and installing it by tarball, two different
-instances will be loaded in the app, causing a crash by useMotionComponent
-not being able to see the motion context.
-
-Try to dedupe the related packages in vite and during pnpm install.
-
-This will require to change the installation steps in the workflow as well.
----
- Dockerfile          |  5 ++++-
- pnpm-workspace.yaml |  4 ++++
- vite.config.ts      | 10 ++++++++++
- 3 files changed, 18 insertions(+), 1 deletion(-)
-
-diff --git a/Dockerfile b/Dockerfile
-index a5b5f85fcb..1093dae15b 100644
---- a/Dockerfile
-+++ b/Dockerfile
-@@ -68,9 +68,12 @@ ENV NEXT_PUBLIC_ANALYTICS_UMAMI="${NEXT_PUBLIC_ANALYTICS_UMAMI}" \
- # Node
- ENV NODE_OPTIONS="--max-old-space-size=8192"
- 
-+ARG LOBE_UI_TARBALL=/app/lobehub-ui.tgz
-+ENV LOBE_UI_TARBALL="${LOBE_UI_TARBALL}"
-+
- WORKDIR /app
- 
--COPY package.json pnpm-workspace.yaml ./
-+COPY package.json pnpm-workspace.yaml lobehub-ui.tgz ./
- COPY .npmrc ./
- COPY packages ./packages
- COPY patches ./patches
-diff --git a/pnpm-workspace.yaml b/pnpm-workspace.yaml
-index e09b866f3d..4303f57b28 100644
---- a/pnpm-workspace.yaml
-+++ b/pnpm-workspace.yaml
-@@ -14,6 +14,10 @@ overrides:
-   pdfjs-dist: 5.4.530
-   react: 19.2.4
-   react-dom: 19.2.4
-+  '@lobehub/ui': 'file:${LOBE_UI_TARBALL}'
- 
- patchedDependencies:
-   '@upstash/qstash': patches/@upstash__qstash.patch
-+
-+resolvePeersFromWorkspaceRoot: true
-+dedupePeerDependents: true
-diff --git a/vite.config.ts b/vite.config.ts
-index 48f89e0f2e..8b5645f51c 100644
---- a/vite.config.ts
-+++ b/vite.config.ts
-@@ -22,6 +22,16 @@ const isDev = process.env.NODE_ENV !== 'production';
- const platform = isMobile ? 'mobile' : 'web';
- 
- export default defineConfig({
-+  resolve: {
-+    dedupe: [
-+      '@lobehub/ui',
-+      '@lobehub/icons',
-+      'antd',
-+      'motion',
-+      'react',
-+      'react-dom',
-+    ],
-+  },
-   base: isDev ? '/' : process.env.VITE_CDN_BASE || '/_spa/',
-   build: {
-     outDir: isMobile ? 'dist/mobile' : 'dist/desktop',
 -- 
 2.39.5
 

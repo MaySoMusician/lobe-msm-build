@@ -84,7 +84,7 @@ jobs:
               echo "bun install failed after ${max_attempts} attempts" >&2
               exit 1
             fi
-            echo "bun install failed on attempt ${attempt}/${max_attempts}; waiting 30 seconds before retrying..." >&2
+            echo "bun install failed on attempt ${attempt}/${max_attempts}; waiting 60 seconds before retrying..." >&2
             sleep 30
           done
           bun run build
@@ -176,6 +176,14 @@ jobs:
         run: |
           set -euo pipefail
           git am ../lobe-msm-build/lobe-chat.patch
+          sed -i "s|COPY package.json pnpm-workspace.yaml ./|COPY package.json pnpm-workspace.yaml lobehub-ui.tgz ./|" Dockerfile
+          npm config set --location=project registry "$AUDITED_NPM_REGISTRY"
+          test "$(npm config get registry | sed 's#/*$#/#')" = "$AUDITED_NPM_REGISTRY"
+          pnpm config --location=project set fetchRetries 5
+          pnpm config --location=project set fetchRetryMintimeout 30000
+          pnpm config --location=project set networkConcurrency 8
+          pnpm install ./lobehub-ui.tgz -w
+          sed -i "s|file:lobehub-ui.tgz|file:/app/lobehub-ui.tgz|" ./package.json
           echo ".pnpm-store" >> .dockerignore
       - name: Build Lobe Chat Docker image
         working-directory: ../lobe-chat
@@ -183,7 +191,6 @@ jobs:
           set -euo pipefail
           docker build \
             --build-arg NPM_REGISTRY="$AUDITED_NPM_REGISTRY" \
-            --build-arg LOBE_UI_TARBALL=/app/lobehub-ui.tgz \
             -t $REGISTRY/${IMAGE_NAME,,}:latest \
             -t $REGISTRY/${IMAGE_NAME,,}:$(echo $GITHUB_SHA | head -c7) \
             . -f Dockerfile
