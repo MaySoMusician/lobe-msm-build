@@ -1,7 +1,7 @@
-From 5e0208611d135a58f625737e628913d47d57d561 Mon Sep 17 00:00:00 2001
+From 38f0eb917ab0817000ad5bb23f6b74eb15a6eb47 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Tue, 31 Mar 2026 19:01:33 +0000
-Subject: [PATCH 01/14] Add optional arg to set npm registry for Dockerfile
+Subject: [PATCH 01/15] Add optional arg to set npm registry for Dockerfile
 
 ---
  Dockerfile | 4 ++++
@@ -33,10 +33,10 @@ index 534b64337c..7b4a2ff31c 100644
 2.39.5
 
 
-From 6e84a6580325675b0be908c698d376cdd7e424ed Mon Sep 17 00:00:00 2001
+From ac5c8effb54514deabdaef7cffac7c09b5d869e6 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 6 Apr 2026 20:40:07 +0000
-Subject: [PATCH 02/14] Set retry options for pnpm install inside Dockerfile
+Subject: [PATCH 02/15] Set retry options for pnpm install inside Dockerfile
 
 ---
  Dockerfile | 3 +++
@@ -60,10 +60,10 @@ index 7b4a2ff31c..a5b5f85fcb 100644
 2.39.5
 
 
-From 77bd1d1b6ebb9275d088f8b37beccea754e2e28c Mon Sep 17 00:00:00 2001
+From 16c28e8cc767b64dc1740bb11bfe966d5f9cb85b Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 6 Feb 2025 20:34:05 +0000
-Subject: [PATCH 03/14] Load Google Fonts script and IBM Plex Sans JP
+Subject: [PATCH 03/15] Load Google Fonts script and IBM Plex Sans JP
 
 ---
  index.html        | 6 ++++++
@@ -108,10 +108,10 @@ index c2c14c88bb..dc37e0ff19 100644
 2.39.5
 
 
-From 9a9139b4fc9c9e125f634c3f07e73e0c9be6856c Mon Sep 17 00:00:00 2001
+From 971db4c7d3b61072b3d84b09fb6dcb4e68c9ab3d Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 7 Feb 2025 08:18:42 +0000
-Subject: [PATCH 04/14] Force to use en-US as language
+Subject: [PATCH 04/15] Force to use en-US as language
 
 ---
  src/utils/locale.ts | 2 +-
@@ -134,10 +134,10 @@ index 93f89f3346..44afe2003b 100644
 2.39.5
 
 
-From cde301380ddb2efef1fe661cd7fa5775fa441ee3 Mon Sep 17 00:00:00 2001
+From 303ca3ad99635c89d5bd4859486e45040ba9df79 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 28 Jan 2026 01:28:48 +0000
-Subject: [PATCH 05/14] Show only English and Japanese option for language
+Subject: [PATCH 05/15] Show only English and Japanese option for language
  options in global menu
 
 ---
@@ -199,10 +199,10 @@ index 6b301a2958..d696410d1b 100644
 2.39.5
 
 
-From 62f3d54145e0db2abf1cfe53867236688e2d053a Mon Sep 17 00:00:00 2001
+From 9c952ca77860a7be3a6b6a79be6a83532eb0623b Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 8 Oct 2025 14:38:00 +0000
-Subject: [PATCH 06/14] Overwrite reasoning.summary to undefined for requests
+Subject: [PATCH 06/15] Overwrite reasoning.summary to undefined for requests
  for openai
 
 ---
@@ -228,21 +228,21 @@ index e1e1922420..73755181b6 100644
 2.39.5
 
 
-From 2b45d6b4b0142a514f63b93bcbde16cb4221884b Mon Sep 17 00:00:00 2001
+From 73151f8ac181105a107f7430343fc55a05c115ee Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 28 Jan 2026 01:29:51 +0000
-Subject: [PATCH 07/14] Disable streaming and allow Responses API for gpt-5
+Subject: [PATCH 07/15] Disable streaming and allow Responses API for gpt-5
  family
 
 ---
- packages/model-runtime/src/const/models.ts | 27 ++++++++++++++++++++++
- 1 file changed, 27 insertions(+)
+ packages/model-runtime/src/const/models.ts | 38 ++++++++++++++++++++++
+ 1 file changed, 38 insertions(+)
 
 diff --git a/packages/model-runtime/src/const/models.ts b/packages/model-runtime/src/const/models.ts
-index 3b7cc903cd..b9de4a8384 100644
+index 322f3d618c..711d110013 100644
 --- a/packages/model-runtime/src/const/models.ts
 +++ b/packages/model-runtime/src/const/models.ts
-@@ -18,6 +18,22 @@ export const disableStreamModels = new Set([
+@@ -18,6 +18,28 @@ export const disableStreamModels = new Set([
    */
    'computer-use-preview',
    'computer-use-preview-2025-03-11',
@@ -262,10 +262,16 @@ index 3b7cc903cd..b9de4a8384 100644
 +  'gpt-5.4-2026-03-05',
 +  'gpt-5.4-pro',
 +  'gpt-5.4-pro-2026-03-05',
++  'gpt-5.5',
++  'gpt-5.5-2026-04-23',
++  'gpt-5.5-long-context',
++  'gpt-5.5-pro',
++  'gpt-5.5-pro-2026-04-23',
++  'gpt-5.5-pro-long-context',
  ]);
  
  /**
-@@ -36,20 +52,31 @@ export const responsesAPIModels = new Set([
+@@ -36,21 +58,37 @@ export const responsesAPIModels = new Set([
    'computer-use-preview',
    'computer-use-preview-2025-03-11',
    'gpt-5-codex',
@@ -294,6 +300,12 @@ index 3b7cc903cd..b9de4a8384 100644
    'gpt-5.4-pro',
 +  'gpt-5.4-2026-03-05',
 +  'gpt-5.4-pro-2026-03-05',
+   'gpt-5.5',
++  'gpt-5.5-2026-04-23',
++  'gpt-5.5-long-context',
++  'gpt-5.5-pro',
++  'gpt-5.5-pro-2026-04-23',
++  'gpt-5.5-pro-long-context',
  ]);
  
  /**
@@ -301,20 +313,20 @@ index 3b7cc903cd..b9de4a8384 100644
 2.39.5
 
 
-From ed07e8b519fc775aac16dd4379f429e667b199b4 Mon Sep 17 00:00:00 2001
+From e81d9005621eeca8d1232ead0d17290e94056248 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 22 Sep 2025 15:02:20 +0000
-Subject: [PATCH 08/14] Use stream flag value from handled payload
+Subject: [PATCH 08/15] Use stream flag value from handled payload
 
 ---
  .../model-runtime/src/core/openaiCompatibleFactory/index.ts     | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts b/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
-index a8a4df966f..c002757291 100644
+index 50a340f0c2..66f0dfb84d 100644
 --- a/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
 +++ b/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
-@@ -1066,7 +1066,7 @@ export const createOpenAICompatibleRuntime = <T extends Record<string, any> = an
+@@ -1086,7 +1086,7 @@ export const createOpenAICompatibleRuntime = <T extends Record<string, any> = an
          strictToolPairing: true,
        });
  
@@ -327,10 +339,10 @@ index a8a4df966f..c002757291 100644
 2.39.5
 
 
-From befb351d98fd7c451e196804c2eeb04a79979d5c Mon Sep 17 00:00:00 2001
+From 6f7edc5a671420d60934defd01f7a885b74621bc Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 22 Sep 2025 15:03:21 +0000
-Subject: [PATCH 09/14] Introduce more detailed non-streaming response
+Subject: [PATCH 09/15] Introduce more detailed non-streaming response
  converter
 
 e.g. handling url_citations
@@ -604,10 +616,10 @@ index 2350fbde56..d6841b9c9a 100644
 2.39.5
 
 
-From 717c0155bc99fc70554f78749d2a6c10b2c91e16 Mon Sep 17 00:00:00 2001
+From 5cb6d61703e422099cce2f6daffafb26d2ed2257 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 12 Oct 2025 16:37:16 +0000
-Subject: [PATCH 10/14] Use conversation language for summaryTitle
+Subject: [PATCH 10/15] Use conversation language for summaryTitle
 
 ---
  packages/prompts/src/chains/summaryTitle.ts | 2 +-
@@ -630,10 +642,10 @@ index d5fa974a32..8a30b816ea 100644
 2.39.5
 
 
-From 1b5ae2e3e2d0773154ee04d2643137a82558d8b8 Mon Sep 17 00:00:00 2001
+From 1727ac18c976b5b655c6fd2612b59bd41c09705a Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 5 Mar 2026 10:44:37 +0000
-Subject: [PATCH 11/14] Do not load default tools like lobe-tools etc.
+Subject: [PATCH 11/15] Do not load default tools like lobe-tools etc.
 
 Also show them in the skill list
 ---
@@ -641,7 +653,7 @@ Also show them in the skill list
  1 file changed, 3 insertions(+), 7 deletions(-)
 
 diff --git a/packages/builtin-tools/src/index.ts b/packages/builtin-tools/src/index.ts
-index e8694b0a59..113f26d99d 100644
+index 4a9b5a7325..a8114e5b12 100644
 --- a/packages/builtin-tools/src/index.ts
 +++ b/packages/builtin-tools/src/index.ts
 @@ -49,11 +49,7 @@ export const defaultToolIds = [
@@ -657,7 +669,7 @@ index e8694b0a59..113f26d99d 100644
  
  /**
   * Tool IDs to exclude from defaults when in manual skill-activate mode.
-@@ -68,14 +64,14 @@ export const manualModeExcludeToolIds = [
+@@ -91,14 +87,14 @@ export const runtimeManagedToolIds = [
  export const builtinTools: LobeBuiltinTool[] = [
    {
      discoverable: false,
@@ -678,22 +690,22 @@ index e8694b0a59..113f26d99d 100644
 2.39.5
 
 
-From d3f098c5b1d124ab244421e34569f27e5ebb7012 Mon Sep 17 00:00:00 2001
+From 2dee73c7483e551a492324841918ee60799c6bdb Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 20 Mar 2026 18:26:33 +0000
-Subject: [PATCH 12/14] Disable Markdown Editor for user messages
+Subject: [PATCH 12/15] Disable Markdown Editor for user messages
 
 Until the editor can edit as text and save as markdown
 ---
- .../User/components/MessageContent.tsx        |  7 +-----
+ .../User/components/MessageContent.tsx        | 18 +++++----------
  src/features/EditorModal/EditorCanvas.tsx     | 23 ++++++++++++++++---
- 2 files changed, 21 insertions(+), 9 deletions(-)
+ 2 files changed, 26 insertions(+), 15 deletions(-)
 
 diff --git a/src/features/Conversation/Messages/User/components/MessageContent.tsx b/src/features/Conversation/Messages/User/components/MessageContent.tsx
-index a1fb88a5d6..25a9956cde 100644
+index 1e12bd98bc..b9576c3c6c 100644
 --- a/src/features/Conversation/Messages/User/components/MessageContent.tsx
 +++ b/src/features/Conversation/Messages/User/components/MessageContent.tsx
-@@ -9,7 +9,6 @@ import { useMarkdown } from '../useMarkdown';
+@@ -10,30 +10,24 @@ import CollapsibleContent from './CollapsibleContent';
  import FileListViewer from './FileListViewer';
  import ImageFileListViewer from './ImageFileListViewer';
  import PageSelections from './PageSelections';
@@ -701,16 +713,32 @@ index a1fb88a5d6..25a9956cde 100644
  import VideoFileListViewer from './VideoFileListViewer';
  
  const UserMessageContent = memo<UIChatMessage>(
-@@ -26,11 +25,7 @@ const UserMessageContent = memo<UIChatMessage>(
+-  ({ id, content, editorData, imageList, videoList, fileList, metadata }) => {
++  ({ id, content, imageList, videoList, fileList, metadata }) => {
+     const markdownProps = useMarkdown(id);
+     const pageSelections = metadata?.pageSelections;
+     const displayContent = useMemo(() => (content ? cleanSpeakerTag(content) : content), [content]);
+ 
+-    const hasEditorData =
+-      editorData && typeof editorData === 'object' && Object.keys(editorData).length > 0;
+-
+-    const textBody = hasEditorData ? (
+-      <RichTextMessage editorState={editorData} />
+-    ) : (
+-      displayContent && <MarkdownMessage {...markdownProps}>{displayContent}</MarkdownMessage>
+-    );
+-
+     return (
+       <Flexbox gap={8} id={id}>
          {pageSelections && pageSelections.length > 0 && (
            <PageSelections selections={pageSelections} />
          )}
--        {hasEditorData ? (
--          <RichTextMessage editorState={editorData} />
--        ) : (
--          displayContent && <MarkdownMessage {...markdownProps}>{displayContent}</MarkdownMessage>
--        )}
-+        {displayContent && <MarkdownMessage {...markdownProps}>{displayContent}</MarkdownMessage>}
+-        {textBody && <CollapsibleContent>{textBody}</CollapsibleContent>}
++        {displayContent && (
++          <CollapsibleContent>
++            <MarkdownMessage {...markdownProps}>{displayContent}</MarkdownMessage>
++          </CollapsibleContent>
++        )}
          {imageList && imageList?.length > 0 && <ImageFileListViewer items={imageList} />}
          {videoList && videoList?.length > 0 && <VideoFileListViewer items={videoList} />}
          {fileList && fileList?.length > 0 && <FileListViewer items={fileList} />}
@@ -770,10 +798,10 @@ index 8bf7cf234d..e99c6246b2 100644
 2.39.5
 
 
-From efcee9896d39dd6142055c954938c03d94662242 Mon Sep 17 00:00:00 2001
+From e4c9119baf1efa5bda0f418865c18bb3b9e01b30 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 29 Mar 2026 12:25:13 +0000
-Subject: [PATCH 13/14] Always show exact token number
+Subject: [PATCH 13/15] Always show exact token number
 
 ---
  src/features/ChatInput/ActionBar/Token/TokenProgress.tsx | 2 --
@@ -796,21 +824,21 @@ index a025e1a73a..6fcf19b055 100644
 2.39.5
 
 
-From 15ec528babdcad3ded2c4e44fb9440a6f7c08b94 Mon Sep 17 00:00:00 2001
+From 13b1e9f12781440e882cffdb3811a3c716b6e389 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 10 Apr 2026 19:13:51 +0000
-Subject: [PATCH 14/14] Dedupe @lobehub/ui package in vite
+Subject: [PATCH 14/15] Dedupe @lobehub/ui package in vite
 
 ---
  vite.config.ts | 3 +++
  1 file changed, 3 insertions(+)
 
 diff --git a/vite.config.ts b/vite.config.ts
-index 48f89e0f2e..1eeb25ee53 100644
+index eb83f70663..2bbc097e5d 100644
 --- a/vite.config.ts
 +++ b/vite.config.ts
-@@ -22,6 +22,9 @@ const isDev = process.env.NODE_ENV !== 'production';
- const platform = isMobile ? 'mobile' : 'web';
+@@ -98,6 +98,9 @@ const openExternalBrowser = async (
+ };
  
  export default defineConfig({
 +  resolve: {
@@ -819,6 +847,33 @@ index 48f89e0f2e..1eeb25ee53 100644
    base: isDev ? '/' : process.env.VITE_CDN_BASE || '/_spa/',
    build: {
      outDir: isMobile ? 'dist/mobile' : 'dist/desktop',
+-- 
+2.39.5
+
+
+From 76c093357f52ce49c9c6f59c799ffdef81331edd Mon Sep 17 00:00:00 2001
+From: MaySoMusician <maysomusician@gmail.com>
+Date: Mon, 27 Apr 2026 06:51:48 +0000
+Subject: [PATCH 15/15] Open reasoning & verbosity config first, instead of
+ pricing card
+
+---
+ src/features/ModelSwitchPanel/components/ModelDetailPanel.tsx | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/features/ModelSwitchPanel/components/ModelDetailPanel.tsx b/src/features/ModelSwitchPanel/components/ModelDetailPanel.tsx
+index d1a1b7cbab..129e8b81ff 100644
+--- a/src/features/ModelSwitchPanel/components/ModelDetailPanel.tsx
++++ b/src/features/ModelSwitchPanel/components/ModelDetailPanel.tsx
+@@ -242,7 +242,7 @@ const ModelDetailPanel: FC<ModelDetailPanelProps> = memo(
+       aiModelSelectors.isModelHasExtendParams(modelId ?? '', provider ?? ''),
+     );
+ 
+-    const [expandedKeys, setExpandedKeys] = useState<string[]>(['pricing']);
++    const [expandedKeys, setExpandedKeys] = useState<string[]>(['config']);
+ 
+     const hasPricing = !!model?.pricing;
+     const formatPrice = hasPricing ? getPrice(model!.pricing!) : null;
 -- 
 2.39.5
 
