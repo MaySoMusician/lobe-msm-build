@@ -1,7 +1,7 @@
 From 38f0eb917ab0817000ad5bb23f6b74eb15a6eb47 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Tue, 31 Mar 2026 19:01:33 +0000
-Subject: [PATCH 01/15] Add optional arg to set npm registry for Dockerfile
+Subject: [PATCH 01/16] Add optional arg to set npm registry for Dockerfile
 
 ---
  Dockerfile | 4 ++++
@@ -36,7 +36,7 @@ index 534b64337c..7b4a2ff31c 100644
 From ac5c8effb54514deabdaef7cffac7c09b5d869e6 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 6 Apr 2026 20:40:07 +0000
-Subject: [PATCH 02/15] Set retry options for pnpm install inside Dockerfile
+Subject: [PATCH 02/16] Set retry options for pnpm install inside Dockerfile
 
 ---
  Dockerfile | 3 +++
@@ -63,7 +63,7 @@ index 7b4a2ff31c..a5b5f85fcb 100644
 From 16c28e8cc767b64dc1740bb11bfe966d5f9cb85b Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 6 Feb 2025 20:34:05 +0000
-Subject: [PATCH 03/15] Load Google Fonts script and IBM Plex Sans JP
+Subject: [PATCH 03/16] Load Google Fonts script and IBM Plex Sans JP
 
 ---
  index.html        | 6 ++++++
@@ -111,7 +111,7 @@ index c2c14c88bb..dc37e0ff19 100644
 From 971db4c7d3b61072b3d84b09fb6dcb4e68c9ab3d Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 7 Feb 2025 08:18:42 +0000
-Subject: [PATCH 04/15] Force to use en-US as language
+Subject: [PATCH 04/16] Force to use en-US as language
 
 ---
  src/utils/locale.ts | 2 +-
@@ -137,7 +137,7 @@ index 93f89f3346..44afe2003b 100644
 From 303ca3ad99635c89d5bd4859486e45040ba9df79 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 28 Jan 2026 01:28:48 +0000
-Subject: [PATCH 05/15] Show only English and Japanese option for language
+Subject: [PATCH 05/16] Show only English and Japanese option for language
  options in global menu
 
 ---
@@ -202,7 +202,7 @@ index 6b301a2958..d696410d1b 100644
 From 9c952ca77860a7be3a6b6a79be6a83532eb0623b Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 8 Oct 2025 14:38:00 +0000
-Subject: [PATCH 06/15] Overwrite reasoning.summary to undefined for requests
+Subject: [PATCH 06/16] Overwrite reasoning.summary to undefined for requests
  for openai
 
 ---
@@ -231,7 +231,7 @@ index e1e1922420..73755181b6 100644
 From 73151f8ac181105a107f7430343fc55a05c115ee Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 28 Jan 2026 01:29:51 +0000
-Subject: [PATCH 07/15] Disable streaming and allow Responses API for gpt-5
+Subject: [PATCH 07/16] Disable streaming and allow Responses API for gpt-5
  family
 
 ---
@@ -316,7 +316,7 @@ index 322f3d618c..711d110013 100644
 From e81d9005621eeca8d1232ead0d17290e94056248 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 22 Sep 2025 15:02:20 +0000
-Subject: [PATCH 08/15] Use stream flag value from handled payload
+Subject: [PATCH 08/16] Use stream flag value from handled payload
 
 ---
  .../model-runtime/src/core/openaiCompatibleFactory/index.ts     | 2 +-
@@ -342,7 +342,7 @@ index 50a340f0c2..66f0dfb84d 100644
 From 6f7edc5a671420d60934defd01f7a885b74621bc Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 22 Sep 2025 15:03:21 +0000
-Subject: [PATCH 09/15] Introduce more detailed non-streaming response
+Subject: [PATCH 09/16] Introduce more detailed non-streaming response
  converter
 
 e.g. handling url_citations
@@ -619,7 +619,7 @@ index 2350fbde56..d6841b9c9a 100644
 From 5cb6d61703e422099cce2f6daffafb26d2ed2257 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 12 Oct 2025 16:37:16 +0000
-Subject: [PATCH 10/15] Use conversation language for summaryTitle
+Subject: [PATCH 10/16] Use conversation language for summaryTitle
 
 ---
  packages/prompts/src/chains/summaryTitle.ts | 2 +-
@@ -645,7 +645,7 @@ index d5fa974a32..8a30b816ea 100644
 From 1727ac18c976b5b655c6fd2612b59bd41c09705a Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 5 Mar 2026 10:44:37 +0000
-Subject: [PATCH 11/15] Do not load default tools like lobe-tools etc.
+Subject: [PATCH 11/16] Do not load default tools like lobe-tools etc.
 
 Also show them in the skill list
 ---
@@ -693,7 +693,7 @@ index 4a9b5a7325..a8114e5b12 100644
 From 2dee73c7483e551a492324841918ee60799c6bdb Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 20 Mar 2026 18:26:33 +0000
-Subject: [PATCH 12/15] Disable Markdown Editor for user messages
+Subject: [PATCH 12/16] Disable Markdown Editor for user messages
 
 Until the editor can edit as text and save as markdown
 ---
@@ -801,7 +801,7 @@ index 8bf7cf234d..e99c6246b2 100644
 From e4c9119baf1efa5bda0f418865c18bb3b9e01b30 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 29 Mar 2026 12:25:13 +0000
-Subject: [PATCH 13/15] Always show exact token number
+Subject: [PATCH 13/16] Always show exact token number
 
 ---
  src/features/ChatInput/ActionBar/Token/TokenProgress.tsx | 2 --
@@ -827,7 +827,7 @@ index a025e1a73a..6fcf19b055 100644
 From a8ab3021316a279cee09d19e7f8c7cb5d8e5bffb Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 10 Apr 2026 19:13:51 +0000
-Subject: [PATCH 14/15] Dedupe @lobehub/ui package in vite
+Subject: [PATCH 14/16] Dedupe @lobehub/ui package in vite
 
 ---
  vite.config.ts | 1 +
@@ -852,7 +852,7 @@ index eb83f70663..bb8c9c707a 100644
 From 008898c1c31bdeaf48e7f9749a3afed173a5203e Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 27 Apr 2026 06:51:48 +0000
-Subject: [PATCH 15/15] Open reasoning & verbosity config first, instead of
+Subject: [PATCH 15/16] Open reasoning & verbosity config first, instead of
  pricing card
 
 ---
@@ -872,6 +872,51 @@ index d1a1b7cbab..129e8b81ff 100644
  
      const hasPricing = !!model?.pricing;
      const formatPrice = hasPricing ? getPrice(model!.pricing!) : null;
+-- 
+2.39.5
+
+
+From 36da4ae935c42ae2f28aefe28aa9fb88434ff24a Mon Sep 17 00:00:00 2001
+From: MaySoMusician <maysomusician@gmail.com>
+Date: Mon, 27 Apr 2026 14:37:03 +0000
+Subject: [PATCH 16/16] Don't resend the edited message automatically
+
+It would be nice for many people, but I want to just rather save it.
+---
+ .../ChatItem/components/MessageContent/index.tsx    | 13 +++----------
+ 1 file changed, 3 insertions(+), 10 deletions(-)
+
+diff --git a/src/features/Conversation/ChatItem/components/MessageContent/index.tsx b/src/features/Conversation/ChatItem/components/MessageContent/index.tsx
+index 479ffdd1ee..d670550e1a 100644
+--- a/src/features/Conversation/ChatItem/components/MessageContent/index.tsx
++++ b/src/features/Conversation/ChatItem/components/MessageContent/index.tsx
+@@ -4,11 +4,7 @@ import { type ReactNode } from 'react';
+ import { memo, Suspense, useCallback } from 'react';
+ import { useTranslation } from 'react-i18next';
+ 
+-import {
+-  dataSelectors,
+-  messageStateSelectors,
+-  useConversationStore,
+-} from '@/features/Conversation/store';
++import { dataSelectors, useConversationStore } from '@/features/Conversation/store';
+ import dynamic from '@/libs/next/dynamic';
+ 
+ import { type ChatItemProps } from '../../type';
+@@ -81,11 +77,8 @@ const MessageContent = memo<MessageContentProps>(
+     // otherwise the initial send phase — where the persisted id has just swapped in
+     // under an optimistic tmp_* op — would flip to Send and kick off a duplicate
+     // regenerate for the same prompt.
+-    const shouldSendOnConfirm = useConversationStore((s) => {
+-      if (!editing) return false;
+-      if (dataSelectors.getDisplayMessageById(id)(s)?.role !== 'user') return false;
+-      if (s.displayMessages.findLast((m) => m.role === 'user')?.id !== id) return false;
+-      return !messageStateSelectors.isInputLoading(s);
++    const shouldSendOnConfirm = useConversationStore(() => {
++      return false;
+     });
+ 
+     const { t } = useTranslation('common');
 -- 
 2.39.5
 
