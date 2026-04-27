@@ -824,34 +824,32 @@ index a025e1a73a..6fcf19b055 100644
 2.39.5
 
 
-From 13b1e9f12781440e882cffdb3811a3c716b6e389 Mon Sep 17 00:00:00 2001
+From a8ab3021316a279cee09d19e7f8c7cb5d8e5bffb Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 10 Apr 2026 19:13:51 +0000
 Subject: [PATCH 14/15] Dedupe @lobehub/ui package in vite
 
 ---
- vite.config.ts | 3 +++
- 1 file changed, 3 insertions(+)
+ vite.config.ts | 1 +
+ 1 file changed, 1 insertion(+)
 
 diff --git a/vite.config.ts b/vite.config.ts
-index eb83f70663..2bbc097e5d 100644
+index eb83f70663..bb8c9c707a 100644
 --- a/vite.config.ts
 +++ b/vite.config.ts
-@@ -98,6 +98,9 @@ const openExternalBrowser = async (
- };
- 
- export default defineConfig({
-+  resolve: {
+@@ -112,6 +112,7 @@ export default defineConfig({
+     bundledDev: true,
+   },
+   resolve: {
 +    dedupe: ['@lobehub/ui', '@lobehub/icons', 'antd', 'motion', 'react', 'react-dom'],
-+  },
-   base: isDev ? '/' : process.env.VITE_CDN_BASE || '/_spa/',
-   build: {
-     outDir: isMobile ? 'dist/mobile' : 'dist/desktop',
+     tsconfigPaths: true,
+   },
+   optimizeDeps: sharedOptimizeDeps,
 -- 
 2.39.5
 
 
-From 76c093357f52ce49c9c6f59c799ffdef81331edd Mon Sep 17 00:00:00 2001
+From 008898c1c31bdeaf48e7f9749a3afed173a5203e Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 27 Apr 2026 06:51:48 +0000
 Subject: [PATCH 15/15] Open reasoning & verbosity config first, instead of
