@@ -1,4 +1,4 @@
-From 38f0eb917ab0817000ad5bb23f6b74eb15a6eb47 Mon Sep 17 00:00:00 2001
+From 54c323e3e78ba54a8ec608f2fb911b212c3e9dcd Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Tue, 31 Mar 2026 19:01:33 +0000
 Subject: [PATCH 01/16] Add optional arg to set npm registry for Dockerfile
@@ -8,7 +8,7 @@ Subject: [PATCH 01/16] Add optional arg to set npm registry for Dockerfile
  1 file changed, 4 insertions(+)
 
 diff --git a/Dockerfile b/Dockerfile
-index 534b64337c..7b4a2ff31c 100644
+index f4ad70ac84..2a831c11ce 100644
 --- a/Dockerfile
 +++ b/Dockerfile
 @@ -29,6 +29,7 @@ RUN set -e && \
@@ -33,7 +33,7 @@ index 534b64337c..7b4a2ff31c 100644
 2.39.5
 
 
-From ac5c8effb54514deabdaef7cffac7c09b5d869e6 Mon Sep 17 00:00:00 2001
+From 685bc45a316fbc921cce1f6fa5d7dcf74dd99395 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 6 Apr 2026 20:40:07 +0000
 Subject: [PATCH 02/16] Set retry options for pnpm install inside Dockerfile
@@ -43,7 +43,7 @@ Subject: [PATCH 02/16] Set retry options for pnpm install inside Dockerfile
  1 file changed, 3 insertions(+)
 
 diff --git a/Dockerfile b/Dockerfile
-index 7b4a2ff31c..a5b5f85fcb 100644
+index 2a831c11ce..82731fbd23 100644
 --- a/Dockerfile
 +++ b/Dockerfile
 @@ -90,6 +90,9 @@ RUN set -e && \
@@ -60,7 +60,7 @@ index 7b4a2ff31c..a5b5f85fcb 100644
 2.39.5
 
 
-From 16c28e8cc767b64dc1740bb11bfe966d5f9cb85b Mon Sep 17 00:00:00 2001
+From 2cbec4f4ade59fe8b00634269973eecc42be83ae Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 6 Feb 2025 20:34:05 +0000
 Subject: [PATCH 03/16] Load Google Fonts script and IBM Plex Sans JP
@@ -108,7 +108,7 @@ index c2c14c88bb..dc37e0ff19 100644
 2.39.5
 
 
-From 971db4c7d3b61072b3d84b09fb6dcb4e68c9ab3d Mon Sep 17 00:00:00 2001
+From 59a5e3aa98c1be4d90b74fd1e31ac5dfa8679525 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 7 Feb 2025 08:18:42 +0000
 Subject: [PATCH 04/16] Force to use en-US as language
@@ -134,7 +134,7 @@ index 93f89f3346..44afe2003b 100644
 2.39.5
 
 
-From 303ca3ad99635c89d5bd4859486e45040ba9df79 Mon Sep 17 00:00:00 2001
+From 6214c56569ddb62c068371bdf29cf3823e1af205 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 28 Jan 2026 01:28:48 +0000
 Subject: [PATCH 05/16] Show only English and Japanese option for language
@@ -199,7 +199,7 @@ index 6b301a2958..d696410d1b 100644
 2.39.5
 
 
-From 9c952ca77860a7be3a6b6a79be6a83532eb0623b Mon Sep 17 00:00:00 2001
+From 2a605a0f82726a348c40cb9a4e04d45763329af8 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 8 Oct 2025 14:38:00 +0000
 Subject: [PATCH 06/16] Overwrite reasoning.summary to undefined for requests
@@ -228,18 +228,18 @@ index e1e1922420..73755181b6 100644
 2.39.5
 
 
-From 73151f8ac181105a107f7430343fc55a05c115ee Mon Sep 17 00:00:00 2001
+From 8d86d507d65b7c7e5012d526c62675079cccdf04 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 28 Jan 2026 01:29:51 +0000
 Subject: [PATCH 07/16] Disable streaming and allow Responses API for gpt-5
  family
 
 ---
- packages/model-runtime/src/const/models.ts | 38 ++++++++++++++++++++++
- 1 file changed, 38 insertions(+)
+ packages/model-runtime/src/const/models.ts | 37 ++++++++++++++++++++++
+ 1 file changed, 37 insertions(+)
 
 diff --git a/packages/model-runtime/src/const/models.ts b/packages/model-runtime/src/const/models.ts
-index 322f3d618c..711d110013 100644
+index b6b384532d..d074be599c 100644
 --- a/packages/model-runtime/src/const/models.ts
 +++ b/packages/model-runtime/src/const/models.ts
 @@ -18,6 +18,28 @@ export const disableStreamModels = new Set([
@@ -271,7 +271,7 @@ index 322f3d618c..711d110013 100644
  ]);
  
  /**
-@@ -36,21 +58,37 @@ export const responsesAPIModels = new Set([
+@@ -36,22 +58,37 @@ export const responsesAPIModels = new Set([
    'computer-use-preview',
    'computer-use-preview-2025-03-11',
    'gpt-5-codex',
@@ -303,7 +303,7 @@ index 322f3d618c..711d110013 100644
    'gpt-5.5',
 +  'gpt-5.5-2026-04-23',
 +  'gpt-5.5-long-context',
-+  'gpt-5.5-pro',
+   'gpt-5.5-pro',
 +  'gpt-5.5-pro-2026-04-23',
 +  'gpt-5.5-pro-long-context',
  ]);
@@ -313,7 +313,7 @@ index 322f3d618c..711d110013 100644
 2.39.5
 
 
-From e81d9005621eeca8d1232ead0d17290e94056248 Mon Sep 17 00:00:00 2001
+From ffc2a6201fd350193510b3136e75a8fa811179f8 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 22 Sep 2025 15:02:20 +0000
 Subject: [PATCH 08/16] Use stream flag value from handled payload
@@ -323,10 +323,10 @@ Subject: [PATCH 08/16] Use stream flag value from handled payload
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts b/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
-index 50a340f0c2..66f0dfb84d 100644
+index d4d19cb660..3f0447f897 100644
 --- a/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
 +++ b/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
-@@ -1086,7 +1086,7 @@ export const createOpenAICompatibleRuntime = <T extends Record<string, any> = an
+@@ -1122,7 +1122,7 @@ export const createOpenAICompatibleRuntime = <T extends Record<string, any> = an
          strictToolPairing: true,
        });
  
@@ -339,7 +339,7 @@ index 50a340f0c2..66f0dfb84d 100644
 2.39.5
 
 
-From 6f7edc5a671420d60934defd01f7a885b74621bc Mon Sep 17 00:00:00 2001
+From abe13269f6404c21a5693673473b78c1d4e3f3cb Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 22 Sep 2025 15:03:21 +0000
 Subject: [PATCH 09/16] Introduce more detailed non-streaming response
@@ -616,7 +616,7 @@ index 2350fbde56..d6841b9c9a 100644
 2.39.5
 
 
-From 5cb6d61703e422099cce2f6daffafb26d2ed2257 Mon Sep 17 00:00:00 2001
+From 75878922676f20e5e462756b420b4c5642c5678e Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 12 Oct 2025 16:37:16 +0000
 Subject: [PATCH 10/16] Use conversation language for summaryTitle
@@ -642,7 +642,7 @@ index d5fa974a32..8a30b816ea 100644
 2.39.5
 
 
-From 1727ac18c976b5b655c6fd2612b59bd41c09705a Mon Sep 17 00:00:00 2001
+From f7c338233abec47e82291919cb0a71501c63f369 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 5 Mar 2026 10:44:37 +0000
 Subject: [PATCH 11/16] Do not load default tools like lobe-tools etc.
@@ -653,10 +653,10 @@ Also show them in the skill list
  1 file changed, 3 insertions(+), 7 deletions(-)
 
 diff --git a/packages/builtin-tools/src/index.ts b/packages/builtin-tools/src/index.ts
-index 4a9b5a7325..a8114e5b12 100644
+index b8dda9d68b..0bfa745ddc 100644
 --- a/packages/builtin-tools/src/index.ts
 +++ b/packages/builtin-tools/src/index.ts
-@@ -49,11 +49,7 @@ export const defaultToolIds = [
+@@ -54,11 +54,7 @@ export const defaultToolIds = [
   * Tool IDs that are always enabled regardless of user selection.
   * These are core system tools that the agent needs to function properly.
   */
@@ -669,7 +669,7 @@ index 4a9b5a7325..a8114e5b12 100644
  
  /**
   * Tool IDs to exclude from defaults when in manual skill-activate mode.
-@@ -91,14 +87,14 @@ export const runtimeManagedToolIds = [
+@@ -97,14 +93,14 @@ export const runtimeManagedToolIds = [
  export const builtinTools: LobeBuiltinTool[] = [
    {
      discoverable: false,
@@ -690,7 +690,7 @@ index 4a9b5a7325..a8114e5b12 100644
 2.39.5
 
 
-From 2dee73c7483e551a492324841918ee60799c6bdb Mon Sep 17 00:00:00 2001
+From e3fff4c2527e587e360dbd5b6de93bd1c56ec772 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 20 Mar 2026 18:26:33 +0000
 Subject: [PATCH 12/16] Disable Markdown Editor for user messages
@@ -798,7 +798,7 @@ index 8bf7cf234d..e99c6246b2 100644
 2.39.5
 
 
-From e4c9119baf1efa5bda0f418865c18bb3b9e01b30 Mon Sep 17 00:00:00 2001
+From dbc7670765cebd26a465e3864e77aa8932b679a2 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 29 Mar 2026 12:25:13 +0000
 Subject: [PATCH 13/16] Always show exact token number
@@ -824,7 +824,7 @@ index a025e1a73a..6fcf19b055 100644
 2.39.5
 
 
-From a8ab3021316a279cee09d19e7f8c7cb5d8e5bffb Mon Sep 17 00:00:00 2001
+From 5a53d0e5c2dd2038d6efd29f6fcbdd316bf67fce Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 10 Apr 2026 19:13:51 +0000
 Subject: [PATCH 14/16] Dedupe @lobehub/ui package in vite
@@ -834,11 +834,11 @@ Subject: [PATCH 14/16] Dedupe @lobehub/ui package in vite
  1 file changed, 1 insertion(+)
 
 diff --git a/vite.config.ts b/vite.config.ts
-index eb83f70663..bb8c9c707a 100644
+index 8259f2bf15..5cff59fb78 100644
 --- a/vite.config.ts
 +++ b/vite.config.ts
 @@ -112,6 +112,7 @@ export default defineConfig({
-     bundledDev: true,
+     bundledDev: false,
    },
    resolve: {
 +    dedupe: ['@lobehub/ui', '@lobehub/icons', 'antd', 'motion', 'react', 'react-dom'],
@@ -849,34 +849,33 @@ index eb83f70663..bb8c9c707a 100644
 2.39.5
 
 
-From 008898c1c31bdeaf48e7f9749a3afed173a5203e Mon Sep 17 00:00:00 2001
+From e2077e06f7c6d9c2119a0ae67fee20f2d8980c20 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 27 Apr 2026 06:51:48 +0000
 Subject: [PATCH 15/16] Open reasoning & verbosity config first, instead of
  pricing card
 
 ---
- src/features/ModelSwitchPanel/components/ModelDetailPanel.tsx | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ src/store/global/initialState.ts | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/src/features/ModelSwitchPanel/components/ModelDetailPanel.tsx b/src/features/ModelSwitchPanel/components/ModelDetailPanel.tsx
-index d1a1b7cbab..129e8b81ff 100644
---- a/src/features/ModelSwitchPanel/components/ModelDetailPanel.tsx
-+++ b/src/features/ModelSwitchPanel/components/ModelDetailPanel.tsx
-@@ -242,7 +242,7 @@ const ModelDetailPanel: FC<ModelDetailPanelProps> = memo(
-       aiModelSelectors.isModelHasExtendParams(modelId ?? '', provider ?? ''),
-     );
+diff --git a/src/store/global/initialState.ts b/src/store/global/initialState.ts
+index 18a09cbbd4..a7f7f0588c 100644
+--- a/src/store/global/initialState.ts
++++ b/src/store/global/initialState.ts
+@@ -99,7 +99,6 @@ export const MODEL_DETAIL_PANEL_EXPANDED_KEYS = [
+ export type ModelDetailPanelExpandedKey = (typeof MODEL_DETAIL_PANEL_EXPANDED_KEYS)[number];
  
--    const [expandedKeys, setExpandedKeys] = useState<string[]>(['pricing']);
-+    const [expandedKeys, setExpandedKeys] = useState<string[]>(['config']);
+ export const DEFAULT_MODEL_DETAIL_PANEL_EXPANDED_KEYS = [
+-  'pricing',
+   'config',
+ ] as const satisfies readonly ModelDetailPanelExpandedKey[];
  
-     const hasPricing = !!model?.pricing;
-     const formatPrice = hasPricing ? getPrice(model!.pricing!) : null;
 -- 
 2.39.5
 
 
-From 36da4ae935c42ae2f28aefe28aa9fb88434ff24a Mon Sep 17 00:00:00 2001
+From 5f173b5936513b838ffedcf02b2cc084dae8f3c2 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 27 Apr 2026 14:37:03 +0000
 Subject: [PATCH 16/16] Don't resend the edited message automatically
