@@ -1,0 +1,101 @@
+[
+  {
+    "name": "ua-parser-js",
+    "version": "1.0.41",
+    "publishedAt": "2025-08-19T12:45:30.307Z",
+    "integrity": "sha512-LbBDqdIC5s8iROCUjMbW1f5dJQTEFB1+KO9ogbvlb3nm9n4YHa5p4KTvFPWvh2Hs8gZMBuiB1/8+pdfe/tDPug==",
+    "tarballHost": "registry.npmjs.org",
+    "reason": "Checked 2026-05-16, required for v2.1.57",
+    "expiresOn": "2027-05-13"
+  },
+  {
+    "name": "pdf-parse",
+    "version": "1.1.4",
+    "publishedAt": "2025-10-29T23:17:38.413Z",
+    "integrity": "sha512-XRIRcLgk6ZnUbsHsYXExMw+krrPE81hJ6FQPLdBNhhBefqIQKXu/WeTgNBGSwPrfU0v+UCEwn7AoAUOsVKHFvQ==",
+    "tarballHost": "registry.npmjs.org",
+    "reason": "Checked 2026-05-16, required for v2.1.57",
+    "expiresOn": "2027-05-13"
+  },
+  {
+    "name": "undici-types",
+    "version": "6.21.0",
+    "publishedAt": "2024-11-13T13:37:09.135Z",
+    "integrity": "sha512-iwDZqg0QAGrg9Rav5H4n0M64c3mkR59cJ6wQp+7C4nI0gsmExaedaYLNO44eT4AtBBwjbTiGPMlt2Md0T9H9JQ==",
+    "tarballHost": "registry.npmjs.org",
+    "reason": "Checked 2026-05-16, required for v2.1.57",
+    "expiresOn": "2027-05-13"
+  },
+  {
+    "name": "chokidar",
+    "version": "4.0.3",
+    "publishedAt": "2024-12-18T22:21:34.451Z",
+    "integrity": "sha512-Qgzu8kfBvo+cA4962jnP1KkS6Dop5NS6g7R5LFYJr4b8Ub94PPQXUksCw9PvXoeXPRRddRNC5C1JQUR2SMGtnA==",
+    "tarballHost": "registry.npmjs.org",
+    "reason": "Checked 2026-05-16, required for v2.1.57",
+    "expiresOn": "2027-05-13"
+  },
+  {
+    "name": "reselect",
+    "version": "5.1.1",
+    "publishedAt": "2024-06-01T22:16:06.224Z",
+    "integrity": "sha512-K/BG6eIky/SBpzfHZv/dd+9JBFiS4SWV7FIujVyJRux6e45+73RaUHXLmIR1f7WOMaQ0U1km6qwklRQxpJJY0w==",
+    "tarballHost": "registry.npmjs.org",
+    "reason": "Checked 2026-05-16, required for v2.1.57",
+    "expiresOn": "2027-05-13"
+  },
+  {
+    "name": "semver",
+    "version": "5.7.2",
+    "publishedAt": "2023-07-10T19:57:47.111Z",
+    "integrity": "sha512-cBznnQ9KjJqU67B52RMC65CMarK2600WFnbkcaiwWq3xy/5haFJlshgnpjovMVJ+Hff49d8GEn0b87C5pDQ10g==",
+    "tarballHost": "registry.npmjs.org",
+    "reason": "Checked 2026-05-16, required for v2.1.57",
+    "expiresOn": "2027-05-13"
+  },
+  {
+    "name": "semver",
+    "version": "6.3.1",
+    "publishedAt": "2023-07-10T22:38:41.428Z",
+    "integrity": "sha512-BR7VvDCVHO+q2xBEWskxS6DJE1qRnb7DxzUrogb71CWoSficBxYsiAGd+Kl0mmq/MprG9yArRkyrQxTO6XjMzA==",
+    "tarballHost": "registry.npmjs.org",
+    "reason": "Checked 2026-05-16, required for v2.1.57",
+    "expiresOn": "2027-05-13"
+  },
+  {
+    "name": "eslint-config-prettier",
+    "version": "9.1.2",
+    "publishedAt": "2025-07-18T19:19:03.251Z",
+    "integrity": "sha512-iI1f+D2ViGn+uvv5HuHVUamg8ll4tN+JRHGc6IJi4TP9Kl976C57fzPXgseXNs8v0iA8aSJpHsTWjDb9QJamGQ==",
+    "tarballHost": "registry.npmjs.org",
+    "reason": "Checked 2026-05-16, required for v2.1.57",
+    "expiresOn": "2027-05-13"
+  },
+  {
+    "name": "@octokit/plugin-paginate-rest",
+    "version": "9.2.2",
+    "publishedAt": "2025-02-15T00:09:26.784Z",
+    "integrity": "sha512-u3KYkGF7GcZnSD/3UP0S7K5XUFT2FkOQdcfXZGZQPGv3lm4F2Xbf71lvjldr8c1H3nNbF+33cLEkWYbokGWqiQ==",
+    "tarballHost": "registry.npmjs.org",
+    "reason": "Checked 2026-05-16, required for v2.1.57",
+    "expiresOn": "2027-05-13"
+  },
+  {
+    "name": "@octokit/endpoint",
+    "version": "9.0.6",
+    "publishedAt": "2025-02-14T21:30:48.886Z",
+    "integrity": "sha512-H1fNTMA57HbkFESSt3Y9+FBICv+0jFceJFPWDePYlR/iMGrwM5ph+Dd4XRQs+8X+PUFURLQgX9ChPfhJ/1uNQw==",
+    "tarballHost": "registry.npmjs.org",
+    "reason": "Checked 2026-05-16, required for v2.1.57",
+    "expiresOn": "2027-05-13"
+  },
+  {
+    "name": "@trickfilm400/rollup-plugin-off-main-thread",
+    "version": "3.0.0-pre1",
+    "publishedAt": "2025-12-02T16:21:14.510Z",
+    "integrity": "sha512-/67zpWDBLV+oYAEL682s1ktXL0HgqX76f6gaVGkGnVZlBbm1zd0v4Bz8MFF2GGhoX9rvfq3KSQHubFHwa6w6/Q==",
+    "tarballHost": "registry.npmjs.org",
+    "reason": "Checked 2026-05-16, required for v2.1.57",
+    "expiresOn": "2027-05-13"
+  }
+]

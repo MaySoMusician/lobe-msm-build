@@ -1,7 +1,7 @@
-From 54c323e3e78ba54a8ec608f2fb911b212c3e9dcd Mon Sep 17 00:00:00 2001
+From 32272f71fd6a6d5f19cdc1dac57d2a4a751d96e2 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Tue, 31 Mar 2026 19:01:33 +0000
-Subject: [PATCH 01/16] Add optional arg to set npm registry for Dockerfile
+Subject: [PATCH 01/18] Add optional arg to set npm registry for Dockerfile
 
 ---
  Dockerfile | 4 ++++
@@ -33,26 +33,26 @@ index f4ad70ac84..2a831c11ce 100644
 2.39.5
 
 
-From 685bc45a316fbc921cce1f6fa5d7dcf74dd99395 Mon Sep 17 00:00:00 2001
+From 924b440620b0c865c1487c5e8b4a3e86a1dda07b Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 6 Apr 2026 20:40:07 +0000
-Subject: [PATCH 02/16] Set retry options for pnpm install inside Dockerfile
+Subject: [PATCH 02/18] Set retry options for pnpm install inside Dockerfile
 
 ---
  Dockerfile | 3 +++
  1 file changed, 3 insertions(+)
 
 diff --git a/Dockerfile b/Dockerfile
-index 2a831c11ce..82731fbd23 100644
+index 2a831c11ce..fcda6923eb 100644
 --- a/Dockerfile
 +++ b/Dockerfile
 @@ -90,6 +90,9 @@ RUN set -e && \
      npm i -g corepack@latest && \
      corepack enable && \
      corepack use $(sed -n 's/.*"packageManager": "\(.*\)".*/\1/p' package.json) && \
-+    pnpm config set fetchRetries 5 \
-+    pnpm config set fetchRetryMintimeout 30000 \
-+    pnpm config set networkConcurrency 8 \
++    pnpm config set fetchRetries 5 && \
++    pnpm config set fetchRetryMintimeout 30000 && \
++    pnpm config set networkConcurrency 8 && \
      pnpm i && \
      mkdir -p /deps && \
      cd /deps && \
@@ -60,10 +60,161 @@ index 2a831c11ce..82731fbd23 100644
 2.39.5
 
 
-From 2cbec4f4ade59fe8b00634269973eecc42be83ae Mon Sep 17 00:00:00 2001
+From e3c6fb1bf3e638c061316d35c2e76d1f5d8f60d8 Mon Sep 17 00:00:00 2001
+From: MaySoMusician <maysomusician@gmail.com>
+Date: Tue, 12 May 2026 18:45:03 +0000
+Subject: [PATCH 03/18] Harden npm (pnpm) security
+
+---
+ .npmrc              |  2 +-
+ package.json        |  6 +++++-
+ pnpm-workspace.yaml | 24 +++++++++++++++++++++++-
+ 3 files changed, 29 insertions(+), 3 deletions(-)
+
+diff --git a/.npmrc b/.npmrc
+index 999be96503..836d41ee82 100644
+--- a/.npmrc
++++ b/.npmrc
+@@ -3,7 +3,7 @@ resolution-mode=highest
+ dedupe-peer-dependents=true
+ 
+ ignore-workspace-root-check=true
+-enable-pre-post-scripts=true
++enable-pre-post-scripts=false
+ 
+ 
+ public-hoist-pattern[]=*@umijs/lint*
+diff --git a/package.json b/package.json
+index 4be11d04ea..0c454d3e59 100644
+--- a/package.json
++++ b/package.json
+@@ -550,7 +550,11 @@
+   "pnpm": {
+     "onlyBuiltDependencies": [
+       "@lobehub/editor",
+-      "ffmpeg-static"
++      "ffmpeg-static",
++      "esbuild@0.18.20 || 0.25.12 || 0.27.7",
++      "protobufjs@7.5.6",
++      "sharp@0.34.5",
++      "unrs-resolver@1.11.1"
+     ],
+     "overrides": {
+       "@react-pdf/image": "3.0.4",
+diff --git a/pnpm-workspace.yaml b/pnpm-workspace.yaml
+index 511c8a9a1c..66fa17bd03 100644
+--- a/pnpm-workspace.yaml
++++ b/pnpm-workspace.yaml
+@@ -7,7 +7,11 @@ packages:
+ onlyBuiltDependencies:
+   - '@google/genai'
+   - '@lobehub/editor'
+-  - '@vercel/speed-insights'
++
++ignoredBuiltDependencies:
++  - 'core-js'
++  - 'electron'
++  - 'es5-ext'
+ 
+ overrides:
+   jose: ^6.1.3
+@@ -19,3 +23,21 @@ overrides:
+ 
+ patchedDependencies:
+   '@upstash/qstash': patches/@upstash__qstash.patch
++
++minimumReleaseAge: 10080
++minimumReleaseAgeStrict: true # Only works after v11.x
++trustPolicy: no-downgrade
++trustPolicyExclude:
++  - 'ua-parser-js@1.0.41'
++  - 'pdf-parse@1.1.4'
++  - 'undici-types@6.21.0'
++  - 'chokidar@4.0.3'
++  - 'reselect@5.1.1'
++  - 'semver@5.7.2 || 6.3.1'
++  - 'eslint-config-prettier@9.1.2'
++  - '@octokit/plugin-paginate-rest@9.2.2'
++  - '@octokit/endpoint@9.0.6'
++  - '@trickfilm400/rollup-plugin-off-main-thread@3.0.0-pre1'
++blockExoticSubdeps: true
++strictDepBuilds: true
++enablePrePostScripts: false
+-- 
+2.39.5
+
+
+From 001861bc064db7f2d27db29a490f18334a05b747 Mon Sep 17 00:00:00 2001
+From: MaySoMusician <maysomusician@gmail.com>
+Date: Wed, 13 May 2026 17:43:57 +0000
+Subject: [PATCH 04/18] Harden Dockerfile security
+
+---
+ Dockerfile | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
+
+diff --git a/Dockerfile b/Dockerfile
+index fcda6923eb..37db76195f 100644
+--- a/Dockerfile
++++ b/Dockerfile
+@@ -87,17 +87,21 @@ RUN set -e && \
+         npm config set registry "${NPM_REGISTRY}"; \
+     fi && \
+     export COREPACK_NPM_REGISTRY=$(npm config get registry | sed 's/\/$//') && \
+-    npm i -g corepack@latest && \
+     corepack enable && \
+-    corepack use $(sed -n 's/.*"packageManager": "\(.*\)".*/\1/p' package.json) && \
+     pnpm config set fetchRetries 5 && \
+     pnpm config set fetchRetryMintimeout 30000 && \
+     pnpm config set networkConcurrency 8 && \
++    pnpm config set minimumReleaseAge 10080 && \
++    pnpm config set minimumReleaseAgeStrict true && \
++    pnpm config set trustPolicy no-downgrade && \
++    pnpm config set blockExoticSubdeps true && \
++    pnpm config set strictDepBuilds true && \
++    pnpm config set enablePrePostScripts true && \
+     pnpm i && \
+     mkdir -p /deps && \
+     cd /deps && \
+     echo '{"name":"deps","private":true}' > package.json && \
+-    pnpm add pg drizzle-orm
++    pnpm add -E pg@8.20.0 drizzle-orm@0.45.2
+ 
+ COPY . .
+ 
+-- 
+2.39.5
+
+
+From d1371432b96009ba6855c5c3ba62a208b7872ff9 Mon Sep 17 00:00:00 2001
+From: MaySoMusician <maysomusician@gmail.com>
+Date: Fri, 10 Apr 2026 19:13:51 +0000
+Subject: [PATCH 05/18] Dedupe @lobehub/ui package in vite
+
+---
+ vite.config.ts | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/vite.config.ts b/vite.config.ts
+index 8259f2bf15..5cff59fb78 100644
+--- a/vite.config.ts
++++ b/vite.config.ts
+@@ -112,6 +112,7 @@ export default defineConfig({
+     bundledDev: false,
+   },
+   resolve: {
++    dedupe: ['@lobehub/ui', '@lobehub/icons', 'antd', 'motion', 'react', 'react-dom'],
+     tsconfigPaths: true,
+   },
+   optimizeDeps: sharedOptimizeDeps,
+-- 
+2.39.5
+
+
+From 7e1cb90a02da47e1dd9c644bc3dd0f23d8a64f62 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 6 Feb 2025 20:34:05 +0000
-Subject: [PATCH 03/16] Load Google Fonts script and IBM Plex Sans JP
+Subject: [PATCH 06/18] Load Google Fonts script and IBM Plex Sans JP
 
 ---
  index.html        | 6 ++++++
@@ -108,10 +259,10 @@ index c2c14c88bb..dc37e0ff19 100644
 2.39.5
 
 
-From 59a5e3aa98c1be4d90b74fd1e31ac5dfa8679525 Mon Sep 17 00:00:00 2001
+From 6bd2c3316e7a1a3bb18d6a50d454713ba33b680d Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 7 Feb 2025 08:18:42 +0000
-Subject: [PATCH 04/16] Force to use en-US as language
+Subject: [PATCH 07/18] Force to use en-US as language
 
 ---
  src/utils/locale.ts | 2 +-
@@ -134,10 +285,10 @@ index 93f89f3346..44afe2003b 100644
 2.39.5
 
 
-From 6214c56569ddb62c068371bdf29cf3823e1af205 Mon Sep 17 00:00:00 2001
+From 2838906c3882f1a8759693f216c3bcf00f1e98c1 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 28 Jan 2026 01:28:48 +0000
-Subject: [PATCH 05/16] Show only English and Japanese option for language
+Subject: [PATCH 08/18] Show only English and Japanese option for language
  options in global menu
 
 ---
@@ -199,10 +350,10 @@ index 6b301a2958..d696410d1b 100644
 2.39.5
 
 
-From 2a605a0f82726a348c40cb9a4e04d45763329af8 Mon Sep 17 00:00:00 2001
+From 791fea6a718566fdbaee535f111c1536c9ad7d1c Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 8 Oct 2025 14:38:00 +0000
-Subject: [PATCH 06/16] Overwrite reasoning.summary to undefined for requests
+Subject: [PATCH 09/18] Overwrite reasoning.summary to undefined for requests
  for openai
 
 ---
@@ -228,10 +379,10 @@ index e1e1922420..73755181b6 100644
 2.39.5
 
 
-From 8d86d507d65b7c7e5012d526c62675079cccdf04 Mon Sep 17 00:00:00 2001
+From 174bfba5963b760eaae68fecdd23786887a5aafe Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 28 Jan 2026 01:29:51 +0000
-Subject: [PATCH 07/16] Disable streaming and allow Responses API for gpt-5
+Subject: [PATCH 10/18] Disable streaming and allow Responses API for gpt-5
  family
 
 ---
@@ -313,10 +464,10 @@ index b6b384532d..d074be599c 100644
 2.39.5
 
 
-From ffc2a6201fd350193510b3136e75a8fa811179f8 Mon Sep 17 00:00:00 2001
+From ad36b483e16e933d6842b5a67696f7073208ee67 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 22 Sep 2025 15:02:20 +0000
-Subject: [PATCH 08/16] Use stream flag value from handled payload
+Subject: [PATCH 11/18] Use stream flag value from handled payload
 
 ---
  .../model-runtime/src/core/openaiCompatibleFactory/index.ts     | 2 +-
@@ -339,10 +490,10 @@ index d4d19cb660..3f0447f897 100644
 2.39.5
 
 
-From abe13269f6404c21a5693673473b78c1d4e3f3cb Mon Sep 17 00:00:00 2001
+From b9c49fb97de26a31c5b63e4412f6ee6a9d437305 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 22 Sep 2025 15:03:21 +0000
-Subject: [PATCH 09/16] Introduce more detailed non-streaming response
+Subject: [PATCH 12/18] Introduce more detailed non-streaming response
  converter
 
 e.g. handling url_citations
@@ -616,10 +767,10 @@ index 2350fbde56..d6841b9c9a 100644
 2.39.5
 
 
-From 75878922676f20e5e462756b420b4c5642c5678e Mon Sep 17 00:00:00 2001
+From ab9f8d0e86b99c3fe6ec3a777f409ee46453e2ae Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 12 Oct 2025 16:37:16 +0000
-Subject: [PATCH 10/16] Use conversation language for summaryTitle
+Subject: [PATCH 13/18] Use conversation language for summaryTitle
 
 ---
  packages/prompts/src/chains/summaryTitle.ts | 2 +-
@@ -642,10 +793,10 @@ index d5fa974a32..8a30b816ea 100644
 2.39.5
 
 
-From f7c338233abec47e82291919cb0a71501c63f369 Mon Sep 17 00:00:00 2001
+From f688b5229aa1094e89f8c496425c786f17050d9d Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 5 Mar 2026 10:44:37 +0000
-Subject: [PATCH 11/16] Do not load default tools like lobe-tools etc.
+Subject: [PATCH 14/18] Do not load default tools like lobe-tools etc.
 
 Also show them in the skill list
 ---
@@ -690,10 +841,10 @@ index b8dda9d68b..0bfa745ddc 100644
 2.39.5
 
 
-From e3fff4c2527e587e360dbd5b6de93bd1c56ec772 Mon Sep 17 00:00:00 2001
+From 44fff54db5cd7a60006b83cbd45e1578d6b73525 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 20 Mar 2026 18:26:33 +0000
-Subject: [PATCH 12/16] Disable Markdown Editor for user messages
+Subject: [PATCH 15/18] Disable Markdown Editor for user messages
 
 Until the editor can edit as text and save as markdown
 ---
@@ -798,10 +949,10 @@ index 8bf7cf234d..e99c6246b2 100644
 2.39.5
 
 
-From dbc7670765cebd26a465e3864e77aa8932b679a2 Mon Sep 17 00:00:00 2001
+From e0268543177e72c4b7ff13e3cc587bfa5a0ba94e Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 29 Mar 2026 12:25:13 +0000
-Subject: [PATCH 13/16] Always show exact token number
+Subject: [PATCH 16/18] Always show exact token number
 
 ---
  src/features/ChatInput/ActionBar/Token/TokenProgress.tsx | 2 --
@@ -824,35 +975,10 @@ index a025e1a73a..6fcf19b055 100644
 2.39.5
 
 
-From 5a53d0e5c2dd2038d6efd29f6fcbdd316bf67fce Mon Sep 17 00:00:00 2001
-From: MaySoMusician <maysomusician@gmail.com>
-Date: Fri, 10 Apr 2026 19:13:51 +0000
-Subject: [PATCH 14/16] Dedupe @lobehub/ui package in vite
-
----
- vite.config.ts | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/vite.config.ts b/vite.config.ts
-index 8259f2bf15..5cff59fb78 100644
---- a/vite.config.ts
-+++ b/vite.config.ts
-@@ -112,6 +112,7 @@ export default defineConfig({
-     bundledDev: false,
-   },
-   resolve: {
-+    dedupe: ['@lobehub/ui', '@lobehub/icons', 'antd', 'motion', 'react', 'react-dom'],
-     tsconfigPaths: true,
-   },
-   optimizeDeps: sharedOptimizeDeps,
--- 
-2.39.5
-
-
-From e2077e06f7c6d9c2119a0ae67fee20f2d8980c20 Mon Sep 17 00:00:00 2001
+From 82c55337a7d58d852665b1bd5f785d5cce9aa73e Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 27 Apr 2026 06:51:48 +0000
-Subject: [PATCH 15/16] Open reasoning & verbosity config first, instead of
+Subject: [PATCH 17/18] Open reasoning & verbosity config first, instead of
  pricing card
 
 ---
@@ -875,10 +1001,10 @@ index 18a09cbbd4..a7f7f0588c 100644
 2.39.5
 
 
-From 5f173b5936513b838ffedcf02b2cc084dae8f3c2 Mon Sep 17 00:00:00 2001
+From 4b70d8eac8ebd541bfc87c966e3f509b616f0251 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 27 Apr 2026 14:37:03 +0000
-Subject: [PATCH 16/16] Don't resend the edited message automatically
+Subject: [PATCH 18/18] Don't resend the edited message automatically
 
 It would be nice for many people, but I want to just rather save it.
 ---

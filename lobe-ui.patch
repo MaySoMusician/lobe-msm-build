@@ -1,4 +1,4 @@
-From 8eaa3617ef2840596adea2c15f94005c37c98aaf Mon Sep 17 00:00:00 2001
+From be787c3fde04b1b1573bfc160528494e9cc3d42b Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 14 Oct 2024 10:15:38 +0000
 Subject: [PATCH 1/5] Change font list for Japanese
@@ -28,7 +28,7 @@ index 0a5e55c2..e3b6ee1d 100644
 2.39.5
 
 
-From 19298c1db4dabec4b7fd54d2492cf8c1403808ff Mon Sep 17 00:00:00 2001
+From fe3e235c40986c1687d49c8ef61fdf4d60919994 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 20 Oct 2024 07:28:14 +0000
 Subject: [PATCH 2/5] Remove FONT_CN
@@ -62,7 +62,7 @@ index e3b6ee1d..f67152a1 100644
 2.39.5
 
 
-From 665bd1378829d3094ec4f612cda9e5646357f637 Mon Sep 17 00:00:00 2001
+From 97e9fbba1bd2ba26cd9e916e4a317f37451c9382 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 28 Oct 2024 15:09:31 +0000
 Subject: [PATCH 3/5] Do not load Chinese fonts
@@ -72,7 +72,7 @@ Subject: [PATCH 3/5] Do not load Chinese fonts
  1 file changed, 9 deletions(-)
 
 diff --git a/src/ThemeProvider/ThemeProvider.tsx b/src/ThemeProvider/ThemeProvider.tsx
-index e048dc7b..f6c5e9bd 100644
+index a4082cbd..ea1b4f48 100644
 --- a/src/ThemeProvider/ThemeProvider.tsx
 +++ b/src/ThemeProvider/ThemeProvider.tsx
 @@ -42,15 +42,6 @@ const ThemeProvider = memo<ThemeProviderProps>(
@@ -95,7 +95,7 @@ index e048dc7b..f6c5e9bd 100644
 2.39.5
 
 
-From ec9abec39a543009f4fda75ce7b741b709428fc9 Mon Sep 17 00:00:00 2001
+From 0262183c9b4035821eaf3a79ab1d035d42ca337c Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sat, 13 Dec 2025 07:36:47 +0000
 Subject: [PATCH 4/5] Change colorTextSecondary color
@@ -121,7 +121,7 @@ index 406ed592..2e0362db 100644
 2.39.5
 
 
-From ce0792405849164c4d80e15dfcfd7521c7e18106 Mon Sep 17 00:00:00 2001
+From 6a13e6f615952fba74acefa66f4635bd30a1231f Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sat, 10 Jan 2026 01:03:48 +0000
 Subject: [PATCH 5/5] Darken slate[12] dark color for text
