@@ -126,7 +126,7 @@ jobs:
           NPM_CANONICAL_REGISTRY: https://registry.npmjs.org
         run: |
           set -euo pipefail
-          node scripts/verify-trust-policy-exceptions.mjs
+          node scripts/verify-lobe-chat-trust-policy-exceptions.mjs
 
   build-lobe-chat:
     name: Build Lobe Chat and upload Docker image
