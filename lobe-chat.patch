@@ -1,4 +1,4 @@
-From 32272f71fd6a6d5f19cdc1dac57d2a4a751d96e2 Mon Sep 17 00:00:00 2001
+From 36fbb6039ee618f95d7a2170367db37221b9d0c8 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Tue, 31 Mar 2026 19:01:33 +0000
 Subject: [PATCH 01/18] Add optional arg to set npm registry for Dockerfile
@@ -33,7 +33,7 @@ index f4ad70ac84..2a831c11ce 100644
 2.39.5
 
 
-From 924b440620b0c865c1487c5e8b4a3e86a1dda07b Mon Sep 17 00:00:00 2001
+From 376f713062819c482263f517bfd1eee8140b295a Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 6 Apr 2026 20:40:07 +0000
 Subject: [PATCH 02/18] Set retry options for pnpm install inside Dockerfile
@@ -60,7 +60,7 @@ index 2a831c11ce..fcda6923eb 100644
 2.39.5
 
 
-From e3c6fb1bf3e638c061316d35c2e76d1f5d8f60d8 Mon Sep 17 00:00:00 2001
+From 1cf1a714d46887ead8ad095d4c487875a28c3cd0 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Tue, 12 May 2026 18:45:03 +0000
 Subject: [PATCH 03/18] Harden npm (pnpm) security
@@ -85,10 +85,10 @@ index 999be96503..836d41ee82 100644
  
  public-hoist-pattern[]=*@umijs/lint*
 diff --git a/package.json b/package.json
-index 4be11d04ea..0c454d3e59 100644
+index e0b8c7aded..ee77ba3621 100644
 --- a/package.json
 +++ b/package.json
-@@ -550,7 +550,11 @@
+@@ -548,7 +548,11 @@
    "pnpm": {
      "onlyBuiltDependencies": [
        "@lobehub/editor",
@@ -144,7 +144,7 @@ index 511c8a9a1c..66fa17bd03 100644
 2.39.5
 
 
-From 001861bc064db7f2d27db29a490f18334a05b747 Mon Sep 17 00:00:00 2001
+From 354d48514f79ad535cf730a6e6f61f5807cb5f8b Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 13 May 2026 17:43:57 +0000
 Subject: [PATCH 04/18] Harden Dockerfile security
@@ -186,7 +186,7 @@ index fcda6923eb..37db76195f 100644
 2.39.5
 
 
-From d1371432b96009ba6855c5c3ba62a208b7872ff9 Mon Sep 17 00:00:00 2001
+From a37905c38cfff55efcd5138598933a244f586c45 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 10 Apr 2026 19:13:51 +0000
 Subject: [PATCH 05/18] Dedupe @lobehub/ui package in vite
@@ -211,7 +211,7 @@ index 8259f2bf15..5cff59fb78 100644
 2.39.5
 
 
-From 7e1cb90a02da47e1dd9c644bc3dd0f23d8a64f62 Mon Sep 17 00:00:00 2001
+From 7d8d871d34d66d7cf2722dc9f457e429946136e6 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 6 Feb 2025 20:34:05 +0000
 Subject: [PATCH 06/18] Load Google Fonts script and IBM Plex Sans JP
@@ -259,7 +259,7 @@ index c2c14c88bb..dc37e0ff19 100644
 2.39.5
 
 
-From 6bd2c3316e7a1a3bb18d6a50d454713ba33b680d Mon Sep 17 00:00:00 2001
+From 9511fcc368c5d0d6af33797850725eff1f0aaa7f Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 7 Feb 2025 08:18:42 +0000
 Subject: [PATCH 07/18] Force to use en-US as language
@@ -285,7 +285,7 @@ index 93f89f3346..44afe2003b 100644
 2.39.5
 
 
-From 2838906c3882f1a8759693f216c3bcf00f1e98c1 Mon Sep 17 00:00:00 2001
+From 8e62436fd553f4340b3cd87723e3dd4d349dc659 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 28 Jan 2026 01:28:48 +0000
 Subject: [PATCH 08/18] Show only English and Japanese option for language
@@ -350,7 +350,7 @@ index 6b301a2958..d696410d1b 100644
 2.39.5
 
 
-From 791fea6a718566fdbaee535f111c1536c9ad7d1c Mon Sep 17 00:00:00 2001
+From 35b4aefd30de7f5cafd9b358aa2b1793163cc12d Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 8 Oct 2025 14:38:00 +0000
 Subject: [PATCH 09/18] Overwrite reasoning.summary to undefined for requests
@@ -379,7 +379,7 @@ index e1e1922420..73755181b6 100644
 2.39.5
 
 
-From 174bfba5963b760eaae68fecdd23786887a5aafe Mon Sep 17 00:00:00 2001
+From b676254cfde5e7c837c42b9922694f57e7f9b7f5 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 28 Jan 2026 01:29:51 +0000
 Subject: [PATCH 10/18] Disable streaming and allow Responses API for gpt-5
@@ -464,7 +464,7 @@ index b6b384532d..d074be599c 100644
 2.39.5
 
 
-From ad36b483e16e933d6842b5a67696f7073208ee67 Mon Sep 17 00:00:00 2001
+From e1df07611024bd625badb4b9a7950f628b0bfac1 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 22 Sep 2025 15:02:20 +0000
 Subject: [PATCH 11/18] Use stream flag value from handled payload
@@ -490,7 +490,7 @@ index d4d19cb660..3f0447f897 100644
 2.39.5
 
 
-From b9c49fb97de26a31c5b63e4412f6ee6a9d437305 Mon Sep 17 00:00:00 2001
+From 1660d7552cb5d5702362d740df902947a3cd2f32 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 22 Sep 2025 15:03:21 +0000
 Subject: [PATCH 12/18] Introduce more detailed non-streaming response
@@ -767,7 +767,7 @@ index 2350fbde56..d6841b9c9a 100644
 2.39.5
 
 
-From ab9f8d0e86b99c3fe6ec3a777f409ee46453e2ae Mon Sep 17 00:00:00 2001
+From aa2fd4626242af677731331ae6e439a66743e382 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 12 Oct 2025 16:37:16 +0000
 Subject: [PATCH 13/18] Use conversation language for summaryTitle
@@ -777,12 +777,12 @@ Subject: [PATCH 13/18] Use conversation language for summaryTitle
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/packages/prompts/src/chains/summaryTitle.ts b/packages/prompts/src/chains/summaryTitle.ts
-index d5fa974a32..8a30b816ea 100644
+index ea61228342..2e830b4887 100644
 --- a/packages/prompts/src/chains/summaryTitle.ts
 +++ b/packages/prompts/src/chains/summaryTitle.ts
 @@ -13,7 +13,7 @@ Rules:
- - Maximum 10 words
- - Maximum 50 characters
+ - Maximum 15 words
+ - Maximum 80 characters
  - No punctuation marks
 -- Use the language specified by the locale code: ${locale}
 +- Use the language mainly used in the conversation. If ambiguous, use "${locale}".
@@ -793,7 +793,7 @@ index d5fa974a32..8a30b816ea 100644
 2.39.5
 
 
-From f688b5229aa1094e89f8c496425c786f17050d9d Mon Sep 17 00:00:00 2001
+From 9047ceb35ea1f77b7c1027c9fe813b91a778fae9 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 5 Mar 2026 10:44:37 +0000
 Subject: [PATCH 14/18] Do not load default tools like lobe-tools etc.
@@ -804,10 +804,10 @@ Also show them in the skill list
  1 file changed, 3 insertions(+), 7 deletions(-)
 
 diff --git a/packages/builtin-tools/src/index.ts b/packages/builtin-tools/src/index.ts
-index b8dda9d68b..0bfa745ddc 100644
+index 16675f8982..1f74c91cf1 100644
 --- a/packages/builtin-tools/src/index.ts
 +++ b/packages/builtin-tools/src/index.ts
-@@ -54,11 +54,7 @@ export const defaultToolIds = [
+@@ -50,11 +50,7 @@ export const defaultToolIds = [
   * Tool IDs that are always enabled regardless of user selection.
   * These are core system tools that the agent needs to function properly.
   */
@@ -820,7 +820,7 @@ index b8dda9d68b..0bfa745ddc 100644
  
  /**
   * Tool IDs to exclude from defaults when in manual skill-activate mode.
-@@ -97,14 +93,14 @@ export const runtimeManagedToolIds = [
+@@ -93,14 +89,14 @@ export const runtimeManagedToolIds = [
  export const builtinTools: LobeBuiltinTool[] = [
    {
      discoverable: false,
@@ -841,7 +841,7 @@ index b8dda9d68b..0bfa745ddc 100644
 2.39.5
 
 
-From 44fff54db5cd7a60006b83cbd45e1578d6b73525 Mon Sep 17 00:00:00 2001
+From 34c69ba8a0d4006ce38c8ad9de7b573c8dece027 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 20 Mar 2026 18:26:33 +0000
 Subject: [PATCH 15/18] Disable Markdown Editor for user messages
@@ -949,7 +949,7 @@ index 8bf7cf234d..e99c6246b2 100644
 2.39.5
 
 
-From e0268543177e72c4b7ff13e3cc587bfa5a0ba94e Mon Sep 17 00:00:00 2001
+From 24173282a2b142150ed646ab8e2a044de95414bd Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 29 Mar 2026 12:25:13 +0000
 Subject: [PATCH 16/18] Always show exact token number
@@ -975,7 +975,7 @@ index a025e1a73a..6fcf19b055 100644
 2.39.5
 
 
-From 82c55337a7d58d852665b1bd5f785d5cce9aa73e Mon Sep 17 00:00:00 2001
+From 76d84b14f40b0aa32ae1f777ee6c935dd4b1cc68 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 27 Apr 2026 06:51:48 +0000
 Subject: [PATCH 17/18] Open reasoning & verbosity config first, instead of
@@ -1001,7 +1001,7 @@ index 18a09cbbd4..a7f7f0588c 100644
 2.39.5
 
 
-From 4b70d8eac8ebd541bfc87c966e3f509b616f0251 Mon Sep 17 00:00:00 2001
+From eaad14a7e8a454b22b92570ce96a6ef54c6dd6e6 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 27 Apr 2026 14:37:03 +0000
 Subject: [PATCH 18/18] Don't resend the edited message automatically
