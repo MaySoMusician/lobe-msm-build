@@ -36,15 +36,6 @@
     "expiresOn": "2027-05-13"
   },
   {
-    "name": "reselect",
-    "version": "5.1.1",
-    "publishedAt": "2024-06-01T22:16:06.224Z",
-    "integrity": "sha512-K/BG6eIky/SBpzfHZv/dd+9JBFiS4SWV7FIujVyJRux6e45+73RaUHXLmIR1f7WOMaQ0U1km6qwklRQxpJJY0w==",
-    "tarballHost": "registry.npmjs.org",
-    "reason": "Checked 2026-05-16, required for v2.1.57",
-    "expiresOn": "2027-05-13"
-  },
-  {
     "name": "semver",
     "version": "5.7.2",
     "publishedAt": "2023-07-10T19:57:47.111Z",
@@ -97,5 +88,14 @@
     "tarballHost": "registry.npmjs.org",
     "reason": "Checked 2026-05-16, required for v2.1.57",
     "expiresOn": "2027-05-13"
+  },
+  {
+    "name": "tinyexec",
+    "version": "1.2.2",
+    "publishedAt": "2026-05-23T16:12:08.123Z",
+    "integrity": "sha512-M/Q0B2cp4K7kynaT/vnED1j8TlLY+Pp7C6Wl2bl/7u/F0mUVwdyOpwomQb8JpYLitHUssAJRmLZdMCGsrx7i+g==",
+    "tarballHost": "registry.npmjs.org",
+    "reason": "Checked 2026-05-31, required for v2.2.1, ref: https://github.com/mastra-ai/mastra/pull/17022",
+    "expiresOn": "2027-05-31"
   }
 ]
