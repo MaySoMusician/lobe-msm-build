@@ -949,15 +949,29 @@ index 8bf7cf234d..e99c6246b2 100644
 2.39.5
 
 
-From af179e9fd24b70bc14668957b428e49d99aeadd3 Mon Sep 17 00:00:00 2001
+From 669fe87a482788e88bed511ce25b3cafa58bda96 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 29 Mar 2026 12:25:13 +0000
 Subject: [PATCH 16/20] Always show exact token number
 
 ---
+ packages/utils/src/format.ts                             | 2 --
  src/features/ChatInput/ActionBar/Token/TokenProgress.tsx | 2 --
- 1 file changed, 2 deletions(-)
+ 2 files changed, 4 deletions(-)
 
+diff --git a/packages/utils/src/format.ts b/packages/utils/src/format.ts
+index c0dd984655..3b77ec2f6f 100644
+--- a/packages/utils/src/format.ts
++++ b/packages/utils/src/format.ts
+@@ -78,8 +78,6 @@ export const formatIntergerNumber = (num?: any) => {
+ };
+ 
+ export const formatUsageValue = (number: number) => {
+-  if (number >= 1_000_000) return `${numeral(number / 1_000_000).format('0.[0]')}M`;
+-  if (number >= 1_000) return `${numeral(number / 1_000).format('0.[0]')}K`;
+   return numeral(number).format('0,0');
+ };
+ 
 diff --git a/src/features/ChatInput/ActionBar/Token/TokenProgress.tsx b/src/features/ChatInput/ActionBar/Token/TokenProgress.tsx
 index a025e1a73a..6fcf19b055 100644
 --- a/src/features/ChatInput/ActionBar/Token/TokenProgress.tsx
@@ -975,7 +989,7 @@ index a025e1a73a..6fcf19b055 100644
 2.39.5
 
 
-From f267e176b8e1f3174916b794ef2948e94e95a207 Mon Sep 17 00:00:00 2001
+From fe8d14130982d70b686206c61e795201d810fb52 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 27 Apr 2026 06:51:48 +0000
 Subject: [PATCH 17/20] Open reasoning & verbosity config first, instead of
@@ -1001,7 +1015,7 @@ index 5baa4477ee..43f2abc5ea 100644
 2.39.5
 
 
-From 95bbc322b2910e1d1f74a235f7dbf26a9bde95ec Mon Sep 17 00:00:00 2001
+From fc046d17260416e03e21b633ff64f764c277da8d Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 27 Apr 2026 14:37:03 +0000
 Subject: [PATCH 18/20] Don't resend the edited message automatically
@@ -1046,7 +1060,7 @@ index 479ffdd1ee..d670550e1a 100644
 2.39.5
 
 
-From 74745bdaa50bfed19c27abc915cd3ce3fd3e2758 Mon Sep 17 00:00:00 2001
+From 746100af386f6ebfa1cf7bde4d27338a830e11ea Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 1 Jun 2026 08:37:06 +0000
 Subject: [PATCH 19/20] Exclude lobehub packages for minimumReleaseAge
@@ -1073,7 +1087,7 @@ index 66fa17bd03..08d9c45646 100644
 2.39.5
 
 
-From 1030a683d5828f7726b853661f4a79d8a49902a0 Mon Sep 17 00:00:00 2001
+From da000290c72afa90649598f4fb0ed9947dc3d791 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 1 Jun 2026 08:37:45 +0000
 Subject: [PATCH 20/20] Update trustPolicyExclude packages
