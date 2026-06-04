@@ -1087,20 +1087,20 @@ index 66fa17bd03..08d9c45646 100644
 2.39.5
 
 
-From da000290c72afa90649598f4fb0ed9947dc3d791 Mon Sep 17 00:00:00 2001
+From 9b04c751c64e1497946093025621686939e6033f Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 1 Jun 2026 08:37:45 +0000
 Subject: [PATCH 20/20] Update trustPolicyExclude packages
 
 ---
- pnpm-workspace.yaml | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ pnpm-workspace.yaml | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
 diff --git a/pnpm-workspace.yaml b/pnpm-workspace.yaml
-index 08d9c45646..8f7b9e3eb8 100644
+index 08d9c45646..f5d3a4a5f4 100644
 --- a/pnpm-workspace.yaml
 +++ b/pnpm-workspace.yaml
-@@ -34,12 +34,12 @@ trustPolicyExclude:
+@@ -34,12 +34,15 @@ trustPolicyExclude:
    - 'pdf-parse@1.1.4'
    - 'undici-types@6.21.0'
    - 'chokidar@4.0.3'
@@ -1111,6 +1111,9 @@ index 08d9c45646..8f7b9e3eb8 100644
    - '@octokit/endpoint@9.0.6'
    - '@trickfilm400/rollup-plugin-off-main-thread@3.0.0-pre1'
 +  - 'tinyexec@1.2.2'
++  - '@preact/signals@2.9.1'
++  - '@effect/platform-node-shared@4.0.0-beta.70'
++  - 'effect@4.0.0-beta.70'
  blockExoticSubdeps: true
  strictDepBuilds: true
  enablePrePostScripts: false
