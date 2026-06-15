@@ -1,4 +1,4 @@
-From b32383115dd9125f790587d3cbd3685e4578ee67 Mon Sep 17 00:00:00 2001
+From 9f769a204f98b2d5600b8cd8471702b5a2784474 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Tue, 31 Mar 2026 19:01:33 +0000
 Subject: [PATCH 01/20] Add optional arg to set npm registry for Dockerfile
@@ -33,7 +33,7 @@ index 8916bd9667..26294d486b 100644
 2.39.5
 
 
-From d7fe089dd4c2c2acefde5d1b47c6b242e7715273 Mon Sep 17 00:00:00 2001
+From 55045652281ccce7a9f4eef900e469bbf7ceb844 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 6 Apr 2026 20:40:07 +0000
 Subject: [PATCH 02/20] Set retry options for pnpm install inside Dockerfile
@@ -60,7 +60,7 @@ index 26294d486b..509fc275da 100644
 2.39.5
 
 
-From 93c2831d4ab9dd0a968f8720e6f3252dad92c12f Mon Sep 17 00:00:00 2001
+From 039ae3f1a7afb0155ee165c47ebb39494743e1b8 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Tue, 12 May 2026 18:45:03 +0000
 Subject: [PATCH 03/20] Harden npm (pnpm) security
@@ -85,10 +85,10 @@ index 999be96503..836d41ee82 100644
  
  public-hoist-pattern[]=*@umijs/lint*
 diff --git a/package.json b/package.json
-index 32555cfe5e..3de531744b 100644
+index 589b1bacac..10ed55e3ba 100644
 --- a/package.json
 +++ b/package.json
-@@ -559,7 +559,11 @@
+@@ -563,7 +563,11 @@
    "pnpm": {
      "onlyBuiltDependencies": [
        "@lobehub/editor",
@@ -144,7 +144,7 @@ index 32cadec324..e9bf0bda86 100644
 2.39.5
 
 
-From c93c865efb74f677b4f8ad7fd2a6c2c548f11e1b Mon Sep 17 00:00:00 2001
+From 19242374a660a9ca63c0aabec02251ba6cb901e4 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 13 May 2026 17:43:57 +0000
 Subject: [PATCH 04/20] Harden Dockerfile security
@@ -186,7 +186,7 @@ index 509fc275da..3d36b586a8 100644
 2.39.5
 
 
-From 0f5d2619d604fd1ae30152d0f7dd486a93c9db06 Mon Sep 17 00:00:00 2001
+From b2347daa002b28417cb1cf62dc5f4a85f067fbdc Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 10 Apr 2026 19:13:51 +0000
 Subject: [PATCH 05/20] Dedupe @lobehub/ui package in vite
@@ -196,10 +196,10 @@ Subject: [PATCH 05/20] Dedupe @lobehub/ui package in vite
  1 file changed, 1 insertion(+)
 
 diff --git a/vite.config.ts b/vite.config.ts
-index 3f3fd65ff2..f641eed80a 100644
+index c99dfdcfed..3033f14e04 100644
 --- a/vite.config.ts
 +++ b/vite.config.ts
-@@ -117,6 +117,7 @@ export default defineConfig({
+@@ -121,6 +121,7 @@ export default defineConfig({
      bundledDev: false,
    },
    resolve: {
@@ -211,7 +211,7 @@ index 3f3fd65ff2..f641eed80a 100644
 2.39.5
 
 
-From 98d9a2ca20f2d94f7db92bafe65972281208881c Mon Sep 17 00:00:00 2001
+From 60d2bfc8797dbc99dd6bdbfaa03f78b8eea5a49f Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 6 Feb 2025 20:34:05 +0000
 Subject: [PATCH 06/20] Load Google Fonts script and IBM Plex Sans JP
@@ -259,7 +259,7 @@ index c2c14c88bb..dc37e0ff19 100644
 2.39.5
 
 
-From dfe5716696619b3c484da16b5ac78905daeb6fc5 Mon Sep 17 00:00:00 2001
+From cdd6fbc7228f2e8b5be9f2db88849e401075d57a Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 7 Feb 2025 08:18:42 +0000
 Subject: [PATCH 07/20] Force to use en-US as language
@@ -288,7 +288,7 @@ index 5dbaf4408b..cdad3d1f89 100644
 2.39.5
 
 
-From 5fe56173ebcfec46b0c7a76b24ae842b811d4e55 Mon Sep 17 00:00:00 2001
+From c4978b533bd74ff9b7374288a0f40c6716c281cc Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 28 Jan 2026 01:28:48 +0000
 Subject: [PATCH 08/20] Show only English and Japanese option for language
@@ -353,7 +353,7 @@ index 6b301a2958..d696410d1b 100644
 2.39.5
 
 
-From 83706d620c667a659d4e8c4168f4c81656027e1e Mon Sep 17 00:00:00 2001
+From a5de9ae11b4af4dbd65d334b7ed8cbf79f497cc9 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 8 Oct 2025 14:38:00 +0000
 Subject: [PATCH 09/20] Overwrite reasoning.summary to undefined for requests
@@ -382,7 +382,7 @@ index 69e690c970..e0fe6d02f7 100644
 2.39.5
 
 
-From 996e27737d48035608319969007cf634dfc38b91 Mon Sep 17 00:00:00 2001
+From 00e76c2abaf338f8d5127c7ab3324cd4c76eb486 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 28 Jan 2026 01:29:51 +0000
 Subject: [PATCH 10/20] Disable streaming and allow Responses API for gpt-5
@@ -467,7 +467,7 @@ index cebbc41987..b44e4f1edb 100644
 2.39.5
 
 
-From 9f86d5a68abc221c0b0e4a9c2b1aeb9c4df9670f Mon Sep 17 00:00:00 2001
+From 4de27f1427c540263c7a7ec0bccadc27dc56949a Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 22 Sep 2025 15:02:20 +0000
 Subject: [PATCH 11/20] Use stream flag value from handled payload
@@ -477,10 +477,10 @@ Subject: [PATCH 11/20] Use stream flag value from handled payload
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts b/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
-index eea4a0cbab..c519dfcb05 100644
+index 5e9aadaf49..2cf9700a5a 100644
 --- a/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
 +++ b/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
-@@ -1233,7 +1233,7 @@ export const createOpenAICompatibleRuntime = <T extends Record<string, any> = an
+@@ -1292,7 +1292,7 @@ export const createOpenAICompatibleRuntime = <T extends Record<string, any> = an
          strictToolPairing: true,
        });
  
@@ -493,7 +493,7 @@ index eea4a0cbab..c519dfcb05 100644
 2.39.5
 
 
-From f7f26ea45c01a8450518091b253286f832d5628e Mon Sep 17 00:00:00 2001
+From 40d69d14a04f96247ec8e2d6a0939756a8ea1c28 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 22 Sep 2025 15:03:21 +0000
 Subject: [PATCH 12/20] Introduce more detailed non-streaming response
@@ -770,7 +770,7 @@ index 2350fbde56..d6841b9c9a 100644
 2.39.5
 
 
-From cd9e3b94a732d3bc0e93c314f6f1ad76c891023e Mon Sep 17 00:00:00 2001
+From e2e8e69b1af10ba283e01d699980b6e75af5abef Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 12 Oct 2025 16:37:16 +0000
 Subject: [PATCH 13/20] Use conversation language for summaryTitle
@@ -796,7 +796,7 @@ index b8d5034d1c..d627cabbf3 100644
 2.39.5
 
 
-From 8eabcd867496f6dcb7ad13a89049a531de38b34a Mon Sep 17 00:00:00 2001
+From 49d684dfac22dcfa6aebbdf7e99182a25a0d583a Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 5 Mar 2026 10:44:37 +0000
 Subject: [PATCH 14/20] Do not load default tools like lobe-tools etc.
@@ -853,7 +853,7 @@ index 82fc7e0d14..9b9d0a2c45 100644
 2.39.5
 
 
-From f7352a1bd8b6ef645de1e66a136ca8014802a3ec Mon Sep 17 00:00:00 2001
+From 6efa9170db1d32622387afe3270d24ea20fa13b9 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 20 Mar 2026 18:26:33 +0000
 Subject: [PATCH 15/20] Disable Markdown Editor for user messages
@@ -961,7 +961,7 @@ index 8bf7cf234d..e99c6246b2 100644
 2.39.5
 
 
-From 7a94212d8edaeb7f94c0a36ca3b979f409006082 Mon Sep 17 00:00:00 2001
+From b73088c94f971fb0d53e481e46eb49b0e42d1cc8 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 29 Mar 2026 12:25:13 +0000
 Subject: [PATCH 16/20] Always show exact token number
@@ -1001,7 +1001,7 @@ index a025e1a73a..6fcf19b055 100644
 2.39.5
 
 
-From b0626a1623e7ff4b270acaafd81ace6ebe1df18e Mon Sep 17 00:00:00 2001
+From 37d12da104d8106707a761728396ef3ce4f2e1a9 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 27 Apr 2026 06:51:48 +0000
 Subject: [PATCH 17/20] Open reasoning & verbosity config first, instead of
@@ -1027,7 +1027,7 @@ index 921f718299..378ef9a3ff 100644
 2.39.5
 
 
-From acf9ccbe1df54815f27f8175d5a56ecad979aa58 Mon Sep 17 00:00:00 2001
+From ea6156864ecebc278b9c6e2efde0a70d98612fc0 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 27 Apr 2026 14:37:03 +0000
 Subject: [PATCH 18/20] Don't resend the edited message automatically
@@ -1072,7 +1072,7 @@ index 5c18506d89..ba01d302d4 100644
 2.39.5
 
 
-From bac4704733f762b3edcfe6ab03eaa83f8a71b29d Mon Sep 17 00:00:00 2001
+From 7810f9714441e0174fc453a33aec8f62cb5d3b93 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 1 Jun 2026 08:37:06 +0000
 Subject: [PATCH 19/20] Exclude lobehub packages for minimumReleaseAge
@@ -1099,7 +1099,7 @@ index e9bf0bda86..0b1e1cf6a0 100644
 2.39.5
 
 
-From 848f26b5980c6e203d501323f06e4b5a325b0a0c Mon Sep 17 00:00:00 2001
+From 106643eadd66098448eabfcd9e72ae2750a06b6f Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 1 Jun 2026 08:37:45 +0000
 Subject: [PATCH 20/20] Update trustPolicyExclude packages
