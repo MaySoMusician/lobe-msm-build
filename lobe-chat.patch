@@ -1,7 +1,7 @@
 From 2568498a0a6a71b5b5922198bba2644c83cd1b40 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Tue, 31 Mar 2026 19:01:33 +0000
-Subject: [PATCH 01/22] Add optional arg to set npm registry for Dockerfile
+Subject: [PATCH 01/23] Add optional arg to set npm registry for Dockerfile
 
 ---
  Dockerfile | 4 ++++
@@ -36,7 +36,7 @@ index 8916bd9667..26294d486b 100644
 From 56ee54e777eeea71220a02fd0e684fefcc97b56e Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 6 Apr 2026 20:40:07 +0000
-Subject: [PATCH 02/22] Set retry options for pnpm install inside Dockerfile
+Subject: [PATCH 02/23] Set retry options for pnpm install inside Dockerfile
 
 ---
  Dockerfile | 3 +++
@@ -63,7 +63,7 @@ index 26294d486b..509fc275da 100644
 From ac178f1f3f93089eb4a9e4ffa47f6acf2c9960d8 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Tue, 12 May 2026 18:45:03 +0000
-Subject: [PATCH 03/22] Harden npm (pnpm) security
+Subject: [PATCH 03/23] Harden npm (pnpm) security
 
 ---
  .npmrc              |  2 +-
@@ -147,7 +147,7 @@ index 32cadec324..e9bf0bda86 100644
 From ddfc477c71400ec697398e6412fe434da7dcf865 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 13 May 2026 17:43:57 +0000
-Subject: [PATCH 04/22] Harden Dockerfile security
+Subject: [PATCH 04/23] Harden Dockerfile security
 
 ---
  Dockerfile | 10 +++++++---
@@ -189,7 +189,7 @@ index 509fc275da..3d36b586a8 100644
 From fdf8d672795beb1e1c1f9912c3871df646dea4da Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 10 Apr 2026 19:13:51 +0000
-Subject: [PATCH 05/22] Dedupe @lobehub/ui package in vite
+Subject: [PATCH 05/23] Dedupe @lobehub/ui package in vite
 
 ---
  vite.config.ts | 1 +
@@ -214,7 +214,7 @@ index c99dfdcfed..3033f14e04 100644
 From 3c926242b98117fc194fa65f73c6ada18485032f Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 6 Feb 2025 20:34:05 +0000
-Subject: [PATCH 06/22] Load Google Fonts script and IBM Plex Sans JP
+Subject: [PATCH 06/23] Load Google Fonts script and IBM Plex Sans JP
 
 ---
  index.html        | 6 ++++++
@@ -262,7 +262,7 @@ index c2c14c88bb..dc37e0ff19 100644
 From 85bee6138dd7d4c5fc94f6b95d47b06c11cc2655 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 7 Feb 2025 08:18:42 +0000
-Subject: [PATCH 07/22] Force to use en-US as language
+Subject: [PATCH 07/23] Force to use en-US as language
 
 ---
  src/utils/locale.ts | 4 ++--
@@ -291,7 +291,7 @@ index 5dbaf4408b..cdad3d1f89 100644
 From 0c4ba8f97b75792bfb79eaad8ec8d3c4d21fcaa0 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 28 Jan 2026 01:28:48 +0000
-Subject: [PATCH 08/22] Show only English and Japanese option for language
+Subject: [PATCH 08/23] Show only English and Japanese option for language
  options in global menu
 
 ---
@@ -356,7 +356,7 @@ index 6b301a2958..d696410d1b 100644
 From 32bca08a1a711c3e05e2394e36fd0611ecea9201 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 8 Oct 2025 14:38:00 +0000
-Subject: [PATCH 09/22] Overwrite reasoning.summary to undefined for requests
+Subject: [PATCH 09/23] Overwrite reasoning.summary to undefined for requests
  for openai
 
 ---
@@ -385,7 +385,7 @@ index 69e690c970..e0fe6d02f7 100644
 From e17c5bdbb73298de18f2ad5453b1452cb994d071 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 28 Jan 2026 01:29:51 +0000
-Subject: [PATCH 10/22] Disable streaming and allow Responses API for gpt-5
+Subject: [PATCH 10/23] Disable streaming and allow Responses API for gpt-5
  family
 
 ---
@@ -470,7 +470,7 @@ index cebbc41987..b44e4f1edb 100644
 From 885843e2a465f981e52fd016ab6e8543a1e7b2de Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 22 Sep 2025 15:02:20 +0000
-Subject: [PATCH 11/22] Use stream flag value from handled payload
+Subject: [PATCH 11/23] Use stream flag value from handled payload
 
 ---
  .../model-runtime/src/core/openaiCompatibleFactory/index.ts     | 2 +-
@@ -496,7 +496,7 @@ index 5e9aadaf49..2cf9700a5a 100644
 From 32dad66c9670478a14b03626057b0cf11a0f6115 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 22 Sep 2025 15:03:21 +0000
-Subject: [PATCH 12/22] Introduce more detailed non-streaming response
+Subject: [PATCH 12/23] Introduce more detailed non-streaming response
  converter
 
 e.g. handling url_citations
@@ -773,7 +773,7 @@ index 2350fbde56..d6841b9c9a 100644
 From a77fac45f1ba3485f913008282d76b242bac8dc7 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 12 Oct 2025 16:37:16 +0000
-Subject: [PATCH 13/22] Use conversation language for summaryTitle
+Subject: [PATCH 13/23] Use conversation language for summaryTitle
 
 ---
  packages/prompts/src/chains/summaryTitle.ts | 2 +-
@@ -799,7 +799,7 @@ index b8d5034d1c..d627cabbf3 100644
 From 8128b4bab58c68bfb67418fc3a8c800dff47e788 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 5 Mar 2026 10:44:37 +0000
-Subject: [PATCH 14/22] Do not load default tools like lobe-tools etc.
+Subject: [PATCH 14/23] Do not load default tools like lobe-tools etc.
 
 Also show them in the skill list
 ---
@@ -856,7 +856,7 @@ index 82fc7e0d14..9b9d0a2c45 100644
 From 5deee234c947a0946c182d9986759f34954c5dbd Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 20 Mar 2026 18:26:33 +0000
-Subject: [PATCH 15/22] Disable Markdown Editor for user messages
+Subject: [PATCH 15/23] Disable Markdown Editor for user messages
 
 Until the editor can edit as text and save as markdown
 ---
@@ -964,7 +964,7 @@ index 8bf7cf234d..e99c6246b2 100644
 From c0b4c92772262a85de10aca7fa1f343fe5d61461 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 29 Mar 2026 12:25:13 +0000
-Subject: [PATCH 16/22] Always show exact token number
+Subject: [PATCH 16/23] Always show exact token number
 
 ---
  packages/utils/src/format.ts                             | 2 --
@@ -1004,7 +1004,7 @@ index a025e1a73a..6fcf19b055 100644
 From 54357c2fd77433d6e93de528268c0102a75fa539 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 27 Apr 2026 06:51:48 +0000
-Subject: [PATCH 17/22] Open reasoning & verbosity config first, instead of
+Subject: [PATCH 17/23] Open reasoning & verbosity config first, instead of
  pricing card
 
 ---
@@ -1030,7 +1030,7 @@ index ac30342a26..a03565bcfc 100644
 From 85a913979c17ff848f300333ddaa6dcad8823999 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 27 Apr 2026 14:37:03 +0000
-Subject: [PATCH 18/22] Don't resend the edited message automatically
+Subject: [PATCH 18/23] Don't resend the edited message automatically
 
 It would be nice for many people, but I want to just rather save it.
 ---
@@ -1075,7 +1075,7 @@ index 5c18506d89..ba01d302d4 100644
 From 7442b23f0c74235095bbaf6ca62b3b593bc04639 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 1 Jun 2026 08:37:06 +0000
-Subject: [PATCH 19/22] Exclude lobehub packages for minimumReleaseAge
+Subject: [PATCH 19/23] Exclude lobehub packages for minimumReleaseAge
  restriction
 
 ---
@@ -1102,7 +1102,7 @@ index e9bf0bda86..0b1e1cf6a0 100644
 From 4d79047b6fa86a61890cbcf5696f3550a29708e4 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 1 Jun 2026 08:37:45 +0000
-Subject: [PATCH 20/22] Update trustPolicyExclude packages
+Subject: [PATCH 20/23] Update trustPolicyExclude packages
 
 ---
  pnpm-workspace.yaml | 5 ++++-
@@ -1136,7 +1136,7 @@ index 0b1e1cf6a0..a23c16ea38 100644
 From 1ae22bbfb2d09236a6642f7c8f08342ca5c6104a Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 19 Jun 2026 04:52:24 +0000
-Subject: [PATCH 21/22] Debug
+Subject: [PATCH 21/23] Debug
 
 ---
  .../model-runtime/src/core/openaiCompatibleFactory/index.ts    | 3 +++
@@ -1170,7 +1170,7 @@ index 2cf9700a5a..cd12b2522a 100644
 From 2b3a43fd98828861abc752d600a475eb9e1b0e96 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 19 Jun 2026 05:48:36 +0000
-Subject: [PATCH 22/22] Debug 2
+Subject: [PATCH 22/23] Debug 2
 
 ---
  .../model-runtime/src/core/openaiCompatibleFactory/index.ts     | 2 ++
@@ -1186,6 +1186,42 @@ index cd12b2522a..c1b72a24d6 100644
  
 +      console.dir(postPayload, { depth: null });
 +      console.dir(options, { depth: null });
+       console.dir(response, { depth: null });
+ 
+       if (isStreaming) {
+-- 
+2.39.5
+
+
+From 0724123d1f0d2747da47f7786348db424723ac06 Mon Sep 17 00:00:00 2001
+From: MaySoMusician <maysomusician@gmail.com>
+Date: Fri, 19 Jun 2026 06:11:24 +0000
+Subject: [PATCH 23/23] Debug 3
+
+---
+ .../model-runtime/src/core/openaiCompatibleFactory/index.ts  | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts b/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
+index c1b72a24d6..6846fce22e 100644
+--- a/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
++++ b/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
+@@ -1339,6 +1339,9 @@ export const createOpenAICompatibleRuntime = <T extends Record<string, any> = an
+ 
+       log('sending responses.create request');
+ 
++      console.dir(postPayload, { depth: null });
++      console.dir(options, { depth: null });
++
+       const response = await this.client.responses.create(postPayload, {
+         headers: options?.requestHeaders,
+         signal: options?.signal,
+@@ -1354,8 +1357,6 @@ export const createOpenAICompatibleRuntime = <T extends Record<string, any> = an
+         },
+       };
+ 
+-      console.dir(postPayload, { depth: null });
+-      console.dir(options, { depth: null });
        console.dir(response, { depth: null });
  
        if (isStreaming) {
