@@ -7,15 +7,13 @@ on:
 
 permissions:
   contents: read # Default: read-only; jobs that must write will override at job-level.
+  actions: read # To cancel the job if there's ongoing one.
 
 env:
   GIT_AUTHOR_NAME: actions-user
   GIT_AUTHOR_EMAIL: action@github.com
   GIT_COMMITTER_NAME: actions-user
   GIT_COMMITTER_EMAIL: action@github.com
-
-concurrency:
-  group: ${{ github.workflow }}
 
 jobs:
   check:
@@ -27,6 +25,43 @@ jobs:
       last_commit: ${{ steps.check-updates.outputs.last_commit }}
 
     steps:
+      - name: Fail if an older run is already active
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          RUN_ID: ${{ github.run_id }}
+          RUN_NUMBER: ${{ github.run_number }}
+          WORKFLOW_REF: ${{ github.workflow_ref }}
+        run: |
+          set -euo pipefail
+          # github.workflow_ref looks like:
+          # owner/repo/.github/workflows/file.yml@refs/heads/main
+          WORKFLOW_FILE="$(basename "${WORKFLOW_REF%@*}")"
+          curl -fsSL \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            -H "X-GitHub-Api-Version: 2026-03-10" \
+            "https://api.github.com/repos/${REPO}/actions/workflows/${WORKFLOW_FILE}/runs?per_page=100" \
+            > runs.json
+          OLDER_ACTIVE_COUNT="$(
+            jq --arg run_id "$RUN_ID" --argjson run_number "$RUN_NUMBER" '
+              [.workflow_runs[]
+               | select((.id | tostring) != $run_id)
+               | select(.run_number < $run_number)
+               | select(
+                   .status == "in_progress" or
+                   .status == "queued" or
+                   .status == "waiting" or
+                   .status == "pending" or
+                   .status == "requested"
+                 )]
+              | length
+            ' runs.json
+          )"
+          if [ "$OLDER_ACTIVE_COUNT" -gt 0 ]; then
+            echo "An older run of this workflow is already active or waiting. Cancel it first."
+            exit 1
+          fi
       - name: Check out patch repo
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
