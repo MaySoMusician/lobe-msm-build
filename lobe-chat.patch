@@ -1,7 +1,7 @@
-From 10834b20ecfc3429fcee330581b2f4781880537d Mon Sep 17 00:00:00 2001
+From a9c10639eb394619ea56828ddaf4a18d3360e0ad Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Tue, 31 Mar 2026 19:01:33 +0000
-Subject: [PATCH 01/23] Add optional arg to set npm registry for Dockerfile
+Subject: [PATCH 01/22] Add optional arg to set npm registry for Dockerfile
 
 ---
  Dockerfile | 4 ++++
@@ -33,10 +33,10 @@ index 8916bd9667..26294d486b 100644
 2.39.5
 
 
-From 6369a80f028403b491056f245442d5abc013871a Mon Sep 17 00:00:00 2001
+From 31a3bb557646336abba1d6cf44f8d0f113bbadda Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 6 Apr 2026 20:40:07 +0000
-Subject: [PATCH 02/23] Set retry options for pnpm install inside Dockerfile
+Subject: [PATCH 02/22] Set retry options for pnpm install inside Dockerfile
 
 ---
  Dockerfile | 3 +++
@@ -60,16 +60,16 @@ index 26294d486b..509fc275da 100644
 2.39.5
 
 
-From 1e263e629f0c097cbfbb1f25eecf232a2186d6fb Mon Sep 17 00:00:00 2001
+From 25f389b46344b615be3f337e44739d7543597009 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Tue, 12 May 2026 18:45:03 +0000
-Subject: [PATCH 03/23] Harden npm (pnpm) security
+Subject: [PATCH 03/22] Harden npm (pnpm) security
 
 ---
  .npmrc              |  2 +-
  package.json        |  6 +++++-
- pnpm-workspace.yaml | 24 +++++++++++++++++++++++-
- 3 files changed, 29 insertions(+), 3 deletions(-)
+ pnpm-workspace.yaml | 29 ++++++++++++++++++++++++++++-
+ 3 files changed, 34 insertions(+), 3 deletions(-)
 
 diff --git a/.npmrc b/.npmrc
 index 999be96503..836d41ee82 100644
@@ -85,10 +85,10 @@ index 999be96503..836d41ee82 100644
  
  public-hoist-pattern[]=*@umijs/lint*
 diff --git a/package.json b/package.json
-index 3a1e86a9b0..ec1a4ec708 100644
+index a418ed6ccc..9a012539f3 100644
 --- a/package.json
 +++ b/package.json
-@@ -563,7 +563,11 @@
+@@ -561,7 +561,11 @@
    "pnpm": {
      "onlyBuiltDependencies": [
        "@lobehub/editor",
@@ -102,7 +102,7 @@ index 3a1e86a9b0..ec1a4ec708 100644
      "overrides": {
        "@react-pdf/image": "3.0.4",
 diff --git a/pnpm-workspace.yaml b/pnpm-workspace.yaml
-index 32cadec324..e9bf0bda86 100644
+index 32cadec324..a23c16ea38 100644
 --- a/pnpm-workspace.yaml
 +++ b/pnpm-workspace.yaml
 @@ -8,7 +8,11 @@ packages:
@@ -118,25 +118,30 @@ index 32cadec324..e9bf0bda86 100644
  
  overrides:
    jose: ^6.1.3
-@@ -20,3 +24,21 @@ overrides:
+@@ -20,3 +24,26 @@ overrides:
  
  patchedDependencies:
    '@upstash/qstash': patches/@upstash__qstash.patch
 +
 +minimumReleaseAge: 10080
 +minimumReleaseAgeStrict: true # Only works after v11.x
++minimumReleaseAgeExclude:
++  - '@lobehub/*'
 +trustPolicy: no-downgrade
 +trustPolicyExclude:
 +  - 'ua-parser-js@1.0.41'
 +  - 'pdf-parse@1.1.4'
 +  - 'undici-types@6.21.0'
 +  - 'chokidar@4.0.3'
-+  - 'reselect@5.1.1'
 +  - 'semver@5.7.2 || 6.3.1'
 +  - 'eslint-config-prettier@9.1.2'
 +  - '@octokit/plugin-paginate-rest@9.2.2'
 +  - '@octokit/endpoint@9.0.6'
 +  - '@trickfilm400/rollup-plugin-off-main-thread@3.0.0-pre1'
++  - 'tinyexec@1.2.2'
++  - '@preact/signals@2.9.1'
++  - '@effect/platform-node-shared@4.0.0-beta.70'
++  - 'effect@4.0.0-beta.70'
 +blockExoticSubdeps: true
 +strictDepBuilds: true
 +enablePrePostScripts: false
@@ -144,10 +149,10 @@ index 32cadec324..e9bf0bda86 100644
 2.39.5
 
 
-From 7480b69b0d7655756fdf4d5e347664788d86a568 Mon Sep 17 00:00:00 2001
+From d3ef5cd3d4cf4e9111e95df33e527e545751cbb1 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 13 May 2026 17:43:57 +0000
-Subject: [PATCH 04/23] Harden Dockerfile security
+Subject: [PATCH 04/22] Harden Dockerfile security
 
 ---
  Dockerfile | 10 +++++++---
@@ -186,17 +191,17 @@ index 509fc275da..3d36b586a8 100644
 2.39.5
 
 
-From 1c8b0a7f6d9dc35ab6cc455976fcee8f4a8627e4 Mon Sep 17 00:00:00 2001
+From f0a65b6aeea5b1d2d5b4f4099a25796e70b927b2 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 10 Apr 2026 19:13:51 +0000
-Subject: [PATCH 05/23] Dedupe @lobehub/ui package in vite
+Subject: [PATCH 05/22] Dedupe @lobehub/ui package in vite
 
 ---
  vite.config.ts | 1 +
  1 file changed, 1 insertion(+)
 
 diff --git a/vite.config.ts b/vite.config.ts
-index c99dfdcfed..3033f14e04 100644
+index 97f695f006..2a17f53937 100644
 --- a/vite.config.ts
 +++ b/vite.config.ts
 @@ -121,6 +121,7 @@ export default defineConfig({
@@ -211,10 +216,10 @@ index c99dfdcfed..3033f14e04 100644
 2.39.5
 
 
-From f30d030be5f4c12e1b821171dd8335dc35b4169a Mon Sep 17 00:00:00 2001
+From d6832a68e1cafa97363a10e494e3173b5b3ee6c4 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 6 Feb 2025 20:34:05 +0000
-Subject: [PATCH 06/23] Load Google Fonts script and IBM Plex Sans JP
+Subject: [PATCH 06/22] Load Google Fonts script and IBM Plex Sans JP
 
 ---
  index.html        | 6 ++++++
@@ -259,10 +264,10 @@ index c2c14c88bb..dc37e0ff19 100644
 2.39.5
 
 
-From 8c8615eacfee58dda217de7923f581ccdd9ca063 Mon Sep 17 00:00:00 2001
+From 7319d93587636ce4ec12a42ca474adbe1e7ff52b Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 7 Feb 2025 08:18:42 +0000
-Subject: [PATCH 07/23] Force to use en-US as language
+Subject: [PATCH 07/22] Force to use en-US as language
 
 ---
  src/utils/locale.ts | 4 ++--
@@ -288,10 +293,10 @@ index 5dbaf4408b..cdad3d1f89 100644
 2.39.5
 
 
-From 2e64d9287c9e8283ae60eb70de5a7f4dfd586b7b Mon Sep 17 00:00:00 2001
+From 3ea74f019e3a1147d2917eedf3d162ed17cc161f Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 28 Jan 2026 01:28:48 +0000
-Subject: [PATCH 08/23] Show only English and Japanese option for language
+Subject: [PATCH 08/22] Show only English and Japanese option for language
  options in global menu
 
 ---
@@ -353,10 +358,10 @@ index 6b301a2958..d696410d1b 100644
 2.39.5
 
 
-From b89b738a5ee85aed75ce5e0f64cd1a52c650fe4e Mon Sep 17 00:00:00 2001
+From 4344ca61803bf23b2303f0b2e9121033ca7cc7e9 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 8 Oct 2025 14:38:00 +0000
-Subject: [PATCH 09/23] Overwrite reasoning.summary to undefined for requests
+Subject: [PATCH 09/22] Overwrite reasoning.summary to undefined for requests
  for openai
 
 ---
@@ -382,10 +387,10 @@ index 87f21e430b..eadb250207 100644
 2.39.5
 
 
-From 493b890576c1b0c9dc6fc24e3c4f8a6bddba8bcb Mon Sep 17 00:00:00 2001
+From ff65f02da46a25755b17140f20c73cf311f211ab Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 28 Jan 2026 01:29:51 +0000
-Subject: [PATCH 10/23] Disable streaming and allow Responses API for gpt-5
+Subject: [PATCH 10/22] Disable streaming and allow Responses API for gpt-5
  family
 
 ---
@@ -393,7 +398,7 @@ Subject: [PATCH 10/23] Disable streaming and allow Responses API for gpt-5
  1 file changed, 54 insertions(+)
 
 diff --git a/packages/model-runtime/src/providers/openai/openaiModelId.ts b/packages/model-runtime/src/providers/openai/openaiModelId.ts
-index 7e48d8192f..1de8535159 100644
+index a0811b1f27..fd53689e0c 100644
 --- a/packages/model-runtime/src/providers/openai/openaiModelId.ts
 +++ b/packages/model-runtime/src/providers/openai/openaiModelId.ts
 @@ -34,6 +34,28 @@ export const disableStreamModels = new Set([
@@ -468,20 +473,20 @@ index 7e48d8192f..1de8535159 100644
 2.39.5
 
 
-From 700d5a5bae3a61332ae4bc93a75285e30fe807e8 Mon Sep 17 00:00:00 2001
+From 49be942c2c03bf5a897041b6554329fa79f94f5d Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 22 Sep 2025 15:02:20 +0000
-Subject: [PATCH 11/23] Use stream flag value from handled payload
+Subject: [PATCH 11/22] Use stream flag value from handled payload
 
 ---
  .../model-runtime/src/core/openaiCompatibleFactory/index.ts     | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts b/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
-index 7dbcc89df0..45ed0cf4ae 100644
+index 9fb8ed6d46..87db9a66ab 100644
 --- a/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
 +++ b/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
-@@ -1328,7 +1328,7 @@ export const createOpenAICompatibleRuntime = <T extends Record<string, any> = an
+@@ -1414,7 +1414,7 @@ export const createOpenAICompatibleRuntime = <T extends Record<string, any> = an
          strictToolPairing: true,
        });
  
@@ -494,10 +499,10 @@ index 7dbcc89df0..45ed0cf4ae 100644
 2.39.5
 
 
-From f42518c18848377f74d01ec48083a625f116f600 Mon Sep 17 00:00:00 2001
+From c99fec13d4053466476c21d84f93b2b84167f94c Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 22 Sep 2025 15:03:21 +0000
-Subject: [PATCH 12/23] Introduce more detailed non-streaming response
+Subject: [PATCH 12/22] Introduce more detailed non-streaming response
  converter
 
 e.g. handling url_citations
@@ -506,10 +511,10 @@ e.g. handling url_citations
  1 file changed, 210 insertions(+), 34 deletions(-)
 
 diff --git a/packages/model-runtime/src/core/openaiCompatibleFactory/nonStreamToStream.ts b/packages/model-runtime/src/core/openaiCompatibleFactory/nonStreamToStream.ts
-index 2350fbde56..d6841b9c9a 100644
+index 2651c399c0..055a786a8d 100644
 --- a/packages/model-runtime/src/core/openaiCompatibleFactory/nonStreamToStream.ts
 +++ b/packages/model-runtime/src/core/openaiCompatibleFactory/nonStreamToStream.ts
-@@ -85,47 +85,223 @@ export const transformResponseToStream = (data: OpenAI.ChatCompletion) =>
+@@ -89,47 +89,223 @@ export const transformResponseToStream = (data: OpenAI.ChatCompletion) =>
      },
    });
  
@@ -771,10 +776,10 @@ index 2350fbde56..d6841b9c9a 100644
 2.39.5
 
 
-From eb9860e0974e6486e369cc5067c217153cdec9e8 Mon Sep 17 00:00:00 2001
+From 881ed09988503a250f6ac07942b973f23a3fba29 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 12 Oct 2025 16:37:16 +0000
-Subject: [PATCH 13/23] Use conversation language for summaryTitle
+Subject: [PATCH 13/22] Use conversation language for summaryTitle
 
 ---
  packages/prompts/src/chains/summaryTitle.ts | 2 +-
@@ -797,10 +802,10 @@ index b8d5034d1c..d627cabbf3 100644
 2.39.5
 
 
-From 64dc1d3db5893521ded62c714ffca16a24499c84 Mon Sep 17 00:00:00 2001
+From dcffb178f32be44201511f3a37fdc2335845d477 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 5 Mar 2026 10:44:37 +0000
-Subject: [PATCH 14/23] Do not load default tools like lobe-tools etc.
+Subject: [PATCH 14/22] Do not load default tools like lobe-tools etc.
 
 Also show them in the skill list
 ---
@@ -808,7 +813,7 @@ Also show them in the skill list
  1 file changed, 4 insertions(+), 9 deletions(-)
 
 diff --git a/packages/builtin-tools/src/index.ts b/packages/builtin-tools/src/index.ts
-index 82fc7e0d14..9b9d0a2c45 100644
+index 62e061fff7..200e042e80 100644
 --- a/packages/builtin-tools/src/index.ts
 +++ b/packages/builtin-tools/src/index.ts
 @@ -69,12 +69,7 @@ export const defaultToolIds = [
@@ -825,8 +830,8 @@ index 82fc7e0d14..9b9d0a2c45 100644
  
  /**
   * Tool IDs to exclude from defaults when in manual skill-activate mode.
-@@ -131,21 +126,21 @@ export const runtimeManagedToolIds = [
- export const builtinTools: LobeBuiltinTool[] = [
+@@ -152,21 +147,21 @@ export const runtimeManagedToolIds = [
+ const builtinToolRegistry: LobeBuiltinTool[] = [
    {
      discoverable: false,
 -    hidden: true,
@@ -854,10 +859,10 @@ index 82fc7e0d14..9b9d0a2c45 100644
 2.39.5
 
 
-From 5d77268350beb2cc9fdf50a52ccf382fd6f36df0 Mon Sep 17 00:00:00 2001
+From c52072a4faf372efd2e2d5f629c8d85587b337c5 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 20 Mar 2026 18:26:33 +0000
-Subject: [PATCH 15/23] Disable Markdown Editor for user messages
+Subject: [PATCH 15/22] Disable Markdown Editor for user messages
 
 Until the editor can edit as text and save as markdown
 ---
@@ -962,10 +967,10 @@ index 8bf7cf234d..e99c6246b2 100644
 2.39.5
 
 
-From 6c9399437d765b6aa0d55cf06b18a4776fe93e44 Mon Sep 17 00:00:00 2001
+From 0ac8e95c65b0cbd9f613bd04e24393be843a09be Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 29 Mar 2026 12:25:13 +0000
-Subject: [PATCH 16/23] Always show exact token number
+Subject: [PATCH 16/22] Always show exact token number
 
 ---
  packages/utils/src/format.ts                             | 2 --
@@ -1002,10 +1007,10 @@ index a025e1a73a..6fcf19b055 100644
 2.39.5
 
 
-From 211ebc4650ed982a71035bed0025e0ed8b5d0be5 Mon Sep 17 00:00:00 2001
+From c616af6cf6f45aed7153529d13dc0c0074036145 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 27 Apr 2026 06:51:48 +0000
-Subject: [PATCH 17/23] Open reasoning & verbosity config first, instead of
+Subject: [PATCH 17/22] Open reasoning & verbosity config first, instead of
  pricing card
 
 ---
@@ -1013,7 +1018,7 @@ Subject: [PATCH 17/23] Open reasoning & verbosity config first, instead of
  1 file changed, 1 deletion(-)
 
 diff --git a/src/store/global/initialState.ts b/src/store/global/initialState.ts
-index 5b7349251e..8f235432cb 100644
+index 9d4c90918f..e31469c884 100644
 --- a/src/store/global/initialState.ts
 +++ b/src/store/global/initialState.ts
 @@ -100,7 +100,6 @@ export const MODEL_DETAIL_PANEL_EXPANDED_KEYS = [
@@ -1028,10 +1033,10 @@ index 5b7349251e..8f235432cb 100644
 2.39.5
 
 
-From c40b7d9f9752e8e5bb2d34d1f12c6cf0cbe940df Mon Sep 17 00:00:00 2001
+From 5a869b2d47e4b12d122362deaad30ab0505e6718 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 27 Apr 2026 14:37:03 +0000
-Subject: [PATCH 18/23] Don't resend the edited message automatically
+Subject: [PATCH 18/22] Don't resend the edited message automatically
 
 It would be nice for many people, but I want to just rather save it.
 ---
@@ -1073,71 +1078,10 @@ index 5c18506d89..ba01d302d4 100644
 2.39.5
 
 
-From 8ef739bdd144b4c31c8ead5310be0d8ea9c25d69 Mon Sep 17 00:00:00 2001
-From: MaySoMusician <maysomusician@gmail.com>
-Date: Mon, 1 Jun 2026 08:37:06 +0000
-Subject: [PATCH 19/23] Exclude lobehub packages for minimumReleaseAge
- restriction
-
----
- pnpm-workspace.yaml | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/pnpm-workspace.yaml b/pnpm-workspace.yaml
-index e9bf0bda86..0b1e1cf6a0 100644
---- a/pnpm-workspace.yaml
-+++ b/pnpm-workspace.yaml
-@@ -27,6 +27,8 @@ patchedDependencies:
- 
- minimumReleaseAge: 10080
- minimumReleaseAgeStrict: true # Only works after v11.x
-+minimumReleaseAgeExclude:
-+  - '@lobehub/*'
- trustPolicy: no-downgrade
- trustPolicyExclude:
-   - 'ua-parser-js@1.0.41'
--- 
-2.39.5
-
-
-From 33cb9f95dbb5cee109ebbfcfaa2f6e2bd59b7b43 Mon Sep 17 00:00:00 2001
-From: MaySoMusician <maysomusician@gmail.com>
-Date: Mon, 1 Jun 2026 08:37:45 +0000
-Subject: [PATCH 20/23] Update trustPolicyExclude packages
-
----
- pnpm-workspace.yaml | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
-
-diff --git a/pnpm-workspace.yaml b/pnpm-workspace.yaml
-index 0b1e1cf6a0..a23c16ea38 100644
---- a/pnpm-workspace.yaml
-+++ b/pnpm-workspace.yaml
-@@ -35,12 +35,15 @@ trustPolicyExclude:
-   - 'pdf-parse@1.1.4'
-   - 'undici-types@6.21.0'
-   - 'chokidar@4.0.3'
--  - 'reselect@5.1.1'
-   - 'semver@5.7.2 || 6.3.1'
-   - 'eslint-config-prettier@9.1.2'
-   - '@octokit/plugin-paginate-rest@9.2.2'
-   - '@octokit/endpoint@9.0.6'
-   - '@trickfilm400/rollup-plugin-off-main-thread@3.0.0-pre1'
-+  - 'tinyexec@1.2.2'
-+  - '@preact/signals@2.9.1'
-+  - '@effect/platform-node-shared@4.0.0-beta.70'
-+  - 'effect@4.0.0-beta.70'
- blockExoticSubdeps: true
- strictDepBuilds: true
- enablePrePostScripts: false
--- 
-2.39.5
-
-
-From f920e58381d8d49221f1c8640526656713ca1d72 Mon Sep 17 00:00:00 2001
+From 00fd36ae51b2148c5f56063c1eebd0075a495532 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 19 Jun 2026 14:53:55 +0000
-Subject: [PATCH 21/23] Pin docker base image
+Subject: [PATCH 19/22] Pin docker base image
 
 Node 24.17 has the issue of https://github.com/nodejs/node/issues/63989,
 so pin the image to 24.16.0 temporarily
@@ -1169,35 +1113,10 @@ index 3d36b586a8..8868a37ca4 100644
 2.39.5
 
 
-From 573f68d07dd621f0eab4456abbf334729ff8a81c Mon Sep 17 00:00:00 2001
-From: MaySoMusician <maysomusician@gmail.com>
-Date: Sat, 20 Jun 2026 14:10:37 +0000
-Subject: [PATCH 22/23] Temporarily allow react-router@8.0.1
-
----
- pnpm-workspace.yaml | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/pnpm-workspace.yaml b/pnpm-workspace.yaml
-index a23c16ea38..426c762191 100644
---- a/pnpm-workspace.yaml
-+++ b/pnpm-workspace.yaml
-@@ -29,6 +29,7 @@ minimumReleaseAge: 10080
- minimumReleaseAgeStrict: true # Only works after v11.x
- minimumReleaseAgeExclude:
-   - '@lobehub/*'
-+  - 'react-router@8.0.1'
- trustPolicy: no-downgrade
- trustPolicyExclude:
-   - 'ua-parser-js@1.0.41'
--- 
-2.39.5
-
-
-From 649b558cf4977cc4911aeb792ddb362950cbc48f Mon Sep 17 00:00:00 2001
+From 20b27f687e5ac74efbf591608ed69ee57154b3bd Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Tue, 23 Jun 2026 23:44:22 +0000
-Subject: [PATCH 23/23] Open Share modal by defailt in OpenAI compatible JSON
+Subject: [PATCH 20/22] Open Share modal by defailt in OpenAI compatible JSON
  mode
 
 ---
@@ -1206,7 +1125,7 @@ Subject: [PATCH 23/23] Open Share modal by defailt in OpenAI compatible JSON
  2 files changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/src/features/ShareModal/Modal.tsx b/src/features/ShareModal/Modal.tsx
-index 37b256d588..010953639d 100644
+index fbd08e4533..2e140aaba0 100644
 --- a/src/features/ShareModal/Modal.tsx
 +++ b/src/features/ShareModal/Modal.tsx
 @@ -28,7 +28,7 @@ export interface OpenShareModalOptions {
@@ -1219,10 +1138,10 @@ index 37b256d588..010953639d 100644
    const isMobile = useIsMobile();
    const { dbMessages, isLoading } = useShareData();
 diff --git a/src/features/ShareModal/ShareJSON/index.tsx b/src/features/ShareModal/ShareJSON/index.tsx
-index 69c91d8299..cad5e253fe 100644
+index 53cbd4757e..8044fbdfaa 100644
 --- a/src/features/ShareModal/ShareJSON/index.tsx
 +++ b/src/features/ShareModal/ShareJSON/index.tsx
-@@ -18,7 +18,7 @@ import Preview from './Preview';
+@@ -19,7 +19,7 @@ import Preview from './Preview';
  import { type FieldType } from './type';
  
  const DEFAULT_FIELD_VALUE: FieldType = {
@@ -1231,6 +1150,173 @@ index 69c91d8299..cad5e253fe 100644
    includeTool: true,
    withSystemRole: true,
  };
+-- 
+2.39.5
+
+
+From e8a4db0336ed9d64a2062b74f281c0866c838bda Mon Sep 17 00:00:00 2001
+From: MaySoMusician <maysomusician@gmail.com>
+Date: Mon, 29 Jun 2026 14:03:03 +0000
+Subject: [PATCH 21/22] Reset model switch panel width when opening it in
+ narrower phone
+
+---
+ .../ModelSwitchPanel/components/PanelContent.tsx       | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
+
+diff --git a/src/features/ModelSwitchPanel/components/PanelContent.tsx b/src/features/ModelSwitchPanel/components/PanelContent.tsx
+index 3212079217..26e729d0f9 100644
+--- a/src/features/ModelSwitchPanel/components/PanelContent.tsx
++++ b/src/features/ModelSwitchPanel/components/PanelContent.tsx
+@@ -1,5 +1,5 @@
+ import { Flexbox } from '@lobehub/ui';
+-import { type ComponentType, type FC } from 'react';
++import { useEffect, type ComponentType, type FC } from 'react';
+ import { useState } from 'react';
+ import { Rnd } from 'react-rnd';
+ 
+@@ -67,6 +67,14 @@ export const PanelContent: FC<PanelContentProps> = ({
+     </>
+   );
+ 
++  // Reset the panel width for narrower browser
++  useEffect(() => {
++    const clevererWidth = document.body.clientWidth - 50;
++    if (panelWidth > clevererWidth) {
++      handlePanelWidthChange(clevererWidth);
++    }
++  }, [handlePanelWidthChange]);
++
+   if (isDevMode) {
+     return (
+       <Rnd
+-- 
+2.39.5
+
+
+From 03dd7e82b0c5ee878d278041112f1c505d9e2e46 Mon Sep 17 00:00:00 2001
+From: MaySoMusician <maysomusician@gmail.com>
+Date: Mon, 29 Jun 2026 18:42:37 +0000
+Subject: [PATCH 22/22] Show right panel controls even in mobile (in not clean
+ way)
+
+---
+ .../ChatInput/ActionBar/Params/Controls.tsx   |  1 -
+ src/routes/(mobile)/chat/_layout/index.tsx    | 52 +++++++++++++++++--
+ .../chat/features/ChatHeader/index.tsx        |  8 ++-
+ 3 files changed, 56 insertions(+), 5 deletions(-)
+
+diff --git a/src/features/ChatInput/ActionBar/Params/Controls.tsx b/src/features/ChatInput/ActionBar/Params/Controls.tsx
+index d50ecf08a4..b3603d5cd0 100644
+--- a/src/features/ChatInput/ActionBar/Params/Controls.tsx
++++ b/src/features/ChatInput/ActionBar/Params/Controls.tsx
+@@ -99,7 +99,6 @@ const styles = createStaticStyles(({ css }) => ({
+   `,
+   body: css`
+     overflow-y: auto;
+-    overscroll-behavior: contain;
+     display: flex;
+     flex: 1 1 auto;
+     flex-direction: column;
+diff --git a/src/routes/(mobile)/chat/_layout/index.tsx b/src/routes/(mobile)/chat/_layout/index.tsx
+index 0182ccd7b0..74def6acfb 100644
+--- a/src/routes/(mobile)/chat/_layout/index.tsx
++++ b/src/routes/(mobile)/chat/_layout/index.tsx
+@@ -7,6 +7,9 @@ import MobileContentLayout from '@/components/server/MobileNavLayout';
+ import { useInitAgentConfig } from '@/hooks/useInitAgentConfig';
+ import AgentIdSync from '@/routes/(main)/agent/_layout/AgentIdSync';
+ import ChatHeader from '@/routes/(mobile)/chat/features/ChatHeader';
++import AgentWorkingSidebar from '@/routes/(main)/agent/features/Conversation/WorkingSidebar';
++import { useGlobalStore } from '@/store/global';
++import { systemStatusSelectors } from '@/store/global/selectors';
+ 
+ import { styles } from './style';
+ 
+@@ -15,12 +18,55 @@ const Layout: FC = () => {
+ 
+   return (
+     <>
+-      <MobileContentLayout className={styles.mainContainer} header={<ChatHeader />}>
+-        <Outlet />
+-      </MobileContentLayout>
++      <div style={{ position: 'relative', height: '100%' }}>
++        <MobileContentLayout className={styles.mainContainer} header={<ChatHeader />}>
++          <Outlet />
++        </MobileContentLayout>
++        <Overlay />
++      </div>
++      <div
++        style={{
++          position: 'absolute',
++          right: 0,
++          overflowY: 'auto',
++          maxHeight: '100vh',
++          zIndex: 999999,
++        }}
++      >
++        <AgentWorkingSidebar />
++      </div>
+       <AgentIdSync />
+     </>
+   );
+ };
+ 
++const Overlay = () => {
++  const [sidebarShown, toggleRightPanel] = useGlobalStore((s) => [
++    systemStatusSelectors.showRightPanel(s),
++    s.toggleRightPanel,
++  ]);
++  return (
++    sidebarShown && (
++      <div
++        style={{
++          position: 'absolute',
++          top: 0,
++          left: 0,
++          width: '100%',
++          height: '100%',
++          background: 'black',
++          opacity: 0.8,
++        }}
++        onClickCapture={(e) => {
++          if (sidebarShown) {
++            e.preventDefault();
++            toggleRightPanel();
++            e.stopPropagation();
++          }
++        }}
++      />
++    )
++  );
++};
++
+ export default Layout;
+diff --git a/src/routes/(mobile)/chat/features/ChatHeader/index.tsx b/src/routes/(mobile)/chat/features/ChatHeader/index.tsx
+index a05d4a884c..0c17bc4430 100644
+--- a/src/routes/(mobile)/chat/features/ChatHeader/index.tsx
++++ b/src/routes/(mobile)/chat/features/ChatHeader/index.tsx
+@@ -7,6 +7,7 @@ import { useQueryRoute } from '@/hooks/useQueryRoute';
+ import ShareButton from '@/routes/(main)/agent/features/Conversation/Header/ShareButton';
+ 
+ import ChatHeaderTitle from './ChatHeaderTitle';
++import WorkingPanelToggle from '@/routes/(main)/agent/features/Conversation/Header/WorkingPanelToggle';
+ 
+ const MobileHeader = memo(() => {
+   const router = useQueryRoute();
+@@ -16,7 +17,12 @@ const MobileHeader = memo(() => {
+     <ChatHeader
+       showBackButton
+       center={<ChatHeaderTitle />}
+-      right={<ShareButton mobile open={open} setOpen={setOpen} />}
++      right={
++        <>
++          <ShareButton mobile open={open} setOpen={setOpen} />
++          <WorkingPanelToggle />
++        </>
++      }
+       style={{ width: '100%' }}
+       onBackClick={() =>
+         // `/agent` index redirects to `..` (mobile home / session list), preserving
 -- 
 2.39.5
 
