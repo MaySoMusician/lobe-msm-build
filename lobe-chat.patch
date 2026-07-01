@@ -1,7 +1,7 @@
-From a9c10639eb394619ea56828ddaf4a18d3360e0ad Mon Sep 17 00:00:00 2001
+From cf0bb87ef70957c4e7548bd9574b2521fc77aaf5 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Tue, 31 Mar 2026 19:01:33 +0000
-Subject: [PATCH 01/23] Add optional arg to set npm registry for Dockerfile
+Subject: [PATCH 01/22] Add optional arg to set npm registry for Dockerfile
 
 ---
  Dockerfile | 4 ++++
@@ -33,10 +33,10 @@ index 8916bd9667..26294d486b 100644
 2.39.5
 
 
-From 31a3bb557646336abba1d6cf44f8d0f113bbadda Mon Sep 17 00:00:00 2001
+From 28e95a852da1a4bee1f1142f8bdb42f62f61e351 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 6 Apr 2026 20:40:07 +0000
-Subject: [PATCH 02/23] Set retry options for pnpm install inside Dockerfile
+Subject: [PATCH 02/22] Set retry options for pnpm install inside Dockerfile
 
 ---
  Dockerfile | 3 +++
@@ -60,10 +60,10 @@ index 26294d486b..509fc275da 100644
 2.39.5
 
 
-From 25f389b46344b615be3f337e44739d7543597009 Mon Sep 17 00:00:00 2001
+From 27aa4227df4cbe5a06cc34e59cb8e62fb1d04678 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Tue, 12 May 2026 18:45:03 +0000
-Subject: [PATCH 03/23] Harden npm (pnpm) security
+Subject: [PATCH 03/22] Harden npm (pnpm) security
 
 ---
  .npmrc              |  2 +-
@@ -85,7 +85,7 @@ index 999be96503..836d41ee82 100644
  
  public-hoist-pattern[]=*@umijs/lint*
 diff --git a/package.json b/package.json
-index a418ed6ccc..9a012539f3 100644
+index ce789f7c73..fc61dd95c5 100644
 --- a/package.json
 +++ b/package.json
 @@ -561,7 +561,11 @@
@@ -100,7 +100,7 @@ index a418ed6ccc..9a012539f3 100644
 +      "unrs-resolver@1.11.1"
      ],
      "overrides": {
-       "@react-pdf/image": "3.0.4",
+       "@lobehub/editor": "4.18.0",
 diff --git a/pnpm-workspace.yaml b/pnpm-workspace.yaml
 index 32cadec324..a23c16ea38 100644
 --- a/pnpm-workspace.yaml
@@ -149,10 +149,10 @@ index 32cadec324..a23c16ea38 100644
 2.39.5
 
 
-From d3ef5cd3d4cf4e9111e95df33e527e545751cbb1 Mon Sep 17 00:00:00 2001
+From 7a31f237a5db2c469c1e3a27867b7b99478d5334 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 13 May 2026 17:43:57 +0000
-Subject: [PATCH 04/23] Harden Dockerfile security
+Subject: [PATCH 04/22] Harden Dockerfile security
 
 ---
  Dockerfile | 10 +++++++---
@@ -191,10 +191,10 @@ index 509fc275da..3d36b586a8 100644
 2.39.5
 
 
-From f0a65b6aeea5b1d2d5b4f4099a25796e70b927b2 Mon Sep 17 00:00:00 2001
+From e34c92f07235a2e7c7629935befef889e75ca256 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 10 Apr 2026 19:13:51 +0000
-Subject: [PATCH 05/23] Dedupe @lobehub/ui package in vite
+Subject: [PATCH 05/22] Dedupe @lobehub/ui package in vite
 
 ---
  vite.config.ts | 1 +
@@ -216,10 +216,10 @@ index 97f695f006..2a17f53937 100644
 2.39.5
 
 
-From d6832a68e1cafa97363a10e494e3173b5b3ee6c4 Mon Sep 17 00:00:00 2001
+From 21ab4ebbb65761ac0929f247d2abc718eebce9ed Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 6 Feb 2025 20:34:05 +0000
-Subject: [PATCH 06/23] Load Google Fonts script and IBM Plex Sans JP
+Subject: [PATCH 06/22] Load Google Fonts script and IBM Plex Sans JP
 
 ---
  index.html        | 6 ++++++
@@ -264,10 +264,10 @@ index c2c14c88bb..dc37e0ff19 100644
 2.39.5
 
 
-From 7319d93587636ce4ec12a42ca474adbe1e7ff52b Mon Sep 17 00:00:00 2001
+From 8f29fe27242d2a8b48b855989726714cdb9a1864 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 7 Feb 2025 08:18:42 +0000
-Subject: [PATCH 07/23] Force to use en-US as language
+Subject: [PATCH 07/22] Force to use en-US as language
 
 ---
  src/utils/locale.ts | 4 ++--
@@ -293,10 +293,10 @@ index 5dbaf4408b..cdad3d1f89 100644
 2.39.5
 
 
-From 3ea74f019e3a1147d2917eedf3d162ed17cc161f Mon Sep 17 00:00:00 2001
+From 8f252933133d98a11c4b5f001aca44c53cdd4106 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 28 Jan 2026 01:28:48 +0000
-Subject: [PATCH 08/23] Show only English and Japanese option for language
+Subject: [PATCH 08/22] Show only English and Japanese option for language
  options in global menu
 
 ---
@@ -358,10 +358,10 @@ index 6b301a2958..d696410d1b 100644
 2.39.5
 
 
-From 4344ca61803bf23b2303f0b2e9121033ca7cc7e9 Mon Sep 17 00:00:00 2001
+From e9403b636e16056b254e7c2d99c2c14a355d1ca7 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 8 Oct 2025 14:38:00 +0000
-Subject: [PATCH 09/23] Overwrite reasoning.summary to undefined for requests
+Subject: [PATCH 09/22] Overwrite reasoning.summary to undefined for requests
  for openai
 
 ---
@@ -387,10 +387,10 @@ index 87f21e430b..eadb250207 100644
 2.39.5
 
 
-From ff65f02da46a25755b17140f20c73cf311f211ab Mon Sep 17 00:00:00 2001
+From 2578576f285662a62bb1fe3ef742a7d19d030ef3 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 28 Jan 2026 01:29:51 +0000
-Subject: [PATCH 10/23] Disable streaming and allow Responses API for gpt-5
+Subject: [PATCH 10/22] Disable streaming and allow Responses API for gpt-5
  family
 
 ---
@@ -473,10 +473,10 @@ index a0811b1f27..fd53689e0c 100644
 2.39.5
 
 
-From 49be942c2c03bf5a897041b6554329fa79f94f5d Mon Sep 17 00:00:00 2001
+From 3d2d210baf2b2e4da499ea2726728ebe4b8f9460 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 22 Sep 2025 15:02:20 +0000
-Subject: [PATCH 11/23] Use stream flag value from handled payload
+Subject: [PATCH 11/22] Use stream flag value from handled payload
 
 ---
  .../model-runtime/src/core/openaiCompatibleFactory/index.ts     | 2 +-
@@ -499,10 +499,10 @@ index 9fb8ed6d46..87db9a66ab 100644
 2.39.5
 
 
-From c99fec13d4053466476c21d84f93b2b84167f94c Mon Sep 17 00:00:00 2001
+From 8e45150e80449b0f0ba53804ce004f284c4b8322 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 22 Sep 2025 15:03:21 +0000
-Subject: [PATCH 12/23] Introduce more detailed non-streaming response
+Subject: [PATCH 12/22] Introduce more detailed non-streaming response
  converter
 
 e.g. handling url_citations
@@ -776,10 +776,10 @@ index 2651c399c0..055a786a8d 100644
 2.39.5
 
 
-From 881ed09988503a250f6ac07942b973f23a3fba29 Mon Sep 17 00:00:00 2001
+From 79168802ffe1785e1494fceef95b511f713429a6 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 12 Oct 2025 16:37:16 +0000
-Subject: [PATCH 13/23] Use conversation language for summaryTitle
+Subject: [PATCH 13/22] Use conversation language for summaryTitle
 
 ---
  packages/prompts/src/chains/summaryTitle.ts | 2 +-
@@ -802,10 +802,10 @@ index b8d5034d1c..d627cabbf3 100644
 2.39.5
 
 
-From dcffb178f32be44201511f3a37fdc2335845d477 Mon Sep 17 00:00:00 2001
+From 3222e6f8472c572af9162be61cd7775e00e735c8 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 5 Mar 2026 10:44:37 +0000
-Subject: [PATCH 14/23] Do not load default tools like lobe-tools etc.
+Subject: [PATCH 14/22] Do not load default tools like lobe-tools etc.
 
 Also show them in the skill list
 ---
@@ -859,10 +859,10 @@ index 62e061fff7..200e042e80 100644
 2.39.5
 
 
-From c52072a4faf372efd2e2d5f629c8d85587b337c5 Mon Sep 17 00:00:00 2001
+From eccb9866ffb6c829c2c79369a494a289c96c3655 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 20 Mar 2026 18:26:33 +0000
-Subject: [PATCH 15/23] Disable Markdown Editor for user messages
+Subject: [PATCH 15/22] Disable Markdown Editor for user messages
 
 Until the editor can edit as text and save as markdown
 ---
@@ -967,10 +967,10 @@ index 8bf7cf234d..e99c6246b2 100644
 2.39.5
 
 
-From 0ac8e95c65b0cbd9f613bd04e24393be843a09be Mon Sep 17 00:00:00 2001
+From b6f363e5b5ab68deee3914c50af0f89ce4d2d0c1 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 29 Mar 2026 12:25:13 +0000
-Subject: [PATCH 16/23] Always show exact token number
+Subject: [PATCH 16/22] Always show exact token number
 
 ---
  packages/utils/src/format.ts                             | 2 --
@@ -1007,10 +1007,10 @@ index a025e1a73a..6fcf19b055 100644
 2.39.5
 
 
-From c616af6cf6f45aed7153529d13dc0c0074036145 Mon Sep 17 00:00:00 2001
+From 6f27efdde5a1538f4e5bceb79b0a984a6c745b08 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 27 Apr 2026 06:51:48 +0000
-Subject: [PATCH 17/23] Open reasoning & verbosity config first, instead of
+Subject: [PATCH 17/22] Open reasoning & verbosity config first, instead of
  pricing card
 
 ---
@@ -1033,10 +1033,10 @@ index 9d4c90918f..e31469c884 100644
 2.39.5
 
 
-From 5a869b2d47e4b12d122362deaad30ab0505e6718 Mon Sep 17 00:00:00 2001
+From 0ee4756925544758b282dd784511ad3868b1a860 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 27 Apr 2026 14:37:03 +0000
-Subject: [PATCH 18/23] Don't resend the edited message automatically
+Subject: [PATCH 18/22] Don't resend the edited message automatically
 
 It would be nice for many people, but I want to just rather save it.
 ---
@@ -1078,10 +1078,10 @@ index 5c18506d89..ba01d302d4 100644
 2.39.5
 
 
-From 00fd36ae51b2148c5f56063c1eebd0075a495532 Mon Sep 17 00:00:00 2001
+From e1d4f49efc4a75bce476336a85f46138b5343e79 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 19 Jun 2026 14:53:55 +0000
-Subject: [PATCH 19/23] Pin docker base image
+Subject: [PATCH 19/22] Pin docker base image
 
 Node 24.17 has the issue of https://github.com/nodejs/node/issues/63989,
 so pin the image to 24.16.0 temporarily
@@ -1113,10 +1113,10 @@ index 3d36b586a8..8868a37ca4 100644
 2.39.5
 
 
-From 20b27f687e5ac74efbf591608ed69ee57154b3bd Mon Sep 17 00:00:00 2001
+From 090cc6e5782f8eb6f0ec9ce05a94ce1e20974f83 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Tue, 23 Jun 2026 23:44:22 +0000
-Subject: [PATCH 20/23] Open Share modal by defailt in OpenAI compatible JSON
+Subject: [PATCH 20/22] Open Share modal by defailt in OpenAI compatible JSON
  mode
 
 ---
@@ -1154,10 +1154,10 @@ index 53cbd4757e..8044fbdfaa 100644
 2.39.5
 
 
-From e8a4db0336ed9d64a2062b74f281c0866c838bda Mon Sep 17 00:00:00 2001
+From d4c32ca24b75d605bb1d8bcee99520339f9e9185 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 29 Jun 2026 14:03:03 +0000
-Subject: [PATCH 21/23] Reset model switch panel width when opening it in
+Subject: [PATCH 21/22] Reset model switch panel width when opening it in
  narrower phone
 
 ---
@@ -1194,10 +1194,10 @@ index 3212079217..26e729d0f9 100644
 2.39.5
 
 
-From 03dd7e82b0c5ee878d278041112f1c505d9e2e46 Mon Sep 17 00:00:00 2001
+From 8857f51f4c6fad279f40aed14ffcc5aff257bf83 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 29 Jun 2026 18:42:37 +0000
-Subject: [PATCH 22/23] Show right panel controls even in mobile (in not clean
+Subject: [PATCH 22/22] Show right panel controls even in mobile (in not clean
  way)
 
 ---
@@ -1317,34 +1317,6 @@ index a05d4a884c..0c17bc4430 100644
        style={{ width: '100%' }}
        onBackClick={() =>
          // `/agent` index redirects to `..` (mobile home / session list), preserving
--- 
-2.39.5
-
-
-From 6e0ad0e9935759df4eaa9808e1272bd23242700f Mon Sep 17 00:00:00 2001
-From: MaySoMusician <maysomusician@gmail.com>
-Date: Mon, 29 Jun 2026 19:16:28 +0000
-Subject: [PATCH 23/23] Temporarily editor@4.18.1
-
-As it drops FloatMenu export
-https://github.com/lobehub/lobe-editor/pull/182
----
- package.json | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/package.json b/package.json
-index 9a012539f3..80b87b6844 100644
---- a/package.json
-+++ b/package.json
-@@ -291,7 +291,7 @@
-     "@lobehub/analytics": "^1.6.2",
-     "@lobehub/charts": "^5.0.0",
-     "@lobehub/desktop-ipc-typings": "workspace:*",
--    "@lobehub/editor": "^4.17.1",
-+    "@lobehub/editor": "^4.17.1 <=4.18.0",
-     "@lobehub/icons": "^5.0.0",
-     "@lobehub/market-sdk": "0.39.1",
-     "@lobehub/tts": "^5.1.2",
 -- 
 2.39.5
 
