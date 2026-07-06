@@ -1,7 +1,7 @@
 From cf0bb87ef70957c4e7548bd9574b2521fc77aaf5 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Tue, 31 Mar 2026 19:01:33 +0000
-Subject: [PATCH 01/24] Add optional arg to set npm registry for Dockerfile
+Subject: [PATCH 01/25] Add optional arg to set npm registry for Dockerfile
 
 ---
  Dockerfile | 4 ++++
@@ -36,7 +36,7 @@ index 8916bd9667..26294d486b 100644
 From 28e95a852da1a4bee1f1142f8bdb42f62f61e351 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 6 Apr 2026 20:40:07 +0000
-Subject: [PATCH 02/24] Set retry options for pnpm install inside Dockerfile
+Subject: [PATCH 02/25] Set retry options for pnpm install inside Dockerfile
 
 ---
  Dockerfile | 3 +++
@@ -63,7 +63,7 @@ index 26294d486b..509fc275da 100644
 From 27aa4227df4cbe5a06cc34e59cb8e62fb1d04678 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Tue, 12 May 2026 18:45:03 +0000
-Subject: [PATCH 03/24] Harden npm (pnpm) security
+Subject: [PATCH 03/25] Harden npm (pnpm) security
 
 ---
  .npmrc              |  2 +-
@@ -152,7 +152,7 @@ index 32cadec324..a23c16ea38 100644
 From 7a31f237a5db2c469c1e3a27867b7b99478d5334 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 13 May 2026 17:43:57 +0000
-Subject: [PATCH 04/24] Harden Dockerfile security
+Subject: [PATCH 04/25] Harden Dockerfile security
 
 ---
  Dockerfile | 10 +++++++---
@@ -194,7 +194,7 @@ index 509fc275da..3d36b586a8 100644
 From e34c92f07235a2e7c7629935befef889e75ca256 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 10 Apr 2026 19:13:51 +0000
-Subject: [PATCH 05/24] Dedupe @lobehub/ui package in vite
+Subject: [PATCH 05/25] Dedupe @lobehub/ui package in vite
 
 ---
  vite.config.ts | 1 +
@@ -219,7 +219,7 @@ index 97f695f006..2a17f53937 100644
 From 21ab4ebbb65761ac0929f247d2abc718eebce9ed Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 6 Feb 2025 20:34:05 +0000
-Subject: [PATCH 06/24] Load Google Fonts script and IBM Plex Sans JP
+Subject: [PATCH 06/25] Load Google Fonts script and IBM Plex Sans JP
 
 ---
  index.html        | 6 ++++++
@@ -267,7 +267,7 @@ index c2c14c88bb..dc37e0ff19 100644
 From 8f29fe27242d2a8b48b855989726714cdb9a1864 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 7 Feb 2025 08:18:42 +0000
-Subject: [PATCH 07/24] Force to use en-US as language
+Subject: [PATCH 07/25] Force to use en-US as language
 
 ---
  src/utils/locale.ts | 4 ++--
@@ -296,7 +296,7 @@ index 5dbaf4408b..cdad3d1f89 100644
 From 8f252933133d98a11c4b5f001aca44c53cdd4106 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 28 Jan 2026 01:28:48 +0000
-Subject: [PATCH 08/24] Show only English and Japanese option for language
+Subject: [PATCH 08/25] Show only English and Japanese option for language
  options in global menu
 
 ---
@@ -361,7 +361,7 @@ index 6b301a2958..d696410d1b 100644
 From e9403b636e16056b254e7c2d99c2c14a355d1ca7 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 8 Oct 2025 14:38:00 +0000
-Subject: [PATCH 09/24] Overwrite reasoning.summary to undefined for requests
+Subject: [PATCH 09/25] Overwrite reasoning.summary to undefined for requests
  for openai
 
 ---
@@ -390,7 +390,7 @@ index 87f21e430b..eadb250207 100644
 From 2578576f285662a62bb1fe3ef742a7d19d030ef3 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 28 Jan 2026 01:29:51 +0000
-Subject: [PATCH 10/24] Disable streaming and allow Responses API for gpt-5
+Subject: [PATCH 10/25] Disable streaming and allow Responses API for gpt-5
  family
 
 ---
@@ -476,7 +476,7 @@ index a0811b1f27..fd53689e0c 100644
 From 3d2d210baf2b2e4da499ea2726728ebe4b8f9460 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 22 Sep 2025 15:02:20 +0000
-Subject: [PATCH 11/24] Use stream flag value from handled payload
+Subject: [PATCH 11/25] Use stream flag value from handled payload
 
 ---
  .../model-runtime/src/core/openaiCompatibleFactory/index.ts     | 2 +-
@@ -499,22 +499,22 @@ index 9fb8ed6d46..87db9a66ab 100644
 2.39.5
 
 
-From 8e45150e80449b0f0ba53804ce004f284c4b8322 Mon Sep 17 00:00:00 2001
+From 6c469babd66d5b684472dd5ed1ea777c195f50f3 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 22 Sep 2025 15:03:21 +0000
-Subject: [PATCH 12/24] Introduce more detailed non-streaming response
+Subject: [PATCH 12/25] Introduce more detailed non-streaming response
  converter
 
 e.g. handling url_citations
 ---
- .../nonStreamToStream.ts                      | 244 +++++++++++++++---
- 1 file changed, 210 insertions(+), 34 deletions(-)
+ .../nonStreamToStream.ts                      | 245 +++++++++++++++---
+ 1 file changed, 211 insertions(+), 34 deletions(-)
 
 diff --git a/packages/model-runtime/src/core/openaiCompatibleFactory/nonStreamToStream.ts b/packages/model-runtime/src/core/openaiCompatibleFactory/nonStreamToStream.ts
-index 2651c399c0..055a786a8d 100644
+index 2651c399c0..0bac5c17e1 100644
 --- a/packages/model-runtime/src/core/openaiCompatibleFactory/nonStreamToStream.ts
 +++ b/packages/model-runtime/src/core/openaiCompatibleFactory/nonStreamToStream.ts
-@@ -89,47 +89,223 @@ export const transformResponseToStream = (data: OpenAI.ChatCompletion) =>
+@@ -89,47 +89,224 @@ export const transformResponseToStream = (data: OpenAI.ChatCompletion) =>
      },
    });
  
@@ -628,6 +628,7 @@ index 2651c399c0..055a786a8d 100644
 +                output_index: 1, // dummy placeholder
 +                sequence_number: seq++,
 +                type: 'response.output_text.delta',
++                logprobs: [], // dummy placeholder
 +              });
 +
 +              // If there are annotations, send them individually as "response.output_text.annotation.added" events.
@@ -776,10 +777,10 @@ index 2651c399c0..055a786a8d 100644
 2.39.5
 
 
-From 79168802ffe1785e1494fceef95b511f713429a6 Mon Sep 17 00:00:00 2001
+From 3432c1c775d5b0cc7dbe3d0e3b35fe045c944b40 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 12 Oct 2025 16:37:16 +0000
-Subject: [PATCH 13/24] Use conversation language for summaryTitle
+Subject: [PATCH 13/25] Use conversation language for summaryTitle
 
 ---
  packages/prompts/src/chains/summaryTitle.ts | 2 +-
@@ -802,10 +803,10 @@ index b8d5034d1c..d627cabbf3 100644
 2.39.5
 
 
-From 3222e6f8472c572af9162be61cd7775e00e735c8 Mon Sep 17 00:00:00 2001
+From 6624c12f96a102213b8ce0c9b3ff32a2ba844ab3 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 5 Mar 2026 10:44:37 +0000
-Subject: [PATCH 14/24] Do not load default tools like lobe-tools etc.
+Subject: [PATCH 14/25] Do not load default tools like lobe-tools etc.
 
 Also show them in the skill list
 ---
@@ -859,10 +860,10 @@ index 62e061fff7..200e042e80 100644
 2.39.5
 
 
-From eccb9866ffb6c829c2c79369a494a289c96c3655 Mon Sep 17 00:00:00 2001
+From 990fff6ccdac9ac09140f8f5bc78a1e11f070148 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 20 Mar 2026 18:26:33 +0000
-Subject: [PATCH 15/24] Disable Markdown Editor for user messages
+Subject: [PATCH 15/25] Disable Markdown Editor for user messages
 
 Until the editor can edit as text and save as markdown
 ---
@@ -967,10 +968,10 @@ index 8bf7cf234d..e99c6246b2 100644
 2.39.5
 
 
-From b6f363e5b5ab68deee3914c50af0f89ce4d2d0c1 Mon Sep 17 00:00:00 2001
+From a258dca4fee2a72397a17e7ca193c2b8c20ae333 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 29 Mar 2026 12:25:13 +0000
-Subject: [PATCH 16/24] Always show exact token number
+Subject: [PATCH 16/25] Always show exact token number
 
 ---
  packages/utils/src/format.ts                             | 2 --
@@ -1007,10 +1008,10 @@ index a025e1a73a..6fcf19b055 100644
 2.39.5
 
 
-From 6f27efdde5a1538f4e5bceb79b0a984a6c745b08 Mon Sep 17 00:00:00 2001
+From 893b9711f93cbe7a41248f6518ca9d857f959315 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 27 Apr 2026 06:51:48 +0000
-Subject: [PATCH 17/24] Open reasoning & verbosity config first, instead of
+Subject: [PATCH 17/25] Open reasoning & verbosity config first, instead of
  pricing card
 
 ---
@@ -1033,10 +1034,10 @@ index 9d4c90918f..e31469c884 100644
 2.39.5
 
 
-From 0ee4756925544758b282dd784511ad3868b1a860 Mon Sep 17 00:00:00 2001
+From ca54503e9e21d8cffc4c98b1bba615a557da2c20 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 27 Apr 2026 14:37:03 +0000
-Subject: [PATCH 18/24] Don't resend the edited message automatically
+Subject: [PATCH 18/25] Don't resend the edited message automatically
 
 It would be nice for many people, but I want to just rather save it.
 ---
@@ -1078,10 +1079,10 @@ index 5c18506d89..ba01d302d4 100644
 2.39.5
 
 
-From e1d4f49efc4a75bce476336a85f46138b5343e79 Mon Sep 17 00:00:00 2001
+From 5f64facefe7d620e1e9d8a727335bdbfd453919a Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 19 Jun 2026 14:53:55 +0000
-Subject: [PATCH 19/24] Pin docker base image
+Subject: [PATCH 19/25] Pin docker base image
 
 Node 24.17 has the issue of https://github.com/nodejs/node/issues/63989,
 so pin the image to 24.16.0 temporarily
@@ -1113,10 +1114,10 @@ index 3d36b586a8..8868a37ca4 100644
 2.39.5
 
 
-From 090cc6e5782f8eb6f0ec9ce05a94ce1e20974f83 Mon Sep 17 00:00:00 2001
+From 7d5f2717afd7ebb6a6fc042500c42cebbd177d84 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Tue, 23 Jun 2026 23:44:22 +0000
-Subject: [PATCH 20/24] Open Share modal by defailt in OpenAI compatible JSON
+Subject: [PATCH 20/25] Open Share modal by defailt in OpenAI compatible JSON
  mode
 
 ---
@@ -1154,10 +1155,10 @@ index 53cbd4757e..8044fbdfaa 100644
 2.39.5
 
 
-From d4c32ca24b75d605bb1d8bcee99520339f9e9185 Mon Sep 17 00:00:00 2001
+From 3fe42d3029f5a16bb19d3260c956ddd36c7282b7 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 29 Jun 2026 14:03:03 +0000
-Subject: [PATCH 21/24] Reset model switch panel width when opening it in
+Subject: [PATCH 21/25] Reset model switch panel width when opening it in
  narrower phone
 
 ---
@@ -1165,13 +1166,13 @@ Subject: [PATCH 21/24] Reset model switch panel width when opening it in
  1 file changed, 9 insertions(+), 1 deletion(-)
 
 diff --git a/src/features/ModelSwitchPanel/components/PanelContent.tsx b/src/features/ModelSwitchPanel/components/PanelContent.tsx
-index 3212079217..26e729d0f9 100644
+index 3212079217..d47451004c 100644
 --- a/src/features/ModelSwitchPanel/components/PanelContent.tsx
 +++ b/src/features/ModelSwitchPanel/components/PanelContent.tsx
 @@ -1,5 +1,5 @@
  import { Flexbox } from '@lobehub/ui';
 -import { type ComponentType, type FC } from 'react';
-+import { useEffect, type ComponentType, type FC } from 'react';
++import { type ComponentType, type FC, useEffect } from 'react';
  import { useState } from 'react';
  import { Rnd } from 'react-rnd';
  
@@ -1194,10 +1195,10 @@ index 3212079217..26e729d0f9 100644
 2.39.5
 
 
-From 8857f51f4c6fad279f40aed14ffcc5aff257bf83 Mon Sep 17 00:00:00 2001
+From fa88b26d7668e2d9bd0ab3d4f6d00c0c72e7f15c Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 29 Jun 2026 18:42:37 +0000
-Subject: [PATCH 22/24] Show right panel controls even in mobile (in not clean
+Subject: [PATCH 22/25] Show right panel controls even in mobile (in not clean
  way)
 
 ---
@@ -1219,14 +1220,15 @@ index d50ecf08a4..b3603d5cd0 100644
      flex: 1 1 auto;
      flex-direction: column;
 diff --git a/src/routes/(mobile)/chat/_layout/index.tsx b/src/routes/(mobile)/chat/_layout/index.tsx
-index 0182ccd7b0..74def6acfb 100644
+index 0182ccd7b0..25b50f63df 100644
 --- a/src/routes/(mobile)/chat/_layout/index.tsx
 +++ b/src/routes/(mobile)/chat/_layout/index.tsx
-@@ -7,6 +7,9 @@ import MobileContentLayout from '@/components/server/MobileNavLayout';
+@@ -6,7 +6,10 @@ import { Outlet } from 'react-router';
+ import MobileContentLayout from '@/components/server/MobileNavLayout';
  import { useInitAgentConfig } from '@/hooks/useInitAgentConfig';
  import AgentIdSync from '@/routes/(main)/agent/_layout/AgentIdSync';
- import ChatHeader from '@/routes/(mobile)/chat/features/ChatHeader';
 +import AgentWorkingSidebar from '@/routes/(main)/agent/features/Conversation/WorkingSidebar';
+ import ChatHeader from '@/routes/(mobile)/chat/features/ChatHeader';
 +import { useGlobalStore } from '@/store/global';
 +import { systemStatusSelectors } from '@/store/global/selectors';
  
@@ -1292,39 +1294,40 @@ index 0182ccd7b0..74def6acfb 100644
 +
  export default Layout;
 diff --git a/src/routes/(mobile)/chat/features/ChatHeader/index.tsx b/src/routes/(mobile)/chat/features/ChatHeader/index.tsx
-index a05d4a884c..0c17bc4430 100644
+index a05d4a884c..3c60ee8f58 100644
 --- a/src/routes/(mobile)/chat/features/ChatHeader/index.tsx
 +++ b/src/routes/(mobile)/chat/features/ChatHeader/index.tsx
-@@ -7,6 +7,7 @@ import { useQueryRoute } from '@/hooks/useQueryRoute';
- import ShareButton from '@/routes/(main)/agent/features/Conversation/Header/ShareButton';
+@@ -5,6 +5,7 @@ import { memo, useState } from 'react';
  
- import ChatHeaderTitle from './ChatHeaderTitle';
+ import { useQueryRoute } from '@/hooks/useQueryRoute';
+ import ShareButton from '@/routes/(main)/agent/features/Conversation/Header/ShareButton';
 +import WorkingPanelToggle from '@/routes/(main)/agent/features/Conversation/Header/WorkingPanelToggle';
  
- const MobileHeader = memo(() => {
-   const router = useQueryRoute();
-@@ -16,7 +17,12 @@ const MobileHeader = memo(() => {
+ import ChatHeaderTitle from './ChatHeaderTitle';
+ 
+@@ -16,8 +17,13 @@ const MobileHeader = memo(() => {
      <ChatHeader
        showBackButton
        center={<ChatHeaderTitle />}
 -      right={<ShareButton mobile open={open} setOpen={setOpen} />}
+       style={{ width: '100%' }}
 +      right={
 +        <>
 +          <ShareButton mobile open={open} setOpen={setOpen} />
 +          <WorkingPanelToggle />
 +        </>
 +      }
-       style={{ width: '100%' }}
        onBackClick={() =>
          // `/agent` index redirects to `..` (mobile home / session list), preserving
+         // workspace scope; the old `?session=` query was never read by the target.
 -- 
 2.39.5
 
 
-From 834dbe36701181fbf3467e4cc8aa6028b02ca86e Mon Sep 17 00:00:00 2001
+From 0863d9ecae98905ac857302bbd5603ec1a42528e Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 6 Jul 2026 06:42:46 +0000
-Subject: [PATCH 23/24] Shorten message in topic card for faster performance
+Subject: [PATCH 23/25] Shorten message in topic card for faster performance
 
 ---
  src/features/AgentTopicManager/TopicCard.tsx | 13 ++++++++++---
@@ -1365,10 +1368,10 @@ index 68aac2310c..a7ae41f251 100644
 2.39.5
 
 
-From 98cf8f897002ab83f3a87cbdb3757efdc1a408c9 Mon Sep 17 00:00:00 2001
+From 3bc5f78915047f2293436d9dda5a1e1b7f2ae2f2 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 6 Jul 2026 07:40:48 +0000
-Subject: [PATCH 24/24] Allow to open topic in new tab via Ctrl+Click
+Subject: [PATCH 24/25] Allow to open topic in new tab via Ctrl+Click
 
 ---
  src/features/AgentTopicManager/TopicCard.tsx  | 20 ++++++++++++-
@@ -1474,6 +1477,88 @@ index a5bd44c158..2d27c71530 100644
  
      const handleDoubleClick = useCallback(async () => {
        if (!id || !activeAgentId || !isDesktop) return;
+-- 
+2.39.5
+
+
+From 8733df3e24792f4440c8996a6e5d85fb16994b4d Mon Sep 17 00:00:00 2001
+From: MaySoMusician <maysomusician@gmail.com>
+Date: Mon, 6 Jul 2026 18:48:42 +0000
+Subject: [PATCH 25/25] Do not add additives to system prompt
+
+---
+ packages/builtin-agents/src/agents/inbox/index.ts           | 3 +--
+ .../context-engine/src/engine/messages/MessagesEngine.ts    | 6 ------
+ src/services/chat/mecha/agentConfigResolver.ts              | 4 +---
+ 3 files changed, 2 insertions(+), 11 deletions(-)
+
+diff --git a/packages/builtin-agents/src/agents/inbox/index.ts b/packages/builtin-agents/src/agents/inbox/index.ts
+index 319c098120..397d86058b 100644
+--- a/packages/builtin-agents/src/agents/inbox/index.ts
++++ b/packages/builtin-agents/src/agents/inbox/index.ts
+@@ -3,7 +3,6 @@ import { UserInteractionIdentifier } from '@lobechat/builtin-tool-user-interacti
+ 
+ import type { BuiltinAgentDefinition } from '../../types';
+ import { BUILTIN_AGENT_SLUGS } from '../../types';
+-import { createSystemRole } from './systemRole';
+ 
+ /**
+  * Inbox Agent - the default assistant agent for general conversations
+@@ -14,7 +13,7 @@ export const INBOX: BuiltinAgentDefinition = {
+   avatar: '/avatars/lobe-ai.png',
+   runtime: (ctx) => ({
+     plugins: [AgentDocumentsIdentifier, UserInteractionIdentifier, ...(ctx.plugins || [])],
+-    systemRole: createSystemRole(ctx.userLocale),
++    systemRole: '',
+   }),
+ 
+   slug: BUILTIN_AGENT_SLUGS.inbox,
+diff --git a/packages/context-engine/src/engine/messages/MessagesEngine.ts b/packages/context-engine/src/engine/messages/MessagesEngine.ts
+index 501fea7b96..9e3ce836f3 100644
+--- a/packages/context-engine/src/engine/messages/MessagesEngine.ts
++++ b/packages/context-engine/src/engine/messages/MessagesEngine.ts
+@@ -42,7 +42,6 @@ import {
+   HistorySummaryProvider,
+   KnowledgeInjector,
+   LocalSystemToolSnapshotInjector,
+-  ModelKnowledgeCutoffProvider,
+   OnboardingActionHintInjector,
+   OnboardingContextInjector,
+   OnboardingSyntheticStateInjector,
+@@ -51,7 +50,6 @@ import {
+   PlanInjector,
+   SelectedSkillInjector,
+   SkillContextProvider,
+-  SystemDateProvider,
+   SystemRoleInjector,
+   TaskManagerContextInjector,
+   TodoInjector,
+@@ -245,10 +243,6 @@ export class MessagesEngine {
+         context: botPlatformContext,
+         enabled: !!botPlatformContext,
+       }),
+-      // System date
+-      new SystemDateProvider({ enabled: isSystemDateEnabled, timezone }),
+-      // Model knowledge cutoff
+-      new ModelKnowledgeCutoffProvider({ knowledgeCutoff: modelKnowledgeCutoff }),
+       // Skill context (available skills list + activated skill content).
+       // Disabled in chat mode — pairs with the tools-engine gate so the LLM
+       // sees neither the manifests nor the discovery prompt.
+diff --git a/src/services/chat/mecha/agentConfigResolver.ts b/src/services/chat/mecha/agentConfigResolver.ts
+index b07633f49a..ec91dceef4 100644
+--- a/src/services/chat/mecha/agentConfigResolver.ts
++++ b/src/services/chat/mecha/agentConfigResolver.ts
+@@ -247,9 +247,7 @@ export const resolveAgentConfig = (ctx: AgentConfigResolverContext): ResolvedAge
+     const userLocale = userGeneralSettingsSelectors.currentResponseLanguage(
+       useUserStore.getState(),
+     );
+-    const localeInstruction = userLocale
+-      ? `Preferred reply language: ${userLocale}. Use this language unless the user explicitly asks to switch.`
+-      : '';
++    const localeInstruction = '';
+     const systemRoleWithLocale = localeInstruction
+       ? agentConfig.systemRole
+         ? `${agentConfig.systemRole}\n\n${localeInstruction}`
 -- 
 2.39.5
 
