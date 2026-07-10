@@ -1,4 +1,4 @@
-From 0d93309982427ce386bf2153e1ddd17ba4bbff90 Mon Sep 17 00:00:00 2001
+From 2af7f2fa3f7de660032c5956f6d5f48c0e59f0fd Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 14 Oct 2024 10:15:38 +0000
 Subject: [PATCH 1/4] Change font list for Japanese
@@ -53,17 +53,17 @@ index 61f0caea..71317ab1 100644
 2.39.5
 
 
-From 8cd7f1fc3ad141ac46f736d5b8c70be9385979a8 Mon Sep 17 00:00:00 2001
+From 3a481a97e5238c5981025c9d87d7d87224dcac86 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 28 Oct 2024 15:09:31 +0000
-Subject: [PATCH 2/4] Do not load Chinese fonts
+Subject: [PATCH 2/4] Do not load default EN & CN fonts
 
 ---
  src/ThemeProvider/ThemeProvider.tsx | 16 ----------------
  1 file changed, 16 deletions(-)
 
 diff --git a/src/ThemeProvider/ThemeProvider.tsx b/src/ThemeProvider/ThemeProvider.tsx
-index c9685230..dee41194 100644
+index 4b9ee7d8..dee41194 100644
 --- a/src/ThemeProvider/ThemeProvider.tsx
 +++ b/src/ThemeProvider/ThemeProvider.tsx
 @@ -42,22 +42,6 @@ const ThemeProvider = memo<ThemeProviderProps>(
@@ -76,7 +76,7 @@ index c9685230..dee41194 100644
 -            version: '1.0.0',
 -          }),
 -          genCdnUrl({
--            path: 'css/index.css',
+-            path: 'css/index-full.css',
 -            pkg: '@lobehub/webfont-geist',
 -            version: '1.0.0',
 -          }),
@@ -93,7 +93,7 @@ index c9685230..dee41194 100644
 2.39.5
 
 
-From 8c6e3d12b0fc6a4838d9cc19c6a872166e495da3 Mon Sep 17 00:00:00 2001
+From 3439aec7bde3e293a370841f13c2cd5cbaa0db38 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sat, 13 Dec 2025 07:36:47 +0000
 Subject: [PATCH 3/4] Change colorTextSecondary color
@@ -119,7 +119,7 @@ index 406ed592..2e0362db 100644
 2.39.5
 
 
-From 948987bf4ecca77af46725ba1498e0b590d2798d Mon Sep 17 00:00:00 2001
+From cadab6411373663b4da4082f5063c58aacab2666 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sat, 10 Jan 2026 01:03:48 +0000
 Subject: [PATCH 4/4] Darken slate[12] dark color for text
