@@ -1,14 +1,14 @@
-From cf0bb87ef70957c4e7548bd9574b2521fc77aaf5 Mon Sep 17 00:00:00 2001
+From c6700dfca6e54600bcc548e374f7c6056957e8d0 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Tue, 31 Mar 2026 19:01:33 +0000
-Subject: [PATCH 01/25] Add optional arg to set npm registry for Dockerfile
+Subject: [PATCH 01/26] Add optional arg to set npm registry for Dockerfile
 
 ---
  Dockerfile | 4 ++++
  1 file changed, 4 insertions(+)
 
 diff --git a/Dockerfile b/Dockerfile
-index 8916bd9667..26294d486b 100644
+index 92371587b9..562c9464fc 100644
 --- a/Dockerfile
 +++ b/Dockerfile
 @@ -29,6 +29,7 @@ RUN set -e && \
@@ -33,17 +33,17 @@ index 8916bd9667..26294d486b 100644
 2.39.5
 
 
-From 28e95a852da1a4bee1f1142f8bdb42f62f61e351 Mon Sep 17 00:00:00 2001
+From 5ee6542ed32a71d06364dcae9d809bc9f18a7a43 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 6 Apr 2026 20:40:07 +0000
-Subject: [PATCH 02/25] Set retry options for pnpm install inside Dockerfile
+Subject: [PATCH 02/26] Set retry options for pnpm install inside Dockerfile
 
 ---
  Dockerfile | 3 +++
  1 file changed, 3 insertions(+)
 
 diff --git a/Dockerfile b/Dockerfile
-index 26294d486b..509fc275da 100644
+index 562c9464fc..39b234c8a3 100644
 --- a/Dockerfile
 +++ b/Dockerfile
 @@ -90,6 +90,9 @@ RUN set -e && \
@@ -60,16 +60,16 @@ index 26294d486b..509fc275da 100644
 2.39.5
 
 
-From 27aa4227df4cbe5a06cc34e59cb8e62fb1d04678 Mon Sep 17 00:00:00 2001
+From f8e8e095c4aa25058b09bf7c09c4a6f71e0d4006 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Tue, 12 May 2026 18:45:03 +0000
-Subject: [PATCH 03/25] Harden npm (pnpm) security
+Subject: [PATCH 03/26] Harden npm (pnpm) security
 
 ---
  .npmrc              |  2 +-
  package.json        |  6 +++++-
- pnpm-workspace.yaml | 29 ++++++++++++++++++++++++++++-
- 3 files changed, 34 insertions(+), 3 deletions(-)
+ pnpm-workspace.yaml | 30 ++++++++++++++++++++++++++++--
+ 3 files changed, 34 insertions(+), 4 deletions(-)
 
 diff --git a/.npmrc b/.npmrc
 index 999be96503..836d41ee82 100644
@@ -85,10 +85,10 @@ index 999be96503..836d41ee82 100644
  
  public-hoist-pattern[]=*@umijs/lint*
 diff --git a/package.json b/package.json
-index ce789f7c73..fc61dd95c5 100644
+index 17fff3ac0f..99131c6b5a 100644
 --- a/package.json
 +++ b/package.json
-@@ -561,7 +561,11 @@
+@@ -562,7 +562,11 @@
    "pnpm": {
      "onlyBuiltDependencies": [
        "@lobehub/editor",
@@ -100,12 +100,18 @@ index ce789f7c73..fc61dd95c5 100644
 +      "unrs-resolver@1.11.1"
      ],
      "overrides": {
-       "@lobehub/editor": "4.18.0",
+       "@react-pdf/image": "3.0.4",
 diff --git a/pnpm-workspace.yaml b/pnpm-workspace.yaml
-index 32cadec324..a23c16ea38 100644
+index f1a0372099..6731b7af51 100644
 --- a/pnpm-workspace.yaml
 +++ b/pnpm-workspace.yaml
-@@ -8,7 +8,11 @@ packages:
+@@ -6,12 +6,16 @@ packages:
+   - apps/server
+ 
+ minimumReleaseAgeExclude:
+-  - '@lobehub/ui@5.19.0'
++  - '@lobehub/*'
+ 
  onlyBuiltDependencies:
    - '@google/genai'
    - '@lobehub/editor'
@@ -118,15 +124,14 @@ index 32cadec324..a23c16ea38 100644
  
  overrides:
    jose: ^6.1.3
-@@ -20,3 +24,26 @@ overrides:
+@@ -23,3 +27,25 @@ overrides:
  
  patchedDependencies:
    '@upstash/qstash': patches/@upstash__qstash.patch
 +
 +minimumReleaseAge: 10080
 +minimumReleaseAgeStrict: true # Only works after v11.x
-+minimumReleaseAgeExclude:
-+  - '@lobehub/*'
++
 +trustPolicy: no-downgrade
 +trustPolicyExclude:
 +  - 'ua-parser-js@1.0.41'
@@ -149,17 +154,17 @@ index 32cadec324..a23c16ea38 100644
 2.39.5
 
 
-From 7a31f237a5db2c469c1e3a27867b7b99478d5334 Mon Sep 17 00:00:00 2001
+From 9c7d7eba84132d8dacc9c5ae08ac13cf649f901f Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 13 May 2026 17:43:57 +0000
-Subject: [PATCH 04/25] Harden Dockerfile security
+Subject: [PATCH 04/26] Harden Dockerfile security
 
 ---
  Dockerfile | 10 +++++++---
  1 file changed, 7 insertions(+), 3 deletions(-)
 
 diff --git a/Dockerfile b/Dockerfile
-index 509fc275da..3d36b586a8 100644
+index 39b234c8a3..2fd88d2fb6 100644
 --- a/Dockerfile
 +++ b/Dockerfile
 @@ -87,17 +87,21 @@ RUN set -e && \
@@ -191,17 +196,17 @@ index 509fc275da..3d36b586a8 100644
 2.39.5
 
 
-From e34c92f07235a2e7c7629935befef889e75ca256 Mon Sep 17 00:00:00 2001
+From 485bdc2170c78a9018913dcc2d26ef316bc19d0f Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 10 Apr 2026 19:13:51 +0000
-Subject: [PATCH 05/25] Dedupe @lobehub/ui package in vite
+Subject: [PATCH 05/26] Dedupe @lobehub/ui package in vite
 
 ---
  vite.config.ts | 1 +
  1 file changed, 1 insertion(+)
 
 diff --git a/vite.config.ts b/vite.config.ts
-index 97f695f006..2a17f53937 100644
+index 00362fd606..e888933efa 100644
 --- a/vite.config.ts
 +++ b/vite.config.ts
 @@ -121,6 +121,7 @@ export default defineConfig({
@@ -216,10 +221,10 @@ index 97f695f006..2a17f53937 100644
 2.39.5
 
 
-From 21ab4ebbb65761ac0929f247d2abc718eebce9ed Mon Sep 17 00:00:00 2001
+From 1fe9c570292d2aa54d759fe3897aaedd27376f54 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 6 Feb 2025 20:34:05 +0000
-Subject: [PATCH 06/25] Load Google Fonts script and IBM Plex Sans JP
+Subject: [PATCH 06/26] Load Google Fonts script and IBM Plex Sans JP
 
 ---
  index.html        | 6 ++++++
@@ -227,10 +232,10 @@ Subject: [PATCH 06/25] Load Google Fonts script and IBM Plex Sans JP
  2 files changed, 12 insertions(+)
 
 diff --git a/index.html b/index.html
-index 9d53c07074..a3876eb7b3 100644
+index 5c3972c99e..021623e67d 100644
 --- a/index.html
 +++ b/index.html
-@@ -124,6 +124,12 @@
+@@ -127,6 +127,12 @@
      <script>
        window.__SERVER_CONFIG__ = undefined; /* SERVER_CONFIG */
      </script>
@@ -244,10 +249,10 @@ index 9d53c07074..a3876eb7b3 100644
  
    <body>
 diff --git a/index.mobile.html b/index.mobile.html
-index c2c14c88bb..dc37e0ff19 100644
+index 18d4ba16b6..e67ee4d463 100644
 --- a/index.mobile.html
 +++ b/index.mobile.html
-@@ -59,6 +59,12 @@
+@@ -62,6 +62,12 @@
      <script>
        window.__SERVER_CONFIG__ = undefined; /* SERVER_CONFIG */
      </script>
@@ -264,10 +269,10 @@ index c2c14c88bb..dc37e0ff19 100644
 2.39.5
 
 
-From 8f29fe27242d2a8b48b855989726714cdb9a1864 Mon Sep 17 00:00:00 2001
+From 171798585b6f3e6292eab4d35d71afe85ce01ced Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 7 Feb 2025 08:18:42 +0000
-Subject: [PATCH 07/25] Force to use en-US as language
+Subject: [PATCH 07/26] Force to use en-US as language
 
 ---
  src/utils/locale.ts | 4 ++--
@@ -293,10 +298,10 @@ index 5dbaf4408b..cdad3d1f89 100644
 2.39.5
 
 
-From 8f252933133d98a11c4b5f001aca44c53cdd4106 Mon Sep 17 00:00:00 2001
+From 180244d06a2162487e720ee8647ee5feb0c0e8e1 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 28 Jan 2026 01:28:48 +0000
-Subject: [PATCH 08/25] Show only English and Japanese option for language
+Subject: [PATCH 08/26] Show only English and Japanese option for language
  options in global menu
 
 ---
@@ -358,10 +363,10 @@ index 6b301a2958..d696410d1b 100644
 2.39.5
 
 
-From e9403b636e16056b254e7c2d99c2c14a355d1ca7 Mon Sep 17 00:00:00 2001
+From 2ca5e9d6cb995a19ca7f50831622b988e2765451 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 8 Oct 2025 14:38:00 +0000
-Subject: [PATCH 09/25] Overwrite reasoning.summary to undefined for requests
+Subject: [PATCH 09/26] Overwrite reasoning.summary to undefined for requests
  for openai
 
 ---
@@ -387,21 +392,21 @@ index 87f21e430b..eadb250207 100644
 2.39.5
 
 
-From 2578576f285662a62bb1fe3ef742a7d19d030ef3 Mon Sep 17 00:00:00 2001
+From 66ae38f33765bc4617dede4320f5285c798d8781 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 28 Jan 2026 01:29:51 +0000
-Subject: [PATCH 10/25] Disable streaming and allow Responses API for gpt-5
+Subject: [PATCH 10/26] Disable streaming and allow Responses API for gpt-5
  family
 
 ---
- .../src/providers/openai/openaiModelId.ts     | 54 +++++++++++++++++++
- 1 file changed, 54 insertions(+)
+ .../src/providers/openai/openaiModelId.ts     | 60 +++++++++++++++++++
+ 1 file changed, 60 insertions(+)
 
 diff --git a/packages/model-runtime/src/providers/openai/openaiModelId.ts b/packages/model-runtime/src/providers/openai/openaiModelId.ts
-index a0811b1f27..fd53689e0c 100644
+index a0811b1f27..17cebc8e55 100644
 --- a/packages/model-runtime/src/providers/openai/openaiModelId.ts
 +++ b/packages/model-runtime/src/providers/openai/openaiModelId.ts
-@@ -34,6 +34,28 @@ export const disableStreamModels = new Set([
+@@ -34,6 +34,31 @@ export const disableStreamModels = new Set([
    */
    'computer-use-preview',
    'computer-use-preview-2025-03-11',
@@ -427,10 +432,13 @@ index a0811b1f27..fd53689e0c 100644
 +  'gpt-5.5-pro',
 +  'gpt-5.5-pro-2026-04-23',
 +  'gpt-5.5-pro-long-context',
++  'gpt-5.6-sol',
++  'gpt-5.6-terra',
++  'gpt-5.6-luna',
  ]);
  
  // Static Responses API-only exceptions that do not follow the parsed GPT-5 rule.
-@@ -49,6 +71,38 @@ export const responsesAPIModels = new Set([
+@@ -49,6 +74,41 @@ export const responsesAPIModels = new Set([
    'codex-mini-latest',
    'computer-use-preview',
    'computer-use-preview-2025-03-11',
@@ -466,6 +474,9 @@ index a0811b1f27..fd53689e0c 100644
 +  'gpt-5.5-pro',
 +  'gpt-5.5-pro-2026-04-23',
 +  'gpt-5.5-pro-long-context',
++  'gpt-5.6-sol',
++  'gpt-5.6-terra',
++  'gpt-5.6-luna',
  ]);
  
  const GPT_MODEL_PATTERN =
@@ -473,10 +484,10 @@ index a0811b1f27..fd53689e0c 100644
 2.39.5
 
 
-From 3d2d210baf2b2e4da499ea2726728ebe4b8f9460 Mon Sep 17 00:00:00 2001
+From 501d960ac9df7d8ac3c4e286b6f2f77b267f53fb Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 22 Sep 2025 15:02:20 +0000
-Subject: [PATCH 11/25] Use stream flag value from handled payload
+Subject: [PATCH 11/26] Use stream flag value from handled payload
 
 ---
  .../model-runtime/src/core/openaiCompatibleFactory/index.ts     | 2 +-
@@ -499,10 +510,10 @@ index 9fb8ed6d46..87db9a66ab 100644
 2.39.5
 
 
-From 6c469babd66d5b684472dd5ed1ea777c195f50f3 Mon Sep 17 00:00:00 2001
+From 3d08d328518e7d8526320cce1b6fdb68b0ed167f Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 22 Sep 2025 15:03:21 +0000
-Subject: [PATCH 12/25] Introduce more detailed non-streaming response
+Subject: [PATCH 12/26] Introduce more detailed non-streaming response
  converter
 
 e.g. handling url_citations
@@ -777,10 +788,10 @@ index 2651c399c0..0bac5c17e1 100644
 2.39.5
 
 
-From 3432c1c775d5b0cc7dbe3d0e3b35fe045c944b40 Mon Sep 17 00:00:00 2001
+From 1cdfdb423128d375100a4fab4191e171c89742f2 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 12 Oct 2025 16:37:16 +0000
-Subject: [PATCH 13/25] Use conversation language for summaryTitle
+Subject: [PATCH 13/26] Use conversation language for summaryTitle
 
 ---
  packages/prompts/src/chains/summaryTitle.ts | 2 +-
@@ -803,10 +814,10 @@ index b8d5034d1c..d627cabbf3 100644
 2.39.5
 
 
-From 6624c12f96a102213b8ce0c9b3ff32a2ba844ab3 Mon Sep 17 00:00:00 2001
+From f4eb52030e4565934ce1596b636c5478f4519dc0 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 5 Mar 2026 10:44:37 +0000
-Subject: [PATCH 14/25] Do not load default tools like lobe-tools etc.
+Subject: [PATCH 14/26] Do not load default tools like lobe-tools etc.
 
 Also show them in the skill list
 ---
@@ -814,7 +825,7 @@ Also show them in the skill list
  1 file changed, 4 insertions(+), 9 deletions(-)
 
 diff --git a/packages/builtin-tools/src/index.ts b/packages/builtin-tools/src/index.ts
-index 62e061fff7..200e042e80 100644
+index 4f205dfe2d..704474a8a2 100644
 --- a/packages/builtin-tools/src/index.ts
 +++ b/packages/builtin-tools/src/index.ts
 @@ -69,12 +69,7 @@ export const defaultToolIds = [
@@ -855,15 +866,15 @@ index 62e061fff7..200e042e80 100644
 +    hidden: false,
      identifier: SkillsManifest.identifier,
      manifest: SkillsManifest,
-     type: 'builtin',
+     // Context-aware: prefixes exec-class API descriptions with the run's
 -- 
 2.39.5
 
 
-From 990fff6ccdac9ac09140f8f5bc78a1e11f070148 Mon Sep 17 00:00:00 2001
+From ef35573241f15409480dd8badaaa6a1a8203d0ed Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 20 Mar 2026 18:26:33 +0000
-Subject: [PATCH 15/25] Disable Markdown Editor for user messages
+Subject: [PATCH 15/26] Disable Markdown Editor for user messages
 
 Until the editor can edit as text and save as markdown
 ---
@@ -872,7 +883,7 @@ Until the editor can edit as text and save as markdown
  2 files changed, 26 insertions(+), 15 deletions(-)
 
 diff --git a/src/features/Conversation/Messages/User/components/MessageContent.tsx b/src/features/Conversation/Messages/User/components/MessageContent.tsx
-index 0977ede1a8..e0b6063f22 100644
+index d710c237cc..36dd157c29 100644
 --- a/src/features/Conversation/Messages/User/components/MessageContent.tsx
 +++ b/src/features/Conversation/Messages/User/components/MessageContent.tsx
 @@ -11,30 +11,24 @@ import CollapsibleContent from './CollapsibleContent';
@@ -886,7 +897,9 @@ index 0977ede1a8..e0b6063f22 100644
 -  ({ id, content, editorData, imageList, videoList, audioList, fileList, metadata }) => {
 +  ({ id, content, imageList, videoList, audioList, fileList, metadata }) => {
      const markdownProps = useMarkdown(id);
-     const pageSelections = metadata?.pageSelections;
+     const selections = metadata?.contextSelections?.length
+       ? metadata.contextSelections
+       : metadata?.pageSelections;
      const displayContent = useMemo(() => (content ? cleanSpeakerTag(content) : content), [content]);
  
 -    const hasEditorData =
@@ -900,9 +913,7 @@ index 0977ede1a8..e0b6063f22 100644
 -
      return (
        <Flexbox gap={8} id={id}>
-         {pageSelections && pageSelections.length > 0 && (
-           <PageSelections selections={pageSelections} />
-         )}
+         {selections && selections.length > 0 && <PageSelections selections={selections} />}
 -        {textBody && <CollapsibleContent>{textBody}</CollapsibleContent>}
 +        {displayContent && (
 +          <CollapsibleContent>
@@ -968,50 +979,53 @@ index 8bf7cf234d..e99c6246b2 100644
 2.39.5
 
 
-From a258dca4fee2a72397a17e7ca193c2b8c20ae333 Mon Sep 17 00:00:00 2001
+From 920d43c7605ad6424bcf92942a7ff9747207255d Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 29 Mar 2026 12:25:13 +0000
-Subject: [PATCH 16/25] Always show exact token number
+Subject: [PATCH 16/26] Always show exact token number
 
 ---
- packages/utils/src/format.ts                             | 2 --
- src/features/ChatInput/ActionBar/Token/TokenProgress.tsx | 2 --
- 2 files changed, 4 deletions(-)
+ packages/utils/src/format.ts                         | 3 ---
+ src/features/Conversation/ChatInput/OpStatusTray.tsx | 4 +---
+ 2 files changed, 1 insertion(+), 6 deletions(-)
 
 diff --git a/packages/utils/src/format.ts b/packages/utils/src/format.ts
-index 319e60d8e8..a67591f76c 100644
+index e8d929ebc7..a67591f76c 100644
 --- a/packages/utils/src/format.ts
 +++ b/packages/utils/src/format.ts
-@@ -82,8 +82,6 @@ export const formatIntergerNumber = (num?: any) => {
+@@ -82,9 +82,6 @@ export const formatIntergerNumber = (num?: any) => {
  };
  
  export const formatUsageValue = (number: number) => {
+-  if (number >= 1_000_000_000) return `${numeral(number / 1_000_000_000).format('0.[0]')}B`;
 -  if (number >= 1_000_000) return `${numeral(number / 1_000_000).format('0.[0]')}M`;
 -  if (number >= 1_000) return `${numeral(number / 1_000).format('0.[0]')}K`;
    return numeral(number).format('0,0');
  };
  
-diff --git a/src/features/ChatInput/ActionBar/Token/TokenProgress.tsx b/src/features/ChatInput/ActionBar/Token/TokenProgress.tsx
-index a025e1a73a..6fcf19b055 100644
---- a/src/features/ChatInput/ActionBar/Token/TokenProgress.tsx
-+++ b/src/features/ChatInput/ActionBar/Token/TokenProgress.tsx
-@@ -18,8 +18,6 @@ interface TokenProgressProps {
- }
+diff --git a/src/features/Conversation/ChatInput/OpStatusTray.tsx b/src/features/Conversation/ChatInput/OpStatusTray.tsx
+index 2c19029d22..33294cd784 100644
+--- a/src/features/Conversation/ChatInput/OpStatusTray.tsx
++++ b/src/features/Conversation/ChatInput/OpStatusTray.tsx
+@@ -208,9 +208,7 @@ const ActivityGlyph = memo(() => (
+ ActivityGlyph.displayName = 'ActivityGlyph';
  
- export const formatToken = (number: number) => {
--  if (number >= 1_000_000) return numeral(number / 1_000_000).format('0.[0]') + 'M';
--  if (number >= 1_000) return numeral(number / 1_000).format('0.[0]') + 'K';
-   return numeral(number).format('0,0');
+ const formatTokens = (n: number) => {
+-  if (n < 1000) return String(n);
+-  if (n < 1_000_000) return `${(n / 1000).toFixed(1)}k`;
+-  return `${(n / 1_000_000).toFixed(2)}M`;
++  return String(n);
  };
  
+ const formatCost = (cost: number) => {
 -- 
 2.39.5
 
 
-From 893b9711f93cbe7a41248f6518ca9d857f959315 Mon Sep 17 00:00:00 2001
+From 68bf4e1350e890beb11fb8c8f093468585a7320f Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 27 Apr 2026 06:51:48 +0000
-Subject: [PATCH 17/25] Open reasoning & verbosity config first, instead of
+Subject: [PATCH 17/26] Open reasoning & verbosity config first, instead of
  pricing card
 
 ---
@@ -1019,10 +1033,10 @@ Subject: [PATCH 17/25] Open reasoning & verbosity config first, instead of
  1 file changed, 1 deletion(-)
 
 diff --git a/src/store/global/initialState.ts b/src/store/global/initialState.ts
-index 9d4c90918f..e31469c884 100644
+index bebf661685..b417a001e1 100644
 --- a/src/store/global/initialState.ts
 +++ b/src/store/global/initialState.ts
-@@ -100,7 +100,6 @@ export const MODEL_DETAIL_PANEL_EXPANDED_KEYS = [
+@@ -108,7 +108,6 @@ export const MODEL_DETAIL_PANEL_EXPANDED_KEYS = [
  export type ModelDetailPanelExpandedKey = (typeof MODEL_DETAIL_PANEL_EXPANDED_KEYS)[number];
  
  export const DEFAULT_MODEL_DETAIL_PANEL_EXPANDED_KEYS = [
@@ -1034,10 +1048,10 @@ index 9d4c90918f..e31469c884 100644
 2.39.5
 
 
-From ca54503e9e21d8cffc4c98b1bba615a557da2c20 Mon Sep 17 00:00:00 2001
+From 05df6aa4cce5808293f56227949c58c8b7181f7a Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 27 Apr 2026 14:37:03 +0000
-Subject: [PATCH 18/25] Don't resend the edited message automatically
+Subject: [PATCH 18/26] Don't resend the edited message automatically
 
 It would be nice for many people, but I want to just rather save it.
 ---
@@ -1079,10 +1093,10 @@ index 5c18506d89..ba01d302d4 100644
 2.39.5
 
 
-From 5f64facefe7d620e1e9d8a727335bdbfd453919a Mon Sep 17 00:00:00 2001
+From 09d0e14a8a7e4f728dd64feef537ec7547176d85 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 19 Jun 2026 14:53:55 +0000
-Subject: [PATCH 19/25] Pin docker base image
+Subject: [PATCH 19/26] Pin docker base image
 
 Node 24.17 has the issue of https://github.com/nodejs/node/issues/63989,
 so pin the image to 24.16.0 temporarily
@@ -1091,7 +1105,7 @@ so pin the image to 24.16.0 temporarily
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/Dockerfile b/Dockerfile
-index 3d36b586a8..8868a37ca4 100644
+index 2fd88d2fb6..e4692db592 100644
 --- a/Dockerfile
 +++ b/Dockerfile
 @@ -1,5 +1,5 @@
@@ -1114,10 +1128,10 @@ index 3d36b586a8..8868a37ca4 100644
 2.39.5
 
 
-From 7d5f2717afd7ebb6a6fc042500c42cebbd177d84 Mon Sep 17 00:00:00 2001
+From 7a8452b32a67fd8e100e90de847306b8ff35902d Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Tue, 23 Jun 2026 23:44:22 +0000
-Subject: [PATCH 20/25] Open Share modal by defailt in OpenAI compatible JSON
+Subject: [PATCH 20/26] Open Share modal by defailt in OpenAI compatible JSON
  mode
 
 ---
@@ -1155,10 +1169,10 @@ index 53cbd4757e..8044fbdfaa 100644
 2.39.5
 
 
-From 3fe42d3029f5a16bb19d3260c956ddd36c7282b7 Mon Sep 17 00:00:00 2001
+From 67bd000a448208366e6f5b49ce3d25eaa386f0dc Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 29 Jun 2026 14:03:03 +0000
-Subject: [PATCH 21/25] Reset model switch panel width when opening it in
+Subject: [PATCH 21/26] Reset model switch panel width when opening it in
  narrower phone
 
 ---
@@ -1195,10 +1209,10 @@ index 3212079217..d47451004c 100644
 2.39.5
 
 
-From fa88b26d7668e2d9bd0ab3d4f6d00c0c72e7f15c Mon Sep 17 00:00:00 2001
+From 703d6a88bd505c62a2fcf901dd480edc3a91b2ec Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 29 Jun 2026 18:42:37 +0000
-Subject: [PATCH 22/25] Show right panel controls even in mobile (in not clean
+Subject: [PATCH 22/26] Show right panel controls even in mobile (in not clean
  way)
 
 ---
@@ -1324,10 +1338,10 @@ index a05d4a884c..3c60ee8f58 100644
 2.39.5
 
 
-From 0863d9ecae98905ac857302bbd5603ec1a42528e Mon Sep 17 00:00:00 2001
+From 6c017b62391b5ca5d19aa79db94812df256d7427 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 6 Jul 2026 06:42:46 +0000
-Subject: [PATCH 23/25] Shorten message in topic card for faster performance
+Subject: [PATCH 23/26] Shorten message in topic card for faster performance
 
 ---
  src/features/AgentTopicManager/TopicCard.tsx | 13 ++++++++++---
@@ -1368,15 +1382,15 @@ index 68aac2310c..a7ae41f251 100644
 2.39.5
 
 
-From 3bc5f78915047f2293436d9dda5a1e1b7f2ae2f2 Mon Sep 17 00:00:00 2001
+From c2794a9842702a25ccd323422c801eaffe5d6f23 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 6 Jul 2026 07:40:48 +0000
-Subject: [PATCH 24/25] Allow to open topic in new tab via Ctrl+Click
+Subject: [PATCH 24/26] Allow to open topic in new tab via Ctrl+Click
 
 ---
  src/features/AgentTopicManager/TopicCard.tsx  | 20 ++++++++++++-
- .../_layout/Sidebar/Topic/List/Item/index.tsx | 28 +++++++++++--------
- 2 files changed, 36 insertions(+), 12 deletions(-)
+ .../_layout/Sidebar/Topic/List/Item/index.tsx | 29 +++++++++++--------
+ 2 files changed, 36 insertions(+), 13 deletions(-)
 
 diff --git a/src/features/AgentTopicManager/TopicCard.tsx b/src/features/AgentTopicManager/TopicCard.tsx
 index a7ae41f251..968f557ce7 100644
@@ -1424,18 +1438,19 @@ index a7ae41f251..968f557ce7 100644
        </Flexbox>
  
 diff --git a/src/routes/(main)/agent/_layout/Sidebar/Topic/List/Item/index.tsx b/src/routes/(main)/agent/_layout/Sidebar/Topic/List/Item/index.tsx
-index a5bd44c158..2d27c71530 100644
+index 301fc470ff..0bbdb5c50a 100644
 --- a/src/routes/(main)/agent/_layout/Sidebar/Topic/List/Item/index.tsx
 +++ b/src/routes/(main)/agent/_layout/Sidebar/Topic/List/Item/index.tsx
-@@ -4,6 +4,7 @@ import { formatElapsedClockTime } from '@lobechat/utils';
- import { Flexbox, Icon, Skeleton, Tag, Text, Tooltip } from '@lobehub/ui';
+@@ -8,7 +8,7 @@ import {
+ import { Flexbox, Icon, Popover, Skeleton, Tag, Text, Tooltip } from '@lobehub/ui';
  import { createStaticStyles, cssVar, keyframes, useTheme } from 'antd-style';
  import { CheckCircle2, Hand, HashIcon, MessageSquareDashed, TriangleAlert } from 'lucide-react';
-+import type { MouseEvent } from 'react';
+-import type { CSSProperties } from 'react';
++import type { CSSProperties, MouseEvent } from 'react';
  import { memo, Suspense, useCallback, useEffect, useMemo, useState } from 'react';
  import { useTranslation } from 'react-i18next';
  
-@@ -22,6 +23,7 @@ import { useChatStore } from '@/store/chat';
+@@ -28,6 +28,7 @@ import { useChatStore } from '@/store/chat';
  import { operationSelectors } from '@/store/chat/selectors';
  import { messageMapKey } from '@/store/chat/utils/messageMapKey';
  import { useElectronStore } from '@/store/electron';
@@ -1443,7 +1458,7 @@ index a5bd44c158..2d27c71530 100644
  
  import { useTopicNavigation } from '../../hooks/useTopicNavigation';
  import ThreadList from '../../TopicListContent/ThreadList';
-@@ -203,18 +205,22 @@ const TopicItem = memo<TopicItemProps>(
+@@ -254,18 +255,22 @@ const TopicItem = memo<TopicItemProps>(
        [id],
      );
  
@@ -1481,16 +1496,16 @@ index a5bd44c158..2d27c71530 100644
 2.39.5
 
 
-From 8733df3e24792f4440c8996a6e5d85fb16994b4d Mon Sep 17 00:00:00 2001
+From 14143010f0ff5bf8a99bda1a9892dacaa8cf0b04 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 6 Jul 2026 18:48:42 +0000
-Subject: [PATCH 25/25] Do not add additives to system prompt
+Subject: [PATCH 25/26] Do not add additives to system prompt
 
 ---
- packages/builtin-agents/src/agents/inbox/index.ts           | 3 +--
- .../context-engine/src/engine/messages/MessagesEngine.ts    | 6 ------
- src/services/chat/mecha/agentConfigResolver.ts              | 4 +---
- 3 files changed, 2 insertions(+), 11 deletions(-)
+ packages/builtin-agents/src/agents/inbox/index.ts      |  3 +--
+ .../src/engine/messages/MessagesEngine.ts              | 10 ----------
+ src/services/chat/mecha/agentConfigResolver.ts         |  4 +---
+ 3 files changed, 2 insertions(+), 15 deletions(-)
 
 diff --git a/packages/builtin-agents/src/agents/inbox/index.ts b/packages/builtin-agents/src/agents/inbox/index.ts
 index 319c098120..397d86058b 100644
@@ -1514,18 +1529,18 @@ index 319c098120..397d86058b 100644
  
    slug: BUILTIN_AGENT_SLUGS.inbox,
 diff --git a/packages/context-engine/src/engine/messages/MessagesEngine.ts b/packages/context-engine/src/engine/messages/MessagesEngine.ts
-index 501fea7b96..9e3ce836f3 100644
+index 6d76f92cb3..c0d4cbcfb7 100644
 --- a/packages/context-engine/src/engine/messages/MessagesEngine.ts
 +++ b/packages/context-engine/src/engine/messages/MessagesEngine.ts
-@@ -42,7 +42,6 @@ import {
+@@ -43,7 +43,6 @@ import {
    HistorySummaryProvider,
    KnowledgeInjector,
    LocalSystemToolSnapshotInjector,
--  ModelKnowledgeCutoffProvider,
+-  ModelInfoProvider,
    OnboardingActionHintInjector,
    OnboardingContextInjector,
    OnboardingSyntheticStateInjector,
-@@ -51,7 +50,6 @@ import {
+@@ -52,7 +51,6 @@ import {
    PlanInjector,
    SelectedSkillInjector,
    SkillContextProvider,
@@ -1533,22 +1548,26 @@ index 501fea7b96..9e3ce836f3 100644
    SystemRoleInjector,
    TaskManagerContextInjector,
    TodoInjector,
-@@ -245,10 +243,6 @@ export class MessagesEngine {
+@@ -246,14 +244,6 @@ export class MessagesEngine {
          context: botPlatformContext,
          enabled: !!botPlatformContext,
        }),
 -      // System date
 -      new SystemDateProvider({ enabled: isSystemDateEnabled, timezone }),
--      // Model knowledge cutoff
--      new ModelKnowledgeCutoffProvider({ knowledgeCutoff: modelKnowledgeCutoff }),
+-      // Model info (name / id / knowledge cutoff)
+-      new ModelInfoProvider({
+-        displayName: modelDisplayName,
+-        knowledgeCutoff: modelKnowledgeCutoff,
+-        modelId: model,
+-      }),
        // Skill context (available skills list + activated skill content).
        // Disabled in chat mode — pairs with the tools-engine gate so the LLM
        // sees neither the manifests nor the discovery prompt.
 diff --git a/src/services/chat/mecha/agentConfigResolver.ts b/src/services/chat/mecha/agentConfigResolver.ts
-index b07633f49a..ec91dceef4 100644
+index a43a405a88..b304d103c9 100644
 --- a/src/services/chat/mecha/agentConfigResolver.ts
 +++ b/src/services/chat/mecha/agentConfigResolver.ts
-@@ -247,9 +247,7 @@ export const resolveAgentConfig = (ctx: AgentConfigResolverContext): ResolvedAge
+@@ -248,9 +248,7 @@ export const resolveAgentConfig = (ctx: AgentConfigResolverContext): ResolvedAge
      const userLocale = userGeneralSettingsSelectors.currentResponseLanguage(
        useUserStore.getState(),
      );
@@ -1559,6 +1578,32 @@ index b07633f49a..ec91dceef4 100644
      const systemRoleWithLocale = localeInstruction
        ? agentConfig.systemRole
          ? `${agentConfig.systemRole}\n\n${localeInstruction}`
+-- 
+2.39.5
+
+
+From d613eea3c8d6c73ce6a546b47a1193917567df7d Mon Sep 17 00:00:00 2001
+From: MaySoMusician <maysomusician@gmail.com>
+Date: Sat, 11 Jul 2026 01:43:45 +0000
+Subject: [PATCH 26/26] Temporarily allow @anthropic-ai/* minimum release age
+ exclude
+
+---
+ pnpm-workspace.yaml | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/pnpm-workspace.yaml b/pnpm-workspace.yaml
+index 6731b7af51..dd0ef9abfd 100644
+--- a/pnpm-workspace.yaml
++++ b/pnpm-workspace.yaml
+@@ -7,6 +7,7 @@ packages:
+ 
+ minimumReleaseAgeExclude:
+   - '@lobehub/*'
++  - '@anthropic-ai/*' # Temporarily
+ 
+ onlyBuiltDependencies:
+   - '@google/genai'
 -- 
 2.39.5
 
