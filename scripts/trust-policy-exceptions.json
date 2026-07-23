@@ -90,39 +90,12 @@
     "expiresOn": "2027-05-13"
   },
   {
-    "name": "tinyexec",
-    "version": "1.2.2",
-    "publishedAt": "2026-05-23T16:12:08.123Z",
-    "integrity": "sha512-M/Q0B2cp4K7kynaT/vnED1j8TlLY+Pp7C6Wl2bl/7u/F0mUVwdyOpwomQb8JpYLitHUssAJRmLZdMCGsrx7i+g==",
+    "name": "@pierre/theme",
+    "version": "1.1.0",
+    "publishedAt": "2026-06-26T00:09:31.326Z",
+    "integrity": "sha512-GC2OWTAfTIIWWYhPCygwG8t2EtePQkRfON4MI2rwIkJylmiyqIttJID2dCL8sUD8cNdEvYkEyfEHHKMeCiDLoQ==",
     "tarballHost": "registry.npmjs.org",
-    "reason": "Checked 2026-05-31, required for v2.2.1, ref: https://github.com/mastra-ai/mastra/pull/17022",
-    "expiresOn": "2027-05-31"
-  },
-  {
-    "name": "@preact/signals",
-    "version": "2.9.1",
-    "publishedAt": "2026-05-25T06:20:44.132Z",
-    "integrity": "sha512-xVqN8mJjbSN5IB/8Ubmd9NN+Ew6zJswoRxrjZbH3YsgkMshFeO6d8zxEFpHRTq9GJZx7cnPs2CnCpFqtGXGNsw==",
-    "tarballHost": "registry.npmjs.org",
-    "reason": "Checked 2026-06-04, required for v2.2.1",
-    "expiresOn": "2027-06-04"
-  },
-  {
-    "name": "@effect/platform-node-shared",
-    "version": "4.0.0-beta.70",
-    "publishedAt": "2026-05-20T21:04:07.443Z",
-    "integrity": "sha512-3VXuL63IDmq13We+ApRKn2JW3Rb9g5gj1YEmfb8u2b73norur1VsIJ/pRE4qjShevg19dQYi2JsLawSZ6gApug==",
-    "tarballHost": "registry.npmjs.org",
-    "reason": "Checked 2026-06-04, required for v2.2.1",
-    "expiresOn": "2027-06-04"
-  },
-  {
-    "name": "effect",
-    "version": "4.0.0-beta.70",
-    "publishedAt": "2026-05-20T21:04:09.874Z",
-    "integrity": "sha512-8AwGTRiNriirHGEYHrOS0E9fzdhIqCdZjiHP1YXmNo2UyPGS43ILsymsSHT7V0DJS+8dvlKq2RxnrDBUhDNZHg==",
-    "tarballHost": "registry.npmjs.org",
-    "reason": "Checked 2026-06-04, required for v2.2.1",
-    "expiresOn": "2027-06-04"
+    "reason": "Checked 2026-06-04, required for v2.2.11",
+    "expiresOn": "2027-07-24"
   }
 ]
