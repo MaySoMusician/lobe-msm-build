@@ -1784,29 +1784,28 @@ index ebb6ddf1ce..5a4ad69203 100644
 2.39.5
 
 
-From c9b01d941aef97eddac6165cbb6ddeb50c6b37a4 Mon Sep 17 00:00:00 2001
+From 9d6aaf8432111f72914741889b584a64b466235d Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 26 Jul 2026 09:14:36 +0000
-Subject: [PATCH 29/29] Wait @lobehub/editor@4.23.x for a week
+Subject: [PATCH 29/29] Update minimumReleaseAgeExclude
 
-Due to minimumReleaseAge
 ---
- package.json | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ pnpm-workspace.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/package.json b/package.json
-index 7793a909a5..7f18094274 100644
---- a/package.json
-+++ b/package.json
-@@ -295,7 +295,7 @@
-     "@lobehub/analytics": "^1.6.3",
-     "@lobehub/charts": "^5.4.0",
-     "@lobehub/desktop-ipc-typings": "workspace:*",
--    "@lobehub/editor": "^4.19.1",
-+    "@lobehub/editor": "^4.19.1 <4.23.0",
-     "@lobehub/icons": "^5.11.0",
-     "@lobehub/market-sdk": "0.39.2",
-     "@lobehub/tts": "^5.1.2",
+diff --git a/pnpm-workspace.yaml b/pnpm-workspace.yaml
+index 5a4ad69203..2dd737793b 100644
+--- a/pnpm-workspace.yaml
++++ b/pnpm-workspace.yaml
+@@ -8,6 +8,8 @@ packages:
+ 
+ minimumReleaseAgeExclude:
+   - '@lobehub/*'
++  - 'lucide-react@1.27.0'
++  - 'es-toolkit@1.50.0'
+ 
+ onlyBuiltDependencies:
+   - '@google/genai'
 -- 
 2.39.5
 
