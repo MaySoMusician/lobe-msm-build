@@ -1,7 +1,7 @@
 From 05163031bc062dadbe4fb49c7b7fd1f86c35de50 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Tue, 31 Mar 2026 19:01:33 +0000
-Subject: [PATCH 01/29] Add optional arg to set npm registry for Dockerfile
+Subject: [PATCH 01/30] Add optional arg to set npm registry for Dockerfile
 
 ---
  Dockerfile | 4 ++++
@@ -36,7 +36,7 @@ index 92371587b9..562c9464fc 100644
 From e98a90335c75f49b71f249de26441c2c5ad01915 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 6 Apr 2026 20:40:07 +0000
-Subject: [PATCH 02/29] Set retry options for pnpm install inside Dockerfile
+Subject: [PATCH 02/30] Set retry options for pnpm install inside Dockerfile
 
 ---
  Dockerfile | 3 +++
@@ -63,7 +63,7 @@ index 562c9464fc..39b234c8a3 100644
 From 70895c9e9d747fef723694976cd7b7fc652b4400 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Tue, 12 May 2026 18:45:03 +0000
-Subject: [PATCH 03/29] Harden npm (pnpm) security
+Subject: [PATCH 03/30] Harden npm (pnpm) security
 
 ---
  .npmrc              |  2 +-
@@ -154,7 +154,7 @@ index 287c2fa2fa..5a4ad69203 100644
 From 76a26460cfd0c0bdd743e74606eeacbf55ed849d Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 13 May 2026 17:43:57 +0000
-Subject: [PATCH 04/29] Harden Dockerfile security
+Subject: [PATCH 04/30] Harden Dockerfile security
 
 ---
  Dockerfile | 10 +++++++---
@@ -196,7 +196,7 @@ index 39b234c8a3..2fd88d2fb6 100644
 From dad5eff1be32e0ba49063dd05d8402083fa70c16 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 10 Apr 2026 19:13:51 +0000
-Subject: [PATCH 05/29] Dedupe @lobehub/ui package in vite
+Subject: [PATCH 05/30] Dedupe @lobehub/ui package in vite
 
 ---
  vite.config.ts | 1 +
@@ -221,7 +221,7 @@ index 00362fd606..e888933efa 100644
 From 80a4f698b2811affde763cea6c7d146cb417f325 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 6 Feb 2025 20:34:05 +0000
-Subject: [PATCH 06/29] Load Google Fonts script and IBM Plex Sans JP
+Subject: [PATCH 06/30] Load Google Fonts script and IBM Plex Sans JP
 
 ---
  index.html        | 6 ++++++
@@ -269,7 +269,7 @@ index 18d4ba16b6..e67ee4d463 100644
 From d73b5ad5a089c5200f64738e6cb1e9b32c17fa65 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 7 Feb 2025 08:18:42 +0000
-Subject: [PATCH 07/29] Force to use en-US as language
+Subject: [PATCH 07/30] Force to use en-US as language
 
 ---
  src/utils/locale.ts | 4 ++--
@@ -298,7 +298,7 @@ index 5dbaf4408b..cdad3d1f89 100644
 From 97d3a920b76d8e4b9a3027d6ab9dbbffb062ca42 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 28 Jan 2026 01:28:48 +0000
-Subject: [PATCH 08/29] Show only English and Japanese option for language
+Subject: [PATCH 08/30] Show only English and Japanese option for language
  options in global menu
 
 ---
@@ -363,7 +363,7 @@ index 6b301a2958..d696410d1b 100644
 From 3ec9ae3e881ec7b2c9f8feac6ff8f24591a62ba7 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 8 Oct 2025 14:38:00 +0000
-Subject: [PATCH 09/29] Overwrite reasoning.summary to undefined for requests
+Subject: [PATCH 09/30] Overwrite reasoning.summary to undefined for requests
  for openai
 
 ---
@@ -392,7 +392,7 @@ index f9eb28415d..bce2e59a2e 100644
 From 71be61a9f82dc432a42863354e0cfeced37f2ea8 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 28 Jan 2026 01:29:51 +0000
-Subject: [PATCH 10/29] Disable streaming and allow Responses API for gpt-5
+Subject: [PATCH 10/30] Disable streaming and allow Responses API for gpt-5
  family
 
 ---
@@ -484,7 +484,7 @@ index a0811b1f27..17cebc8e55 100644
 From 83e0ba104f100b1244a628e8ed08c00d5018579b Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 22 Sep 2025 15:02:20 +0000
-Subject: [PATCH 11/29] Use stream flag value from handled payload
+Subject: [PATCH 11/30] Use stream flag value from handled payload
 
 ---
  .../model-runtime/src/core/openaiCompatibleFactory/index.ts     | 2 +-
@@ -510,7 +510,7 @@ index 0aa33a65cd..b0c51e3304 100644
 From c76faa894b204d288ac494c9e8a228f8aef905b0 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 22 Sep 2025 15:03:21 +0000
-Subject: [PATCH 12/29] Introduce more detailed non-streaming response
+Subject: [PATCH 12/30] Introduce more detailed non-streaming response
  converter
 
 e.g. handling url_citations
@@ -788,7 +788,7 @@ index 2651c399c0..0bac5c17e1 100644
 From 4aaaff013348ac534c405c396bbbd5d200d4747a Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 12 Oct 2025 16:37:16 +0000
-Subject: [PATCH 13/29] Use conversation language for summaryTitle
+Subject: [PATCH 13/30] Use conversation language for summaryTitle
 
 ---
  packages/prompts/src/chains/summaryTitle.ts | 2 +-
@@ -814,7 +814,7 @@ index b8d5034d1c..d627cabbf3 100644
 From 33c8eadd83b934147452f97ad4eed35ac8ee0daa Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 5 Mar 2026 10:44:37 +0000
-Subject: [PATCH 14/29] Do not load default tools like lobe-tools etc.
+Subject: [PATCH 14/30] Do not load default tools like lobe-tools etc.
 
 Also show them in the skill list
 ---
@@ -871,7 +871,7 @@ index 33a0937327..871c88d6fe 100644
 From 60fae866faecb4ecd6942e17dfdffb8dc7d8f475 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 20 Mar 2026 18:26:33 +0000
-Subject: [PATCH 15/29] Disable Markdown Editor for user messages
+Subject: [PATCH 15/30] Disable Markdown Editor for user messages
 
 Until the editor can edit as text and save as markdown
 ---
@@ -979,7 +979,7 @@ index 8bf7cf234d..e99c6246b2 100644
 From a742a9762da428582def10e28b6c3354b1e326b1 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 29 Mar 2026 12:25:13 +0000
-Subject: [PATCH 16/29] Always show exact token number
+Subject: [PATCH 16/30] Always show exact token number
 
 ---
  packages/utils/src/format.ts                         | 3 ---
@@ -1022,7 +1022,7 @@ index 2c19029d22..33294cd784 100644
 From 7b97a8bb3cb242144ce8e804d5a0d1148d08c5ae Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 27 Apr 2026 06:51:48 +0000
-Subject: [PATCH 17/29] Open reasoning & verbosity config first, instead of
+Subject: [PATCH 17/30] Open reasoning & verbosity config first, instead of
  pricing card
 
 ---
@@ -1050,7 +1050,7 @@ index ca4aec9545..fc2e3116cd 100644
 From 9ce3f17f7b759b2673ebc97ed513edf2f42df91b Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 27 Apr 2026 14:37:03 +0000
-Subject: [PATCH 18/29] Don't resend the edited message automatically
+Subject: [PATCH 18/30] Don't resend the edited message automatically
 
 It would be nice for many people, but I want to just rather save it.
 ---
@@ -1095,7 +1095,7 @@ index 5c18506d89..ba01d302d4 100644
 From 5fbf19ab8620b438e44272f3e040d45d340fea3d Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 19 Jun 2026 14:53:55 +0000
-Subject: [PATCH 19/29] Pin docker base image
+Subject: [PATCH 19/30] Pin docker base image
 
 Node 24.17 has the issue of https://github.com/nodejs/node/issues/63989,
 so pin the image to 24.16.0 temporarily
@@ -1130,7 +1130,7 @@ index 2fd88d2fb6..e4692db592 100644
 From 6f24823c60019a1dda8369f800ebb449e33c8b1d Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Tue, 23 Jun 2026 23:44:22 +0000
-Subject: [PATCH 20/29] Open Share modal by defailt in OpenAI compatible JSON
+Subject: [PATCH 20/30] Open Share modal by defailt in OpenAI compatible JSON
  mode
 
 ---
@@ -1171,7 +1171,7 @@ index b76539e738..8d62db15a7 100644
 From 9d39d913ce2fdb2d825e33f993561c7bda0d53cd Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 29 Jun 2026 14:03:03 +0000
-Subject: [PATCH 21/29] Reset model switch panel width when opening it in
+Subject: [PATCH 21/30] Reset model switch panel width when opening it in
  narrower phone
 
 ---
@@ -1211,7 +1211,7 @@ index 3212079217..d47451004c 100644
 From a157d8fe0bcbace164ba67f56be62c89743fe61b Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 29 Jun 2026 18:42:37 +0000
-Subject: [PATCH 22/29] Show right panel controls even in mobile (in not clean
+Subject: [PATCH 22/30] Show right panel controls even in mobile (in not clean
  way)
 
 ---
@@ -1347,7 +1347,7 @@ index a05d4a884c..3c60ee8f58 100644
 From 322659d6522b2d479104d15027892c99df08bd02 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 6 Jul 2026 06:42:46 +0000
-Subject: [PATCH 23/29] Shorten message in topic card for faster performance
+Subject: [PATCH 23/30] Shorten message in topic card for faster performance
 
 ---
  src/features/AgentTopicManager/TopicCard.tsx | 13 ++++++++++---
@@ -1391,7 +1391,7 @@ index 79918b2b18..d114e63db0 100644
 From a7b4b29d9fc314af96e915562e1a0ece3321a01f Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 6 Jul 2026 07:40:48 +0000
-Subject: [PATCH 24/29] Allow to open topic in new tab via Ctrl+Click
+Subject: [PATCH 24/30] Allow to open topic in new tab via Ctrl+Click
 
 ---
  src/features/AgentTopicManager/TopicCard.tsx  | 20 ++++++++++++-
@@ -1505,7 +1505,7 @@ index c1ec27cea4..159a61fa54 100644
 From ad5453886f8ab265a20a16058e59e327b79de029 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 6 Jul 2026 18:48:42 +0000
-Subject: [PATCH 25/29] Do not add additives to system prompt
+Subject: [PATCH 25/30] Do not add additives to system prompt
 
 ---
  .../builtin-agents/src/agents/inbox/index.ts     |  3 +--
@@ -1601,7 +1601,7 @@ index 37f6da1e9f..c70af8d189 100644
 From 485fca6ccd741d3c780e7b6d5f5fa6b15e0a981a Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sat, 11 Jul 2026 01:43:45 +0000
-Subject: [PATCH 26/29] Temporarily allow @anthropic-ai/* minimum release age
+Subject: [PATCH 26/30] Temporarily allow @anthropic-ai/* minimum release age
  exclude
 
 ---
@@ -1627,7 +1627,7 @@ index 5a4ad69203..ebb6ddf1ce 100644
 From 81ea64d045c8235b0064f79de4752f1387b09ca8 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 26 Jul 2026 08:13:14 +0000
-Subject: [PATCH 27/29] Fix 900s timeout issue
+Subject: [PATCH 27/30] Fix 900s timeout issue
 
 ---
  packages/model-runtime/package.json           |  1 +
@@ -1762,7 +1762,7 @@ index 4a6118f8b2..8e09ffe450 100644
 From 970f9a87171243e021ebcd24d859e6d730fa642d Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 26 Jul 2026 09:14:22 +0000
-Subject: [PATCH 28/29] Remove '@anthropic-ai/*' from minimumReleaseAgeExclude
+Subject: [PATCH 28/30] Remove '@anthropic-ai/*' from minimumReleaseAgeExclude
 
 ---
  pnpm-workspace.yaml | 1 -
@@ -1784,28 +1784,107 @@ index ebb6ddf1ce..5a4ad69203 100644
 2.39.5
 
 
-From 9d6aaf8432111f72914741889b584a64b466235d Mon Sep 17 00:00:00 2001
+From c9b01d941aef97eddac6165cbb6ddeb50c6b37a4 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 26 Jul 2026 09:14:36 +0000
-Subject: [PATCH 29/29] Update minimumReleaseAgeExclude
+Subject: [PATCH 29/30] Wait @lobehub/editor@4.23.x for a week
+
+Due to minimumReleaseAge
+---
+ package.json | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/package.json b/package.json
+index 7793a909a5..7f18094274 100644
+--- a/package.json
++++ b/package.json
+@@ -295,7 +295,7 @@
+     "@lobehub/analytics": "^1.6.3",
+     "@lobehub/charts": "^5.4.0",
+     "@lobehub/desktop-ipc-typings": "workspace:*",
+-    "@lobehub/editor": "^4.19.1",
++    "@lobehub/editor": "^4.19.1 <4.23.0",
+     "@lobehub/icons": "^5.11.0",
+     "@lobehub/market-sdk": "0.39.2",
+     "@lobehub/tts": "^5.1.2",
+-- 
+2.39.5
+
+
+From 6721eab00b88ea83185fb0abc7b714d2ab5d70b8 Mon Sep 17 00:00:00 2001
+From: MaySoMusician <maysomusician@gmail.com>
+Date: Sun, 26 Jul 2026 21:45:34 +0000
+Subject: [PATCH 30/30] Lazy node-only load undici to avoid browser error
 
 ---
- pnpm-workspace.yaml | 2 ++
- 1 file changed, 2 insertions(+)
+ .../core/openaiCompatibleFactory/timeout.ts   | 34 ++++++++++++++++---
+ 1 file changed, 30 insertions(+), 4 deletions(-)
 
-diff --git a/pnpm-workspace.yaml b/pnpm-workspace.yaml
-index 5a4ad69203..2dd737793b 100644
---- a/pnpm-workspace.yaml
-+++ b/pnpm-workspace.yaml
-@@ -8,6 +8,8 @@ packages:
+diff --git a/packages/model-runtime/src/core/openaiCompatibleFactory/timeout.ts b/packages/model-runtime/src/core/openaiCompatibleFactory/timeout.ts
+index dd1b0baedf..977b97220b 100644
+--- a/packages/model-runtime/src/core/openaiCompatibleFactory/timeout.ts
++++ b/packages/model-runtime/src/core/openaiCompatibleFactory/timeout.ts
+@@ -1,5 +1,4 @@
+ import type { Agent } from 'undici';
+-import { Agent as UndiciAgent, fetch as undiciFetch } from 'undici';
  
- minimumReleaseAgeExclude:
-   - '@lobehub/*'
-+  - 'lucide-react@1.27.0'
-+  - 'es-toolkit@1.50.0'
+ export const DEFAULT_OPENAI_TIMEOUT = 3_600_000;
  
- onlyBuiltDependencies:
-   - '@google/genai'
+@@ -9,6 +8,32 @@ export interface OpenAIClientNetworkOptions {
+   timeout: number;
+ }
+ 
++type UndiciModule = typeof import('undici');
++
++/**
++ * Lazy-load undici so browser/Vite graphs that import model-runtime do not
++ * statically evaluate Node-only undici (which becomes require_browser_external_*).
++ */
++const loadUndici = (): UndiciModule | undefined => {
++  if (typeof process === 'undefined' || !process.versions?.node) {
++    return undefined;
++  }
++
++  try {
++    // No static `import 'undici'` / `import 'node:module'`: Vite would prebundle
++    // undici for the SPA into require_browser_external_* stubs.
++    const nodeModule = process.getBuiltinModule?.('module') as
++      | { createRequire: (filename: string) => NodeRequire }
++      | undefined;
++    if (!nodeModule?.createRequire) return undefined;
++
++    const req = nodeModule.createRequire(`${process.cwd()}/package.json`);
++    return req('undici') as UndiciModule;
++  } catch {
++    return undefined;
++  }
++};
++
+ /**
+  * Align OpenAI SDK abort timer with undici headers/body idle timeouts.
+  * Without this, Node's default undici agent aborts at 300s and the SDK retries
+@@ -19,17 +44,18 @@ export const resolveOpenAIClientNetworkOptions = (
+ ): OpenAIClientNetworkOptions => {
+   const timeout = Number.isFinite(timeoutMs) && timeoutMs >= 0 ? timeoutMs : DEFAULT_OPENAI_TIMEOUT;
+ 
+-  if (typeof process === 'undefined' || !process.versions?.node) {
++  const undici = loadUndici();
++  if (!undici) {
+     return { timeout };
+   }
+ 
+-  const dispatcher = new UndiciAgent({
++  const dispatcher = new undici.Agent({
+     bodyTimeout: timeout,
+     headersTimeout: timeout,
+   });
+ 
+   return {
+-    fetch: undiciFetch as unknown as typeof fetch,
++    fetch: undici.fetch as unknown as typeof fetch,
+     fetchOptions: { dispatcher },
+     timeout,
+   };
 -- 
 2.39.5
 
