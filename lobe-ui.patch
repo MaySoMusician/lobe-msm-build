@@ -1,7 +1,7 @@
-From 2af7f2fa3f7de660032c5956f6d5f48c0e59f0fd Mon Sep 17 00:00:00 2001
+From 454293d86e8a2a03e0751cf6b8864b42714c0cdf Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 14 Oct 2024 10:15:38 +0000
-Subject: [PATCH 1/4] Change font list for Japanese
+Subject: [PATCH 1/5] Change font list for Japanese
 
 ---
  src/styles/theme/token/base.ts | 15 ++++-----------
@@ -53,20 +53,20 @@ index 61f0caea..71317ab1 100644
 2.39.5
 
 
-From 3a481a97e5238c5981025c9d87d7d87224dcac86 Mon Sep 17 00:00:00 2001
+From 3f5de1d412360d33cc250c846588ab4d2e1ba204 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 28 Oct 2024 15:09:31 +0000
-Subject: [PATCH 2/4] Do not load default EN & CN fonts
+Subject: [PATCH 2/5] Do not load default EN & CN fonts
 
 ---
  src/ThemeProvider/ThemeProvider.tsx | 16 ----------------
  1 file changed, 16 deletions(-)
 
 diff --git a/src/ThemeProvider/ThemeProvider.tsx b/src/ThemeProvider/ThemeProvider.tsx
-index 4b9ee7d8..dee41194 100644
+index a8e6feeb..f2287d0d 100644
 --- a/src/ThemeProvider/ThemeProvider.tsx
 +++ b/src/ThemeProvider/ThemeProvider.tsx
-@@ -42,22 +42,6 @@ const ThemeProvider = memo<ThemeProviderProps>(
+@@ -43,22 +43,6 @@ const ThemeProvider = memo<ThemeProviderProps>(
      const webfontUrls = useMemo(
        () =>
          customFonts || [
@@ -93,10 +93,10 @@ index 4b9ee7d8..dee41194 100644
 2.39.5
 
 
-From 3439aec7bde3e293a370841f13c2cd5cbaa0db38 Mon Sep 17 00:00:00 2001
+From 51056eb854a1eb29f5f175fdbc2757f95e599fdd Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sat, 13 Dec 2025 07:36:47 +0000
-Subject: [PATCH 3/4] Change colorTextSecondary color
+Subject: [PATCH 3/5] Change colorTextSecondary color
 
 ---
  src/styles/theme/generateColorPalette.ts | 2 +-
@@ -119,10 +119,10 @@ index 406ed592..2e0362db 100644
 2.39.5
 
 
-From cadab6411373663b4da4082f5063c58aacab2666 Mon Sep 17 00:00:00 2001
+From ca35d32a9ecb49df2a2a6625c9033f750eba922d Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sat, 10 Jan 2026 01:03:48 +0000
-Subject: [PATCH 4/4] Darken slate[12] dark color for text
+Subject: [PATCH 4/5] Darken slate[12] dark color for text
 
 ---
  src/color/neutrals/slate.ts | 2 +-
@@ -141,6 +141,33 @@ index 7341851a..cb38fec6 100644
    ],
    darkA: [
      'rgba(255, 255, 255, 0.02)',
+-- 
+2.39.5
+
+
+From b7c390f816fbf8bb0fdeecda90775a6ead6553d9 Mon Sep 17 00:00:00 2001
+From: MaySoMusician <maysomusician@gmail.com>
+Date: Mon, 27 Jul 2026 19:10:04 +0000
+Subject: [PATCH 5/5] Add workspaces config to package.json
+
+---
+ package.json | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/package.json b/package.json
+index 025a1b66..ed4b1eb4 100644
+--- a/package.json
++++ b/package.json
+@@ -92,6 +92,9 @@
+   "files": [
+     "es"
+   ],
++  "workspaces": [
++    "packages/*"
++  ],
+   "scripts": {
+     "build": "tsdown && npm run build:packages",
+     "build:packages": "tsx ./scripts/build.ts",
 -- 
 2.39.5
 
