@@ -175,17 +175,36 @@ jobs:
           git remote add upstream https://github.com/lobehub/lobe-chat.git
           git fetch --depth 1 upstream "$LOBECHAT_LATEST_MAIN"
           git checkout --detach "$LOBECHAT_LATEST_MAIN"
+      - uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v5.0.0
+        with:
+          package_json_file: ../lobe-chat/package.json
       - uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
         with:
           node-version: 24
       - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
         with:
           bun-version: latest
-      - name: Apply lobe-chat patch
+      - name: Download Lobe UI tarball
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: lobe-ui-tarball
+          path: ../lobe-chat/
+      - name: Apply lobe-chat patch and wire patched @lobehub/ui
         working-directory: ../lobe-chat
         run: |
           set -euo pipefail
           git am ../lobe-msm-build/lobe-chat.patch
+          UI_TGZ="$(realpath lobehub-ui.tgz)"
+          test -f "$UI_TGZ"
+          sed -i -E "s|(\"@lobehub/ui\"[[:space:]]*:[[:space:]]*)\"[^\"]*\"|\1\"file:${UI_TGZ}\"|" ./package.json
+          grep -F "\"@lobehub/ui\": \"file:${UI_TGZ}\"" package.json
+      - name: Install lobe-chat dependencies
+        working-directory: ../lobe-chat
+        run: |
+          set -euo pipefail
+          npm config set --location=project registry "$AUDITED_NPM_REGISTRY"
+          test "$(npm config get registry | sed 's#/*$#/#')" = "$AUDITED_NPM_REGISTRY"
+          pnpm install
       - name: Apply msm test overlay and run checks
         run: |
           set -euo pipefail
