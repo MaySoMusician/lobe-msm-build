@@ -1,72 +1,64 @@
 #!/usr/bin/env node
 /**
  * Static invariants on an already-patched lobe-chat tree.
- * Starter set: Dockerfile pins / registry / harden / pnpm retries.
- * Full inventory is filled in later steps.
+ * Definitions live in `./lobe-chat-patch-invariants.mjs`.
+ * No pnpm install required — run after `git am` (or against a local msm/patch-* tree).
  */
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
+import { checks } from "./lobe-chat-patch-invariants.mjs";
+
+/**
+ * @typedef {import('./lobe-chat-patch-invariants.mjs').Pattern} Pattern
+ * @typedef {import('./lobe-chat-patch-invariants.mjs').Assert} Assert
+ */
+
 const scriptDir = path.dirname(fileURLToPath(import.meta.url));
 const msmBuildRoot = path.resolve(scriptDir, "..");
-const lobeChatDir = path.resolve(
-  process.env.LOBE_CHAT_DIR ?? path.join(msmBuildRoot, "..", "lobe-chat"),
-);
+const defaultLobeChatDir = path.join(msmBuildRoot, "..", "lobe-chat");
 
-/** @type {{ id: string; file: string; patterns: (string | RegExp)[] }[]} */
-const checks = [
-  {
-    id: "dockerfile-node-pin",
-    file: "Dockerfile",
-    patterns: ['ARG NODEJS_VERSION="24.16.0"', "FROM busybox:1.38.0 AS app"],
-  },
-  {
-    id: "dockerfile-npm-registry-arg",
-    file: "Dockerfile",
-    patterns: [
-      'ARG NPM_REGISTRY=""',
-      'npm config set registry "${NPM_REGISTRY}"',
-    ],
-  },
-  {
-    id: "dockerfile-harden",
-    file: "Dockerfile",
-    patterns: [
-      "pnpm config set minimumReleaseAge 10080",
-      "pnpm config set minimumReleaseAgeStrict true",
-      "pnpm config set trustPolicy no-downgrade",
-    ],
-  },
-  {
-    id: "dockerfile-pnpm-retries",
-    file: "Dockerfile",
-    patterns: [
-      "pnpm config set fetchRetries 5",
-      "pnpm config set fetchRetryMintimeout 30000",
-      "pnpm config set networkConcurrency 8",
-    ],
-  },
-];
+/**
+ * @param {Pattern} pattern
+ * @param {string} text
+ */
+function matches(pattern, text) {
+  return typeof pattern === "string"
+    ? text.includes(pattern)
+    : pattern.test(text);
+}
 
-const errors = [];
-
-for (const check of checks) {
-  const abs = path.join(lobeChatDir, check.file);
+/**
+ * @param {string} lobeChatDir
+ * @param {string} id
+ * @param {Assert} assert
+ * @param {string[]} errors
+ */
+function runAssert(lobeChatDir, id, assert, errors) {
+  const abs = path.join(lobeChatDir, assert.file);
   let text;
   try {
     text = fs.readFileSync(abs, "utf8");
   } catch (err) {
-    errors.push(`[${check.id}] cannot read ${check.file}: ${err.message}`);
-    continue;
+    errors.push(`[${id}] cannot read ${assert.file}: ${err.message}`);
+    return;
   }
 
-  for (const pattern of check.patterns) {
-    const ok =
-      typeof pattern === "string" ? text.includes(pattern) : pattern.test(text);
-    if (!ok) {
+  for (const pattern of assert.patterns ?? []) {
+    if (!matches(pattern, text)) {
       errors.push(
-        `[${check.id}] missing in ${check.file}: ${
+        `[${id}] missing in ${assert.file}: ${
+          typeof pattern === "string" ? pattern : pattern.toString()
+        }`,
+      );
+    }
+  }
+
+  for (const pattern of assert.absent ?? []) {
+    if (matches(pattern, text)) {
+      errors.push(
+        `[${id}] must not appear in ${assert.file}: ${
           typeof pattern === "string" ? pattern : pattern.toString()
         }`,
       );
@@ -74,14 +66,29 @@ for (const check of checks) {
   }
 }
 
-if (errors.length > 0) {
-  console.error("Invariant check failures:");
-  for (const e of errors) {
-    console.error(`  - ${e}`);
+function main() {
+  const lobeChatDir = path.resolve(
+    process.env.LOBE_CHAT_DIR ?? defaultLobeChatDir,
+  );
+  const errors = [];
+
+  for (const check of checks) {
+    for (const assert of check.asserts) {
+      runAssert(lobeChatDir, check.id, assert, errors);
+    }
   }
-  process.exit(1);
+
+  if (errors.length > 0) {
+    console.error("Invariant check failures:");
+    for (const e of errors) {
+      console.error(`  - ${e}`);
+    }
+    process.exit(1);
+  }
+
+  console.log(
+    `All ${checks.length} invariant check(s) passed against ${lobeChatDir}`,
+  );
 }
 
-console.log(
-  `All ${checks.length} invariant check(s) passed against ${lobeChatDir}`,
-);
+main();
