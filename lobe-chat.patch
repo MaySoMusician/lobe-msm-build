@@ -1,4 +1,4 @@
-From 05163031bc062dadbe4fb49c7b7fd1f86c35de50 Mon Sep 17 00:00:00 2001
+From 94eae8dc3aa730a92ca3766402fd6fc74ede4dc9 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Tue, 31 Mar 2026 19:01:33 +0000
 Subject: [PATCH 01/31] Add optional arg to set npm registry for Dockerfile
@@ -33,7 +33,7 @@ index 92371587b9..562c9464fc 100644
 2.39.5
 
 
-From e98a90335c75f49b71f249de26441c2c5ad01915 Mon Sep 17 00:00:00 2001
+From 931e4ecf484bc733123bd1ce794cee4003e4a9d3 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 6 Apr 2026 20:40:07 +0000
 Subject: [PATCH 02/31] Set retry options for pnpm install inside Dockerfile
@@ -60,7 +60,7 @@ index 562c9464fc..39b234c8a3 100644
 2.39.5
 
 
-From 70895c9e9d747fef723694976cd7b7fc652b4400 Mon Sep 17 00:00:00 2001
+From df55edc025b18d8273c554ddb023b04c330e4f9c Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Tue, 12 May 2026 18:45:03 +0000
 Subject: [PATCH 03/31] Harden npm (pnpm) security
@@ -85,7 +85,7 @@ index 999be96503..836d41ee82 100644
  
  public-hoist-pattern[]=*@umijs/lint*
 diff --git a/package.json b/package.json
-index b48b3707c6..7793a909a5 100644
+index 84a760aeee..20f62e5b12 100644
 --- a/package.json
 +++ b/package.json
 @@ -569,7 +569,11 @@
@@ -151,7 +151,7 @@ index 287c2fa2fa..5a4ad69203 100644
 2.39.5
 
 
-From 76a26460cfd0c0bdd743e74606eeacbf55ed849d Mon Sep 17 00:00:00 2001
+From 588dc78158082a189e66272781741e6ebb51d3a5 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 13 May 2026 17:43:57 +0000
 Subject: [PATCH 04/31] Harden Dockerfile security
@@ -193,7 +193,7 @@ index 39b234c8a3..2fd88d2fb6 100644
 2.39.5
 
 
-From dad5eff1be32e0ba49063dd05d8402083fa70c16 Mon Sep 17 00:00:00 2001
+From 4cee0d346812c36d0c47d9b5c73f1937aa12fe25 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 10 Apr 2026 19:13:51 +0000
 Subject: [PATCH 05/31] Dedupe @lobehub/ui package in vite
@@ -218,7 +218,7 @@ index 00362fd606..e888933efa 100644
 2.39.5
 
 
-From 80a4f698b2811affde763cea6c7d146cb417f325 Mon Sep 17 00:00:00 2001
+From 3def5afc9f119a88ef0fdb7f208e8e1aaca900aa Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 6 Feb 2025 20:34:05 +0000
 Subject: [PATCH 06/31] Load Google Fonts script and IBM Plex Sans JP
@@ -266,7 +266,7 @@ index 18d4ba16b6..e67ee4d463 100644
 2.39.5
 
 
-From d73b5ad5a089c5200f64738e6cb1e9b32c17fa65 Mon Sep 17 00:00:00 2001
+From a41826f9609ff23ab4c00b24f2faf80947cbc82a Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 7 Feb 2025 08:18:42 +0000
 Subject: [PATCH 07/31] Force to use en-US as language
@@ -295,7 +295,7 @@ index 5dbaf4408b..cdad3d1f89 100644
 2.39.5
 
 
-From 97d3a920b76d8e4b9a3027d6ab9dbbffb062ca42 Mon Sep 17 00:00:00 2001
+From 5210cc80946b2ba4c1ac7730dc44bdd5cac583fb Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 28 Jan 2026 01:28:48 +0000
 Subject: [PATCH 08/31] Show only English and Japanese option for language
@@ -360,7 +360,7 @@ index 6b301a2958..d696410d1b 100644
 2.39.5
 
 
-From 3ec9ae3e881ec7b2c9f8feac6ff8f24591a62ba7 Mon Sep 17 00:00:00 2001
+From bb15170f05dc660af125e8d51e1f5d4dbc6a0b95 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 8 Oct 2025 14:38:00 +0000
 Subject: [PATCH 09/31] Overwrite reasoning.summary to undefined for requests
@@ -389,7 +389,7 @@ index f9eb28415d..bce2e59a2e 100644
 2.39.5
 
 
-From 71be61a9f82dc432a42863354e0cfeced37f2ea8 Mon Sep 17 00:00:00 2001
+From d5de57c9b5c42d6085b0a47a7fc36a818d410c9e Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 28 Jan 2026 01:29:51 +0000
 Subject: [PATCH 10/31] Disable streaming and allow Responses API for gpt-5
@@ -481,7 +481,7 @@ index a0811b1f27..17cebc8e55 100644
 2.39.5
 
 
-From 83e0ba104f100b1244a628e8ed08c00d5018579b Mon Sep 17 00:00:00 2001
+From 43d5dbe234d5ebeb7dc016eef024099a225df53b Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 22 Sep 2025 15:02:20 +0000
 Subject: [PATCH 11/31] Use stream flag value from handled payload
@@ -491,10 +491,10 @@ Subject: [PATCH 11/31] Use stream flag value from handled payload
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts b/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
-index 0aa33a65cd..b0c51e3304 100644
+index e446ca597e..cdb884f37a 100644
 --- a/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
 +++ b/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
-@@ -1409,7 +1409,7 @@ export const createOpenAICompatibleRuntime = <T extends Record<string, any> = an
+@@ -1435,7 +1435,7 @@ export const createOpenAICompatibleRuntime = <T extends Record<string, any> = an
          strictToolPairing: true,
        });
  
@@ -507,7 +507,7 @@ index 0aa33a65cd..b0c51e3304 100644
 2.39.5
 
 
-From c76faa894b204d288ac494c9e8a228f8aef905b0 Mon Sep 17 00:00:00 2001
+From 63585362b37d89d5cdb634c232f41ac0ba7bc5a8 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 22 Sep 2025 15:03:21 +0000
 Subject: [PATCH 12/31] Introduce more detailed non-streaming response
@@ -515,14 +515,14 @@ Subject: [PATCH 12/31] Introduce more detailed non-streaming response
 
 e.g. handling url_citations
 ---
- .../nonStreamToStream.ts                      | 245 +++++++++++++++---
- 1 file changed, 211 insertions(+), 34 deletions(-)
+ .../nonStreamToStream.ts                      | 256 +++++++++++++++---
+ 1 file changed, 211 insertions(+), 45 deletions(-)
 
 diff --git a/packages/model-runtime/src/core/openaiCompatibleFactory/nonStreamToStream.ts b/packages/model-runtime/src/core/openaiCompatibleFactory/nonStreamToStream.ts
-index 2651c399c0..0bac5c17e1 100644
+index b6c980b78e..0bac5c17e1 100644
 --- a/packages/model-runtime/src/core/openaiCompatibleFactory/nonStreamToStream.ts
 +++ b/packages/model-runtime/src/core/openaiCompatibleFactory/nonStreamToStream.ts
-@@ -89,47 +89,224 @@ export const transformResponseToStream = (data: OpenAI.ChatCompletion) =>
+@@ -89,58 +89,224 @@ export const transformResponseToStream = (data: OpenAI.ChatCompletion) =>
      },
    });
  
@@ -534,7 +534,7 @@ index 2651c399c0..0bac5c17e1 100644
 -    start(controller) {
 -      // Check if output exists and is an array
 -      if (data.output && Array.isArray(data.output)) {
--        data.output.forEach((output) => {
+-        data.output.forEach((output, outputIndex) => {
 -          switch (output.type) {
 -            case 'message': {
 -              // Check if content exists and is an array
@@ -553,6 +553,17 @@ index 2651c399c0..0bac5c17e1 100644
 -                    }
 -                  }
 -                });
+-              }
+-              break;
+-            }
+-            case 'reasoning': {
+-              if (output.encrypted_content) {
+-                controller.enqueue({
+-                  item: output,
+-                  output_index: outputIndex,
+-                  sequence_number: outputIndex,
+-                  type: 'response.output_item.done',
+-                } as OpenAI.Responses.ResponseOutputItemDoneEvent);
 +function convertNonStreamingResponseToStreamEvents(
 +  nonStreamingResponse: OpenAI.Responses.Response,
 +): OpenAI.Responses.ResponseStreamEvent[] {
@@ -698,7 +709,7 @@ index 2651c399c0..0bac5c17e1 100644
 +          summary_index: 1, // dummy placeholder
 +          type: 'response.reasoning_summary_part.added',
 +        });
- 
++
 +        // If there's a summary array, concatenate it into a single delta.
 +        const entireSummary = Array.isArray(item.summary) ? item.summary.join('\n') : '';
 +        if (entireSummary) {
@@ -724,7 +735,7 @@ index 2651c399c0..0bac5c17e1 100644
 +        });
 +        break;
 +      }
-+
+ 
 +      default: {
 +        // For an unknown type, just send "response.output_item.done".
 +        events.push({
@@ -785,7 +796,7 @@ index 2651c399c0..0bac5c17e1 100644
 2.39.5
 
 
-From 4aaaff013348ac534c405c396bbbd5d200d4747a Mon Sep 17 00:00:00 2001
+From e2883eaebcc678fcf41efae88591d0ce4c86d699 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 12 Oct 2025 16:37:16 +0000
 Subject: [PATCH 13/31] Use conversation language for summaryTitle
@@ -811,7 +822,7 @@ index b8d5034d1c..d627cabbf3 100644
 2.39.5
 
 
-From 33c8eadd83b934147452f97ad4eed35ac8ee0daa Mon Sep 17 00:00:00 2001
+From 32ab4b4c6dfef122194b01d1f58b39498af1e6ed Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 5 Mar 2026 10:44:37 +0000
 Subject: [PATCH 14/31] Do not load default tools like lobe-tools etc.
@@ -822,10 +833,10 @@ Also show them in the skill list
  1 file changed, 4 insertions(+), 9 deletions(-)
 
 diff --git a/packages/builtin-tools/src/index.ts b/packages/builtin-tools/src/index.ts
-index 33a0937327..871c88d6fe 100644
+index 8a2d0d71cf..f92b2fc210 100644
 --- a/packages/builtin-tools/src/index.ts
 +++ b/packages/builtin-tools/src/index.ts
-@@ -71,12 +71,7 @@ export const defaultToolIds = [
+@@ -72,12 +72,7 @@ export const defaultToolIds = [
   * They default to pinned but can be explicitly disabled per agent; entries represented by
   * the activation mode control itself are excluded from that menu.
   */
@@ -839,7 +850,7 @@ index 33a0937327..871c88d6fe 100644
  
  /**
   * Runtime tools represented by the skill activation mode control itself. They remain part
-@@ -161,21 +156,21 @@ export const runtimeManagedToolIds = [
+@@ -163,21 +158,21 @@ export const runtimeManagedToolIds = [
  const builtinToolRegistry: LobeBuiltinTool[] = [
    {
      discoverable: false,
@@ -868,7 +879,7 @@ index 33a0937327..871c88d6fe 100644
 2.39.5
 
 
-From 60fae866faecb4ecd6942e17dfdffb8dc7d8f475 Mon Sep 17 00:00:00 2001
+From 7cd46735c037f1fa1b15f57c6c303da1fcdcab30 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 20 Mar 2026 18:26:33 +0000
 Subject: [PATCH 15/31] Disable Markdown Editor for user messages
@@ -976,7 +987,7 @@ index 8bf7cf234d..e99c6246b2 100644
 2.39.5
 
 
-From a742a9762da428582def10e28b6c3354b1e326b1 Mon Sep 17 00:00:00 2001
+From 4c9f2eef7091fb066900070fa48d80e5d5d97ba2 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 29 Mar 2026 12:25:13 +0000
 Subject: [PATCH 16/31] Always show exact token number
@@ -1019,7 +1030,7 @@ index 2c19029d22..33294cd784 100644
 2.39.5
 
 
-From 7b97a8bb3cb242144ce8e804d5a0d1148d08c5ae Mon Sep 17 00:00:00 2001
+From 3b9fbcd07a52b5d2c2410c5241372b3ed8e15a87 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 27 Apr 2026 06:51:48 +0000
 Subject: [PATCH 17/31] Open reasoning & verbosity config first, instead of
@@ -1030,10 +1041,10 @@ Subject: [PATCH 17/31] Open reasoning & verbosity config first, instead of
  1 file changed, 3 deletions(-)
 
 diff --git a/src/store/global/initialState.ts b/src/store/global/initialState.ts
-index ca4aec9545..fc2e3116cd 100644
+index 5c27847b75..c78b7bca8f 100644
 --- a/src/store/global/initialState.ts
 +++ b/src/store/global/initialState.ts
-@@ -130,9 +130,6 @@ export type ModelDetailPanelExpandedKey = (typeof MODEL_DETAIL_PANEL_EXPANDED_KE
+@@ -131,9 +131,6 @@ export type ModelDetailPanelExpandedKey = (typeof MODEL_DETAIL_PANEL_EXPANDED_KE
   * newly added sections default to expanded automatically.
   */
  export const MODEL_DETAIL_PANEL_EXPANDABLE_KEYS = [
@@ -1047,7 +1058,7 @@ index ca4aec9545..fc2e3116cd 100644
 2.39.5
 
 
-From 9ce3f17f7b759b2673ebc97ed513edf2f42df91b Mon Sep 17 00:00:00 2001
+From 8fb251be03e147bd9ea24daf2fb5ed52b16d1a15 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 27 Apr 2026 14:37:03 +0000
 Subject: [PATCH 18/31] Don't resend the edited message automatically
@@ -1092,7 +1103,7 @@ index 5c18506d89..ba01d302d4 100644
 2.39.5
 
 
-From 5fbf19ab8620b438e44272f3e040d45d340fea3d Mon Sep 17 00:00:00 2001
+From 1105271c06b6d92add30f7a2da7434e8cb8a9818 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 19 Jun 2026 14:53:55 +0000
 Subject: [PATCH 19/31] Pin docker base image
@@ -1127,7 +1138,7 @@ index 2fd88d2fb6..e4692db592 100644
 2.39.5
 
 
-From 6f24823c60019a1dda8369f800ebb449e33c8b1d Mon Sep 17 00:00:00 2001
+From d7e4b2b3eb8cb15558dd192198027cdf1c1a8e24 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Tue, 23 Jun 2026 23:44:22 +0000
 Subject: [PATCH 20/31] Open Share modal by defailt in OpenAI compatible JSON
@@ -1168,7 +1179,7 @@ index b76539e738..8d62db15a7 100644
 2.39.5
 
 
-From 9d39d913ce2fdb2d825e33f993561c7bda0d53cd Mon Sep 17 00:00:00 2001
+From edc26e750d76910c86b391cb09aa90ac6352136f Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 29 Jun 2026 14:03:03 +0000
 Subject: [PATCH 21/31] Reset model switch panel width when opening it in
@@ -1208,7 +1219,7 @@ index 3212079217..d47451004c 100644
 2.39.5
 
 
-From a157d8fe0bcbace164ba67f56be62c89743fe61b Mon Sep 17 00:00:00 2001
+From 2067327493fa4268bf7ee5dc47cd9d977a3d4b07 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 29 Jun 2026 18:42:37 +0000
 Subject: [PATCH 22/31] Show right panel controls even in mobile (in not clean
@@ -1217,8 +1228,8 @@ Subject: [PATCH 22/31] Show right panel controls even in mobile (in not clean
 ---
  .../ChatInput/ActionBar/Params/Controls.tsx   |  1 -
  src/routes/(mobile)/chat/_layout/index.tsx    | 58 +++++++++++++++++--
- .../chat/features/ChatHeader/index.tsx        |  8 ++-
- 3 files changed, 59 insertions(+), 8 deletions(-)
+ .../chat/features/ChatHeader/index.tsx        |  2 +
+ 3 files changed, 54 insertions(+), 7 deletions(-)
 
 diff --git a/src/features/ChatInput/ActionBar/Params/Controls.tsx b/src/features/ChatInput/ActionBar/Params/Controls.tsx
 index ea613bd0dd..09a2c2f9b6 100644
@@ -1314,37 +1325,30 @@ index 0429a0a745..a3ef627e27 100644
 +
  export default Layout;
 diff --git a/src/routes/(mobile)/chat/features/ChatHeader/index.tsx b/src/routes/(mobile)/chat/features/ChatHeader/index.tsx
-index a05d4a884c..3c60ee8f58 100644
+index 2d56473f95..f2fbe91e67 100644
 --- a/src/routes/(mobile)/chat/features/ChatHeader/index.tsx
 +++ b/src/routes/(mobile)/chat/features/ChatHeader/index.tsx
-@@ -5,6 +5,7 @@ import { memo, useState } from 'react';
- 
+@@ -7,6 +7,7 @@ import { memo, useState } from 'react';
+ import TopicCommentButton from '@/features/TopicComment/TopicCommentButton';
  import { useQueryRoute } from '@/hooks/useQueryRoute';
  import ShareButton from '@/routes/(main)/agent/features/Conversation/Header/ShareButton';
 +import WorkingPanelToggle from '@/routes/(main)/agent/features/Conversation/Header/WorkingPanelToggle';
  
  import ChatHeaderTitle from './ChatHeaderTitle';
  
-@@ -16,8 +17,13 @@ const MobileHeader = memo(() => {
-     <ChatHeader
-       showBackButton
-       center={<ChatHeaderTitle />}
--      right={<ShareButton mobile open={open} setOpen={setOpen} />}
-       style={{ width: '100%' }}
-+      right={
-+        <>
-+          <ShareButton mobile open={open} setOpen={setOpen} />
+@@ -23,6 +24,7 @@ const MobileHeader = memo(() => {
+         <Flexbox horizontal align={'center'} gap={4}>
+           <TopicCommentButton mobile />
+           <ShareButton mobile open={open} setOpen={setOpen} />
 +          <WorkingPanelToggle />
-+        </>
-+      }
+         </Flexbox>
+       }
        onBackClick={() =>
-         // `/agent` index redirects to `..` (mobile home / session list), preserving
-         // workspace scope; the old `?session=` query was never read by the target.
 -- 
 2.39.5
 
 
-From 322659d6522b2d479104d15027892c99df08bd02 Mon Sep 17 00:00:00 2001
+From b1eb40341e87861ec3ccc5e2aefa575394291653 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 6 Jul 2026 06:42:46 +0000
 Subject: [PATCH 23/31] Shorten message in topic card for faster performance
@@ -1388,16 +1392,69 @@ index 79918b2b18..d114e63db0 100644
 2.39.5
 
 
-From a7b4b29d9fc314af96e915562e1a0ece3321a01f Mon Sep 17 00:00:00 2001
+From 6544cfc3e0f13629c0931eeef8530a1936f5309c Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 6 Jul 2026 07:40:48 +0000
 Subject: [PATCH 24/31] Allow to open topic in new tab via Ctrl+Click
 
 ---
- src/features/AgentTopicManager/TopicCard.tsx  | 20 ++++++++++++-
- .../_layout/Sidebar/Topic/List/Item/index.tsx | 29 +++++++++++--------
- 2 files changed, 36 insertions(+), 13 deletions(-)
+ .../AgentSidebar/Topic/List/Item/index.tsx    | 27 +++++++++++--------
+ src/features/AgentTopicManager/TopicCard.tsx  | 20 +++++++++++++-
+ 2 files changed, 35 insertions(+), 12 deletions(-)
 
+diff --git a/src/features/AgentSidebar/Topic/List/Item/index.tsx b/src/features/AgentSidebar/Topic/List/Item/index.tsx
+index 5b6b19aaf5..558455291c 100644
+--- a/src/features/AgentSidebar/Topic/List/Item/index.tsx
++++ b/src/features/AgentSidebar/Topic/List/Item/index.tsx
+@@ -9,7 +9,7 @@ import { Flexbox, Icon, Popover, Skeleton, Tag, Text, Tooltip } from '@lobehub/u
+ import { createStaticStyles, cssVar, useTheme } from 'antd-style';
+ import dayjs from 'dayjs';
+ import { HashIcon, MessageSquareDashed } from 'lucide-react';
+-import type { CSSProperties, DragEvent, RefObject } from 'react';
++import type { CSSProperties, DragEvent, MouseEvent, RefObject } from 'react';
+ import { memo, Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+ import { useTranslation } from 'react-i18next';
+ 
+@@ -33,6 +33,7 @@ import { useChatStore } from '@/store/chat';
+ import { operationSelectors } from '@/store/chat/selectors';
+ import { messageMapKey } from '@/store/chat/utils/messageMapKey';
+ import { useElectronStore } from '@/store/electron';
++import { isModifierClick } from '@/utils/navigation';
+ 
+ import { useTopicNavigation } from '../../hooks/useTopicNavigation';
+ import ThreadList from '../../TopicListContent/ThreadList';
+@@ -233,17 +234,21 @@ const TopicItemRow = memo<TopicItemRowProps>(
+       [id, title],
+     );
+ 
+-    const handleClick = useCallback(() => {
+-      if (isDesktop) {
+-        cancelPendingSingleClick();
+-        pendingSingleClickTimer = setTimeout(() => {
+-          pendingSingleClickTimer = null;
++    const handleClick = useCallback(
++      (e: MouseEvent) => {
++        if (isModifierClick(e)) return;
++        if (isDesktop) {
++          cancelPendingSingleClick();
++          pendingSingleClickTimer = setTimeout(() => {
++            pendingSingleClickTimer = null;
++            void navRef.current.navigateToTopic(id);
++          }, 250);
++        } else {
+           void navRef.current.navigateToTopic(id);
+-        }, 250);
+-      } else {
+-        void navRef.current.navigateToTopic(id);
+-      }
+-    }, [id, navRef]);
++        }
++      },
++      [id, navRef],
++    );
+ 
+     const handleDoubleClick = useCallback(async () => {
+       if (!id || !activeAgentId || !isDesktop) return;
 diff --git a/src/features/AgentTopicManager/TopicCard.tsx b/src/features/AgentTopicManager/TopicCard.tsx
 index d114e63db0..a3d3640966 100644
 --- a/src/features/AgentTopicManager/TopicCard.tsx
@@ -1443,66 +1500,11 @@ index d114e63db0..a3d3640966 100644
          </Text>
        </Flexbox>
  
-diff --git a/src/routes/(main)/agent/_layout/Sidebar/Topic/List/Item/index.tsx b/src/routes/(main)/agent/_layout/Sidebar/Topic/List/Item/index.tsx
-index c1ec27cea4..159a61fa54 100644
---- a/src/routes/(main)/agent/_layout/Sidebar/Topic/List/Item/index.tsx
-+++ b/src/routes/(main)/agent/_layout/Sidebar/Topic/List/Item/index.tsx
-@@ -9,7 +9,7 @@ import { Flexbox, Icon, Popover, Skeleton, Tag, Text, Tooltip } from '@lobehub/u
- import { createStaticStyles, cssVar, useTheme } from 'antd-style';
- import dayjs from 'dayjs';
- import { HashIcon, MessageSquareDashed } from 'lucide-react';
--import type { CSSProperties, DragEvent } from 'react';
-+import type { CSSProperties, DragEvent, MouseEvent } from 'react';
- import { memo, Suspense, useCallback, useEffect, useMemo, useState } from 'react';
- import { useTranslation } from 'react-i18next';
- 
-@@ -33,6 +33,7 @@ import { useChatStore } from '@/store/chat';
- import { operationSelectors } from '@/store/chat/selectors';
- import { messageMapKey } from '@/store/chat/utils/messageMapKey';
- import { useElectronStore } from '@/store/electron';
-+import { isModifierClick } from '@/utils/navigation';
- 
- import { useTopicNavigation } from '../../hooks/useTopicNavigation';
- import ThreadList from '../../TopicListContent/ThreadList';
-@@ -235,18 +236,22 @@ const TopicItem = memo<TopicItemProps>(
-       [id],
-     );
- 
--    const handleClick = useCallback(() => {
--      if (editing) return;
--      if (isDesktop) {
--        cancelPendingSingleClick();
--        pendingSingleClickTimer = setTimeout(() => {
--          pendingSingleClickTimer = null;
-+    const handleClick = useCallback(
-+      (e: MouseEvent) => {
-+        if (editing) return;
-+        if (isModifierClick(e)) return;
-+        if (isDesktop) {
-+          cancelPendingSingleClick();
-+          pendingSingleClickTimer = setTimeout(() => {
-+            pendingSingleClickTimer = null;
-+            void navigateToTopic(id);
-+          }, 250);
-+        } else {
-           void navigateToTopic(id);
--        }, 250);
--      } else {
--        void navigateToTopic(id);
--      }
--    }, [editing, id, navigateToTopic]);
-+        }
-+      },
-+      [editing, id, navigateToTopic],
-+    );
- 
-     const handleDoubleClick = useCallback(async () => {
-       if (!id || !activeAgentId || !isDesktop) return;
 -- 
 2.39.5
 
 
-From ad5453886f8ab265a20a16058e59e327b79de029 Mon Sep 17 00:00:00 2001
+From 83d2b2d76fe30fb17308563558807c6c9a6eae3d Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 6 Jul 2026 18:48:42 +0000
 Subject: [PATCH 25/31] Do not add additives to system prompt
@@ -1580,10 +1582,10 @@ index f95f5e133e..126597c1d0 100644
        // Disabled in chat mode — pairs with the tools-engine gate so the LLM
        // sees neither the manifests nor the discovery prompt.
 diff --git a/src/services/chat/mecha/agentConfigResolver.ts b/src/services/chat/mecha/agentConfigResolver.ts
-index 37f6da1e9f..c70af8d189 100644
+index b1a3e009e0..be5baad634 100644
 --- a/src/services/chat/mecha/agentConfigResolver.ts
 +++ b/src/services/chat/mecha/agentConfigResolver.ts
-@@ -265,9 +265,7 @@ export const resolveAgentConfig = (ctx: AgentConfigResolverContext): ResolvedAge
+@@ -280,9 +280,7 @@ export const resolveAgentConfig = (ctx: AgentConfigResolverContext): ResolvedAge
      const userLocale = userGeneralSettingsSelectors.currentResponseLanguage(
        useUserStore.getState(),
      );
@@ -1598,7 +1600,7 @@ index 37f6da1e9f..c70af8d189 100644
 2.39.5
 
 
-From 54148008d31a0d4936ffc0304432d2a64f74362d Mon Sep 17 00:00:00 2001
+From d686c10fe7144a9ad216a6ca60b20b06859c45fc Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 26 Jul 2026 09:14:36 +0000
 Subject: [PATCH 26/31] Wait @lobehub/editor@4.23.x for a week
@@ -1609,7 +1611,7 @@ Due to minimumReleaseAge
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/package.json b/package.json
-index 7793a909a5..7f18094274 100644
+index 20f62e5b12..1c0c9eb3e0 100644
 --- a/package.json
 +++ b/package.json
 @@ -295,7 +295,7 @@
@@ -1625,7 +1627,7 @@ index 7793a909a5..7f18094274 100644
 2.39.5
 
 
-From 81d4189fc4ddb7733f33d38145df625e6ae6a735 Mon Sep 17 00:00:00 2001
+From 33f0ffe1d7b835359cf0841603ff48bf62ba9e4c Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 26 Jul 2026 08:13:14 +0000
 Subject: [PATCH 27/31] Fix 900s timeout issue
@@ -1653,7 +1655,7 @@ index a70b2cfd50..47770af704 100644
    },
    "devDependencies": {
 diff --git a/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts b/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
-index b0c51e3304..0380d8eaba 100644
+index cdb884f37a..549cb83b9b 100644
 --- a/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
 +++ b/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
 @@ -72,10 +72,15 @@ import { convertOpenAIResponseUsage, convertOpenAIUsage } from '../usageConverte
@@ -1672,7 +1674,7 @@ index b0c51e3304..0380d8eaba 100644
  
  /**
   * Detect provider 400/422 errors that reject `response_format: { type: 'json_schema' }`.
-@@ -356,7 +361,29 @@ export const createOpenAICompatibleRuntime = <T extends Record<string, any> = an
+@@ -363,7 +368,29 @@ export const createOpenAICompatibleRuntime = <T extends Record<string, any> = an
  
        if (!apiKey) throw AgentRuntimeError.createError(ErrorType?.invalidAPIKey);
  
@@ -1845,7 +1847,7 @@ index f420130d17..9a71ad655e 100644
 2.39.5
 
 
-From 6fac9951401598aac82dec3118668a878e604944 Mon Sep 17 00:00:00 2001
+From f5b2f57558d5b5d087cb5d4b1fbdb88a0fa700e2 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 27 Jul 2026 03:41:09 +0000
 Subject: [PATCH 28/31] Disable retries (OpenAI, LobeChat)
@@ -1869,10 +1871,10 @@ index a20272320b..0b38c6f5a4 100644
  };
  
 diff --git a/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts b/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
-index 0380d8eaba..ddf2b22387 100644
+index 549cb83b9b..f45691c2c0 100644
 --- a/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
 +++ b/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
-@@ -372,6 +372,8 @@ export const createOpenAICompatibleRuntime = <T extends Record<string, any> = an
+@@ -379,6 +379,8 @@ export const createOpenAICompatibleRuntime = <T extends Record<string, any> = an
          baseURL,
          ...constructorOptions,
          ...res,
@@ -1897,7 +1899,7 @@ index c797efff63..2e965a702a 100644
 2.39.5
 
 
-From 4f4bafd395d2d6a6854baca4ac46d04750314e06 Mon Sep 17 00:00:00 2001
+From 9e10973dd80c3d144f12dd18e072539c2813c567 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 27 Jul 2026 18:25:30 +0000
 Subject: [PATCH 29/31] Disable QStash logs
@@ -2002,7 +2004,7 @@ index c113c0bf70..33c4e6f96b 100644
 2.39.5
 
 
-From ac130b46d2181840a0a7c696d205ed7adde99f2a Mon Sep 17 00:00:00 2001
+From 1b7bc0f40a31ac648e1df765029e25a0e6511fa3 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 27 Jul 2026 18:32:10 +0000
 Subject: [PATCH 30/31] Fix updateMessageError type error
@@ -2012,10 +2014,10 @@ Subject: [PATCH 30/31] Fix updateMessageError type error
  1 file changed, 13 insertions(+), 3 deletions(-)
 
 diff --git a/src/services/message/index.ts b/src/services/message/index.ts
-index 4c8f53bfca..e7cea5427c 100644
+index 436b0e195b..ac4248d47e 100644
 --- a/src/services/message/index.ts
 +++ b/src/services/message/index.ts
-@@ -188,9 +188,19 @@ export class MessageService {
+@@ -195,9 +195,19 @@ export class MessageService {
    };
  
    updateMessageError = async (id: string, value: ChatMessageError, ctx?: MessageQueryContext) => {
@@ -2042,7 +2044,7 @@ index 4c8f53bfca..e7cea5427c 100644
 2.39.5
 
 
-From c45649f536df4afea8990bd2a688eba985da300c Mon Sep 17 00:00:00 2001
+From b0302b46862b81e40c3932303a95789719b4520a Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 27 Jul 2026 18:33:05 +0000
 Subject: [PATCH 31/31] Log if custom undici is loaded and used
