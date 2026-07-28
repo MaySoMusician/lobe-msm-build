@@ -1219,7 +1219,7 @@ index 3212079217..d47451004c 100644
 2.39.5
 
 
-From 2067327493fa4268bf7ee5dc47cd9d977a3d4b07 Mon Sep 17 00:00:00 2001
+From 2a5cd6da85e7f0c3c1a6b8ae126f54088cd25c4d Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 29 Jun 2026 18:42:37 +0000
 Subject: [PATCH 22/31] Show right panel controls even in mobile (in not clean
@@ -1244,14 +1244,14 @@ index ea613bd0dd..09a2c2f9b6 100644
      flex: 1 1 auto;
      flex-direction: column;
 diff --git a/src/routes/(mobile)/chat/_layout/index.tsx b/src/routes/(mobile)/chat/_layout/index.tsx
-index 0429a0a745..a3ef627e27 100644
+index 0429a0a745..96342964c9 100644
 --- a/src/routes/(mobile)/chat/_layout/index.tsx
 +++ b/src/routes/(mobile)/chat/_layout/index.tsx
 @@ -7,7 +7,10 @@ import MobileContentLayout from '@/components/server/MobileNavLayout';
  import { AgentNotFoundGuard } from '@/features/AgentNotFound';
  import { useInitAgentConfig } from '@/hooks/useInitAgentConfig';
  import AgentIdSync from '@/routes/(main)/agent/_layout/AgentIdSync';
-+import AgentWorkingSidebar from '@/routes/(main)/agent/features/Conversation/WorkingSidebar';
++import AgentWorkingSidebar from '@/features/Conversation/WorkingSidebar';
  import ChatHeader from '@/routes/(mobile)/chat/features/ChatHeader';
 +import { useGlobalStore } from '@/store/global';
 +import { systemStatusSelectors } from '@/store/global/selectors';
@@ -1348,7 +1348,7 @@ index 2d56473f95..f2fbe91e67 100644
 2.39.5
 
 
-From b1eb40341e87861ec3ccc5e2aefa575394291653 Mon Sep 17 00:00:00 2001
+From a74eb0bc562e3355e61417fcdc34506abd9e94fe Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 6 Jul 2026 06:42:46 +0000
 Subject: [PATCH 23/31] Shorten message in topic card for faster performance
@@ -1392,7 +1392,7 @@ index 79918b2b18..d114e63db0 100644
 2.39.5
 
 
-From 6544cfc3e0f13629c0931eeef8530a1936f5309c Mon Sep 17 00:00:00 2001
+From a6c44f7f2b2058205342fa6d5cf74a94a3dc7fce Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 6 Jul 2026 07:40:48 +0000
 Subject: [PATCH 24/31] Allow to open topic in new tab via Ctrl+Click
@@ -1504,7 +1504,7 @@ index d114e63db0..a3d3640966 100644
 2.39.5
 
 
-From 83d2b2d76fe30fb17308563558807c6c9a6eae3d Mon Sep 17 00:00:00 2001
+From b9a13708353ce3dbd39e60093ebe8aa58d7eef81 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 6 Jul 2026 18:48:42 +0000
 Subject: [PATCH 25/31] Do not add additives to system prompt
@@ -1600,7 +1600,7 @@ index b1a3e009e0..be5baad634 100644
 2.39.5
 
 
-From d686c10fe7144a9ad216a6ca60b20b06859c45fc Mon Sep 17 00:00:00 2001
+From f1d20d41142feea582f9bad1381760a566f2c073 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 26 Jul 2026 09:14:36 +0000
 Subject: [PATCH 26/31] Wait @lobehub/editor@4.23.x for a week
@@ -1627,7 +1627,7 @@ index 20f62e5b12..1c0c9eb3e0 100644
 2.39.5
 
 
-From 33f0ffe1d7b835359cf0841603ff48bf62ba9e4c Mon Sep 17 00:00:00 2001
+From 39cec174e0e87c5bf521955ab9afa41f4a34e1fc Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 26 Jul 2026 08:13:14 +0000
 Subject: [PATCH 27/31] Fix 900s timeout issue
@@ -1847,7 +1847,7 @@ index f420130d17..9a71ad655e 100644
 2.39.5
 
 
-From f5b2f57558d5b5d087cb5d4b1fbdb88a0fa700e2 Mon Sep 17 00:00:00 2001
+From 2743d6742c74d7c9f774c97f3578d4bce2555d6e Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 27 Jul 2026 03:41:09 +0000
 Subject: [PATCH 28/31] Disable retries (OpenAI, LobeChat)
@@ -1899,7 +1899,7 @@ index c797efff63..2e965a702a 100644
 2.39.5
 
 
-From 9e10973dd80c3d144f12dd18e072539c2813c567 Mon Sep 17 00:00:00 2001
+From 880a3d508a89984f231b38ab0a5699f945d20298 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 27 Jul 2026 18:25:30 +0000
 Subject: [PATCH 29/31] Disable QStash logs
@@ -2004,7 +2004,7 @@ index c113c0bf70..33c4e6f96b 100644
 2.39.5
 
 
-From 1b7bc0f40a31ac648e1df765029e25a0e6511fa3 Mon Sep 17 00:00:00 2001
+From 7cb449b63194fc3c7f6007992124cdb60eeaf768 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 27 Jul 2026 18:32:10 +0000
 Subject: [PATCH 30/31] Fix updateMessageError type error
@@ -2044,7 +2044,7 @@ index 436b0e195b..ac4248d47e 100644
 2.39.5
 
 
-From b0302b46862b81e40c3932303a95789719b4520a Mon Sep 17 00:00:00 2001
+From 4ff760311c08fc327212505ad28b0645490be832 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 27 Jul 2026 18:33:05 +0000
 Subject: [PATCH 31/31] Log if custom undici is loaded and used
