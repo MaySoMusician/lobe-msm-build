@@ -1,7 +1,7 @@
 From 94eae8dc3aa730a92ca3766402fd6fc74ede4dc9 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Tue, 31 Mar 2026 19:01:33 +0000
-Subject: [PATCH 01/31] Add optional arg to set npm registry for Dockerfile
+Subject: [PATCH 01/32] Add optional arg to set npm registry for Dockerfile
 
 ---
  Dockerfile | 4 ++++
@@ -36,7 +36,7 @@ index 92371587b9..562c9464fc 100644
 From 931e4ecf484bc733123bd1ce794cee4003e4a9d3 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 6 Apr 2026 20:40:07 +0000
-Subject: [PATCH 02/31] Set retry options for pnpm install inside Dockerfile
+Subject: [PATCH 02/32] Set retry options for pnpm install inside Dockerfile
 
 ---
  Dockerfile | 3 +++
@@ -63,7 +63,7 @@ index 562c9464fc..39b234c8a3 100644
 From df55edc025b18d8273c554ddb023b04c330e4f9c Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Tue, 12 May 2026 18:45:03 +0000
-Subject: [PATCH 03/31] Harden npm (pnpm) security
+Subject: [PATCH 03/32] Harden npm (pnpm) security
 
 ---
  .npmrc              |  2 +-
@@ -154,7 +154,7 @@ index 287c2fa2fa..5a4ad69203 100644
 From 588dc78158082a189e66272781741e6ebb51d3a5 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 13 May 2026 17:43:57 +0000
-Subject: [PATCH 04/31] Harden Dockerfile security
+Subject: [PATCH 04/32] Harden Dockerfile security
 
 ---
  Dockerfile | 10 +++++++---
@@ -196,7 +196,7 @@ index 39b234c8a3..2fd88d2fb6 100644
 From 4cee0d346812c36d0c47d9b5c73f1937aa12fe25 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 10 Apr 2026 19:13:51 +0000
-Subject: [PATCH 05/31] Dedupe @lobehub/ui package in vite
+Subject: [PATCH 05/32] Dedupe @lobehub/ui package in vite
 
 ---
  vite.config.ts | 1 +
@@ -221,7 +221,7 @@ index 00362fd606..e888933efa 100644
 From 3def5afc9f119a88ef0fdb7f208e8e1aaca900aa Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 6 Feb 2025 20:34:05 +0000
-Subject: [PATCH 06/31] Load Google Fonts script and IBM Plex Sans JP
+Subject: [PATCH 06/32] Load Google Fonts script and IBM Plex Sans JP
 
 ---
  index.html        | 6 ++++++
@@ -269,7 +269,7 @@ index 18d4ba16b6..e67ee4d463 100644
 From a41826f9609ff23ab4c00b24f2faf80947cbc82a Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 7 Feb 2025 08:18:42 +0000
-Subject: [PATCH 07/31] Force to use en-US as language
+Subject: [PATCH 07/32] Force to use en-US as language
 
 ---
  src/utils/locale.ts | 4 ++--
@@ -298,7 +298,7 @@ index 5dbaf4408b..cdad3d1f89 100644
 From 5210cc80946b2ba4c1ac7730dc44bdd5cac583fb Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 28 Jan 2026 01:28:48 +0000
-Subject: [PATCH 08/31] Show only English and Japanese option for language
+Subject: [PATCH 08/32] Show only English and Japanese option for language
  options in global menu
 
 ---
@@ -363,7 +363,7 @@ index 6b301a2958..d696410d1b 100644
 From bb15170f05dc660af125e8d51e1f5d4dbc6a0b95 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 8 Oct 2025 14:38:00 +0000
-Subject: [PATCH 09/31] Overwrite reasoning.summary to undefined for requests
+Subject: [PATCH 09/32] Overwrite reasoning.summary to undefined for requests
  for openai
 
 ---
@@ -392,7 +392,7 @@ index f9eb28415d..bce2e59a2e 100644
 From d5de57c9b5c42d6085b0a47a7fc36a818d410c9e Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 28 Jan 2026 01:29:51 +0000
-Subject: [PATCH 10/31] Disable streaming and allow Responses API for gpt-5
+Subject: [PATCH 10/32] Disable streaming and allow Responses API for gpt-5
  family
 
 ---
@@ -484,7 +484,7 @@ index a0811b1f27..17cebc8e55 100644
 From 43d5dbe234d5ebeb7dc016eef024099a225df53b Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 22 Sep 2025 15:02:20 +0000
-Subject: [PATCH 11/31] Use stream flag value from handled payload
+Subject: [PATCH 11/32] Use stream flag value from handled payload
 
 ---
  .../model-runtime/src/core/openaiCompatibleFactory/index.ts     | 2 +-
@@ -510,7 +510,7 @@ index e446ca597e..cdb884f37a 100644
 From 63585362b37d89d5cdb634c232f41ac0ba7bc5a8 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 22 Sep 2025 15:03:21 +0000
-Subject: [PATCH 12/31] Introduce more detailed non-streaming response
+Subject: [PATCH 12/32] Introduce more detailed non-streaming response
  converter
 
 e.g. handling url_citations
@@ -799,7 +799,7 @@ index b6c980b78e..0bac5c17e1 100644
 From e2883eaebcc678fcf41efae88591d0ce4c86d699 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 12 Oct 2025 16:37:16 +0000
-Subject: [PATCH 13/31] Use conversation language for summaryTitle
+Subject: [PATCH 13/32] Use conversation language for summaryTitle
 
 ---
  packages/prompts/src/chains/summaryTitle.ts | 2 +-
@@ -825,7 +825,7 @@ index b8d5034d1c..d627cabbf3 100644
 From 32ab4b4c6dfef122194b01d1f58b39498af1e6ed Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 5 Mar 2026 10:44:37 +0000
-Subject: [PATCH 14/31] Do not load default tools like lobe-tools etc.
+Subject: [PATCH 14/32] Do not load default tools like lobe-tools etc.
 
 Also show them in the skill list
 ---
@@ -882,7 +882,7 @@ index 8a2d0d71cf..f92b2fc210 100644
 From 7cd46735c037f1fa1b15f57c6c303da1fcdcab30 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 20 Mar 2026 18:26:33 +0000
-Subject: [PATCH 15/31] Disable Markdown Editor for user messages
+Subject: [PATCH 15/32] Disable Markdown Editor for user messages
 
 Until the editor can edit as text and save as markdown
 ---
@@ -990,7 +990,7 @@ index 8bf7cf234d..e99c6246b2 100644
 From 4c9f2eef7091fb066900070fa48d80e5d5d97ba2 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 29 Mar 2026 12:25:13 +0000
-Subject: [PATCH 16/31] Always show exact token number
+Subject: [PATCH 16/32] Always show exact token number
 
 ---
  packages/utils/src/format.ts                         | 3 ---
@@ -1033,7 +1033,7 @@ index 2c19029d22..33294cd784 100644
 From 3b9fbcd07a52b5d2c2410c5241372b3ed8e15a87 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 27 Apr 2026 06:51:48 +0000
-Subject: [PATCH 17/31] Open reasoning & verbosity config first, instead of
+Subject: [PATCH 17/32] Open reasoning & verbosity config first, instead of
  pricing card
 
 ---
@@ -1061,7 +1061,7 @@ index 5c27847b75..c78b7bca8f 100644
 From 8fb251be03e147bd9ea24daf2fb5ed52b16d1a15 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 27 Apr 2026 14:37:03 +0000
-Subject: [PATCH 18/31] Don't resend the edited message automatically
+Subject: [PATCH 18/32] Don't resend the edited message automatically
 
 It would be nice for many people, but I want to just rather save it.
 ---
@@ -1106,7 +1106,7 @@ index 5c18506d89..ba01d302d4 100644
 From 1105271c06b6d92add30f7a2da7434e8cb8a9818 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 19 Jun 2026 14:53:55 +0000
-Subject: [PATCH 19/31] Pin docker base image
+Subject: [PATCH 19/32] Pin docker base image
 
 Node 24.17 has the issue of https://github.com/nodejs/node/issues/63989,
 so pin the image to 24.16.0 temporarily
@@ -1141,7 +1141,7 @@ index 2fd88d2fb6..e4692db592 100644
 From d7e4b2b3eb8cb15558dd192198027cdf1c1a8e24 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Tue, 23 Jun 2026 23:44:22 +0000
-Subject: [PATCH 20/31] Open Share modal by defailt in OpenAI compatible JSON
+Subject: [PATCH 20/32] Open Share modal by defailt in OpenAI compatible JSON
  mode
 
 ---
@@ -1182,7 +1182,7 @@ index b76539e738..8d62db15a7 100644
 From edc26e750d76910c86b391cb09aa90ac6352136f Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 29 Jun 2026 14:03:03 +0000
-Subject: [PATCH 21/31] Reset model switch panel width when opening it in
+Subject: [PATCH 21/32] Reset model switch panel width when opening it in
  narrower phone
 
 ---
@@ -1222,7 +1222,7 @@ index 3212079217..d47451004c 100644
 From 2a5cd6da85e7f0c3c1a6b8ae126f54088cd25c4d Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 29 Jun 2026 18:42:37 +0000
-Subject: [PATCH 22/31] Show right panel controls even in mobile (in not clean
+Subject: [PATCH 22/32] Show right panel controls even in mobile (in not clean
  way)
 
 ---
@@ -1351,7 +1351,7 @@ index 2d56473f95..f2fbe91e67 100644
 From a74eb0bc562e3355e61417fcdc34506abd9e94fe Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 6 Jul 2026 06:42:46 +0000
-Subject: [PATCH 23/31] Shorten message in topic card for faster performance
+Subject: [PATCH 23/32] Shorten message in topic card for faster performance
 
 ---
  src/features/AgentTopicManager/TopicCard.tsx | 13 ++++++++++---
@@ -1395,7 +1395,7 @@ index 79918b2b18..d114e63db0 100644
 From a6c44f7f2b2058205342fa6d5cf74a94a3dc7fce Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 6 Jul 2026 07:40:48 +0000
-Subject: [PATCH 24/31] Allow to open topic in new tab via Ctrl+Click
+Subject: [PATCH 24/32] Allow to open topic in new tab via Ctrl+Click
 
 ---
  .../AgentSidebar/Topic/List/Item/index.tsx    | 27 +++++++++++--------
@@ -1507,7 +1507,7 @@ index d114e63db0..a3d3640966 100644
 From b9a13708353ce3dbd39e60093ebe8aa58d7eef81 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 6 Jul 2026 18:48:42 +0000
-Subject: [PATCH 25/31] Do not add additives to system prompt
+Subject: [PATCH 25/32] Do not add additives to system prompt
 
 ---
  .../builtin-agents/src/agents/inbox/index.ts     |  3 +--
@@ -1603,7 +1603,7 @@ index b1a3e009e0..be5baad634 100644
 From f1d20d41142feea582f9bad1381760a566f2c073 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 26 Jul 2026 09:14:36 +0000
-Subject: [PATCH 26/31] Wait @lobehub/editor@4.23.x for a week
+Subject: [PATCH 26/32] Wait @lobehub/editor@4.23.x for a week
 
 Due to minimumReleaseAge
 ---
@@ -1630,7 +1630,7 @@ index 20f62e5b12..1c0c9eb3e0 100644
 From 39cec174e0e87c5bf521955ab9afa41f4a34e1fc Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 26 Jul 2026 08:13:14 +0000
-Subject: [PATCH 27/31] Fix 900s timeout issue
+Subject: [PATCH 27/32] Fix 900s timeout issue
 
 ---
  packages/model-runtime/package.json           |  1 +
@@ -1850,7 +1850,7 @@ index f420130d17..9a71ad655e 100644
 From 2743d6742c74d7c9f774c97f3578d4bce2555d6e Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 27 Jul 2026 03:41:09 +0000
-Subject: [PATCH 28/31] Disable retries (OpenAI, LobeChat)
+Subject: [PATCH 28/32] Disable retries (OpenAI, LobeChat)
 
 ---
  .../src/modules/AgentRuntime/adapters/ServerLLMTransport.ts     | 1 +
@@ -1902,7 +1902,7 @@ index c797efff63..2e965a702a 100644
 From 902c2a47ca900ad0ce7979ba138b22d30e18e603 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 27 Jul 2026 18:25:30 +0000
-Subject: [PATCH 29/31] Disable QStash logs
+Subject: [PATCH 29/32] Disable QStash logs
 
 ---
  .../server/src/workflows-hono/qstashClient.ts | 18 +++++--
@@ -2017,7 +2017,7 @@ index c113c0bf70..0af1a8f795 100644
 From c10553f07b91e9d2212b4dbe409cf7655b569b41 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 27 Jul 2026 18:32:10 +0000
-Subject: [PATCH 30/31] Fix updateMessageError type error
+Subject: [PATCH 30/32] Fix updateMessageError type error
 
 ---
  src/services/message/index.ts | 16 +++++++++++++---
@@ -2057,7 +2057,7 @@ index 436b0e195b..ac4248d47e 100644
 From d32f8d913ecc3014549fd368cd46dcbdfd5bc621 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 27 Jul 2026 18:33:05 +0000
-Subject: [PATCH 31/31] Log if custom undici is loaded and used
+Subject: [PATCH 31/32] Log if custom undici is loaded and used
 
 ---
  .../core/openaiCompatibleFactory/timeout.ts   | 13 ++++++++++
@@ -2160,6 +2160,108 @@ index 131c62f093..f18d18de9a 100644
      } catch (error) {
        console.warn('[Instrumentation] failed to install undici fetch+dispatcher:', error);
      }
+-- 
+2.39.5
+
+
+From 239186f05ea09cacab7eade7ea84d125ef413724 Mon Sep 17 00:00:00 2001
+From: MaySoMusician <maysomusician@gmail.com>
+Date: Wed, 29 Jul 2026 14:28:54 +0000
+Subject: [PATCH 32/32] Do not load lobe-image-generation tool
+
+---
+ apps/server/src/modules/Mecha/AgentToolsEngine/index.ts | 5 -----
+ packages/builtin-tools/src/index.ts                     | 1 -
+ src/helpers/toolEngineering/index.ts                    | 9 ---------
+ 3 files changed, 15 deletions(-)
+
+diff --git a/apps/server/src/modules/Mecha/AgentToolsEngine/index.ts b/apps/server/src/modules/Mecha/AgentToolsEngine/index.ts
+index 94a86edc30..c9c950d249 100644
+--- a/apps/server/src/modules/Mecha/AgentToolsEngine/index.ts
++++ b/apps/server/src/modules/Mecha/AgentToolsEngine/index.ts
+@@ -11,7 +11,6 @@
+  */
+ import { BrowserManifest } from '@lobechat/builtin-tool-browser';
+ import { CloudSandboxManifest } from '@lobechat/builtin-tool-cloud-sandbox';
+-import { ImageGenerationManifest } from '@lobechat/builtin-tool-image-generation';
+ import { KnowledgeBaseManifest } from '@lobechat/builtin-tool-knowledge-base';
+ import { LocalSystemManifest } from '@lobechat/builtin-tool-local-system';
+ import { MemoryManifest } from '@lobechat/builtin-tool-memory';
+@@ -164,7 +163,6 @@ export const createServerAgentToolsEngine = (
+     isGroupSupervisor = false,
+     manifestContext,
+     model,
+-    modelAbilities,
+     provider,
+     useApplicationBuiltinSearchTool,
+   } = params;
+@@ -209,8 +207,6 @@ export const createServerAgentToolsEngine = (
+ 
+   const searchMode = agentConfig.chatConfig?.searchMode ?? 'auto';
+   const isSearchEnabled = useApplicationBuiltinSearchTool ?? searchMode !== 'off';
+-  const imageGenerationEnabled =
+-    context.isModelSupportToolUse(model, provider) && !modelAbilities?.imageOutput;
+   // Tool mode: explicit `toolMode` wins; otherwise derive from `enableAgentMode`
+   // (undefined = agent). `custom` = toolset is exactly the agent's plugins.
+   const toolMode = resolveToolMode(agentConfig.chatConfig ?? undefined);
+@@ -238,7 +234,6 @@ export const createServerAgentToolsEngine = (
+   const chatModeRules = {
+     // Example: Claude can call tools but lacks native imageOutput, so expose the
+     // image-generation fallback; image-output models should use their native path.
+-    [ImageGenerationManifest.identifier]: imageGenerationEnabled,
+     [KnowledgeBaseManifest.identifier]: hasEnabledKnowledgeBases,
+     [MemoryManifest.identifier]: globalMemoryEnabled,
+     [WebBrowsingManifest.identifier]: isSearchEnabled,
+diff --git a/packages/builtin-tools/src/index.ts b/packages/builtin-tools/src/index.ts
+index f92b2fc210..0c5d1edd0d 100644
+--- a/packages/builtin-tools/src/index.ts
++++ b/packages/builtin-tools/src/index.ts
+@@ -106,7 +106,6 @@ export const chatModeAllowedToolIds = [
+   KnowledgeBaseManifest.identifier,
+   MemoryManifest.identifier,
+   WebBrowsingManifest.identifier,
+-  ImageGenerationManifest.identifier,
+ ];
+ 
+ /**
+diff --git a/src/helpers/toolEngineering/index.ts b/src/helpers/toolEngineering/index.ts
+index 23b3dc4cac..f5562fee87 100644
+--- a/src/helpers/toolEngineering/index.ts
++++ b/src/helpers/toolEngineering/index.ts
+@@ -3,7 +3,6 @@
+  */
+ import { BrowserManifest } from '@lobechat/builtin-tool-browser';
+ import { CloudSandboxManifest } from '@lobechat/builtin-tool-cloud-sandbox';
+-import { ImageGenerationManifest } from '@lobechat/builtin-tool-image-generation';
+ import { KnowledgeBaseManifest } from '@lobechat/builtin-tool-knowledge-base';
+ import { LocalSystemManifest } from '@lobechat/builtin-tool-local-system';
+ import { MemoryManifest } from '@lobechat/builtin-tool-memory';
+@@ -25,7 +24,6 @@ import { isToolAvailableInCurrentEnv } from '@/helpers/toolAvailability';
+ import { patchManifestWithPermissions } from '@/libs/mcp/patchManifestPermissions';
+ import { getAgentStoreState } from '@/store/agent';
+ import { agentChatConfigSelectors, agentSelectors } from '@/store/agent/selectors';
+-import { aiModelSelectors, getAiInfraStoreState } from '@/store/aiInfra';
+ import { getToolStoreState } from '@/store/tool';
+ import {
+   composioStoreSelectors,
+@@ -234,17 +232,10 @@ export const createAgentToolsEngine = (
+     agentChatConfigSelectors.currentChatConfig(agentState).memory?.enabled ??
+     settingsSelectors.memoryEnabled(useUserStore.getState());
+   const webBrowsingEnabled = searchConfig.useApplicationBuiltinSearchTool;
+-  const imageGenerationEnabled =
+-    isCanUseFC(workingModel.model, workingModel.provider) &&
+-    !aiModelSelectors.isModelSupportImageOutput(
+-      workingModel.model,
+-      workingModel.provider,
+-    )(getAiInfraStoreState());
+ 
+   const chatModeRules = {
+     // Example: Claude can call tools but lacks native imageOutput, so expose the
+     // image-generation fallback; image-output models should use their native path.
+-    [ImageGenerationManifest.identifier]: imageGenerationEnabled,
+     [KnowledgeBaseManifest.identifier]: kbEnabled,
+     [MemoryManifest.identifier]: memoryEnabled,
+     [WebBrowsingManifest.identifier]: webBrowsingEnabled,
 -- 
 2.39.5
 
