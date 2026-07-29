@@ -1899,42 +1899,52 @@ index c797efff63..2e965a702a 100644
 2.39.5
 
 
-From 880a3d508a89984f231b38ab0a5699f945d20298 Mon Sep 17 00:00:00 2001
+From 902c2a47ca900ad0ce7979ba138b22d30e18e603 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 27 Jul 2026 18:25:30 +0000
 Subject: [PATCH 29/31] Disable QStash logs
 
 ---
- .../server/src/workflows-hono/qstashClient.ts | 12 +++--
+ .../server/src/workflows-hono/qstashClient.ts | 18 +++++--
  src/libs/qstash/index.ts                      | 50 ++++++++++++++-----
- 2 files changed, 46 insertions(+), 16 deletions(-)
+ 2 files changed, 51 insertions(+), 17 deletions(-)
 
 diff --git a/apps/server/src/workflows-hono/qstashClient.ts b/apps/server/src/workflows-hono/qstashClient.ts
-index d8b4d255ed..c1755d4e0a 100644
+index d8b4d255ed..cd5e57e084 100644
 --- a/apps/server/src/workflows-hono/qstashClient.ts
 +++ b/apps/server/src/workflows-hono/qstashClient.ts
-@@ -7,10 +7,16 @@ const { upstashWorkflowExtraHeaders } = parseMemoryExtractionConfig();
+@@ -1,4 +1,4 @@
+-import { OtelQstashClient } from '@/libs/qstash';
++import { createLazyClient, OtelQstashClient } from '@/libs/qstash';
+ import { parseMemoryExtractionConfig } from '@/server/globalConfig/parseMemoryExtractionConfig';
+ 
+ const { upstashWorkflowExtraHeaders } = parseMemoryExtractionConfig();
+@@ -7,10 +7,20 @@ const { upstashWorkflowExtraHeaders } = parseMemoryExtractionConfig();
  // intermediate `context.run(...)` calls (which don't accept per-call headers). We inject them via
  // a shared QStash client. See:
  // https://upstash.com/docs/workflow/troubleshooting/vercel#step-2-pass-header-when-triggering
--export const createWorkflowQstashClient = () =>
++//
++// Lazily construct so Next.js page-data collection / route module evaluation can succeed without
++// QSTASH_TOKEN at build time (token is only required on first real client use).
+ export const createWorkflowQstashClient = () =>
 -  new OtelQstashClient({
-+export const createWorkflowQstashClient = () => {
-+  const token = process.env.QSTASH_TOKEN;
-+  if (!token) {
-+    throw new Error('QSTASH_TOKEN is required for Upstash Workflow routes');
-+  }
-+
-+  return new OtelQstashClient({
-     headers: { ...upstashWorkflowExtraHeaders },
+-    headers: { ...upstashWorkflowExtraHeaders },
 -    token: process.env.QSTASH_TOKEN!,
-+    token,
++  createLazyClient(() => {
++    const token = process.env.QSTASH_TOKEN;
++    if (!token) {
++      throw new Error('QSTASH_TOKEN is required for Upstash Workflow routes');
++    }
++
++    return new OtelQstashClient({
++      headers: { ...upstashWorkflowExtraHeaders },
++      token,
++    });
    });
-+};
  
  export { upstashWorkflowExtraHeaders };
 diff --git a/src/libs/qstash/index.ts b/src/libs/qstash/index.ts
-index c113c0bf70..33c4e6f96b 100644
+index c113c0bf70..0af1a8f795 100644
 --- a/src/libs/qstash/index.ts
 +++ b/src/libs/qstash/index.ts
 @@ -130,25 +130,49 @@ export class OtelWorkflowClient extends WorkflowClient {
@@ -1949,7 +1959,7 @@ index c113c0bf70..33c4e6f96b 100644
 +  return token;
 +};
 +
-+const createLazyClient = <T extends object>(factory: () => T): T => {
++export const createLazyClient = <T extends object>(factory: () => T): T => {
 +  let instance: T | undefined;
 +
 +  return new Proxy({} as T, {
@@ -2004,7 +2014,7 @@ index c113c0bf70..33c4e6f96b 100644
 2.39.5
 
 
-From 7cb449b63194fc3c7f6007992124cdb60eeaf768 Mon Sep 17 00:00:00 2001
+From c10553f07b91e9d2212b4dbe409cf7655b569b41 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 27 Jul 2026 18:32:10 +0000
 Subject: [PATCH 30/31] Fix updateMessageError type error
@@ -2044,7 +2054,7 @@ index 436b0e195b..ac4248d47e 100644
 2.39.5
 
 
-From 4ff760311c08fc327212505ad28b0645490be832 Mon Sep 17 00:00:00 2001
+From d32f8d913ecc3014549fd368cd46dcbdfd5bc621 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 27 Jul 2026 18:33:05 +0000
 Subject: [PATCH 31/31] Log if custom undici is loaded and used
