@@ -72,9 +72,17 @@ export const checks = [
           "trustPolicy: no-downgrade",
         ],
       },
+    ],
+  },
+  {
+    id: "hono-node-server-pin",
+    asserts: [
       {
-        file: "package.json",
-        patterns: ['"@lobehub/editor": "^4.19.1 <4.23.0"'],
+        file: "pnpm-workspace.yaml",
+        patterns: [
+          "- '@hono/node-server@1.19.17'",
+          "'@hono/node-server': 1.19.17",
+        ],
       },
     ],
   },

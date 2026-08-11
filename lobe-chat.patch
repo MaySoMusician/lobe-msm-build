@@ -1,4 +1,4 @@
-From 94eae8dc3aa730a92ca3766402fd6fc74ede4dc9 Mon Sep 17 00:00:00 2001
+From 5391b166a030c6234952d0626d271b555f85d08d Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Tue, 31 Mar 2026 19:01:33 +0000
 Subject: [PATCH 01/32] Add optional arg to set npm registry for Dockerfile
@@ -8,7 +8,7 @@ Subject: [PATCH 01/32] Add optional arg to set npm registry for Dockerfile
  1 file changed, 4 insertions(+)
 
 diff --git a/Dockerfile b/Dockerfile
-index 92371587b9..562c9464fc 100644
+index 2bdbc42b44..a9d6b92e7c 100644
 --- a/Dockerfile
 +++ b/Dockerfile
 @@ -29,6 +29,7 @@ RUN set -e && \
@@ -19,7 +19,7 @@ index 92371587b9..562c9464fc 100644
  ARG USE_CN_MIRROR
  ARG NEXT_PUBLIC_BASE_PATH
  ARG NEXT_PUBLIC_SENTRY_DSN
-@@ -82,6 +83,9 @@ RUN set -e && \
+@@ -74,6 +75,9 @@ RUN set -e && \
          npm config set registry "https://registry.npmmirror.com/"; \
          echo 'canvas_binary_host_mirror=https://npmmirror.com/mirrors/canvas' >> .npmrc; \
      fi && \
@@ -33,7 +33,7 @@ index 92371587b9..562c9464fc 100644
 2.39.5
 
 
-From 931e4ecf484bc733123bd1ce794cee4003e4a9d3 Mon Sep 17 00:00:00 2001
+From 97ea23fd0c1c0aaae81e614897840301929a0d9e Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 6 Apr 2026 20:40:07 +0000
 Subject: [PATCH 02/32] Set retry options for pnpm install inside Dockerfile
@@ -43,10 +43,10 @@ Subject: [PATCH 02/32] Set retry options for pnpm install inside Dockerfile
  1 file changed, 3 insertions(+)
 
 diff --git a/Dockerfile b/Dockerfile
-index 562c9464fc..39b234c8a3 100644
+index a9d6b92e7c..47c1a073b7 100644
 --- a/Dockerfile
 +++ b/Dockerfile
-@@ -90,6 +90,9 @@ RUN set -e && \
+@@ -82,6 +82,9 @@ RUN set -e && \
      npm i -g corepack@latest && \
      corepack enable && \
      corepack use $(sed -n 's/.*"packageManager": "\(.*\)".*/\1/p' package.json) && \
@@ -60,7 +60,7 @@ index 562c9464fc..39b234c8a3 100644
 2.39.5
 
 
-From df55edc025b18d8273c554ddb023b04c330e4f9c Mon Sep 17 00:00:00 2001
+From 15e03145b6f9d45fcfd24876af91fa0ada2bf818 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Tue, 12 May 2026 18:45:03 +0000
 Subject: [PATCH 03/32] Harden npm (pnpm) security
@@ -85,10 +85,10 @@ index 999be96503..836d41ee82 100644
  
  public-hoist-pattern[]=*@umijs/lint*
 diff --git a/package.json b/package.json
-index 84a760aeee..20f62e5b12 100644
+index 0293d8fb22..a00cc5ca8d 100644
 --- a/package.json
 +++ b/package.json
-@@ -569,7 +569,11 @@
+@@ -570,7 +570,11 @@
    "pnpm": {
      "onlyBuiltDependencies": [
        "@lobehub/editor",
@@ -151,7 +151,7 @@ index 287c2fa2fa..5a4ad69203 100644
 2.39.5
 
 
-From 588dc78158082a189e66272781741e6ebb51d3a5 Mon Sep 17 00:00:00 2001
+From a0d00c9777498fe9945a41fa1241ccf3558ebae2 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 13 May 2026 17:43:57 +0000
 Subject: [PATCH 04/32] Harden Dockerfile security
@@ -161,10 +161,10 @@ Subject: [PATCH 04/32] Harden Dockerfile security
  1 file changed, 7 insertions(+), 3 deletions(-)
 
 diff --git a/Dockerfile b/Dockerfile
-index 39b234c8a3..2fd88d2fb6 100644
+index 47c1a073b7..7d7894349f 100644
 --- a/Dockerfile
 +++ b/Dockerfile
-@@ -87,17 +87,21 @@ RUN set -e && \
+@@ -79,17 +79,21 @@ RUN set -e && \
          npm config set registry "${NPM_REGISTRY}"; \
      fi && \
      export COREPACK_NPM_REGISTRY=$(npm config get registry | sed 's/\/$//') && \
@@ -193,7 +193,7 @@ index 39b234c8a3..2fd88d2fb6 100644
 2.39.5
 
 
-From 4cee0d346812c36d0c47d9b5c73f1937aa12fe25 Mon Sep 17 00:00:00 2001
+From f3f66b7e13b58cd6263781946644745bbecb0b88 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 10 Apr 2026 19:13:51 +0000
 Subject: [PATCH 05/32] Dedupe @lobehub/ui package in vite
@@ -203,10 +203,10 @@ Subject: [PATCH 05/32] Dedupe @lobehub/ui package in vite
  1 file changed, 1 insertion(+)
 
 diff --git a/vite.config.ts b/vite.config.ts
-index 00362fd606..e888933efa 100644
+index 01a9fd92e1..5c4e3123eb 100644
 --- a/vite.config.ts
 +++ b/vite.config.ts
-@@ -121,6 +121,7 @@ export default defineConfig({
+@@ -124,6 +124,7 @@ export default defineConfig({
      bundledDev: false,
    },
    resolve: {
@@ -218,7 +218,7 @@ index 00362fd606..e888933efa 100644
 2.39.5
 
 
-From 3def5afc9f119a88ef0fdb7f208e8e1aaca900aa Mon Sep 17 00:00:00 2001
+From ef8cd9e855a8234d8b2db7057c28f90aa3574ec5 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 6 Feb 2025 20:34:05 +0000
 Subject: [PATCH 06/32] Load Google Fonts script and IBM Plex Sans JP
@@ -266,7 +266,7 @@ index 18d4ba16b6..e67ee4d463 100644
 2.39.5
 
 
-From a41826f9609ff23ab4c00b24f2faf80947cbc82a Mon Sep 17 00:00:00 2001
+From b1ce338222dcec2e9a9f93ecd97bd11bc68c03ff Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 7 Feb 2025 08:18:42 +0000
 Subject: [PATCH 07/32] Force to use en-US as language
@@ -295,7 +295,7 @@ index 5dbaf4408b..cdad3d1f89 100644
 2.39.5
 
 
-From 5210cc80946b2ba4c1ac7730dc44bdd5cac583fb Mon Sep 17 00:00:00 2001
+From 9914b16c92283cd66ed98d10def6348d0319cb92 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 28 Jan 2026 01:28:48 +0000
 Subject: [PATCH 08/32] Show only English and Japanese option for language
@@ -360,7 +360,7 @@ index 6b301a2958..d696410d1b 100644
 2.39.5
 
 
-From bb15170f05dc660af125e8d51e1f5d4dbc6a0b95 Mon Sep 17 00:00:00 2001
+From 6b9dfce4cadeb51bb1f29aa2c57bcfecd7d602f4 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 8 Oct 2025 14:38:00 +0000
 Subject: [PATCH 09/32] Overwrite reasoning.summary to undefined for requests
@@ -389,7 +389,7 @@ index f9eb28415d..bce2e59a2e 100644
 2.39.5
 
 
-From d5de57c9b5c42d6085b0a47a7fc36a818d410c9e Mon Sep 17 00:00:00 2001
+From 59070e16c7dbbcf083501a9d04ade4748fe6154c Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 28 Jan 2026 01:29:51 +0000
 Subject: [PATCH 10/32] Disable streaming and allow Responses API for gpt-5
@@ -481,7 +481,7 @@ index a0811b1f27..17cebc8e55 100644
 2.39.5
 
 
-From 43d5dbe234d5ebeb7dc016eef024099a225df53b Mon Sep 17 00:00:00 2001
+From 3f51a0bc706f1668a80ae68e83e39290ff375faa Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 22 Sep 2025 15:02:20 +0000
 Subject: [PATCH 11/32] Use stream flag value from handled payload
@@ -491,10 +491,10 @@ Subject: [PATCH 11/32] Use stream flag value from handled payload
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts b/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
-index e446ca597e..cdb884f37a 100644
+index 11387c7e0f..bb9c227ae0 100644
 --- a/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
 +++ b/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
-@@ -1435,7 +1435,7 @@ export const createOpenAICompatibleRuntime = <T extends Record<string, any> = an
+@@ -1501,7 +1501,7 @@ export const createOpenAICompatibleRuntime = <T extends Record<string, any> = an
          strictToolPairing: true,
        });
  
@@ -507,7 +507,7 @@ index e446ca597e..cdb884f37a 100644
 2.39.5
 
 
-From 63585362b37d89d5cdb634c232f41ac0ba7bc5a8 Mon Sep 17 00:00:00 2001
+From f3a58f09ac0cc687d49e50866c7659ad5f39f02b Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 22 Sep 2025 15:03:21 +0000
 Subject: [PATCH 12/32] Introduce more detailed non-streaming response
@@ -796,7 +796,7 @@ index b6c980b78e..0bac5c17e1 100644
 2.39.5
 
 
-From e2883eaebcc678fcf41efae88591d0ce4c86d699 Mon Sep 17 00:00:00 2001
+From 694f8c5136e9b4e8d6bec4c8c31b0ad71e67e0c8 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 12 Oct 2025 16:37:16 +0000
 Subject: [PATCH 13/32] Use conversation language for summaryTitle
@@ -822,7 +822,7 @@ index b8d5034d1c..d627cabbf3 100644
 2.39.5
 
 
-From 32ab4b4c6dfef122194b01d1f58b39498af1e6ed Mon Sep 17 00:00:00 2001
+From 72f2a652106e45297706b03e9dc47db3a3860a78 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 5 Mar 2026 10:44:37 +0000
 Subject: [PATCH 14/32] Do not load default tools like lobe-tools etc.
@@ -833,7 +833,7 @@ Also show them in the skill list
  1 file changed, 4 insertions(+), 9 deletions(-)
 
 diff --git a/packages/builtin-tools/src/index.ts b/packages/builtin-tools/src/index.ts
-index 8a2d0d71cf..f92b2fc210 100644
+index 02e57f23e1..aa476ff942 100644
 --- a/packages/builtin-tools/src/index.ts
 +++ b/packages/builtin-tools/src/index.ts
 @@ -72,12 +72,7 @@ export const defaultToolIds = [
@@ -879,7 +879,7 @@ index 8a2d0d71cf..f92b2fc210 100644
 2.39.5
 
 
-From 7cd46735c037f1fa1b15f57c6c303da1fcdcab30 Mon Sep 17 00:00:00 2001
+From 1a9ad6da51977664d7c9979d3003ecd0b6aeac4d Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 20 Mar 2026 18:26:33 +0000
 Subject: [PATCH 15/32] Disable Markdown Editor for user messages
@@ -987,7 +987,7 @@ index 8bf7cf234d..e99c6246b2 100644
 2.39.5
 
 
-From 4c9f2eef7091fb066900070fa48d80e5d5d97ba2 Mon Sep 17 00:00:00 2001
+From b7128b1a02b2f0b732b10d247d7b30b545d241c6 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 29 Mar 2026 12:25:13 +0000
 Subject: [PATCH 16/32] Always show exact token number
@@ -998,7 +998,7 @@ Subject: [PATCH 16/32] Always show exact token number
  2 files changed, 1 insertion(+), 6 deletions(-)
 
 diff --git a/packages/utils/src/format.ts b/packages/utils/src/format.ts
-index e8d929ebc7..a67591f76c 100644
+index d96cb824b7..9e24c4fa44 100644
 --- a/packages/utils/src/format.ts
 +++ b/packages/utils/src/format.ts
 @@ -82,9 +82,6 @@ export const formatIntergerNumber = (num?: any) => {
@@ -1030,7 +1030,7 @@ index 2c19029d22..33294cd784 100644
 2.39.5
 
 
-From 3b9fbcd07a52b5d2c2410c5241372b3ed8e15a87 Mon Sep 17 00:00:00 2001
+From 3b708a59ccf51e926fe2aa219a70cdf230069a9e Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 27 Apr 2026 06:51:48 +0000
 Subject: [PATCH 17/32] Open reasoning & verbosity config first, instead of
@@ -1041,7 +1041,7 @@ Subject: [PATCH 17/32] Open reasoning & verbosity config first, instead of
  1 file changed, 3 deletions(-)
 
 diff --git a/src/store/global/initialState.ts b/src/store/global/initialState.ts
-index 5c27847b75..c78b7bca8f 100644
+index 03396ab76b..bc83884e3f 100644
 --- a/src/store/global/initialState.ts
 +++ b/src/store/global/initialState.ts
 @@ -131,9 +131,6 @@ export type ModelDetailPanelExpandedKey = (typeof MODEL_DETAIL_PANEL_EXPANDED_KE
@@ -1058,7 +1058,7 @@ index 5c27847b75..c78b7bca8f 100644
 2.39.5
 
 
-From 8fb251be03e147bd9ea24daf2fb5ed52b16d1a15 Mon Sep 17 00:00:00 2001
+From e326d94223e06ff8bb6493c90d0c43f9db4cf6cb Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 27 Apr 2026 14:37:03 +0000
 Subject: [PATCH 18/32] Don't resend the edited message automatically
@@ -1103,7 +1103,7 @@ index 5c18506d89..ba01d302d4 100644
 2.39.5
 
 
-From 1105271c06b6d92add30f7a2da7434e8cb8a9818 Mon Sep 17 00:00:00 2001
+From d0cc6a2539931262afbf35befd3e251c12fd129e Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 19 Jun 2026 14:53:55 +0000
 Subject: [PATCH 19/32] Pin docker base image
@@ -1115,7 +1115,7 @@ so pin the image to 24.16.0 temporarily
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/Dockerfile b/Dockerfile
-index 2fd88d2fb6..e4692db592 100644
+index 7d7894349f..04acc72752 100644
 --- a/Dockerfile
 +++ b/Dockerfile
 @@ -1,5 +1,5 @@
@@ -1125,7 +1125,7 @@ index 2fd88d2fb6..e4692db592 100644
  
  ## Base image for all building stages
  FROM node:${NODEJS_VERSION}-slim AS base
-@@ -113,7 +113,7 @@ RUN rm -rf src/app/desktop "src/app/(backend)/trpc/desktop"
+@@ -105,7 +105,7 @@ RUN rm -rf src/app/desktop "src/app/(backend)/trpc/desktop"
  RUN npm run build:docker
  
  ## Application image, copy all the files for production
@@ -1138,7 +1138,7 @@ index 2fd88d2fb6..e4692db592 100644
 2.39.5
 
 
-From d7e4b2b3eb8cb15558dd192198027cdf1c1a8e24 Mon Sep 17 00:00:00 2001
+From 37e1c823559c5238103473a6239c012868f126a7 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Tue, 23 Jun 2026 23:44:22 +0000
 Subject: [PATCH 20/32] Open Share modal by defailt in OpenAI compatible JSON
@@ -1150,18 +1150,18 @@ Subject: [PATCH 20/32] Open Share modal by defailt in OpenAI compatible JSON
  2 files changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/src/features/ShareModal/Modal.tsx b/src/features/ShareModal/Modal.tsx
-index fbd08e4533..2e140aaba0 100644
+index 463e5e2a5a..19a4d4e679 100644
 --- a/src/features/ShareModal/Modal.tsx
 +++ b/src/features/ShareModal/Modal.tsx
-@@ -28,7 +28,7 @@ export interface OpenShareModalOptions {
+@@ -24,7 +24,7 @@ export interface OpenShareModalOptions {
  }
  
  const ShareModalContent = memo(() => {
--  const [tab, setTab] = useState<Tab>(Tab.Screenshot);
-+  const [tab, setTab] = useState<Tab>(Tab.JSON);
+-  const [tab, setTab] = useState<ShareTab>(ShareTab.Screenshot);
++  const [tab, setTab] = useState<ShareTab>(ShareTab.JSON);
+   const [rendererAttempt, setRendererAttempt] = useState(0);
+   const [rendererState, setRendererState] = useState<ShareTabRendererState>({ status: 'loading' });
    const { t } = useTranslation('chat');
-   const isMobile = useIsMobile();
-   const { dbMessages, isLoading } = useShareData();
 diff --git a/src/features/ShareModal/ShareJSON/index.tsx b/src/features/ShareModal/ShareJSON/index.tsx
 index b76539e738..8d62db15a7 100644
 --- a/src/features/ShareModal/ShareJSON/index.tsx
@@ -1179,7 +1179,7 @@ index b76539e738..8d62db15a7 100644
 2.39.5
 
 
-From edc26e750d76910c86b391cb09aa90ac6352136f Mon Sep 17 00:00:00 2001
+From 4ef7c2f6717ed6c4c2964a564ff4f328145df65b Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 29 Jun 2026 14:03:03 +0000
 Subject: [PATCH 21/32] Reset model switch panel width when opening it in
@@ -1219,7 +1219,7 @@ index 3212079217..d47451004c 100644
 2.39.5
 
 
-From 2a5cd6da85e7f0c3c1a6b8ae126f54088cd25c4d Mon Sep 17 00:00:00 2001
+From 30279b76a7a699458f72389aba4500c1f9b6e137 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 29 Jun 2026 18:42:37 +0000
 Subject: [PATCH 22/32] Show right panel controls even in mobile (in not clean
@@ -1232,7 +1232,7 @@ Subject: [PATCH 22/32] Show right panel controls even in mobile (in not clean
  3 files changed, 54 insertions(+), 7 deletions(-)
 
 diff --git a/src/features/ChatInput/ActionBar/Params/Controls.tsx b/src/features/ChatInput/ActionBar/Params/Controls.tsx
-index ea613bd0dd..09a2c2f9b6 100644
+index b3386af054..083b2ac931 100644
 --- a/src/features/ChatInput/ActionBar/Params/Controls.tsx
 +++ b/src/features/ChatInput/ActionBar/Params/Controls.tsx
 @@ -101,7 +101,6 @@ const styles = createStaticStyles(({ css }) => ({
@@ -1348,7 +1348,7 @@ index 2d56473f95..f2fbe91e67 100644
 2.39.5
 
 
-From a74eb0bc562e3355e61417fcdc34506abd9e94fe Mon Sep 17 00:00:00 2001
+From 66910826054790374adf13aa63fbfef1699d699e Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 6 Jul 2026 06:42:46 +0000
 Subject: [PATCH 23/32] Shorten message in topic card for faster performance
@@ -1392,7 +1392,7 @@ index 79918b2b18..d114e63db0 100644
 2.39.5
 
 
-From a6c44f7f2b2058205342fa6d5cf74a94a3dc7fce Mon Sep 17 00:00:00 2001
+From 4b33784d394e1a0d1a9449f416fc363a9bdb7665 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 6 Jul 2026 07:40:48 +0000
 Subject: [PATCH 24/32] Allow to open topic in new tab via Ctrl+Click
@@ -1504,7 +1504,7 @@ index d114e63db0..a3d3640966 100644
 2.39.5
 
 
-From b9a13708353ce3dbd39e60093ebe8aa58d7eef81 Mon Sep 17 00:00:00 2001
+From 50dbbafb8cc4e7aed1eee5bd25f291f1e5a5a621 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 6 Jul 2026 18:48:42 +0000
 Subject: [PATCH 25/32] Do not add additives to system prompt
@@ -1537,7 +1537,7 @@ index 319c098120..397d86058b 100644
  
    slug: BUILTIN_AGENT_SLUGS.inbox,
 diff --git a/packages/context-engine/src/engine/messages/MessagesEngine.ts b/packages/context-engine/src/engine/messages/MessagesEngine.ts
-index f95f5e133e..126597c1d0 100644
+index 27f5dba15f..da9632332a 100644
 --- a/packages/context-engine/src/engine/messages/MessagesEngine.ts
 +++ b/packages/context-engine/src/engine/messages/MessagesEngine.ts
 @@ -1,4 +1,4 @@
@@ -1546,7 +1546,7 @@ index f95f5e133e..126597c1d0 100644
  
  import type { OpenAIChatMessage } from '@/types/index';
  
-@@ -43,7 +43,6 @@ import {
+@@ -44,7 +44,6 @@ import {
    HistorySummaryProvider,
    KnowledgeInjector,
    LocalSystemToolSnapshotInjector,
@@ -1554,7 +1554,7 @@ index f95f5e133e..126597c1d0 100644
    OnboardingActionHintInjector,
    OnboardingContextInjector,
    OnboardingSyntheticStateInjector,
-@@ -52,7 +51,6 @@ import {
+@@ -53,7 +52,6 @@ import {
    PlanInjector,
    SelectedSkillInjector,
    SkillContextProvider,
@@ -1562,7 +1562,7 @@ index f95f5e133e..126597c1d0 100644
    SystemRoleInjector,
    TaskManagerContextInjector,
    TodoInjector,
-@@ -246,18 +244,6 @@ export class MessagesEngine {
+@@ -262,18 +260,6 @@ export class MessagesEngine {
          context: botPlatformContext,
          enabled: !!botPlatformContext,
        }),
@@ -1600,37 +1600,10 @@ index b1a3e009e0..be5baad634 100644
 2.39.5
 
 
-From f1d20d41142feea582f9bad1381760a566f2c073 Mon Sep 17 00:00:00 2001
-From: MaySoMusician <maysomusician@gmail.com>
-Date: Sun, 26 Jul 2026 09:14:36 +0000
-Subject: [PATCH 26/32] Wait @lobehub/editor@4.23.x for a week
-
-Due to minimumReleaseAge
----
- package.json | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/package.json b/package.json
-index 20f62e5b12..1c0c9eb3e0 100644
---- a/package.json
-+++ b/package.json
-@@ -295,7 +295,7 @@
-     "@lobehub/analytics": "^1.6.3",
-     "@lobehub/charts": "^5.4.0",
-     "@lobehub/desktop-ipc-typings": "workspace:*",
--    "@lobehub/editor": "^4.19.1",
-+    "@lobehub/editor": "^4.19.1 <4.23.0",
-     "@lobehub/icons": "^5.11.0",
-     "@lobehub/market-sdk": "0.39.2",
-     "@lobehub/tts": "^5.1.2",
--- 
-2.39.5
-
-
-From 39cec174e0e87c5bf521955ab9afa41f4a34e1fc Mon Sep 17 00:00:00 2001
+From 477ded84a024056db99edb68cb718fc182a97d4c Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 26 Jul 2026 08:13:14 +0000
-Subject: [PATCH 27/32] Fix 900s timeout issue
+Subject: [PATCH 26/32] Fix 900s timeout issue
 
 ---
  packages/model-runtime/package.json           |  1 +
@@ -1643,10 +1616,10 @@ Subject: [PATCH 27/32] Fix 900s timeout issue
  create mode 100644 packages/model-runtime/src/core/openaiCompatibleFactory/timeout.ts
 
 diff --git a/packages/model-runtime/package.json b/packages/model-runtime/package.json
-index a70b2cfd50..47770af704 100644
+index d9a8a8de84..98fcef7329 100644
 --- a/packages/model-runtime/package.json
 +++ b/packages/model-runtime/package.json
-@@ -37,6 +37,7 @@
+@@ -48,6 +48,7 @@
      "replicate": "^1.4.0",
      "tokenx": "^1.3.0",
      "type-fest": "^5.7.0",
@@ -1655,10 +1628,10 @@ index a70b2cfd50..47770af704 100644
    },
    "devDependencies": {
 diff --git a/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts b/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
-index cdb884f37a..549cb83b9b 100644
+index bb9c227ae0..bc282605bc 100644
 --- a/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
 +++ b/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
-@@ -72,10 +72,15 @@ import { convertOpenAIResponseUsage, convertOpenAIUsage } from '../usageConverte
+@@ -78,10 +78,15 @@ import { convertOpenAIResponseUsage, convertOpenAIUsage } from '../usageConverte
  import { createOpenAICompatibleImage } from './createImage';
  import { createOpenAICompatibleVideo, pollOpenAICompatibleVideoStatus } from './createVideo';
  import { transformResponseAPIToStream, transformResponseToStream } from './nonStreamToStream';
@@ -1674,7 +1647,7 @@ index cdb884f37a..549cb83b9b 100644
  
  /**
   * Detect provider 400/422 errors that reject `response_format: { type: 'json_schema' }`.
-@@ -363,7 +368,29 @@ export const createOpenAICompatibleRuntime = <T extends Record<string, any> = an
+@@ -370,7 +375,29 @@ export const createOpenAICompatibleRuntime = <T extends Record<string, any> = an
  
        if (!apiKey) throw AgentRuntimeError.createError(ErrorType?.invalidAPIKey);
  
@@ -1847,10 +1820,10 @@ index f420130d17..9a71ad655e 100644
 2.39.5
 
 
-From 2743d6742c74d7c9f774c97f3578d4bce2555d6e Mon Sep 17 00:00:00 2001
+From 6660958608be5d507556c691dccd66c50d55ca0b Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 27 Jul 2026 03:41:09 +0000
-Subject: [PATCH 28/32] Disable retries (OpenAI, LobeChat)
+Subject: [PATCH 27/32] Disable retries (OpenAI, LobeChat)
 
 ---
  .../src/modules/AgentRuntime/adapters/ServerLLMTransport.ts     | 1 +
@@ -1871,10 +1844,10 @@ index a20272320b..0b38c6f5a4 100644
  };
  
 diff --git a/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts b/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
-index 549cb83b9b..f45691c2c0 100644
+index bc282605bc..b044972dd9 100644
 --- a/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
 +++ b/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
-@@ -379,6 +379,8 @@ export const createOpenAICompatibleRuntime = <T extends Record<string, any> = an
+@@ -386,6 +386,8 @@ export const createOpenAICompatibleRuntime = <T extends Record<string, any> = an
          baseURL,
          ...constructorOptions,
          ...res,
@@ -1884,7 +1857,7 @@ index 549cb83b9b..f45691c2c0 100644
        };
  
 diff --git a/src/store/chat/agents/transports/ClientLLMTransport.ts b/src/store/chat/agents/transports/ClientLLMTransport.ts
-index c797efff63..2e965a702a 100644
+index 6d6ec59787..e370d4d77f 100644
 --- a/src/store/chat/agents/transports/ClientLLMTransport.ts
 +++ b/src/store/chat/agents/transports/ClientLLMTransport.ts
 @@ -36,6 +36,7 @@ import type { ClientLLMModelParameters } from './ClientContextBuilder';
@@ -1899,10 +1872,10 @@ index c797efff63..2e965a702a 100644
 2.39.5
 
 
-From 902c2a47ca900ad0ce7979ba138b22d30e18e603 Mon Sep 17 00:00:00 2001
+From 180e5e3caaf33609189676fa0142d088eb071fe4 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 27 Jul 2026 18:25:30 +0000
-Subject: [PATCH 29/32] Disable QStash logs
+Subject: [PATCH 28/32] Disable QStash logs
 
 ---
  .../server/src/workflows-hono/qstashClient.ts | 18 +++++--
@@ -2014,10 +1987,10 @@ index c113c0bf70..0af1a8f795 100644
 2.39.5
 
 
-From c10553f07b91e9d2212b4dbe409cf7655b569b41 Mon Sep 17 00:00:00 2001
+From 92f0659a758e4d49ff7740dc169e4256c3b2babc Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 27 Jul 2026 18:32:10 +0000
-Subject: [PATCH 30/32] Fix updateMessageError type error
+Subject: [PATCH 29/32] Fix updateMessageError type error
 
 ---
  src/services/message/index.ts | 16 +++++++++++++---
@@ -2054,10 +2027,10 @@ index 436b0e195b..ac4248d47e 100644
 2.39.5
 
 
-From d32f8d913ecc3014549fd368cd46dcbdfd5bc621 Mon Sep 17 00:00:00 2001
+From e00f36c5a06f8e344180349dae1e0f3c6c5afbcf Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 27 Jul 2026 18:33:05 +0000
-Subject: [PATCH 31/32] Log if custom undici is loaded and used
+Subject: [PATCH 30/32] Log if custom undici is loaded and used
 
 ---
  .../core/openaiCompatibleFactory/timeout.ts   | 13 ++++++++++
@@ -2164,10 +2137,10 @@ index 131c62f093..f18d18de9a 100644
 2.39.5
 
 
-From 239186f05ea09cacab7eade7ea84d125ef413724 Mon Sep 17 00:00:00 2001
+From 79ad4839ac900c6902a52dc0d0c5426862848dd2 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 29 Jul 2026 14:28:54 +0000
-Subject: [PATCH 32/32] Do not load lobe-image-generation tool
+Subject: [PATCH 31/32] Do not load lobe-image-generation tool
 
 ---
  apps/server/src/modules/Mecha/AgentToolsEngine/index.ts | 5 -----
@@ -2213,7 +2186,7 @@ index 94a86edc30..c9c950d249 100644
      [MemoryManifest.identifier]: globalMemoryEnabled,
      [WebBrowsingManifest.identifier]: isSearchEnabled,
 diff --git a/packages/builtin-tools/src/index.ts b/packages/builtin-tools/src/index.ts
-index f92b2fc210..0c5d1edd0d 100644
+index aa476ff942..ebc2709ef3 100644
 --- a/packages/builtin-tools/src/index.ts
 +++ b/packages/builtin-tools/src/index.ts
 @@ -106,7 +106,6 @@ export const chatModeAllowedToolIds = [
@@ -2262,6 +2235,40 @@ index 23b3dc4cac..f5562fee87 100644
      [KnowledgeBaseManifest.identifier]: kbEnabled,
      [MemoryManifest.identifier]: memoryEnabled,
      [WebBrowsingManifest.identifier]: webBrowsingEnabled,
+-- 
+2.39.5
+
+
+From d54cbf38d2b7a8c912137b3351899b0d4c1d3fba Mon Sep 17 00:00:00 2001
+From: MaySoMusician <maysomusician@gmail.com>
+Date: Sat, 1 Aug 2026 18:56:53 +0000
+Subject: [PATCH 32/32] Override @hono/node-server to 1.19.17
+
+As 1.19.15 is not so trusted (no GitHub release, no commit)
+---
+ pnpm-workspace.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/pnpm-workspace.yaml b/pnpm-workspace.yaml
+index 5a4ad69203..874bb3e1af 100644
+--- a/pnpm-workspace.yaml
++++ b/pnpm-workspace.yaml
+@@ -8,6 +8,7 @@ packages:
+ 
+ minimumReleaseAgeExclude:
+   - '@lobehub/*'
++  - '@hono/node-server@1.19.17'
+ 
+ onlyBuiltDependencies:
+   - '@google/genai'
+@@ -25,6 +26,7 @@ overrides:
+   react: 19.2.4
+   react-dom: 19.2.4
+   '@react-pdf/image': 3.0.4
++  '@hono/node-server': 1.19.17
+ 
+ patchedDependencies:
+   '@upstash/qstash': patches/@upstash__qstash.patch
 -- 
 2.39.5
 
