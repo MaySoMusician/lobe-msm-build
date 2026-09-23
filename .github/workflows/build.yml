@@ -73,6 +73,22 @@ jobs:
         run: |
           set -euo pipefail
           git am ../lobe-msm-build/lobe-ui.patch
+
+          ui_version="$(node -p "require('./package.json').version")"
+          if ! [[ "$ui_version" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "Unexpected lobe-ui version (expected x.y.z): '$ui_version'" >&2
+            exit 1
+          fi
+
+          npm pkg set "version=${ui_version}-msm"
+
+          suffixed_version="$(node -p "require('./package.json').version")"
+
+          if ! [[ "$suffixed_version" =~ ^[0-9]+\.[0-9]+\.[0-9]+-msm$ ]]; then
+            echo "Failed to suffix lobe-ui version: '$suffixed_version'" >&2
+            exit 1
+          fi
+
           npm config set --location=project registry "$AUDITED_NPM_REGISTRY"
           test "$(npm config get registry | sed 's#/*$#/#')" = "$AUDITED_NPM_REGISTRY"
           max_attempts=5

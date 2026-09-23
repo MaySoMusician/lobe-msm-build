@@ -1,14 +1,14 @@
-From 454293d86e8a2a03e0751cf6b8864b42714c0cdf Mon Sep 17 00:00:00 2001
+From c4c541c1c335303351e38bdbc6dc645f101bc12b Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 14 Oct 2024 10:15:38 +0000
-Subject: [PATCH 1/5] Change font list for Japanese
+Subject: [PATCH 1/7] Change font list for Japanese
 
 ---
- src/styles/theme/token/base.ts | 15 ++++-----------
- 1 file changed, 4 insertions(+), 11 deletions(-)
+ src/styles/theme/token/base.ts | 17 ++++-------------
+ 1 file changed, 4 insertions(+), 13 deletions(-)
 
 diff --git a/src/styles/theme/token/base.ts b/src/styles/theme/token/base.ts
-index 61f0caea..71317ab1 100644
+index 1191ab67..3fad6abf 100644
 --- a/src/styles/theme/token/base.ts
 +++ b/src/styles/theme/token/base.ts
 @@ -5,14 +5,14 @@ const joinFontFamily = (fonts: string[]) =>
@@ -23,15 +23,16 @@ index 61f0caea..71317ab1 100644
  ];
  
  const FONT_EN = [
--  'Geist',
+-  'HarmonyOS Sans',
 +  'IBM Plex Sans JP',
    '-apple-system',
    'BlinkMacSystemFont',
    'Segoe UI Variable Display',
-@@ -23,18 +23,11 @@ const FONT_EN = [
+@@ -22,19 +22,10 @@ const FONT_EN = [
+   'Arial',
  ];
  
- const FONT_CN = [
+-const FONT_CN = [
 -  '/* SC */',
 -  'HarmonyOS Sans SC',
 -  'PingFang SC',
@@ -40,11 +41,11 @@ index 61f0caea..71317ab1 100644
 -  'Microsoft YaHei',
 -  'Source Han Sans SC',
 -  'Noto Sans CJK SC',
-+   '/* SC */',
- ];
+-];
++const FONT_CN = ['/* SC */'];
  
  const FONT_CODE = [
--  'Geist Mono',
+-  'Hack',
 +  'Mgen+ 1mn',
    'ui-monospace',
    'SFMono-Regular',
@@ -53,17 +54,17 @@ index 61f0caea..71317ab1 100644
 2.39.5
 
 
-From 3f5de1d412360d33cc250c846588ab4d2e1ba204 Mon Sep 17 00:00:00 2001
+From 9a85f5c1c1a297391ea17b4bf9aa379fa2daa5a2 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 28 Oct 2024 15:09:31 +0000
-Subject: [PATCH 2/5] Do not load default EN & CN fonts
+Subject: [PATCH 2/7] Do not load default EN & CN fonts
 
 ---
  src/ThemeProvider/ThemeProvider.tsx | 16 ----------------
  1 file changed, 16 deletions(-)
 
 diff --git a/src/ThemeProvider/ThemeProvider.tsx b/src/ThemeProvider/ThemeProvider.tsx
-index a8e6feeb..f2287d0d 100644
+index dc4ad2d0..f2287d0d 100644
 --- a/src/ThemeProvider/ThemeProvider.tsx
 +++ b/src/ThemeProvider/ThemeProvider.tsx
 @@ -43,22 +43,6 @@ const ThemeProvider = memo<ThemeProviderProps>(
@@ -72,12 +73,12 @@ index a8e6feeb..f2287d0d 100644
          customFonts || [
 -          genCdnUrl({
 -            path: 'css/index.css',
--            pkg: '@lobehub/webfont-geist-mono',
+-            pkg: '@lobehub/webfont-mono',
 -            version: '1.0.0',
 -          }),
 -          genCdnUrl({
 -            path: 'css/index-full.css',
--            pkg: '@lobehub/webfont-geist',
+-            pkg: '@lobehub/webfont-harmony-sans',
 -            version: '1.0.0',
 -          }),
 -          genCdnUrl({
@@ -93,10 +94,10 @@ index a8e6feeb..f2287d0d 100644
 2.39.5
 
 
-From 51056eb854a1eb29f5f175fdbc2757f95e599fdd Mon Sep 17 00:00:00 2001
+From 004d2c65556e47dcae073bb51f5b381a7149476f Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sat, 13 Dec 2025 07:36:47 +0000
-Subject: [PATCH 3/5] Change colorTextSecondary color
+Subject: [PATCH 3/7] Change colorTextSecondary color
 
 ---
  src/styles/theme/generateColorPalette.ts | 2 +-
@@ -119,10 +120,10 @@ index 406ed592..2e0362db 100644
 2.39.5
 
 
-From ca35d32a9ecb49df2a2a6625c9033f750eba922d Mon Sep 17 00:00:00 2001
+From af96bd5cce4556e973e8e709b776dc39d88c5420 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sat, 10 Jan 2026 01:03:48 +0000
-Subject: [PATCH 4/5] Darken slate[12] dark color for text
+Subject: [PATCH 4/7] Darken slate[12] dark color for text
 
 ---
  src/color/neutrals/slate.ts | 2 +-
@@ -145,20 +146,20 @@ index 7341851a..cb38fec6 100644
 2.39.5
 
 
-From b7c390f816fbf8bb0fdeecda90775a6ead6553d9 Mon Sep 17 00:00:00 2001
+From dd55485225b1eb2e5a6f7771ce260dce08c4ab4e Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 27 Jul 2026 19:10:04 +0000
-Subject: [PATCH 5/5] Add workspaces config to package.json
+Subject: [PATCH 5/7] Add workspaces config to package.json
 
 ---
  package.json | 3 +++
  1 file changed, 3 insertions(+)
 
 diff --git a/package.json b/package.json
-index 025a1b66..ed4b1eb4 100644
+index 2b80a43c..36389912 100644
 --- a/package.json
 +++ b/package.json
-@@ -92,6 +92,9 @@
+@@ -112,6 +112,9 @@
    "files": [
      "es"
    ],
@@ -168,6 +169,59 @@ index 025a1b66..ed4b1eb4 100644
    "scripts": {
      "build": "tsdown && npm run build:packages",
      "build:packages": "tsx ./scripts/build.ts",
+-- 
+2.39.5
+
+
+From d3a6a78b9f098f9175876aa6a773628639874cab Mon Sep 17 00:00:00 2001
+From: MaySoMusician <maysomusician@gmail.com>
+Date: Wed, 23 Sep 2026 22:33:49 +0000
+Subject: [PATCH 6/7] Use the exact same package of this for dependencies
+
+---
+ package.json | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/package.json b/package.json
+index 36389912..a6af1b59 100644
+--- a/package.json
++++ b/package.json
+@@ -161,6 +161,9 @@
+       "eslint --fix"
+     ]
+   },
++  "overrides": {
++    "@lobehub/ui": "."
++  },
+   "dependencies": {
+     "@ant-design/cssinjs": "^2.1.2",
+     "@base-ui/react": "1.8.0",
+-- 
+2.39.5
+
+
+From a7aa06196a87ee37f3ca88cd898a78325d39b546 Mon Sep 17 00:00:00 2001
+From: MaySoMusician <maysomusician@gmail.com>
+Date: Wed, 23 Sep 2026 22:34:12 +0000
+Subject: [PATCH 7/7] Temporarily ban virtua 0.52.x due to min release age
+
+---
+ package.json | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/package.json b/package.json
+index a6af1b59..0191f559 100644
+--- a/package.json
++++ b/package.json
+@@ -240,7 +240,7 @@
+     "use-merge-value": "^1.2.0",
+     "uuid": "^14.0.1",
+     "vfile": "^6.0.3",
+-    "virtua": "^0.52.0"
++    "virtua": "0.51.3"
+   },
+   "devDependencies": {
+     "@ant-design/icons": "^6.3.2",
 -- 
 2.39.5
 
