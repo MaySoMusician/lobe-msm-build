@@ -3,18 +3,32 @@ import { expect, type Locator, type Page } from '@playwright/test';
 export const gotoInbox = async (page: Page) => {
   await page.goto('/agent/inbox', { waitUntil: 'domcontentloaded' });
   await expect(page.locator('body')).toBeVisible();
+
+  if (!(await findChatInput(page, 5000).catch(() => null))) {
+    const newTopicLinks = page.getByText('Start New Topic', { exact: true });
+    let clicked = false;
+    for (let index = 0; index < (await newTopicLinks.count()); index += 1) {
+      const link = newTopicLinks.nth(index);
+      if (await link.isVisible().catch(() => false)) {
+        await link.click();
+        clicked = true;
+        break;
+      }
+    }
+    if (!clicked) throw new Error(`Could not navigate from Agent Profile to chat at ${page.url()}`);
+  }
+
   await findChatInput(page);
 };
 
-export const findChatInput = async (page: Page): Promise<Locator> => {
-  const deadline = Date.now() + 30_000;
+export const findChatInput = async (page: Page, timeout = 30_000): Promise<Locator> => {
+  const deadline = Date.now() + timeout;
 
   while (Date.now() < deadline) {
     const candidates = [
       page.locator('[data-testid="chat-input"] textarea'),
       page.locator('[data-testid="chat-input"] [contenteditable="true"]'),
       page.locator('textarea[placeholder*="Ask"], textarea[placeholder*="Press"]'),
-      page.getByRole('textbox'),
     ];
 
     for (const candidate of candidates) {

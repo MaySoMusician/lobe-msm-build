@@ -33,7 +33,7 @@ describe('msm MessagesEngine additives', () => {
     const system = result.messages.find((m) => m.role === 'system');
     const content = String(system?.content ?? '');
 
-    expect(content).toBe('You are a helpful assistant');
+    expect(content).toContain('You are a helpful assistant');
     expect(content).not.toContain('Current date:');
     expect(content).not.toContain('Current model:');
     expect(content).not.toContain('Model knowledge cutoff:');

@@ -9,11 +9,23 @@ vi.mock('@lobehub/ui', () => ({
   Block: ({ children, ...props }: { children?: ReactNode; [key: string]: unknown }) => (
     <div {...props}>{children}</div>
   ),
-  Checkbox: () => <input type="checkbox" />,
   Flexbox: ({ children }: { children?: ReactNode }) => <div>{children}</div>,
   Icon: () => null,
+}));
+
+vi.mock('@lobehub/ui/base-ui', () => ({
+  Checkbox: () => <input type="checkbox" />,
   Tag: ({ children }: { children?: ReactNode }) => <span>{children}</span>,
   Text: ({ children }: { children?: ReactNode }) => <span>{children}</span>,
+}));
+
+vi.mock('@lobechat/const', () => ({
+  AGENT_CHAT_TOPIC_URL: (agentId: string, topicId: string) => `/agent/${agentId}/topic/${topicId}`,
+}));
+
+vi.mock('@lobechat/utils/format', () => ({
+  formatPrice: (value: number) => String(value),
+  formatTokenNumber: (value: number) => String(value),
 }));
 
 vi.mock('antd-style', () => ({
@@ -42,6 +54,10 @@ vi.mock('@/features/Workspace/useWorkspaceAwareNavigate', () => ({
 
 vi.mock('@/hooks/useActivityTime', () => ({
   useActivityTime: () => ({ text: 'now', title: 'now' }),
+}));
+
+vi.mock('@/routes/(main)/agent/channel/const', () => ({
+  getPlatformIcon: () => null,
 }));
 
 vi.mock('./store', () => ({

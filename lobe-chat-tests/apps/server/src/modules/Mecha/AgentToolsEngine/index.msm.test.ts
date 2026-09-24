@@ -14,7 +14,7 @@ const createMockContext = (
 });
 
 describe('msm createServerAgentToolsEngine chat-mode image generation', () => {
-  it('does not enable lobe-image-generation when model lacks native image output', () => {
+  it('does not enable lobe-image-generation when it is not pinned', () => {
     const engine = createServerAgentToolsEngine(createMockContext(), {
       agentConfig: {
         chatConfig: { enableAgentMode: false },
@@ -32,5 +32,25 @@ describe('msm createServerAgentToolsEngine chat-mode image generation', () => {
     });
 
     expect(result.enabledToolIds).not.toContain(ImageGenerationManifest.identifier);
+  });
+
+  it('enables lobe-image-generation when pinned for a function-calling model', () => {
+    const engine = createServerAgentToolsEngine(createMockContext(), {
+      agentConfig: {
+        chatConfig: { enableAgentMode: false },
+        plugins: [ImageGenerationManifest.identifier],
+      },
+      model: 'claude-sonnet',
+      modelAbilities: { functionCall: true, imageOutput: false },
+      provider: 'anthropic',
+    });
+
+    const result = engine.generateToolsDetailed({
+      model: 'claude-sonnet',
+      provider: 'anthropic',
+      toolIds: [],
+    });
+
+    expect(result.enabledToolIds).toContain(ImageGenerationManifest.identifier);
   });
 });

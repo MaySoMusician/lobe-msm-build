@@ -23,6 +23,10 @@ fi
 LOBE_CHAT_DIR="$(cd "$LOBE_CHAT_DIR" && pwd)"
 
 echo "Applying msm tests from $TESTS_DIR -> $LOBE_CHAT_DIR"
+# Remove stale overlays whose source path was renamed or deleted.
+find "$LOBE_CHAT_DIR" \
+  \( -name '*.msm.test.ts' -o -name '*.msm.test.tsx' \) \
+  -type f -delete
 # The Playwright package is intentionally standalone: copying it into the
 # upstream e2e workspace would couple it to upstream package/layout changes.
 mapfile -d '' -t COPIED < <(

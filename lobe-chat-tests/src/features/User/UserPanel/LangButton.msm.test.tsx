@@ -8,13 +8,16 @@ import { describe, expect, it, vi } from 'vitest';
 const dropdownProps = vi.hoisted(() => ({ current: null as any }));
 
 vi.mock('@lobehub/ui', () => ({
-  ActionIcon: () => <button type="button">lang</button>,
   DropdownMenu: (props: any) => {
     dropdownProps.current = props;
     return <div data-testid="lang-dropdown" />;
   },
   Flexbox: ({ children }: { children?: ReactNode }) => <div>{children}</div>,
   Icon: () => null,
+}));
+
+vi.mock('@lobehub/ui/base-ui', () => ({
+  Button: ({ children }: { children?: ReactNode }) => <button type="button">{children}</button>,
   Text: ({ children }: { children?: ReactNode }) => <span>{children}</span>,
 }));
 
@@ -45,8 +48,13 @@ vi.mock('@/store/global', () => ({
 
 vi.mock('@/store/global/selectors', () => ({
   globalGeneralSelectors: {
+    currentLanguage: () => 'en-US',
     language: (s: any) => s.status.language,
   },
+}));
+
+vi.mock('@/utils/client/preloadLang', () => ({
+  preloadLang: vi.fn(),
 }));
 
 vi.mock('@/styles/electron', () => ({
@@ -57,7 +65,7 @@ import LangButton from './LangButton';
 
 describe('msm LangButton', () => {
   it('only offers auto, en-US, and ja-JP language options', () => {
-    render(<LangButton size={16} />);
+    render(<LangButton />);
 
     const keys = (dropdownProps.current?.items ?? []).map((item: { key: string }) => item.key);
     expect(keys).toEqual(['auto', 'en-US', 'ja-JP']);

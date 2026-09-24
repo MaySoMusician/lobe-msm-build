@@ -64,6 +64,24 @@ test.describe('patched OpenAI boundary', () => {
     );
   });
 
+  test('uses non-streaming Responses for GPT-6 Astra', async ({ request }) => {
+    stub.reset('rich');
+
+    const response = await request.post('/webapi/chat/openai', {
+      data: chatPayload('gpt-6-astra', {
+        reasoning: { effort: 'high', summary: 'auto' },
+      }),
+    });
+
+    expect(response.ok(), await response.text()).toBeTruthy();
+    expect(stub.requests).toHaveLength(1);
+    expect(stub.requests[0].path).toBe('/v1/responses');
+    expect(stub.requests[0].body.stream).not.toBe(true);
+    expect(stub.requests[0].body.reasoning).toEqual(
+      expect.not.objectContaining({ summary: 'auto' }),
+    );
+  });
+
   test('does not retry a transient upstream failure', async ({ request }) => {
     stub.reset('failure');
 

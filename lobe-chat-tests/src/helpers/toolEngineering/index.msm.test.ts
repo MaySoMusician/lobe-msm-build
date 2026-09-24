@@ -3,6 +3,8 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import { createAgentToolsEngine } from './index';
 
+const agentPlugins = vi.hoisted(() => ({ current: [] as string[] }));
+
 vi.mock('@/store/tool', () => ({
   getToolStoreState: () => ({
     builtinTools: [
@@ -79,9 +81,12 @@ vi.mock('@/store/agent/selectors', () => ({
     isLocalSystemEnabled: () => false,
     isMemoryToolEnabled: () => false,
   },
+  chatConfigByIdSelectors: {
+    getExecutionTargetById: () => () => undefined,
+  },
   agentSelectors: {
     currentAgentDisabledPlugins: () => [],
-    currentAgentPlugins: () => [],
+    currentAgentPlugins: () => agentPlugins.current,
     hasEnabledKnowledgeBases: () => false,
   },
 }));
@@ -108,10 +113,11 @@ vi.mock('@/helpers/getSearchConfig', () => ({
 
 describe('msm createAgentToolsEngine chat-mode image generation', () => {
   afterEach(() => {
+    agentPlugins.current = [];
     vi.clearAllMocks();
   });
 
-  it('does not enable lobe-image-generation when model lacks native image output', () => {
+  it('does not enable lobe-image-generation when it is not pinned', () => {
     const toolsEngine = createAgentToolsEngine({
       model: 'claude-sonnet',
       provider: 'anthropic',
@@ -124,5 +130,21 @@ describe('msm createAgentToolsEngine chat-mode image generation', () => {
     });
 
     expect(result.enabledToolIds).not.toContain('lobe-image-generation');
+  });
+
+  it('enables lobe-image-generation when pinned for a function-calling model', () => {
+    agentPlugins.current = ['lobe-image-generation'];
+    const toolsEngine = createAgentToolsEngine({
+      model: 'claude-sonnet',
+      provider: 'anthropic',
+    });
+
+    const result = toolsEngine.generateToolsDetailed({
+      model: 'claude-sonnet',
+      provider: 'anthropic',
+      toolIds: [],
+    });
+
+    expect(result.enabledToolIds).toContain('lobe-image-generation');
   });
 });

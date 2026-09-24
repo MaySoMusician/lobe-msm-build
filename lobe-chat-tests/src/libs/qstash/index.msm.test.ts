@@ -1,10 +1,17 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
+const debugLog = vi.hoisted(() => vi.fn());
+
+vi.mock('debug', () => ({
+  default: () => debugLog,
+}));
+
 describe('msm qstash lazy init', () => {
   const originalToken = process.env.QSTASH_TOKEN;
 
   beforeEach(() => {
     vi.resetModules();
+    debugLog.mockClear();
     delete process.env.QSTASH_TOKEN;
   });
 
@@ -29,4 +36,13 @@ describe('msm qstash lazy init', () => {
     },
     15_000,
   );
+
+  it('does not emit debug logs during signature validation', async () => {
+    const mod = await import('./index');
+
+    await expect(
+      mod.verifyQStashSignature(new Request('https://example.com'), '{}'),
+    ).resolves.toBe(false);
+    expect(debugLog).not.toHaveBeenCalled();
+  });
 });

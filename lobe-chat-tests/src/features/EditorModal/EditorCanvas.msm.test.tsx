@@ -37,8 +37,8 @@ vi.mock('@/store/user/selectors', () => ({
   },
 }));
 
-vi.mock('./Typobar', () => ({
-  default: () => <div data-testid="typo-bar" />,
+vi.mock('@/features/EditorCanvas/TypoBar', () => ({
+  TypoBar: () => <div data-testid="typo-bar" />,
 }));
 
 import EditorCanvas from './EditorCanvas';

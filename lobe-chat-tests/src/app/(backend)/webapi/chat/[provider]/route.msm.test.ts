@@ -3,10 +3,11 @@ import { type LobeRuntimeAI, ModelRuntime } from '@lobechat/model-runtime';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { auth } from '@/auth';
+import { getServerDB } from '@/database/core/db-adaptor';
 import { initModelRuntimeFromDB } from '@/server/modules/ModelRuntime';
 
-vi.mock('@/app/(backend)/middleware/auth/utils', () => ({
-  checkAuthMethod: vi.fn(),
+vi.mock('@/database/core/db-adaptor', () => ({
+  getServerDB: vi.fn().mockResolvedValue({}),
 }));
 
 vi.mock('@/server/modules/ModelRuntime', () => ({
@@ -41,6 +42,7 @@ describe('msm chat route', () => {
       session: {} as any,
       user: { id: 'test-user-id' } as any,
     });
+    vi.mocked(getServerDB).mockResolvedValue({} as any);
 
     delete (globalThis as typeof globalThis & { __LOBE_UNDICI__?: unknown }).__LOBE_UNDICI__;
   });

@@ -9,14 +9,17 @@ test('opens and dismisses the working panel from mobile chat chrome', async ({
 
   await gotoInbox(page);
 
-  const closePanel = page.getByRole('button', { name: /^Close panel$/i });
-  if (await closePanel.isVisible().catch(() => false)) {
-    await closePanel.click({ force: true });
+  const body = page.locator('body');
+  const initialClose = await visibleButtonByIcon(body, ['lucide-panel-right-close']);
+  if (initialClose) {
+    await initialClose.click({ force: true });
   }
-  const toggle = await visibleButtonByIcon(page.locator('body'), ['lucide-panel-right-open']);
+  const toggle = await visibleButtonByIcon(body, ['lucide-panel-right-open']);
   if (!toggle) throw new Error('Could not find mobile working-panel toggle');
   await toggle.click();
   await expect(toggle).toBeHidden();
+  const closePanel = await visibleButtonByIcon(body, ['lucide-panel-right-close']);
+  if (!closePanel) throw new Error('Could not find mobile working-panel close action');
   await expect(closePanel).toBeVisible();
 
   // The patch adds a full-height overlay to the mobile content area. Click well
@@ -24,7 +27,7 @@ test('opens and dismisses the working panel from mobile chat chrome', async ({
   await page.mouse.click(8, 160);
   await expect
     .poll(async () =>
-      Boolean(await visibleButtonByIcon(page.locator('body'), ['lucide-panel-right-open'])),
+      Boolean(await visibleButtonByIcon(body, ['lucide-panel-right-open'])),
     )
     .toBe(true);
 });
