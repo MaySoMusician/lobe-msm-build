@@ -1,0 +1,13 @@
+node_modules
+.artifacts
+.pnpm-store
+*.patch
+
+lobe-chat-tests/**/*.msm.test.ts
+lobe-chat-tests/**/*.msm.test.tsx
+
+lobe-chat-tests/playwright/node_modules
+lobe-chat-tests/playwright/pnpm-lock.yaml
+lobe-chat-tests/playwright/playwright-report
+lobe-chat-tests/playwright/test-results
+lobe-chat-tests/playwright/.auth

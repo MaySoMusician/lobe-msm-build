@@ -1,0 +1,22 @@
+{
+  "name": "lobe-msm-build",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@12.4.1",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "lint": "eslint . && prettier --check \"scripts/**/*.{mjs,json}\" \"lobe-chat-tests/playwright/**/*.{ts,json}\"",
+    "lint:fix": "eslint . --fix && prettier --write \"scripts/**/*.{mjs,json}\" \"lobe-chat-tests/playwright/**/*.{ts,json}\""
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.0",
+    "@stylistic/eslint-plugin": "^5.4.0",
+    "eslint": "^10.0.0",
+    "eslint-config-prettier": "^10.1.8",
+    "globals": "^16.4.0",
+    "prettier": "^3.6.2",
+    "typescript-eslint": "^8.44.0"
+  }
+}
