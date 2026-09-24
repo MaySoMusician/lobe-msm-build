@@ -97,5 +97,77 @@
     "tarballHost": "registry.npmjs.org",
     "reason": "Checked 2026-06-04, required for v2.2.11",
     "expiresOn": "2027-07-24"
+  },
+  {
+    "name": "@vercel/cli-config",
+    "version": "0.2.7",
+    "publishedAt": "2026-09-15T23:04:52.087Z",
+    "integrity": "sha512-KeSN2HBp8puZrj7kVjSEneDi9yBqW4nAD9AnhGhdYjGNpHl7IkXZVb3HnNe0WWc5+20RlUtmAGWNPQ8qP5QBhQ==",
+    "tarballHost": "registry.npmjs.org",
+    "reason": "Checked 2026-09-24, required transitively by @vercel/functions with the 7-day age gate",
+    "expiresOn": "2026-12-23"
+  },
+  {
+    "name": "@vercel/cli-exec",
+    "version": "1.0.1",
+    "publishedAt": "2026-08-03T22:24:21.265Z",
+    "integrity": "sha512-g9XerViJ/paZujufXYcu5XYI2vU2rtB4sgdpjUHde5RnOkdmpu0ngH46LCFGHoPXO/C+qDPSczIHIRN+8Q2YKQ==",
+    "tarballHost": "registry.npmjs.org",
+    "reason": "Checked 2026-09-24, required transitively by @vercel/functions",
+    "expiresOn": "2026-12-23"
+  },
+  {
+    "name": "@vercel/functions",
+    "version": "3.9.8",
+    "publishedAt": "2026-09-15T23:05:23.059Z",
+    "integrity": "sha512-ISnh/3ACFkWZhtwvRz7H1uG+A/7nr6lY1H9bd7s1SQv9GU0aBpBraI5hnmylUumperdwL+9QGme2s4L06VRw9g==",
+    "tarballHost": "registry.npmjs.org",
+    "reason": "Checked 2026-09-24, required by main with the 7-day age gate",
+    "expiresOn": "2026-12-23"
+  },
+  {
+    "name": "@vercel/oidc",
+    "version": "3.8.8",
+    "publishedAt": "2026-09-15T23:05:05.268Z",
+    "integrity": "sha512-aeq4/sgVh80zO6j2H+7FRfsG6NOXBrvzV1EEO8IdXPEJgwHIPakP+BFq3QmprsEQ18bIimds07kvaYhm2lehtg==",
+    "tarballHost": "registry.npmjs.org",
+    "reason": "Checked 2026-09-24, required transitively by @vercel/functions with the 7-day age gate",
+    "expiresOn": "2026-12-23"
+  },
+  {
+    "name": "@vercel/cli-config",
+    "version": "0.2.4",
+    "publishedAt": "2026-08-20T17:37:16.042Z",
+    "integrity": "sha512-kZ5SojbrV06GHoU6QIWGwDXLov+s9rWZ7QqdqKfJfBGCNUieGfgaCjeeenNy8Y+QC0bwC0dZ2B4l5Hvdmrgpdw==",
+    "tarballHost": "registry.npmjs.org",
+    "reason": "Checked 2026-09-24, pinned by the desktop lockfile",
+    "expiresOn": "2026-12-23"
+  },
+  {
+    "name": "@vercel/functions",
+    "version": "3.9.5",
+    "publishedAt": "2026-08-20T17:36:00.943Z",
+    "integrity": "sha512-EUfqlb7AzoEh7URlMNAO4jbJiLWz9grDBHvfjKTDvEP9c8y3DqX3SWPvfaQkUjtkm3b83flhaUUMuewdHa+qmw==",
+    "tarballHost": "registry.npmjs.org",
+    "reason": "Checked 2026-09-24, pinned by the desktop lockfile",
+    "expiresOn": "2026-12-23"
+  },
+  {
+    "name": "@vercel/oidc",
+    "version": "3.8.5",
+    "publishedAt": "2026-08-20T17:39:41.101Z",
+    "integrity": "sha512-RwXYtnt6za+5UO4IaLywN/6B95AlLqynPRUWRJxeJ/qufwkcLUbZNUxYtzT0uMpuraWhlNcGqPNGkTnZr4BGBw==",
+    "tarballHost": "registry.npmjs.org",
+    "reason": "Checked 2026-09-24, pinned by the desktop lockfile",
+    "expiresOn": "2026-12-23"
+  },
+  {
+    "name": "cytoscape",
+    "version": "3.34.1",
+    "publishedAt": "2026-08-11T15:47:58.322Z",
+    "integrity": "sha512-Lr0RvH9H75y9ar8h9Toy6u4lxRSCcxUq+hHcQ26sVWo6BnaQp1gwEZOYqwuYTZhyW7npyKnNLP8oJ2p1/3OZ7g==",
+    "tarballHost": "registry.npmjs.org",
+    "reason": "Checked 2026-09-24, pinned by the desktop lockfile",
+    "expiresOn": "2026-12-23"
   }
 ]

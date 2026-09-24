@@ -17,6 +17,12 @@ const outputDir = path.resolve(
 const auditedRegistry =
   process.env.AUDITED_NPM_REGISTRY ?? "https://npm.flatt.tech/";
 const skipBuild = process.argv.includes("--skip-build");
+const bunfigPath = path.join(lobeUiDir, "bunfig.toml");
+const bunfigPolicy = `[install]
+minimumReleaseAge = 604800
+ignoreScripts = true
+minimumReleaseAgeExcludes = ["@lobehub/ui"]
+`;
 
 const run = (command, args, options = {}) => {
   const result = spawnSync(command, args, {
@@ -68,13 +74,38 @@ if (!skipBuild) {
     ...process.env,
     npm_config_registry: auditedRegistry,
   };
-  run("bun", ["install", "--network-concurrency", "8"], { env: installEnv });
-  run("bun", ["run", "build"]);
+  const previousBunfig = fs.existsSync(bunfigPath) ? fs.readFileSync(bunfigPath, "utf8") : null;
+  fs.writeFileSync(bunfigPath, bunfigPolicy);
+
+  try {
+    run("bun", ["install", "--network-concurrency", "8"], { env: installEnv });
+    run("bun", ["run", "build"]);
+  } finally {
+    if (previousBunfig === null) {
+      fs.rmSync(bunfigPath, { force: true });
+    } else {
+      fs.writeFileSync(bunfigPath, previousBunfig);
+    }
+  }
 }
 
 const esDir = path.join(lobeUiDir, "es");
 if (!fs.existsSync(esDir)) {
   throw new Error(`Built output is missing: ${esDir}`);
+}
+const builtFontTokens = fs.readFileSync(
+  path.join(esDir, "styles", "theme", "token", "base.mjs"),
+  "utf8",
+);
+const builtThemeProvider = fs.readFileSync(
+  path.join(esDir, "ThemeProvider", "ThemeProvider.mjs"),
+  "utf8",
+);
+if (!builtFontTokens.includes("IBM Plex Sans JP") || !builtFontTokens.includes("Mgen+ 1mn")) {
+  throw new Error("Built Lobe UI output does not contain the expected MSM font stack");
+}
+if (/webfont-(?:harmony|mono)/.test(builtThemeProvider)) {
+  throw new Error("Built Lobe UI output still loads removed Harmony/mono webfonts");
 }
 
 const sourceSha = run("git", ["rev-parse", "HEAD"], { capture: true });
@@ -113,6 +144,35 @@ try {
   const generatedPath = path.join(outputDir, packResult[0].filename);
   const artifactPath = path.join(outputDir, "lobehub-ui.tgz");
   fs.renameSync(generatedPath, artifactPath);
+
+  const packedPackage = JSON.parse(
+    run("tar", ["-xOzf", artifactPath, "package/package.json"], {
+      capture: true,
+      cwd: outputDir,
+    }),
+  );
+  const packedFontTokens = run(
+    "tar",
+    ["-xOzf", artifactPath, "package/es/styles/theme/token/base.mjs"],
+    { capture: true, cwd: outputDir },
+  );
+  const packedThemeProvider = run(
+    "tar",
+    ["-xOzf", artifactPath, "package/es/ThemeProvider/ThemeProvider.mjs"],
+    { capture: true, cwd: outputDir },
+  );
+  if (packedPackage.name !== "@lobehub/ui" || !packedPackage.version.endsWith("-msm")) {
+    throw new Error("Packed Lobe UI manifest does not identify the MSM package");
+  }
+  if (packedPackage.scripts || packedPackage.devDependencies || packedPackage.workspaces) {
+    throw new Error("Packed Lobe UI manifest still contains build-only fields");
+  }
+  if (!packedFontTokens.includes("IBM Plex Sans JP") || !packedFontTokens.includes("Mgen+ 1mn")) {
+    throw new Error("Packed Lobe UI artifact does not contain the expected MSM font stack");
+  }
+  if (/webfont-(?:harmony|mono)/.test(packedThemeProvider)) {
+    throw new Error("Packed Lobe UI artifact still loads removed Harmony/mono webfonts");
+  }
 
   const sha256 = crypto
     .createHash("sha256")

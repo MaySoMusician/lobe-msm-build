@@ -32,10 +32,15 @@ excluded from the source overlay and tests the assembled application through
 browser and HTTP boundaries.
 
 The application must contain the patched `@lobehub/ui`; using the registry
-package does not exercise the MSM font/theme changes. The local runner builds
-the checkout selected by `LOBE_UI_DIR` (default: sibling `../lobe-ui`),
-packages it as `*-msm`, installs that tarball into a temporary Lobe Chat
-worktree, builds an image, and leaves both source checkouts clean:
+package does not exercise the MSM font/theme changes. CI and the local runner
+both pack that checkout with `scripts/prepare-lobe-ui-msm.mjs`. CI builds Lobe
+UI first and passes `--skip-build`; the local runner builds the checkout
+selected by `LOBE_UI_DIR` (default: sibling `../lobe-ui`). The checkout version
+stays upstream. The packer applies the `-msm` suffix only inside the staged
+tarball (`.artifacts/lobehub-ui.tgz`). The runner then points `@lobehub/ui` at
+`file:/app/lobehub-ui.tgz` in `package.json` `dependencies` and in
+`pnpm-workspace.yaml` `overrides`, builds an image from a temporary Lobe Chat
+worktree, and leaves both source checkouts clean:
 
 ```bash
 export LOBE_UI_DIR=/path/to/lobe-ui

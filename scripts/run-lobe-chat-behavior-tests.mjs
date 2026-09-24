@@ -67,12 +67,26 @@ const waitForPostgres = (name) => {
   throw new Error("PostgreSQL did not become ready");
 };
 
+const setWorkspaceOverride = (contents, packageName, specifier) => {
+  const key = `'${packageName}'`;
+  const entry = `  ${key}: ${JSON.stringify(specifier)}`;
+  const escapedKey = key.replaceAll(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const existingEntry = new RegExp(`^  ${escapedKey}:.*$`, "m");
+
+  if (existingEntry.test(contents)) return contents.replace(existingEntry, entry);
+  if (!/^overrides:\s*$/m.test(contents)) {
+    throw new Error("pnpm-workspace.yaml does not contain an overrides section");
+  }
+
+  return contents.replace(/^overrides:\s*$/m, `overrides:\n${entry}`);
+};
+
 const prepareLocalImage = () => {
   run("git", ["rev-parse", "--git-dir"], { capture: true, cwd: lobeChatDir });
 
   let uiTarball = process.env.LOBE_UI_TARBALL;
   if (!uiTarball) {
-    run("node", [path.join(scriptDir, "prepare-lobe-ui-msm.mjs")]);
+    run(process.execPath, [path.join(scriptDir, "prepare-lobe-ui-msm.mjs")]);
     uiTarball = path.join(repositoryRoot, ".artifacts", "lobehub-ui.tgz");
   }
   uiTarball = path.resolve(uiTarball);
@@ -86,18 +100,26 @@ const prepareLocalImage = () => {
   const packagePath = path.join(worktreeDir, "package.json");
   const packageJSON = JSON.parse(fs.readFileSync(packagePath, "utf8"));
   packageJSON.dependencies["@lobehub/ui"] = "file:/app/lobehub-ui.tgz";
-  packageJSON.pnpm ??= {};
-  packageJSON.pnpm.overrides ??= {};
-  packageJSON.pnpm.overrides["@lobehub/ui"] = "file:/app/lobehub-ui.tgz";
   fs.writeFileSync(packagePath, `${JSON.stringify(packageJSON, null, 2)}\n`);
 
+  const workspacePath = path.join(worktreeDir, "pnpm-workspace.yaml");
+  const workspace = setWorkspaceOverride(
+    fs.readFileSync(workspacePath, "utf8"),
+    "@lobehub/ui",
+    "file:/app/lobehub-ui.tgz",
+  );
+  fs.writeFileSync(workspacePath, workspace);
+
   const dockerfilePath = path.join(worktreeDir, "Dockerfile");
-  const dockerfile = fs
-    .readFileSync(dockerfilePath, "utf8")
-    .replace(
-      "COPY package.json pnpm-workspace.yaml ./",
-      "COPY package.json pnpm-workspace.yaml lobehub-ui.tgz ./",
-    );
+  const dockerCopy = "COPY package.json pnpm-workspace.yaml ./";
+  const dockerfileSource = fs.readFileSync(dockerfilePath, "utf8");
+  if (!dockerfileSource.includes(dockerCopy)) {
+    throw new Error(`Dockerfile dependency COPY anchor missing: ${dockerCopy}`);
+  }
+  const dockerfile = dockerfileSource.replace(
+    dockerCopy,
+    "COPY package.json pnpm-workspace.yaml lobehub-ui.tgz ./",
+  );
   fs.writeFileSync(dockerfilePath, dockerfile);
   fs.appendFileSync(path.join(worktreeDir, ".dockerignore"), "\n.pnpm-store\n");
 
