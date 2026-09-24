@@ -1,0 +1,7 @@
+.pnpm-store/
+.artifacts/
+node_modules/
+
+lobe-chat-tests/playwright/.auth/
+lobe-chat-tests/playwright/playwright-report/
+lobe-chat-tests/playwright/test-results/

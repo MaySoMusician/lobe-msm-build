@@ -22,18 +22,21 @@ fi
 
 LOBE_CHAT_DIR="$(cd "$LOBE_CHAT_DIR" && pwd)"
 
-if ! command -v rsync >/dev/null 2>&1; then
-  echo "error: rsync is required but not found on PATH" >&2
-  exit 1
-fi
-
 echo "Applying msm tests from $TESTS_DIR -> $LOBE_CHAT_DIR"
-# Exclude scaffolding-only files so empty overlays do not litter the target tree.
-rsync -a --exclude '.gitkeep' "$TESTS_DIR/" "$LOBE_CHAT_DIR/"
-
-mapfile -t COPIED < <(
-  find "$TESTS_DIR" \( -name '*.msm.test.ts' -o -name '*.msm.test.tsx' \) -type f | sort
+# The Playwright package is intentionally standalone: copying it into the
+# upstream e2e workspace would couple it to upstream package/layout changes.
+mapfile -d '' -t COPIED < <(
+  find "$TESTS_DIR" \
+    -path "$TESTS_DIR/playwright" -prune -o \
+    \( -name '*.msm.test.ts' -o -name '*.msm.test.tsx' \) -type f -print0 | sort -z
 )
+
+for src in "${COPIED[@]}"; do
+  rel="${src#"$TESTS_DIR"/}"
+  dest="$LOBE_CHAT_DIR/$rel"
+  mkdir -p "$(dirname "$dest")"
+  cp -p "$src" "$dest"
+done
 
 if [[ ${#COPIED[@]} -eq 0 ]]; then
   echo "Copied msm test files: none"
