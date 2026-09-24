@@ -33,8 +33,9 @@ browser and HTTP boundaries.
 
 The application must contain the patched `@lobehub/ui`; using the registry
 package does not exercise the MSM font/theme changes. CI and the local runner
-both pack that checkout with `scripts/prepare-lobe-ui-msm.mjs`. CI builds Lobe
-UI first and passes `--skip-build`; the local runner builds the checkout
+both install, build, and pack that checkout with `scripts/prepare-lobe-ui-msm.mjs`.
+The packer retries `bun install` when the audited registry rejects the install.
+Pass `--skip-build` to pack a checkout that is already built. The checkout is
 selected by `LOBE_UI_DIR` (default: sibling `../lobe-ui`). The checkout version
 stays upstream. The packer applies the `-msm` suffix only inside the staged
 tarball (`.artifacts/lobehub-ui.tgz`). The runner then points `@lobehub/ui` at
