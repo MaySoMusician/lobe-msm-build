@@ -16,12 +16,18 @@ const outputDir = path.resolve(
 );
 const auditedRegistry = process.env.AUDITED_NPM_REGISTRY ?? 'https://npm.flatt.tech/';
 const skipBuild = process.argv.includes('--skip-build');
+const bunInstallAttempts = 5;
+const bunInstallRetryDelayMs = 30_000;
 const bunfigPath = path.join(lobeUiDir, 'bunfig.toml');
 const bunfigPolicy = `[install]
 minimumReleaseAge = 604800
 ignoreScripts = true
 minimumReleaseAgeExcludes = ["@lobehub/ui"]
 `;
+
+const sleep = (milliseconds) => {
+  Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, milliseconds);
+};
 
 const run = (command, args, options = {}) => {
   const result = spawnSync(command, args, {
@@ -40,6 +46,34 @@ const run = (command, args, options = {}) => {
   }
 
   return options.capture ? String(result.stdout).trim() : '';
+};
+
+const runBunInstall = (env) => {
+  const args = ['install', '--network-concurrency', '8'];
+
+  for (let attempt = 1; attempt <= bunInstallAttempts; attempt++) {
+    const result = spawnSync('bun', args, {
+      cwd: lobeUiDir,
+      encoding: 'utf8',
+      env,
+      stdio: 'inherit',
+    });
+
+    if (result.error) {
+      throw result.error;
+    }
+    if (result.status === 0) {
+      return;
+    }
+    if (attempt === bunInstallAttempts) {
+      throw new Error(`bun install failed after ${bunInstallAttempts} attempts`);
+    }
+
+    console.error(
+      `bun install failed on attempt ${attempt}/${bunInstallAttempts}; waiting 30 seconds before retrying...`,
+    );
+    sleep(bunInstallRetryDelayMs);
+  }
 };
 
 if (!fs.existsSync(path.join(lobeUiDir, 'package.json'))) {
@@ -75,7 +109,7 @@ if (!skipBuild) {
   fs.writeFileSync(bunfigPath, bunfigPolicy);
 
   try {
-    run('bun', ['install', '--network-concurrency', '8'], { env: installEnv });
+    runBunInstall(installEnv);
     run('bun', ['run', 'build']);
   } finally {
     if (previousBunfig === null) {
