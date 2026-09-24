@@ -17,7 +17,7 @@ export const checks = [
       {
         file: "Dockerfile",
         patterns: [
-          'ARG NODEJS_VERSION="24.16.0"',
+          'ARG NODEJS_VERSION="24.21.0"',
           "FROM busybox:1.38.0 AS app",
         ],
       },
@@ -41,9 +41,11 @@ export const checks = [
       {
         file: "Dockerfile",
         patterns: [
-          "pnpm config set minimumReleaseAge 10080",
-          "pnpm config set minimumReleaseAgeStrict true",
-          "pnpm config set trustPolicy no-downgrade",
+          "'minimumReleaseAge: 10080'",
+          "'minimumReleaseAgeStrict: true'",
+          "'trustPolicy: no-downgrade'",
+          "'blockExoticSubdeps: true'",
+          "'strictDepBuilds: true'",
         ],
       },
     ],
@@ -69,8 +71,39 @@ export const checks = [
         patterns: [
           "minimumReleaseAge: 10080",
           "minimumReleaseAgeStrict: true",
+          "- '@lobehub/ui@5.49.0'",
           "trustPolicy: no-downgrade",
         ],
+        absent: ["- '@lobehub/*'"],
+      },
+      {
+        file: "apps/cli/pnpm-workspace.yaml",
+        patterns: [
+          "minimumReleaseAge: 10080",
+          "minimumReleaseAgeStrict: true",
+          "trustPolicy: no-downgrade",
+          "blockExoticSubdeps: true",
+          "strictDepBuilds: true",
+        ],
+      },
+      {
+        file: "apps/desktop/pnpm-workspace.yaml",
+        patterns: [
+          "minimumReleaseAge: 10080",
+          "minimumReleaseAgeStrict: true",
+          "trustPolicy: no-downgrade",
+          "blockExoticSubdeps: true",
+          "strictDepBuilds: true",
+        ],
+      },
+    ],
+  },
+  {
+    id: "package-manager-pnpm12",
+    asserts: [
+      {
+        file: "package.json",
+        patterns: ['"packageManager": "pnpm@12.4.1'],
       },
     ],
   },
@@ -80,9 +113,9 @@ export const checks = [
       {
         file: "pnpm-workspace.yaml",
         patterns: [
-          "- '@hono/node-server@1.19.17'",
           "'@hono/node-server': 1.19.17",
         ],
+        absent: ["- '@hono/node-server@1.19.17'"],
       },
     ],
   },
@@ -92,7 +125,23 @@ export const checks = [
       {
         file: "vite.config.ts",
         patterns: [
-          "dedupe: ['@lobehub/ui', '@lobehub/icons', 'antd', 'motion', 'react', 'react-dom']",
+          "dedupe: [...sharedRendererDedupe, '@lobehub/ui', '@lobehub/icons', 'antd', 'motion']",
+        ],
+      },
+    ],
+  },
+  {
+    id: "qstash-no-debug-logging",
+    asserts: [
+      {
+        file: "src/libs/qstash/index.ts",
+        absent: ["debug('lobe-server:qstash')", "QStash signature verification failed: %O"],
+      },
+      {
+        file: "patches/@upstash__qstash.patch",
+        absent: [
+          "[upstash-qstash] request failed",
+          "Object.fromEntries(response.headers.entries())",
         ],
       },
     ],
@@ -113,6 +162,38 @@ export const checks = [
           'href="https://fonts.googleapis.com"',
           "IBM+Plex+Sans+JP",
         ],
+      },
+      {
+        file: "index.auth.html",
+        patterns: [
+          'href="https://fonts.googleapis.com"',
+          "IBM+Plex+Sans+JP",
+        ],
+      },
+      {
+        file: "index.workbench.html",
+        patterns: [
+          'href="https://fonts.googleapis.com"',
+          "IBM+Plex+Sans+JP",
+        ],
+      },
+      {
+        file: "apps/workbench/index.html",
+        patterns: [
+          'href="https://fonts.googleapis.com"',
+          "IBM+Plex+Sans+JP",
+        ],
+      },
+      {
+        file: "apps/share/index.html",
+        patterns: [
+          'href="https://fonts.googleapis.com"',
+          "IBM+Plex+Sans+JP",
+        ],
+      },
+      {
+        file: "apps/desktop/index.html",
+        absent: ["fonts.googleapis.com", "IBM+Plex+Sans+JP"],
       },
     ],
   },

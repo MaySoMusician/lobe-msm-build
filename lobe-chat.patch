@@ -1,25 +1,50 @@
-From 5391b166a030c6234952d0626d271b555f85d08d Mon Sep 17 00:00:00 2001
+From eb288dafdff560be2b81df4daaba658211a30fc8 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
-Date: Tue, 31 Mar 2026 19:01:33 +0000
-Subject: [PATCH 01/32] Add optional arg to set npm registry for Dockerfile
+Date: Thu, 24 Sep 2026 06:57:40 +0000
+Subject: [PATCH 01/16] =?UTF-8?q?=F0=9F=94=92=EF=B8=8F=20build(docker):=20?=
+ =?UTF-8?q?pin=20images=20and=20harden=20the=20image=20install?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
+Co-authored-by: Cursor GPT-5.6 Sol <cursoragent@cursor.com.invalid>
 ---
- Dockerfile | 4 ++++
- 1 file changed, 4 insertions(+)
+ .dockerignore |  1 +
+ Dockerfile    | 21 +++++++++++++++++----
+ 2 files changed, 18 insertions(+), 4 deletions(-)
 
+diff --git a/.dockerignore b/.dockerignore
+index fc4c2e7966..020c7d1022 100644
+--- a/.dockerignore
++++ b/.dockerignore
+@@ -1,6 +1,7 @@
+ Dockerfile
+ .dockerignore
+ node_modules
++.pnpm-store
+ npm-debug.log
+ .next
+ .git
 diff --git a/Dockerfile b/Dockerfile
-index 2bdbc42b44..a9d6b92e7c 100644
+index 826fb06763..1dd00a6c7b 100644
 --- a/Dockerfile
 +++ b/Dockerfile
-@@ -29,6 +29,7 @@ RUN set -e && \
- ## Builder image, install all the dependencies and build the app
+@@ -1,5 +1,5 @@
+ ## Set global build ENV
+-ARG NODEJS_VERSION="24"
++ARG NODEJS_VERSION="24.21.0"
+ 
+ ## Base image for all building stages
+ FROM node:${NODEJS_VERSION}-slim AS base
+@@ -30,6 +30,7 @@ RUN set -e && \
  FROM base AS builder
  
-+ARG NPM_REGISTRY=""
  ARG USE_CN_MIRROR
++ARG NPM_REGISTRY=""
  ARG NEXT_PUBLIC_BASE_PATH
  ARG NEXT_PUBLIC_SENTRY_DSN
-@@ -74,6 +75,9 @@ RUN set -e && \
+ ARG NEXT_PUBLIC_ANALYTICS_UMAMI
+@@ -79,15 +80,27 @@ RUN set -e && \
          npm config set registry "https://registry.npmmirror.com/"; \
          echo 'canvas_binary_host_mirror=https://npmmirror.com/mirrors/canvas' >> .npmrc; \
      fi && \
@@ -27,27 +52,7 @@ index 2bdbc42b44..a9d6b92e7c 100644
 +        npm config set registry "${NPM_REGISTRY}"; \
 +    fi && \
      export COREPACK_NPM_REGISTRY=$(npm config get registry | sed 's/\/$//') && \
-     npm i -g corepack@latest && \
-     corepack enable && \
--- 
-2.39.5
-
-
-From 97ea23fd0c1c0aaae81e614897840301929a0d9e Mon Sep 17 00:00:00 2001
-From: MaySoMusician <maysomusician@gmail.com>
-Date: Mon, 6 Apr 2026 20:40:07 +0000
-Subject: [PATCH 02/32] Set retry options for pnpm install inside Dockerfile
-
----
- Dockerfile | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/Dockerfile b/Dockerfile
-index a9d6b92e7c..47c1a073b7 100644
---- a/Dockerfile
-+++ b/Dockerfile
-@@ -82,6 +82,9 @@ RUN set -e && \
-     npm i -g corepack@latest && \
+-    npm i -g corepack@latest && \
      corepack enable && \
      corepack use $(sed -n 's/.*"packageManager": "\(.*\)".*/\1/p' package.json) && \
 +    pnpm config set fetchRetries 5 && \
@@ -56,81 +61,59 @@ index a9d6b92e7c..47c1a073b7 100644
      pnpm i && \
      mkdir -p /deps && \
      cd /deps && \
+     echo '{"name":"deps","private":true}' > package.json && \
+-    pnpm add pg drizzle-orm @neondatabase/serverless
++    printf '%s\n' \
++      'minimumReleaseAge: 10080' \
++      'minimumReleaseAgeStrict: true' \
++      'trustPolicy: no-downgrade' \
++      'blockExoticSubdeps: true' \
++      'strictDepBuilds: true' \
++      > pnpm-workspace.yaml && \
++    pnpm add -E pg@8.20.0 drizzle-orm@0.45.2 @neondatabase/serverless
+ 
+ COPY . .
+ 
+@@ -106,7 +119,7 @@ RUN pnpm exec esbuild scripts/pgSearchCleanup/index.ts --bundle --platform=node
+ RUN mkdir -p /runtime-deps && cp -a node_modules/.pnpm/@swc+helpers@* /runtime-deps/
+ 
+ ## Application image, copy all the files for production
+-FROM busybox:latest AS app
++FROM busybox:1.38.0 AS app
+ 
+ COPY --from=base /distroless/ /
+ 
 -- 
 2.39.5
 
 
-From 15e03145b6f9d45fcfd24876af91fa0ada2bf818 Mon Sep 17 00:00:00 2001
+From 33ad89ffabba42b71fadaa3bdd7640df32511980 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
-Date: Tue, 12 May 2026 18:45:03 +0000
-Subject: [PATCH 03/32] Harden npm (pnpm) security
+Date: Thu, 24 Sep 2026 06:57:40 +0000
+Subject: [PATCH 02/16] =?UTF-8?q?=F0=9F=94=92=EF=B8=8F=20build(deps):=20en?=
+ =?UTF-8?q?force=20mature=20trusted=20dependency=20resolution?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
+Co-authored-by: Cursor GPT-5.6 Sol <cursoragent@cursor.com.invalid>
 ---
- .npmrc              |  2 +-
- package.json        |  6 +++++-
- pnpm-workspace.yaml | 27 +++++++++++++++++++++++++--
- 3 files changed, 31 insertions(+), 4 deletions(-)
+ apps/cli/pnpm-workspace.yaml     | 23 +++++++++++++++++++++
+ apps/desktop/pnpm-workspace.yaml | 34 +++++++++++++++++++++-----------
+ pnpm-workspace.yaml              | 29 ++++++++++++++++++++++++---
+ 3 files changed, 72 insertions(+), 14 deletions(-)
 
-diff --git a/.npmrc b/.npmrc
-index 999be96503..836d41ee82 100644
---- a/.npmrc
-+++ b/.npmrc
-@@ -3,7 +3,7 @@ resolution-mode=highest
- dedupe-peer-dependents=true
- 
- ignore-workspace-root-check=true
--enable-pre-post-scripts=true
-+enable-pre-post-scripts=false
- 
- 
- public-hoist-pattern[]=*@umijs/lint*
-diff --git a/package.json b/package.json
-index 0293d8fb22..a00cc5ca8d 100644
---- a/package.json
-+++ b/package.json
-@@ -570,7 +570,11 @@
-   "pnpm": {
-     "onlyBuiltDependencies": [
-       "@lobehub/editor",
--      "ffmpeg-static"
-+      "ffmpeg-static",
-+      "esbuild@0.18.20 || 0.25.12 || 0.27.7",
-+      "protobufjs@7.5.6",
-+      "sharp@0.34.5",
-+      "unrs-resolver@1.11.1"
-     ],
-     "overrides": {
-       "@react-pdf/image": "3.0.4",
-diff --git a/pnpm-workspace.yaml b/pnpm-workspace.yaml
-index 287c2fa2fa..5a4ad69203 100644
---- a/pnpm-workspace.yaml
-+++ b/pnpm-workspace.yaml
-@@ -7,12 +7,16 @@ packages:
-   - apps/server
- 
- minimumReleaseAgeExclude:
--  - '@lobehub/ui@5.20.2'
-+  - '@lobehub/*'
- 
- onlyBuiltDependencies:
-   - '@google/genai'
-   - '@lobehub/editor'
--  - '@vercel/speed-insights'
-+
-+ignoredBuiltDependencies:
-+  - 'core-js'
-+  - 'electron'
-+  - 'es5-ext'
- 
+diff --git a/apps/cli/pnpm-workspace.yaml b/apps/cli/pnpm-workspace.yaml
+index 03bb2caeef..fa335bab6e 100644
+--- a/apps/cli/pnpm-workspace.yaml
++++ b/apps/cli/pnpm-workspace.yaml
+@@ -42,3 +42,26 @@ allowBuilds:
  overrides:
-   jose: ^6.1.3
-@@ -24,3 +28,22 @@ overrides:
- 
- patchedDependencies:
-   '@upstash/qstash': patches/@upstash__qstash.patch
+   '@types/react': 19.2.13
+   antd: 6.3.5
 +
 +minimumReleaseAge: 10080
-+minimumReleaseAgeStrict: true # Only works after v11.x
++minimumReleaseAgeStrict: true
 +
 +trustPolicy: no-downgrade
 +trustPolicyExclude:
@@ -144,237 +127,321 @@ index 287c2fa2fa..5a4ad69203 100644
 +  - '@octokit/endpoint@9.0.6'
 +  - '@trickfilm400/rollup-plugin-off-main-thread@3.0.0-pre1'
 +  - '@pierre/theme@1.1.0'
++  - '@vercel/cli-config@0.2.7'
++  - '@vercel/cli-exec@1.0.1'
++  - '@vercel/functions@3.9.8'
++  - '@vercel/oidc@3.8.8'
++
 +blockExoticSubdeps: true
 +strictDepBuilds: true
-+enablePrePostScripts: false
+diff --git a/apps/desktop/pnpm-workspace.yaml b/apps/desktop/pnpm-workspace.yaml
+index 48196a9cae..93dccf4846 100644
+--- a/apps/desktop/pnpm-workspace.yaml
++++ b/apps/desktop/pnpm-workspace.yaml
+@@ -48,8 +48,6 @@ publicHoistPattern:
+ 
+ allowBuilds:
+   '@sentry/cli': true
+-  electron: true
+-  electron-builder: true
+   electron-winstaller: false
+   esbuild: false
+   get-windows: false
+@@ -62,12 +60,26 @@ overrides:
+   react-dom: 19.2.7
+   vitest: 5.0.0
+   'zod@^4': 4.5.4
+-minimumReleaseAgeExclude:
+-  - '@auv-js/api-client@0.0.16'
+-  - '@auv-js/cli-darwin-arm64@0.0.16'
+-  - '@auv-js/cli-darwin-x64@0.0.16'
+-  - '@auv-js/cli-linux-arm64-gnu@0.0.16'
+-  - '@auv-js/cli-linux-x64-gnu@0.0.16'
+-  - '@auv-js/cli-win32-x64-msvc@0.0.16'
+-  - '@auv-js/cli@0.0.16'
+-  - '@auv-js/sdk@0.0.16'
++minimumReleaseAge: 10080
++minimumReleaseAgeStrict: true
++
++trustPolicy: no-downgrade
++trustPolicyExclude:
++  - 'ua-parser-js@1.0.41'
++  - 'pdf-parse@1.1.4'
++  - 'undici-types@6.21.0'
++  - 'chokidar@4.0.3'
++  - 'semver@5.7.2 || 6.3.1'
++  - 'eslint-config-prettier@9.1.2'
++  - '@octokit/plugin-paginate-rest@9.2.2'
++  - '@octokit/endpoint@9.0.6'
++  - '@trickfilm400/rollup-plugin-off-main-thread@3.0.0-pre1'
++  - '@pierre/theme@1.1.0'
++  - '@vercel/cli-config@0.2.4'
++  - '@vercel/cli-exec@1.0.1'
++  - '@vercel/functions@3.9.5'
++  - '@vercel/oidc@3.8.5'
++  - 'cytoscape@3.34.1'
++
++blockExoticSubdeps: true
++strictDepBuilds: true
+diff --git a/pnpm-workspace.yaml b/pnpm-workspace.yaml
+index 6b138d73da..cc27ad8103 100644
+--- a/pnpm-workspace.yaml
++++ b/pnpm-workspace.yaml
+@@ -28,7 +28,7 @@ packages:
+   - apps/workbench
+ 
+ minimumReleaseAgeExclude:
+-  - '@lobehub/*'
++  - '@lobehub/ui@5.49.0'
+ 
+ # Build scripts run one at a time. Several peer-variant copies of
+ # @lobehub/editor resolve in this workspace and every copy's postinstall
+@@ -40,8 +40,6 @@ childConcurrency: 1
+ allowBuilds:
+   '@google/genai': true
+   '@lobehub/editor': true
+-  '@sentry/cli': true
+-  '@vercel/speed-insights': true
+   core-js: false
+   es5-ext: false
+   esbuild: false
+@@ -53,6 +51,7 @@ allowBuilds:
+ 
+ overrides:
+   '@ant-design/icons': 6.3.2
++  '@hono/node-server': 1.19.17
+   '@react-pdf/image': 3.0.4
+   '@types/react': 19.2.13
+   '@vitest/coverage-v8': 5.0.0
+@@ -68,8 +67,32 @@ overrides:
+   's3rver>fast-xml-parser': 3.21.1
+   stylelint-config-clean-order: 7.0.0
+   typescript: 6.0.3
++  virtua: 0.51.3
+   vitest: 5.0.0
+   'zod@^4': 4.5.4
+ 
+ patchedDependencies:
+   '@upstash/qstash': patches/@upstash__qstash.patch
++
++minimumReleaseAge: 10080
++minimumReleaseAgeStrict: true
++
++trustPolicy: no-downgrade
++trustPolicyExclude:
++  - 'ua-parser-js@1.0.41'
++  - 'pdf-parse@1.1.4'
++  - 'undici-types@6.21.0'
++  - 'chokidar@4.0.3'
++  - 'semver@5.7.2 || 6.3.1'
++  - 'eslint-config-prettier@9.1.2'
++  - '@octokit/plugin-paginate-rest@9.2.2'
++  - '@octokit/endpoint@9.0.6'
++  - '@trickfilm400/rollup-plugin-off-main-thread@3.0.0-pre1'
++  - '@pierre/theme@1.1.0'
++  - '@vercel/cli-config@0.2.7'
++  - '@vercel/cli-exec@1.0.1'
++  - '@vercel/functions@3.9.8'
++  - '@vercel/oidc@3.8.8'
++
++blockExoticSubdeps: true
++strictDepBuilds: true
 -- 
 2.39.5
 
 
-From a0d00c9777498fe9945a41fa1241ccf3558ebae2 Mon Sep 17 00:00:00 2001
+From 3263980ac9359d458c7745de88f458c7e0d6ee2a Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
-Date: Wed, 13 May 2026 17:43:57 +0000
-Subject: [PATCH 04/32] Harden Dockerfile security
+Date: Thu, 24 Sep 2026 06:57:43 +0000
+Subject: [PATCH 03/16] =?UTF-8?q?=E2=9C=A8=20feat(openai):=20keep=20GPT=20?=
+ =?UTF-8?q?requests=20non-streaming=20and=20summary-free?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
+Co-authored-by: Cursor GPT-5.6 Sol <cursoragent@cursor.com.invalid>
 ---
- Dockerfile | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+ .../src/core/openaiCompatibleFactory/index.ts |  2 +-
+ .../src/providers/openai/index.test.ts        | 25 ++++---
+ .../src/providers/openai/index.ts             | 36 +++++++---
+ .../src/providers/openai/modelId.ts           | 66 +++++++++++++++++++
+ .../providers/openai/openaiPayload.test.ts    |  2 +-
+ 5 files changed, 111 insertions(+), 20 deletions(-)
 
-diff --git a/Dockerfile b/Dockerfile
-index 47c1a073b7..7d7894349f 100644
---- a/Dockerfile
-+++ b/Dockerfile
-@@ -79,17 +79,21 @@ RUN set -e && \
-         npm config set registry "${NPM_REGISTRY}"; \
-     fi && \
-     export COREPACK_NPM_REGISTRY=$(npm config get registry | sed 's/\/$//') && \
--    npm i -g corepack@latest && \
-     corepack enable && \
--    corepack use $(sed -n 's/.*"packageManager": "\(.*\)".*/\1/p' package.json) && \
-     pnpm config set fetchRetries 5 && \
-     pnpm config set fetchRetryMintimeout 30000 && \
-     pnpm config set networkConcurrency 8 && \
-+    pnpm config set minimumReleaseAge 10080 && \
-+    pnpm config set minimumReleaseAgeStrict true && \
-+    pnpm config set trustPolicy no-downgrade && \
-+    pnpm config set blockExoticSubdeps true && \
-+    pnpm config set strictDepBuilds true && \
-+    pnpm config set enablePrePostScripts true && \
-     pnpm i && \
-     mkdir -p /deps && \
-     cd /deps && \
-     echo '{"name":"deps","private":true}' > package.json && \
--    pnpm add pg drizzle-orm
-+    pnpm add -E pg@8.20.0 drizzle-orm@0.45.2
+diff --git a/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts b/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
+index db8d538c9d..4c3179d985 100644
+--- a/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
++++ b/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
+@@ -1583,7 +1583,7 @@ export const createOpenAICompatibleRuntime = <T extends Record<string, any> = an
+         strictToolPairing: true,
+       });
  
- COPY . .
+-      const isStreaming = payload.stream !== false;
++      const isStreaming = res.stream !== false;
+       log(
+         'isStreaming: %s, hasTools: %s, hasReasoning: %s',
+         isStreaming,
+diff --git a/packages/model-runtime/src/providers/openai/index.test.ts b/packages/model-runtime/src/providers/openai/index.test.ts
+index a2d89c8aa3..0004f47860 100644
+--- a/packages/model-runtime/src/providers/openai/index.test.ts
++++ b/packages/model-runtime/src/providers/openai/index.test.ts
+@@ -33,7 +33,12 @@ describe('LobeOpenAI', () => {
+     vi.spyOn(instance['client'].models, 'list').mockResolvedValue({ data: [] } as any);
  
--- 
-2.39.5
-
-
-From f3f66b7e13b58cd6263781946644745bbecb0b88 Mon Sep 17 00:00:00 2001
-From: MaySoMusician <maysomusician@gmail.com>
-Date: Fri, 10 Apr 2026 19:13:51 +0000
-Subject: [PATCH 05/32] Dedupe @lobehub/ui package in vite
-
----
- vite.config.ts | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/vite.config.ts b/vite.config.ts
-index 01a9fd92e1..5c4e3123eb 100644
---- a/vite.config.ts
-+++ b/vite.config.ts
-@@ -124,6 +124,7 @@ export default defineConfig({
-     bundledDev: false,
-   },
-   resolve: {
-+    dedupe: ['@lobehub/ui', '@lobehub/icons', 'antd', 'motion', 'react', 'react-dom'],
-     tsconfigPaths: true,
-   },
-   optimizeDeps: sharedOptimizeDeps,
--- 
-2.39.5
-
-
-From ef8cd9e855a8234d8b2db7057c28f90aa3574ec5 Mon Sep 17 00:00:00 2001
-From: MaySoMusician <maysomusician@gmail.com>
-Date: Thu, 6 Feb 2025 20:34:05 +0000
-Subject: [PATCH 06/32] Load Google Fonts script and IBM Plex Sans JP
-
----
- index.html        | 6 ++++++
- index.mobile.html | 6 ++++++
- 2 files changed, 12 insertions(+)
-
-diff --git a/index.html b/index.html
-index 5c3972c99e..021623e67d 100644
---- a/index.html
-+++ b/index.html
-@@ -127,6 +127,12 @@
-     <script>
-       window.__SERVER_CONFIG__ = undefined; /* SERVER_CONFIG */
-     </script>
-+    <link href="https://fonts.googleapis.com" rel="preconnect" />
-+    <link crossorigin="anonymous" href="https://fonts.gstatic.com" rel="preconnect" />
-+    <link
-+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+JP:wght@400;500;600;700&display=swap"
-+      rel="stylesheet"
-+    />
-   </head>
+     // Mock responses.create for responses API tests
+-    vi.spyOn(instance['client'].responses, 'create').mockResolvedValue(new ReadableStream() as any);
++    vi.spyOn(instance['client'].responses, 'create').mockResolvedValue({
++      id: 'resp_test',
++      object: 'response',
++      output: [],
++      status: 'completed',
++    } as any);
+   });
  
-   <body>
-diff --git a/index.mobile.html b/index.mobile.html
-index 18d4ba16b6..e67ee4d463 100644
---- a/index.mobile.html
-+++ b/index.mobile.html
-@@ -62,6 +62,12 @@
-     <script>
-       window.__SERVER_CONFIG__ = undefined; /* SERVER_CONFIG */
-     </script>
-+    <link href="https://fonts.googleapis.com" rel="preconnect" />
-+    <link crossorigin="anonymous" href="https://fonts.gstatic.com" rel="preconnect" />
-+    <link
-+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+JP:wght@400;500;600;700&display=swap"
-+      rel="stylesheet"
-+    />
-   </head>
+   afterEach(() => {
+@@ -419,7 +424,7 @@ describe('LobeOpenAI', () => {
+       expect(createCall.top_p).toBeUndefined();
+       expect(createCall.frequency_penalty).toBeUndefined();
+       expect(createCall.presence_penalty).toBeUndefined();
+-      expect(createCall.stream).toBe(true);
++      expect(createCall.stream).toBe(false);
+     });
  
-   <body>
--- 
-2.39.5
-
-
-From b1ce338222dcec2e9a9f93ecd97bd11bc68c03ff Mon Sep 17 00:00:00 2001
-From: MaySoMusician <maysomusician@gmail.com>
-Date: Fri, 7 Feb 2025 08:18:42 +0000
-Subject: [PATCH 07/32] Force to use en-US as language
-
----
- src/utils/locale.ts | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/src/utils/locale.ts b/src/utils/locale.ts
-index 5dbaf4408b..cdad3d1f89 100644
---- a/src/utils/locale.ts
-+++ b/src/utils/locale.ts
-@@ -52,9 +52,9 @@ export const parseBrowserLanguage = (headers: Headers, defaultLang: string = DEF
-   );
+     it('should handle regular models with all parameters', async () => {
+@@ -440,7 +445,7 @@ describe('LobeOpenAI', () => {
+       expect(createCall.top_p).toBe(0.9);
+       expect(createCall.frequency_penalty).toBe(0.5);
+       expect(createCall.presence_penalty).toBe(0.3);
+-      expect(createCall.stream).toBe(true);
++      expect(createCall.stream).toBe(false);
+     });
+   });
  
-   // if match the ar-EG then fallback to ar
--  if (browserLang === 'ar-EG') browserLang = 'ar';
-+  if (browserLang === 'ar-EG') browserLang = 'ar'; // eslint-disable-line no-useless-assignment
+@@ -468,7 +473,7 @@ describe('LobeOpenAI', () => {
+       ]);
+       expect(createCall).toMatchObject({
+         model: 'gpt-5.6-sol',
+-        reasoning: { effort: 'max', mode: 'pro', summary: 'auto' },
++        reasoning: { effort: 'max', mode: 'pro', summary: undefined },
+       });
+       expect(createCall.frequency_penalty).toBeUndefined();
+       expect(createCall.presence_penalty).toBeUndefined();
+@@ -490,7 +495,7 @@ describe('LobeOpenAI', () => {
+       const createCall = (instance['client'].responses.create as Mock).mock.calls[0][0];
+       expect(createCall).toMatchObject({
+         model: 'gpt-6-astra',
+-        reasoning: { effort: 'xhigh', summary: 'auto' },
++        reasoning: { effort: 'xhigh', summary: undefined },
+       });
+       expect(createCall.temperature).toBeUndefined();
+       expect(createCall.top_logprobs).toBeUndefined();
+@@ -528,7 +533,7 @@ describe('LobeOpenAI', () => {
  
--  return normalizeLocale(browserLang);
-+  return 'en-US';
- };
+       const createCall = (instance['client'].responses.create as Mock).mock.calls[0][0];
+       expect(createCall.truncation).toBe('auto');
+-      expect(createCall.reasoning).toEqual({ effort: 'medium', summary: 'auto' });
++      expect(createCall.reasoning).toEqual({ effort: 'medium', summary: undefined });
+     });
  
- /**
--- 
-2.39.5
-
-
-From 9914b16c92283cd66ed98d10def6348d0319cb92 Mon Sep 17 00:00:00 2001
-From: MaySoMusician <maysomusician@gmail.com>
-Date: Wed, 28 Jan 2026 01:28:48 +0000
-Subject: [PATCH 08/32] Show only English and Japanese option for language
- options in global menu
-
----
- src/features/User/UserPanel/LangButton.tsx | 40 ++++++++++++----------
- 1 file changed, 21 insertions(+), 19 deletions(-)
-
-diff --git a/src/features/User/UserPanel/LangButton.tsx b/src/features/User/UserPanel/LangButton.tsx
-index 6b301a2958..d696410d1b 100644
---- a/src/features/User/UserPanel/LangButton.tsx
-+++ b/src/features/User/UserPanel/LangButton.tsx
-@@ -40,25 +40,27 @@ const LangButton = memo<{ placement?: DropdownMenuProps['placement']; size?: num
-         type: 'checkbox',
-       };
+     it('should handle reasoning payload models without computer-use truncation', async () => {
+@@ -541,7 +546,7 @@ describe('LobeOpenAI', () => {
+       await instance.chat(payload);
  
--      const localeItems = localeOptions.map<DropdownMenuCheckboxItem>((item) => ({
--        checked: language === item.value,
--        closeOnClick: true,
--        key: item.value,
--        label: (
--          <Flexbox gap={4} key={item.value}>
--            <Text style={{ lineHeight: 1.2 }}>{item.label}</Text>
--            <Text fontSize={12} style={{ lineHeight: 1.2 }} type={'secondary'}>
--              {t(`lang.${item.value}` as any, { ns: 'common' })}
--            </Text>
--          </Flexbox>
--        ),
--        onCheckedChange: (checked: boolean) => {
--          if (checked) {
--            switchLocale(item.value);
--          }
--        },
--        type: 'checkbox',
--      }));
-+      const localeItems = localeOptions
-+        .filter((item) => ['en-US', 'ja-JP'].includes(item.value))
-+        .map<DropdownMenuCheckboxItem>((item) => ({
-+          checked: language === item.value,
-+          closeOnClick: true,
-+          key: item.value,
-+          label: (
-+            <Flexbox gap={4} key={item.value}>
-+              <Text style={{ lineHeight: 1.2 }}>{item.label}</Text>
-+              <Text fontSize={12} style={{ lineHeight: 1.2 }} type={'secondary'}>
-+                {t(`lang.${item.value}` as any, { ns: 'common' })}
-+              </Text>
-+            </Flexbox>
-+          ),
-+          onCheckedChange: (checked: boolean) => {
-+            if (checked) {
-+              switchLocale(item.value);
-+            }
-+          },
-+          type: 'checkbox',
-+        }));
+       const createCall = (instance['client'].responses.create as Mock).mock.calls[0][0];
+-      expect(createCall.reasoning).toEqual({ summary: 'auto' });
++      expect(createCall.reasoning).toEqual({ summary: undefined });
+       expect(createCall.truncation).toBeUndefined();
+     });
  
-       return [autoItem, ...localeItems];
-     }, [language, switchLocale, t]);
--- 
-2.39.5
-
-
-From 6b9dfce4cadeb51bb1f29aa2c57bcfecd7d602f4 Mon Sep 17 00:00:00 2001
-From: MaySoMusician <maysomusician@gmail.com>
-Date: Wed, 8 Oct 2025 14:38:00 +0000
-Subject: [PATCH 09/32] Overwrite reasoning.summary to undefined for requests
- for openai
-
----
- packages/model-runtime/src/providers/openai/index.ts | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
+@@ -555,7 +560,7 @@ describe('LobeOpenAI', () => {
+       await instance.chat(payload);
+ 
+       const createCall = (instance['client'].responses.create as Mock).mock.calls[0][0];
+-      expect(createCall.reasoning).toEqual({ effort: 'high', summary: 'auto' });
++      expect(createCall.reasoning).toEqual({ effort: 'high', summary: undefined });
+     });
+ 
+     it('should set reasoning.effort to high for gpt-5-pro-2025-10-06 models', async () => {
+@@ -568,7 +573,7 @@ describe('LobeOpenAI', () => {
+       await instance.chat(payload);
+ 
+       const createCall = (instance['client'].responses.create as Mock).mock.calls[0][0];
+-      expect(createCall.reasoning).toEqual({ effort: 'high', summary: 'auto' });
++      expect(createCall.reasoning).toEqual({ effort: 'high', summary: undefined });
+     });
+ 
+     it('should set reasoning.effort to high for gpt-5.5-pro', async () => {
+@@ -581,7 +586,7 @@ describe('LobeOpenAI', () => {
+       await instance.chat(payload);
+ 
+       const createCall = (instance['client'].responses.create as Mock).mock.calls[0][0];
+-      expect(createCall.reasoning).toEqual({ effort: 'high', summary: 'auto' });
++      expect(createCall.reasoning).toEqual({ effort: 'high', summary: undefined });
+     });
+ 
+     it('should convert max_tokens to max_output_tokens for responses API', async () => {
 diff --git a/packages/model-runtime/src/providers/openai/index.ts b/packages/model-runtime/src/providers/openai/index.ts
-index f9eb28415d..bce2e59a2e 100644
+index 5b064aec99..bcce9211b7 100644
 --- a/packages/model-runtime/src/providers/openai/index.ts
 +++ b/packages/model-runtime/src/providers/openai/index.ts
-@@ -93,8 +93,8 @@ export const params = {
+@@ -23,6 +23,25 @@ const hasAudioInput = (payload: ChatStreamPayload) =>
+       Array.isArray(message.content) && message.content.some((part) => part.type === 'audio_url'),
+   );
+ 
++const isOpenAIProviderGPTModel = (model: string): boolean => {
++  const normalized = model.trim().toLowerCase();
++  const bareModel = normalized.startsWith('codex/')
++    ? normalized.slice('codex/'.length)
++    : normalized.startsWith('openai/')
++      ? normalized.slice('openai/'.length)
++      : normalized;
++
++  return bareModel.startsWith('gpt-');
++};
++
++const resolveOpenAIStream = (model: string, requested?: boolean) =>
++  isOpenAIProviderGPTModel(model) ? false : (requested ?? true);
++
++const pruneOpenAIReasoningPayload = (payload: ChatStreamPayload) => {
++  const pruned = pruneReasoningPayload(payload);
++  return isOpenAIProviderGPTModel(payload.model) ? { ...pruned, stream: false } : pruned;
++};
++
+ const oaiSearchContextSize = process.env.OPENAI_SEARCH_CONTEXT_SIZE; // low, medium, high
+ const enableServiceTierFlex = process.env.OPENAI_SERVICE_TIER_FLEX === '1';
+ 
+@@ -39,10 +58,11 @@ export const params = {
+       }
+ 
+       if (isOpenAIReasoningPayloadModel(model)) {
+-        return pruneReasoningPayload({
++        return pruneOpenAIReasoningPayload({
+           ...rest,
+           ...(containsAudioInput && { apiMode: 'chatCompletion' }),
+           model,
++          stream: resolveOpenAIStream(model, payload.stream),
+         } as ChatStreamPayload) as any;
+       }
+ 
+@@ -52,7 +72,7 @@ export const params = {
+           frequency_penalty: undefined,
+           model,
+           presence_penalty: undefined,
+-          stream: payload.stream ?? true,
++          stream: resolveOpenAIStream(model, payload.stream),
+           temperature: undefined,
+           top_p: undefined,
+           ...(enableServiceTierFlex &&
+@@ -71,7 +91,7 @@ export const params = {
+         model,
+         ...(enableServiceTierFlex &&
+           supportsOpenAIServiceTierFlex(model) && { service_tier: 'flex' }),
+-        stream: payload.stream ?? true,
++        stream: resolveOpenAIStream(model, payload.stream),
+       };
+     },
+     supportsAudioInput: true,
+@@ -106,18 +126,18 @@ export const params = {
  
        if (isOpenAIReasoningPayloadModel(model)) {
          const reasoning = payload.reasoning
@@ -382,28 +449,35 @@ index f9eb28415d..bce2e59a2e 100644
 -          : { summary: 'auto' };
 +          ? { ...payload.reasoning, summary: undefined }
 +          : { summary: undefined };
-         if (isGPT5ProResponsesModel(model)) {
+         if (isGPTProResponsesModel(model)) {
            reasoning.effort = 'high';
          }
--- 
-2.39.5
-
-
-From 59070e16c7dbbcf083501a9d04ade4748fe6154c Mon Sep 17 00:00:00 2001
-From: MaySoMusician <maysomusician@gmail.com>
-Date: Wed, 28 Jan 2026 01:29:51 +0000
-Subject: [PATCH 10/32] Disable streaming and allow Responses API for gpt-5
- family
-
----
- .../src/providers/openai/modelId.ts           | 60 +++++++++++++++++++
- 1 file changed, 60 insertions(+)
-
+-        return pruneReasoningPayload({
++        return pruneOpenAIReasoningPayload({
+           ...rest,
+           model,
+           reasoning,
+           ...(enableServiceTierFlex &&
+             supportsOpenAIServiceTierFlex(model) && { service_tier: 'flex' }),
+-          stream: payload.stream ?? true,
++          stream: resolveOpenAIStream(model, payload.stream),
+           tools: openaiTools as any,
+           // computer-use series must set truncation as auto
+           ...(isOpenAIComputerUseModel(model) && { truncation: 'auto' }),
+@@ -130,7 +150,7 @@ export const params = {
+         model,
+         ...(enableServiceTierFlex &&
+           supportsOpenAIServiceTierFlex(model) && { service_tier: 'flex' }),
+-        stream: payload.stream ?? true,
++        stream: resolveOpenAIStream(model, payload.stream),
+         tools: openaiTools,
+       } as any;
+     },
 diff --git a/packages/model-runtime/src/providers/openai/modelId.ts b/packages/model-runtime/src/providers/openai/modelId.ts
-index a0811b1f27..17cebc8e55 100644
+index 66410ab2fe..a53d9dc0a0 100644
 --- a/packages/model-runtime/src/providers/openai/modelId.ts
 +++ b/packages/model-runtime/src/providers/openai/modelId.ts
-@@ -34,6 +34,31 @@ export const disableStreamModels = new Set([
+@@ -34,6 +34,34 @@ export const disableStreamModels = new Set([
    */
    'computer-use-preview',
    'computer-use-preview-2025-03-11',
@@ -432,10 +506,13 @@ index a0811b1f27..17cebc8e55 100644
 +  'gpt-5.6-sol',
 +  'gpt-5.6-terra',
 +  'gpt-5.6-luna',
++  'gpt-6-astra',
++  'gpt-6-sol',
++  'gpt-6-luna',
  ]);
  
  // Static Responses API-only exceptions that do not follow the parsed GPT-5 rule.
-@@ -49,6 +74,41 @@ export const responsesAPIModels = new Set([
+@@ -49,6 +77,44 @@ export const responsesAPIModels = new Set([
    'codex-mini-latest',
    'computer-use-preview',
    'computer-use-preview-2025-03-11',
@@ -474,55 +551,207 @@ index a0811b1f27..17cebc8e55 100644
 +  'gpt-5.6-sol',
 +  'gpt-5.6-terra',
 +  'gpt-5.6-luna',
++  'gpt-6-astra',
++  'gpt-6-sol',
++  'gpt-6-luna',
  ]);
  
- const GPT_MODEL_PATTERN =
--- 
-2.39.5
-
-
-From 3f51a0bc706f1668a80ae68e83e39290ff375faa Mon Sep 17 00:00:00 2001
-From: MaySoMusician <maysomusician@gmail.com>
-Date: Mon, 22 Sep 2025 15:02:20 +0000
-Subject: [PATCH 11/32] Use stream flag value from handled payload
-
----
- .../model-runtime/src/core/openaiCompatibleFactory/index.ts     | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts b/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
-index 11387c7e0f..bb9c227ae0 100644
---- a/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
-+++ b/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
-@@ -1501,7 +1501,7 @@ export const createOpenAICompatibleRuntime = <T extends Record<string, any> = an
-         strictToolPairing: true,
-       });
+ /**
+diff --git a/packages/model-runtime/src/providers/openai/openaiPayload.test.ts b/packages/model-runtime/src/providers/openai/openaiPayload.test.ts
+index a7ebcd844c..0b35e2e216 100644
+--- a/packages/model-runtime/src/providers/openai/openaiPayload.test.ts
++++ b/packages/model-runtime/src/providers/openai/openaiPayload.test.ts
+@@ -42,7 +42,7 @@ describe('OpenAI payload handlers', () => {
  
--      const isStreaming = payload.stream !== false;
-+      const isStreaming = res.stream !== false;
-       log(
-         'isStreaming: %s, hasTools: %s, hasReasoning: %s',
-         isStreaming,
+     expect(result).toMatchObject({
+       model: 'gpt-5.5-pro',
+-      reasoning: { effort: 'high', summary: 'auto' },
++      reasoning: { effort: 'high', summary: undefined },
+     });
+   });
+ });
 -- 
 2.39.5
 
 
-From f3a58f09ac0cc687d49e50866c7659ad5f39f02b Mon Sep 17 00:00:00 2001
+From 60989cd6069d8e8cd2676997278338c0967e1576 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
-Date: Mon, 22 Sep 2025 15:03:21 +0000
-Subject: [PATCH 12/32] Introduce more detailed non-streaming response
- converter
+Date: Thu, 24 Sep 2026 06:57:50 +0000
+Subject: [PATCH 04/16] =?UTF-8?q?=E2=9C=A8=20feat(openai):=20preserve=20de?=
+ =?UTF-8?q?tail=20when=20converting=20non-streaming=20responses?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-e.g. handling url_citations
+Co-authored-by: Cursor GPT-5.6 Sol <cursoragent@cursor.com.invalid>
 ---
- .../nonStreamToStream.ts                      | 256 +++++++++++++++---
- 1 file changed, 211 insertions(+), 45 deletions(-)
+ .../nonStreamToStream.test.ts                 | 100 +++----
+ .../nonStreamToStream.ts                      | 243 ++++++++++++++----
+ 2 files changed, 234 insertions(+), 109 deletions(-)
 
+diff --git a/packages/model-runtime/src/core/openaiCompatibleFactory/nonStreamToStream.test.ts b/packages/model-runtime/src/core/openaiCompatibleFactory/nonStreamToStream.test.ts
+index 06be6983ce..01d9c0c965 100644
+--- a/packages/model-runtime/src/core/openaiCompatibleFactory/nonStreamToStream.test.ts
++++ b/packages/model-runtime/src/core/openaiCompatibleFactory/nonStreamToStream.test.ts
+@@ -403,19 +403,19 @@ describe('nonStreamToStream', () => {
+         events.push(value);
+       }
+ 
+-      expect(events).toEqual([
+-        // First event: response.output_text.delta
+-        {
++      expect(events.map((event) => event.type)).toEqual([
++        'response.created',
++        'response.output_item.added',
++        'response.output_text.delta',
++        'response.output_item.done',
++        'response.completed',
++      ]);
++      expect(events).toContainEqual(
++        expect.objectContaining({
+           delta: 'Hello! How can I help you today?',
+           type: 'response.output_text.delta',
+-        },
+-        // Second event: response.completed
+-        {
+-          response: mockResponse,
+-          sequence_number: 999,
+-          type: 'response.completed',
+-        },
+-      ]);
++        }),
++      );
+     });
+ 
+     it('should handle Response API without message output', async () => {
+@@ -455,14 +455,9 @@ describe('nonStreamToStream', () => {
+         events.push(value);
+       }
+ 
+-      // Should only produce response.completed event, no text deltas
+-      expect(events).toEqual([
+-        {
+-          response: mockResponse,
+-          sequence_number: 999,
+-          type: 'response.completed',
+-        },
+-      ]);
++      expect(events.map((event) => event.type)).not.toContain('response.output_text.delta');
++      expect(events[0].type).toBe('response.created');
++      expect(events.at(-1)?.type).toBe('response.completed');
+     });
+ 
+     it('should preserve encrypted reasoning in a non-streaming response', async () => {
+@@ -491,19 +486,19 @@ describe('nonStreamToStream', () => {
+         events.push(value);
+       }
+ 
+-      expect(events).toEqual([
+-        {
+-          item: reasoning,
+-          output_index: 0,
+-          sequence_number: 0,
++      expect(events).toContainEqual(
++        expect.objectContaining({
++          item: expect.objectContaining({ encrypted_content: 'encrypted-signature' }),
++          type: 'response.output_item.added',
++        }),
++      );
++      expect(events).toContainEqual(
++        expect.objectContaining({
++          item: expect.objectContaining({ encrypted_content: 'encrypted-signature' }),
+           type: 'response.output_item.done',
+-        },
+-        {
+-          response: mockResponse,
+-          sequence_number: 999,
+-          type: 'response.completed',
+-        },
+-      ]);
++        }),
++      );
++      expect(events.at(-1)?.type).toBe('response.completed');
+     });
+ 
+     it('should handle Response API with message but no text content', async () => {
+@@ -550,14 +545,9 @@ describe('nonStreamToStream', () => {
+         events.push(value);
+       }
+ 
+-      // Should only produce response.completed event because message has no text content
+-      expect(events).toEqual([
+-        {
+-          response: mockResponse,
+-          sequence_number: 999,
+-          type: 'response.completed',
+-        },
+-      ]);
++      expect(events.map((event) => event.type)).not.toContain('response.output_text.delta');
++      expect(events[0].type).toBe('response.created');
++      expect(events.at(-1)?.type).toBe('response.completed');
+     });
+ 
+     it('should handle Response API with message id missing', async () => {
+@@ -603,17 +593,13 @@ describe('nonStreamToStream', () => {
+         events.push(value);
+       }
+ 
+-      expect(events).toEqual([
+-        {
++      expect(events).toContainEqual(
++        expect.objectContaining({
+           delta: 'Response without message ID',
+           type: 'response.output_text.delta',
+-        },
+-        {
+-          response: mockResponse,
+-          sequence_number: 999,
+-          type: 'response.completed',
+-        },
+-      ]);
++        }),
++      );
++      expect(events.at(-1)?.type).toBe('response.completed');
+     });
+ 
+     it('should handle empty output array', async () => {
+@@ -645,14 +631,7 @@ describe('nonStreamToStream', () => {
+         events.push(value);
+       }
+ 
+-      // Should only produce response.completed event even with empty output
+-      expect(events).toEqual([
+-        {
+-          response: mockResponse,
+-          sequence_number: 999,
+-          type: 'response.completed',
+-        },
+-      ]);
++      expect(events.map((event) => event.type)).toEqual(['response.created', 'response.completed']);
+     });
+ 
+     it('should handle missing output field', async () => {
+@@ -684,14 +663,7 @@ describe('nonStreamToStream', () => {
+         events.push(value);
+       }
+ 
+-      // Should only produce response.completed event since output is missing
+-      expect(events).toEqual([
+-        {
+-          response: mockResponse,
+-          sequence_number: 999,
+-          type: 'response.completed',
+-        },
+-      ]);
++      expect(events.map((event) => event.type)).toEqual(['response.created', 'response.completed']);
+     });
+   });
+ });
 diff --git a/packages/model-runtime/src/core/openaiCompatibleFactory/nonStreamToStream.ts b/packages/model-runtime/src/core/openaiCompatibleFactory/nonStreamToStream.ts
-index b6c980b78e..0bac5c17e1 100644
+index b6c980b78e..adb525fce9 100644
 --- a/packages/model-runtime/src/core/openaiCompatibleFactory/nonStreamToStream.ts
 +++ b/packages/model-runtime/src/core/openaiCompatibleFactory/nonStreamToStream.ts
-@@ -89,58 +89,224 @@ export const transformResponseToStream = (data: OpenAI.ChatCompletion) =>
+@@ -89,58 +89,211 @@ export const transformResponseToStream = (data: OpenAI.ChatCompletion) =>
      },
    });
  
@@ -573,23 +802,11 @@ index b6c980b78e..0bac5c17e1 100644
 +  // 1. First, create the "response.created" event.
 +  events.push({
 +    response: {
-+      created_at: 0, // dummy placeholder
-+      error: null, // dummy placeholder
-+      id: nonStreamingResponse.id,
-+      incomplete_details: null, // dummy placeholder
-+      instructions: null, // dummy placeholder
-+      metadata: null, // dummy placeholder
-+      model: '', // dummy placeholder
-+      object: 'response', // dummy placeholder
-+      output: [], // dummy placeholder
-+      output_text: '', // dummy placeholder
-+      parallel_tool_calls: false, // dummy placeholder
++      ...nonStreamingResponse,
++      output: [],
++      output_text: '',
 +      status:
 +        nonStreamingResponse.status === 'completed' ? 'in_progress' : nonStreamingResponse.status,
-+      temperature: null, // dummy placeholder
-+      tool_choice: 'auto', // dummy placeholder
-+      tools: [], // dummy placeholder
-+      top_p: null, // dummy placeholder
 +      usage: undefined,
 +    },
 +    sequence_number: seq++,
@@ -597,13 +814,14 @@ index b6c980b78e..0bac5c17e1 100644
 +  });
 +
 +  // 2. Traverse the output array and generate events according to each item's type.
-+  for (const item of nonStreamingResponse.output) {
++  for (const item of nonStreamingResponse.output ?? []) {
 +    // Send the "response.output_item.added" event first.
 +    events.push({
 +      item: {
 +        arguments: (item as any).arguments,
 +        call_id: (item as any).call_id,
 +        content: (item as any).content,
++        encrypted_content: (item as any).encrypted_content,
 +        id: item.id,
 +        name: (item as any).name,
 +        role: (item as any).role,
@@ -638,7 +856,11 @@ index b6c980b78e..0bac5c17e1 100644
 +        // For "message" type, send the entire content as a single "response.output_text.delta" event.
 +        if (item.content) {
 +          for (const contentObj of item.content) {
-+            if (contentObj.type === 'output_text') {
++            if (
++              contentObj.type === 'output_text' &&
++              typeof contentObj.text === 'string' &&
++              contentObj.text.length > 0
++            ) {
 +              // Combine text into a single delta.
 +              events.push({
 +                content_index: 1, // dummy placeholder
@@ -711,7 +933,12 @@ index b6c980b78e..0bac5c17e1 100644
 +        });
 +
 +        // If there's a summary array, concatenate it into a single delta.
-+        const entireSummary = Array.isArray(item.summary) ? item.summary.join('\n') : '';
++        const entireSummary = Array.isArray(item.summary)
++          ? item.summary
++              .map((summary) => (typeof summary === 'string' ? summary : summary.text))
++              .filter(Boolean)
++              .join('\n')
++          : '';
 +        if (entireSummary) {
 +          events.push({
 +            delta: entireSummary,
@@ -725,6 +952,7 @@ index b6c980b78e..0bac5c17e1 100644
 +
 +        events.push({
 +          item: {
++            encrypted_content: item.encrypted_content,
 +            id: item.id,
 +            summary: [], // dummy placeholder
 +            type: 'reasoning',
@@ -754,24 +982,12 @@ index b6c980b78e..0bac5c17e1 100644
 +  // 3. Finally, send the "response.completed" event.
 +  events.push({
 +    response: {
-+      created_at: 0, // dummy placeholder
-+      error: null, // dummy placeholder
-+      id: nonStreamingResponse.id,
-+      incomplete_details: null, // dummy placeholder
-+      instructions: null, // dummy placeholder
-+      metadata: null, // dummy placeholder
-+      model: '', // dummy placeholder
-+      object: 'response', // dummy placeholder
-+      output: [], // dummy placeholder
-+      output_text: '', // dummy placeholder
-+      parallel_tool_calls: false, // dummy placeholder
-+      temperature: null, // dummy placeholder
-+      tool_choice: 'auto', // dummy placeholder
-+      tools: [], // dummy placeholder
-+      top_p: null, // dummy placeholder
++      ...nonStreamingResponse,
++      output: [],
++      output_text: '',
 +      usage: nonStreamingResponse.usage ?? undefined,
 +    },
-+    sequence_number: seq++,
++    sequence_number: seq,
 +    type: 'response.completed',
 +  });
 +
@@ -796,849 +1012,139 @@ index b6c980b78e..0bac5c17e1 100644
 2.39.5
 
 
-From 694f8c5136e9b4e8d6bec4c8c31b0ad71e67e0c8 Mon Sep 17 00:00:00 2001
+From c92ea7c13158a6ede4bd344965a33ea51534073c Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
-Date: Sun, 12 Oct 2025 16:37:16 +0000
-Subject: [PATCH 13/32] Use conversation language for summaryTitle
+Date: Thu, 24 Sep 2026 06:57:56 +0000
+Subject: [PATCH 05/16] =?UTF-8?q?=F0=9F=90=9B=20fix(openai):=20use=20one?=
+ =?UTF-8?q?=20attempt=20and=20a=20one-hour=20timeout?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
+Co-authored-by: Cursor GPT-5.6 Sol <cursoragent@cursor.com.invalid>
 ---
- packages/prompts/src/chains/summaryTitle.ts | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/packages/prompts/src/chains/summaryTitle.ts b/packages/prompts/src/chains/summaryTitle.ts
-index b8d5034d1c..d627cabbf3 100644
---- a/packages/prompts/src/chains/summaryTitle.ts
-+++ b/packages/prompts/src/chains/summaryTitle.ts
-@@ -18,7 +18,7 @@ Rules:
- - Maximum 15 words
- - Maximum 80 characters
- - No punctuation marks
--- Use the language specified by the locale code: ${locale}
-+- Use the language mainly used in the conversation. If ambiguous, use "${locale}".
- - The title should accurately reflect the main topic of the conversation
- - Keep it short and to the point`,
-         role: 'system',
--- 
-2.39.5
-
-
-From 72f2a652106e45297706b03e9dc47db3a3860a78 Mon Sep 17 00:00:00 2001
-From: MaySoMusician <maysomusician@gmail.com>
-Date: Thu, 5 Mar 2026 10:44:37 +0000
-Subject: [PATCH 14/32] Do not load default tools like lobe-tools etc.
-
-Also show them in the skill list
----
- packages/builtin-tools/src/index.ts | 13 ++++---------
- 1 file changed, 4 insertions(+), 9 deletions(-)
-
-diff --git a/packages/builtin-tools/src/index.ts b/packages/builtin-tools/src/index.ts
-index 02e57f23e1..aa476ff942 100644
---- a/packages/builtin-tools/src/index.ts
-+++ b/packages/builtin-tools/src/index.ts
-@@ -72,12 +72,7 @@ export const defaultToolIds = [
-  * They default to pinned but can be explicitly disabled per agent; entries represented by
-  * the activation mode control itself are excluded from that menu.
-  */
--export const alwaysOnToolIds = [
--  LobeAgentManifest.identifier,
--  LobeActivatorManifest.identifier,
--  SkillsManifest.identifier,
--  SkillStoreManifest.identifier,
--];
-+export const alwaysOnToolIds = [];
- 
- /**
-  * Runtime tools represented by the skill activation mode control itself. They remain part
-@@ -163,21 +158,21 @@ export const runtimeManagedToolIds = [
- const builtinToolRegistry: LobeBuiltinTool[] = [
-   {
-     discoverable: false,
--    hidden: true,
-+    hidden: false,
-     identifier: VerifyToolManifest.identifier,
-     manifest: VerifyToolManifest,
-     type: 'builtin',
-   },
-   {
-     discoverable: false,
--    hidden: true,
-+    hidden: false,
-     identifier: LobeActivatorManifest.identifier,
-     manifest: LobeActivatorManifest,
-     type: 'builtin',
-   },
-   {
-     discoverable: false,
--    hidden: true,
-+    hidden: false,
-     identifier: SkillsManifest.identifier,
-     manifest: SkillsManifest,
-     // Context-aware: prefixes exec-class API descriptions with the run's
--- 
-2.39.5
-
-
-From 1a9ad6da51977664d7c9979d3003ecd0b6aeac4d Mon Sep 17 00:00:00 2001
-From: MaySoMusician <maysomusician@gmail.com>
-Date: Fri, 20 Mar 2026 18:26:33 +0000
-Subject: [PATCH 15/32] Disable Markdown Editor for user messages
-
-Until the editor can edit as text and save as markdown
----
- .../User/components/MessageContent.tsx        | 18 +++++----------
- src/features/EditorModal/EditorCanvas.tsx     | 23 ++++++++++++++++---
- 2 files changed, 26 insertions(+), 15 deletions(-)
-
-diff --git a/src/features/Conversation/Messages/User/components/MessageContent.tsx b/src/features/Conversation/Messages/User/components/MessageContent.tsx
-index ccb4071193..c43528c741 100644
---- a/src/features/Conversation/Messages/User/components/MessageContent.tsx
-+++ b/src/features/Conversation/Messages/User/components/MessageContent.tsx
-@@ -11,30 +11,24 @@ import AudioFileListViewer from './AudioFileListViewer';
- import FileListViewer from './FileListViewer';
- import ImageFileListViewer from './ImageFileListViewer';
- import PageSelections from './PageSelections';
--import RichTextMessage from './RichTextMessage';
- import VideoFileListViewer from './VideoFileListViewer';
- 
- const UserMessageContent = memo<UIChatMessage>(
--  ({ id, content, editorData, imageList, videoList, audioList, fileList, metadata }) => {
-+  ({ id, content, imageList, videoList, audioList, fileList, metadata }) => {
-     const markdownProps = useMarkdown(id);
-     const selections = metadata?.contextSelections?.length
-       ? metadata.contextSelections
-       : metadata?.pageSelections;
-     const displayContent = useMemo(() => (content ? cleanSpeakerTag(content) : content), [content]);
- 
--    const hasEditorData =
--      editorData && typeof editorData === 'object' && Object.keys(editorData).length > 0;
--
--    const textBody = hasEditorData ? (
--      <RichTextMessage editorState={editorData} />
--    ) : (
--      displayContent && <MarkdownMessage {...markdownProps}>{displayContent}</MarkdownMessage>
--    );
--
-     return (
-       <Flexbox gap={8} id={id}>
-         {selections && selections.length > 0 && <PageSelections selections={selections} />}
--        {textBody && <CollapsibleContent>{textBody}</CollapsibleContent>}
-+        {displayContent && (
-+          <CollapsibleContent>
-+            <MarkdownMessage {...markdownProps}>{displayContent}</MarkdownMessage>
-+          </CollapsibleContent>
-+        )}
-         {imageList && imageList?.length > 0 && <ImageFileListViewer items={imageList} />}
-         {videoList && videoList?.length > 0 && <VideoFileListViewer items={videoList} />}
-         {audioList && audioList?.length > 0 && <AudioFileListViewer items={audioList} />}
-diff --git a/src/features/EditorModal/EditorCanvas.tsx b/src/features/EditorModal/EditorCanvas.tsx
-index 8bf7cf234d..e99c6246b2 100644
---- a/src/features/EditorModal/EditorCanvas.tsx
-+++ b/src/features/EditorModal/EditorCanvas.tsx
-@@ -5,6 +5,8 @@ import { Flexbox } from '@lobehub/ui';
- import { type FC, useMemo } from 'react';
- 
- import { createChatInputRichPlugins } from '@/features/ChatInput/InputEditor/plugins';
-+import { useUserStore } from '@/store/user';
-+import { labPreferSelectors } from '@/store/user/selectors';
- 
- import TypoBar from './Typobar';
- 
-@@ -28,12 +30,27 @@ const EditorCanvas: FC<EditorCanvasProps> = ({ defaultValue, editor, editorData
-       return { content: JSON.stringify(editorData), type: 'json' as const };
-     }
- 
--    return { content: defaultValue || '', type: 'markdown' as const };
-+    return { content: defaultValue || '', type: 'text' as const };
-   }, [editorData, defaultValue]);
- 
-+  const enableRichRender = useUserStore(labPreferSelectors.enableInputMarkdown);
-+  const richRenderProps = useMemo(
-+    () =>
-+      !enableRichRender
-+        ? {
-+            enablePasteMarkdown: false,
-+            markdownOption: false,
-+            plugins: [],
-+          }
-+        : {
-+            plugins: EDITOR_PLUGINS,
-+          },
-+    [enableRichRender],
-+  );
-+
-   return (
-     <>
--      <TypoBar editor={editor} />
-+      {enableRichRender && <TypoBar editor={editor} />}
-       <Flexbox
-         padding={16}
-         style={{ cursor: 'text', maxHeight: '80vh', minHeight: '50vh', overflowY: 'auto' }}
-@@ -42,7 +59,7 @@ const EditorCanvas: FC<EditorCanvasProps> = ({ defaultValue, editor, editorData
-           autoFocus
-           content={content}
-           editor={editor}
--          plugins={EDITOR_PLUGINS}
-+          {...richRenderProps}
-           type={type}
-           variant={'chat'}
-           style={{
--- 
-2.39.5
-
-
-From b7128b1a02b2f0b732b10d247d7b30b545d241c6 Mon Sep 17 00:00:00 2001
-From: MaySoMusician <maysomusician@gmail.com>
-Date: Sun, 29 Mar 2026 12:25:13 +0000
-Subject: [PATCH 16/32] Always show exact token number
-
----
- packages/utils/src/format.ts                         | 3 ---
- src/features/Conversation/ChatInput/OpStatusTray.tsx | 4 +---
- 2 files changed, 1 insertion(+), 6 deletions(-)
-
-diff --git a/packages/utils/src/format.ts b/packages/utils/src/format.ts
-index d96cb824b7..9e24c4fa44 100644
---- a/packages/utils/src/format.ts
-+++ b/packages/utils/src/format.ts
-@@ -82,9 +82,6 @@ export const formatIntergerNumber = (num?: any) => {
- };
- 
- export const formatUsageValue = (number: number) => {
--  if (number >= 1_000_000_000) return `${numeral(number / 1_000_000_000).format('0.[0]')}B`;
--  if (number >= 1_000_000) return `${numeral(number / 1_000_000).format('0.[0]')}M`;
--  if (number >= 1_000) return `${numeral(number / 1_000).format('0.[0]')}K`;
-   return numeral(number).format('0,0');
- };
- 
-diff --git a/src/features/Conversation/ChatInput/OpStatusTray.tsx b/src/features/Conversation/ChatInput/OpStatusTray.tsx
-index 2c19029d22..33294cd784 100644
---- a/src/features/Conversation/ChatInput/OpStatusTray.tsx
-+++ b/src/features/Conversation/ChatInput/OpStatusTray.tsx
-@@ -208,9 +208,7 @@ const ActivityGlyph = memo(() => (
- ActivityGlyph.displayName = 'ActivityGlyph';
- 
- const formatTokens = (n: number) => {
--  if (n < 1000) return String(n);
--  if (n < 1_000_000) return `${(n / 1000).toFixed(1)}k`;
--  return `${(n / 1_000_000).toFixed(2)}M`;
-+  return String(n);
- };
- 
- const formatCost = (cost: number) => {
--- 
-2.39.5
-
-
-From 3b708a59ccf51e926fe2aa219a70cdf230069a9e Mon Sep 17 00:00:00 2001
-From: MaySoMusician <maysomusician@gmail.com>
-Date: Mon, 27 Apr 2026 06:51:48 +0000
-Subject: [PATCH 17/32] Open reasoning & verbosity config first, instead of
- pricing card
-
----
- src/store/global/initialState.ts | 3 ---
- 1 file changed, 3 deletions(-)
-
-diff --git a/src/store/global/initialState.ts b/src/store/global/initialState.ts
-index 03396ab76b..bc83884e3f 100644
---- a/src/store/global/initialState.ts
-+++ b/src/store/global/initialState.ts
-@@ -131,9 +131,6 @@ export type ModelDetailPanelExpandedKey = (typeof MODEL_DETAIL_PANEL_EXPANDED_KE
-  * newly added sections default to expanded automatically.
-  */
- export const MODEL_DETAIL_PANEL_EXPANDABLE_KEYS = [
--  'rating',
--  'abilities',
--  'pricing',
-   'config',
- ] as const satisfies readonly ModelDetailPanelExpandedKey[];
- 
--- 
-2.39.5
-
-
-From e326d94223e06ff8bb6493c90d0c43f9db4cf6cb Mon Sep 17 00:00:00 2001
-From: MaySoMusician <maysomusician@gmail.com>
-Date: Mon, 27 Apr 2026 14:37:03 +0000
-Subject: [PATCH 18/32] Don't resend the edited message automatically
-
-It would be nice for many people, but I want to just rather save it.
----
- .../ChatItem/components/MessageContent/index.tsx    | 13 +++----------
- 1 file changed, 3 insertions(+), 10 deletions(-)
-
-diff --git a/src/features/Conversation/ChatItem/components/MessageContent/index.tsx b/src/features/Conversation/ChatItem/components/MessageContent/index.tsx
-index 5c18506d89..ba01d302d4 100644
---- a/src/features/Conversation/ChatItem/components/MessageContent/index.tsx
-+++ b/src/features/Conversation/ChatItem/components/MessageContent/index.tsx
-@@ -4,11 +4,7 @@ import { type ReactNode } from 'react';
- import { memo, Suspense, useCallback } from 'react';
- import { useTranslation } from 'react-i18next';
- 
--import {
--  dataSelectors,
--  messageStateSelectors,
--  useConversationStore,
--} from '@/features/Conversation/store';
-+import { dataSelectors, useConversationStore } from '@/features/Conversation/store';
- import { usePermission } from '@/hooks/usePermission';
- import dynamic from '@/libs/next/dynamic';
- 
-@@ -82,11 +78,8 @@ const MessageContent = memo<MessageContentProps>(
-     // otherwise the initial send phase — where the persisted id has just swapped in
-     // under an optimistic tmp_* op — would flip to Send and kick off a duplicate
-     // regenerate for the same prompt.
--    const shouldSendOnConfirm = useConversationStore((s) => {
--      if (!editing) return false;
--      if (dataSelectors.getDisplayMessageById(id)(s)?.role !== 'user') return false;
--      if (s.displayMessages.findLast((m) => m.role === 'user')?.id !== id) return false;
--      return !messageStateSelectors.isInputLoading(s);
-+    const shouldSendOnConfirm = useConversationStore(() => {
-+      return false;
-     });
- 
-     const { t } = useTranslation('common');
--- 
-2.39.5
-
-
-From d0cc6a2539931262afbf35befd3e251c12fd129e Mon Sep 17 00:00:00 2001
-From: MaySoMusician <maysomusician@gmail.com>
-Date: Fri, 19 Jun 2026 14:53:55 +0000
-Subject: [PATCH 19/32] Pin docker base image
-
-Node 24.17 has the issue of https://github.com/nodejs/node/issues/63989,
-so pin the image to 24.16.0 temporarily
----
- Dockerfile | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/Dockerfile b/Dockerfile
-index 7d7894349f..04acc72752 100644
---- a/Dockerfile
-+++ b/Dockerfile
-@@ -1,5 +1,5 @@
- ## Set global build ENV
--ARG NODEJS_VERSION="24"
-+ARG NODEJS_VERSION="24.16.0"
- 
- ## Base image for all building stages
- FROM node:${NODEJS_VERSION}-slim AS base
-@@ -105,7 +105,7 @@ RUN rm -rf src/app/desktop "src/app/(backend)/trpc/desktop"
- RUN npm run build:docker
- 
- ## Application image, copy all the files for production
--FROM busybox:latest AS app
-+FROM busybox:1.38.0 AS app
- 
- COPY --from=base /distroless/ /
- 
--- 
-2.39.5
-
-
-From 37e1c823559c5238103473a6239c012868f126a7 Mon Sep 17 00:00:00 2001
-From: MaySoMusician <maysomusician@gmail.com>
-Date: Tue, 23 Jun 2026 23:44:22 +0000
-Subject: [PATCH 20/32] Open Share modal by defailt in OpenAI compatible JSON
- mode
-
----
- src/features/ShareModal/Modal.tsx           | 2 +-
- src/features/ShareModal/ShareJSON/index.tsx | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/src/features/ShareModal/Modal.tsx b/src/features/ShareModal/Modal.tsx
-index 463e5e2a5a..19a4d4e679 100644
---- a/src/features/ShareModal/Modal.tsx
-+++ b/src/features/ShareModal/Modal.tsx
-@@ -24,7 +24,7 @@ export interface OpenShareModalOptions {
- }
- 
- const ShareModalContent = memo(() => {
--  const [tab, setTab] = useState<ShareTab>(ShareTab.Screenshot);
-+  const [tab, setTab] = useState<ShareTab>(ShareTab.JSON);
-   const [rendererAttempt, setRendererAttempt] = useState(0);
-   const [rendererState, setRendererState] = useState<ShareTabRendererState>({ status: 'loading' });
-   const { t } = useTranslation('chat');
-diff --git a/src/features/ShareModal/ShareJSON/index.tsx b/src/features/ShareModal/ShareJSON/index.tsx
-index b76539e738..8d62db15a7 100644
---- a/src/features/ShareModal/ShareJSON/index.tsx
-+++ b/src/features/ShareModal/ShareJSON/index.tsx
-@@ -19,7 +19,7 @@ import Preview from './Preview';
- import { type FieldType } from './type';
- 
- const DEFAULT_FIELD_VALUE: FieldType = {
--  exportMode: 'full',
-+  exportMode: 'simple',
-   includeTool: true,
-   withSystemRole: true,
- };
--- 
-2.39.5
-
-
-From 4ef7c2f6717ed6c4c2964a564ff4f328145df65b Mon Sep 17 00:00:00 2001
-From: MaySoMusician <maysomusician@gmail.com>
-Date: Mon, 29 Jun 2026 14:03:03 +0000
-Subject: [PATCH 21/32] Reset model switch panel width when opening it in
- narrower phone
-
----
- .../ModelSwitchPanel/components/PanelContent.tsx       | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
-
-diff --git a/src/features/ModelSwitchPanel/components/PanelContent.tsx b/src/features/ModelSwitchPanel/components/PanelContent.tsx
-index 3212079217..d47451004c 100644
---- a/src/features/ModelSwitchPanel/components/PanelContent.tsx
-+++ b/src/features/ModelSwitchPanel/components/PanelContent.tsx
-@@ -1,5 +1,5 @@
- import { Flexbox } from '@lobehub/ui';
--import { type ComponentType, type FC } from 'react';
-+import { type ComponentType, type FC, useEffect } from 'react';
- import { useState } from 'react';
- import { Rnd } from 'react-rnd';
- 
-@@ -67,6 +67,14 @@ export const PanelContent: FC<PanelContentProps> = ({
-     </>
-   );
- 
-+  // Reset the panel width for narrower browser
-+  useEffect(() => {
-+    const clevererWidth = document.body.clientWidth - 50;
-+    if (panelWidth > clevererWidth) {
-+      handlePanelWidthChange(clevererWidth);
-+    }
-+  }, [handlePanelWidthChange]);
-+
-   if (isDevMode) {
-     return (
-       <Rnd
--- 
-2.39.5
-
-
-From 30279b76a7a699458f72389aba4500c1f9b6e137 Mon Sep 17 00:00:00 2001
-From: MaySoMusician <maysomusician@gmail.com>
-Date: Mon, 29 Jun 2026 18:42:37 +0000
-Subject: [PATCH 22/32] Show right panel controls even in mobile (in not clean
- way)
-
----
- .../ChatInput/ActionBar/Params/Controls.tsx   |  1 -
- src/routes/(mobile)/chat/_layout/index.tsx    | 58 +++++++++++++++++--
- .../chat/features/ChatHeader/index.tsx        |  2 +
- 3 files changed, 54 insertions(+), 7 deletions(-)
-
-diff --git a/src/features/ChatInput/ActionBar/Params/Controls.tsx b/src/features/ChatInput/ActionBar/Params/Controls.tsx
-index b3386af054..083b2ac931 100644
---- a/src/features/ChatInput/ActionBar/Params/Controls.tsx
-+++ b/src/features/ChatInput/ActionBar/Params/Controls.tsx
-@@ -101,7 +101,6 @@ const styles = createStaticStyles(({ css }) => ({
-   `,
-   body: css`
-     overflow-y: auto;
--    overscroll-behavior: contain;
-     display: flex;
-     flex: 1 1 auto;
-     flex-direction: column;
-diff --git a/src/routes/(mobile)/chat/_layout/index.tsx b/src/routes/(mobile)/chat/_layout/index.tsx
-index 0429a0a745..96342964c9 100644
---- a/src/routes/(mobile)/chat/_layout/index.tsx
-+++ b/src/routes/(mobile)/chat/_layout/index.tsx
-@@ -7,7 +7,10 @@ import MobileContentLayout from '@/components/server/MobileNavLayout';
- import { AgentNotFoundGuard } from '@/features/AgentNotFound';
- import { useInitAgentConfig } from '@/hooks/useInitAgentConfig';
- import AgentIdSync from '@/routes/(main)/agent/_layout/AgentIdSync';
-+import AgentWorkingSidebar from '@/features/Conversation/WorkingSidebar';
- import ChatHeader from '@/routes/(mobile)/chat/features/ChatHeader';
-+import { useGlobalStore } from '@/store/global';
-+import { systemStatusSelectors } from '@/store/global/selectors';
- 
- import { styles } from './style';
- 
-@@ -16,16 +19,59 @@ const Layout: FC = () => {
- 
-   return (
-     <>
--      <MobileContentLayout className={styles.mainContainer} header={<ChatHeader />}>
--        {/* Same 404 fallback as the desktop agent layout: only the content
-+      <div style={{ position: 'relative', height: '100%' }}>
-+        <MobileContentLayout className={styles.mainContainer} header={<ChatHeader />}>
-+          {/* Same 404 fallback as the desktop agent layout: only the content
-             area collapses when the routed agent is gone or turned private. */}
--        <AgentNotFoundGuard>
--          <Outlet />
--        </AgentNotFoundGuard>
--      </MobileContentLayout>
-+          <AgentNotFoundGuard>
-+            <Outlet />
-+          </AgentNotFoundGuard>
-+        </MobileContentLayout>
-+        <Overlay />
-+      </div>
-+      <div
-+        style={{
-+          position: 'absolute',
-+          right: 0,
-+          overflowY: 'auto',
-+          maxHeight: '100vh',
-+          zIndex: 999999,
-+        }}
-+      >
-+        <AgentWorkingSidebar />
-+      </div>
-       <AgentIdSync />
-     </>
-   );
- };
- 
-+const Overlay = () => {
-+  const [sidebarShown, toggleRightPanel] = useGlobalStore((s) => [
-+    systemStatusSelectors.showRightPanel(s),
-+    s.toggleRightPanel,
-+  ]);
-+  return (
-+    sidebarShown && (
-+      <div
-+        style={{
-+          position: 'absolute',
-+          top: 0,
-+          left: 0,
-+          width: '100%',
-+          height: '100%',
-+          background: 'black',
-+          opacity: 0.8,
-+        }}
-+        onClickCapture={(e) => {
-+          if (sidebarShown) {
-+            e.preventDefault();
-+            toggleRightPanel();
-+            e.stopPropagation();
-+          }
-+        }}
-+      />
-+    )
-+  );
-+};
-+
- export default Layout;
-diff --git a/src/routes/(mobile)/chat/features/ChatHeader/index.tsx b/src/routes/(mobile)/chat/features/ChatHeader/index.tsx
-index 2d56473f95..f2fbe91e67 100644
---- a/src/routes/(mobile)/chat/features/ChatHeader/index.tsx
-+++ b/src/routes/(mobile)/chat/features/ChatHeader/index.tsx
-@@ -7,6 +7,7 @@ import { memo, useState } from 'react';
- import TopicCommentButton from '@/features/TopicComment/TopicCommentButton';
- import { useQueryRoute } from '@/hooks/useQueryRoute';
- import ShareButton from '@/routes/(main)/agent/features/Conversation/Header/ShareButton';
-+import WorkingPanelToggle from '@/routes/(main)/agent/features/Conversation/Header/WorkingPanelToggle';
- 
- import ChatHeaderTitle from './ChatHeaderTitle';
- 
-@@ -23,6 +24,7 @@ const MobileHeader = memo(() => {
-         <Flexbox horizontal align={'center'} gap={4}>
-           <TopicCommentButton mobile />
-           <ShareButton mobile open={open} setOpen={setOpen} />
-+          <WorkingPanelToggle />
-         </Flexbox>
-       }
-       onBackClick={() =>
--- 
-2.39.5
-
-
-From 66910826054790374adf13aa63fbfef1699d699e Mon Sep 17 00:00:00 2001
-From: MaySoMusician <maysomusician@gmail.com>
-Date: Mon, 6 Jul 2026 06:42:46 +0000
-Subject: [PATCH 23/32] Shorten message in topic card for faster performance
-
----
- src/features/AgentTopicManager/TopicCard.tsx | 13 ++++++++++---
- 1 file changed, 10 insertions(+), 3 deletions(-)
-
-diff --git a/src/features/AgentTopicManager/TopicCard.tsx b/src/features/AgentTopicManager/TopicCard.tsx
-index 79918b2b18..d114e63db0 100644
---- a/src/features/AgentTopicManager/TopicCard.tsx
-+++ b/src/features/AgentTopicManager/TopicCard.tsx
-@@ -5,7 +5,7 @@ import { formatPrice, formatTokenNumber } from '@lobechat/utils/format';
- import { Block, Checkbox, Flexbox, Icon, Tag, Text } from '@lobehub/ui';
- import { createStaticStyles, cssVar } from 'antd-style';
- import { CircleDollarSign, FolderIcon, MessageSquare, Star, Zap } from 'lucide-react';
--import { memo, type MouseEvent, useCallback } from 'react';
-+import { memo, type MouseEvent, useCallback, useMemo } from 'react';
- import { useTranslation } from 'react-i18next';
- 
- import { useWorkspaceAwareNavigate } from '@/features/Workspace/useWorkspaceAwareNavigate';
-@@ -118,8 +118,15 @@ const TopicCard = memo<TopicCardProps>(({ topic, agentId }) => {
-   const status = topic.status ?? 'active';
-   // Preview priority: user-written description → AI history summary → first user
-   // message (sliced server-side when neither richer field exists).
--  const preview =
--    topic.description?.trim() || topic.historySummary?.trim() || topic.firstUserMessage?.trim();
-+  const preview = useMemo(
-+    () =>
-+      (
-+        topic.description?.trim() ||
-+        topic.historySummary?.trim() ||
-+        topic.firstUserMessage?.trim()
-+      )?.slice(0, 100),
-+    [topic.description, topic.firstUserMessage, topic.historySummary],
-+  );
-   const updatedAt = useActivityTime(topic.updatedAt);
-   // Postgres `numeric` / `int` round-trip through TRPC/JSON as strings in
-   // some shapes, so coerce defensively before any `.toFixed` / format call.
--- 
-2.39.5
-
-
-From 4b33784d394e1a0d1a9449f416fc363a9bdb7665 Mon Sep 17 00:00:00 2001
-From: MaySoMusician <maysomusician@gmail.com>
-Date: Mon, 6 Jul 2026 07:40:48 +0000
-Subject: [PATCH 24/32] Allow to open topic in new tab via Ctrl+Click
-
----
- .../AgentSidebar/Topic/List/Item/index.tsx    | 27 +++++++++++--------
- src/features/AgentTopicManager/TopicCard.tsx  | 20 +++++++++++++-
- 2 files changed, 35 insertions(+), 12 deletions(-)
-
-diff --git a/src/features/AgentSidebar/Topic/List/Item/index.tsx b/src/features/AgentSidebar/Topic/List/Item/index.tsx
-index 5b6b19aaf5..558455291c 100644
---- a/src/features/AgentSidebar/Topic/List/Item/index.tsx
-+++ b/src/features/AgentSidebar/Topic/List/Item/index.tsx
-@@ -9,7 +9,7 @@ import { Flexbox, Icon, Popover, Skeleton, Tag, Text, Tooltip } from '@lobehub/u
- import { createStaticStyles, cssVar, useTheme } from 'antd-style';
- import dayjs from 'dayjs';
- import { HashIcon, MessageSquareDashed } from 'lucide-react';
--import type { CSSProperties, DragEvent, RefObject } from 'react';
-+import type { CSSProperties, DragEvent, MouseEvent, RefObject } from 'react';
- import { memo, Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react';
- import { useTranslation } from 'react-i18next';
- 
-@@ -33,6 +33,7 @@ import { useChatStore } from '@/store/chat';
- import { operationSelectors } from '@/store/chat/selectors';
- import { messageMapKey } from '@/store/chat/utils/messageMapKey';
- import { useElectronStore } from '@/store/electron';
-+import { isModifierClick } from '@/utils/navigation';
- 
- import { useTopicNavigation } from '../../hooks/useTopicNavigation';
- import ThreadList from '../../TopicListContent/ThreadList';
-@@ -233,17 +234,21 @@ const TopicItemRow = memo<TopicItemRowProps>(
-       [id, title],
-     );
- 
--    const handleClick = useCallback(() => {
--      if (isDesktop) {
--        cancelPendingSingleClick();
--        pendingSingleClickTimer = setTimeout(() => {
--          pendingSingleClickTimer = null;
-+    const handleClick = useCallback(
-+      (e: MouseEvent) => {
-+        if (isModifierClick(e)) return;
-+        if (isDesktop) {
-+          cancelPendingSingleClick();
-+          pendingSingleClickTimer = setTimeout(() => {
-+            pendingSingleClickTimer = null;
-+            void navRef.current.navigateToTopic(id);
-+          }, 250);
-+        } else {
-           void navRef.current.navigateToTopic(id);
--        }, 250);
--      } else {
--        void navRef.current.navigateToTopic(id);
--      }
--    }, [id, navRef]);
-+        }
-+      },
-+      [id, navRef],
-+    );
- 
-     const handleDoubleClick = useCallback(async () => {
-       if (!id || !activeAgentId || !isDesktop) return;
-diff --git a/src/features/AgentTopicManager/TopicCard.tsx b/src/features/AgentTopicManager/TopicCard.tsx
-index d114e63db0..a3d3640966 100644
---- a/src/features/AgentTopicManager/TopicCard.tsx
-+++ b/src/features/AgentTopicManager/TopicCard.tsx
-@@ -11,6 +11,7 @@ import { useTranslation } from 'react-i18next';
- import { useWorkspaceAwareNavigate } from '@/features/Workspace/useWorkspaceAwareNavigate';
- import { useActivityTime } from '@/hooks/useActivityTime';
- import type { ChatTopic } from '@/types/topic';
-+import { isModifierClick } from '@/utils/navigation';
- 
- import StatusDot from './StatusDot';
- import { useTopicsViewStore } from './store';
-@@ -105,6 +106,8 @@ const TopicCard = memo<TopicCardProps>(({ topic, agentId }) => {
-     [selectMode, topic.id, agentId, toggleSelected, navigate],
-   );
- 
-+  const href = useMemo(() => AGENT_CHAT_TOPIC_URL(agentId, topic.id), [agentId, topic.id]);
-+
-   const handleCheckboxChange = useCallback(() => {
-     if (!selectMode) toggleSelectMode();
-     toggleSelected(topic.id);
-@@ -155,7 +158,22 @@ const TopicCard = memo<TopicCardProps>(({ topic, agentId }) => {
-           <Icon icon={Star} size={13} style={{ color: cssVar.colorWarning, flexShrink: 0 }} />
-         )}
-         <Text className={styles.title} fontSize={14} weight={600}>
--          {topic.title || t('defaultTitle')}
-+          <a
-+            href={href}
-+            style={{ color: 'inherit' }}
-+            target="_blank"
-+            onClick={(e) => {
-+              if (isModifierClick(e)) {
-+                // Allow only modifier click (Cmd+Click on Mac, Ctrl+Click on other OS)
-+                // and manual navigation via context menu
-+                e.stopPropagation();
-+              } else {
-+                e.preventDefault();
-+              }
-+            }}
-+          >
-+            {topic.title || t('defaultTitle')}
-+          </a>
-         </Text>
-       </Flexbox>
- 
--- 
-2.39.5
-
-
-From 50dbbafb8cc4e7aed1eee5bd25f291f1e5a5a621 Mon Sep 17 00:00:00 2001
-From: MaySoMusician <maysomusician@gmail.com>
-Date: Mon, 6 Jul 2026 18:48:42 +0000
-Subject: [PATCH 25/32] Do not add additives to system prompt
-
----
- .../builtin-agents/src/agents/inbox/index.ts     |  3 +--
- .../src/engine/messages/MessagesEngine.ts        | 16 +---------------
- src/services/chat/mecha/agentConfigResolver.ts   |  4 +---
- 3 files changed, 3 insertions(+), 20 deletions(-)
-
-diff --git a/packages/builtin-agents/src/agents/inbox/index.ts b/packages/builtin-agents/src/agents/inbox/index.ts
-index 319c098120..397d86058b 100644
---- a/packages/builtin-agents/src/agents/inbox/index.ts
-+++ b/packages/builtin-agents/src/agents/inbox/index.ts
-@@ -3,7 +3,6 @@ import { UserInteractionIdentifier } from '@lobechat/builtin-tool-user-interacti
- 
- import type { BuiltinAgentDefinition } from '../../types';
- import { BUILTIN_AGENT_SLUGS } from '../../types';
--import { createSystemRole } from './systemRole';
- 
- /**
-  * Inbox Agent - the default assistant agent for general conversations
-@@ -14,7 +13,7 @@ export const INBOX: BuiltinAgentDefinition = {
-   avatar: '/avatars/lobe-ai.png',
-   runtime: (ctx) => ({
-     plugins: [AgentDocumentsIdentifier, UserInteractionIdentifier, ...(ctx.plugins || [])],
--    systemRole: createSystemRole(ctx.userLocale),
-+    systemRole: '',
-   }),
- 
-   slug: BUILTIN_AGENT_SLUGS.inbox,
-diff --git a/packages/context-engine/src/engine/messages/MessagesEngine.ts b/packages/context-engine/src/engine/messages/MessagesEngine.ts
-index 27f5dba15f..da9632332a 100644
---- a/packages/context-engine/src/engine/messages/MessagesEngine.ts
-+++ b/packages/context-engine/src/engine/messages/MessagesEngine.ts
-@@ -1,4 +1,4 @@
--import debug from 'debug';
-+import debug, { enabled } from 'debug';
- 
- import type { OpenAIChatMessage } from '@/types/index';
- 
-@@ -44,7 +44,6 @@ import {
-   HistorySummaryProvider,
-   KnowledgeInjector,
-   LocalSystemToolSnapshotInjector,
--  ModelInfoProvider,
-   OnboardingActionHintInjector,
-   OnboardingContextInjector,
-   OnboardingSyntheticStateInjector,
-@@ -53,7 +52,6 @@ import {
-   PlanInjector,
-   SelectedSkillInjector,
-   SkillContextProvider,
--  SystemDateProvider,
-   SystemRoleInjector,
-   TaskManagerContextInjector,
-   TodoInjector,
-@@ -262,18 +260,6 @@ export class MessagesEngine {
-         context: botPlatformContext,
-         enabled: !!botPlatformContext,
-       }),
--      // System date
--      new SystemDateProvider({ enabled: isSystemDateEnabled, timezone }),
--      // Model info (name / id / knowledge cutoff)
--      new ModelInfoProvider({
--        displayName: modelDisplayName,
--        knowledgeCutoff: modelKnowledgeCutoff,
--        modelId: model,
--        nativeMediaCapabilities: {
--          video: capabilities?.isCanUseVideo?.(model, provider),
--          vision: capabilities?.isCanUseVision?.(model, provider),
--        },
--      }),
-       // Skill context (available skills list + activated skill content).
-       // Disabled in chat mode — pairs with the tools-engine gate so the LLM
-       // sees neither the manifests nor the discovery prompt.
-diff --git a/src/services/chat/mecha/agentConfigResolver.ts b/src/services/chat/mecha/agentConfigResolver.ts
-index b1a3e009e0..be5baad634 100644
---- a/src/services/chat/mecha/agentConfigResolver.ts
-+++ b/src/services/chat/mecha/agentConfigResolver.ts
-@@ -280,9 +280,7 @@ export const resolveAgentConfig = (ctx: AgentConfigResolverContext): ResolvedAge
-     const userLocale = userGeneralSettingsSelectors.currentResponseLanguage(
-       useUserStore.getState(),
-     );
--    const localeInstruction = userLocale
--      ? `Preferred reply language: ${userLocale}. Use this language unless the user explicitly asks to switch.`
--      : '';
-+    const localeInstruction = '';
-     const systemRoleWithLocale = localeInstruction
-       ? agentConfig.systemRole
-         ? `${agentConfig.systemRole}\n\n${localeInstruction}`
--- 
-2.39.5
-
-
-From 477ded84a024056db99edb68cb718fc182a97d4c Mon Sep 17 00:00:00 2001
-From: MaySoMusician <maysomusician@gmail.com>
-Date: Sun, 26 Jul 2026 08:13:14 +0000
-Subject: [PATCH 26/32] Fix 900s timeout issue
-
----
+ .../adapters/ServerLLMTransport.ts            | 55 +-----------
  packages/model-runtime/package.json           |  1 +
  .../src/core/openaiCompatibleFactory/index.ts | 29 ++++++-
- .../core/openaiCompatibleFactory/timeout.ts   | 75 +++++++++++++++++++
- .../(backend)/webapi/chat/[provider]/route.ts |  2 +-
- src/instrumentation.ts                        | 23 ++++++
+ .../core/openaiCompatibleFactory/timeout.ts   | 86 +++++++++++++++++++
+ .../(backend)/webapi/chat/[provider]/route.ts | 33 +++++--
+ src/instrumentation.ts                        | 26 ++++++
  src/libs/next/config/define-config.ts         |  1 +
- 6 files changed, 129 insertions(+), 2 deletions(-)
+ .../agents/transports/ClientLLMTransport.ts   |  1 +
+ 8 files changed, 172 insertions(+), 60 deletions(-)
  create mode 100644 packages/model-runtime/src/core/openaiCompatibleFactory/timeout.ts
 
+diff --git a/apps/server/src/modules/AgentRuntime/adapters/ServerLLMTransport.ts b/apps/server/src/modules/AgentRuntime/adapters/ServerLLMTransport.ts
+index b2e2addc39..25d29e4cd5 100644
+--- a/apps/server/src/modules/AgentRuntime/adapters/ServerLLMTransport.ts
++++ b/apps/server/src/modules/AgentRuntime/adapters/ServerLLMTransport.ts
+@@ -18,7 +18,6 @@ import { BRANDING_PROVIDER } from '@lobechat/business-const';
+ import {
+   type ChatStreamPayload,
+   consumeStreamUntilDone,
+-  ModelEmptyError,
+   type ModelRuntime,
+ } from '@lobechat/model-runtime';
+ import {
+@@ -53,64 +52,19 @@ const getErrorMessage = (error: unknown): string => {
+ };
+ 
+ const SERVER_LLM_RETRY_POLICY = {
++  maxRetries: 0,
+   noRetryProviders: [BRANDING_PROVIDER],
+ };
+ 
+-const NETWORK_EMPTY_COMPLETION_MAX_RETRIES = 3;
+-const NETWORK_EMPTY_COMPLETION_MAX_ATTEMPTS = NETWORK_EMPTY_COMPLETION_MAX_RETRIES + 1;
+-
+-/**
+- * A stream that died on the transport before the model produced anything: no
+- * content, no reasoning, no image, no tool call and — decisively — neither cost
+- * nor output tokens, so the attempt billed nothing.
+- *
+- * `ModelEmptyCompletion` is non-retryable by spec precisely because "a retry is
+- * a new, potentially billable provider request". That reasoning is what these
+- * diagnostics rule out, which is why this narrow shape may retry while every
+- * other empty completion still surfaces immediately.
+- *
+- * Deliberately provider-independent: the zero-output, zero-cost diagnostics
+- * carry the whole safety argument on their own. A BYOK stream dropping
+- * mid-flight is the same failure, and nothing about a first-party route makes
+- * an unbilled network drop more retryable than a third-party one.
+- */
+-const isRetryableNetworkEmptyCompletion = (error: unknown) => {
+-  if (!(error instanceof ModelEmptyError)) return false;
+-
+-  const diagnostics = error.diagnostics;
+-  return (
+-    diagnostics?.finishReason === 'network_error' &&
+-    diagnostics.contentLength === 0 &&
+-    diagnostics.reasoningLength === 0 &&
+-    diagnostics.imageCount === 0 &&
+-    diagnostics.toolCallCount === 0 &&
+-    diagnostics.cost === undefined &&
+-    diagnostics.outputTokens === undefined
+-  );
+-};
+-
+ class ServerLLMRetryPolicy implements LLMRetryPolicy {
+   constructor(private readonly ctx: RuntimeExecutorContext) {}
+ 
+   classifyError(error: unknown) {
+-    const classified = classifyLLMError(error);
+-    return isRetryableNetworkEmptyCompletion(error)
+-      ? { ...classified, kind: 'retry' as const }
+-      : classified;
++    return classifyLLMError(error);
+   }
+ 
+-  /**
+-   * The executor fixes the attempt ceiling before any error exists, so it has to
+-   * leave room for the error-driven network-empty budget below. Providers that
+-   * already allow more keep their own ceiling; only a no-retry provider is
+-   * lifted, and `resolveRetryBudget` still refuses every other error of theirs
+-   * at the first attempt.
+-   */
+   maxAttempts(provider: string) {
+-    return Math.max(
+-      resolveLLMMaxAttempts(provider, SERVER_LLM_RETRY_POLICY),
+-      NETWORK_EMPTY_COMPLETION_MAX_ATTEMPTS,
+-    );
++    return resolveLLMMaxAttempts(provider, SERVER_LLM_RETRY_POLICY);
+   }
+ 
+   onError({ error }: LLMCallErrorInput) {
+@@ -132,8 +86,7 @@ class ServerLLMRetryPolicy implements LLMRetryPolicy {
+     );
+   }
+ 
+-  resolveRetryBudget(provider: string, error: unknown) {
+-    if (isRetryableNetworkEmptyCompletion(error)) return NETWORK_EMPTY_COMPLETION_MAX_RETRIES;
++  resolveRetryBudget(provider: string, _error: unknown) {
+     return resolveLLMRetryBudget(provider, SERVER_LLM_RETRY_POLICY);
+   }
+ 
 diff --git a/packages/model-runtime/package.json b/packages/model-runtime/package.json
-index d9a8a8de84..98fcef7329 100644
+index c8c59be051..f3a8465ce4 100644
 --- a/packages/model-runtime/package.json
 +++ b/packages/model-runtime/package.json
-@@ -48,6 +48,7 @@
+@@ -51,6 +51,7 @@
      "replicate": "^1.4.0",
      "tokenx": "^1.3.0",
      "type-fest": "^5.7.0",
-+    "undici": "^7.28.0",
++    "undici": "^7.29.0",
      "url-join": "^5.0.0"
    },
    "devDependencies": {
 diff --git a/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts b/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
-index bb9c227ae0..bc282605bc 100644
+index 4c3179d985..3dd86ca0e0 100644
 --- a/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
 +++ b/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
-@@ -78,10 +78,15 @@ import { convertOpenAIResponseUsage, convertOpenAIUsage } from '../usageConverte
- import { createOpenAICompatibleImage } from './createImage';
- import { createOpenAICompatibleVideo, pollOpenAICompatibleVideoStatus } from './createVideo';
- import { transformResponseAPIToStream, transformResponseToStream } from './nonStreamToStream';
-+import {
-+  DEFAULT_OPENAI_TIMEOUT,
-+  resolveOpenAIClientNetworkOptions,
-+} from './timeout';
+@@ -88,10 +88,12 @@ import {
+   recordOpenAIResponsesResponse,
+   resolveOpenAIResponseWithMetadata,
+ } from './providerDiagnostics';
++import { DEFAULT_OPENAI_TIMEOUT, resolveOpenAIClientNetworkOptions } from './timeout';
  
  export type { PollVideoStatusResult };
  export * from './createVideo';
@@ -1647,7 +1153,7 @@ index bb9c227ae0..bc282605bc 100644
  
  /**
   * Detect provider 400/422 errors that reject `response_format: { type: 'json_schema' }`.
-@@ -370,7 +375,29 @@ export const createOpenAICompatibleRuntime = <T extends Record<string, any> = an
+@@ -382,7 +384,31 @@ export const createOpenAICompatibleRuntime = <T extends Record<string, any> = an
  
        if (!apiKey) throw AgentRuntimeError.createError(ErrorType?.invalidAPIKey);
  
@@ -1663,6 +1169,8 @@ index bb9c227ae0..bc282605bc 100644
 +        baseURL,
 +        ...constructorOptions,
 +        ...res,
++        // Self-host: never auto-retry upstream — timeouts/5xx would re-bill the same prompt.
++        maxRetries: 0,
 +        timeout: resolvedTimeout,
 +      };
 +
@@ -1678,12 +1186,20 @@ index bb9c227ae0..bc282605bc 100644
  
        // if the custom client is provided, use it as client
        if (customClient?.createClient) {
+@@ -704,6 +730,7 @@ export const createOpenAICompatibleRuntime = <T extends Record<string, any> = an
+             baseURL: targetBaseURL,
+             ...constructorOptions,
+             ...restOptions,
++            maxRetries: 0,
+           } as ConstructorOptions<T> & Record<string, any>;
+ 
+           this._options = nextOptions;
 diff --git a/packages/model-runtime/src/core/openaiCompatibleFactory/timeout.ts b/packages/model-runtime/src/core/openaiCompatibleFactory/timeout.ts
 new file mode 100644
-index 0000000000..9b52bd92d9
+index 0000000000..5fd44d0c2e
 --- /dev/null
 +++ b/packages/model-runtime/src/core/openaiCompatibleFactory/timeout.ts
-@@ -0,0 +1,75 @@
+@@ -0,0 +1,86 @@
 +export const DEFAULT_OPENAI_TIMEOUT = 3_600_000;
 +
 +export interface OpenAIClientNetworkOptions {
@@ -1707,9 +1223,7 @@ index 0000000000..9b52bd92d9
 +
 +  const fromInstrumentation = (globalThis as typeof globalThis & { __LOBE_UNDICI__?: UndiciModule })
 +    .__LOBE_UNDICI__;
-+  if (fromInstrumentation?.Agent && fromInstrumentation.fetch) {
-+    return fromInstrumentation;
-+  }
++  if (fromInstrumentation) return fromInstrumentation;
 +
 +  try {
 +    // Hide from Vite; works when the module graph is CJS.
@@ -1734,13 +1248,15 @@ index 0000000000..9b52bd92d9
 + * Without a matching Agent on the same fetch implementation, Node's default
 + * undici agent still aborts at 300s (× SDK retries ≈ 900s).
 + */
++let loggedUndiciApply = false;
++
 +export const resolveOpenAIClientNetworkOptions = (
 +  timeoutMs: number = DEFAULT_OPENAI_TIMEOUT,
 +): OpenAIClientNetworkOptions => {
 +  const timeout = Number.isFinite(timeoutMs) && timeoutMs >= 0 ? timeoutMs : DEFAULT_OPENAI_TIMEOUT;
 +
 +  const undici = loadUndici();
-+  if (!undici?.Agent || !undici.fetch) {
++  if (!undici) {
 +    console.warn(
 +      '[model-runtime] undici Agent unavailable — relying on instrumentation global fetch if present. timeoutMs=%s',
 +      timeout,
@@ -1753,6 +1269,17 @@ index 0000000000..9b52bd92d9
 +    headersTimeout: timeout,
 +  });
 +
++  if (!loggedUndiciApply) {
++    loggedUndiciApply = true;
++    const source = (globalThis as typeof globalThis & { __LOBE_UNDICI__?: UndiciModule })
++      .__LOBE_UNDICI__
++      ? 'instrumentation'
++      : 'require';
++    console.info(
++      `[model-runtime] OpenAI undici Agent applied timeoutMs=${timeout} source=${source}`,
++    );
++  }
++
 +  return {
 +    fetch: undici.fetch as unknown as typeof fetch,
 +    fetchOptions: { dispatcher },
@@ -1760,23 +1287,67 @@ index 0000000000..9b52bd92d9
 +  };
 +};
 diff --git a/src/app/(backend)/webapi/chat/[provider]/route.ts b/src/app/(backend)/webapi/chat/[provider]/route.ts
-index 4a6118f8b2..8e09ffe450 100644
+index 2d2379091d..e0acd6ce1b 100644
 --- a/src/app/(backend)/webapi/chat/[provider]/route.ts
 +++ b/src/app/(backend)/webapi/chat/[provider]/route.ts
-@@ -12,7 +12,7 @@ import { resolveValidWorkspaceIdFromRequest } from '../../_utils/workspace';
+@@ -13,7 +13,22 @@ import { resolveValidWorkspaceIdFromRequest } from '../../_utils/workspace';
  
  // If user don't use fluid compute, will build  failed
  // this enforce user to enable fluid compute
 -export const maxDuration = 300;
 +export const maxDuration = 3600;
++
++const withUndiciHeader = <T>(response: T): T => {
++  if (!(response instanceof Response)) return response;
++
++  const undiciInstalled = !!(globalThis as typeof globalThis & { __LOBE_UNDICI__?: unknown })
++    .__LOBE_UNDICI__;
++  const headers = new Headers(response.headers);
++  headers.set('X-Lobe-Undici', undiciInstalled ? '1' : '0');
++
++  return new Response(response.body, {
++    headers,
++    status: response.status,
++    statusText: response.statusText,
++  }) as T;
++};
  
  export const POST = checkAuth(async (req: Request, { params, userId, serverDB }) => {
    const provider = (await params)!.provider!;
+@@ -36,12 +51,14 @@ export const POST = checkAuth(async (req: Request, { params, userId, serverDB })
+       traceOptions = createTraceOptions(data, { provider, trace: tracePayload });
+     }
+ 
+-    return await modelRuntime.chat(data, {
+-      user: userId,
+-      ...traceOptions,
+-      metadata: { topicId: req.headers.get(REQUEST_TOPIC_ID_HEADER) ?? undefined },
+-      signal: req.signal,
+-    });
++    return withUndiciHeader(
++      await modelRuntime.chat(data, {
++        user: userId,
++        ...traceOptions,
++        metadata: { topicId: req.headers.get(REQUEST_TOPIC_ID_HEADER) ?? undefined },
++        signal: req.signal,
++      }),
++    );
+   } catch (e) {
+     const {
+       errorType = ChatErrorType.InternalServerError,
+@@ -58,6 +75,6 @@ export const POST = checkAuth(async (req: Request, { params, userId, serverDB })
+       console.error(`Route: [${provider}] ${errorType}:`, error);
+     }
+ 
+-    return createErrorResponse(errorType, { error, ...res, provider });
++    return withUndiciHeader(createErrorResponse(errorType, { error, ...res, provider }));
+   }
+ });
 diff --git a/src/instrumentation.ts b/src/instrumentation.ts
-index 1223e7eec4..131c62f093 100644
+index daa1510fe5..a094abbe6e 100644
 --- a/src/instrumentation.ts
 +++ b/src/instrumentation.ts
-@@ -1,4 +1,27 @@
+@@ -1,4 +1,30 @@
  export async function register() {
 +  // Node's built-in fetch uses undici defaults (headersTimeout/bodyTimeout
 +  // 300s). OpenAI SDK retries twice → ~900s "Request timed out." / ProviderBizError.
@@ -1796,6 +1367,9 @@ index 1223e7eec4..131c62f093 100644
 +      globalThis.fetch = undici.fetch as unknown as typeof fetch;
 +      (globalThis as typeof globalThis & { __LOBE_UNDICI__?: typeof undici }).__LOBE_UNDICI__ =
 +        undici;
++      console.info(
++        `[Instrumentation] undici fetch+dispatcher installed headersTimeout/bodyTimeout=${timeoutMs}ms`,
++      );
 +    } catch (error) {
 +      console.warn('[Instrumentation] failed to install undici fetch+dispatcher:', error);
 +    }
@@ -1805,10 +1379,10 @@ index 1223e7eec4..131c62f093 100644
    if (process.env.NODE_ENV !== 'production' && process.env.NEXT_RUNTIME === 'nodejs') {
      await import('./libs/debug-file-logger');
 diff --git a/src/libs/next/config/define-config.ts b/src/libs/next/config/define-config.ts
-index f420130d17..9a71ad655e 100644
+index 064e83d2bb..03d286d03d 100644
 --- a/src/libs/next/config/define-config.ts
 +++ b/src/libs/next/config/define-config.ts
-@@ -364,6 +364,7 @@ export function defineConfig(config: CustomNextConfig) {
+@@ -369,6 +369,7 @@ export function defineConfig(config: CustomNextConfig) {
        'pdfjs-dist',
        'ajv',
        'oidc-provider',
@@ -1816,48 +1390,8 @@ index f420130d17..9a71ad655e 100644
      ],
  
      transpilePackages: ['mermaid'],
--- 
-2.39.5
-
-
-From 6660958608be5d507556c691dccd66c50d55ca0b Mon Sep 17 00:00:00 2001
-From: MaySoMusician <maysomusician@gmail.com>
-Date: Mon, 27 Jul 2026 03:41:09 +0000
-Subject: [PATCH 27/32] Disable retries (OpenAI, LobeChat)
-
----
- .../src/modules/AgentRuntime/adapters/ServerLLMTransport.ts     | 1 +
- .../model-runtime/src/core/openaiCompatibleFactory/index.ts     | 2 ++
- src/store/chat/agents/transports/ClientLLMTransport.ts          | 1 +
- 3 files changed, 4 insertions(+)
-
-diff --git a/apps/server/src/modules/AgentRuntime/adapters/ServerLLMTransport.ts b/apps/server/src/modules/AgentRuntime/adapters/ServerLLMTransport.ts
-index a20272320b..0b38c6f5a4 100644
---- a/apps/server/src/modules/AgentRuntime/adapters/ServerLLMTransport.ts
-+++ b/apps/server/src/modules/AgentRuntime/adapters/ServerLLMTransport.ts
-@@ -50,6 +50,7 @@ const getErrorMessage = (error: unknown): string => {
- };
- 
- const SERVER_LLM_RETRY_POLICY = {
-+  maxRetries: 0,
-   noRetryProviders: [BRANDING_PROVIDER],
- };
- 
-diff --git a/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts b/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
-index bc282605bc..b044972dd9 100644
---- a/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
-+++ b/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
-@@ -386,6 +386,8 @@ export const createOpenAICompatibleRuntime = <T extends Record<string, any> = an
-         baseURL,
-         ...constructorOptions,
-         ...res,
-+        // Self-host: never auto-retry upstream — timeouts/5xx would re-bill the same prompt.
-+        maxRetries: 0,
-         timeout: resolvedTimeout,
-       };
- 
 diff --git a/src/store/chat/agents/transports/ClientLLMTransport.ts b/src/store/chat/agents/transports/ClientLLMTransport.ts
-index 6d6ec59787..e370d4d77f 100644
+index 7eb9ee3901..98723dba29 100644
 --- a/src/store/chat/agents/transports/ClientLLMTransport.ts
 +++ b/src/store/chat/agents/transports/ClientLLMTransport.ts
 @@ -36,6 +36,7 @@ import type { ClientLLMModelParameters } from './ClientContextBuilder';
@@ -1872,20 +1406,987 @@ index 6d6ec59787..e370d4d77f 100644
 2.39.5
 
 
-From 180e5e3caaf33609189676fa0142d088eb071fe4 Mon Sep 17 00:00:00 2001
+From f746596d972a92e21d1888fd42b5fd018d649d02 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
-Date: Mon, 27 Jul 2026 18:25:30 +0000
-Subject: [PATCH 28/32] Disable QStash logs
+Date: Thu, 24 Sep 2026 06:58:04 +0000
+Subject: [PATCH 06/16] =?UTF-8?q?=E2=9C=A8=20feat(agent):=20keep=20prompts?=
+ =?UTF-8?q?=20explicitly=20user-controlled?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
+Co-authored-by: Cursor GPT-5.6 Sol <cursoragent@cursor.com.invalid>
 ---
- .../server/src/workflows-hono/qstashClient.ts | 18 +++++--
- src/libs/qstash/index.ts                      | 50 ++++++++++++++-----
- 2 files changed, 51 insertions(+), 17 deletions(-)
+ .../__tests__/serverMessagesEngine.test.ts    | 35 ++++---------------
+ .../execAgent.builtinRuntime.test.ts          | 19 +++-------
+ .../__tests__/resolveRunAgentConfig.test.ts   |  4 +--
+ .../builtin-agents/src/agents/inbox/index.ts  |  6 +---
+ .../src/engine/messages/MessagesEngine.ts     | 28 +--------------
+ .../messages/__tests__/MessagesEngine.test.ts | 15 ++++----
+ packages/mecha/src/resolveAgentConfig.test.ts |  8 ++---
+ packages/mecha/src/resolveAgentConfig.ts      | 29 ++++++---------
+ src/services/chat/chat.test.ts                | 17 ++++-----
+ .../chat/mecha/agentConfigResolver.test.ts    | 14 +++-----
+ .../chat/mecha/contextEngineering.test.ts     | 25 +++++--------
+ 11 files changed, 54 insertions(+), 146 deletions(-)
 
-diff --git a/apps/server/src/workflows-hono/qstashClient.ts b/apps/server/src/workflows-hono/qstashClient.ts
+diff --git a/apps/server/src/modules/Mecha/ContextEngineering/__tests__/serverMessagesEngine.test.ts b/apps/server/src/modules/Mecha/ContextEngineering/__tests__/serverMessagesEngine.test.ts
+index 18a739e9a9..ffb32ecc3b 100644
+--- a/apps/server/src/modules/Mecha/ContextEngineering/__tests__/serverMessagesEngine.test.ts
++++ b/apps/server/src/modules/Mecha/ContextEngineering/__tests__/serverMessagesEngine.test.ts
+@@ -4,16 +4,6 @@ import { describe, expect, it, vi } from 'vitest';
+ 
+ import { serverMessagesEngine } from '../index';
+ 
+-// Helper to compute expected date content from SystemDateProvider
+-const getCurrentDateContent = () => {
+-  const tz = 'UTC';
+-  const today = new Date();
+-  const year = today.toLocaleString('en-US', { timeZone: tz, year: 'numeric' });
+-  const month = today.toLocaleString('en-US', { month: '2-digit', timeZone: tz });
+-  const day = today.toLocaleString('en-US', { day: '2-digit', timeZone: tz });
+-  return `Current date: ${year}-${month}-${day} (${tz})`;
+-};
+-
+ describe('serverMessagesEngine', () => {
+   const createBasicMessages = (): UIChatMessage[] => [
+     {
+@@ -161,9 +151,7 @@ describe('serverMessagesEngine', () => {
+       });
+ 
+       expect(Array.isArray(result)).toBe(true);
+-      // 3 messages: system date + 2 original messages
+-      expect(result.length).toBe(3);
+-      expect(result[0]).toEqual({ content: getCurrentDateContent(), role: 'system' });
++      expect(result.length).toBe(2);
+       result.forEach((msg) => {
+         expect(msg).toHaveProperty('role');
+         expect(msg).toHaveProperty('content');
+@@ -185,7 +173,7 @@ describe('serverMessagesEngine', () => {
+       });
+ 
+       expect(result[0].role).toBe('system');
+-      expect(result[0].content).toBe(systemRole + '\n\n' + getCurrentDateContent());
++      expect(result[0].content).toBe(systemRole);
+     });
+ 
+     it('renders {{workingDirectory}} to a fallback instead of leaking the literal ', async () => {
+@@ -281,7 +269,7 @@ describe('serverMessagesEngine', () => {
+       expect(result[0].content).toContain(`Day: ${partsMap.day}`);
+     });
+ 
+-    it('should inject model knowledge cutoff when provided', async () => {
++    it('should not inject model knowledge cutoff when provided', async () => {
+       const messages = createBasicMessages();
+ 
+       const result = await serverMessagesEngine({
+@@ -293,14 +281,10 @@ describe('serverMessagesEngine', () => {
+       });
+ 
+       expect(result[0].role).toBe('system');
+-      expect(result[0].content).toBe(
+-        'You are a helpful assistant\n\n' +
+-          getCurrentDateContent() +
+-          '\n\nModel knowledge cutoff: 2024-06',
+-      );
++      expect(result[0].content).toBe('You are a helpful assistant');
+     });
+ 
+-    it('should inject model name and id when displayName is provided', async () => {
++    it('should not inject model name and id when displayName is provided', async () => {
+       const messages = createBasicMessages();
+ 
+       const result = await serverMessagesEngine({
+@@ -313,11 +297,7 @@ describe('serverMessagesEngine', () => {
+       });
+ 
+       expect(result[0].role).toBe('system');
+-      expect(result[0].content).toBe(
+-        'You are a helpful assistant\n\n' +
+-          getCurrentDateContent() +
+-          '\n\nCurrent model: Fable 5 (claude-fable-5)\nModel knowledge cutoff: 2026-01',
+-      );
++      expect(result[0].content).toBe('You are a helpful assistant');
+     });
+ 
+     it('should handle empty messages', async () => {
+@@ -327,8 +307,7 @@ describe('serverMessagesEngine', () => {
+         provider: 'openai',
+       });
+ 
+-      // SystemDateProvider injects a system date message even with empty input
+-      expect(result).toEqual([{ content: getCurrentDateContent(), role: 'system' }]);
++      expect(result).toEqual([]);
+     });
+ 
+     it('should include file URLs in server-side file context', async () => {
+diff --git a/apps/server/src/services/aiAgent/__tests__/execAgent.builtinRuntime.test.ts b/apps/server/src/services/aiAgent/__tests__/execAgent.builtinRuntime.test.ts
+index 3d1d234645..b259cd9110 100644
+--- a/apps/server/src/services/aiAgent/__tests__/execAgent.builtinRuntime.test.ts
++++ b/apps/server/src/services/aiAgent/__tests__/execAgent.builtinRuntime.test.ts
+@@ -394,7 +394,7 @@ describe('AiAgentService.execAgent - builtin agent runtime config', () => {
+     expect(mockGetBuiltinAgent).not.toHaveBeenCalled();
+   });
+ 
+-  it('should merge runtime systemRole for inbox agent when DB systemRole is empty', async () => {
++  it('should keep inbox systemRole empty when DB systemRole is empty', async () => {
+     // Inbox agent with no user-customized systemRole in DB
+     mockGetAgentConfig.mockResolvedValue({
+       chatConfig: {},
+@@ -411,13 +411,9 @@ describe('AiAgentService.execAgent - builtin agent runtime config', () => {
+       prompt: 'Hello',
+     });
+ 
+-    // Verify createOperation was called with agentConfig containing the runtime systemRole
+     expect(mockCreateOperation).toHaveBeenCalledTimes(1);
+     const callArgs = mockCreateOperation.mock.calls[0][0];
+-    expect(callArgs.agentConfig.systemRole).toContain('You are Lobe');
+-    // Model identity is injected by ModelInfoProvider now, not the `{{model}}`
+-    // template placeholder; `{{date}}` still proves the runtime template merged.
+-    expect(callArgs.agentConfig.systemRole).toContain('{{date}}');
++    expect(callArgs.agentConfig.systemRole).toBe('');
+   });
+ 
+   it('should pass user response language into web onboarding runtime systemRole', async () => {
+@@ -469,12 +465,6 @@ describe('AiAgentService.execAgent - builtin agent runtime config', () => {
+     expect(callArgs.agentConfig.systemRole).toBe(customSystemRole);
+   });
+ 
+-  // Regular agents get no builtin runtime prompt. They do get the user's reply
+-  // language appended — the same rule the client runtime applies, now shared
+-  // through `@lobechat/mecha`.
+-  const REPLY_LANGUAGE_ONLY =
+-    'Preferred reply language: en-US. Use this language unless the user explicitly asks to switch.';
+-
+   it('should not apply runtime config for non-builtin agents', async () => {
+     mockGetAgentConfig.mockResolvedValue({
+       chatConfig: {},
+@@ -492,8 +482,7 @@ describe('AiAgentService.execAgent - builtin agent runtime config', () => {
+     });
+ 
+     const callArgs = mockCreateOperation.mock.calls[0][0];
+-    // No runtime prompt applied — only the reply-language instruction.
+-    expect(callArgs.agentConfig.systemRole).toBe(REPLY_LANGUAGE_ONLY);
++    expect(callArgs.agentConfig.systemRole).toBe('');
+   });
+ 
+   it('should not apply runtime config for agents without slug', async () => {
+@@ -512,7 +501,7 @@ describe('AiAgentService.execAgent - builtin agent runtime config', () => {
+     });
+ 
+     const callArgs = mockCreateOperation.mock.calls[0][0];
+-    expect(callArgs.agentConfig.systemRole).toBe(REPLY_LANGUAGE_ONLY);
++    expect(callArgs.agentConfig.systemRole).toBe('');
+   });
+ 
+   it('should persist request trigger metadata on the created user message', async () => {
+diff --git a/apps/server/src/services/aiAgent/__tests__/resolveRunAgentConfig.test.ts b/apps/server/src/services/aiAgent/__tests__/resolveRunAgentConfig.test.ts
+index b29ca33164..d857b25396 100644
+--- a/apps/server/src/services/aiAgent/__tests__/resolveRunAgentConfig.test.ts
++++ b/apps/server/src/services/aiAgent/__tests__/resolveRunAgentConfig.test.ts
+@@ -69,7 +69,7 @@ describe('resolveRunAgentConfig', () => {
+     expect(agentConfig.agencyConfig?.executionTarget).toBe('none');
+   });
+ 
+-  it('reads the reply language for the share visitor, not the owner, on a shared-agent run', async () => {
++  it('reads visitor generation info without appending a reply-language prompt', async () => {
+     getInfoForAIGeneration.mockImplementation(async (_db: unknown, userId: string) => ({
+       responseLanguage: userId === 'visitor-1' ? 'ja-JP' : 'en-US',
+     }));
+@@ -88,7 +88,7 @@ describe('resolveRunAgentConfig', () => {
+     );
+ 
+     expect(getInfoForAIGeneration).toHaveBeenCalledWith(expect.anything(), 'visitor-1');
+-    expect(agentConfig.systemRole).toContain('Preferred reply language: ja-JP');
++    expect(agentConfig.systemRole).not.toContain('Preferred reply language:');
+   });
+ 
+   it('reads the reply language for the caller on an ordinary run', async () => {
+diff --git a/packages/builtin-agents/src/agents/inbox/index.ts b/packages/builtin-agents/src/agents/inbox/index.ts
+index 49383f1748..d7da07aefe 100644
+--- a/packages/builtin-agents/src/agents/inbox/index.ts
++++ b/packages/builtin-agents/src/agents/inbox/index.ts
+@@ -3,7 +3,6 @@ import { UserInteractionIdentifier } from '@lobechat/builtin-tool-user-interacti
+ 
+ import type { BuiltinAgentDefinition } from '../../types';
+ import { BUILTIN_AGENT_SLUGS } from '../../types';
+-import { createSystemRole } from './systemRole';
+ 
+ /**
+  * Inbox Agent - the default assistant agent for general conversations
+@@ -14,10 +13,7 @@ export const INBOX: BuiltinAgentDefinition = {
+   avatar: '/avatars/lobe-ai.png',
+   runtime: (ctx) => ({
+     plugins: [AgentDocumentsIdentifier, UserInteractionIdentifier, ...(ctx.plugins || [])],
+-    // A user-customized prompt wins; the runtime one is only the default.
+-    systemRole:
+-      ctx.storedSystemRole ||
+-      createSystemRole(ctx.userLocale, { name: ctx.agentName, title: ctx.agentTitle }),
++    systemRole: ctx.storedSystemRole || '',
+   }),
+ 
+   slug: BUILTIN_AGENT_SLUGS.inbox,
+diff --git a/packages/context-engine/src/engine/messages/MessagesEngine.ts b/packages/context-engine/src/engine/messages/MessagesEngine.ts
+index d97c48d636..2b4111853f 100644
+--- a/packages/context-engine/src/engine/messages/MessagesEngine.ts
++++ b/packages/context-engine/src/engine/messages/MessagesEngine.ts
+@@ -49,7 +49,6 @@ import {
+   HistorySummaryProvider,
+   KnowledgeInjector,
+   LocalSystemToolSnapshotInjector,
+-  ModelInfoProvider,
+   OnboardingActionHintInjector,
+   OnboardingContextInjector,
+   OnboardingSyntheticStateInjector,
+@@ -64,7 +63,6 @@ import {
+   SKILL_STORE_TOOL_ID,
+   SkillContextProvider,
+   SkillImportRouteInjector,
+-  SystemDateProvider,
+   SystemRoleInjector,
+   TaskManagerContextInjector,
+   TodoInjector,
+@@ -152,8 +150,6 @@ export class MessagesEngine {
+   private buildProcessors(): ContextProcessor[] {
+     const {
+       model,
+-      modelDisplayName,
+-      modelKnowledgeCutoff,
+       provider,
+       systemRole,
+       agentIdentity,
+@@ -193,8 +189,6 @@ export class MessagesEngine {
+       stepContext,
+       pageContentContext,
+       topicReferences,
+-      enableSystemDate,
+-      timezone,
+     } = this.params;
+ 
+     const isAgentBuilderEnabled = !!agentBuilderContext;
+@@ -228,12 +222,6 @@ export class MessagesEngine {
+           : undefined;
+     const isTodoEnabled = effectiveTodos !== undefined;
+ 
+-    // System date is redundant when web-browsing or memory tools are enabled,
+-    // as they already include current date in their system prompts
+-    const toolIds = toolsConfig?.tools || [];
+-    const hasDateAwareTools =
+-      toolIds.includes('lobe-web-browsing') || toolIds.includes('lobe-user-memory');
+-    const isSystemDateEnabled = enableSystemDate !== false && !hasDateAwareTools;
+     const currentUserMessage = [...messages]
+       .reverse()
+       .find((m) => m.role === 'user' && typeof m.content === 'string')?.content as
+@@ -318,22 +306,8 @@ export class MessagesEngine {
+         context: botPlatformContext,
+         enabled: !!botPlatformContext,
+       }),
+-      // System date
+-      new SystemDateProvider({ enabled: isSystemDateEnabled, timezone }),
+-      // Model info (name / id / knowledge cutoff)
+-      new ModelInfoProvider({
+-        displayName: modelDisplayName,
+-        knowledgeCutoff: modelKnowledgeCutoff,
+-        modelId: model,
+-        nativeMediaCapabilities: {
+-          audio: capabilities?.isCanUseAudio?.(model, provider),
+-          video: capabilities?.isCanUseVideo?.(model, provider),
+-          vision: capabilities?.isCanUseVision?.(model, provider),
+-        },
+-      }),
+       // Workspace context (app origin + workspace slug → correct in-app links).
+-      // Sits with the other environment facts (date / model) after the
+-      // persona-level injectors.
++      // Sits after the persona-level injectors.
+       new WorkspaceContextInjector({
+         context: workspaceContext,
+         enabled: !!workspaceContext,
+diff --git a/packages/context-engine/src/engine/messages/__tests__/MessagesEngine.test.ts b/packages/context-engine/src/engine/messages/__tests__/MessagesEngine.test.ts
+index 384c90d0b2..5185af2d25 100644
+--- a/packages/context-engine/src/engine/messages/__tests__/MessagesEngine.test.ts
++++ b/packages/context-engine/src/engine/messages/__tests__/MessagesEngine.test.ts
+@@ -289,7 +289,7 @@ describe('MessagesEngine', () => {
+       expect(result.messages[0].content).toBe(systemRole);
+     });
+ 
+-    it('should inject model knowledge cutoff when provided', async () => {
++    it('should not inject model knowledge cutoff when provided', async () => {
+       const params = createBasicParams({
+         modelKnowledgeCutoff: '2024-06',
+         systemRole: 'You are a helpful assistant',
+@@ -299,10 +299,10 @@ describe('MessagesEngine', () => {
+       const result = await engine.process();
+ 
+       expect(result.messages[0]).toEqual({
+-        content: 'You are a helpful assistant\n\nModel knowledge cutoff: 2024-06',
++        content: 'You are a helpful assistant',
+         role: 'system',
+       });
+-      expect(result.metadata.modelInfoInjected).toBe(true);
++      expect(result.metadata.modelInfoInjected).toBeUndefined();
+     });
+ 
+     it('should skip model knowledge cutoff injection when unknown', async () => {
+@@ -318,7 +318,7 @@ describe('MessagesEngine', () => {
+       expect(result.metadata.modelInfoInjected).toBeUndefined();
+     });
+ 
+-    it('should inject model name and id when displayName is provided', async () => {
++    it('should not inject model name and id when displayName is provided', async () => {
+       const params = createBasicParams({
+         model: 'claude-fable-5',
+         modelDisplayName: 'Fable 5',
+@@ -330,11 +330,10 @@ describe('MessagesEngine', () => {
+       const result = await engine.process();
+ 
+       expect(result.messages[0]).toEqual({
+-        content:
+-          'You are a helpful assistant\n\nCurrent model: Fable 5 (claude-fable-5)\nModel knowledge cutoff: 2026-01',
++        content: 'You are a helpful assistant',
+         role: 'system',
+       });
+-      expect(result.metadata.modelInfoInjected).toBe(true);
++      expect(result.metadata.modelInfoInjected).toBeUndefined();
+     });
+ 
+     it('should inject history summary when provided', async () => {
+@@ -523,11 +522,9 @@ describe('MessagesEngine', () => {
+ 
+       const result = await engine.process();
+ 
+-      const systemContent = String(result.messages.find(({ role }) => role === 'system')?.content);
+       const userContent = JSON.stringify(
+         result.messages.find(({ role }) => role === 'user')?.content,
+       );
+-      expect(systemContent).toContain('Native media input capabilities: vision=false, video=false');
+       expect(userContent).toContain('Do not infer or describe the image');
+       expect(userContent).toContain('use an available visual-analysis tool before answering');
+       expect(userContent).toMatch(/ref=\\"msg_[^"]+\.image_1\\"/);
+diff --git a/packages/mecha/src/resolveAgentConfig.test.ts b/packages/mecha/src/resolveAgentConfig.test.ts
+index 6b2d948772..f0c50b5583 100644
+--- a/packages/mecha/src/resolveAgentConfig.test.ts
++++ b/packages/mecha/src/resolveAgentConfig.test.ts
+@@ -26,10 +26,10 @@ describe('resolveAgentConfig without a host', () => {
+     expect(resolved.chatConfig).toBeDefined();
+   });
+ 
+-  it('appends the reply-language instruction from the snapshot', () => {
++  it('does not append a reply-language instruction from the snapshot', () => {
+     const resolved = resolveAgentConfig({ agentId: 'agt_1' }, snapshot({ userLocale: 'zh-CN' }));
+ 
+-    expect(resolved.agentConfig.systemRole).toContain('zh-CN');
++    expect(resolved.agentConfig.systemRole).toBe('You are helpful.');
+   });
+ 
+   it('leaves the system role alone when no locale is supplied', () => {
+@@ -174,8 +174,6 @@ describe('resolveAgentConfig without a host', () => {
+         slug: 'inbox',
+       }),
+     );
+-    // The row has no system role, so the runtime one fills it in.
+-    expect(empty.agentConfig.systemRole).toBeTruthy();
+-    expect(empty.agentConfig.systemRole).not.toBe('');
++    expect(empty.agentConfig.systemRole).toBe('');
+   });
+ });
+diff --git a/packages/mecha/src/resolveAgentConfig.ts b/packages/mecha/src/resolveAgentConfig.ts
+index 77e96fab3b..d2149ef343 100644
+--- a/packages/mecha/src/resolveAgentConfig.ts
++++ b/packages/mecha/src/resolveAgentConfig.ts
+@@ -375,20 +375,13 @@ export const resolveAgentConfig = (
+     // Regular agent - use provided plugins if available, fallback to agent's plugins
+     const finalPlugins = plugins && plugins.length > 0 ? plugins : basePlugins;
+ 
+-    // Inject response language preference into system role for regular agents
+-    const { userLocale } = snapshot;
+-    const localeInstruction = userLocale
+-      ? `Preferred reply language: ${userLocale}. Use this language unless the user explicitly asks to switch.`
+-      : '';
+-    const systemRoleWithLocale = localeInstruction
+-      ? agentConfig.systemRole
+-        ? `${agentConfig.systemRole}\n\n${localeInstruction}`
+-        : localeInstruction
+-      : agentConfig.systemRole;
++    // Keep the configured system role unchanged. Reply language should come from
++    // the conversation or an explicit user-authored instruction.
++    const configuredSystemRole = agentConfig.systemRole;
+ 
+     // Apply params adjustments based on chatConfig
+     let finalAgentConfig = applyParamsFromChatConfig(
+-      { ...agentConfig, systemRole: systemRoleWithLocale },
++      { ...agentConfig, systemRole: configuredSystemRole },
+       chatConfig,
+     );
+     let finalChatConfig = chatConfig;
+@@ -406,13 +399,13 @@ export const resolveAgentConfig = (
+       const pageAgentRuntime = getAgentRuntimeConfig(BUILTIN_AGENT_SLUGS.pageAgent, {});
+       const pageAgentSystemRole = pageAgentRuntime?.systemRole || '';
+ 
+-      // 3. Merge system roles: custom agent's role (with locale) + page-agent role
++      // 3. Merge system roles: custom agent's role + page-agent role
+       // Only append page-agent role if it exists
+       const mergedSystemRole = pageAgentSystemRole
+-        ? systemRoleWithLocale
+-          ? `${systemRoleWithLocale}\n\n${pageAgentSystemRole}`
++        ? configuredSystemRole
++          ? `${configuredSystemRole}\n\n${pageAgentSystemRole}`
+           : pageAgentSystemRole
+-        : systemRoleWithLocale || '';
++        : configuredSystemRole || '';
+ 
+       finalAgentConfig = {
+         ...finalAgentConfig,
+@@ -440,10 +433,10 @@ export const resolveAgentConfig = (
+       const taskAgentRuntime = getAgentRuntimeConfig(BUILTIN_AGENT_SLUGS.taskAgent, {});
+       const taskAgentSystemRole = taskAgentRuntime?.systemRole || '';
+       const mergedSystemRole = taskAgentSystemRole
+-        ? systemRoleWithLocale
+-          ? `${systemRoleWithLocale}\n\n${taskAgentSystemRole}`
++        ? configuredSystemRole
++          ? `${configuredSystemRole}\n\n${taskAgentSystemRole}`
+           : taskAgentSystemRole
+-        : systemRoleWithLocale || '';
++        : configuredSystemRole || '';
+ 
+       finalAgentConfig = {
+         ...finalAgentConfig,
+diff --git a/src/services/chat/chat.test.ts b/src/services/chat/chat.test.ts
+index 52ac5efddd..3d11879eb1 100644
+--- a/src/services/chat/chat.test.ts
++++ b/src/services/chat/chat.test.ts
+@@ -51,14 +51,9 @@ const mockCreateHeaderWithAuth = vi.hoisted(() =>
+   vi.fn(async ({ headers }: { headers: Record<string, string> }) => headers),
+ );
+ 
+-// Helper to compute expected date content from SystemDateProvider
++// Automatic date/model additives are disabled; workspace context remains.
+ const getCurrentDateContent = () => {
+-  const tz = 'UTC';
+-  const today = new Date();
+-  const year = today.toLocaleString('en-US', { timeZone: tz, year: 'numeric' });
+-  const month = today.toLocaleString('en-US', { month: '2-digit', timeZone: tz });
+-  const day = today.toLocaleString('en-US', { day: '2-digit', timeZone: tz });
+-  return `Current date: ${year}-${month}-${day} (${tz})`;
++  return '<workspace_context>';
+ };
+ 
+ /**
+@@ -740,7 +735,7 @@ describe('ChatService', () => {
+           {
+             messages: [
+               expect.objectContaining({
+-                content: expect.stringContaining('Current date:'),
++                content: expect.stringContaining('<workspace_context>'),
+                 role: 'system',
+               }),
+               {
+@@ -803,7 +798,7 @@ describe('ChatService', () => {
+             enabledSearch: undefined,
+             messages: [
+               expect.objectContaining({
+-                content: expect.stringContaining('Current date:'),
++                content: expect.stringContaining('<workspace_context>'),
+                 role: 'system',
+               }),
+               { content: 'Hello', role: 'user' },
+@@ -892,7 +887,7 @@ describe('ChatService', () => {
+           {
+             messages: [
+               expect.objectContaining({
+-                content: expect.stringContaining('Current date:'),
++                content: expect.stringContaining('<workspace_context>'),
+                 role: 'system',
+               }),
+               {
+@@ -993,7 +988,7 @@ describe('ChatService', () => {
+           {
+             messages: [
+               expect.objectContaining({
+-                content: expect.stringContaining('Current date:'),
++                content: expect.stringContaining('<workspace_context>'),
+                 role: 'system',
+               }),
+               {
+diff --git a/src/services/chat/mecha/agentConfigResolver.test.ts b/src/services/chat/mecha/agentConfigResolver.test.ts
+index 562284431d..029a68a499 100644
+--- a/src/services/chat/mecha/agentConfigResolver.test.ts
++++ b/src/services/chat/mecha/agentConfigResolver.test.ts
+@@ -1480,12 +1480,12 @@ describe('resolveAgentConfig', () => {
+     });
+   });
+ 
+-  describe('response language injection for regular agents', () => {
++  describe('response language handling for regular agents', () => {
+     beforeEach(() => {
+       vi.spyOn(agentSelectors.agentSelectors, 'getAgentSlugById').mockReturnValue(() => undefined);
+     });
+ 
+-    it('should append response language to systemRole when userLocale is set', () => {
++    it('should not append response language to systemRole when userLocale is set', () => {
+       vi.spyOn(
+         userSelectors.userGeneralSettingsSelectors,
+         'currentResponseLanguage',
+@@ -1493,12 +1493,10 @@ describe('resolveAgentConfig', () => {
+ 
+       const result = resolveAgentConfig({ agentId: 'test-agent' });
+ 
+-      expect(result.agentConfig.systemRole).toBe(
+-        'You are a helpful assistant\n\nPreferred reply language: zh-CN. Use this language unless the user explicitly asks to switch.',
+-      );
++      expect(result.agentConfig.systemRole).toBe('You are a helpful assistant');
+     });
+ 
+-    it('should use locale instruction as systemRole when agent has no systemRole', () => {
++    it('should keep systemRole empty when the agent has no systemRole', () => {
+       vi.spyOn(
+         userSelectors.userGeneralSettingsSelectors,
+         'currentResponseLanguage',
+@@ -1513,9 +1511,7 @@ describe('resolveAgentConfig', () => {
+ 
+       const result = resolveAgentConfig({ agentId: 'test-agent' });
+ 
+-      expect(result.agentConfig.systemRole).toBe(
+-        'Preferred reply language: ja-JP. Use this language unless the user explicitly asks to switch.',
+-      );
++      expect(result.agentConfig.systemRole).toBe('');
+     });
+ 
+     it('should not modify systemRole when userLocale is falsy', () => {
+diff --git a/src/services/chat/mecha/contextEngineering.test.ts b/src/services/chat/mecha/contextEngineering.test.ts
+index 920769160f..80262fc772 100644
+--- a/src/services/chat/mecha/contextEngineering.test.ts
++++ b/src/services/chat/mecha/contextEngineering.test.ts
+@@ -95,14 +95,9 @@ afterEach(() => {
+   vi.clearAllMocks();
+ });
+ 
+-// Helper to compute expected date content from SystemDateProvider
++// Automatic date/model additives are disabled; workspace context remains.
+ const getCurrentDateContent = () => {
+-  const tz = 'UTC';
+-  const today = new Date();
+-  const year = today.toLocaleString('en-US', { timeZone: tz, year: 'numeric' });
+-  const month = today.toLocaleString('en-US', { month: '2-digit', timeZone: tz });
+-  const day = today.toLocaleString('en-US', { day: '2-digit', timeZone: tz });
+-  return `Current date: ${year}-${month}-${day} (${tz})`;
++  return '<workspace_context>';
+ };
+ 
+ const setupDocument = {
+@@ -276,7 +271,7 @@ describe('contextEngineering', () => {
+     expect(agentService.queryAgents).toHaveBeenCalledWith({ limit: 12 });
+   });
+ 
+-  it('should inject runtime model knowledge cutoff', async () => {
++  it('should not inject runtime model knowledge cutoff', async () => {
+     vi.spyOn(helpers, 'getRuntimeModelKnowledgeCutoff').mockReturnValue('2024-06');
+ 
+     const output = await contextEngineering({
+@@ -287,13 +282,11 @@ describe('contextEngineering', () => {
+     });
+ 
+     expect(helpers.getRuntimeModelKnowledgeCutoff).toHaveBeenCalledWith('gpt-4', 'openai');
+-    expect(output[0]).toEqual({
+-      content: expect.stringContaining('Model knowledge cutoff: 2024-06'),
+-      role: 'system',
+-    });
++    expect(output[0].role).toBe('system');
++    expect(output[0].content).not.toContain('Model knowledge cutoff:');
+   });
+ 
+-  it('should inject runtime model name and id', async () => {
++  it('should not inject runtime model name and id', async () => {
+     vi.spyOn(helpers, 'getRuntimeModelDisplayName').mockReturnValue('Fable 5');
+ 
+     const output = await contextEngineering({
+@@ -304,10 +297,8 @@ describe('contextEngineering', () => {
+     });
+ 
+     expect(helpers.getRuntimeModelDisplayName).toHaveBeenCalledWith('claude-fable-5', 'lobehub');
+-    expect(output[0]).toEqual({
+-      content: expect.stringContaining('Current model: Fable 5 (claude-fable-5)'),
+-      role: 'system',
+-    });
++    expect(output[0].role).toBe('system');
++    expect(output[0].content).not.toContain('Current model:');
+   });
+ 
+   describe('handle with files content in server mode', () => {
+-- 
+2.39.5
+
+
+From ffd47554a50bbe1ee62a057048c2596807ea5958 Mon Sep 17 00:00:00 2001
+From: MaySoMusician <maysomusician@gmail.com>
+Date: Thu, 24 Sep 2026 06:58:13 +0000
+Subject: [PATCH 07/16] =?UTF-8?q?=E2=9C=A8=20feat(agent):=20keep=20tools?=
+ =?UTF-8?q?=20explicitly=20user-controlled?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Co-authored-by: Cursor GPT-5.6 Sol <cursoragent@cursor.com.invalid>
+---
+ .../AgentToolsEngine/__tests__/index.test.ts  | 32 +++++++------------
+ packages/builtin-tools/src/index.ts           | 26 ++-------------
+ .../src/toolSet/resolveToolRules.test.ts      |  4 +--
+ src/helpers/toolEngineering/index.test.ts     | 11 +++----
+ .../tool/slices/builtin/selectors.test.ts     | 14 ++------
+ src/store/tool/slices/builtin/selectors.ts    |  4 +--
+ 6 files changed, 26 insertions(+), 65 deletions(-)
+
+diff --git a/apps/server/src/modules/Mecha/AgentToolsEngine/__tests__/index.test.ts b/apps/server/src/modules/Mecha/AgentToolsEngine/__tests__/index.test.ts
+index 0d3eaa70ac..d985b50dab 100644
+--- a/apps/server/src/modules/Mecha/AgentToolsEngine/__tests__/index.test.ts
++++ b/apps/server/src/modules/Mecha/AgentToolsEngine/__tests__/index.test.ts
+@@ -544,7 +544,7 @@ describe('createServerAgentToolsEngine', () => {
+     expect(result.enabledToolIds).toContain(LobeAgentManifest.identifier);
+   });
+ 
+-  it('should enable lobe-agent by default since it is always-on', () => {
++  it('should not enable lobe-agent unless explicitly selected', () => {
+     const context = createMockContext();
+     const engine = createServerAgentToolsEngine(context, {
+       agentConfig: { plugins: [] },
+@@ -558,20 +558,13 @@ describe('createServerAgentToolsEngine', () => {
+       toolIds: [],
+     });
+ 
+-    // lobe-agent is in alwaysOnToolIds, so its core capabilities are on for every agent-mode turn.
+-    expect(result.enabledToolIds).toContain(LobeAgentManifest.identifier);
+-
+-    // Without a manifest context, the full static manifest is used — callSubAgent stays.
+-    const lobeAgent = result.enabledManifests.find(
+-      (m) => m.identifier === LobeAgentManifest.identifier,
+-    );
+-    expect(lobeAgent?.api.map((a) => a.name)).toContain(LobeAgentApiName.callSubAgent);
++    expect(result.enabledToolIds).not.toContain(LobeAgentManifest.identifier);
+   });
+ 
+-  it('should honor an explicit disabled policy for an always-on builtin tool', () => {
++  it('should honor an explicit disabled policy for a selected builtin tool', () => {
+     const context = createMockContext();
+     const engine = createServerAgentToolsEngine(context, {
+-      agentConfig: { plugins: [] },
++      agentConfig: { plugins: [LobeAgentManifest.identifier] },
+       disabledPluginIds: [LobeAgentManifest.identifier],
+       model: 'deepseek-chat',
+       provider: 'deepseek',
+@@ -580,7 +573,7 @@ describe('createServerAgentToolsEngine', () => {
+     const result = engine.generateToolsDetailed({
+       model: 'deepseek-chat',
+       provider: 'deepseek',
+-      toolIds: [],
++      toolIds: [LobeAgentManifest.identifier],
+     });
+ 
+     expect(result.enabledToolIds).not.toContain(LobeAgentManifest.identifier);
+@@ -592,7 +585,7 @@ describe('createServerAgentToolsEngine', () => {
+   it('hides lobe-agent callSubAgent when manifestContext.isSubAgent is true', () => {
+     const context = createMockContext();
+     const engine = createServerAgentToolsEngine(context, {
+-      agentConfig: { plugins: [] },
++      agentConfig: { plugins: [LobeAgentManifest.identifier] },
+       manifestContext: { isSubAgent: true },
+       model: 'deepseek-chat',
+       provider: 'deepseek',
+@@ -601,10 +594,10 @@ describe('createServerAgentToolsEngine', () => {
+     const result = engine.generateToolsDetailed({
+       model: 'deepseek-chat',
+       provider: 'deepseek',
+-      toolIds: [],
++      toolIds: [LobeAgentManifest.identifier],
+     });
+ 
+-    // lobe-agent's other capabilities (plan / todo / visual-media) stay on...
++    // lobe-agent's other capabilities (plan / todo / visual-media) stay enabled...
+     expect(result.enabledToolIds).toContain(LobeAgentManifest.identifier);
+     const lobeAgent = result.enabledManifests.find(
+       (m) => m.identifier === LobeAgentManifest.identifier,
+@@ -616,7 +609,7 @@ describe('createServerAgentToolsEngine', () => {
+   it('rewrites lobe-skills exec descriptions when manifestContext.executionEnv is device-unrouted', () => {
+     const context = createMockContext();
+     const engine = createServerAgentToolsEngine(context, {
+-      agentConfig: { plugins: [] },
++      agentConfig: { plugins: [SkillsManifest.identifier] },
+       manifestContext: {
+         executionEnv: 'device-unrouted',
+         executionEnvUnroutedReason: 'bound-device-offline',
+@@ -628,10 +621,9 @@ describe('createServerAgentToolsEngine', () => {
+     const result = engine.generateToolsDetailed({
+       model: 'deepseek-chat',
+       provider: 'deepseek',
+-      toolIds: [],
++      toolIds: [SkillsManifest.identifier],
+     });
+ 
+-    // lobe-skills is always-on, so the resolved manifest is what the model sees.
+     const skills = result.enabledManifests.find((m) => m.identifier === SkillsManifest.identifier);
+     const runCommand = skills?.api.find((a) => a.name === SkillsApiName.runCommand);
+     expect(runCommand?.description).toContain('local device but it is offline');
+@@ -644,7 +636,7 @@ describe('createServerAgentToolsEngine', () => {
+   it('hides lobe-agent callSubAgent inside a group run (scope=group)', () => {
+     const context = createMockContext();
+     const engine = createServerAgentToolsEngine(context, {
+-      agentConfig: { plugins: [] },
++      agentConfig: { plugins: [LobeAgentManifest.identifier] },
+       manifestContext: { scope: 'group' },
+       model: 'deepseek-chat',
+       provider: 'deepseek',
+@@ -653,7 +645,7 @@ describe('createServerAgentToolsEngine', () => {
+     const result = engine.generateToolsDetailed({
+       model: 'deepseek-chat',
+       provider: 'deepseek',
+-      toolIds: [],
++      toolIds: [LobeAgentManifest.identifier],
+     });
+ 
+     const lobeAgent = result.enabledManifests.find(
+diff --git a/packages/builtin-tools/src/index.ts b/packages/builtin-tools/src/index.ts
+index 4ffe76578f..d52fc63705 100644
+--- a/packages/builtin-tools/src/index.ts
++++ b/packages/builtin-tools/src/index.ts
+@@ -67,25 +67,9 @@ export const defaultToolIds = [
+ 
+ /**
+  * Tool IDs that are always enabled regardless of user selection.
+- * These are core system tools that the agent needs to function properly.
+- *
+- * `lobe-agent` is listed first: its built-in capabilities (plan + todo management,
+- * sub-agent dispatch, multimodal fallback) should be available on every agent-mode turn,
+- * not gated behind explicit injection. NOTE: these rules only apply in agent mode — chat
+- * mode (`enableAgentMode === false`) drops `alwaysOnToolIds` entirely. In manual
+- * skill-activate mode the discovery tools in `manualModeExcludeToolIds` are still removed
+- * from the defaults before the enable checker runs, so they end up disabled there.
+- *
+- * This list is also the source for builtin entries in the chat-input Tools popover.
+- * They default to pinned but can be explicitly disabled per agent; entries represented by
+- * the activation mode control itself are excluded from that menu.
++ * MSM keeps all tools under explicit user or runtime control.
+  */
+-export const alwaysOnToolIds = [
+-  LobeAgentManifest.identifier,
+-  LobeActivatorManifest.identifier,
+-  SkillsManifest.identifier,
+-  SkillStoreManifest.identifier,
+-];
++export const alwaysOnToolIds = [];
+ 
+ /**
+  * Runtime tools represented by the skill activation mode control itself. They remain part
+@@ -274,22 +258,16 @@ const builtinToolRegistry: LobeBuiltinTool[] = [
+     type: 'builtin',
+   },
+   {
+-    discoverable: false,
+-    hidden: true,
+     identifier: VerifyToolManifest.identifier,
+     manifest: VerifyToolManifest,
+     type: 'builtin',
+   },
+   {
+-    discoverable: false,
+-    hidden: true,
+     identifier: LobeActivatorManifest.identifier,
+     manifest: LobeActivatorManifest,
+     type: 'builtin',
+   },
+   {
+-    discoverable: false,
+-    hidden: true,
+     identifier: SkillsManifest.identifier,
+     manifest: SkillsManifest,
+     // Context-aware: prefixes exec-class API descriptions with the run's
+diff --git a/packages/mecha/src/toolSet/resolveToolRules.test.ts b/packages/mecha/src/toolSet/resolveToolRules.test.ts
+index 4a543a0a8a..15729c92a3 100644
+--- a/packages/mecha/src/toolSet/resolveToolRules.test.ts
++++ b/packages/mecha/src/toolSet/resolveToolRules.test.ts
+@@ -54,14 +54,14 @@ describe('resolveToolRules', () => {
+     expect(resolved.allowExplicitActivation).toBe(false);
+   });
+ 
+-  it('agent mode enables pinned, runtime and always-on tools and opens the activator', () => {
++  it('agent mode enables pinned and runtime tools and opens the activator', () => {
+     const resolved = resolveToolRules(
+       request({ isGroupSupervisor: true, runtimePluginIds: ['scope-plugin'] }),
+     );
+     expect(resolved.allowExplicitActivation).toBe(true);
+     expect(resolved.rules['my-plugin']).toBe(true);
+     expect(resolved.rules['scope-plugin']).toBe(true);
+-    expect(resolved.rules['lobe-agent']).toBe(true);
++    expect(resolved.rules['lobe-agent']).toBeUndefined();
+     for (const id of groupSupervisorToolIds) {
+       expect(resolved.rules[id]).toBe(true);
+       expect(resolved.defaultToolIds).toContain(id);
+diff --git a/src/helpers/toolEngineering/index.test.ts b/src/helpers/toolEngineering/index.test.ts
+index 3ff9600729..2bdc5a0336 100644
+--- a/src/helpers/toolEngineering/index.test.ts
++++ b/src/helpers/toolEngineering/index.test.ts
+@@ -437,9 +437,8 @@ describe('toolEngineering', () => {
+         provider: 'openai',
+       });
+ 
+-      // lobe-agent is always-on (alwaysOnToolIds), so it rides along with user tools.
+-      expect(result.enabledToolIds).toEqual(['search', 'lobe-web-browsing', 'lobe-agent']);
+-      expect(result.enabledToolIds).toHaveLength(3);
++      expect(result.enabledToolIds).toEqual(['search', 'lobe-web-browsing']);
++      expect(result.enabledToolIds).toHaveLength(2);
+     });
+ 
+     it('should enable lobe-agent when it is injected into runtime plugin ids', () => {
+@@ -456,7 +455,7 @@ describe('toolEngineering', () => {
+       expect(result.enabledToolIds).toContain('lobe-agent');
+     });
+ 
+-    it('should enable lobe-agent by default since it is always-on', () => {
++    it('should not enable lobe-agent unless explicitly selected', () => {
+       const toolsEngine = createAgentToolsEngine({
+         model: 'deepseek-chat',
+         provider: 'deepseek',
+@@ -468,10 +467,10 @@ describe('toolEngineering', () => {
+         toolIds: [],
+       });
+ 
+-      expect(result.enabledToolIds).toContain('lobe-agent');
++      expect(result.enabledToolIds).not.toContain('lobe-agent');
+     });
+ 
+-    it('should honor an explicit disabled policy for an always-on builtin tool', () => {
++    it('should honor an explicit disabled policy for a builtin tool', () => {
+       mockCurrentAgentDisabledPlugins = ['lobe-agent'];
+ 
+       const toolsEngine = createAgentToolsEngine({
+diff --git a/src/store/tool/slices/builtin/selectors.test.ts b/src/store/tool/slices/builtin/selectors.test.ts
+index 2c01ffc201..40f54d751b 100644
+--- a/src/store/tool/slices/builtin/selectors.test.ts
++++ b/src/store/tool/slices/builtin/selectors.test.ts
+@@ -148,25 +148,17 @@ describe('builtinToolSelectors', () => {
+       uninstalledBuiltinTools: [],
+     } as ToolStoreState;
+ 
+-    it('should surface app-fixed tools (e.g. lobe-agent) even though they are hidden', () => {
++    it('should return no fixed tools when alwaysOnToolIds is empty', () => {
+       const result = builtinToolSelectors.fixedDisplayMetaList()(fixedState);
+ 
+-      // Only fixed-display ids are returned; lobe-agent leads the list, unrelated tools excluded.
+-      expect(result.map((item) => item.identifier)).toContain('lobe-agent');
+-      expect(result.map((item) => item.identifier)).not.toContain('lobe-activator');
+-      expect(result.map((item) => item.identifier)).not.toContain('tool-1');
+-      expect(result[0].identifier).toBe('lobe-agent');
++      expect(result).toEqual([]);
+     });
+ 
+     it('should drop manual-mode-excluded discovery tools in manual mode', () => {
+       const result = builtinToolSelectors.fixedDisplayMetaList({ isManualMode: true })(fixedState);
+       const ids = result.map((item) => item.identifier);
+ 
+-      // activator + skill-store are stripped from defaults in manual mode, so they aren't on.
+-      expect(ids).not.toContain('lobe-activator');
+-      expect(ids).not.toContain('lobe-skill-store');
+-      // lobe-agent stays on in manual mode.
+-      expect(ids).toContain('lobe-agent');
++      expect(ids).toEqual([]);
+     });
+ 
+     it('should skip fixed ids that are not registered in builtinTools', () => {
+diff --git a/src/store/tool/slices/builtin/selectors.ts b/src/store/tool/slices/builtin/selectors.ts
+index c7240e961f..d486b4efee 100644
+--- a/src/store/tool/slices/builtin/selectors.ts
++++ b/src/store/tool/slices/builtin/selectors.ts
+@@ -74,7 +74,7 @@ const getComposioMetasWithAvailability = (s: ToolStoreState): LobeToolMetaWithAv
+ 
+ // Set form for O(1) lookup inside the filter loop.
+ const RUNTIME_MANAGED_TOOL_IDS = new Set(runtimeManagedToolIds);
+-const ALWAYS_ON_TOOL_IDS = new Set(alwaysOnToolIds);
++const ALWAYS_ON_TOOL_IDS = new Set<string>(alwaysOnToolIds);
+ const MANUAL_MODE_EXCLUDE_TOOL_IDS = new Set(manualModeExcludeToolIds);
+ 
+ interface ProfileConfigurableToolOptions {
+@@ -94,6 +94,7 @@ const isProfileConfigurableBuiltinTool = (
+ ): boolean => {
+   if (tool.discoverable === false) return false;
+   if (RUNTIME_MANAGED_TOOL_IDS.has(tool.identifier)) return false;
++  if (!isManualMode && tool.identifier === 'lobe-skill-store') return false;
+ 
+   return (
+     !ALWAYS_ON_TOOL_IDS.has(tool.identifier) ||
+@@ -183,7 +184,6 @@ const EXCLUDED_TOOLS = new Set([
+   'lobe-agent-builder',
+   'lobe-group-agent-builder',
+   'lobe-group-management',
+-  'lobe-skills',
+ ]);
+ 
+ /**
+-- 
+2.39.5
+
+
+From 402c2b218246ce39d87b024168ac9078f34ffdd2 Mon Sep 17 00:00:00 2001
+From: MaySoMusician <maysomusician@gmail.com>
+Date: Thu, 24 Sep 2026 06:58:21 +0000
+Subject: [PATCH 08/16] =?UTF-8?q?=E2=9C=A8=20feat(agent):=20summarize=20to?=
+ =?UTF-8?q?pics=20in=20the=20conversation=20language?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Co-authored-by: Cursor GPT-5.6 Sol <cursoragent@cursor.com.invalid>
+---
+ .../chains/__tests__/__snapshots__/summaryTitle.test.ts.snap    | 2 +-
+ packages/prompts/src/chains/summaryTitle.ts                     | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/packages/prompts/src/chains/__tests__/__snapshots__/summaryTitle.test.ts.snap b/packages/prompts/src/chains/__tests__/__snapshots__/summaryTitle.test.ts.snap
+index 5cbd31b0d6..087d6abbed 100644
+--- a/packages/prompts/src/chains/__tests__/__snapshots__/summaryTitle.test.ts.snap
++++ b/packages/prompts/src/chains/__tests__/__snapshots__/summaryTitle.test.ts.snap
+@@ -12,7 +12,7 @@ Rules:
+ - Maximum 15 words
+ - Maximum 80 characters
+ - No punctuation marks
+-- Use the language specified by the locale code: en-US
++- Use the language mainly used in the conversation. If ambiguous, use "en-US".
+ - The title should accurately reflect the main topic of the conversation
+ - Keep it short and to the point",
+       "role": "system",
+diff --git a/packages/prompts/src/chains/summaryTitle.ts b/packages/prompts/src/chains/summaryTitle.ts
+index cc24fb2baa..151b64af37 100644
+--- a/packages/prompts/src/chains/summaryTitle.ts
++++ b/packages/prompts/src/chains/summaryTitle.ts
+@@ -34,7 +34,7 @@ Rules:
+ - Maximum 15 words
+ - Maximum 80 characters
+ - No punctuation marks
+-- Use the language specified by the locale code: ${locale}
++- Use the language mainly used in the conversation. If ambiguous, use "${locale}".
+ - The title should accurately reflect the main topic of the conversation
+ - Keep it short and to the point`,
+         role: 'system',
+-- 
+2.39.5
+
+
+From 27d4e84b77c3de10eddb9fe816532be17cbf8dd9 Mon Sep 17 00:00:00 2001
+From: MaySoMusician <maysomusician@gmail.com>
+Date: Thu, 24 Sep 2026 06:58:27 +0000
+Subject: [PATCH 09/16] =?UTF-8?q?=F0=9F=90=9B=20fix(qstash):=20construct?=
+ =?UTF-8?q?=20the=20client=20lazily=20and=20drop=20debug=20logs?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Co-authored-by: Cursor GPT-5.6 Sol <cursoragent@cursor.com.invalid>
+---
+ .../src/router-hono/workflows/qstashClient.ts | 18 ++++--
+ patches/@upstash__qstash.patch                | 23 +-------
+ src/libs/qstash/index.ts                      | 58 ++++++++++++-------
+ 3 files changed, 53 insertions(+), 46 deletions(-)
+
+diff --git a/apps/server/src/router-hono/workflows/qstashClient.ts b/apps/server/src/router-hono/workflows/qstashClient.ts
 index d8b4d255ed..cd5e57e084 100644
---- a/apps/server/src/workflows-hono/qstashClient.ts
-+++ b/apps/server/src/workflows-hono/qstashClient.ts
+--- a/apps/server/src/router-hono/workflows/qstashClient.ts
++++ b/apps/server/src/router-hono/workflows/qstashClient.ts
 @@ -1,4 +1,4 @@
 -import { OtelQstashClient } from '@/libs/qstash';
 +import { createLazyClient, OtelQstashClient } from '@/libs/qstash';
@@ -1916,11 +2417,55 @@ index d8b4d255ed..cd5e57e084 100644
    });
  
  export { upstashWorkflowExtraHeaders };
+diff --git a/patches/@upstash__qstash.patch b/patches/@upstash__qstash.patch
+index 17450e52da..5e4c5031b6 100644
+--- a/patches/@upstash__qstash.patch
++++ b/patches/@upstash__qstash.patch
+@@ -1,28 +1,7 @@
+ diff --git a/chunk-JYPXGFWX.mjs b/chunk-JYPXGFWX.mjs
+ --- a/chunk-JYPXGFWX.mjs
+ +++ b/chunk-JYPXGFWX.mjs
+-@@ -1526,6 +1526,20 @@ var HttpClient = class {
+-     }
+-     if (response.status < 200 || response.status >= 300) {
+-       const body = await response.text();
+-+      // Debug aid: log non-2xx responses to trace publish failures (e.g., 400) with context
+-+      try {
+-+        console.error(
+-+          "[upstash-qstash] request failed",
+-+          JSON.stringify({
+-+            status: response.status,
+-+            url: response.url,
+-+            headers: Object.fromEntries(response.headers.entries()),
+-+            body
+-+          })
+-+        );
+-+      } catch {
+-+        // ignore logging failures to preserve original throw path
+-+      }
+-       throw new QstashError(
+-         body.length > 0 ? body : `Error: status=${response.status}`,
+-         response.status
+-@@ -2797,8 +2811,10 @@ var AutoExecutor = class _AutoExecutor {
++@@ -2797,8 +2797,10 @@ var AutoExecutor = class _AutoExecutor {
+            if (error instanceof QStashWorkflowAbort) {
+              throw error;
+            }
 diff --git a/src/libs/qstash/index.ts b/src/libs/qstash/index.ts
-index c113c0bf70..0af1a8f795 100644
+index c113c0bf70..58ff24d9b3 100644
 --- a/src/libs/qstash/index.ts
 +++ b/src/libs/qstash/index.ts
-@@ -130,25 +130,49 @@ export class OtelWorkflowClient extends WorkflowClient {
+@@ -2,9 +2,6 @@ import { recordUpstashWorkflowEvent } from '@lobechat/observability-otel/modules
+ import { errorNameFrom } from '@lobechat/utils';
+ import { Client, type PublishRequest, type PublishResponse, Receiver } from '@upstash/qstash';
+ import { Client as WorkflowClient, type TriggerOptions } from '@upstash/workflow';
+-import debug from 'debug';
+-
+-const log = debug('lobe-server:qstash');
+ 
+ const headers = {
+   ...(process.env.VERCEL_AUTOMATION_BYPASS_SECRET && {
+@@ -130,25 +127,49 @@ export class OtelWorkflowClient extends WorkflowClient {
    }
  }
  
@@ -1983,292 +2528,1043 @@ index c113c0bf70..0af1a8f795 100644
  
  /**
   * Verify QStash signature using Receiver.
+@@ -159,13 +180,11 @@ export async function verifyQStashSignature(request: Request, rawBody: string):
+   const nextSigningKey = process.env.QSTASH_NEXT_SIGNING_KEY;
+ 
+   if (!currentSigningKey || !nextSigningKey) {
+-    log('QStash signature verification disabled (no signing keys configured)');
+     return false;
+   }
+ 
+   const signature = request.headers.get('Upstash-Signature');
+   if (!signature) {
+-    log('Missing Upstash-Signature header');
+     return false;
+   }
+ 
+@@ -173,8 +192,7 @@ export async function verifyQStashSignature(request: Request, rawBody: string):
+ 
+   try {
+     return await receiver.verify({ body: rawBody, signature });
+-  } catch (error) {
+-    log('QStash signature verification failed: %O', error);
++  } catch {
+     return false;
+   }
+ }
 -- 
 2.39.5
 
 
-From 92f0659a758e4d49ff7740dc169e4256c3b2babc Mon Sep 17 00:00:00 2001
+From 390eca02c0b49da6f3807358f7398fa8d2320e4e Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
-Date: Mon, 27 Jul 2026 18:32:10 +0000
-Subject: [PATCH 29/32] Fix updateMessageError type error
+Date: Thu, 24 Sep 2026 06:58:34 +0000
+Subject: [PATCH 10/16] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20keep=20patched=20?=
+ =?UTF-8?q?fonts=20at=20the=20app=20boundary?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
+Co-authored-by: Cursor GPT-5.6 Sol <cursoragent@cursor.com.invalid>
 ---
- src/services/message/index.ts | 16 +++++++++++++---
- 1 file changed, 13 insertions(+), 3 deletions(-)
+ apps/share/index.html     |  6 ++++++
+ apps/workbench/index.html |  6 ++++++
+ index.auth.html           |  6 ++++++
+ index.html                |  6 ++++++
+ index.mobile.html         |  6 ++++++
+ index.workbench.html      |  6 ++++++
+ src/const/font.test.ts    | 25 +++++++++++++++++--------
+ src/const/font.ts         | 20 ++++++--------------
+ vite.config.ts            |  2 +-
+ 9 files changed, 60 insertions(+), 23 deletions(-)
 
-diff --git a/src/services/message/index.ts b/src/services/message/index.ts
-index 436b0e195b..ac4248d47e 100644
---- a/src/services/message/index.ts
-+++ b/src/services/message/index.ts
-@@ -195,9 +195,19 @@ export class MessageService {
-   };
+diff --git a/apps/share/index.html b/apps/share/index.html
+index dd01f35f85..32c28329f6 100644
+--- a/apps/share/index.html
++++ b/apps/share/index.html
+@@ -84,6 +84,12 @@
+     <script>
+       window.__SERVER_CONFIG__ = undefined; /* SERVER_CONFIG */
+     </script>
++    <link href="https://fonts.googleapis.com" rel="preconnect" />
++    <link crossorigin="anonymous" href="https://fonts.gstatic.com" rel="preconnect" />
++    <link
++      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+JP:wght@400;500;600;700&display=swap"
++      rel="stylesheet"
++    />
+   </head>
  
-   updateMessageError = async (id: string, value: ChatMessageError, ctx?: MessageQueryContext) => {
--    const error = value.type
--      ? value
--      : { body: value, message: value.message, type: 'ApplicationRuntimeError' };
-+    // Spread Error → plain object. SuperJSON serializes Error as {name,message} only,
-+    // which drops ChatMessageError.type and fails UpdateMessageParamsSchema.
-+    const plain =
-+      value && typeof value === 'object'
-+        ? ({ ...value } as ChatMessageError)
-+        : ({} as ChatMessageError);
-+    const error: ChatMessageError = plain.type
-+      ? plain
-+      : {
-+          body: value,
-+          message: typeof plain.message === 'string' ? plain.message : undefined,
-+          type: 'ApplicationRuntimeError',
-+        };
+   <body>
+diff --git a/apps/workbench/index.html b/apps/workbench/index.html
+index dd01f35f85..32c28329f6 100644
+--- a/apps/workbench/index.html
++++ b/apps/workbench/index.html
+@@ -84,6 +84,12 @@
+     <script>
+       window.__SERVER_CONFIG__ = undefined; /* SERVER_CONFIG */
+     </script>
++    <link href="https://fonts.googleapis.com" rel="preconnect" />
++    <link crossorigin="anonymous" href="https://fonts.gstatic.com" rel="preconnect" />
++    <link
++      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+JP:wght@400;500;600;700&display=swap"
++      rel="stylesheet"
++    />
+   </head>
  
-     return lambdaClient.message.update.mutate({
-       ...ctx,
--- 
-2.39.5
-
-
-From e00f36c5a06f8e344180349dae1e0f3c6c5afbcf Mon Sep 17 00:00:00 2001
-From: MaySoMusician <maysomusician@gmail.com>
-Date: Mon, 27 Jul 2026 18:33:05 +0000
-Subject: [PATCH 30/32] Log if custom undici is loaded and used
-
----
- .../core/openaiCompatibleFactory/timeout.ts   | 13 ++++++++++
- .../(backend)/webapi/chat/[provider]/route.ts | 26 ++++++++++++++-----
- src/instrumentation.ts                        |  3 +++
- 3 files changed, 36 insertions(+), 6 deletions(-)
-
-diff --git a/packages/model-runtime/src/core/openaiCompatibleFactory/timeout.ts b/packages/model-runtime/src/core/openaiCompatibleFactory/timeout.ts
-index 9b52bd92d9..246c8a8d98 100644
---- a/packages/model-runtime/src/core/openaiCompatibleFactory/timeout.ts
-+++ b/packages/model-runtime/src/core/openaiCompatibleFactory/timeout.ts
-@@ -48,6 +48,8 @@ const loadUndici = (): UndiciModule | undefined => {
-  * Without a matching Agent on the same fetch implementation, Node's default
-  * undici agent still aborts at 300s (× SDK retries ≈ 900s).
-  */
-+let loggedUndiciApply = false;
-+
- export const resolveOpenAIClientNetworkOptions = (
-   timeoutMs: number = DEFAULT_OPENAI_TIMEOUT,
- ): OpenAIClientNetworkOptions => {
-@@ -67,6 +69,17 @@ export const resolveOpenAIClientNetworkOptions = (
-     headersTimeout: timeout,
+   <body>
+diff --git a/index.auth.html b/index.auth.html
+index 8a03e28eb6..820463cbd1 100644
+--- a/index.auth.html
++++ b/index.auth.html
+@@ -84,6 +84,12 @@
+     <script>
+       window.__SERVER_CONFIG__ = undefined; /* SERVER_CONFIG */
+     </script>
++    <link href="https://fonts.googleapis.com" rel="preconnect" />
++    <link crossorigin="anonymous" href="https://fonts.gstatic.com" rel="preconnect" />
++    <link
++      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+JP:wght@400;500;600;700&display=swap"
++      rel="stylesheet"
++    />
+   </head>
+ 
+   <body>
+diff --git a/index.html b/index.html
+index 5c3972c99e..021623e67d 100644
+--- a/index.html
++++ b/index.html
+@@ -127,6 +127,12 @@
+     <script>
+       window.__SERVER_CONFIG__ = undefined; /* SERVER_CONFIG */
+     </script>
++    <link href="https://fonts.googleapis.com" rel="preconnect" />
++    <link crossorigin="anonymous" href="https://fonts.gstatic.com" rel="preconnect" />
++    <link
++      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+JP:wght@400;500;600;700&display=swap"
++      rel="stylesheet"
++    />
+   </head>
+ 
+   <body>
+diff --git a/index.mobile.html b/index.mobile.html
+index 18d4ba16b6..e67ee4d463 100644
+--- a/index.mobile.html
++++ b/index.mobile.html
+@@ -62,6 +62,12 @@
+     <script>
+       window.__SERVER_CONFIG__ = undefined; /* SERVER_CONFIG */
+     </script>
++    <link href="https://fonts.googleapis.com" rel="preconnect" />
++    <link crossorigin="anonymous" href="https://fonts.gstatic.com" rel="preconnect" />
++    <link
++      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+JP:wght@400;500;600;700&display=swap"
++      rel="stylesheet"
++    />
+   </head>
+ 
+   <body>
+diff --git a/index.workbench.html b/index.workbench.html
+index c8c4d3c3ee..8ded019ec1 100644
+--- a/index.workbench.html
++++ b/index.workbench.html
+@@ -84,6 +84,12 @@
+     <script>
+       window.__SERVER_CONFIG__ = undefined; /* SERVER_CONFIG */
+     </script>
++    <link href="https://fonts.googleapis.com" rel="preconnect" />
++    <link crossorigin="anonymous" href="https://fonts.gstatic.com" rel="preconnect" />
++    <link
++      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+JP:wght@400;500;600;700&display=swap"
++      rel="stylesheet"
++    />
+   </head>
+ 
+   <body>
+diff --git a/src/const/font.test.ts b/src/const/font.test.ts
+index 173d8c7fe0..8900988bf7 100644
+--- a/src/const/font.test.ts
++++ b/src/const/font.test.ts
+@@ -1,20 +1,22 @@
+ import { describe, expect, it } from 'vitest';
+ 
+-import { genFontFamily } from './font';
++import { genFontFamily, genFontFamilyCode } from './font';
+ 
+ describe('genFontFamily', () => {
+-  it('puts japanese families ahead of the SC fallback for ja-JP', () => {
++  it('puts IBM Plex first and retains Japanese fallbacks for ja-JP', () => {
+     const stack = genFontFamily({ locale: 'ja-JP' });
+ 
++    expect(stack.startsWith('"IBM Plex Sans JP"')).toBe(true);
+     expect(stack.indexOf('"Hiragino Sans"')).toBeGreaterThan(-1);
+-    expect(stack.indexOf('"Hiragino Sans"')).toBeLessThan(stack.indexOf('"HarmonyOS Sans SC"'));
++    expect(stack).not.toContain('HarmonyOS');
    });
  
-+  if (!loggedUndiciApply) {
-+    loggedUndiciApply = true;
-+    const source = (globalThis as typeof globalThis & { __LOBE_UNDICI__?: UndiciModule })
-+      .__LOBE_UNDICI__
-+      ? 'instrumentation'
-+      : 'require';
-+    console.info(
-+      `[model-runtime] OpenAI undici Agent applied timeoutMs=${timeout} source=${source}`,
-+    );
-+  }
-+
-   return {
-     fetch: undici.fetch as unknown as typeof fetch,
-     fetchOptions: { dispatcher },
-diff --git a/src/app/(backend)/webapi/chat/[provider]/route.ts b/src/app/(backend)/webapi/chat/[provider]/route.ts
-index 8e09ffe450..0c86818cb8 100644
---- a/src/app/(backend)/webapi/chat/[provider]/route.ts
-+++ b/src/app/(backend)/webapi/chat/[provider]/route.ts
-@@ -14,6 +14,18 @@ import { resolveValidWorkspaceIdFromRequest } from '../../_utils/workspace';
- // this enforce user to enable fluid compute
- export const maxDuration = 3600;
+-  it('keeps the SC stack first for zh-CN and unknown locales', () => {
++  it('does not inject a Harmony SC fallback for zh-CN and unknown locales', () => {
+     for (const locale of ['zh-CN', 'de-DE', undefined]) {
+       const stack = genFontFamily({ locale });
  
-+const withUndiciHeader = (response: Response) => {
-+  const undiciInstalled = !!(globalThis as typeof globalThis & { __LOBE_UNDICI__?: unknown })
-+    .__LOBE_UNDICI__;
-+  const headers = new Headers(response.headers);
-+  headers.set('X-Lobe-Undici', undiciInstalled ? '1' : '0');
-+  return new Response(response.body, {
-+    headers,
-+    status: response.status,
-+    statusText: response.statusText,
+-      expect(stack).toContain('"HarmonyOS Sans SC"');
++      expect(stack.startsWith('"IBM Plex Sans JP"')).toBe(true);
++      expect(stack).not.toContain('HarmonyOS');
+       expect(stack).not.toContain('"PingFang TC"');
+       expect(stack).not.toContain('"Hiragino Sans"');
+     }
+@@ -23,7 +25,8 @@ describe('genFontFamily', () => {
+   it('prefers TC families for zh-TW', () => {
+     const stack = genFontFamily({ locale: 'zh-TW' });
+ 
+-    expect(stack.indexOf('"PingFang TC"')).toBeLessThan(stack.indexOf('"PingFang SC"'));
++    expect(stack).toContain('"PingFang TC"');
++    expect(stack).not.toContain('"PingFang SC"');
+   });
+ 
+   it('puts the user font first, then the env custom font', () => {
+@@ -33,12 +36,18 @@ describe('genFontFamily', () => {
+       userFontFamily: ' LXGW WenKai ',
+     });
+ 
+-    expect(stack.startsWith('"LXGW WenKai","Env Font",Geist')).toBe(true);
++    expect(stack.startsWith('"LXGW WenKai","Env Font","IBM Plex Sans JP"')).toBe(true);
+   });
+ 
+   it('leaves an already composed font-family list untouched', () => {
+     expect(
+-      genFontFamily({ customFontFamily: 'Foo, "Bar Baz"' }).startsWith('Foo, "Bar Baz",Geist'),
++      genFontFamily({ customFontFamily: 'Foo, "Bar Baz"' }).startsWith(
++        'Foo, "Bar Baz","IBM Plex Sans JP"',
++      ),
+     ).toBe(true);
+   });
++
++  it('uses Mgen+ 1mn as the local-first code font', () => {
++    expect(genFontFamilyCode().startsWith('"Mgen+ 1mn"')).toBe(true);
 +  });
-+};
-+
- export const POST = checkAuth(async (req: Request, { params, userId, serverDB }) => {
-   const provider = (await params)!.provider!;
- 
-@@ -35,11 +47,13 @@ export const POST = checkAuth(async (req: Request, { params, userId, serverDB })
-       traceOptions = createTraceOptions(data, { provider, trace: tracePayload });
-     }
- 
--    return await modelRuntime.chat(data, {
--      user: userId,
--      ...traceOptions,
--      signal: req.signal,
--    });
-+    return withUndiciHeader(
-+      await modelRuntime.chat(data, {
-+        user: userId,
-+        ...traceOptions,
-+        signal: req.signal,
-+      }),
-+    );
-   } catch (e) {
-     const {
-       errorType = ChatErrorType.InternalServerError,
-@@ -56,6 +70,6 @@ export const POST = checkAuth(async (req: Request, { params, userId, serverDB })
-       console.error(`Route: [${provider}] ${errorType}:`, error);
-     }
- 
--    return createErrorResponse(errorType, { error, ...res, provider });
-+    return withUndiciHeader(createErrorResponse(errorType, { error, ...res, provider }));
-   }
  });
-diff --git a/src/instrumentation.ts b/src/instrumentation.ts
-index 131c62f093..f18d18de9a 100644
---- a/src/instrumentation.ts
-+++ b/src/instrumentation.ts
-@@ -17,6 +17,9 @@ export async function register() {
-       globalThis.fetch = undici.fetch as unknown as typeof fetch;
-       (globalThis as typeof globalThis & { __LOBE_UNDICI__?: typeof undici }).__LOBE_UNDICI__ =
-         undici;
-+      console.info(
-+        `[Instrumentation] undici fetch+dispatcher installed headersTimeout/bodyTimeout=${timeoutMs}ms`,
-+      );
-     } catch (error) {
-       console.warn('[Instrumentation] failed to install undici fetch+dispatcher:', error);
-     }
--- 
-2.39.5
-
-
-From 79ad4839ac900c6902a52dc0d0c5426862848dd2 Mon Sep 17 00:00:00 2001
-From: MaySoMusician <maysomusician@gmail.com>
-Date: Wed, 29 Jul 2026 14:28:54 +0000
-Subject: [PATCH 31/32] Do not load lobe-image-generation tool
-
----
- apps/server/src/modules/Mecha/AgentToolsEngine/index.ts | 5 -----
- packages/builtin-tools/src/index.ts                     | 1 -
- src/helpers/toolEngineering/index.ts                    | 9 ---------
- 3 files changed, 15 deletions(-)
-
-diff --git a/apps/server/src/modules/Mecha/AgentToolsEngine/index.ts b/apps/server/src/modules/Mecha/AgentToolsEngine/index.ts
-index 94a86edc30..c9c950d249 100644
---- a/apps/server/src/modules/Mecha/AgentToolsEngine/index.ts
-+++ b/apps/server/src/modules/Mecha/AgentToolsEngine/index.ts
-@@ -11,7 +11,6 @@
-  */
- import { BrowserManifest } from '@lobechat/builtin-tool-browser';
- import { CloudSandboxManifest } from '@lobechat/builtin-tool-cloud-sandbox';
--import { ImageGenerationManifest } from '@lobechat/builtin-tool-image-generation';
- import { KnowledgeBaseManifest } from '@lobechat/builtin-tool-knowledge-base';
- import { LocalSystemManifest } from '@lobechat/builtin-tool-local-system';
- import { MemoryManifest } from '@lobechat/builtin-tool-memory';
-@@ -164,7 +163,6 @@ export const createServerAgentToolsEngine = (
-     isGroupSupervisor = false,
-     manifestContext,
-     model,
--    modelAbilities,
-     provider,
-     useApplicationBuiltinSearchTool,
-   } = params;
-@@ -209,8 +207,6 @@ export const createServerAgentToolsEngine = (
- 
-   const searchMode = agentConfig.chatConfig?.searchMode ?? 'auto';
-   const isSearchEnabled = useApplicationBuiltinSearchTool ?? searchMode !== 'off';
--  const imageGenerationEnabled =
--    context.isModelSupportToolUse(model, provider) && !modelAbilities?.imageOutput;
-   // Tool mode: explicit `toolMode` wins; otherwise derive from `enableAgentMode`
-   // (undefined = agent). `custom` = toolset is exactly the agent's plugins.
-   const toolMode = resolveToolMode(agentConfig.chatConfig ?? undefined);
-@@ -238,7 +234,6 @@ export const createServerAgentToolsEngine = (
-   const chatModeRules = {
-     // Example: Claude can call tools but lacks native imageOutput, so expose the
-     // image-generation fallback; image-output models should use their native path.
--    [ImageGenerationManifest.identifier]: imageGenerationEnabled,
-     [KnowledgeBaseManifest.identifier]: hasEnabledKnowledgeBases,
-     [MemoryManifest.identifier]: globalMemoryEnabled,
-     [WebBrowsingManifest.identifier]: isSearchEnabled,
-diff --git a/packages/builtin-tools/src/index.ts b/packages/builtin-tools/src/index.ts
-index aa476ff942..ebc2709ef3 100644
---- a/packages/builtin-tools/src/index.ts
-+++ b/packages/builtin-tools/src/index.ts
-@@ -106,7 +106,6 @@ export const chatModeAllowedToolIds = [
-   KnowledgeBaseManifest.identifier,
-   MemoryManifest.identifier,
-   WebBrowsingManifest.identifier,
--  ImageGenerationManifest.identifier,
+diff --git a/src/const/font.ts b/src/const/font.ts
+index 4563d764c0..673328318e 100644
+--- a/src/const/font.ts
++++ b/src/const/font.ts
+@@ -1,5 +1,5 @@
+ const FONT_EN = [
+-  'Geist',
++  'IBM Plex Sans JP',
+   '-apple-system',
+   'BlinkMacSystemFont',
+   'Segoe UI Variable Display',
+@@ -9,15 +9,7 @@ const FONT_EN = [
+   'Arial',
  ];
  
- /**
-diff --git a/src/helpers/toolEngineering/index.ts b/src/helpers/toolEngineering/index.ts
-index 23b3dc4cac..f5562fee87 100644
---- a/src/helpers/toolEngineering/index.ts
-+++ b/src/helpers/toolEngineering/index.ts
-@@ -3,7 +3,6 @@
-  */
- import { BrowserManifest } from '@lobechat/builtin-tool-browser';
- import { CloudSandboxManifest } from '@lobechat/builtin-tool-cloud-sandbox';
--import { ImageGenerationManifest } from '@lobechat/builtin-tool-image-generation';
- import { KnowledgeBaseManifest } from '@lobechat/builtin-tool-knowledge-base';
- import { LocalSystemManifest } from '@lobechat/builtin-tool-local-system';
- import { MemoryManifest } from '@lobechat/builtin-tool-memory';
-@@ -25,7 +24,6 @@ import { isToolAvailableInCurrentEnv } from '@/helpers/toolAvailability';
- import { patchManifestWithPermissions } from '@/libs/mcp/patchManifestPermissions';
- import { getAgentStoreState } from '@/store/agent';
- import { agentChatConfigSelectors, agentSelectors } from '@/store/agent/selectors';
--import { aiModelSelectors, getAiInfraStoreState } from '@/store/aiInfra';
- import { getToolStoreState } from '@/store/tool';
- import {
-   composioStoreSelectors,
-@@ -234,17 +232,10 @@ export const createAgentToolsEngine = (
-     agentChatConfigSelectors.currentChatConfig(agentState).memory?.enabled ??
-     settingsSelectors.memoryEnabled(useUserStore.getState());
-   const webBrowsingEnabled = searchConfig.useApplicationBuiltinSearchTool;
--  const imageGenerationEnabled =
--    isCanUseFC(workingModel.model, workingModel.provider) &&
--    !aiModelSelectors.isModelSupportImageOutput(
--      workingModel.model,
--      workingModel.provider,
--    )(getAiInfraStoreState());
+-const FONT_SC = [
+-  'HarmonyOS Sans SC',
+-  'PingFang SC',
+-  'Hiragino Sans GB',
+-  'Microsoft YaHei UI',
+-  'Microsoft YaHei',
+-  'Source Han Sans SC',
+-  'Noto Sans CJK SC',
+-];
++const FONT_SC: string[] = [];
  
-   const chatModeRules = {
-     // Example: Claude can call tools but lacks native imageOutput, so expose the
-     // image-generation fallback; image-output models should use their native path.
--    [ImageGenerationManifest.identifier]: imageGenerationEnabled,
-     [KnowledgeBaseManifest.identifier]: kbEnabled,
-     [MemoryManifest.identifier]: memoryEnabled,
-     [WebBrowsingManifest.identifier]: webBrowsingEnabled,
+ const FONT_TC = [
+   'PingFang TC',
+@@ -41,7 +33,7 @@ const FONT_JP = [
+ const FONT_KR = ['Apple SD Gothic Neo', 'Malgun Gothic', 'Source Han Sans KR', 'Noto Sans CJK KR'];
+ 
+ const FONT_CODE = [
+-  'Geist Mono',
++  'Mgen+ 1mn',
+   'ui-monospace',
+   'SFMono-Regular',
+   'SF Mono',
+@@ -55,10 +47,10 @@ const FALLBACK = ['ui-sans-serif', 'system-ui', 'sans-serif'];
+ 
+ const FALLBACK_CODE = ['monospace'];
+ 
+-const FONT_EMOJI = ['Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'];
++const FONT_EMOJI = ['Noto Color Emoji', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'];
+ 
+-// Han glyphs differ per region, so the locale's own CJK family must win over the
+-// SC families that stay in the stack as the last-resort CJK fallback.
++// Han glyphs differ per region, so locale-specific CJK families follow the
++// primary IBM Plex stack only when the selected locale needs them.
+ const LOCALE_CJK_FONTS: Record<string, string[]> = {
+   'ja-JP': FONT_JP,
+   'ko-KR': FONT_KR,
+diff --git a/vite.config.ts b/vite.config.ts
+index 7bcdcc01bd..997cefc067 100644
+--- a/vite.config.ts
++++ b/vite.config.ts
+@@ -129,7 +129,7 @@ export default defineConfig({
+     bundledDev: false,
+   },
+   resolve: {
+-    dedupe: sharedRendererDedupe,
++    dedupe: [...sharedRendererDedupe, '@lobehub/ui', '@lobehub/icons', 'antd', 'motion'],
+     tsconfigPaths: true,
+   },
+   optimizeDeps: sharedOptimizeDeps,
 -- 
 2.39.5
 
 
-From d54cbf38d2b7a8c912137b3351899b0d4c1d3fba Mon Sep 17 00:00:00 2001
+From ff108f26fddf545d10c3149f9f604d675d3a3ac5 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
-Date: Sat, 1 Aug 2026 18:56:53 +0000
-Subject: [PATCH 32/32] Override @hono/node-server to 1.19.17
+Date: Thu, 24 Sep 2026 06:58:41 +0000
+Subject: [PATCH 11/16] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20offer=20only=20En?=
+ =?UTF-8?q?glish=20and=20Japanese?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-As 1.19.15 is not so trusted (no GitHub release, no commit)
+Co-authored-by: Cursor GPT-5.6 Sol <cursoragent@cursor.com.invalid>
 ---
- pnpm-workspace.yaml | 2 ++
- 1 file changed, 2 insertions(+)
+ src/features/User/UserPanel/LangButton.tsx | 40 ++++++++++++----------
+ src/utils/locale.ts                        |  4 +--
+ 2 files changed, 23 insertions(+), 21 deletions(-)
 
-diff --git a/pnpm-workspace.yaml b/pnpm-workspace.yaml
-index 5a4ad69203..874bb3e1af 100644
---- a/pnpm-workspace.yaml
-+++ b/pnpm-workspace.yaml
-@@ -8,6 +8,7 @@ packages:
+diff --git a/src/features/User/UserPanel/LangButton.tsx b/src/features/User/UserPanel/LangButton.tsx
+index eab88bdc71..3c39c74f38 100644
+--- a/src/features/User/UserPanel/LangButton.tsx
++++ b/src/features/User/UserPanel/LangButton.tsx
+@@ -50,25 +50,27 @@ const LangButton = memo<{ compact?: boolean; placement?: DropdownMenuProps['plac
+         type: 'checkbox',
+       };
  
- minimumReleaseAgeExclude:
-   - '@lobehub/*'
-+  - '@hono/node-server@1.19.17'
+-      const localeItems = localeOptions.map<DropdownMenuCheckboxItem>((item) => ({
+-        checked: language === item.value,
+-        closeOnClick: true,
+-        key: item.value,
+-        label: (
+-          <Flexbox gap={4} key={item.value} onMouseEnter={() => preloadLang(item.value)}>
+-            <Text style={{ lineHeight: 1.2 }}>{item.label}</Text>
+-            <Text fontSize={12} style={{ lineHeight: 1.2 }} type={'secondary'}>
+-              {t(`lang.${item.value}` as any, { ns: 'common' })}
+-            </Text>
+-          </Flexbox>
+-        ),
+-        onCheckedChange: (checked: boolean) => {
+-          if (checked) {
+-            switchLocale(item.value);
+-          }
+-        },
+-        type: 'checkbox',
+-      }));
++      const localeItems = localeOptions
++        .filter((item) => ['en-US', 'ja-JP'].includes(item.value))
++        .map<DropdownMenuCheckboxItem>((item) => ({
++          checked: language === item.value,
++          closeOnClick: true,
++          key: item.value,
++          label: (
++            <Flexbox gap={4} key={item.value} onMouseEnter={() => preloadLang(item.value)}>
++              <Text style={{ lineHeight: 1.2 }}>{item.label}</Text>
++              <Text fontSize={12} style={{ lineHeight: 1.2 }} type={'secondary'}>
++                {t(`lang.${item.value}` as any, { ns: 'common' })}
++              </Text>
++            </Flexbox>
++          ),
++          onCheckedChange: (checked: boolean) => {
++            if (checked) {
++              switchLocale(item.value);
++            }
++          },
++          type: 'checkbox',
++        }));
  
- onlyBuiltDependencies:
-   - '@google/genai'
-@@ -25,6 +26,7 @@ overrides:
-   react: 19.2.4
-   react-dom: 19.2.4
-   '@react-pdf/image': 3.0.4
-+  '@hono/node-server': 1.19.17
+       return [autoItem, ...localeItems];
+     }, [language, switchLocale, t]);
+diff --git a/src/utils/locale.ts b/src/utils/locale.ts
+index 5dbaf4408b..cdad3d1f89 100644
+--- a/src/utils/locale.ts
++++ b/src/utils/locale.ts
+@@ -52,9 +52,9 @@ export const parseBrowserLanguage = (headers: Headers, defaultLang: string = DEF
+   );
  
- patchedDependencies:
-   '@upstash/qstash': patches/@upstash__qstash.patch
+   // if match the ar-EG then fallback to ar
+-  if (browserLang === 'ar-EG') browserLang = 'ar';
++  if (browserLang === 'ar-EG') browserLang = 'ar'; // eslint-disable-line no-useless-assignment
+ 
+-  return normalizeLocale(browserLang);
++  return 'en-US';
+ };
+ 
+ /**
+-- 
+2.39.5
+
+
+From ef898f804d1d5a33d5b914924c459bad320192be Mon Sep 17 00:00:00 2001
+From: MaySoMusician <maysomusician@gmail.com>
+Date: Thu, 24 Sep 2026 06:58:48 +0000
+Subject: [PATCH 12/16] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20keep=20user-messa?=
+ =?UTF-8?q?ge=20edits=20manual?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Co-authored-by: Cursor GPT-5.6 Sol <cursoragent@cursor.com.invalid>
+---
+ .../components/MessageContent/index.tsx       | 13 +++---------
+ .../User/components/MessageContent.test.tsx   |  6 +++---
+ .../User/components/MessageContent.tsx        | 18 ++++++----------
+ src/features/EditorModal/EditorCanvas.tsx     | 21 ++++++++++++++++---
+ 4 files changed, 30 insertions(+), 28 deletions(-)
+
+diff --git a/src/features/Conversation/ChatItem/components/MessageContent/index.tsx b/src/features/Conversation/ChatItem/components/MessageContent/index.tsx
+index 26f1916311..7c92bd8f2e 100644
+--- a/src/features/Conversation/ChatItem/components/MessageContent/index.tsx
++++ b/src/features/Conversation/ChatItem/components/MessageContent/index.tsx
+@@ -5,11 +5,7 @@ import { type ReactNode } from 'react';
+ import { memo, useCallback, useEffect, useRef } from 'react';
+ import { useTranslation } from 'react-i18next';
+ 
+-import {
+-  dataSelectors,
+-  messageStateSelectors,
+-  useConversationStore,
+-} from '@/features/Conversation/store';
++import { dataSelectors, useConversationStore } from '@/features/Conversation/store';
+ import { openEditorModal } from '@/features/EditorModal';
+ import { usePermission } from '@/hooks/usePermission';
+ 
+@@ -78,11 +74,8 @@ const MessageContent = memo<MessageContentProps>(
+     // otherwise the initial send phase — where the persisted id has just swapped in
+     // under an optimistic tmp_* op — would flip to Send and kick off a duplicate
+     // regenerate for the same prompt.
+-    const shouldSendOnConfirm = useConversationStore((s) => {
+-      if (!editing) return false;
+-      if (dataSelectors.getDisplayMessageById(id)(s)?.role !== 'user') return false;
+-      if (s.displayMessages.findLast((m) => m.role === 'user')?.id !== id) return false;
+-      return !messageStateSelectors.isInputLoading(s);
++    const shouldSendOnConfirm = useConversationStore(() => {
++      return false;
+     });
+ 
+     const { t } = useTranslation('common');
+diff --git a/src/features/Conversation/Messages/User/components/MessageContent.test.tsx b/src/features/Conversation/Messages/User/components/MessageContent.test.tsx
+index 5b854281a1..c97f51570c 100644
+--- a/src/features/Conversation/Messages/User/components/MessageContent.test.tsx
++++ b/src/features/Conversation/Messages/User/components/MessageContent.test.tsx
+@@ -35,7 +35,7 @@ vi.mock('./AudioFileListViewer', () => ({
+ }));
+ 
+ describe('User MessageContent', () => {
+-  it('should prefer rich text rendering when editorData exists', () => {
++  it('should render markdown when editorData exists', () => {
+     render(
+       <MessageContent
+         content={'markdown-content'}
+@@ -47,8 +47,8 @@ describe('User MessageContent', () => {
+       />,
+     );
+ 
+-    expect(screen.getByTestId('rich-message')).toBeInTheDocument();
+-    expect(screen.queryByTestId('markdown-message')).not.toBeInTheDocument();
++    expect(screen.getByTestId('markdown-message')).toHaveTextContent('markdown-content');
++    expect(screen.queryByTestId('rich-message')).not.toBeInTheDocument();
+   });
+ 
+   it('should render markdown when editorData is missing', () => {
+diff --git a/src/features/Conversation/Messages/User/components/MessageContent.tsx b/src/features/Conversation/Messages/User/components/MessageContent.tsx
+index 4dcb722ff8..7eea615f67 100644
+--- a/src/features/Conversation/Messages/User/components/MessageContent.tsx
++++ b/src/features/Conversation/Messages/User/components/MessageContent.tsx
+@@ -11,30 +11,24 @@ import AudioFileListViewer from './AudioFileListViewer';
+ import FileListViewer from './FileListViewer';
+ import ImageFileListViewer from './ImageFileListViewer';
+ import PageSelections from './PageSelections';
+-import RichTextMessage from './RichTextMessage';
+ import VideoFileListViewer from './VideoFileListViewer';
+ 
+ const UserMessageContent = memo<UIChatMessage>(
+-  ({ id, content, editorData, imageList, videoList, audioList, fileList, metadata }) => {
++  ({ id, content, imageList, videoList, audioList, fileList, metadata }) => {
+     const markdownProps = useMarkdown(id);
+     const selections = metadata?.contextSelections?.length
+       ? metadata.contextSelections
+       : metadata?.pageSelections;
+     const displayContent = useMemo(() => (content ? cleanSpeakerTag(content) : content), [content]);
+ 
+-    const hasEditorData =
+-      editorData && typeof editorData === 'object' && Object.keys(editorData).length > 0;
+-
+-    const textBody = hasEditorData ? (
+-      <RichTextMessage editorState={editorData} />
+-    ) : (
+-      displayContent && <MarkdownMessage {...markdownProps}>{displayContent}</MarkdownMessage>
+-    );
+-
+     return (
+       <Flexbox gap={8} id={id}>
+         {selections && selections.length > 0 && <PageSelections selections={selections} />}
+-        {textBody && <CollapsibleContent>{textBody}</CollapsibleContent>}
++        {displayContent && (
++          <CollapsibleContent>
++            <MarkdownMessage {...markdownProps}>{displayContent}</MarkdownMessage>
++          </CollapsibleContent>
++        )}
+         {imageList && imageList?.length > 0 && <ImageFileListViewer items={imageList} />}
+         {videoList && videoList?.length > 0 && <VideoFileListViewer items={videoList} />}
+         {audioList && audioList?.length > 0 && (
+diff --git a/src/features/EditorModal/EditorCanvas.tsx b/src/features/EditorModal/EditorCanvas.tsx
+index d5e11d7aa1..e72383895b 100644
+--- a/src/features/EditorModal/EditorCanvas.tsx
++++ b/src/features/EditorModal/EditorCanvas.tsx
+@@ -6,6 +6,8 @@ import { type FC, useMemo } from 'react';
+ 
+ import { createChatInputRichPlugins } from '@/features/ChatInput/InputEditor/plugins';
+ import { TypoBar } from '@/features/EditorCanvas/TypoBar';
++import { useUserStore } from '@/store/user';
++import { labPreferSelectors } from '@/store/user/selectors';
+ 
+ interface EditorCanvasProps {
+   defaultValue?: string;
+@@ -27,12 +29,25 @@ const EditorCanvas: FC<EditorCanvasProps> = ({ defaultValue, editor, editorData
+       return { content: JSON.stringify(editorData), type: 'json' as const };
+     }
+ 
+-    return { content: defaultValue || '', type: 'markdown' as const };
++    return { content: defaultValue || '', type: 'text' as const };
+   }, [editorData, defaultValue]);
+ 
++  const enableRichRender = useUserStore(labPreferSelectors.enableInputMarkdown);
++  const richRenderProps = useMemo(
++    () =>
++      enableRichRender
++        ? { plugins: EDITOR_PLUGINS }
++        : {
++            enablePasteMarkdown: false,
++            markdownOption: false,
++            plugins: [],
++          },
++    [enableRichRender],
++  );
++
+   return (
+     <>
+-      <TypoBar editor={editor} />
++      {enableRichRender && <TypoBar editor={editor} />}
+       <Flexbox
+         padding={16}
+         style={{ cursor: 'text', maxHeight: '80vh', minHeight: '50vh', overflowY: 'auto' }}
+@@ -41,7 +56,7 @@ const EditorCanvas: FC<EditorCanvasProps> = ({ defaultValue, editor, editorData
+           autoFocus
+           content={content}
+           editor={editor}
+-          plugins={EDITOR_PLUGINS}
++          {...richRenderProps}
+           type={type}
+           variant={'chat'}
+           style={{
+-- 
+2.39.5
+
+
+From d0765890b2ef1dbe16ba443a8758743a91032863 Mon Sep 17 00:00:00 2001
+From: MaySoMusician <maysomusician@gmail.com>
+Date: Thu, 24 Sep 2026 06:58:55 +0000
+Subject: [PATCH 13/16] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20show=20exact=20to?=
+ =?UTF-8?q?ken=20counts?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Co-authored-by: Cursor GPT-5.6 Sol <cursoragent@cursor.com.invalid>
+---
+ packages/utils/src/format.test.ts             | 32 +++++++++----------
+ packages/utils/src/format.ts                  |  3 --
+ .../Conversation/ChatInput/OpStatusTray.tsx   |  4 +--
+ 3 files changed, 17 insertions(+), 22 deletions(-)
+
+diff --git a/packages/utils/src/format.test.ts b/packages/utils/src/format.test.ts
+index 6d8c9d4232..c64573f5f4 100644
+--- a/packages/utils/src/format.test.ts
++++ b/packages/utils/src/format.test.ts
+@@ -269,16 +269,16 @@ describe('format', () => {
+   });
+ 
+   describe('formatUsageValue', () => {
+-    it('formats token usage details with short units', () => {
+-      expect(formatUsageValue(93_405)).toBe('93.4K');
+-      expect(formatUsageValue(92_119)).toBe('92.1K');
+-      expect(formatUsageValue(3_488)).toBe('3.5K');
+-      expect(formatUsageValue(189_018)).toBe('189K');
++    it('formats token usage details as exact counts', () => {
++      expect(formatUsageValue(93_405)).toBe('93,405');
++      expect(formatUsageValue(92_119)).toBe('92,119');
++      expect(formatUsageValue(3_488)).toBe('3,488');
++      expect(formatUsageValue(189_018)).toBe('189,018');
+     });
+ 
+-    it('formats credit usage details with the same short units', () => {
+-      expect(formatUsageValue(16_127)).toBe('16.1K');
+-      expect(formatUsageValue(16_179)).toBe('16.2K');
++    it('formats credit usage details as exact counts', () => {
++      expect(formatUsageValue(16_127)).toBe('16,127');
++      expect(formatUsageValue(16_179)).toBe('16,179');
+     });
+ 
+     it('keeps small token counts readable without suffixes', () => {
+@@ -287,16 +287,16 @@ describe('format', () => {
+       expect(formatUsageValue(999)).toBe('999');
+     });
+ 
+-    it('formats million-level token counts with M suffix', () => {
+-      expect(formatUsageValue(1_000_000)).toBe('1M');
+-      expect(formatUsageValue(1_500_000)).toBe('1.5M');
+-      expect(formatUsageValue(999_900_000)).toBe('999.9M');
++    it('keeps million-level token counts exact', () => {
++      expect(formatUsageValue(1_000_000)).toBe('1,000,000');
++      expect(formatUsageValue(1_500_000)).toBe('1,500,000');
++      expect(formatUsageValue(999_900_000)).toBe('999,900,000');
+     });
+ 
+-    it('rolls over to B suffix once counts reach a billion (1000M)', () => {
+-      expect(formatUsageValue(1_000_000_000)).toBe('1B');
+-      expect(formatUsageValue(9_092_900_000)).toBe('9.1B');
+-      expect(formatUsageValue(10_285_700_000)).toBe('10.3B');
++    it('keeps billion-level token counts exact', () => {
++      expect(formatUsageValue(1_000_000_000)).toBe('1,000,000,000');
++      expect(formatUsageValue(9_092_900_000)).toBe('9,092,900,000');
++      expect(formatUsageValue(10_285_700_000)).toBe('10,285,700,000');
+     });
+   });
+ 
+diff --git a/packages/utils/src/format.ts b/packages/utils/src/format.ts
+index 208c5e4496..4e46cc3ab4 100644
+--- a/packages/utils/src/format.ts
++++ b/packages/utils/src/format.ts
+@@ -82,9 +82,6 @@ export const formatIntergerNumber = (num?: any) => {
+ };
+ 
+ export const formatUsageValue = (number: number) => {
+-  if (number >= 1_000_000_000) return `${numeral(number / 1_000_000_000).format('0.[0]')}B`;
+-  if (number >= 1_000_000) return `${numeral(number / 1_000_000).format('0.[0]')}M`;
+-  if (number >= 1_000) return `${numeral(number / 1_000).format('0.[0]')}K`;
+   return numeral(number).format('0,0');
+ };
+ 
+diff --git a/src/features/Conversation/ChatInput/OpStatusTray.tsx b/src/features/Conversation/ChatInput/OpStatusTray.tsx
+index cab4c39d72..e0b70dee85 100644
+--- a/src/features/Conversation/ChatInput/OpStatusTray.tsx
++++ b/src/features/Conversation/ChatInput/OpStatusTray.tsx
+@@ -206,9 +206,7 @@ const ActivityGlyph = () => (
+ );
+ 
+ const formatTokens = (n: number) => {
+-  if (n < 1000) return String(n);
+-  if (n < 1_000_000) return `${(n / 1000).toFixed(1)}k`;
+-  return `${(n / 1_000_000).toFixed(2)}M`;
++  return String(n);
+ };
+ 
+ const formatCost = (cost: number) => {
+-- 
+2.39.5
+
+
+From 8f8868fdf054664bbdac96f2361040edca39dcba Mon Sep 17 00:00:00 2001
+From: MaySoMusician <maysomusician@gmail.com>
+Date: Thu, 24 Sep 2026 06:59:02 +0000
+Subject: [PATCH 14/16] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20use=20MSM=20defau?=
+ =?UTF-8?q?lts=20for=20model=20and=20share=20panels?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Co-authored-by: Cursor GPT-5.6 Sol <cursoragent@cursor.com.invalid>
+---
+ .../ModelSwitchPanel/components/PanelContent.tsx       | 10 +++++++++-
+ src/features/ShareModal/Modal.tsx                      |  2 +-
+ src/features/ShareModal/ShareJSON/index.tsx            |  2 +-
+ src/store/global/initialState.ts                       |  3 ---
+ 4 files changed, 11 insertions(+), 6 deletions(-)
+
+diff --git a/src/features/ModelSwitchPanel/components/PanelContent.tsx b/src/features/ModelSwitchPanel/components/PanelContent.tsx
+index 3212079217..d47451004c 100644
+--- a/src/features/ModelSwitchPanel/components/PanelContent.tsx
++++ b/src/features/ModelSwitchPanel/components/PanelContent.tsx
+@@ -1,5 +1,5 @@
+ import { Flexbox } from '@lobehub/ui';
+-import { type ComponentType, type FC } from 'react';
++import { type ComponentType, type FC, useEffect } from 'react';
+ import { useState } from 'react';
+ import { Rnd } from 'react-rnd';
+ 
+@@ -67,6 +67,14 @@ export const PanelContent: FC<PanelContentProps> = ({
+     </>
+   );
+ 
++  // Reset the panel width for narrower browser
++  useEffect(() => {
++    const clevererWidth = document.body.clientWidth - 50;
++    if (panelWidth > clevererWidth) {
++      handlePanelWidthChange(clevererWidth);
++    }
++  }, [handlePanelWidthChange]);
++
+   if (isDevMode) {
+     return (
+       <Rnd
+diff --git a/src/features/ShareModal/Modal.tsx b/src/features/ShareModal/Modal.tsx
+index e11767381d..871f824541 100644
+--- a/src/features/ShareModal/Modal.tsx
++++ b/src/features/ShareModal/Modal.tsx
+@@ -25,7 +25,7 @@ export interface OpenShareModalOptions {
+ }
+ 
+ const ShareModalContent = memo(() => {
+-  const [tab, setTab] = useState<ShareTab>(ShareTab.Screenshot);
++  const [tab, setTab] = useState<ShareTab>(ShareTab.JSON);
+   const [rendererAttempt, setRendererAttempt] = useState(0);
+   const [rendererState, setRendererState] = useState<ShareTabRendererState>({ status: 'loading' });
+   const { t } = useTranslation('chat');
+diff --git a/src/features/ShareModal/ShareJSON/index.tsx b/src/features/ShareModal/ShareJSON/index.tsx
+index c85ab65d77..dd163f1586 100644
+--- a/src/features/ShareModal/ShareJSON/index.tsx
++++ b/src/features/ShareModal/ShareJSON/index.tsx
+@@ -18,7 +18,7 @@ import Preview from './Preview';
+ import { type FieldType } from './type';
+ 
+ const DEFAULT_FIELD_VALUE: FieldType = {
+-  exportMode: 'full',
++  exportMode: 'simple',
+   includeTool: true,
+   withSystemRole: true,
+ };
+diff --git a/src/store/global/initialState.ts b/src/store/global/initialState.ts
+index 1958c6b9fd..f9258310c5 100644
+--- a/src/store/global/initialState.ts
++++ b/src/store/global/initialState.ts
+@@ -132,9 +132,6 @@ export type ModelDetailPanelExpandedKey = (typeof MODEL_DETAIL_PANEL_EXPANDED_KE
+  * newly added sections default to expanded automatically.
+  */
+ export const MODEL_DETAIL_PANEL_EXPANDABLE_KEYS = [
+-  'rating',
+-  'abilities',
+-  'pricing',
+   'config',
+ ] as const satisfies readonly ModelDetailPanelExpandedKey[];
+ 
+-- 
+2.39.5
+
+
+From 3fd61199c4e6fb0d7983cac0eb539e5056b48e3f Mon Sep 17 00:00:00 2001
+From: MaySoMusician <maysomusician@gmail.com>
+Date: Thu, 24 Sep 2026 06:59:09 +0000
+Subject: [PATCH 15/16] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20shorten=20topic?=
+ =?UTF-8?q?=20previews=20and=20honor=20modifier-clicks?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Co-authored-by: Cursor GPT-5.6 Sol <cursoragent@cursor.com.invalid>
+---
+ .../AgentSidebar/Topic/List/Item/index.tsx    | 27 ++++++++-------
+ src/features/AgentTopicManager/TopicCard.tsx  | 33 ++++++++++++++++---
+ 2 files changed, 45 insertions(+), 15 deletions(-)
+
+diff --git a/src/features/AgentSidebar/Topic/List/Item/index.tsx b/src/features/AgentSidebar/Topic/List/Item/index.tsx
+index c369b96e18..7e71cd9a5d 100644
+--- a/src/features/AgentSidebar/Topic/List/Item/index.tsx
++++ b/src/features/AgentSidebar/Topic/List/Item/index.tsx
+@@ -11,7 +11,7 @@ import { createStaticStyles, cssVar, useTheme } from 'antd-style';
+ import dayjs from 'dayjs';
+ import isEqual from 'fast-deep-equal';
+ import { MessageSquareDashed } from 'lucide-react';
+-import type { CSSProperties, DragEvent, RefObject } from 'react';
++import type { CSSProperties, DragEvent, MouseEvent, RefObject } from 'react';
+ import { memo, Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+ import { useTranslation } from 'react-i18next';
+ 
+@@ -36,6 +36,7 @@ import { useChatStore } from '@/store/chat';
+ import { operationSelectors } from '@/store/chat/selectors';
+ import { messageMapKey } from '@/store/chat/utils/messageMapKey';
+ import { useElectronStore } from '@/store/electron';
++import { isModifierClick } from '@/utils/navigation';
+ 
+ import { useTopicNavigation } from '../../hooks/useTopicNavigation';
+ import ThreadList from '../../TopicListContent/ThreadList';
+@@ -263,17 +264,21 @@ const TopicItemRow = memo<TopicItemRowProps>(
+       [id, title],
+     );
+ 
+-    const handleClick = useCallback(() => {
+-      if (isDesktop) {
+-        cancelPendingSingleClick();
+-        pendingSingleClickTimer = setTimeout(() => {
+-          pendingSingleClickTimer = null;
++    const handleClick = useCallback(
++      (e: MouseEvent) => {
++        if (isModifierClick(e)) return;
++        if (isDesktop) {
++          cancelPendingSingleClick();
++          pendingSingleClickTimer = setTimeout(() => {
++            pendingSingleClickTimer = null;
++            void navRef.current.navigateToTopic(id);
++          }, 250);
++        } else {
+           void navRef.current.navigateToTopic(id);
+-        }, 250);
+-      } else {
+-        void navRef.current.navigateToTopic(id);
+-      }
+-    }, [id, navRef]);
++        }
++      },
++      [id, navRef],
++    );
+ 
+     const handleDoubleClick = useCallback(async () => {
+       if (!id || !activeAgentId || !isDesktop) return;
+diff --git a/src/features/AgentTopicManager/TopicCard.tsx b/src/features/AgentTopicManager/TopicCard.tsx
+index 20f1b19d3d..f10470bbb5 100644
+--- a/src/features/AgentTopicManager/TopicCard.tsx
++++ b/src/features/AgentTopicManager/TopicCard.tsx
+@@ -6,13 +6,14 @@ import { Block, Flexbox, Icon } from '@lobehub/ui';
+ import { Checkbox, Tag, Text } from '@lobehub/ui/base-ui';
+ import { createStaticStyles, cssVar } from 'antd-style';
+ import { CircleDollarSign, FolderIcon, MessageSquare, Star, Zap } from 'lucide-react';
+-import { memo, type MouseEvent, useCallback } from 'react';
++import { memo, type MouseEvent, useCallback, useMemo } from 'react';
+ import { useTranslation } from 'react-i18next';
+ 
+ import { useWorkspaceAwareNavigate } from '@/features/Workspace/useWorkspaceAwareNavigate';
+ import { useActivityTime } from '@/hooks/useActivityTime';
+ import { getPlatformIcon } from '@/routes/(main)/agent/channel/const';
+ import type { ChatTopic } from '@/types/topic';
++import { isModifierClick } from '@/utils/navigation';
+ 
+ import StatusDot from './StatusDot';
+ import { useTopicsViewStore } from './store';
+@@ -107,6 +108,8 @@ const TopicCard = memo<TopicCardProps>(({ topic, agentId }) => {
+     [selectMode, topic.id, agentId, toggleSelected, navigate],
+   );
+ 
++  const href = useMemo(() => AGENT_CHAT_TOPIC_URL(agentId, topic.id), [agentId, topic.id]);
++
+   const handleCheckboxChange = useCallback(() => {
+     if (!selectMode) toggleSelectMode();
+     toggleSelected(topic.id);
+@@ -123,8 +126,15 @@ const TopicCard = memo<TopicCardProps>(({ topic, agentId }) => {
+   const BotPlatformIcon = botPlatform ? getPlatformIcon(botPlatform) : undefined;
+   // Preview priority: user-written description → AI history summary → first user
+   // message (sliced server-side when neither richer field exists).
+-  const preview =
+-    topic.description?.trim() || topic.historySummary?.trim() || topic.firstUserMessage?.trim();
++  const preview = useMemo(
++    () =>
++      (
++        topic.description?.trim() ||
++        topic.historySummary?.trim() ||
++        topic.firstUserMessage?.trim()
++      )?.slice(0, 100),
++    [topic.description, topic.firstUserMessage, topic.historySummary],
++  );
+   const updatedAt = useActivityTime(topic.updatedAt);
+   // Postgres `numeric` / `int` round-trip through TRPC/JSON as strings in
+   // some shapes, so coerce defensively before any `.toFixed` / format call.
+@@ -160,7 +170,22 @@ const TopicCard = memo<TopicCardProps>(({ topic, agentId }) => {
+           />
+         )}
+         <Text className={styles.title} fontSize={14} weight={600}>
+-          {topic.title || t('defaultTitle')}
++          <a
++            href={href}
++            style={{ color: 'inherit' }}
++            target="_blank"
++            onClick={(e) => {
++              if (isModifierClick(e)) {
++                // Allow only modifier click (Cmd+Click on Mac, Ctrl+Click on other OS)
++                // and manual navigation via context menu
++                e.stopPropagation();
++              } else {
++                e.preventDefault();
++              }
++            }}
++          >
++            {topic.title || t('defaultTitle')}
++          </a>
+         </Text>
+       </Flexbox>
+ 
+-- 
+2.39.5
+
+
+From 81a64808bbcce140f9405619ed2fa1ca7ef472f4 Mon Sep 17 00:00:00 2001
+From: MaySoMusician <maysomusician@gmail.com>
+Date: Thu, 24 Sep 2026 06:59:16 +0000
+Subject: [PATCH 16/16] =?UTF-8?q?=F0=9F=90=9B=20fix(mobile):=20show=20the?=
+ =?UTF-8?q?=20working=20panel=20in=20the=20current=20sidebar?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Co-authored-by: Cursor GPT-5.6 Sol <cursoragent@cursor.com.invalid>
+---
+ .../ChatInput/ActionBar/Params/Controls.tsx   |  1 -
+ .../Conversation/WorkingSidebar/index.tsx     |  8 ++-
+ src/routes/(mobile)/chat/_layout/index.tsx    | 59 +++++++++++++++++--
+ .../chat/features/ChatHeader/index.tsx        |  2 +
+ 4 files changed, 61 insertions(+), 9 deletions(-)
+
+diff --git a/src/features/ChatInput/ActionBar/Params/Controls.tsx b/src/features/ChatInput/ActionBar/Params/Controls.tsx
+index 6847cffff8..8fec5d697f 100644
+--- a/src/features/ChatInput/ActionBar/Params/Controls.tsx
++++ b/src/features/ChatInput/ActionBar/Params/Controls.tsx
+@@ -106,7 +106,6 @@ const styles = createStaticStyles(({ css }) => ({
+   `,
+   body: css`
+     overflow-y: auto;
+-    overscroll-behavior: contain;
+     display: flex;
+     flex: 1 1 auto;
+     flex-direction: column;
+diff --git a/src/features/Conversation/WorkingSidebar/index.tsx b/src/features/Conversation/WorkingSidebar/index.tsx
+index b8e3b48f1b..de6dc647c2 100644
+--- a/src/features/Conversation/WorkingSidebar/index.tsx
++++ b/src/features/Conversation/WorkingSidebar/index.tsx
+@@ -214,9 +214,12 @@ interface AgentWorkingSidebarProps {
+    * portal. Undefined until the layout has measured it.
+    */
+   availableWidth?: number;
++  /** Hide the desktop overview card when the host only supports the full panel. */
++  overviewEnabled?: boolean;
+ }
+ 
+-const AgentWorkingSidebar = memo<AgentWorkingSidebarProps>(({ availableWidth }) => {
++const AgentWorkingSidebar = memo<AgentWorkingSidebarProps>((props) => {
++  const { availableWidth, overviewEnabled = true } = props;
+   const { t } = useTranslation(['chat', 'setting']);
+   // Keep the panel frame + tabs on the navigation commit; the pane contents
+   // mount in a deferred follow-up pass behind a skeleton.
+@@ -969,7 +972,7 @@ const AgentWorkingSidebar = memo<AgentWorkingSidebarProps>(({ availableWidth })
+   const overviewPanel = (
+     <OverviewSlot>
+       <AnimatePresence initial={false}>
+-        {showWorkingOverview && overviewFits && (
++        {overviewEnabled && showWorkingOverview && overviewFits && (
+           <m.div
+             animate={{ width: overviewWidth + 32 }}
+             className={styles.overviewSlot}
+@@ -1075,6 +1078,7 @@ const AgentWorkingSidebar = memo<AgentWorkingSidebarProps>(({ availableWidth })
+               className={styles.close}
+               icon={PanelRightCloseIcon}
+               size={DESKTOP_HEADER_ICON_SMALL_SIZE}
++              title={t('workingPanel.tabs.closePanel')}
+               onClick={() => toggleRightPanel(false)}
+             />
+           </Flexbox>
+diff --git a/src/routes/(mobile)/chat/_layout/index.tsx b/src/routes/(mobile)/chat/_layout/index.tsx
+index 0429a0a745..2abd024999 100644
+--- a/src/routes/(mobile)/chat/_layout/index.tsx
++++ b/src/routes/(mobile)/chat/_layout/index.tsx
+@@ -5,9 +5,12 @@ import { Outlet } from 'react-router';
+ 
+ import MobileContentLayout from '@/components/server/MobileNavLayout';
+ import { AgentNotFoundGuard } from '@/features/AgentNotFound';
++import AgentWorkingSidebar from '@/features/Conversation/WorkingSidebar';
+ import { useInitAgentConfig } from '@/hooks/useInitAgentConfig';
+ import AgentIdSync from '@/routes/(main)/agent/_layout/AgentIdSync';
+ import ChatHeader from '@/routes/(mobile)/chat/features/ChatHeader';
++import { useGlobalStore } from '@/store/global';
++import { systemStatusSelectors } from '@/store/global/selectors';
+ 
+ import { styles } from './style';
+ 
+@@ -16,16 +19,60 @@ const Layout: FC = () => {
+ 
+   return (
+     <>
+-      <MobileContentLayout className={styles.mainContainer} header={<ChatHeader />}>
+-        {/* Same 404 fallback as the desktop agent layout: only the content
++      <div style={{ position: 'relative', height: '100%' }}>
++        <MobileContentLayout className={styles.mainContainer} header={<ChatHeader />}>
++          {/* Same 404 fallback as the desktop agent layout: only the content
+             area collapses when the routed agent is gone or turned private. */}
+-        <AgentNotFoundGuard>
+-          <Outlet />
+-        </AgentNotFoundGuard>
+-      </MobileContentLayout>
++          <AgentNotFoundGuard>
++            <Outlet />
++          </AgentNotFoundGuard>
++        </MobileContentLayout>
++        <Overlay />
++      </div>
++      <div
++        style={{
++          position: 'absolute',
++          right: 0,
++          overflowY: 'auto',
++          maxHeight: '100vh',
++          zIndex: 999999,
++        }}
++      >
++        <AgentWorkingSidebar overviewEnabled={false} />
++      </div>
+       <AgentIdSync />
+     </>
+   );
+ };
+ 
++const Overlay = () => {
++  const [sidebarShown, toggleRightPanel] = useGlobalStore((s) => [
++    systemStatusSelectors.showRightPanel(s),
++    s.toggleRightPanel,
++  ]);
++  return (
++    sidebarShown && (
++      <div
++        style={{
++          position: 'absolute',
++          top: 0,
++          left: 0,
++          width: '100%',
++          height: '100%',
++          background: 'black',
++          opacity: 0.8,
++          zIndex: 999998,
++        }}
++        onClickCapture={(e) => {
++          if (sidebarShown) {
++            e.preventDefault();
++            toggleRightPanel();
++            e.stopPropagation();
++          }
++        }}
++      />
++    )
++  );
++};
++
+ export default Layout;
+diff --git a/src/routes/(mobile)/chat/features/ChatHeader/index.tsx b/src/routes/(mobile)/chat/features/ChatHeader/index.tsx
+index 2d56473f95..f2fbe91e67 100644
+--- a/src/routes/(mobile)/chat/features/ChatHeader/index.tsx
++++ b/src/routes/(mobile)/chat/features/ChatHeader/index.tsx
+@@ -7,6 +7,7 @@ import { memo, useState } from 'react';
+ import TopicCommentButton from '@/features/TopicComment/TopicCommentButton';
+ import { useQueryRoute } from '@/hooks/useQueryRoute';
+ import ShareButton from '@/routes/(main)/agent/features/Conversation/Header/ShareButton';
++import WorkingPanelToggle from '@/routes/(main)/agent/features/Conversation/Header/WorkingPanelToggle';
+ 
+ import ChatHeaderTitle from './ChatHeaderTitle';
+ 
+@@ -23,6 +24,7 @@ const MobileHeader = memo(() => {
+         <Flexbox horizontal align={'center'} gap={4}>
+           <TopicCommentButton mobile />
+           <ShareButton mobile open={open} setOpen={setOpen} />
++          <WorkingPanelToggle />
+         </Flexbox>
+       }
+       onBackClick={() =>
 -- 
 2.39.5
 
