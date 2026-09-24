@@ -60,12 +60,16 @@ export class BrowserChatMock {
     await page.addInitScript({
       content: `
         (() => {
-          if (window.__msmChatMockInstalled) return;
+          if (window.__msmChatMockInstalled) {
+            return;
+          }
           const originalFetch = window.fetch.bind(window);
           const abortError = () => new DOMException('The operation was aborted', 'AbortError');
           const wait = (delay, signal) =>
             new Promise((resolve, reject) => {
-              if (signal.aborted) return reject(signal.reason || abortError());
+              if (signal.aborted) {
+                return reject(signal.reason || abortError());
+              }
               const timeout = window.setTimeout(resolve, delay);
               signal.addEventListener(
                 'abort',
@@ -82,7 +86,9 @@ export class BrowserChatMock {
               input instanceof Request ? input : new URL(String(input), window.location.href);
             const request = new Request(normalized, init);
             const url = new URL(request.url);
-            if (!url.pathname.startsWith('/webapi/chat/')) return originalFetch(input, init);
+            if (!url.pathname.startsWith('/webapi/chat/')) {
+              return originalFetch(input, init);
+            }
 
             const plan = await window.__msmCreateChatPlan(
               request.url,
@@ -98,17 +104,27 @@ export class BrowserChatMock {
                 void (async () => {
                   try {
                     for (let index = 0; index < plan.chunks.length; index += 1) {
-                      if (cancelled) return;
-                      if (request.signal.aborted) throw request.signal.reason || abortError();
+                      if (cancelled) {
+                        return;
+                      }
+                      if (request.signal.aborted) {
+                        throw request.signal.reason || abortError();
+                      }
                       if (index === plan.chunks.length - 1) {
                         await wait(plan.finalDelayMs, request.signal);
                       }
                       controller.enqueue(encoder.encode(plan.chunks[index]));
-                      if (index < plan.chunks.length - 2) await wait(20, request.signal);
+                      if (index < plan.chunks.length - 2) {
+                        await wait(20, request.signal);
+                      }
                     }
-                    if (!cancelled) controller.close();
+                    if (!cancelled) {
+                      controller.close();
+                    }
                   } catch (error) {
-                    if (!cancelled) controller.error(error);
+                    if (!cancelled) {
+                      controller.error(error);
+                    }
                   }
                 })();
               },

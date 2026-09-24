@@ -15,7 +15,9 @@ export const gotoInbox = async (page: Page) => {
         break;
       }
     }
-    if (!clicked) throw new Error(`Could not navigate from Agent Profile to chat at ${page.url()}`);
+    if (!clicked) {
+      throw new Error(`Could not navigate from Agent Profile to chat at ${page.url()}`);
+    }
   }
 
   await findChatInput(page);
@@ -35,7 +37,9 @@ export const findChatInput = async (page: Page, timeout = 30_000): Promise<Locat
       const count = await candidate.count();
       for (let index = 0; index < count; index += 1) {
         const item = candidate.nth(index);
-        if (await item.isVisible().catch(() => false)) return item;
+        if (await item.isVisible().catch(() => false)) {
+          return item;
+        }
       }
     }
 
@@ -62,10 +66,14 @@ export const messageWrapperWithText = (page: Page, content: string) =>
 
 export const visibleButtonByIcon = async (scope: Locator, iconNames: string[]) => {
   for (const iconName of iconNames) {
-    const buttons = scope.locator(`button:has(svg.${iconName}), [role="button"]:has(svg.${iconName})`);
+    const buttons = scope.locator(
+      `button:has(svg.${iconName}), [role="button"]:has(svg.${iconName})`,
+    );
     for (let index = 0; index < (await buttons.count()); index += 1) {
       const button = buttons.nth(index);
-      if (await button.isVisible().catch(() => false)) return button;
+      if (await button.isVisible().catch(() => false)) {
+        return button;
+      }
     }
   }
 
@@ -80,7 +88,9 @@ export const openMessageActions = async (page: Page, message: Locator) => {
     'lucide-menu',
   ]);
 
-  if (!button) throw new Error('Could not find the message action menu');
+  if (!button) {
+    throw new Error('Could not find the message action menu');
+  }
   await button.click();
   await expect(page.locator('[role="menuitem"]').first()).toBeVisible();
 };

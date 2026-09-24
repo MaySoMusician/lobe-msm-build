@@ -1,24 +1,21 @@
-import fs from "node:fs/promises";
+import fs from 'node:fs/promises';
 
-const registry =
-  process.env.NPM_CANONICAL_REGISTRY ?? "https://registry.npmjs.org";
-const policyFile = process.argv[2] ?? "scripts/trust-policy-exceptions.json";
+const registry = process.env.NPM_CANONICAL_REGISTRY ?? 'https://registry.npmjs.org';
+const policyFile = process.argv[2] ?? 'scripts/trust-policy-exceptions.json';
 
-const items = JSON.parse(await fs.readFile(policyFile, "utf8"));
+const items = JSON.parse(await fs.readFile(policyFile, 'utf8'));
 
 function encodePackageName(name) {
   // npm registry path encoding for scoped packages
-  return name.startsWith("@") ? name.replace("/", "%2f") : name;
+  return name.startsWith('@') ? name.replace('/', '%2f') : name;
 }
 
 async function fetchPackument(name) {
   const res = await fetch(`${registry}/${encodePackageName(name)}`, {
-    headers: { accept: "application/json" },
+    headers: { accept: 'application/json' },
   });
   if (!res.ok) {
-    throw new Error(
-      `Failed to fetch metadata for ${name}: ${res.status} ${res.statusText}`,
-    );
+    throw new Error(`Failed to fetch metadata for ${name}: ${res.status} ${res.statusText}`);
   }
   return res.json();
 }
@@ -26,20 +23,15 @@ async function fetchPackument(name) {
 const errors = [];
 
 for (const item of items) {
-  const { name, version, publishedAt, integrity, tarballHost, expiresOn } =
-    item;
+  const { name, version, publishedAt, integrity, tarballHost, expiresOn } = item;
 
   if (!name || !version) {
-    errors.push(
-      `Invalid policy entry: missing name/version: ${JSON.stringify(item)}`,
-    );
+    errors.push(`Invalid policy entry: missing name/version: ${JSON.stringify(item)}`);
     continue;
   }
 
   if (expiresOn && new Date(expiresOn) < new Date()) {
-    errors.push(
-      `Expired exception: ${name}@${version} (expiresOn=${expiresOn})`,
-    );
+    errors.push(`Expired exception: ${name}@${version} (expiresOn=${expiresOn})`);
     continue;
   }
 
@@ -83,13 +75,11 @@ for (const item of items) {
 }
 
 if (errors.length > 0) {
-  console.error("Trust-policy exception verification failed:\n");
+  console.error('Trust-policy exception verification failed:\n');
   for (const err of errors) {
     console.error(`- ${err}`);
   }
   process.exit(1);
 }
 
-console.log(
-  `Verified ${items.length} trust-policy exception(s) against ${registry}`,
-);
+console.log(`Verified ${items.length} trust-policy exception(s) against ${registry}`);

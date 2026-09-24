@@ -20,16 +20,16 @@ test('opens Share on JSON with OpenAI-compatible export selected', async ({ page
     'lucide-share-2',
     'lucide-share',
   ]);
-  if (!shareButton) throw new Error('Could not find the visible Share action');
+  if (!shareButton) {
+    throw new Error('Could not find the visible Share action');
+  }
   await shareButton.click();
 
   const dialog = page.getByRole('dialog');
   await expect(dialog).toBeVisible();
-  await expect(dialog.getByRole('tab', { name: 'JSON' })).toHaveAttribute(
+  await expect(dialog.getByRole('tab', { name: 'JSON' })).toHaveAttribute('aria-selected', 'true');
+  await expect(dialog.getByRole('tab', { name: /^OpenAI Compatible$/i })).toHaveAttribute(
     'aria-selected',
     'true',
   );
-  await expect(
-    dialog.getByRole('tab', { name: /^OpenAI Compatible$/i }),
-  ).toHaveAttribute('aria-selected', 'true');
 });

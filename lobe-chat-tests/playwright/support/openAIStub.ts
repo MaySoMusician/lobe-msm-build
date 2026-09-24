@@ -13,7 +13,9 @@ type ResponseMode = 'failure' | 'rich' | 'success';
 
 const readBody = async (request: IncomingMessage) => {
   const chunks: Buffer[] = [];
-  for await (const chunk of request) chunks.push(Buffer.from(chunk));
+  for await (const chunk of request) {
+    chunks.push(Buffer.from(chunk));
+  }
   const raw = Buffer.concat(chunks).toString('utf8');
   return raw ? (JSON.parse(raw) as Record<string, unknown>) : {};
 };
@@ -117,7 +119,9 @@ export class OpenAIStub {
   }
 
   async start() {
-    if (this.server) return;
+    if (this.server) {
+      return;
+    }
 
     this.server = createServer(async (request, response) => {
       try {

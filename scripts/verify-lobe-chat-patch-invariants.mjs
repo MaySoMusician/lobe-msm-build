@@ -4,11 +4,11 @@
  * Definitions live in `./lobe-chat-patch-invariants.mjs`.
  * No pnpm install required — run after `git am` (or against a local msm/patch-* tree).
  */
-import fs from "node:fs";
-import path from "node:path";
-import { fileURLToPath } from "node:url";
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-import { checks } from "./lobe-chat-patch-invariants.mjs";
+import { checks } from './lobe-chat-patch-invariants.mjs';
 
 /**
  * @typedef {import('./lobe-chat-patch-invariants.mjs').Pattern} Pattern
@@ -16,17 +16,15 @@ import { checks } from "./lobe-chat-patch-invariants.mjs";
  */
 
 const scriptDir = path.dirname(fileURLToPath(import.meta.url));
-const msmBuildRoot = path.resolve(scriptDir, "..");
-const defaultLobeChatDir = path.join(msmBuildRoot, "..", "lobe-chat");
+const msmBuildRoot = path.resolve(scriptDir, '..');
+const defaultLobeChatDir = path.join(msmBuildRoot, '..', 'lobe-chat');
 
 /**
  * @param {Pattern} pattern
  * @param {string} text
  */
 function matches(pattern, text) {
-  return typeof pattern === "string"
-    ? text.includes(pattern)
-    : pattern.test(text);
+  return typeof pattern === 'string' ? text.includes(pattern) : pattern.test(text);
 }
 
 /**
@@ -39,7 +37,7 @@ function runAssert(lobeChatDir, id, assert, errors) {
   const abs = path.join(lobeChatDir, assert.file);
   let text;
   try {
-    text = fs.readFileSync(abs, "utf8");
+    text = fs.readFileSync(abs, 'utf8');
   } catch (err) {
     errors.push(`[${id}] cannot read ${assert.file}: ${err.message}`);
     return;
@@ -49,7 +47,7 @@ function runAssert(lobeChatDir, id, assert, errors) {
     if (!matches(pattern, text)) {
       errors.push(
         `[${id}] missing in ${assert.file}: ${
-          typeof pattern === "string" ? pattern : pattern.toString()
+          typeof pattern === 'string' ? pattern : pattern.toString()
         }`,
       );
     }
@@ -59,7 +57,7 @@ function runAssert(lobeChatDir, id, assert, errors) {
     if (matches(pattern, text)) {
       errors.push(
         `[${id}] must not appear in ${assert.file}: ${
-          typeof pattern === "string" ? pattern : pattern.toString()
+          typeof pattern === 'string' ? pattern : pattern.toString()
         }`,
       );
     }
@@ -67,9 +65,7 @@ function runAssert(lobeChatDir, id, assert, errors) {
 }
 
 function main() {
-  const lobeChatDir = path.resolve(
-    process.env.LOBE_CHAT_DIR ?? defaultLobeChatDir,
-  );
+  const lobeChatDir = path.resolve(process.env.LOBE_CHAT_DIR ?? defaultLobeChatDir);
   const errors = [];
 
   for (const check of checks) {
@@ -79,16 +75,14 @@ function main() {
   }
 
   if (errors.length > 0) {
-    console.error("Invariant check failures:");
+    console.error('Invariant check failures:');
     for (const e of errors) {
       console.error(`  - ${e}`);
     }
     process.exit(1);
   }
 
-  console.log(
-    `All ${checks.length} invariant check(s) passed against ${lobeChatDir}`,
-  );
+  console.log(`All ${checks.length} invariant check(s) passed against ${lobeChatDir}`);
 }
 
 main();

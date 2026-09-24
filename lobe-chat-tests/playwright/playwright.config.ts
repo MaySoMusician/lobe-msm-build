@@ -5,8 +5,7 @@ import { defineConfig, devices } from '@playwright/test';
 
 const rootDir = path.dirname(fileURLToPath(import.meta.url));
 const baseURL = process.env.BASE_URL ?? 'http://127.0.0.1:3210';
-const authState =
-  process.env.MSM_AUTH_STORAGE_STATE ?? path.join(rootDir, '.auth', 'user.json');
+const authState = process.env.MSM_AUTH_STORAGE_STATE ?? path.join(rootDir, '.auth', 'user.json');
 
 export default defineConfig({
   expect: { timeout: 10_000 },

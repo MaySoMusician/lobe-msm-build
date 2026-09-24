@@ -20,12 +20,7 @@ test('ships IBM Plex Sans JP links in every selected web entry document', async 
   request,
 }, testInfo) => {
   test.skip(testInfo.project.name !== 'desktop', 'entry documents only need one browser pass');
-  const entries = [
-    '/agent/inbox',
-    '/spa-auth/en-US',
-    '/spa-workbench/en-US',
-    '/spa-share/en-US',
-  ];
+  const entries = ['/agent/inbox', '/spa-auth/en-US', '/spa-workbench/en-US', '/spa-share/en-US'];
 
   for (const entry of entries) {
     const response = await request.get(entry);

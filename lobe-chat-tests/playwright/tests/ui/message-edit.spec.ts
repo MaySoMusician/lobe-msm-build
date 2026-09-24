@@ -36,9 +36,7 @@ test('saves a user-message edit without regenerating', async ({ page }) => {
   await dialog.getByRole('button', { name: /^Save$/i }).click();
 
   await expect(page.getByText('MSM edited message', { exact: true }).last()).toBeVisible();
-  await expect
-    .poll(() => chat.requests.length, { timeout: 3000 })
-    .toBe(requestCountBeforeSave);
+  await expect.poll(() => chat.requests.length, { timeout: 3000 }).toBe(requestCountBeforeSave);
   await expect(
     page.getByText('MSM deterministic assistant response', { exact: false }).last(),
   ).toBeVisible();

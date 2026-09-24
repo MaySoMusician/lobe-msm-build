@@ -24,7 +24,9 @@ const waitForApplication = async (baseURL: string) => {
   while (Date.now() < deadline) {
     try {
       const response = await fetch(baseURL, { redirect: 'manual' });
-      if (response.status < 500) return;
+      if (response.status < 500) {
+        return;
+      }
       lastError = new Error(`Application returned HTTP ${response.status}`);
     } catch (error) {
       lastError = error;
@@ -69,13 +71,7 @@ const seedTestUser = async (databaseURL: string) => {
        VALUES ($1, $2, $3, 'credential', $4, $5, $5)
        ON CONFLICT (id) DO UPDATE
        SET password = EXCLUDED.password, updated_at = EXCLUDED.updated_at`,
-      [
-        'account_msm_behavior',
-        TEST_USER.id,
-        TEST_USER.email,
-        password,
-        now,
-      ],
+      ['account_msm_behavior', TEST_USER.id, TEST_USER.email, password, now],
     );
   } finally {
     await client.end();
