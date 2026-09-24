@@ -210,9 +210,18 @@ jobs:
         run: |
           set -euo pipefail
           git am ../lobe-msm-build/lobe-chat.patch
-          UI_TGZ="$(realpath lobehub-ui.tgz)"
+          export UI_TGZ="$(realpath lobehub-ui.tgz)"
           test -f "$UI_TGZ"
-          sed -i -E "s|(\"@lobehub/ui\"[[:space:]]*:[[:space:]]*)\"[^\"]*\"|\1\"file:${UI_TGZ}\"|" ./package.json
+          node <<'NODE'
+          const fs = require('node:fs');
+          const packageJson = JSON.parse(fs.readFileSync('package.json', 'utf8'));
+          const specifier = `file:${process.env.UI_TGZ}`;
+          packageJson.dependencies['@lobehub/ui'] = specifier;
+          packageJson.pnpm ??= {};
+          packageJson.pnpm.overrides ??= {};
+          packageJson.pnpm.overrides['@lobehub/ui'] = specifier;
+          fs.writeFileSync('package.json', `${JSON.stringify(packageJson, null, 2)}\n`);
+          NODE
           grep -F "\"@lobehub/ui\": \"file:${UI_TGZ}\"" package.json
       - name: Install lobe-chat dependencies
         working-directory: ../lobe-chat
@@ -294,7 +303,16 @@ jobs:
           set -euo pipefail
           git am ../lobe-msm-build/lobe-chat.patch
           sed -i "s|COPY package.json pnpm-workspace.yaml ./|COPY package.json pnpm-workspace.yaml lobehub-ui.tgz ./|" Dockerfile
-          sed -i -E 's|("@lobehub/ui"[[:space:]]*:[[:space:]]*)"[^\"]*"|\1"file:/app/lobehub-ui.tgz"|' ./package.json
+          node <<'NODE'
+          const fs = require('node:fs');
+          const packageJson = JSON.parse(fs.readFileSync('package.json', 'utf8'));
+          const specifier = 'file:/app/lobehub-ui.tgz';
+          packageJson.dependencies['@lobehub/ui'] = specifier;
+          packageJson.pnpm ??= {};
+          packageJson.pnpm.overrides ??= {};
+          packageJson.pnpm.overrides['@lobehub/ui'] = specifier;
+          fs.writeFileSync('package.json', `${JSON.stringify(packageJson, null, 2)}\n`);
+          NODE
           echo ".pnpm-store" >> .dockerignore
       - name: Build Lobe Chat Docker image
         working-directory: ../lobe-chat
@@ -320,12 +338,126 @@ jobs:
           retention-days: 1
           compression-level: 0
 
+  test-lobe-chat-behavior:
+    name: Test assembled Lobe Chat behavior
+    runs-on: ubuntu-latest
+    needs:
+      - build-lobe-chat
+      - test-patched-lobe-chat
+    timeout-minutes: 30
+    permissions:
+      contents: read
+
+    services:
+      postgres:
+        image: paradedb/paradedb:latest
+        env:
+          POSTGRES_PASSWORD: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
+        ports:
+          - 5432:5432
+
+    steps:
+      - name: Check out patch repo
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+      - uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v5.0.0
+        with:
+          version: 12.6.0
+      - uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
+        with:
+          node-version: 24
+      - name: Download assembled Lobe Chat image
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: lobe-chat-image
+          path: .
+      - name: Load assembled Lobe Chat image
+        run: gunzip -c lobe-chat-image.tar.gz | docker load
+      - name: Install standalone test dependencies
+        working-directory: lobe-chat-tests/playwright
+        run: |
+          set -euo pipefail
+          npm config set --location=project registry "$AUDITED_NPM_REGISTRY"
+          test "$(npm config get registry | sed 's#/*$#/#')" = "$AUDITED_NPM_REGISTRY"
+          pnpm install --frozen-lockfile
+      - name: Install Chromium and system dependencies
+        working-directory: lobe-chat-tests/playwright
+        run: pnpm exec playwright install --with-deps chromium
+      - name: Start assembled Lobe Chat image
+        env:
+          APP_IMAGE: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+        run: |
+          set -euo pipefail
+          APP_IMAGE="${APP_IMAGE,,}"
+          docker run -d \
+            --name lobe-chat-msm-behavior \
+            --network host \
+            -e APP_URL=http://localhost:3210 \
+            -e AUTH_EMAIL_VERIFICATION=0 \
+            -e AUTH_SECRET=e2e-test-secret-key-for-better-auth-32chars! \
+            -e DATABASE_DRIVER=node \
+            -e DATABASE_URL=postgresql://postgres:postgres@127.0.0.1:5432/postgres \
+            -e KEY_VAULTS_SECRET=LA7n9k3JdEcbSgml2sxfw+4TV1AzaaFU5+R176aQz4s= \
+            -e OPENAI_API_KEY=msm-test-key \
+            -e OPENAI_PROXY_URL=http://127.0.0.1:4010/v1 \
+            -e PORT=3210 \
+            -e S3_ACCESS_KEY_ID=e2e-mock-access-key \
+            -e S3_BUCKET=e2e-mock-bucket \
+            -e S3_ENDPOINT=https://e2e-mock-s3.invalid \
+            -e S3_SECRET_ACCESS_KEY=e2e-mock-secret-key \
+            "$APP_IMAGE"
+
+          for attempt in $(seq 1 120); do
+            if curl -fsS --max-time 2 http://localhost:3210/ >/dev/null; then
+              exit 0
+            fi
+            if ! docker inspect --format '{{.State.Running}}' lobe-chat-msm-behavior | grep -q true; then
+              docker logs lobe-chat-msm-behavior
+              exit 1
+            fi
+            sleep 1
+          done
+
+          docker logs lobe-chat-msm-behavior
+          exit 1
+      - name: Run standalone behavior tests
+        working-directory: lobe-chat-tests/playwright
+        env:
+          BASE_URL: http://localhost:3210
+          DATABASE_URL: postgresql://postgres:postgres@127.0.0.1:5432/postgres
+          MSM_PROVIDER_INTEGRATION: "1"
+        run: pnpm test
+      - name: Capture application logs
+        if: always()
+        run: docker logs lobe-chat-msm-behavior > lobe-chat-behavior-app.log 2>&1 || true
+      - name: Upload behavior-test failure artifacts
+        if: failure()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: lobe-chat-behavior-failure
+          path: |
+            lobe-chat-behavior-app.log
+            lobe-chat-tests/playwright/playwright-report
+            lobe-chat-tests/playwright/test-results
+          if-no-files-found: ignore
+          retention-days: 7
+      - name: Stop behavior-test application
+        if: always()
+        run: docker rm -f lobe-chat-msm-behavior || true
+
   push-and-deploy:
     name: Push image and deploy
     runs-on: ubuntu-latest
     needs:
       - test-patched-lobe-chat
       - build-lobe-chat
+      - test-lobe-chat-behavior
     permissions:
       contents: read
       packages: write # Required to push images to GHCR.
