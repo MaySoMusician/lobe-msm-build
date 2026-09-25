@@ -1,9 +1,12 @@
-name: Hourly Update
+name: Update from Lobe Chat
 
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 */3 * * *"
+    # hourly-update.yml is no longer hourly. The filename stays so GitHub keeps
+    # this as the same workflow. Runs twice a day at 05:00 and 17:00 JST
+    # (20:00 and 08:00 UTC; Actions cron is UTC, JST is UTC+9).
+    - cron: "0 8,20 * * *"
 
 permissions:
   contents: read # Default: read-only; jobs that must write will override at job-level.
