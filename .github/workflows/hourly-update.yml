@@ -104,12 +104,12 @@ jobs:
           cd ../
           git clone https://github.com/lobehub/lobe-chat.git -b main --depth 500
           cd ./lobe-chat
-      - name: Find relevant commits and tags
-        id: tags
+      - name: Collect release notes from main
         working-directory: ../lobe-chat
         env:
           FETCHED_COMMIT: ${{ needs.check.outputs.fetched_commit }}
           LAST_COMMIT: ${{ needs.check.outputs.last_commit }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -euo pipefail
 
@@ -122,58 +122,116 @@ jobs:
             exit 1
           fi
 
-          echo "Fetching releases between $LAST_COMMIT and $FETCHED_COMMIT"
-          if ! git cat-file -t "$LAST_COMMIT" &>/dev/null; then
-            echo "$LAST_COMMIT is not a valid commit. Skipping release notes fetch."
+          write_summary() {
+            {
+              echo "## Release Notes"
+              echo
+              printf '%s\n' "$1"
+            } >> "$GITHUB_STEP_SUMMARY"
+          }
+
+          # The initial clone is only 500 commits deep. Walk back until last_commit
+          # is present so a multi-week gap still yields notes.
+          depth=500
+          while ! git cat-file -e "${LAST_COMMIT}^{commit}" 2>/dev/null; do
+            if [ "$depth" -ge 10000 ]; then
+              echo "last_commit $LAST_COMMIT was not found within $depth commits of main."
+              write_summary "Skipped release notes: \`$LAST_COMMIT\` was not found within $depth commits of \`main\`."
+              exit 0
+            fi
+            echo "Deepening clone by 2000 commits (current depth $depth) to find $LAST_COMMIT"
+            git fetch --deepen=2000 origin main
+            depth=$((depth + 2000))
+          done
+
+          if ! git cat-file -e "${FETCHED_COMMIT}^{commit}" 2>/dev/null; then
+            echo "fetched_commit $FETCHED_COMMIT is not in this clone."
+            write_summary "Skipped release notes: \`$FETCHED_COMMIT\` is not in the \`main\` clone."
             exit 0
           fi
 
-          COMMITS=$(git log --pretty=format:"%H" "$LAST_COMMIT..$FETCHED_COMMIT" | tr '\n' ' ')
-          echo "Commits between: $COMMITS"
-
-          FUTURE_COMMIT=$(git log --pretty=format:"%H" $FETCHED_COMMIT..main --reverse | head -1)
-          if [ -n "$FUTURE_COMMIT" ]; then
-            TAGS=$(git tag --contains "$LAST_COMMIT" --no-contains "$FUTURE_COMMIT")
-          else
-            TAGS=$(git tag --contains "$LAST_COMMIT")
-          fi
-
-          if [ -z "$TAGS" ]; then
-            echo "No tags found between specified commits."
+          if ! git merge-base --is-ancestor "$LAST_COMMIT" "$FETCHED_COMMIT"; then
+            echo "$LAST_COMMIT is not an ancestor of $FETCHED_COMMIT."
+            write_summary "Skipped release notes: \`$LAST_COMMIT\` is not an ancestor of \`$FETCHED_COMMIT\`."
             exit 0
           fi
 
-          TAGS=$(echo "$TAGS" | tr '\n' ' ')
+          echo "Collecting release merges on main between $LAST_COMMIT and $FETCHED_COMMIT"
+          git log --reverse --first-parent --merges \
+            --format='%x1e%H%x1f%s%x1f%b' \
+            "$LAST_COMMIT..$FETCHED_COMMIT" > /tmp/release-commits.txt
 
-          echo "Tags between the specified commits: $TAGS"
-          echo "tags=$TAGS" >> $GITHUB_OUTPUT
-          echo "TAGS=$TAGS" >> $GITHUB_ENV
-      - name: Fetch release notes
-        if: steps.tags.outputs.tags != ''
-        run: |
-          set -euo pipefail
-          curl -sSf "https://api.github.com/repositories/643445235/releases" > releases.json
-          node -e "
-            const fs = require('fs');
-            const releases = JSON.parse(fs.readFileSync('releases.json', 'utf-8'));
-            const tags = process.env.TAGS.split(/\s+/);
+          node --input-type=module <<'EOF'
+          import fs from 'node:fs';
 
-            const releaseNotes = releases
-              .filter(release => tags.includes(release.tag_name))
-              .map(
-                release => release.body.replaceAll(
-                  '<div align=\"right\">\n\n[![](https://img.shields.io/badge/-BACK_TO_TOP-151515?style=flat-square)](#readme-top)\n\n</div>',
-                  ''
-                )
-              ).reverse().join('\\n').replaceAll('\\n\\n', '\\n');
+          const lastCommit = process.env.LAST_COMMIT;
+          const fetchedCommit = process.env.FETCHED_COMMIT;
+          const raw = fs.readFileSync('/tmp/release-commits.txt', 'utf8');
+          const releases = [];
 
-            const output = [
-              '## Release Notes',
-              releaseNotes || 'No new releases found between specified commits.'
-            ].join('\\n');
+          for (const record of raw.split('\x1e')) {
+            const trimmed = record.trim();
+            if (!trimmed) continue;
+            const first = trimmed.indexOf('\x1f');
+            const second = trimmed.indexOf('\x1f', first + 1);
+            if (first < 0 || second < 0) continue;
+            const subject = trimmed.slice(first + 1, second);
+            const body = trimmed.slice(second + 1).trim();
+            if (!/^🚀 release\b/u.test(subject)) continue;
+            releases.push({ subject, body });
+          }
 
-            fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, output);
-          "
+          async function fetchPullRequestBody(prNumber) {
+            const url = `https://api.github.com/repos/lobehub/lobe-chat/pulls/${prNumber}`;
+            const headers = {
+              Accept: 'application/vnd.github+json',
+              'User-Agent': 'lobe-msm-build-release-notes',
+              'X-GitHub-Api-Version': '2026-03-10',
+            };
+            const token = process.env.GITHUB_TOKEN;
+            if (token) headers.Authorization = `Bearer ${token}`;
+
+            let response = await fetch(url, { headers });
+            if (!response.ok && headers.Authorization) {
+              delete headers.Authorization;
+              response = await fetch(url, { headers });
+            }
+            if (!response.ok) {
+              throw new Error(`Pull request #${prNumber} returned HTTP ${response.status}`);
+            }
+            const data = await response.json();
+            return typeof data.body === 'string' ? data.body.trim() : '';
+          }
+
+          const lines = ['## Release Notes', ''];
+          if (releases.length === 0) {
+            lines.push(
+              `No release commits on main between \`${lastCommit}\` and \`${fetchedCommit}\`.`,
+            );
+          } else {
+            for (const release of releases) {
+              let note = release.body;
+              if (!note) {
+                const pr = release.subject.match(/\(#(\d+)\)/);
+                if (pr) {
+                  try {
+                    note = await fetchPullRequestBody(pr[1]);
+                  } catch (error) {
+                    console.error(error);
+                    note = '';
+                  }
+                }
+                if (!note) {
+                  note = '_No release note in the commit message._';
+                }
+              }
+              lines.push(`### ${release.subject}`, '', note, '');
+            }
+          }
+
+          fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, `${lines.join('\n')}\n`);
+          console.log(`Wrote ${releases.length} release note(s) to the job summary.`);
+          EOF
 
   build-image:
     name: Build
