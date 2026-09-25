@@ -1,7 +1,7 @@
 From 747011bfb1444e518df3ed1573e5e54759710b29 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:57:40 +0000
-Subject: [PATCH 01/15] =?UTF-8?q?=F0=9F=94=92=EF=B8=8F=20build(docker):=20?=
+Subject: [PATCH 01/17] =?UTF-8?q?=F0=9F=94=92=EF=B8=8F=20build(docker):=20?=
  =?UTF-8?q?pin=20images=20and=20harden=20the=20image=20install?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -90,7 +90,7 @@ index 826fb06763..5d4d1903cd 100644
 From 4dc32422c34632322dfdaaf20270883edc373672 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:57:40 +0000
-Subject: [PATCH 02/15] =?UTF-8?q?=F0=9F=94=92=EF=B8=8F=20build(deps):=20en?=
+Subject: [PATCH 02/17] =?UTF-8?q?=F0=9F=94=92=EF=B8=8F=20build(deps):=20en?=
  =?UTF-8?q?force=20mature=20trusted=20dependency=20resolution?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -253,7 +253,7 @@ index 6b138d73da..cc27ad8103 100644
 From 0a5ac3ede1616652485a5a86f183a9f840771272 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:57:43 +0000
-Subject: [PATCH 03/15] =?UTF-8?q?=E2=9C=A8=20feat(openai):=20keep=20GPT=20?=
+Subject: [PATCH 03/17] =?UTF-8?q?=E2=9C=A8=20feat(openai):=20keep=20GPT=20?=
  =?UTF-8?q?requests=20non-streaming=20and=20summary-free?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -577,7 +577,7 @@ index a7ebcd844c..0b35e2e216 100644
 From 931f36ab0995de88ece98e87281a646360579542 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:57:50 +0000
-Subject: [PATCH 04/15] =?UTF-8?q?=E2=9C=A8=20feat(openai):=20preserve=20de?=
+Subject: [PATCH 04/17] =?UTF-8?q?=E2=9C=A8=20feat(openai):=20preserve=20de?=
  =?UTF-8?q?tail=20when=20converting=20non-streaming=20responses?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -1015,7 +1015,7 @@ index b6c980b78e..adb525fce9 100644
 From 12e74e026414a939f19763a5ffdb9e171ae3c627 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:57:56 +0000
-Subject: [PATCH 05/15] =?UTF-8?q?=F0=9F=90=9B=20fix(openai):=20use=20one?=
+Subject: [PATCH 05/17] =?UTF-8?q?=F0=9F=90=9B=20fix(openai):=20use=20one?=
  =?UTF-8?q?=20attempt=20and=20a=20one-hour=20timeout?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -1409,7 +1409,7 @@ index 7eb9ee3901..98723dba29 100644
 From aa545f27f6c6af7cbea4974656c4791b23579c93 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:58:04 +0000
-Subject: [PATCH 06/15] =?UTF-8?q?=E2=9C=A8=20feat(agent):=20keep=20prompts?=
+Subject: [PATCH 06/17] =?UTF-8?q?=E2=9C=A8=20feat(agent):=20keep=20prompts?=
  =?UTF-8?q?=20explicitly=20user-controlled?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -2019,7 +2019,7 @@ index 920769160f..80262fc772 100644
 From 6514d06258351c67c83790c51469a5c530fe9a72 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:58:13 +0000
-Subject: [PATCH 07/15] =?UTF-8?q?=E2=9C=A8=20feat(agent):=20keep=20tools?=
+Subject: [PATCH 07/17] =?UTF-8?q?=E2=9C=A8=20feat(agent):=20keep=20tools?=
  =?UTF-8?q?=20explicitly=20user-controlled?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -2325,7 +2325,7 @@ index c7240e961f..d486b4efee 100644
 From ada3fe6df10e70a304924feba5cb191b53df2b58 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:58:21 +0000
-Subject: [PATCH 08/15] =?UTF-8?q?=E2=9C=A8=20feat(agent):=20summarize=20to?=
+Subject: [PATCH 08/17] =?UTF-8?q?=E2=9C=A8=20feat(agent):=20summarize=20to?=
  =?UTF-8?q?pics=20in=20the=20conversation=20language?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -2370,7 +2370,7 @@ index cc24fb2baa..151b64af37 100644
 From c0ed3752126598809f2b8c94caccf628550cbb03 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:58:27 +0000
-Subject: [PATCH 09/15] =?UTF-8?q?=F0=9F=90=9B=20fix(qstash):=20construct?=
+Subject: [PATCH 09/17] =?UTF-8?q?=F0=9F=90=9B=20fix(qstash):=20construct?=
  =?UTF-8?q?=20the=20client=20lazily=20and=20drop=20debug=20logs?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -2559,7 +2559,7 @@ index c113c0bf70..58ff24d9b3 100644
 From 4a953c9313fdba1547277957d488fbbe6d5b69d3 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:58:34 +0000
-Subject: [PATCH 10/15] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20keep=20patched=20?=
+Subject: [PATCH 10/17] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20keep=20patched=20?=
  =?UTF-8?q?fonts=20at=20the=20app=20boundary?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -2814,7 +2814,7 @@ index 7bcdcc01bd..997cefc067 100644
 From 7719971f871bb40db0069bd02715f12ea6c84a15 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:58:41 +0000
-Subject: [PATCH 11/15] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20offer=20only=20En?=
+Subject: [PATCH 11/17] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20offer=20only=20En?=
  =?UTF-8?q?glish=20and=20Japanese?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -2900,7 +2900,7 @@ index 5dbaf4408b..cdad3d1f89 100644
 From 9e3f3e914d29eec8bdcde5cfc502232a6a15c370 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:58:48 +0000
-Subject: [PATCH 12/15] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20keep=20user-messa?=
+Subject: [PATCH 12/17] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20keep=20user-messa?=
  =?UTF-8?q?ge=20edits=20manual?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -3067,7 +3067,7 @@ index d5e11d7aa1..e72383895b 100644
 From 7b0aff38398793597cecea5acf59b45005b614c8 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:58:55 +0000
-Subject: [PATCH 13/15] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20show=20exact=20to?=
+Subject: [PATCH 13/17] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20show=20exact=20to?=
  =?UTF-8?q?ken=20counts?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -3170,7 +3170,7 @@ index cab4c39d72..e0b70dee85 100644
 From 79f8fc2ff8b47d7efe88122cdcb36b933b70eefa Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:59:02 +0000
-Subject: [PATCH 14/15] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20use=20MSM=20defau?=
+Subject: [PATCH 14/17] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20use=20MSM=20defau?=
  =?UTF-8?q?lts=20for=20model=20and=20share=20panels?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -3257,7 +3257,7 @@ index 1958c6b9fd..f9258310c5 100644
 From 6d694aeb733e395588f5846136aa1e6118c70a53 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:59:09 +0000
-Subject: [PATCH 15/15] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20shorten=20topic?=
+Subject: [PATCH 15/17] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20shorten=20topic?=
  =?UTF-8?q?=20previews=20and=20honor=20modifier-clicks?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -3393,6 +3393,1625 @@ index 20f1b19d3d..f10470bbb5 100644
          </Text>
        </Flexbox>
  
+-- 
+2.39.5
+
+
+From 6a568e9e3f48e246f637ae8f96628468e522f1b2 Mon Sep 17 00:00:00 2001
+From: YuTengjing <ytj2713151713@gmail.com>
+Date: Wed, 23 Sep 2026 14:48:54 +0800
+Subject: [PATCH 16/17] =?UTF-8?q?=F0=9F=92=84=20style(model-bank):=20add?=
+ =?UTF-8?q?=20Opus=205.5,=20GPT-6,=20Grok=204.7=20and=20MiMo-V2.6=20(#1987?=
+ =?UTF-8?q?4)?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Co-authored-by: Claude Sonnet 5 <noreply@anthropic.com>
+Co-authored-by: Claude Opus 5.5 (1M context) <noreply@anthropic.com>
+---
+ .../src/aiModels/__tests__/index.test.ts      |   2 +-
+ packages/model-bank/src/aiModels/aihubmix.ts  | 306 +++++++++++++++++-
+ packages/model-bank/src/aiModels/anthropic.ts |  37 +++
+ packages/model-bank/src/aiModels/azure.ts     | 202 ++++++++++++
+ packages/model-bank/src/aiModels/bedrock.ts   |  33 ++
+ packages/model-bank/src/aiModels/chatGPT.ts   |   2 +
+ packages/model-bank/src/aiModels/openai.ts    | 130 ++++++++
+ .../model-bank/src/aiModels/openrouter.ts     | 292 +++++++++++++++++
+ packages/model-bank/src/aiModels/superGrok.ts |  24 ++
+ packages/model-bank/src/aiModels/xai.ts       |  56 ++++
+ .../model-bank/src/aiModels/xiaomimimo.ts     | 102 ++++++
+ 11 files changed, 1179 insertions(+), 7 deletions(-)
+
+diff --git a/packages/model-bank/src/aiModels/__tests__/index.test.ts b/packages/model-bank/src/aiModels/__tests__/index.test.ts
+index 8cd7265ad1..31bea91581 100644
+--- a/packages/model-bank/src/aiModels/__tests__/index.test.ts
++++ b/packages/model-bank/src/aiModels/__tests__/index.test.ts
+@@ -106,7 +106,7 @@ describe('ChatGPT subscription models', () => {
+       (model) => model.providerId === ModelProvider.ChatGPT,
+     );
+ 
+-    expect(models).toHaveLength(5);
++    expect(models).toHaveLength(7);
+     expect(
+       models.every((model) => model.settings?.extendParams?.includes('preserveThinking')),
+     ).toBe(true);
+diff --git a/packages/model-bank/src/aiModels/aihubmix.ts b/packages/model-bank/src/aiModels/aihubmix.ts
+index 2c5ec18ed8..3d59c5b0c7 100644
+--- a/packages/model-bank/src/aiModels/aihubmix.ts
++++ b/packages/model-bank/src/aiModels/aihubmix.ts
+@@ -2,6 +2,128 @@ import { gptImage2Schema, nanoBanana2LiteParameters } from '../const/imageParame
+ import type { AIChatModelCard, AIImageModelCard } from '../types/aiModel';
+ 
+ const aihubmixChatModels: AIChatModelCard[] = [
++  {
++    abilities: {
++      functionCall: true,
++      reasoning: true,
++      search: true,
++      structuredOutput: true,
++      vision: true,
++    },
++    contextWindowTokens: 1_050_000,
++    description: 'GPT-6 Sol is built for complex coding and agentic workflows.',
++    displayName: 'GPT-6 Sol',
++    enabled: true,
++    family: 'gpt',
++    generation: 'gpt-6',
++    id: 'gpt-6-sol',
++    knowledgeCutoff: '2026-04',
++    maxOutput: 128_000,
++    pricing: {
++      units: [
++        {
++          name: 'textInput',
++          strategy: 'tiered',
++          tiers: [
++            { rate: 2, upTo: 272_000 },
++            { rate: 4, upTo: 'infinity' },
++          ],
++          unit: 'millionTokens',
++        },
++        {
++          name: 'textInput_cacheRead',
++          strategy: 'tiered',
++          tiers: [
++            { rate: 0.2, upTo: 272_000 },
++            { rate: 0.4, upTo: 'infinity' },
++          ],
++          unit: 'millionTokens',
++        },
++        {
++          name: 'textInput_cacheWrite',
++          strategy: 'tiered',
++          tiers: [
++            { rate: 2.5, upTo: 272_000 },
++            { rate: 5, upTo: 'infinity' },
++          ],
++          unit: 'millionTokens',
++        },
++        {
++          name: 'textOutput',
++          strategy: 'tiered',
++          tiers: [
++            { rate: 10, upTo: 272_000 },
++            { rate: 15, upTo: 'infinity' },
++          ],
++          unit: 'millionTokens',
++        },
++      ],
++    },
++    releasedAt: '2026-09-22',
++    settings: { extendParams: ['gpt5_6ReasoningEffort', 'textVerbosity'], searchImpl: 'params' },
++    type: 'chat',
++  },
++  {
++    abilities: {
++      functionCall: true,
++      reasoning: true,
++      search: true,
++      structuredOutput: true,
++      vision: true,
++    },
++    contextWindowTokens: 1_050_000,
++    description: 'GPT-6 Luna is OpenAI’s most efficient model for focused, high-volume tasks.',
++    displayName: 'GPT-6 Luna',
++    enabled: true,
++    family: 'gpt',
++    generation: 'gpt-6',
++    id: 'gpt-6-luna',
++    knowledgeCutoff: '2026-05',
++    maxOutput: 128_000,
++    pricing: {
++      units: [
++        {
++          name: 'textInput',
++          strategy: 'tiered',
++          tiers: [
++            { rate: 0.1, upTo: 272_000 },
++            { rate: 0.2, upTo: 'infinity' },
++          ],
++          unit: 'millionTokens',
++        },
++        {
++          name: 'textInput_cacheRead',
++          strategy: 'tiered',
++          tiers: [
++            { rate: 0.01, upTo: 272_000 },
++            { rate: 0.02, upTo: 'infinity' },
++          ],
++          unit: 'millionTokens',
++        },
++        {
++          name: 'textInput_cacheWrite',
++          strategy: 'tiered',
++          tiers: [
++            { rate: 0.125, upTo: 272_000 },
++            { rate: 0.25, upTo: 'infinity' },
++          ],
++          unit: 'millionTokens',
++        },
++        {
++          name: 'textOutput',
++          strategy: 'tiered',
++          tiers: [
++            { rate: 0.5, upTo: 272_000 },
++            { rate: 0.75, upTo: 'infinity' },
++          ],
++          unit: 'millionTokens',
++        },
++      ],
++    },
++    releasedAt: '2026-09-22',
++    settings: { extendParams: ['gpt5_6ReasoningEffort', 'textVerbosity'], searchImpl: 'params' },
++    type: 'chat',
++  },
+   {
+     abilities: {
+       functionCall: true,
+@@ -866,6 +988,58 @@ const aihubmixChatModels: AIChatModelCard[] = [
+     },
+     type: 'chat',
+   },
++  {
++    abilities: {
++      functionCall: true,
++      reasoning: true,
++      search: true,
++      structuredOutput: true,
++      vision: true,
++    },
++    contextWindowTokens: 500_000,
++    description:
++      'Grok 4.7 is more reliable than Grok 4.6 on long-running coding and knowledge work, at the same price and speed, with a 500K context window.',
++    displayName: 'Grok 4.7',
++    enabled: true,
++    family: 'grok',
++    generation: 'grok-4.7',
++    id: 'grok-4.7',
++    knowledgeCutoff: '2026-05',
++    pricing: {
++      units: [
++        {
++          name: 'textInput_cacheRead',
++          strategy: 'tiered',
++          tiers: [
++            { rate: 0.55, upTo: 199_999 },
++            { rate: 1.1, upTo: 'infinity' },
++          ],
++          unit: 'millionTokens',
++        },
++        {
++          name: 'textInput',
++          strategy: 'tiered',
++          tiers: [
++            { rate: 2.2, upTo: 199_999 },
++            { rate: 4.4, upTo: 'infinity' },
++          ],
++          unit: 'millionTokens',
++        },
++        {
++          name: 'textOutput',
++          strategy: 'tiered',
++          tiers: [
++            { rate: 6.6, upTo: 199_999 },
++            { rate: 13.2, upTo: 'infinity' },
++          ],
++          unit: 'millionTokens',
++        },
++      ],
++    },
++    releasedAt: '2026-09-21',
++    settings: { extendParams: ['grok4_7ReasoningEffort'], searchImpl: 'params' },
++    type: 'chat',
++  },
+   {
+     abilities: {
+       functionCall: true,
+@@ -1000,6 +1174,41 @@ const aihubmixChatModels: AIChatModelCard[] = [
+     },
+     type: 'chat',
+   },
++  {
++    abilities: {
++      functionCall: true,
++      reasoning: true,
++      search: true,
++      structuredOutput: true,
++      vision: true,
++    },
++    contextWindowTokens: 1_000_000,
++    description:
++      'Claude Opus 5.5 is built for long-running agentic coding and knowledge work, outperforming Claude Fable 5.1 on Terminal-Bench 4.0 at a lower price than Claude Opus 5.',
++    displayName: 'Claude Opus 5.5',
++    enabled: true,
++    family: 'claude-opus',
++    generation: 'claude-5.5',
++    id: 'claude-opus-5-5',
++    knowledgeCutoff: '2026-06',
++    maxOutput: 128_000,
++    pricing: {
++      units: [
++        { name: 'textInput_cacheRead', rate: 0.2, strategy: 'fixed', unit: 'millionTokens' },
++        { name: 'textInput', rate: 4, strategy: 'fixed', unit: 'millionTokens' },
++        { name: 'textOutput', rate: 20, strategy: 'fixed', unit: 'millionTokens' },
++        { name: 'textInput_cacheWrite', rate: 5, strategy: 'fixed', unit: 'millionTokens' },
++      ],
++    },
++    releasedAt: '2026-09-22',
++    // Thinking is always on for Opus 5.5, so `enableAdaptiveThinking` is omitted.
++    settings: {
++      disabledParams: ['temperature', 'top_p'],
++      extendParams: ['disableContextCaching', 'opus47Effort'],
++      searchImpl: 'params',
++    },
++    type: 'chat',
++  },
+   {
+     abilities: {
+       functionCall: true,
+@@ -1225,6 +1434,91 @@ const aihubmixChatModels: AIChatModelCard[] = [
+     },
+     type: 'chat',
+   },
++  {
++    abilities: {
++      audio: true,
++      functionCall: true,
++      reasoning: true,
++      structuredOutput: true,
++      video: true,
++      vision: true,
++    },
++    contextWindowTokens: 1_048_576,
++    description:
++      "MiMo-V2.6-Pro is Xiaomi's open-source multimodal flagship (1.02T total / 42B active) for long-horizon coding and computer use, accepting text, image, video, and audio input with a 1M context window at the previous Pro price.",
++    displayName: 'MiMo-V2.6 Pro',
++    enabled: true,
++    family: 'mimo',
++    generation: 'mimo-v2.6',
++    id: 'mimo-v2.6-pro',
++    maxOutput: 131_072,
++    pricing: {
++      units: [
++        { name: 'textInput_cacheRead', rate: 0.00384, strategy: 'fixed', unit: 'millionTokens' },
++        { name: 'textInput', rate: 0.48, strategy: 'fixed', unit: 'millionTokens' },
++        { name: 'textOutput', rate: 0.96, strategy: 'fixed', unit: 'millionTokens' },
++      ],
++    },
++    releasedAt: '2026-09-22',
++    // Served through AIHubMix's generic OpenAI-compatible route, which does not forward the MiMo `thinking` toggle, so no reasoning switch is exposed.
++    type: 'chat',
++  },
++  {
++    abilities: {
++      audio: true,
++      functionCall: true,
++      reasoning: true,
++      structuredOutput: true,
++      video: true,
++      vision: true,
++    },
++    contextWindowTokens: 1_048_576,
++    description:
++      'MiMo-V2.6-Pro-UltraSpeed serves the same weights as MiMo-V2.6-Pro at up to 20x the output speed for latency-sensitive agents.',
++    displayName: 'MiMo-V2.6 Pro UltraSpeed',
++    enabled: true,
++    family: 'mimo',
++    generation: 'mimo-v2.6',
++    id: 'mimo-v2.6-pro-ultraspeed',
++    maxOutput: 131_072,
++    pricing: {
++      units: [
++        { name: 'textInput_cacheRead', rate: 0.0384, strategy: 'fixed', unit: 'millionTokens' },
++        { name: 'textInput', rate: 4.8, strategy: 'fixed', unit: 'millionTokens' },
++        { name: 'textOutput', rate: 9.6, strategy: 'fixed', unit: 'millionTokens' },
++      ],
++    },
++    releasedAt: '2026-09-22',
++    type: 'chat',
++  },
++  {
++    abilities: {
++      audio: true,
++      functionCall: true,
++      reasoning: true,
++      structuredOutput: true,
++      video: true,
++      vision: true,
++    },
++    contextWindowTokens: 1_048_576,
++    description:
++      'MiMo-V2.6-Flash is a low-cost omni-modal agent model (about 310B total / 15B active) that surpasses MiMo-V2.5-Pro on agent benchmarks at the previous MiMo-V2.5 price, with a 1M context window.',
++    displayName: 'MiMo-V2.6 Flash',
++    enabled: true,
++    family: 'mimo',
++    generation: 'mimo-v2.6',
++    id: 'mimo-v2.6-flash',
++    maxOutput: 131_072,
++    pricing: {
++      units: [
++        { name: 'textInput_cacheRead', rate: 0.0031, strategy: 'fixed', unit: 'millionTokens' },
++        { name: 'textInput', rate: 0.155, strategy: 'fixed', unit: 'millionTokens' },
++        { name: 'textOutput', rate: 0.31, strategy: 'fixed', unit: 'millionTokens' },
++      ],
++    },
++    releasedAt: '2026-09-22',
++    type: 'chat',
++  },
+   {
+     abilities: {
+       functionCall: true,
+@@ -1383,7 +1677,7 @@ const aihubmixChatModels: AIChatModelCard[] = [
+           name: 'textInput_cacheRead',
+           strategy: 'tiered',
+           tiers: [
+-            { rate: 0.2, upTo: 200_000 },
++            { rate: 0.2, upTo: 199_999 },
+             { rate: 0.4, upTo: 'infinity' },
+           ],
+           unit: 'millionTokens',
+@@ -1392,7 +1686,7 @@ const aihubmixChatModels: AIChatModelCard[] = [
+           name: 'textInput',
+           strategy: 'tiered',
+           tiers: [
+-            { rate: 2, upTo: 200_000 },
++            { rate: 2, upTo: 199_999 },
+             { rate: 4, upTo: 'infinity' },
+           ],
+           unit: 'millionTokens',
+@@ -1401,7 +1695,7 @@ const aihubmixChatModels: AIChatModelCard[] = [
+           name: 'textOutput',
+           strategy: 'tiered',
+           tiers: [
+-            { rate: 12, upTo: 200_000 },
++            { rate: 12, upTo: 199_999 },
+             { rate: 18, upTo: 'infinity' },
+           ],
+           unit: 'millionTokens',
+@@ -1480,7 +1774,7 @@ const aihubmixChatModels: AIChatModelCard[] = [
+           name: 'textInput_cacheRead',
+           strategy: 'tiered',
+           tiers: [
+-            { rate: 0.2, upTo: 200_000 },
++            { rate: 0.2, upTo: 199_999 },
+             { rate: 0.4, upTo: 'infinity' },
+           ],
+           unit: 'millionTokens',
+@@ -1489,7 +1783,7 @@ const aihubmixChatModels: AIChatModelCard[] = [
+           name: 'textInput',
+           strategy: 'tiered',
+           tiers: [
+-            { rate: 2, upTo: 200_000 },
++            { rate: 2, upTo: 199_999 },
+             { rate: 4, upTo: 'infinity' },
+           ],
+           unit: 'millionTokens',
+@@ -1498,7 +1792,7 @@ const aihubmixChatModels: AIChatModelCard[] = [
+           name: 'textOutput',
+           strategy: 'tiered',
+           tiers: [
+-            { rate: 12, upTo: 200_000 },
++            { rate: 12, upTo: 199_999 },
+             { rate: 18, upTo: 'infinity' },
+           ],
+           unit: 'millionTokens',
+diff --git a/packages/model-bank/src/aiModels/anthropic.ts b/packages/model-bank/src/aiModels/anthropic.ts
+index e86d35a6be..1a1015e070 100644
+--- a/packages/model-bank/src/aiModels/anthropic.ts
++++ b/packages/model-bank/src/aiModels/anthropic.ts
+@@ -1,6 +1,43 @@
+ import { type AIChatModelCard } from '../types/aiModel';
+ 
+ const anthropicChatModels: AIChatModelCard[] = [
++  {
++    abilities: {
++      functionCall: true,
++      reasoning: true,
++      search: true,
++      structuredOutput: true,
++      vision: true,
++    },
++    contextWindowTokens: 1_000_000,
++    description:
++      'Claude Opus 5.5 is built for long-running agentic coding and knowledge work, outperforming Claude Fable 5.1 on Terminal-Bench 4.0 at a lower price than Claude Opus 5.',
++    displayName: 'Claude Opus 5.5',
++    enabled: true,
++    family: 'claude-opus',
++    generation: 'claude-5.5',
++    id: 'claude-opus-5-5',
++    knowledgeCutoff: '2026-06',
++    maxOutput: 128_000,
++    pricing: {
++      units: [
++        { name: 'textInput_cacheRead', rate: 0.2, strategy: 'fixed', unit: 'millionTokens' },
++        { name: 'textInput', rate: 4, strategy: 'fixed', unit: 'millionTokens' },
++        { name: 'textOutput', rate: 20, strategy: 'fixed', unit: 'millionTokens' },
++        { name: 'textInput_cacheWrite', rate: 5, strategy: 'fixed', unit: 'millionTokens' },
++      ],
++    },
++    releasedAt: '2026-09-22',
++    // Like Fable 5.1, thinking is always on (400 on `thinking.type: disabled`), so the
++    // `enableAdaptiveThinking` toggle is intentionally omitted.
++    // https://platform.claude.com/docs/en/models/opus-5-5/whats-new-opus-5-5#breaking-changes
++    settings: {
++      disabledParams: ['temperature', 'top_p'],
++      extendParams: ['disableContextCaching', 'opus47Effort'],
++      searchImpl: 'params',
++    },
++    type: 'chat',
++  },
+   {
+     abilities: {
+       functionCall: true,
+diff --git a/packages/model-bank/src/aiModels/azure.ts b/packages/model-bank/src/aiModels/azure.ts
+index 6bb8ba8481..8ed8c4de43 100644
+--- a/packages/model-bank/src/aiModels/azure.ts
++++ b/packages/model-bank/src/aiModels/azure.ts
+@@ -1,6 +1,208 @@
+ import type { AIChatModelCard, AIImageModelCard } from '../types/aiModel';
+ 
+ const azureChatModels: AIChatModelCard[] = [
++  {
++    abilities: {
++      functionCall: true,
++      reasoning: true,
++      search: true,
++      structuredOutput: true,
++      vision: true,
++    },
++    config: {
++      deploymentName: 'gpt-6-astra',
++    },
++    contextWindowTokens: 1_050_000,
++    description:
++      'OpenAI’s most capable model for complex reasoning, coding, computer use, research, and document creation.',
++    displayName: 'GPT-6 Astra',
++    enabled: true,
++    id: 'gpt-6-astra',
++    maxOutput: 128_000,
++    pricing: {
++      units: [
++        {
++          name: 'textInput',
++          unit: 'millionTokens',
++          strategy: 'tiered',
++          tiers: [
++            { rate: 10, upTo: 272_000 },
++            { rate: 20, upTo: 'infinity' },
++          ],
++        },
++        {
++          name: 'textInput_cacheRead',
++          unit: 'millionTokens',
++          strategy: 'tiered',
++          tiers: [
++            { rate: 1, upTo: 272_000 },
++            { rate: 2, upTo: 'infinity' },
++          ],
++        },
++        {
++          name: 'textInput_cacheWrite',
++          unit: 'millionTokens',
++          strategy: 'tiered',
++          tiers: [
++            { rate: 12.5, upTo: 272_000 },
++            { rate: 25, upTo: 'infinity' },
++          ],
++        },
++        {
++          name: 'textOutput',
++          unit: 'millionTokens',
++          strategy: 'tiered',
++          tiers: [
++            { rate: 50, upTo: 272_000 },
++            { rate: 75, upTo: 'infinity' },
++          ],
++        },
++      ],
++    },
++    releasedAt: '2026-09-03',
++    settings: {
++      extendParams: ['gpt6ReasoningEffort', 'textVerbosity'],
++      searchImpl: 'params',
++    },
++    type: 'chat',
++    family: 'gpt',
++    generation: 'gpt-6',
++    knowledgeCutoff: '2026-04',
++  },
++  {
++    abilities: {
++      functionCall: true,
++      reasoning: true,
++      search: true,
++      structuredOutput: true,
++      vision: true,
++    },
++    config: {
++      deploymentName: 'gpt-6-sol',
++    },
++    contextWindowTokens: 1_050_000,
++    description: 'GPT-6 Sol is built for complex coding and agentic workflows.',
++    displayName: 'GPT-6 Sol',
++    enabled: true,
++    family: 'gpt',
++    generation: 'gpt-6',
++    id: 'gpt-6-sol',
++    knowledgeCutoff: '2026-04',
++    maxOutput: 128_000,
++    pricing: {
++      units: [
++        {
++          name: 'textInput',
++          unit: 'millionTokens',
++          strategy: 'tiered',
++          tiers: [
++            { rate: 2, upTo: 272_000 },
++            { rate: 4, upTo: 'infinity' },
++          ],
++        },
++        {
++          name: 'textInput_cacheRead',
++          unit: 'millionTokens',
++          strategy: 'tiered',
++          tiers: [
++            { rate: 0.2, upTo: 272_000 },
++            { rate: 0.4, upTo: 'infinity' },
++          ],
++        },
++        {
++          name: 'textInput_cacheWrite',
++          unit: 'millionTokens',
++          strategy: 'tiered',
++          tiers: [
++            { rate: 2.5, upTo: 272_000 },
++            { rate: 5, upTo: 'infinity' },
++          ],
++        },
++        {
++          name: 'textOutput',
++          unit: 'millionTokens',
++          strategy: 'tiered',
++          tiers: [
++            { rate: 10, upTo: 272_000 },
++            { rate: 15, upTo: 'infinity' },
++          ],
++        },
++      ],
++    },
++    releasedAt: '2026-09-22',
++    settings: {
++      extendParams: ['gpt5_6ReasoningEffort', 'textVerbosity'],
++      searchImpl: 'params',
++    },
++    type: 'chat',
++  },
++  {
++    abilities: {
++      functionCall: true,
++      reasoning: true,
++      search: true,
++      structuredOutput: true,
++      vision: true,
++    },
++    config: {
++      deploymentName: 'gpt-6-luna',
++    },
++    contextWindowTokens: 1_050_000,
++    description: 'GPT-6 Luna is OpenAI’s most efficient model for focused, high-volume tasks.',
++    displayName: 'GPT-6 Luna',
++    enabled: true,
++    family: 'gpt',
++    generation: 'gpt-6',
++    id: 'gpt-6-luna',
++    knowledgeCutoff: '2026-05',
++    maxOutput: 128_000,
++    pricing: {
++      units: [
++        {
++          name: 'textInput',
++          unit: 'millionTokens',
++          strategy: 'tiered',
++          tiers: [
++            { rate: 0.1, upTo: 272_000 },
++            { rate: 0.2, upTo: 'infinity' },
++          ],
++        },
++        {
++          name: 'textInput_cacheRead',
++          unit: 'millionTokens',
++          strategy: 'tiered',
++          tiers: [
++            { rate: 0.01, upTo: 272_000 },
++            { rate: 0.02, upTo: 'infinity' },
++          ],
++        },
++        {
++          name: 'textInput_cacheWrite',
++          unit: 'millionTokens',
++          strategy: 'tiered',
++          tiers: [
++            { rate: 0.125, upTo: 272_000 },
++            { rate: 0.25, upTo: 'infinity' },
++          ],
++        },
++        {
++          name: 'textOutput',
++          unit: 'millionTokens',
++          strategy: 'tiered',
++          tiers: [
++            { rate: 0.5, upTo: 272_000 },
++            { rate: 0.75, upTo: 'infinity' },
++          ],
++        },
++      ],
++    },
++    releasedAt: '2026-09-22',
++    settings: {
++      extendParams: ['gpt5_6ReasoningEffort', 'textVerbosity'],
++      searchImpl: 'params',
++    },
++    type: 'chat',
++  },
+   {
+     abilities: {
+       functionCall: true,
+diff --git a/packages/model-bank/src/aiModels/bedrock.ts b/packages/model-bank/src/aiModels/bedrock.ts
+index a62db61ef8..acd7c2dd89 100644
+--- a/packages/model-bank/src/aiModels/bedrock.ts
++++ b/packages/model-bank/src/aiModels/bedrock.ts
+@@ -1,6 +1,39 @@
+ import type { AIChatModelCard } from '../types/aiModel';
+ 
+ const bedrockChatModels: AIChatModelCard[] = [
++  {
++    abilities: {
++      functionCall: true,
++      reasoning: true,
++      structuredOutput: true,
++      vision: true,
++    },
++    contextWindowTokens: 1_000_000,
++    description:
++      'Claude Opus 5.5 is built for long-running agentic coding and knowledge work, outperforming Claude Fable 5.1 on Terminal-Bench 4.0 at a lower price than Claude Opus 5.',
++    displayName: 'Claude Opus 5.5',
++    enabled: true,
++    family: 'claude-opus',
++    generation: 'claude-5.5',
++    id: 'global.anthropic.claude-opus-5-5',
++    knowledgeCutoff: '2026-06',
++    maxOutput: 128_000,
++    pricing: {
++      units: [
++        { name: 'textInput_cacheRead', rate: 0.2, strategy: 'fixed', unit: 'millionTokens' },
++        { name: 'textInput', rate: 4, strategy: 'fixed', unit: 'millionTokens' },
++        { name: 'textOutput', rate: 20, strategy: 'fixed', unit: 'millionTokens' },
++        { name: 'textInput_cacheWrite', rate: 5, strategy: 'fixed', unit: 'millionTokens' },
++      ],
++    },
++    releasedAt: '2026-09-22',
++    // Thinking is always on for Opus 5.5, so `enableAdaptiveThinking` is omitted.
++    settings: {
++      disabledParams: ['temperature', 'top_p'],
++      extendParams: ['disableContextCaching', 'opus47Effort'],
++    },
++    type: 'chat',
++  },
+   {
+     abilities: {
+       functionCall: true,
+diff --git a/packages/model-bank/src/aiModels/chatGPT.ts b/packages/model-bank/src/aiModels/chatGPT.ts
+index 86c3329de5..fac939b08d 100644
+--- a/packages/model-bank/src/aiModels/chatGPT.ts
++++ b/packages/model-bank/src/aiModels/chatGPT.ts
+@@ -3,6 +3,8 @@ import { openaiChatModels } from './openai';
+ 
+ const CHATGPT_MODEL_IDS = new Set([
+   'gpt-6-astra',
++  'gpt-6-sol',
++  'gpt-6-luna',
+   'gpt-5.6-sol',
+   'gpt-5.6-terra',
+   'gpt-5.6-luna',
+diff --git a/packages/model-bank/src/aiModels/openai.ts b/packages/model-bank/src/aiModels/openai.ts
+index 5209ec02de..b97cb05d30 100644
+--- a/packages/model-bank/src/aiModels/openai.ts
++++ b/packages/model-bank/src/aiModels/openai.ts
+@@ -76,6 +76,136 @@ export const openaiChatModels: AIChatModelCard[] = [
+     generation: 'gpt-6',
+     knowledgeCutoff: '2026-04',
+   },
++  {
++    abilities: {
++      functionCall: true,
++      reasoning: true,
++      search: true,
++      structuredOutput: true,
++      vision: true,
++    },
++    contextWindowTokens: 1_050_000,
++    description: 'GPT-6 Sol is built for complex coding and agentic workflows.',
++    displayName: 'GPT-6 Sol',
++    enabled: true,
++    family: 'gpt',
++    generation: 'gpt-6',
++    id: 'gpt-6-sol',
++    knowledgeCutoff: '2026-04',
++    maxOutput: 128_000,
++    /** @see https://developers.openai.com/api/docs/models/gpt-6-sol */
++    pricing: {
++      units: [
++        {
++          name: 'textInput',
++          unit: 'millionTokens',
++          strategy: 'tiered',
++          tiers: [
++            { rate: 2, upTo: 272_000 },
++            { rate: 4, upTo: 'infinity' },
++          ],
++        },
++        {
++          name: 'textInput_cacheRead',
++          unit: 'millionTokens',
++          strategy: 'tiered',
++          tiers: [
++            { rate: 0.2, upTo: 272_000 },
++            { rate: 0.4, upTo: 'infinity' },
++          ],
++        },
++        {
++          name: 'textInput_cacheWrite',
++          unit: 'millionTokens',
++          strategy: 'tiered',
++          tiers: [
++            { rate: 2.5, upTo: 272_000 },
++            { rate: 5, upTo: 'infinity' },
++          ],
++        },
++        {
++          name: 'textOutput',
++          unit: 'millionTokens',
++          strategy: 'tiered',
++          tiers: [
++            { rate: 10, upTo: 272_000 },
++            { rate: 15, upTo: 'infinity' },
++          ],
++        },
++      ],
++    },
++    releasedAt: '2026-09-22',
++    settings: {
++      extendParams: ['gpt5_6ReasoningEffort', 'textVerbosity'],
++      searchImpl: 'params',
++    },
++    type: 'chat',
++  },
++  {
++    abilities: {
++      functionCall: true,
++      reasoning: true,
++      search: true,
++      structuredOutput: true,
++      vision: true,
++    },
++    contextWindowTokens: 1_050_000,
++    description: 'GPT-6 Luna is OpenAI’s most efficient model for focused, high-volume tasks.',
++    displayName: 'GPT-6 Luna',
++    enabled: true,
++    family: 'gpt',
++    generation: 'gpt-6',
++    id: 'gpt-6-luna',
++    knowledgeCutoff: '2026-05',
++    maxOutput: 128_000,
++    /** @see https://developers.openai.com/api/docs/models/gpt-6-luna */
++    pricing: {
++      units: [
++        {
++          name: 'textInput',
++          unit: 'millionTokens',
++          strategy: 'tiered',
++          tiers: [
++            { rate: 0.1, upTo: 272_000 },
++            { rate: 0.2, upTo: 'infinity' },
++          ],
++        },
++        {
++          name: 'textInput_cacheRead',
++          unit: 'millionTokens',
++          strategy: 'tiered',
++          tiers: [
++            { rate: 0.01, upTo: 272_000 },
++            { rate: 0.02, upTo: 'infinity' },
++          ],
++        },
++        {
++          name: 'textInput_cacheWrite',
++          unit: 'millionTokens',
++          strategy: 'tiered',
++          tiers: [
++            { rate: 0.125, upTo: 272_000 },
++            { rate: 0.25, upTo: 'infinity' },
++          ],
++        },
++        {
++          name: 'textOutput',
++          unit: 'millionTokens',
++          strategy: 'tiered',
++          tiers: [
++            { rate: 0.5, upTo: 272_000 },
++            { rate: 0.75, upTo: 'infinity' },
++          ],
++        },
++      ],
++    },
++    releasedAt: '2026-09-22',
++    settings: {
++      extendParams: ['gpt5_6ReasoningEffort', 'textVerbosity'],
++      searchImpl: 'params',
++    },
++    type: 'chat',
++  },
+   {
+     abilities: {
+       functionCall: true,
+diff --git a/packages/model-bank/src/aiModels/openrouter.ts b/packages/model-bank/src/aiModels/openrouter.ts
+index 4d010c4fe0..20d9e4e0ee 100644
+--- a/packages/model-bank/src/aiModels/openrouter.ts
++++ b/packages/model-bank/src/aiModels/openrouter.ts
+@@ -11,6 +11,298 @@ const openrouterChatModels: AIChatModelCard[] = [
+     id: 'openrouter/auto',
+     type: 'chat',
+   },
++  {
++    abilities: {
++      functionCall: true,
++      reasoning: true,
++      search: true,
++      structuredOutput: true,
++      vision: true,
++    },
++    contextWindowTokens: 1_000_000,
++    description:
++      'Claude Opus 5.5 is built for long-running agentic coding and knowledge work, outperforming Claude Fable 5.1 on Terminal-Bench 4.0 at a lower price than Claude Opus 5.',
++    displayName: 'Claude Opus 5.5',
++    enabled: true,
++    family: 'claude-opus',
++    generation: 'claude-5.5',
++    id: 'anthropic/claude-opus-5.5',
++    knowledgeCutoff: '2026-06',
++    maxOutput: 128_000,
++    pricing: {
++      units: [
++        { name: 'textInput_cacheRead', rate: 0.2, strategy: 'fixed', unit: 'millionTokens' },
++        { name: 'textInput', rate: 4, strategy: 'fixed', unit: 'millionTokens' },
++        { name: 'textOutput', rate: 20, strategy: 'fixed', unit: 'millionTokens' },
++        { name: 'textInput_cacheWrite', rate: 5, strategy: 'fixed', unit: 'millionTokens' },
++      ],
++    },
++    releasedAt: '2026-09-22',
++    // Thinking is always on for Opus 5.5 and budget tokens are not accepted, so no reasoning toggle.
++    settings: { extendParams: ['disableContextCaching'], searchImpl: 'params' },
++    type: 'chat',
++  },
++  {
++    abilities: {
++      functionCall: true,
++      reasoning: true,
++      search: true,
++      structuredOutput: true,
++      vision: true,
++    },
++    contextWindowTokens: 1_050_000,
++    description: 'GPT-6 Sol is built for complex coding and agentic workflows.',
++    displayName: 'GPT-6 Sol',
++    enabled: true,
++    family: 'gpt',
++    generation: 'gpt-6',
++    id: 'openai/gpt-6-sol',
++    knowledgeCutoff: '2026-04',
++    maxOutput: 128_000,
++    pricing: {
++      units: [
++        {
++          name: 'textInput',
++          strategy: 'tiered',
++          tiers: [
++            { rate: 2, upTo: 272_000 },
++            { rate: 4, upTo: 'infinity' },
++          ],
++          unit: 'millionTokens',
++        },
++        {
++          name: 'textInput_cacheRead',
++          strategy: 'tiered',
++          tiers: [
++            { rate: 0.2, upTo: 272_000 },
++            { rate: 0.4, upTo: 'infinity' },
++          ],
++          unit: 'millionTokens',
++        },
++        {
++          name: 'textInput_cacheWrite',
++          strategy: 'tiered',
++          tiers: [
++            { rate: 2.5, upTo: 272_000 },
++            { rate: 5, upTo: 'infinity' },
++          ],
++          unit: 'millionTokens',
++        },
++        {
++          name: 'textOutput',
++          strategy: 'tiered',
++          tiers: [
++            { rate: 10, upTo: 272_000 },
++            { rate: 15, upTo: 'infinity' },
++          ],
++          unit: 'millionTokens',
++        },
++      ],
++    },
++    releasedAt: '2026-09-22',
++    settings: { extendParams: ['gpt5_6ReasoningEffort', 'textVerbosity'], searchImpl: 'params' },
++    type: 'chat',
++  },
++  {
++    abilities: {
++      functionCall: true,
++      reasoning: true,
++      search: true,
++      structuredOutput: true,
++      vision: true,
++    },
++    contextWindowTokens: 1_050_000,
++    description: 'GPT-6 Luna is OpenAI’s most efficient model for focused, high-volume tasks.',
++    displayName: 'GPT-6 Luna',
++    enabled: true,
++    family: 'gpt',
++    generation: 'gpt-6',
++    id: 'openai/gpt-6-luna',
++    knowledgeCutoff: '2026-05',
++    maxOutput: 128_000,
++    pricing: {
++      units: [
++        {
++          name: 'textInput',
++          strategy: 'tiered',
++          tiers: [
++            { rate: 0.1, upTo: 272_000 },
++            { rate: 0.2, upTo: 'infinity' },
++          ],
++          unit: 'millionTokens',
++        },
++        {
++          name: 'textInput_cacheRead',
++          strategy: 'tiered',
++          tiers: [
++            { rate: 0.01, upTo: 272_000 },
++            { rate: 0.02, upTo: 'infinity' },
++          ],
++          unit: 'millionTokens',
++        },
++        {
++          name: 'textInput_cacheWrite',
++          strategy: 'tiered',
++          tiers: [
++            { rate: 0.125, upTo: 272_000 },
++            { rate: 0.25, upTo: 'infinity' },
++          ],
++          unit: 'millionTokens',
++        },
++        {
++          name: 'textOutput',
++          strategy: 'tiered',
++          tiers: [
++            { rate: 0.5, upTo: 272_000 },
++            { rate: 0.75, upTo: 'infinity' },
++          ],
++          unit: 'millionTokens',
++        },
++      ],
++    },
++    releasedAt: '2026-09-22',
++    settings: { extendParams: ['gpt5_6ReasoningEffort', 'textVerbosity'], searchImpl: 'params' },
++    type: 'chat',
++  },
++  {
++    abilities: {
++      functionCall: true,
++      reasoning: true,
++      search: true,
++      structuredOutput: true,
++      vision: true,
++    },
++    contextWindowTokens: 500_000,
++    description:
++      'Grok 4.7 is more reliable than Grok 4.6 on long-running coding and knowledge work, at the same price and speed, with a 500K context window.',
++    displayName: 'Grok 4.7',
++    enabled: true,
++    family: 'grok',
++    generation: 'grok-4.7',
++    id: 'x-ai/grok-4.7',
++    knowledgeCutoff: '2026-05',
++    pricing: {
++      units: [
++        {
++          name: 'textInput_cacheRead',
++          strategy: 'tiered',
++          tiers: [
++            { rate: 0.4, upTo: 199_999 },
++            { rate: 0.8, upTo: 'infinity' },
++          ],
++          unit: 'millionTokens',
++        },
++        {
++          name: 'textInput',
++          strategy: 'tiered',
++          tiers: [
++            { rate: 1.6, upTo: 199_999 },
++            { rate: 3.2, upTo: 'infinity' },
++          ],
++          unit: 'millionTokens',
++        },
++        {
++          name: 'textOutput',
++          strategy: 'tiered',
++          tiers: [
++            { rate: 4.8, upTo: 199_999 },
++            { rate: 9.6, upTo: 'infinity' },
++          ],
++          unit: 'millionTokens',
++        },
++      ],
++    },
++    releasedAt: '2026-09-21',
++    settings: { extendParams: ['grok4_7ReasoningEffort'], searchImpl: 'params' },
++    type: 'chat',
++  },
++  {
++    abilities: {
++      audio: true,
++      functionCall: true,
++      reasoning: true,
++      structuredOutput: true,
++      video: true,
++      vision: true,
++    },
++    contextWindowTokens: 1_048_576,
++    description:
++      "MiMo-V2.6-Pro is Xiaomi's open-source multimodal flagship (1.02T total / 42B active) for long-horizon coding and computer use, accepting text, image, video, and audio input with a 1M context window at the previous Pro price.",
++    displayName: 'MiMo-V2.6 Pro',
++    enabled: true,
++    family: 'mimo',
++    generation: 'mimo-v2.6',
++    id: 'xiaomi/mimo-v2.6-pro',
++    maxOutput: 131_072,
++    pricing: {
++      units: [
++        { name: 'textInput_cacheRead', rate: 0.0036, strategy: 'fixed', unit: 'millionTokens' },
++        { name: 'textInput', rate: 0.435, strategy: 'fixed', unit: 'millionTokens' },
++        { name: 'textOutput', rate: 0.87, strategy: 'fixed', unit: 'millionTokens' },
++      ],
++    },
++    releasedAt: '2026-09-22',
++    settings: { extendParams: ['enableReasoning'] },
++    type: 'chat',
++  },
++  {
++    abilities: {
++      audio: true,
++      functionCall: true,
++      reasoning: true,
++      structuredOutput: true,
++      video: true,
++      vision: true,
++    },
++    contextWindowTokens: 1_048_576,
++    description:
++      'MiMo-V2.6-Pro-UltraSpeed serves the same weights as MiMo-V2.6-Pro at up to 20x the output speed for latency-sensitive agents.',
++    displayName: 'MiMo-V2.6 Pro UltraSpeed',
++    enabled: true,
++    family: 'mimo',
++    generation: 'mimo-v2.6',
++    id: 'xiaomi/mimo-v2.6-pro-ultraspeed',
++    maxOutput: 131_072,
++    pricing: {
++      units: [
++        { name: 'textInput_cacheRead', rate: 0.036, strategy: 'fixed', unit: 'millionTokens' },
++        { name: 'textInput', rate: 4.35, strategy: 'fixed', unit: 'millionTokens' },
++        { name: 'textOutput', rate: 8.7, strategy: 'fixed', unit: 'millionTokens' },
++      ],
++    },
++    releasedAt: '2026-09-22',
++    settings: { extendParams: ['enableReasoning'] },
++    type: 'chat',
++  },
++  {
++    abilities: {
++      audio: true,
++      functionCall: true,
++      reasoning: true,
++      structuredOutput: true,
++      video: true,
++      vision: true,
++    },
++    contextWindowTokens: 1_048_576,
++    description:
++      'MiMo-V2.6-Flash is a low-cost omni-modal agent model (about 310B total / 15B active) that surpasses MiMo-V2.5-Pro on agent benchmarks at the previous MiMo-V2.5 price, with a 1M context window.',
++    displayName: 'MiMo-V2.6 Flash',
++    enabled: true,
++    family: 'mimo',
++    generation: 'mimo-v2.6',
++    id: 'xiaomi/mimo-v2.6-flash',
++    maxOutput: 131_072,
++    pricing: {
++      units: [
++        { name: 'textInput_cacheRead', rate: 0.0028, strategy: 'fixed', unit: 'millionTokens' },
++        { name: 'textInput', rate: 0.14, strategy: 'fixed', unit: 'millionTokens' },
++        { name: 'textOutput', rate: 0.28, strategy: 'fixed', unit: 'millionTokens' },
++      ],
++    },
++    releasedAt: '2026-09-22',
++    settings: { extendParams: ['enableReasoning'] },
++    type: 'chat',
++  },
+   {
+     abilities: {
+       functionCall: true,
+diff --git a/packages/model-bank/src/aiModels/superGrok.ts b/packages/model-bank/src/aiModels/superGrok.ts
+index 8f861c2d3c..9a2c1490e3 100644
+--- a/packages/model-bank/src/aiModels/superGrok.ts
++++ b/packages/model-bank/src/aiModels/superGrok.ts
+@@ -7,6 +7,30 @@ import type { AIChatModelCard } from '../types/aiModel';
+ // be pulled in via the remote model list.
+ // ref: https://docs.x.ai/docs/models
+ const superGrokChatModels: AIChatModelCard[] = [
++  {
++    abilities: {
++      functionCall: true,
++      reasoning: true,
++      search: true,
++      structuredOutput: true,
++      vision: true,
++    },
++    contextWindowTokens: 500_000,
++    description:
++      "SpaceXAI's flagship model for long-running coding, agentic tasks, and knowledge work — configurable reasoning (low/medium/high/xhigh).",
++    displayName: 'Grok 4.7',
++    enabled: true,
++    family: 'grok',
++    generation: 'grok-4.7',
++    id: 'grok-4.7',
++    knowledgeCutoff: '2026-05',
++    releasedAt: '2026-09-21',
++    settings: {
++      extendParams: ['grok4_7ReasoningEffort'],
++      searchImpl: 'params',
++    },
++    type: 'chat',
++  },
+   {
+     abilities: {
+       functionCall: true,
+diff --git a/packages/model-bank/src/aiModels/xai.ts b/packages/model-bank/src/aiModels/xai.ts
+index 3460b87eca..6af7d8e50f 100644
+--- a/packages/model-bank/src/aiModels/xai.ts
++++ b/packages/model-bank/src/aiModels/xai.ts
+@@ -2,6 +2,62 @@ import type { AIChatModelCard, AIImageModelCard, AIVideoModelCard } from '../typ
+ 
+ // https://docs.x.ai/docs/models
+ const xaiChatModels: AIChatModelCard[] = [
++  {
++    abilities: {
++      functionCall: true,
++      reasoning: true,
++      search: true,
++      vision: true,
++      structuredOutput: true,
++    },
++    contextWindowTokens: 500_000,
++    description:
++      'Grok 4.7 is more reliable than Grok 4.6 on long-running coding and knowledge work, at the same price and speed, with a 500K context window.',
++    displayName: 'Grok 4.7',
++    enabled: true,
++    id: 'grok-4.7',
++    /** @see https://docs.x.ai/developers/models/grok-4.7 */
++    pricing: {
++      units: [
++        {
++          name: 'textInput_cacheRead',
++          unit: 'millionTokens',
++          strategy: 'tiered',
++          tiers: [
++            { rate: 0.5, upTo: 199_999 },
++            { rate: 1, upTo: 'infinity' },
++          ],
++        },
++        {
++          name: 'textInput',
++          unit: 'millionTokens',
++          strategy: 'tiered',
++          tiers: [
++            { rate: 2, upTo: 199_999 },
++            { rate: 4, upTo: 'infinity' },
++          ],
++        },
++        {
++          name: 'textOutput',
++          unit: 'millionTokens',
++          strategy: 'tiered',
++          tiers: [
++            { rate: 6, upTo: 199_999 },
++            { rate: 12, upTo: 'infinity' },
++          ],
++        },
++      ],
++    },
++    releasedAt: '2026-09-21',
++    settings: {
++      extendParams: ['grok4_7ReasoningEffort'],
++      searchImpl: 'params',
++    },
++    type: 'chat',
++    family: 'grok',
++    generation: 'grok-4.7',
++    knowledgeCutoff: '2026-05',
++  },
+   {
+     abilities: {
+       functionCall: true,
+diff --git a/packages/model-bank/src/aiModels/xiaomimimo.ts b/packages/model-bank/src/aiModels/xiaomimimo.ts
+index 0a0ba52816..b8a826e4ef 100644
+--- a/packages/model-bank/src/aiModels/xiaomimimo.ts
++++ b/packages/model-bank/src/aiModels/xiaomimimo.ts
+@@ -1,6 +1,108 @@
+ import type { AIChatModelCard } from '../types/aiModel';
+ 
+ const xiaomimimoChatModels: AIChatModelCard[] = [
++  {
++    abilities: {
++      audio: true,
++      functionCall: true,
++      reasoning: true,
++      search: true,
++      structuredOutput: true,
++      video: true,
++      vision: true,
++    },
++    contextWindowTokens: 1_000_000,
++    description:
++      "MiMo-V2.6-Pro is Xiaomi's open-source multimodal flagship (1.02T total / 42B active) for long-horizon coding and computer use, accepting text, image, video, and audio input with a 1M context window at the previous Pro price.",
++    displayName: 'MiMo-V2.6 Pro',
++    enabled: true,
++    family: 'mimo',
++    generation: 'mimo-v2.6',
++    id: 'mimo-v2.6-pro',
++    maxOutput: 131_072,
++    pricing: {
++      currency: 'CNY',
++      units: [
++        { name: 'textInput_cacheRead', rate: 0.025, strategy: 'fixed', unit: 'millionTokens' },
++        { name: 'textInput', rate: 3, strategy: 'fixed', unit: 'millionTokens' },
++        { name: 'textOutput', rate: 6, strategy: 'fixed', unit: 'millionTokens' },
++      ],
++    },
++    releasedAt: '2026-09-22',
++    settings: {
++      extendParams: ['enableReasoning'],
++      searchImpl: 'params',
++    },
++    type: 'chat',
++  },
++  {
++    abilities: {
++      audio: true,
++      functionCall: true,
++      reasoning: true,
++      search: true,
++      structuredOutput: true,
++      video: true,
++      vision: true,
++    },
++    contextWindowTokens: 1_000_000,
++    description:
++      'MiMo-V2.6-Pro-UltraSpeed serves the same weights as MiMo-V2.6-Pro at up to 20x the output speed for latency-sensitive agents.',
++    displayName: 'MiMo-V2.6 Pro UltraSpeed',
++    enabled: true,
++    family: 'mimo',
++    generation: 'mimo-v2.6',
++    id: 'mimo-v2.6-pro-ultraspeed',
++    maxOutput: 131_072,
++    pricing: {
++      currency: 'CNY',
++      units: [
++        { name: 'textInput_cacheRead', rate: 0.25, strategy: 'fixed', unit: 'millionTokens' },
++        { name: 'textInput', rate: 30, strategy: 'fixed', unit: 'millionTokens' },
++        { name: 'textOutput', rate: 60, strategy: 'fixed', unit: 'millionTokens' },
++      ],
++    },
++    releasedAt: '2026-09-22',
++    settings: {
++      extendParams: ['enableReasoning'],
++      searchImpl: 'params',
++    },
++    type: 'chat',
++  },
++  {
++    abilities: {
++      audio: true,
++      functionCall: true,
++      reasoning: true,
++      search: true,
++      structuredOutput: true,
++      video: true,
++      vision: true,
++    },
++    contextWindowTokens: 1_000_000,
++    description:
++      'MiMo-V2.6-Flash is a low-cost omni-modal agent model (about 310B total / 15B active) that surpasses MiMo-V2.5-Pro on agent benchmarks at the previous MiMo-V2.5 price, with a 1M context window.',
++    displayName: 'MiMo-V2.6 Flash',
++    enabled: true,
++    family: 'mimo',
++    generation: 'mimo-v2.6',
++    id: 'mimo-v2.6-flash',
++    maxOutput: 131_072,
++    pricing: {
++      currency: 'CNY',
++      units: [
++        { name: 'textInput_cacheRead', rate: 0.02, strategy: 'fixed', unit: 'millionTokens' },
++        { name: 'textInput', rate: 1, strategy: 'fixed', unit: 'millionTokens' },
++        { name: 'textOutput', rate: 2, strategy: 'fixed', unit: 'millionTokens' },
++      ],
++    },
++    releasedAt: '2026-09-22',
++    settings: {
++      extendParams: ['enableReasoning'],
++      searchImpl: 'params',
++    },
++    type: 'chat',
++  },
+   {
+     abilities: {
+       functionCall: true,
+-- 
+2.39.5
+
+
+From 28fcff1e51271f1737bf9432ebc3cc5eb5df5030 Mon Sep 17 00:00:00 2001
+From: MaySoMusician <maysomusician@gmail.com>
+Date: Fri, 25 Sep 2026 04:09:38 +0000
+Subject: [PATCH 17/17] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20add=20text=20verb?=
+ =?UTF-8?q?osity=20to=20the=20composer=20model=20menu?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Mobile cannot reach the desktop verbosity slider. Offer Low, Medium, and High on the model menu, writing the same agent chat config the slider already uses.
+
+Co-authored-by: Cursor Grok 4.7 <cursoragent@cursor.com.invalid>
+---
+ .../ActionBar/Model/SelectorMenu.tsx          | 44 ++++++++++++--
+ .../ChatInput/ActionBar/Model/index.tsx       | 14 +++--
+ .../hooks/useTextVerbosityControl.ts          | 57 +++++++++++++++++++
+ 3 files changed, 106 insertions(+), 9 deletions(-)
+ create mode 100644 src/features/ChatInput/hooks/useTextVerbosityControl.ts
+
+diff --git a/src/features/ChatInput/ActionBar/Model/SelectorMenu.tsx b/src/features/ChatInput/ActionBar/Model/SelectorMenu.tsx
+index ff763c95e1..2a5b9bd949 100644
+--- a/src/features/ChatInput/ActionBar/Model/SelectorMenu.tsx
++++ b/src/features/ChatInput/ActionBar/Model/SelectorMenu.tsx
+@@ -24,6 +24,7 @@ import { ModelSwitchSubmenuPopup } from '@/features/ModelSwitchPanel';
+ import type { SelectorSubmenuItem } from '../../components/buildSelectorSubmenu';
+ import { buildSelectorSubmenu } from '../../components/buildSelectorSubmenu';
+ import type { ReasoningEffortControl } from '../../hooks/useReasoningEffortControl';
++import type { TextVerbosity, TextVerbosityControl } from '../../hooks/useTextVerbosityControl';
+ import { type DropdownPlacement } from '../context';
+ 
+ const styles = createStaticStyles(({ css }) => ({
+@@ -69,6 +70,12 @@ const SubmenuArrow = () => (
+   </svg>
+ );
+ 
++const TEXT_VERBOSITY_LABELS = {
++  high: 'High',
++  low: 'Low',
++  medium: 'Medium',
++} as const satisfies Record<TextVerbosity, string>;
++
+ interface SelectorMenuProps {
+   canSelectModel: boolean;
+   children: ReactNode;
+@@ -79,12 +86,13 @@ interface SelectorMenuProps {
+   openOnHover?: boolean;
+   placement?: DropdownPlacement;
+   provider: string;
++  verbosity: TextVerbosityControl;
+ }
+ 
+ /**
+- * Model + reasoning effort as one control: the collapsed menu names both
+- * current values, and each opens its own submenu — the model one mounting the
+- * full model panel. Mirrors the heterogeneous-agent selector so both chat
++ * Model, reasoning effort, and text verbosity as one control. The chip names the
++ * model and effort; each setting opens its own submenu, and the model one mounts
++ * the full model panel. Mirrors the heterogeneous-agent selector so both chat
+  * surfaces read the same way.
+  */
+ const SelectorMenu = memo<SelectorMenuProps>(
+@@ -98,6 +106,7 @@ const SelectorMenu = memo<SelectorMenuProps>(
+     openOnHover = false,
+     placement = 'topLeft',
+     provider,
++    verbosity,
+   }) => {
+     const { t } = useTranslation('chat');
+     const [open, setOpen] = useState(false);
+@@ -149,8 +158,35 @@ const SelectorMenu = memo<SelectorMenuProps>(
+           }),
+         );
+ 
++      if (verbosity.available)
++        rows.push(
++          buildSelectorSubmenu({
++            current: verbosity.value,
++            label: 'Text Verbosity',
++            onSelect: verbosity.select,
++            options: verbosity.levels.map((level) => ({
++              label: TEXT_VERBOSITY_LABELS[level],
++              value: level,
++            })),
++            valueLabel: TEXT_VERBOSITY_LABELS[verbosity.value],
++          }),
++        );
++
+       return rows;
+-    }, [effortKey, effortLevels, effortValue, hasReasoningMode, modeLevels, modeValue, select, t]);
++    }, [
++      effortKey,
++      effortLevels,
++      effortValue,
++      hasReasoningMode,
++      modeLevels,
++      modeValue,
++      select,
++      t,
++      verbosity.available,
++      verbosity.levels,
++      verbosity.select,
++      verbosity.value,
++    ]);
+ 
+     const modelMeta = (
+       <DropdownMenuItemExtra className={styles.meta}>
+diff --git a/src/features/ChatInput/ActionBar/Model/index.tsx b/src/features/ChatInput/ActionBar/Model/index.tsx
+index 584862d332..c4353039bc 100644
+--- a/src/features/ChatInput/ActionBar/Model/index.tsx
++++ b/src/features/ChatInput/ActionBar/Model/index.tsx
+@@ -12,6 +12,7 @@ import { useAgentId } from '../../hooks/useAgentId';
+ import { useAgentModelSelection } from '../../hooks/useAgentModelSelection';
+ import { useModelLockTooltip } from '../../hooks/useModelLockTooltip';
+ import { useReasoningEffortControl } from '../../hooks/useReasoningEffortControl';
++import { useTextVerbosityControl } from '../../hooks/useTextVerbosityControl';
+ import { useActionBarContext } from '../context';
+ import SelectorMenu from './SelectorMenu';
+ 
+@@ -44,8 +45,10 @@ const ModelSwitch = memo(() => {
+   // second action slot. Like the model, it pins to the active topic when there
+   // is one and edits the user's per-model default otherwise.
+   const effort = useReasoningEffortControl(model, provider, activeTopicId ?? undefined);
+-  // A pinned model still opens the menu when there is an effort to pick there.
+-  const interactive = canSelectModel || effort.hasReasoningParams;
++  const verbosity = useTextVerbosityControl(model, provider);
++  // A pinned model still opens the menu when effort or text verbosity can be changed.
++  const showSelectorMenu = effort.hasReasoningParams || verbosity.available;
++  const interactive = canSelectModel || showSelectorMenu;
+ 
+   const handleModelChange = useCallback(
+     async (params: { model: string; provider: string }) => {
+@@ -77,9 +80,9 @@ const ModelSwitch = memo(() => {
+ 
+   if (!canDisplayModel) return null;
+ 
+-  // Model + effort in one menu, so the two settings that decide how a turn runs
+-  // are picked in the same place (see SelectorMenu).
+-  if (effort.hasReasoningParams)
++  // Model, effort, and text verbosity in one menu, so the settings that decide
++  // how a turn runs are picked in the same place (see SelectorMenu).
++  if (showSelectorMenu)
+     return (
+       <SelectorMenu
+         canSelectModel={canSelectModel}
+@@ -88,6 +91,7 @@ const ModelSwitch = memo(() => {
+         model={model}
+         placement={dropdownPlacement ?? 'topRight'}
+         provider={provider}
++        verbosity={verbosity}
+         onModelChange={handleModelChange}
+       >
+         {trigger}
+diff --git a/src/features/ChatInput/hooks/useTextVerbosityControl.ts b/src/features/ChatInput/hooks/useTextVerbosityControl.ts
+new file mode 100644
+index 0000000000..4b57db4136
+--- /dev/null
++++ b/src/features/ChatInput/hooks/useTextVerbosityControl.ts
+@@ -0,0 +1,57 @@
++'use client';
++
++import { useCallback } from 'react';
++
++import { useAgentStore } from '@/store/agent';
++import { chatConfigByIdSelectors } from '@/store/agent/selectors';
++import { aiModelSelectors, useAiInfraStore } from '@/store/aiInfra';
++
++import { useAgentId } from './useAgentId';
++import { useUpdateAgentConfig } from './useUpdateAgentConfig';
++
++export const TEXT_VERBOSITY_LEVELS = ['low', 'medium', 'high'] as const;
++export type TextVerbosity = (typeof TEXT_VERBOSITY_LEVELS)[number];
++
++export interface TextVerbosityControl {
++  /** True when the current model card lists the `textVerbosity` extend param. */
++  available: boolean;
++  levels: readonly TextVerbosity[];
++  select: (value: TextVerbosity) => void;
++  /** Saved agent value, or Medium when nothing has been chosen yet. */
++  value: TextVerbosity;
++}
++
++const isTextVerbosity = (value: string | undefined): value is TextVerbosity =>
++  !!value && (TEXT_VERBOSITY_LEVELS as readonly string[]).includes(value);
++
++/**
++ * Output text verbosity for the chat-input model menu.
++ *
++ * Unlike reasoning effort, this stays on the agent chat config — the same field
++ * the desktop slider writes — so both controls stay in sync and the send path
++ * already forwards it when the model declares `textVerbosity`.
++ */
++export const useTextVerbosityControl = (model: string, provider: string): TextVerbosityControl => {
++  const agentId = useAgentId();
++  const extendParams = useAiInfraStore(aiModelSelectors.modelExtendParams(model, provider));
++  const saved = useAgentStore(
++    (s) => chatConfigByIdSelectors.getChatConfigById(agentId)(s).textVerbosity,
++  );
++  const { updateAgentChatConfig } = useUpdateAgentConfig();
++
++  const select = useCallback(
++    (value: TextVerbosity) => {
++      void updateAgentChatConfig({ textVerbosity: value }).catch((error) => {
++        console.error(error);
++      });
++    },
++    [updateAgentChatConfig],
++  );
++
++  return {
++    available: (extendParams ?? []).includes('textVerbosity'),
++    levels: TEXT_VERBOSITY_LEVELS,
++    select,
++    value: isTextVerbosity(saved) ? saved : 'medium',
++  };
++};
 -- 
 2.39.5
 
