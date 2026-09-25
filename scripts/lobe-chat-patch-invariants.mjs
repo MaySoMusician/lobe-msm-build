@@ -50,9 +50,9 @@ export const checks = [
       {
         file: 'Dockerfile',
         patterns: [
-          'pnpm config --global set --json fetchRetries 5',
-          'pnpm config --global set --json fetchRetryMintimeout 30000',
-          'pnpm config --global set --json networkConcurrency 8',
+          'ENV PNPM_CONFIG_FETCH_RETRIES=5',
+          'ENV PNPM_CONFIG_FETCH_RETRY_MINTIMEOUT=30000',
+          'ENV PNPM_CONFIG_NETWORK_CONCURRENCY=8',
         ],
       },
     ],
