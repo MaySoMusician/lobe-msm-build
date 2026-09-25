@@ -1,7 +1,7 @@
 From eb288dafdff560be2b81df4daaba658211a30fc8 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:57:40 +0000
-Subject: [PATCH 01/16] =?UTF-8?q?=F0=9F=94=92=EF=B8=8F=20build(docker):=20?=
+Subject: [PATCH 01/15] =?UTF-8?q?=F0=9F=94=92=EF=B8=8F=20build(docker):=20?=
  =?UTF-8?q?pin=20images=20and=20harden=20the=20image=20install?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -90,7 +90,7 @@ index 826fb06763..1dd00a6c7b 100644
 From 33ad89ffabba42b71fadaa3bdd7640df32511980 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:57:40 +0000
-Subject: [PATCH 02/16] =?UTF-8?q?=F0=9F=94=92=EF=B8=8F=20build(deps):=20en?=
+Subject: [PATCH 02/15] =?UTF-8?q?=F0=9F=94=92=EF=B8=8F=20build(deps):=20en?=
  =?UTF-8?q?force=20mature=20trusted=20dependency=20resolution?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -253,7 +253,7 @@ index 6b138d73da..cc27ad8103 100644
 From 3263980ac9359d458c7745de88f458c7e0d6ee2a Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:57:43 +0000
-Subject: [PATCH 03/16] =?UTF-8?q?=E2=9C=A8=20feat(openai):=20keep=20GPT=20?=
+Subject: [PATCH 03/15] =?UTF-8?q?=E2=9C=A8=20feat(openai):=20keep=20GPT=20?=
  =?UTF-8?q?requests=20non-streaming=20and=20summary-free?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -577,7 +577,7 @@ index a7ebcd844c..0b35e2e216 100644
 From 60989cd6069d8e8cd2676997278338c0967e1576 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:57:50 +0000
-Subject: [PATCH 04/16] =?UTF-8?q?=E2=9C=A8=20feat(openai):=20preserve=20de?=
+Subject: [PATCH 04/15] =?UTF-8?q?=E2=9C=A8=20feat(openai):=20preserve=20de?=
  =?UTF-8?q?tail=20when=20converting=20non-streaming=20responses?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -1015,7 +1015,7 @@ index b6c980b78e..adb525fce9 100644
 From c92ea7c13158a6ede4bd344965a33ea51534073c Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:57:56 +0000
-Subject: [PATCH 05/16] =?UTF-8?q?=F0=9F=90=9B=20fix(openai):=20use=20one?=
+Subject: [PATCH 05/15] =?UTF-8?q?=F0=9F=90=9B=20fix(openai):=20use=20one?=
  =?UTF-8?q?=20attempt=20and=20a=20one-hour=20timeout?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -1409,7 +1409,7 @@ index 7eb9ee3901..98723dba29 100644
 From f746596d972a92e21d1888fd42b5fd018d649d02 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:58:04 +0000
-Subject: [PATCH 06/16] =?UTF-8?q?=E2=9C=A8=20feat(agent):=20keep=20prompts?=
+Subject: [PATCH 06/15] =?UTF-8?q?=E2=9C=A8=20feat(agent):=20keep=20prompts?=
  =?UTF-8?q?=20explicitly=20user-controlled?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -2019,7 +2019,7 @@ index 920769160f..80262fc772 100644
 From ffd47554a50bbe1ee62a057048c2596807ea5958 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:58:13 +0000
-Subject: [PATCH 07/16] =?UTF-8?q?=E2=9C=A8=20feat(agent):=20keep=20tools?=
+Subject: [PATCH 07/15] =?UTF-8?q?=E2=9C=A8=20feat(agent):=20keep=20tools?=
  =?UTF-8?q?=20explicitly=20user-controlled?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -2325,7 +2325,7 @@ index c7240e961f..d486b4efee 100644
 From 402c2b218246ce39d87b024168ac9078f34ffdd2 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:58:21 +0000
-Subject: [PATCH 08/16] =?UTF-8?q?=E2=9C=A8=20feat(agent):=20summarize=20to?=
+Subject: [PATCH 08/15] =?UTF-8?q?=E2=9C=A8=20feat(agent):=20summarize=20to?=
  =?UTF-8?q?pics=20in=20the=20conversation=20language?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -2370,7 +2370,7 @@ index cc24fb2baa..151b64af37 100644
 From 27d4e84b77c3de10eddb9fe816532be17cbf8dd9 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:58:27 +0000
-Subject: [PATCH 09/16] =?UTF-8?q?=F0=9F=90=9B=20fix(qstash):=20construct?=
+Subject: [PATCH 09/15] =?UTF-8?q?=F0=9F=90=9B=20fix(qstash):=20construct?=
  =?UTF-8?q?=20the=20client=20lazily=20and=20drop=20debug=20logs?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -2559,7 +2559,7 @@ index c113c0bf70..58ff24d9b3 100644
 From 390eca02c0b49da6f3807358f7398fa8d2320e4e Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:58:34 +0000
-Subject: [PATCH 10/16] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20keep=20patched=20?=
+Subject: [PATCH 10/15] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20keep=20patched=20?=
  =?UTF-8?q?fonts=20at=20the=20app=20boundary?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -2814,7 +2814,7 @@ index 7bcdcc01bd..997cefc067 100644
 From ff108f26fddf545d10c3149f9f604d675d3a3ac5 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:58:41 +0000
-Subject: [PATCH 11/16] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20offer=20only=20En?=
+Subject: [PATCH 11/15] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20offer=20only=20En?=
  =?UTF-8?q?glish=20and=20Japanese?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -2900,7 +2900,7 @@ index 5dbaf4408b..cdad3d1f89 100644
 From ef898f804d1d5a33d5b914924c459bad320192be Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:58:48 +0000
-Subject: [PATCH 12/16] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20keep=20user-messa?=
+Subject: [PATCH 12/15] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20keep=20user-messa?=
  =?UTF-8?q?ge=20edits=20manual?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -3067,7 +3067,7 @@ index d5e11d7aa1..e72383895b 100644
 From d0765890b2ef1dbe16ba443a8758743a91032863 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:58:55 +0000
-Subject: [PATCH 13/16] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20show=20exact=20to?=
+Subject: [PATCH 13/15] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20show=20exact=20to?=
  =?UTF-8?q?ken=20counts?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -3170,7 +3170,7 @@ index cab4c39d72..e0b70dee85 100644
 From 8f8868fdf054664bbdac96f2361040edca39dcba Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:59:02 +0000
-Subject: [PATCH 14/16] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20use=20MSM=20defau?=
+Subject: [PATCH 14/15] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20use=20MSM=20defau?=
  =?UTF-8?q?lts=20for=20model=20and=20share=20panels?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -3257,7 +3257,7 @@ index 1958c6b9fd..f9258310c5 100644
 From 3fd61199c4e6fb0d7983cac0eb539e5056b48e3f Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:59:09 +0000
-Subject: [PATCH 15/16] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20shorten=20topic?=
+Subject: [PATCH 15/15] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20shorten=20topic?=
  =?UTF-8?q?=20previews=20and=20honor=20modifier-clicks?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -3393,178 +3393,6 @@ index 20f1b19d3d..f10470bbb5 100644
          </Text>
        </Flexbox>
  
--- 
-2.39.5
-
-
-From 81a64808bbcce140f9405619ed2fa1ca7ef472f4 Mon Sep 17 00:00:00 2001
-From: MaySoMusician <maysomusician@gmail.com>
-Date: Thu, 24 Sep 2026 06:59:16 +0000
-Subject: [PATCH 16/16] =?UTF-8?q?=F0=9F=90=9B=20fix(mobile):=20show=20the?=
- =?UTF-8?q?=20working=20panel=20in=20the=20current=20sidebar?=
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-Co-authored-by: Cursor GPT-5.6 Sol <cursoragent@cursor.com.invalid>
----
- .../ChatInput/ActionBar/Params/Controls.tsx   |  1 -
- .../Conversation/WorkingSidebar/index.tsx     |  8 ++-
- src/routes/(mobile)/chat/_layout/index.tsx    | 59 +++++++++++++++++--
- .../chat/features/ChatHeader/index.tsx        |  2 +
- 4 files changed, 61 insertions(+), 9 deletions(-)
-
-diff --git a/src/features/ChatInput/ActionBar/Params/Controls.tsx b/src/features/ChatInput/ActionBar/Params/Controls.tsx
-index 6847cffff8..8fec5d697f 100644
---- a/src/features/ChatInput/ActionBar/Params/Controls.tsx
-+++ b/src/features/ChatInput/ActionBar/Params/Controls.tsx
-@@ -106,7 +106,6 @@ const styles = createStaticStyles(({ css }) => ({
-   `,
-   body: css`
-     overflow-y: auto;
--    overscroll-behavior: contain;
-     display: flex;
-     flex: 1 1 auto;
-     flex-direction: column;
-diff --git a/src/features/Conversation/WorkingSidebar/index.tsx b/src/features/Conversation/WorkingSidebar/index.tsx
-index b8e3b48f1b..de6dc647c2 100644
---- a/src/features/Conversation/WorkingSidebar/index.tsx
-+++ b/src/features/Conversation/WorkingSidebar/index.tsx
-@@ -214,9 +214,12 @@ interface AgentWorkingSidebarProps {
-    * portal. Undefined until the layout has measured it.
-    */
-   availableWidth?: number;
-+  /** Hide the desktop overview card when the host only supports the full panel. */
-+  overviewEnabled?: boolean;
- }
- 
--const AgentWorkingSidebar = memo<AgentWorkingSidebarProps>(({ availableWidth }) => {
-+const AgentWorkingSidebar = memo<AgentWorkingSidebarProps>((props) => {
-+  const { availableWidth, overviewEnabled = true } = props;
-   const { t } = useTranslation(['chat', 'setting']);
-   // Keep the panel frame + tabs on the navigation commit; the pane contents
-   // mount in a deferred follow-up pass behind a skeleton.
-@@ -969,7 +972,7 @@ const AgentWorkingSidebar = memo<AgentWorkingSidebarProps>(({ availableWidth })
-   const overviewPanel = (
-     <OverviewSlot>
-       <AnimatePresence initial={false}>
--        {showWorkingOverview && overviewFits && (
-+        {overviewEnabled && showWorkingOverview && overviewFits && (
-           <m.div
-             animate={{ width: overviewWidth + 32 }}
-             className={styles.overviewSlot}
-@@ -1075,6 +1078,7 @@ const AgentWorkingSidebar = memo<AgentWorkingSidebarProps>(({ availableWidth })
-               className={styles.close}
-               icon={PanelRightCloseIcon}
-               size={DESKTOP_HEADER_ICON_SMALL_SIZE}
-+              title={t('workingPanel.tabs.closePanel')}
-               onClick={() => toggleRightPanel(false)}
-             />
-           </Flexbox>
-diff --git a/src/routes/(mobile)/chat/_layout/index.tsx b/src/routes/(mobile)/chat/_layout/index.tsx
-index 0429a0a745..2abd024999 100644
---- a/src/routes/(mobile)/chat/_layout/index.tsx
-+++ b/src/routes/(mobile)/chat/_layout/index.tsx
-@@ -5,9 +5,12 @@ import { Outlet } from 'react-router';
- 
- import MobileContentLayout from '@/components/server/MobileNavLayout';
- import { AgentNotFoundGuard } from '@/features/AgentNotFound';
-+import AgentWorkingSidebar from '@/features/Conversation/WorkingSidebar';
- import { useInitAgentConfig } from '@/hooks/useInitAgentConfig';
- import AgentIdSync from '@/routes/(main)/agent/_layout/AgentIdSync';
- import ChatHeader from '@/routes/(mobile)/chat/features/ChatHeader';
-+import { useGlobalStore } from '@/store/global';
-+import { systemStatusSelectors } from '@/store/global/selectors';
- 
- import { styles } from './style';
- 
-@@ -16,16 +19,60 @@ const Layout: FC = () => {
- 
-   return (
-     <>
--      <MobileContentLayout className={styles.mainContainer} header={<ChatHeader />}>
--        {/* Same 404 fallback as the desktop agent layout: only the content
-+      <div style={{ position: 'relative', height: '100%' }}>
-+        <MobileContentLayout className={styles.mainContainer} header={<ChatHeader />}>
-+          {/* Same 404 fallback as the desktop agent layout: only the content
-             area collapses when the routed agent is gone or turned private. */}
--        <AgentNotFoundGuard>
--          <Outlet />
--        </AgentNotFoundGuard>
--      </MobileContentLayout>
-+          <AgentNotFoundGuard>
-+            <Outlet />
-+          </AgentNotFoundGuard>
-+        </MobileContentLayout>
-+        <Overlay />
-+      </div>
-+      <div
-+        style={{
-+          position: 'absolute',
-+          right: 0,
-+          overflowY: 'auto',
-+          maxHeight: '100vh',
-+          zIndex: 999999,
-+        }}
-+      >
-+        <AgentWorkingSidebar overviewEnabled={false} />
-+      </div>
-       <AgentIdSync />
-     </>
-   );
- };
- 
-+const Overlay = () => {
-+  const [sidebarShown, toggleRightPanel] = useGlobalStore((s) => [
-+    systemStatusSelectors.showRightPanel(s),
-+    s.toggleRightPanel,
-+  ]);
-+  return (
-+    sidebarShown && (
-+      <div
-+        style={{
-+          position: 'absolute',
-+          top: 0,
-+          left: 0,
-+          width: '100%',
-+          height: '100%',
-+          background: 'black',
-+          opacity: 0.8,
-+          zIndex: 999998,
-+        }}
-+        onClickCapture={(e) => {
-+          if (sidebarShown) {
-+            e.preventDefault();
-+            toggleRightPanel();
-+            e.stopPropagation();
-+          }
-+        }}
-+      />
-+    )
-+  );
-+};
-+
- export default Layout;
-diff --git a/src/routes/(mobile)/chat/features/ChatHeader/index.tsx b/src/routes/(mobile)/chat/features/ChatHeader/index.tsx
-index 2d56473f95..f2fbe91e67 100644
---- a/src/routes/(mobile)/chat/features/ChatHeader/index.tsx
-+++ b/src/routes/(mobile)/chat/features/ChatHeader/index.tsx
-@@ -7,6 +7,7 @@ import { memo, useState } from 'react';
- import TopicCommentButton from '@/features/TopicComment/TopicCommentButton';
- import { useQueryRoute } from '@/hooks/useQueryRoute';
- import ShareButton from '@/routes/(main)/agent/features/Conversation/Header/ShareButton';
-+import WorkingPanelToggle from '@/routes/(main)/agent/features/Conversation/Header/WorkingPanelToggle';
- 
- import ChatHeaderTitle from './ChatHeaderTitle';
- 
-@@ -23,6 +24,7 @@ const MobileHeader = memo(() => {
-         <Flexbox horizontal align={'center'} gap={4}>
-           <TopicCommentButton mobile />
-           <ShareButton mobile open={open} setOpen={setOpen} />
-+          <WorkingPanelToggle />
-         </Flexbox>
-       }
-       onBackClick={() =>
 -- 
 2.39.5
 
