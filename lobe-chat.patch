@@ -1,7 +1,7 @@
 From 7efc93ca83df9ffd310b4ef94d1d7b1e3cc8c36e Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:57:40 +0000
-Subject: [PATCH 01/16] =?UTF-8?q?=F0=9F=94=92=EF=B8=8F=20build(docker):=20?=
+Subject: [PATCH 01/17] =?UTF-8?q?=F0=9F=94=92=EF=B8=8F=20build(docker):=20?=
  =?UTF-8?q?pin=20images=20and=20harden=20the=20image=20install?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -95,7 +95,7 @@ index 826fb06763..a385465b34 100644
 From 2da0eb8ec3aac3176782bb6dd7527df715c68b6b Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 7 Oct 2026 16:25:57 +0000
-Subject: [PATCH 02/16] =?UTF-8?q?=F0=9F=94=92=EF=B8=8F=20build(deps):=20en?=
+Subject: [PATCH 02/17] =?UTF-8?q?=F0=9F=94=92=EF=B8=8F=20build(deps):=20en?=
  =?UTF-8?q?force=20mature=20trusted=20dependency=20resolution?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -231,7 +231,7 @@ index fd0656b89b..679e0fe014 100644
 From 5d86d1cb0ab23863f0457e71fdf52f20e4e325de Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 7 Oct 2026 16:25:57 +0000
-Subject: [PATCH 03/16] =?UTF-8?q?=E2=9C=A8=20feat(openai):=20keep=20GPT=20?=
+Subject: [PATCH 03/17] =?UTF-8?q?=E2=9C=A8=20feat(openai):=20keep=20GPT=20?=
  =?UTF-8?q?requests=20non-streaming=20and=20summary-free?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -557,7 +557,7 @@ index a7ebcd844c..0b35e2e216 100644
 From 0cee292ff708a9945c01d4585f37bc626d4083d0 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 7 Oct 2026 16:25:57 +0000
-Subject: [PATCH 04/16] =?UTF-8?q?=E2=9C=A8=20feat(openai):=20preserve=20de?=
+Subject: [PATCH 04/17] =?UTF-8?q?=E2=9C=A8=20feat(openai):=20preserve=20de?=
  =?UTF-8?q?tail=20when=20converting=20non-streaming=20responses?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -1009,7 +1009,7 @@ index c580dcd260..adb525fce9 100644
 From 7a1dc0d5c872b60b00f7af9b95e0acb7eef6e540 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 7 Oct 2026 16:25:57 +0000
-Subject: [PATCH 05/16] =?UTF-8?q?=F0=9F=90=9B=20fix(openai):=20use=20one?=
+Subject: [PATCH 05/17] =?UTF-8?q?=F0=9F=90=9B=20fix(openai):=20use=20one?=
  =?UTF-8?q?=20attempt=20and=20a=20one-hour=20timeout?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -1415,7 +1415,7 @@ index 7eb9ee3901..98723dba29 100644
 From c0a4544d7a27b2092febaf4ea2e42b1e6c7fb899 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 7 Oct 2026 16:25:57 +0000
-Subject: [PATCH 06/16] =?UTF-8?q?=E2=9C=A8=20feat(agent):=20keep=20prompts?=
+Subject: [PATCH 06/17] =?UTF-8?q?=E2=9C=A8=20feat(agent):=20keep=20prompts?=
  =?UTF-8?q?=20explicitly=20user-controlled?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -2025,7 +2025,7 @@ index 76317a8af7..45589cd5ba 100644
 From 4579a49b167a8d5d5b269375e616d4f0b6114130 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:58:13 +0000
-Subject: [PATCH 07/16] =?UTF-8?q?=E2=9C=A8=20feat(agent):=20keep=20tools?=
+Subject: [PATCH 07/17] =?UTF-8?q?=E2=9C=A8=20feat(agent):=20keep=20tools?=
  =?UTF-8?q?=20explicitly=20user-controlled?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -2331,7 +2331,7 @@ index c7240e961f..d486b4efee 100644
 From ba82973c0c3691f830467fdb9ba548f28fd87274 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:58:21 +0000
-Subject: [PATCH 08/16] =?UTF-8?q?=E2=9C=A8=20feat(agent):=20summarize=20to?=
+Subject: [PATCH 08/17] =?UTF-8?q?=E2=9C=A8=20feat(agent):=20summarize=20to?=
  =?UTF-8?q?pics=20in=20the=20conversation=20language?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -2376,7 +2376,7 @@ index cc24fb2baa..151b64af37 100644
 From a1859272c3ed7bb9d5fda2e06936c2501067e6d8 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 7 Oct 2026 16:25:57 +0000
-Subject: [PATCH 09/16] =?UTF-8?q?=F0=9F=90=9B=20fix(qstash):=20construct?=
+Subject: [PATCH 09/17] =?UTF-8?q?=F0=9F=90=9B=20fix(qstash):=20construct?=
  =?UTF-8?q?=20the=20client=20lazily=20and=20drop=20debug=20logs?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -2566,7 +2566,7 @@ index c113c0bf70..58ff24d9b3 100644
 From 4c3e68398eaf185d14cba2ca3ca84bbebd8519f5 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:58:34 +0000
-Subject: [PATCH 10/16] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20keep=20patched=20?=
+Subject: [PATCH 10/17] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20keep=20patched=20?=
  =?UTF-8?q?fonts=20at=20the=20app=20boundary?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -2821,7 +2821,7 @@ index 7bcdcc01bd..997cefc067 100644
 From f2c0b943c63463215a2131eeda7a8f7308c59a13 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:58:41 +0000
-Subject: [PATCH 11/16] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20offer=20only=20En?=
+Subject: [PATCH 11/17] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20offer=20only=20En?=
  =?UTF-8?q?glish=20and=20Japanese?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -2907,7 +2907,7 @@ index 5dbaf4408b..cdad3d1f89 100644
 From 9287184a1e5307b90a779f4261111a076d8f2fae Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 7 Oct 2026 16:25:57 +0000
-Subject: [PATCH 12/16] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20keep=20user-messa?=
+Subject: [PATCH 12/17] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20keep=20user-messa?=
  =?UTF-8?q?ge=20edits=20manual?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -3094,7 +3094,7 @@ index d5e11d7aa1..e72383895b 100644
 From 06006d73ec957f6fb92482e3729dab1f37946a40 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:58:55 +0000
-Subject: [PATCH 13/16] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20show=20exact=20to?=
+Subject: [PATCH 13/17] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20show=20exact=20to?=
  =?UTF-8?q?ken=20counts?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -3197,7 +3197,7 @@ index ae72e8679b..e33186139c 100644
 From 7be2f906db32055c9bcad87a798fc382551b1999 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 7 Oct 2026 16:25:57 +0000
-Subject: [PATCH 14/16] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20use=20MSM=20defau?=
+Subject: [PATCH 14/17] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20use=20MSM=20defau?=
  =?UTF-8?q?lts=20for=20model=20and=20share=20panels?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -3284,7 +3284,7 @@ index 8c85372dbf..9f129f6bc8 100644
 From 1d747f41e9fd95cb087fe7e10ba3b5ab930f9eda Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:59:09 +0000
-Subject: [PATCH 15/16] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20shorten=20topic?=
+Subject: [PATCH 15/17] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20shorten=20topic?=
  =?UTF-8?q?=20previews=20and=20honor=20modifier-clicks?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -3427,7 +3427,7 @@ index 20f1b19d3d..f10470bbb5 100644
 From 3199fd59efa641eb5b012a1521bd4407b924cc49 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 25 Sep 2026 04:09:38 +0000
-Subject: [PATCH 16/16] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20add=20text=20verb?=
+Subject: [PATCH 16/17] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20add=20text=20verb?=
  =?UTF-8?q?osity=20to=20the=20composer=20model=20menu?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -3639,6 +3639,93 @@ index 0000000000..4b57db4136
 +    value: isTextVerbosity(saved) ? saved : 'medium',
 +  };
 +};
+-- 
+2.39.5
+
+
+From b4f66e9d303bf9d4db2f75798531f5074c455080 Mon Sep 17 00:00:00 2001
+From: MaySoMusician <maysomusician@gmail.com>
+Date: Thu, 8 Oct 2026 13:47:42 +0000
+Subject: [PATCH 17/17] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20open=20usage=20de?=
+ =?UTF-8?q?tails=20on=20click=20and=20show=20the=20full=20count?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+The footer token number no longer toggles a short format. Hover and click both open the detail card.
+
+Co-authored-by: Cursor Grok 4.7 <cursoragent@cursor.com.invalid>
+---
+ .../Extras/Usage/UsageDetail/index.tsx        | 28 +++----------------
+ 1 file changed, 4 insertions(+), 24 deletions(-)
+
+diff --git a/src/features/Conversation/Messages/components/Extras/Usage/UsageDetail/index.tsx b/src/features/Conversation/Messages/components/Extras/Usage/UsageDetail/index.tsx
+index 06657399fd..586392dc30 100644
+--- a/src/features/Conversation/Messages/components/Extras/Usage/UsageDetail/index.tsx
++++ b/src/features/Conversation/Messages/components/Extras/Usage/UsageDetail/index.tsx
+@@ -11,7 +11,7 @@ import InfoTooltip from '@/components/InfoTooltip';
+ import { aiModelSelectors, useAiInfraStore } from '@/store/aiInfra';
+ import { useGlobalStore } from '@/store/global';
+ import { systemStatusSelectors } from '@/store/global/selectors';
+-import { formatNumber, formatShortenNumber } from '@/utils/format';
++import { formatNumber } from '@/utils/format';
+ 
+ import AnimatedNumber from './AnimatedNumber';
+ import ModelCard from './ModelCard';
+@@ -29,10 +29,6 @@ interface TokenDetailProps {
+ const TokenDetail = memo<TokenDetailProps>(({ usage, performance, model, provider }) => {
+   const { t } = useTranslation('chat');
+ 
+-  // Use systemStatus to manage short-format display state
+-  const isShortFormat = useGlobalStore(systemStatusSelectors.tokenDisplayFormatShort);
+-  const updateSystemStatus = useGlobalStore((s) => s.updateSystemStatus);
+-
+   const modelCard = useAiInfraStore(aiModelSelectors.getModelCard(model, provider));
+   const isShowCredit = useGlobalStore(systemStatusSelectors.isShowCredit) && !!modelCard?.pricing;
+ 
+@@ -145,7 +141,7 @@ const TokenDetail = memo<TokenDetailProps>(({ usage, performance, model, provide
+   return (
+     <Popover
+       placement={'top'}
+-      trigger="hover"
++      trigger={['hover', 'click']}
+       content={
+         <Flexbox gap={8} style={{ minWidth: 200 }}>
+           {modelCard && <ModelCard {...modelCard} provider={provider} />}
+@@ -235,31 +231,15 @@ const TokenDetail = memo<TokenDetailProps>(({ usage, performance, model, provide
+         </Flexbox>
+       }
+     >
+-      <Center
+-        horizontal
+-        gap={2}
+-        style={{ cursor: 'pointer' }}
+-        onClick={(e) => {
+-          // Prevent Popover from closing and toggle the format
+-          e.preventDefault();
+-          e.stopPropagation();
+-          updateSystemStatus({ tokenDisplayFormatShort: !isShortFormat });
+-        }}
+-      >
++      <Center horizontal gap={2} style={{ cursor: 'pointer' }}>
+         <Icon icon={isShowCredit ? BadgeCent : CoinsIcon} />
+         <AnimatedNumber
+           duration={1500}
+           // Force remount when switching between token/credit to prevent unwanted animation
+           // See: https://github.com/lobehub/lobe-chat/pull/10098
++          formatter={(value) => new Intl.NumberFormat('en-US').format(Math.round(value))}
+           key={isShowCredit ? 'credit' : 'token'}
+           value={totalCount}
+-          formatter={(value) => {
+-            const roundedValue = Math.round(value);
+-            if (isShortFormat) {
+-              return (formatShortenNumber(roundedValue) as string).toLowerCase?.();
+-            }
+-            return new Intl.NumberFormat('en-US').format(roundedValue);
+-          }}
+         />
+       </Center>
+     </Popover>
 -- 
 2.39.5
 
