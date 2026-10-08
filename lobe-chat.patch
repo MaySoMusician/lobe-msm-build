@@ -1,7 +1,7 @@
 From 7efc93ca83df9ffd310b4ef94d1d7b1e3cc8c36e Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:57:40 +0000
-Subject: [PATCH 01/17] =?UTF-8?q?=F0=9F=94=92=EF=B8=8F=20build(docker):=20?=
+Subject: [PATCH 01/18] =?UTF-8?q?=F0=9F=94=92=EF=B8=8F=20build(docker):=20?=
  =?UTF-8?q?pin=20images=20and=20harden=20the=20image=20install?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -95,7 +95,7 @@ index 826fb06763..a385465b34 100644
 From 2da0eb8ec3aac3176782bb6dd7527df715c68b6b Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 7 Oct 2026 16:25:57 +0000
-Subject: [PATCH 02/17] =?UTF-8?q?=F0=9F=94=92=EF=B8=8F=20build(deps):=20en?=
+Subject: [PATCH 02/18] =?UTF-8?q?=F0=9F=94=92=EF=B8=8F=20build(deps):=20en?=
  =?UTF-8?q?force=20mature=20trusted=20dependency=20resolution?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -231,7 +231,7 @@ index fd0656b89b..679e0fe014 100644
 From 5d86d1cb0ab23863f0457e71fdf52f20e4e325de Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 7 Oct 2026 16:25:57 +0000
-Subject: [PATCH 03/17] =?UTF-8?q?=E2=9C=A8=20feat(openai):=20keep=20GPT=20?=
+Subject: [PATCH 03/18] =?UTF-8?q?=E2=9C=A8=20feat(openai):=20keep=20GPT=20?=
  =?UTF-8?q?requests=20non-streaming=20and=20summary-free?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -557,7 +557,7 @@ index a7ebcd844c..0b35e2e216 100644
 From 0cee292ff708a9945c01d4585f37bc626d4083d0 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 7 Oct 2026 16:25:57 +0000
-Subject: [PATCH 04/17] =?UTF-8?q?=E2=9C=A8=20feat(openai):=20preserve=20de?=
+Subject: [PATCH 04/18] =?UTF-8?q?=E2=9C=A8=20feat(openai):=20preserve=20de?=
  =?UTF-8?q?tail=20when=20converting=20non-streaming=20responses?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -1009,7 +1009,7 @@ index c580dcd260..adb525fce9 100644
 From 7a1dc0d5c872b60b00f7af9b95e0acb7eef6e540 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 7 Oct 2026 16:25:57 +0000
-Subject: [PATCH 05/17] =?UTF-8?q?=F0=9F=90=9B=20fix(openai):=20use=20one?=
+Subject: [PATCH 05/18] =?UTF-8?q?=F0=9F=90=9B=20fix(openai):=20use=20one?=
  =?UTF-8?q?=20attempt=20and=20a=20one-hour=20timeout?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -1415,7 +1415,7 @@ index 7eb9ee3901..98723dba29 100644
 From c0a4544d7a27b2092febaf4ea2e42b1e6c7fb899 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 7 Oct 2026 16:25:57 +0000
-Subject: [PATCH 06/17] =?UTF-8?q?=E2=9C=A8=20feat(agent):=20keep=20prompts?=
+Subject: [PATCH 06/18] =?UTF-8?q?=E2=9C=A8=20feat(agent):=20keep=20prompts?=
  =?UTF-8?q?=20explicitly=20user-controlled?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -2025,7 +2025,7 @@ index 76317a8af7..45589cd5ba 100644
 From 4579a49b167a8d5d5b269375e616d4f0b6114130 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:58:13 +0000
-Subject: [PATCH 07/17] =?UTF-8?q?=E2=9C=A8=20feat(agent):=20keep=20tools?=
+Subject: [PATCH 07/18] =?UTF-8?q?=E2=9C=A8=20feat(agent):=20keep=20tools?=
  =?UTF-8?q?=20explicitly=20user-controlled?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -2331,7 +2331,7 @@ index c7240e961f..d486b4efee 100644
 From ba82973c0c3691f830467fdb9ba548f28fd87274 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:58:21 +0000
-Subject: [PATCH 08/17] =?UTF-8?q?=E2=9C=A8=20feat(agent):=20summarize=20to?=
+Subject: [PATCH 08/18] =?UTF-8?q?=E2=9C=A8=20feat(agent):=20summarize=20to?=
  =?UTF-8?q?pics=20in=20the=20conversation=20language?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -2376,7 +2376,7 @@ index cc24fb2baa..151b64af37 100644
 From a1859272c3ed7bb9d5fda2e06936c2501067e6d8 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 7 Oct 2026 16:25:57 +0000
-Subject: [PATCH 09/17] =?UTF-8?q?=F0=9F=90=9B=20fix(qstash):=20construct?=
+Subject: [PATCH 09/18] =?UTF-8?q?=F0=9F=90=9B=20fix(qstash):=20construct?=
  =?UTF-8?q?=20the=20client=20lazily=20and=20drop=20debug=20logs?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -2566,7 +2566,7 @@ index c113c0bf70..58ff24d9b3 100644
 From 4c3e68398eaf185d14cba2ca3ca84bbebd8519f5 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:58:34 +0000
-Subject: [PATCH 10/17] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20keep=20patched=20?=
+Subject: [PATCH 10/18] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20keep=20patched=20?=
  =?UTF-8?q?fonts=20at=20the=20app=20boundary?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -2821,7 +2821,7 @@ index 7bcdcc01bd..997cefc067 100644
 From f2c0b943c63463215a2131eeda7a8f7308c59a13 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:58:41 +0000
-Subject: [PATCH 11/17] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20offer=20only=20En?=
+Subject: [PATCH 11/18] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20offer=20only=20En?=
  =?UTF-8?q?glish=20and=20Japanese?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -2907,7 +2907,7 @@ index 5dbaf4408b..cdad3d1f89 100644
 From 9287184a1e5307b90a779f4261111a076d8f2fae Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 7 Oct 2026 16:25:57 +0000
-Subject: [PATCH 12/17] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20keep=20user-messa?=
+Subject: [PATCH 12/18] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20keep=20user-messa?=
  =?UTF-8?q?ge=20edits=20manual?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -3094,7 +3094,7 @@ index d5e11d7aa1..e72383895b 100644
 From 06006d73ec957f6fb92482e3729dab1f37946a40 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:58:55 +0000
-Subject: [PATCH 13/17] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20show=20exact=20to?=
+Subject: [PATCH 13/18] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20show=20exact=20to?=
  =?UTF-8?q?ken=20counts?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -3197,7 +3197,7 @@ index ae72e8679b..e33186139c 100644
 From 7be2f906db32055c9bcad87a798fc382551b1999 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 7 Oct 2026 16:25:57 +0000
-Subject: [PATCH 14/17] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20use=20MSM=20defau?=
+Subject: [PATCH 14/18] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20use=20MSM=20defau?=
  =?UTF-8?q?lts=20for=20model=20and=20share=20panels?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -3284,7 +3284,7 @@ index 8c85372dbf..9f129f6bc8 100644
 From 1d747f41e9fd95cb087fe7e10ba3b5ab930f9eda Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:59:09 +0000
-Subject: [PATCH 15/17] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20shorten=20topic?=
+Subject: [PATCH 15/18] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20shorten=20topic?=
  =?UTF-8?q?=20previews=20and=20honor=20modifier-clicks?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -3427,7 +3427,7 @@ index 20f1b19d3d..f10470bbb5 100644
 From 3199fd59efa641eb5b012a1521bd4407b924cc49 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 25 Sep 2026 04:09:38 +0000
-Subject: [PATCH 16/17] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20add=20text=20verb?=
+Subject: [PATCH 16/18] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20add=20text=20verb?=
  =?UTF-8?q?osity=20to=20the=20composer=20model=20menu?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -3646,7 +3646,7 @@ index 0000000000..4b57db4136
 From b4f66e9d303bf9d4db2f75798531f5074c455080 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 8 Oct 2026 13:47:42 +0000
-Subject: [PATCH 17/17] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20open=20usage=20de?=
+Subject: [PATCH 17/18] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20open=20usage=20de?=
  =?UTF-8?q?tails=20on=20click=20and=20show=20the=20full=20count?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -3726,6 +3726,570 @@ index 06657399fd..586392dc30 100644
          />
        </Center>
      </Popover>
+-- 
+2.39.5
+
+
+From e4c13e8c3dacf52aaca805f222f071b82da90d4d Mon Sep 17 00:00:00 2001
+From: MaySoMusician <maysomusician@gmail.com>
+Date: Thu, 8 Oct 2026 15:26:32 +0000
+Subject: [PATCH 18/18] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20show=20USD=20cost?=
+ =?UTF-8?q?=20in=20the=20usage=20popover?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+The credit tab was an internal counter, so the popover now shows dollars from each model's published price list.
+
+Co-authored-by: Cursor Grok 4.7 <cursoragent@cursor.com.invalid>
+---
+ locales/en-US/chat.json                       |  12 +-
+ packages/locales/src/default/chat.ts          |  13 +-
+ packages/model-runtime/package.json           |   1 +
+ .../Extras/Usage/UsageDetail/ModelCard.tsx    |   6 +-
+ .../Usage/UsageDetail/TokenProgress.tsx       |  93 +++++++-------
+ .../Extras/Usage/UsageDetail/index.tsx        |  82 +++++++------
+ .../Extras/Usage/UsageDetail/usageCost.ts     | 113 ++++++++++++++++++
+ 7 files changed, 225 insertions(+), 95 deletions(-)
+ create mode 100644 src/features/Conversation/Messages/components/Extras/Usage/UsageDetail/usageCost.ts
+
+diff --git a/locales/en-US/chat.json b/locales/en-US/chat.json
+index 1a16b4c29d..b610e49615 100644
+--- a/locales/en-US/chat.json
++++ b/locales/en-US/chat.json
+@@ -1529,15 +1529,15 @@
+   "messageLongCollapse.expand": "Show more",
+   "messages.dm.sentTo": "Visible only to {{name}}",
+   "messages.dm.title": "DM",
+-  "messages.modelCard.credit": "Credits",
++  "messages.modelCard.credit": "USD",
+   "messages.modelCard.creditPricing": "Pricing",
+-  "messages.modelCard.creditTooltip": "For counting, we treat $1 as 1M credits. Example: $3/M tokens → 3 credits per token.",
+-  "messages.modelCard.pricing.inputCachedTokens": "Cached input {{amount}} credits · ${{amount}}/M",
++  "messages.modelCard.creditTooltip": "Estimated USD cost from the published model price, including cache and long-context tiers.",
++  "messages.modelCard.pricing.inputCachedTokens": "Cached input ${{amount}}/M",
+   "messages.modelCard.pricing.inputCharts": "${{amount}}/M characters",
+   "messages.modelCard.pricing.inputMinutes": "${{amount}}/minute",
+-  "messages.modelCard.pricing.inputTokens": "Input {{amount}} credits · ${{amount}}/M",
+-  "messages.modelCard.pricing.outputTokens": "Output {{amount}} credits · ${{amount}}/M",
+-  "messages.modelCard.pricing.writeCacheInputTokens": "Cache write {{amount}} credits · ${{amount}}/M",
++  "messages.modelCard.pricing.inputTokens": "Input ${{amount}}/M",
++  "messages.modelCard.pricing.outputTokens": "Output ${{amount}}/M",
++  "messages.modelCard.pricing.writeCacheInputTokens": "Cache write ${{amount}}/M",
+   "messages.tokenDetails.average": "Average unit price",
+   "messages.tokenDetails.cacheRate": "Cache rate",
+   "messages.tokenDetails.cliCredits.title": "{{value}} Credits",
+diff --git a/packages/locales/src/default/chat.ts b/packages/locales/src/default/chat.ts
+index bb2754464c..75beb546fc 100644
+--- a/packages/locales/src/default/chat.ts
++++ b/packages/locales/src/default/chat.ts
+@@ -909,17 +909,16 @@ export default {
+   'messageLongCollapse.expand': 'Show more',
+   'messages.dm.sentTo': 'Visible only to {{name}}',
+   'messages.dm.title': 'DM',
+-  'messages.modelCard.credit': 'Credits',
++  'messages.modelCard.credit': 'USD',
+   'messages.modelCard.creditPricing': 'Pricing',
+   'messages.modelCard.creditTooltip':
+-    'For counting, we treat $1 as 1M credits. Example: $3/M tokens → 3 credits per token.',
+-  'messages.modelCard.pricing.inputCachedTokens': 'Cached input {{amount}} credits · ${{amount}}/M',
++    'Estimated USD cost from the published model price, including cache and long-context tiers.',
++  'messages.modelCard.pricing.inputCachedTokens': 'Cached input ${{amount}}/M',
+   'messages.modelCard.pricing.inputCharts': '${{amount}}/M characters',
+   'messages.modelCard.pricing.inputMinutes': '${{amount}}/minute',
+-  'messages.modelCard.pricing.inputTokens': 'Input {{amount}} credits · ${{amount}}/M',
+-  'messages.modelCard.pricing.outputTokens': 'Output {{amount}} credits · ${{amount}}/M',
+-  'messages.modelCard.pricing.writeCacheInputTokens':
+-    'Cache write {{amount}} credits · ${{amount}}/M',
++  'messages.modelCard.pricing.inputTokens': 'Input ${{amount}}/M',
++  'messages.modelCard.pricing.outputTokens': 'Output ${{amount}}/M',
++  'messages.modelCard.pricing.writeCacheInputTokens': 'Cache write ${{amount}}/M',
+   'messages.tokenDetails.average': 'Average unit price',
+   'messages.tokenDetails.cliCredits.title': '{{value}} Credits',
+   'messages.tokenDetails.cliCredits.tooltip':
+diff --git a/packages/model-runtime/package.json b/packages/model-runtime/package.json
+index 6e0c458418..a0709529e2 100644
+--- a/packages/model-runtime/package.json
++++ b/packages/model-runtime/package.json
+@@ -12,6 +12,7 @@
+     "./providers/deepseek/modelId": "./src/providers/deepseek/modelId.ts",
+     "./providers/moonshot/modelId": "./src/providers/moonshot/modelId.ts",
+     "./providers/openai/modelId": "./src/providers/openai/modelId.ts",
++    "./computeChatCost": "./src/core/usageConverters/utils/computeChatCost.ts",
+     "./resolveImageSinglePrice": "./src/core/usageConverters/utils/resolveImageSinglePrice.ts",
+     "./resolveVideoSinglePrice": "./src/core/usageConverters/utils/resolveVideoSinglePrice.ts",
+     "./types/error": "./src/types/error.ts",
+diff --git a/src/features/Conversation/Messages/components/Extras/Usage/UsageDetail/ModelCard.tsx b/src/features/Conversation/Messages/components/Extras/Usage/UsageDetail/ModelCard.tsx
+index 32e736e24c..562425b070 100644
+--- a/src/features/Conversation/Messages/components/Extras/Usage/UsageDetail/ModelCard.tsx
++++ b/src/features/Conversation/Messages/components/Extras/Usage/UsageDetail/ModelCard.tsx
+@@ -63,12 +63,12 @@ const ModelCard = memo<ModelCardProps>(({ pricing, id, provider, displayName })
+         {!!pricing && (
+           <Flexbox>
+             <Tabs
+-              activeKey={isShowCredit ? 'credit' : 'token'}
++              activeKey={isShowCredit ? 'usd' : 'token'}
+               size={'small'}
+               items={[
+                 { key: 'token', label: 'Token' },
+                 {
+-                  key: 'credit',
++                  key: 'usd',
+                   label: (
+                     <Tooltip title={t('messages.modelCard.creditTooltip')}>
+                       <span>{t('messages.modelCard.credit')}</span>
+@@ -77,7 +77,7 @@ const ModelCard = memo<ModelCardProps>(({ pricing, id, provider, displayName })
+                 },
+               ]}
+               onChange={(key) => {
+-                updateSystemStatus({ isShowCredit: key === 'credit' });
++                updateSystemStatus({ isShowCredit: key === 'usd' });
+               }}
+             />
+           </Flexbox>
+diff --git a/src/features/Conversation/Messages/components/Extras/Usage/UsageDetail/TokenProgress.tsx b/src/features/Conversation/Messages/components/Extras/Usage/UsageDetail/TokenProgress.tsx
+index ffcef8ae8e..dd7d16cd20 100644
+--- a/src/features/Conversation/Messages/components/Extras/Usage/UsageDetail/TokenProgress.tsx
++++ b/src/features/Conversation/Messages/components/Extras/Usage/UsageDetail/TokenProgress.tsx
+@@ -12,56 +12,59 @@ export interface TokenProgressItem {
+ 
+ interface TokenProgressProps {
+   data: TokenProgressItem[];
++  formatValue?: (value: number) => string;
+   showIcon?: boolean;
+ }
+ 
+-const TokenProgress = memo<TokenProgressProps>(({ data, showIcon }) => {
+-  const total = data.reduce((acc, item) => acc + item.value, 0);
++const TokenProgress = memo<TokenProgressProps>(
++  ({ data, formatValue = formatUsageValue, showIcon }) => {
++    const total = data.reduce((acc, item) => acc + item.value, 0);
+ 
+-  return (
+-    <Flexbox gap={8} style={{ position: 'relative' }} width={'100%'}>
+-      <Flexbox
+-        horizontal
+-        height={6}
+-        width={'100%'}
+-        style={{
+-          background: total === 0 ? cssVar.colorFill : undefined,
+-          borderRadius: 3,
+-          overflow: 'hidden',
+-          position: 'relative',
+-        }}
+-      >
+-        {data.map((item) => (
+-          <Flexbox
+-            height={'100%'}
+-            key={item.id}
+-            style={{ background: item.color, flex: item.value }}
+-          />
+-        ))}
+-      </Flexbox>
+-      <Flexbox>
+-        {data.map((item) => (
+-          <Flexbox horizontal align={'center'} gap={4} justify={'space-between'} key={item.id}>
+-            <Flexbox horizontal align={'center'} gap={4}>
+-              {showIcon && (
+-                <div
+-                  style={{
+-                    background: item.color,
+-                    borderRadius: '50%',
+-                    flex: 'none',
+-                    height: 6,
+-                    width: 6,
+-                  }}
+-                />
+-              )}
+-              <div style={{ color: cssVar.colorTextSecondary }}>{item.title}</div>
++    return (
++      <Flexbox gap={8} style={{ position: 'relative' }} width={'100%'}>
++        <Flexbox
++          horizontal
++          height={6}
++          width={'100%'}
++          style={{
++            background: total === 0 ? cssVar.colorFill : undefined,
++            borderRadius: 3,
++            overflow: 'hidden',
++            position: 'relative',
++          }}
++        >
++          {data.map((item) => (
++            <Flexbox
++              height={'100%'}
++              key={item.id}
++              style={{ background: item.color, flex: item.value }}
++            />
++          ))}
++        </Flexbox>
++        <Flexbox>
++          {data.map((item) => (
++            <Flexbox horizontal align={'center'} gap={4} justify={'space-between'} key={item.id}>
++              <Flexbox horizontal align={'center'} gap={4}>
++                {showIcon && (
++                  <div
++                    style={{
++                      background: item.color,
++                      borderRadius: '50%',
++                      flex: 'none',
++                      height: 6,
++                      width: 6,
++                    }}
++                  />
++                )}
++                <div style={{ color: cssVar.colorTextSecondary }}>{item.title}</div>
++              </Flexbox>
++              <div style={{ fontWeight: 500 }}>{formatValue(item.value)}</div>
+             </Flexbox>
+-            <div style={{ fontWeight: 500 }}>{formatUsageValue(item.value)}</div>
+-          </Flexbox>
+-        ))}
++          ))}
++        </Flexbox>
+       </Flexbox>
+-    </Flexbox>
+-  );
+-});
++    );
++  },
++);
+ 
+ export default TokenProgress;
+diff --git a/src/features/Conversation/Messages/components/Extras/Usage/UsageDetail/index.tsx b/src/features/Conversation/Messages/components/Extras/Usage/UsageDetail/index.tsx
+index 586392dc30..51b67673c6 100644
+--- a/src/features/Conversation/Messages/components/Extras/Usage/UsageDetail/index.tsx
++++ b/src/features/Conversation/Messages/components/Extras/Usage/UsageDetail/index.tsx
+@@ -1,5 +1,5 @@
+ import { type ModelPerformance, type ModelUsage } from '@lobechat/types';
+-import { formatUsageValue } from '@lobechat/utils';
++import { formatCost, formatPrice, formatUsageValue } from '@lobechat/utils';
+ import { Center, Flexbox, Icon, Popover } from '@lobehub/ui';
+ import { Divider } from '@lobehub/ui/base-ui';
+ import { cssVar } from 'antd-style';
+@@ -18,6 +18,9 @@ import ModelCard from './ModelCard';
+ import type { TokenProgressItem } from './TokenProgress';
+ import TokenProgress from './TokenProgress';
+ import { getDetailsToken } from './tokens';
++import { getUsageUsdCost } from './usageCost';
++
++const formatUsd = (value: number) => `$${formatCost(value)}`;
+ 
+ interface TokenDetailProps {
+   model: string;
+@@ -31,26 +34,29 @@ const TokenDetail = memo<TokenDetailProps>(({ usage, performance, model, provide
+ 
+   const modelCard = useAiInfraStore(aiModelSelectors.getModelCard(model, provider));
+   const isShowCredit = useGlobalStore(systemStatusSelectors.isShowCredit) && !!modelCard?.pricing;
++  const usdCost = isShowCredit ? getUsageUsdCost(modelCard?.pricing, usage) : undefined;
++  const showUsd = !!usdCost;
+ 
+   const detailTokens = getDetailsToken(usage, modelCard);
++  const amount = (usd: number | undefined, token: number) => (showUsd ? (usd ?? 0) : token);
+   const inputDetails = [
+     !!detailTokens.inputAudio && {
+       color: cssVar.cyan9,
+       id: 'reasoning',
+       title: t('messages.tokenDetails.inputAudio'),
+-      value: isShowCredit ? detailTokens.inputAudio.credit : detailTokens.inputAudio.token,
++      value: amount(usdCost?.inputAudio, detailTokens.inputAudio.token),
+     },
+     !!detailTokens.inputCitation && {
+       color: cssVar.orange,
+       id: 'inputText',
+       title: t('messages.tokenDetails.inputCitation'),
+-      value: isShowCredit ? detailTokens.inputCitation.credit : detailTokens.inputCitation.token,
++      value: amount(usdCost?.inputCitation, detailTokens.inputCitation.token),
+     },
+     !!detailTokens.inputText && {
+       color: cssVar.green,
+       id: 'inputText',
+       title: t('messages.tokenDetails.inputText'),
+-      value: isShowCredit ? detailTokens.inputText.credit : detailTokens.inputText.token,
++      value: amount(usdCost?.inputText, detailTokens.inputText.token),
+     },
+   ].filter(Boolean) as TokenProgressItem[];
+ 
+@@ -59,27 +65,25 @@ const TokenDetail = memo<TokenDetailProps>(({ usage, performance, model, provide
+       color: cssVar.pink,
+       id: 'reasoning',
+       title: t('messages.tokenDetails.reasoning'),
+-      value: isShowCredit
+-        ? detailTokens.outputReasoning.credit
+-        : detailTokens.outputReasoning.token,
++      value: amount(usdCost?.outputReasoning, detailTokens.outputReasoning.token),
+     },
+     !!detailTokens.outputImage && {
+       color: cssVar.purple,
+       id: 'outputImage',
+       title: t('messages.tokenDetails.outputImage'),
+-      value: isShowCredit ? detailTokens.outputImage.credit : detailTokens.outputImage.token,
++      value: amount(usdCost?.outputImage, detailTokens.outputImage.token),
+     },
+     !!detailTokens.outputAudio && {
+       color: cssVar.cyan9,
+       id: 'outputAudio',
+       title: t('messages.tokenDetails.outputAudio'),
+-      value: isShowCredit ? detailTokens.outputAudio.credit : detailTokens.outputAudio.token,
++      value: amount(usdCost?.outputAudio, detailTokens.outputAudio.token),
+     },
+     !!detailTokens.outputText && {
+       color: cssVar.green,
+       id: 'outputText',
+       title: t('messages.tokenDetails.outputText'),
+-      value: isShowCredit ? detailTokens.outputText.credit : detailTokens.outputText.token,
++      value: amount(usdCost?.outputText, detailTokens.outputText.token),
+     },
+   ].filter(Boolean) as TokenProgressItem[];
+ 
+@@ -89,51 +93,47 @@ const TokenDetail = memo<TokenDetailProps>(({ usage, performance, model, provide
+ 
+       id: 'uncachedInput',
+       title: t('messages.tokenDetails.inputUncached'),
+-      value: isShowCredit ? detailTokens.inputCacheMiss.credit : detailTokens.inputCacheMiss.token,
++      value: amount(usdCost?.inputCacheMiss, detailTokens.inputCacheMiss.token),
+     },
+     !!detailTokens.inputCached && {
+       color: cssVar.orange,
+       id: 'inputCached',
+       title: t('messages.tokenDetails.inputCached'),
+-      value: isShowCredit ? detailTokens.inputCached.credit : detailTokens.inputCached.token,
++      value: amount(usdCost?.inputCached, detailTokens.inputCached.token),
+     },
+     !!detailTokens.inputCachedWrite && {
+       color: cssVar.yellow,
+       id: 'cachedWriteInput',
+       title: t('messages.tokenDetails.inputWriteCached'),
+-      value: isShowCredit
+-        ? detailTokens.inputCachedWrite.credit
+-        : detailTokens.inputCachedWrite.token,
++      value: amount(usdCost?.inputCachedWrite, detailTokens.inputCachedWrite.token),
+     },
+     !!detailTokens.inputTool && {
+       color: cssVar.geekblue,
+       id: 'inputTool',
+       title: t('messages.tokenDetails.inputTool'),
+-      value: isShowCredit ? detailTokens.inputTool.credit : detailTokens.inputTool.token,
++      value: amount(usdCost?.inputTool, detailTokens.inputTool.token),
+     },
+     !!detailTokens.totalOutput && {
+       color: cssVar.colorSuccess,
+       id: 'output',
+       title: t('messages.tokenDetails.output'),
+-      value: isShowCredit ? detailTokens.totalOutput.credit : detailTokens.totalOutput.token,
++      value: amount(usdCost?.totalOutput, detailTokens.totalOutput.token),
+     },
+   ].filter(Boolean) as TokenProgressItem[];
+ 
+-  const totalCount =
+-    isShowCredit && !!detailTokens.totalTokens
+-      ? detailTokens.totalTokens.credit
+-      : detailTokens.totalTokens!.token;
++  const totalTokens = detailTokens.totalTokens?.token ?? 0;
++  const totalCount = usdCost?.total ?? totalTokens;
+ 
+-  const detailTotal = formatUsageValue(totalCount);
++  const detailTotal = usdCost ? formatUsd(usdCost.total) : formatUsageValue(totalTokens);
+   const cacheRate =
+     typeof detailTokens.inputCacheRate === 'number'
+       ? `${formatNumber(detailTokens.inputCacheRate * 100, 1)}%`
+       : undefined;
+ 
+-  const averagePricing = formatNumber(
+-    detailTokens.totalTokens!.credit / detailTokens.totalTokens!.token,
+-    2,
+-  );
++  const averagePricing =
++    usdCost && totalTokens > 0
++      ? `$${formatPrice((usdCost.total / totalTokens) * 1_000_000)} / 1M`
++      : undefined;
+ 
+   const tps = performance?.tps ? formatNumber(performance.tps, 2) : undefined;
+   const ttft = performance?.ttft ? formatNumber(performance.ttft / 1000, 2) : undefined;
+@@ -160,7 +160,11 @@ const TokenDetail = memo<TokenDetailProps>(({ usage, performance, model, provide
+                     {t('messages.tokenDetails.inputTitle')}
+                   </div>
+                 </Flexbox>
+-                <TokenProgress showIcon data={inputDetails} />
++                <TokenProgress
++                  showIcon
++                  data={inputDetails}
++                  formatValue={showUsd ? formatUsd : undefined}
++                />
+               </Flexbox>
+             )}
+             {outputDetails.length > 1 && (
+@@ -176,11 +180,19 @@ const TokenDetail = memo<TokenDetailProps>(({ usage, performance, model, provide
+                     {t('messages.tokenDetails.outputTitle')}
+                   </div>
+                 </Flexbox>
+-                <TokenProgress showIcon data={outputDetails} />
++                <TokenProgress
++                  showIcon
++                  data={outputDetails}
++                  formatValue={showUsd ? formatUsd : undefined}
++                />
+               </Flexbox>
+             )}
+             <Flexbox>
+-              <TokenProgress showIcon data={totalDetail} />
++              <TokenProgress
++                showIcon
++                data={totalDetail}
++                formatValue={showUsd ? formatUsd : undefined}
++              />
+               <Divider style={{ marginBlock: 8 }} />
+               {cacheRate && (
+                 <Flexbox horizontal align={'center'} gap={4} justify={'space-between'}>
+@@ -196,7 +208,7 @@ const TokenDetail = memo<TokenDetailProps>(({ usage, performance, model, provide
+                 </div>
+                 <div style={{ fontWeight: 500 }}>{detailTotal}</div>
+               </Flexbox>
+-              {isShowCredit && (
++              {averagePricing && (
+                 <Flexbox horizontal align={'center'} gap={4} justify={'space-between'}>
+                   <div style={{ color: cssVar.colorTextSecondary }}>
+                     {t('messages.tokenDetails.average')}
+@@ -232,14 +244,16 @@ const TokenDetail = memo<TokenDetailProps>(({ usage, performance, model, provide
+       }
+     >
+       <Center horizontal gap={2} style={{ cursor: 'pointer' }}>
+-        <Icon icon={isShowCredit ? BadgeCent : CoinsIcon} />
++        <Icon icon={showUsd ? BadgeCent : CoinsIcon} />
+         <AnimatedNumber
+           duration={1500}
+-          // Force remount when switching between token/credit to prevent unwanted animation
++          // Force remount when switching between tokens and USD to prevent unwanted animation
+           // See: https://github.com/lobehub/lobe-chat/pull/10098
+-          formatter={(value) => new Intl.NumberFormat('en-US').format(Math.round(value))}
+-          key={isShowCredit ? 'credit' : 'token'}
++          key={showUsd ? 'usd' : 'token'}
+           value={totalCount}
++          formatter={(value) =>
++            showUsd ? formatUsd(value) : new Intl.NumberFormat('en-US').format(Math.round(value))
++          }
+         />
+       </Center>
+     </Popover>
+diff --git a/src/features/Conversation/Messages/components/Extras/Usage/UsageDetail/usageCost.ts b/src/features/Conversation/Messages/components/Extras/Usage/UsageDetail/usageCost.ts
+new file mode 100644
+index 0000000000..1e7e4bf1fc
+--- /dev/null
++++ b/src/features/Conversation/Messages/components/Extras/Usage/UsageDetail/usageCost.ts
+@@ -0,0 +1,113 @@
++import { computeChatCost } from '@lobechat/model-runtime/computeChatCost';
++import type { ModelUsage } from '@lobechat/types';
++import type { Pricing, PricingUnitName } from 'model-bank';
++
++export interface UsageUsdCost {
++  inputAudio: number;
++  inputCached: number;
++  inputCachedWrite: number;
++  inputCacheMiss: number;
++  inputCitation: number;
++  inputText: number;
++  inputTool: number;
++  outputAudio: number;
++  outputImage: number;
++  outputReasoning: number;
++  outputText: number;
++  total: number;
++  totalOutput: number;
++}
++
++interface CostBucket {
++  cost: number;
++  quantity: number;
++}
++
++const take = (bucket: CostBucket, tokens: number) => {
++  const used = Math.min(Math.max(tokens, 0), bucket.quantity);
++  if (used <= 0 || bucket.quantity <= 0 || bucket.cost <= 0) return 0;
++
++  const cost = (bucket.cost * used) / bucket.quantity;
++  bucket.cost -= cost;
++  bucket.quantity -= used;
++  return cost;
++};
++
++/**
++ * USD for the usage popover, from whatever price list the model card carries.
++ * Returns undefined when the price list cannot be applied, so the popover stays on token counts.
++ */
++export const getUsageUsdCost = (
++  pricing: Pricing | undefined,
++  usage: ModelUsage,
++): UsageUsdCost | undefined => {
++  if (!pricing) return undefined;
++
++  let result: ReturnType<typeof computeChatCost>;
++  try {
++    result = computeChatCost(pricing, usage);
++  } catch {
++    return undefined;
++  }
++  if (!result) return undefined;
++
++  const costOf = (name: PricingUnitName) =>
++    result.breakdown
++      .filter((item) => item.unit.name === name)
++      .reduce((sum, item) => sum + item.cost, 0);
++  const quantityOf = (name: PricingUnitName) =>
++    result.breakdown
++      .filter((item) => item.unit.name === name)
++      .reduce((sum, item) => sum + item.quantity, 0);
++
++  const textInputCost = costOf('textInput');
++  const textInputQuantity = quantityOf('textInput');
++  const audioInputCost = costOf('audioInput');
++
++  const inputSplit: CostBucket = { cost: textInputCost, quantity: textInputQuantity };
++  const inputTool = take(inputSplit, usage.inputToolTokens ?? 0);
++  const foldedAudio = take(inputSplit, audioInputCost > 0 ? 0 : (usage.inputAudioTokens ?? 0));
++  const inputCitation = take(inputSplit, usage.inputCitationTokens ?? 0);
++  const inputText = Math.max(0, inputSplit.cost);
++  const inputAudio = audioInputCost + foldedAudio;
++  const inputCacheMiss =
++    Math.max(0, textInputCost - inputTool) +
++    costOf('imageInput') +
++    costOf('videoInput') +
++    audioInputCost;
++  const inputCached =
++    costOf('textInput_cacheRead') + costOf('imageInput_cacheRead') + costOf('audioInput_cacheRead');
++  const inputCachedWrite = costOf('textInput_cacheWrite');
++
++  const textOutputCost = costOf('textOutput');
++  const imageOutputCost = costOf('imageOutput');
++  const audioOutputCost = costOf('audioOutput');
++  const outputSplit: CostBucket = {
++    cost: textOutputCost,
++    quantity: quantityOf('textOutput'),
++  };
++  const outputReasoning = take(outputSplit, usage.outputReasoningTokens ?? 0);
++  const imageFromText = imageOutputCost > 0 ? 0 : take(outputSplit, usage.outputImageTokens ?? 0);
++  const audioFromText = audioOutputCost > 0 ? 0 : take(outputSplit, usage.outputAudioTokens ?? 0);
++  const outputText = Math.max(0, outputSplit.cost);
++  const outputImage = imageOutputCost + imageFromText;
++  const outputAudio = audioOutputCost + audioFromText;
++  const totalOutput =
++    textOutputCost + imageOutputCost + audioOutputCost + costOf('videoGeneration');
++
++  return {
++    inputAudio,
++    inputCacheMiss,
++    inputCached,
++    inputCachedWrite,
++    inputCitation,
++    inputText,
++    inputTool,
++    outputAudio,
++    outputImage,
++    outputReasoning,
++    outputText,
++    total: result.totalCost,
++    totalOutput,
++  };
++};
 -- 
 2.39.5
 
