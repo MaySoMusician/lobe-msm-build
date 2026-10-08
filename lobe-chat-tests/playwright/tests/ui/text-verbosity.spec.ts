@@ -2,8 +2,6 @@ import { expect, type Page, test } from '@playwright/test';
 
 import { gotoInbox } from '../../support/ui.js';
 
-const escapeRegExp = (value: string) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-
 const modelChip = (page: Page) =>
   page
     .locator('[data-testid="chat-input"] [aria-label]')
@@ -44,12 +42,13 @@ const selectModel = async (page: Page, name: string) => {
   await expect(search).toBeVisible();
   await search.fill(name);
 
-  // List rows are named "<provider> <display name>". Match the display name at
-  // the end, inside the model submenu, so the parent "Model … Flash" row and
-  // "… Flash Vision Exp" are not selected.
+  // Match the display-name element inside the model submenu. Effort and price
+  // sit beside that name, and a longer name such as "… Flash Vision Exp" is a
+  // different string, so neither is selected.
   const option = page
     .getByRole('menu', { name: /^Model\b/ })
-    .getByRole('menuitem', { name: new RegExp(`(?:^|\\s)${escapeRegExp(name)}$`) });
+    .getByRole('menuitem')
+    .filter({ has: page.getByText(name, { exact: true }) });
   await expect(option).toBeVisible();
   const saved = waitForConfigSave(page);
   await option.click();

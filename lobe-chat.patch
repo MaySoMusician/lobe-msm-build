@@ -1,7 +1,7 @@
-From 1375c95ff203ae33ab62deecaec4967896fd0393 Mon Sep 17 00:00:00 2001
+From 7efc93ca83df9ffd310b4ef94d1d7b1e3cc8c36e Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:57:40 +0000
-Subject: [PATCH 01/17] =?UTF-8?q?=F0=9F=94=92=EF=B8=8F=20build(docker):=20?=
+Subject: [PATCH 01/16] =?UTF-8?q?=F0=9F=94=92=EF=B8=8F=20build(docker):=20?=
  =?UTF-8?q?pin=20images=20and=20harden=20the=20image=20install?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -92,24 +92,24 @@ index 826fb06763..a385465b34 100644
 2.39.5
 
 
-From 52b641e051bf3e56397c913dab175e5a454f2f1e Mon Sep 17 00:00:00 2001
+From 2da0eb8ec3aac3176782bb6dd7527df715c68b6b Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
-Date: Thu, 24 Sep 2026 06:57:40 +0000
-Subject: [PATCH 02/17] =?UTF-8?q?=F0=9F=94=92=EF=B8=8F=20build(deps):=20en?=
+Date: Wed, 7 Oct 2026 16:25:57 +0000
+Subject: [PATCH 02/16] =?UTF-8?q?=F0=9F=94=92=EF=B8=8F=20build(deps):=20en?=
  =?UTF-8?q?force=20mature=20trusted=20dependency=20resolution?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Co-authored-by: Cursor GPT-5.6 Sol <cursoragent@cursor.com.invalid>
+Co-authored-by: Cursor Grok 4.7 <cursoragent@cursor.com.invalid>
 ---
- apps/cli/pnpm-workspace.yaml     | 23 +++++++++++++++++++++
- apps/desktop/pnpm-workspace.yaml | 34 +++++++++++++++++++++-----------
- pnpm-workspace.yaml              | 29 ++++++++++++++++++++++++---
- 3 files changed, 72 insertions(+), 14 deletions(-)
+ apps/cli/pnpm-workspace.yaml     | 23 +++++++++++++++++++++++
+ apps/desktop/pnpm-workspace.yaml | 23 +++++++++++++++++++++++
+ pnpm-workspace.yaml              | 27 ++++++++++++++++++++++++++-
+ 3 files changed, 72 insertions(+), 1 deletion(-)
 
 diff --git a/apps/cli/pnpm-workspace.yaml b/apps/cli/pnpm-workspace.yaml
-index 03bb2caeef..fa335bab6e 100644
+index 03bb2caeef..508bf3e2b5 100644
 --- a/apps/cli/pnpm-workspace.yaml
 +++ b/apps/cli/pnpm-workspace.yaml
 @@ -42,3 +42,26 @@ allowBuilds:
@@ -132,39 +132,22 @@ index 03bb2caeef..fa335bab6e 100644
 +  - '@octokit/endpoint@9.0.6'
 +  - '@trickfilm400/rollup-plugin-off-main-thread@3.0.0-pre1'
 +  - '@pierre/theme@1.1.0'
-+  - '@vercel/cli-config@0.2.7'
++  - '@vercel/cli-config@0.3.0'
 +  - '@vercel/cli-exec@1.0.1'
-+  - '@vercel/functions@3.9.8'
-+  - '@vercel/oidc@3.8.8'
++  - '@vercel/functions@3.9.9'
++  - '@vercel/oidc@3.8.9'
 +
 +blockExoticSubdeps: true
 +strictDepBuilds: true
 diff --git a/apps/desktop/pnpm-workspace.yaml b/apps/desktop/pnpm-workspace.yaml
-index 48196a9cae..93dccf4846 100644
+index a20694247e..b6d3720a52 100644
 --- a/apps/desktop/pnpm-workspace.yaml
 +++ b/apps/desktop/pnpm-workspace.yaml
-@@ -48,8 +48,6 @@ publicHoistPattern:
- 
- allowBuilds:
-   '@sentry/cli': true
--  electron: true
--  electron-builder: true
-   electron-winstaller: false
-   esbuild: false
-   get-windows: false
-@@ -62,12 +60,26 @@ overrides:
-   react-dom: 19.2.7
-   vitest: 5.0.0
-   'zod@^4': 4.5.4
--minimumReleaseAgeExclude:
--  - '@auv-js/api-client@0.0.16'
--  - '@auv-js/cli-darwin-arm64@0.0.16'
--  - '@auv-js/cli-darwin-x64@0.0.16'
--  - '@auv-js/cli-linux-arm64-gnu@0.0.16'
--  - '@auv-js/cli-linux-x64-gnu@0.0.16'
--  - '@auv-js/cli-win32-x64-msvc@0.0.16'
--  - '@auv-js/cli@0.0.16'
--  - '@auv-js/sdk@0.0.16'
+@@ -76,3 +76,26 @@ minimumReleaseAgeExclude:
+   - electron-sparkle-updater@0.5.2
+ patchedDependencies:
+   electron-sparkle-updater@0.5.2: patches/electron-sparkle-updater@0.5.2.patch
++
 +minimumReleaseAge: 10080
 +minimumReleaseAgeStrict: true
 +
@@ -180,37 +163,27 @@ index 48196a9cae..93dccf4846 100644
 +  - '@octokit/endpoint@9.0.6'
 +  - '@trickfilm400/rollup-plugin-off-main-thread@3.0.0-pre1'
 +  - '@pierre/theme@1.1.0'
-+  - '@vercel/cli-config@0.2.4'
++  - '@vercel/cli-config@0.3.0'
 +  - '@vercel/cli-exec@1.0.1'
-+  - '@vercel/functions@3.9.5'
-+  - '@vercel/oidc@3.8.5'
-+  - 'cytoscape@3.34.1'
++  - '@vercel/functions@3.9.9'
++  - '@vercel/oidc@3.8.9'
 +
 +blockExoticSubdeps: true
 +strictDepBuilds: true
 diff --git a/pnpm-workspace.yaml b/pnpm-workspace.yaml
-index 6b138d73da..cc27ad8103 100644
+index fd0656b89b..679e0fe014 100644
 --- a/pnpm-workspace.yaml
 +++ b/pnpm-workspace.yaml
-@@ -28,7 +28,7 @@ packages:
-   - apps/workbench
- 
- minimumReleaseAgeExclude:
+@@ -36,7 +36,7 @@ minimumReleaseAgeExclude:
+   - '@auv-js/cli-win32-x64-msvc@0.0.25'
+   - '@auv-js/cli@0.0.25'
+   - '@auv-js/sdk@0.0.25'
 -  - '@lobehub/*'
 +  - '@lobehub/ui@5.49.0'
  
  # Build scripts run one at a time. Several peer-variant copies of
  # @lobehub/editor resolve in this workspace and every copy's postinstall
-@@ -40,8 +40,6 @@ childConcurrency: 1
- allowBuilds:
-   '@google/genai': true
-   '@lobehub/editor': true
--  '@sentry/cli': true
--  '@vercel/speed-insights': true
-   core-js: false
-   es5-ext: false
-   esbuild: false
-@@ -53,6 +51,7 @@ allowBuilds:
+@@ -62,6 +62,7 @@ allowBuilds:
  
  overrides:
    '@ant-design/icons': 6.3.2
@@ -218,13 +191,13 @@ index 6b138d73da..cc27ad8103 100644
    '@react-pdf/image': 3.0.4
    '@types/react': 19.2.13
    '@vitest/coverage-v8': 5.0.0
-@@ -68,8 +67,32 @@ overrides:
+@@ -77,8 +78,32 @@ overrides:
    's3rver>fast-xml-parser': 3.21.1
    stylelint-config-clean-order: 7.0.0
    typescript: 6.0.3
 +  virtua: 0.51.3
    vitest: 5.0.0
-   'zod@^4': 4.5.4
+   'zod@^4': 4.6.5
  
  patchedDependencies:
    '@upstash/qstash': patches/@upstash__qstash.patch
@@ -244,10 +217,10 @@ index 6b138d73da..cc27ad8103 100644
 +  - '@octokit/endpoint@9.0.6'
 +  - '@trickfilm400/rollup-plugin-off-main-thread@3.0.0-pre1'
 +  - '@pierre/theme@1.1.0'
-+  - '@vercel/cli-config@0.2.7'
++  - '@vercel/cli-config@0.3.0'
 +  - '@vercel/cli-exec@1.0.1'
-+  - '@vercel/functions@3.9.8'
-+  - '@vercel/oidc@3.8.8'
++  - '@vercel/functions@3.9.9'
++  - '@vercel/oidc@3.8.9'
 +
 +blockExoticSubdeps: true
 +strictDepBuilds: true
@@ -255,29 +228,29 @@ index 6b138d73da..cc27ad8103 100644
 2.39.5
 
 
-From 32c581e7bd1aa8ef9724cfd13b71e1eff3df5096 Mon Sep 17 00:00:00 2001
+From 5d86d1cb0ab23863f0457e71fdf52f20e4e325de Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
-Date: Thu, 24 Sep 2026 06:57:43 +0000
-Subject: [PATCH 03/17] =?UTF-8?q?=E2=9C=A8=20feat(openai):=20keep=20GPT=20?=
+Date: Wed, 7 Oct 2026 16:25:57 +0000
+Subject: [PATCH 03/16] =?UTF-8?q?=E2=9C=A8=20feat(openai):=20keep=20GPT=20?=
  =?UTF-8?q?requests=20non-streaming=20and=20summary-free?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Co-authored-by: Cursor GPT-5.6 Sol <cursoragent@cursor.com.invalid>
+Co-authored-by: Cursor Grok 4.7 <cursoragent@cursor.com.invalid>
 ---
  .../src/core/openaiCompatibleFactory/index.ts |  2 +-
  .../src/providers/openai/index.test.ts        | 25 ++++---
  .../src/providers/openai/index.ts             | 36 +++++++---
- .../src/providers/openai/modelId.ts           | 66 +++++++++++++++++++
+ .../src/providers/openai/modelId.ts           | 68 +++++++++++++++++++
  .../providers/openai/openaiPayload.test.ts    |  2 +-
- 5 files changed, 111 insertions(+), 20 deletions(-)
+ 5 files changed, 113 insertions(+), 20 deletions(-)
 
 diff --git a/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts b/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
-index db8d538c9d..4c3179d985 100644
+index 70a99a6444..0cd42e256d 100644
 --- a/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
 +++ b/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
-@@ -1583,7 +1583,7 @@ export const createOpenAICompatibleRuntime = <T extends Record<string, any> = an
+@@ -1623,7 +1623,7 @@ export const createOpenAICompatibleRuntime = <T extends Record<string, any> = an
          strictToolPairing: true,
        });
  
@@ -479,10 +452,10 @@ index 5b064aec99..bcce9211b7 100644
        } as any;
      },
 diff --git a/packages/model-runtime/src/providers/openai/modelId.ts b/packages/model-runtime/src/providers/openai/modelId.ts
-index 66410ab2fe..a53d9dc0a0 100644
+index 620815d5b8..20ca19e71f 100644
 --- a/packages/model-runtime/src/providers/openai/modelId.ts
 +++ b/packages/model-runtime/src/providers/openai/modelId.ts
-@@ -34,6 +34,34 @@ export const disableStreamModels = new Set([
+@@ -34,6 +34,35 @@ export const disableStreamModels = new Set([
    */
    'computer-use-preview',
    'computer-use-preview-2025-03-11',
@@ -512,12 +485,13 @@ index 66410ab2fe..a53d9dc0a0 100644
 +  'gpt-5.6-terra',
 +  'gpt-5.6-luna',
 +  'gpt-6-astra',
++  'gpt-6.1-sol',
 +  'gpt-6-sol',
 +  'gpt-6-luna',
  ]);
  
  // Static Responses API-only exceptions that do not follow the parsed GPT-5 rule.
-@@ -49,6 +77,44 @@ export const responsesAPIModels = new Set([
+@@ -49,6 +78,45 @@ export const responsesAPIModels = new Set([
    'codex-mini-latest',
    'computer-use-preview',
    'computer-use-preview-2025-03-11',
@@ -557,6 +531,7 @@ index 66410ab2fe..a53d9dc0a0 100644
 +  'gpt-5.6-terra',
 +  'gpt-5.6-luna',
 +  'gpt-6-astra',
++  'gpt-6.1-sol',
 +  'gpt-6-sol',
 +  'gpt-6-luna',
  ]);
@@ -579,23 +554,23 @@ index a7ebcd844c..0b35e2e216 100644
 2.39.5
 
 
-From fa968d493af990a6029e7c32faa441aa4c936266 Mon Sep 17 00:00:00 2001
+From 0cee292ff708a9945c01d4585f37bc626d4083d0 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
-Date: Thu, 24 Sep 2026 06:57:50 +0000
-Subject: [PATCH 04/17] =?UTF-8?q?=E2=9C=A8=20feat(openai):=20preserve=20de?=
+Date: Wed, 7 Oct 2026 16:25:57 +0000
+Subject: [PATCH 04/16] =?UTF-8?q?=E2=9C=A8=20feat(openai):=20preserve=20de?=
  =?UTF-8?q?tail=20when=20converting=20non-streaming=20responses?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Co-authored-by: Cursor GPT-5.6 Sol <cursoragent@cursor.com.invalid>
+Co-authored-by: Cursor Grok 4.7 <cursoragent@cursor.com.invalid>
 ---
  .../nonStreamToStream.test.ts                 | 100 +++----
- .../nonStreamToStream.ts                      | 243 ++++++++++++++----
- 2 files changed, 234 insertions(+), 109 deletions(-)
+ .../nonStreamToStream.ts                      | 257 ++++++++++++++----
+ 2 files changed, 234 insertions(+), 123 deletions(-)
 
 diff --git a/packages/model-runtime/src/core/openaiCompatibleFactory/nonStreamToStream.test.ts b/packages/model-runtime/src/core/openaiCompatibleFactory/nonStreamToStream.test.ts
-index 06be6983ce..01d9c0c965 100644
+index 9927e9cede..b6a523351a 100644
 --- a/packages/model-runtime/src/core/openaiCompatibleFactory/nonStreamToStream.test.ts
 +++ b/packages/model-runtime/src/core/openaiCompatibleFactory/nonStreamToStream.test.ts
 @@ -403,19 +403,19 @@ describe('nonStreamToStream', () => {
@@ -646,8 +621,8 @@ index 06be6983ce..01d9c0c965 100644
 +      expect(events.at(-1)?.type).toBe('response.completed');
      });
  
-     it('should preserve encrypted reasoning in a non-streaming response', async () => {
-@@ -491,19 +486,19 @@ describe('nonStreamToStream', () => {
+     it('should preserve function calls in a non-streaming response', async () => {
+@@ -531,19 +526,19 @@ describe('nonStreamToStream', () => {
          events.push(value);
        }
  
@@ -679,7 +654,7 @@ index 06be6983ce..01d9c0c965 100644
      });
  
      it('should handle Response API with message but no text content', async () => {
-@@ -550,14 +545,9 @@ describe('nonStreamToStream', () => {
+@@ -590,14 +585,9 @@ describe('nonStreamToStream', () => {
          events.push(value);
        }
  
@@ -697,7 +672,7 @@ index 06be6983ce..01d9c0c965 100644
      });
  
      it('should handle Response API with message id missing', async () => {
-@@ -603,17 +593,13 @@ describe('nonStreamToStream', () => {
+@@ -643,17 +633,13 @@ describe('nonStreamToStream', () => {
          events.push(value);
        }
  
@@ -720,7 +695,7 @@ index 06be6983ce..01d9c0c965 100644
      });
  
      it('should handle empty output array', async () => {
-@@ -645,14 +631,7 @@ describe('nonStreamToStream', () => {
+@@ -685,14 +671,7 @@ describe('nonStreamToStream', () => {
          events.push(value);
        }
  
@@ -736,7 +711,7 @@ index 06be6983ce..01d9c0c965 100644
      });
  
      it('should handle missing output field', async () => {
-@@ -684,14 +663,7 @@ describe('nonStreamToStream', () => {
+@@ -724,14 +703,7 @@ describe('nonStreamToStream', () => {
          events.push(value);
        }
  
@@ -753,10 +728,10 @@ index 06be6983ce..01d9c0c965 100644
    });
  });
 diff --git a/packages/model-runtime/src/core/openaiCompatibleFactory/nonStreamToStream.ts b/packages/model-runtime/src/core/openaiCompatibleFactory/nonStreamToStream.ts
-index b6c980b78e..adb525fce9 100644
+index c580dcd260..adb525fce9 100644
 --- a/packages/model-runtime/src/core/openaiCompatibleFactory/nonStreamToStream.ts
 +++ b/packages/model-runtime/src/core/openaiCompatibleFactory/nonStreamToStream.ts
-@@ -89,58 +89,211 @@ export const transformResponseToStream = (data: OpenAI.ChatCompletion) =>
+@@ -89,72 +89,211 @@ export const transformResponseToStream = (data: OpenAI.ChatCompletion) =>
      },
    });
  
@@ -896,6 +871,20 @@ index b6c980b78e..adb525fce9 100644
 +                }
                }
 -              break;
+-            }
+-            /**
+-             * A completed function call already carries its full arguments. The stream parser
+-             * reads them from `output_item.added`, so no argument deltas are needed; dropping
+-             * this item would turn a tool-call-only response into an empty completion.
+-             */
+-            case 'function_call': {
+-              controller.enqueue({
+-                item: output,
+-                output_index: outputIndex,
+-                sequence_number: outputIndex,
+-                type: 'response.output_item.added',
+-              } as OpenAI.Responses.ResponseOutputItemAddedEvent);
+-              break;
              }
            }
 +        }
@@ -968,7 +957,7 @@ index b6c980b78e..adb525fce9 100644
 +        });
 +        break;
 +      }
- 
++
 +      default: {
 +        // For an unknown type, just send "response.output_item.done".
 +        events.push({
@@ -998,7 +987,7 @@ index b6c980b78e..adb525fce9 100644
 +
 +  return events;
 +}
-+
+ 
 +/**
 + * transform the OpenAI Response API data to stream format for non-streaming responses
 + */
@@ -1017,18 +1006,18 @@ index b6c980b78e..adb525fce9 100644
 2.39.5
 
 
-From 79f575d32a573419473fb1320131adf628282cc0 Mon Sep 17 00:00:00 2001
+From 7a1dc0d5c872b60b00f7af9b95e0acb7eef6e540 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
-Date: Thu, 24 Sep 2026 06:57:56 +0000
-Subject: [PATCH 05/17] =?UTF-8?q?=F0=9F=90=9B=20fix(openai):=20use=20one?=
+Date: Wed, 7 Oct 2026 16:25:57 +0000
+Subject: [PATCH 05/16] =?UTF-8?q?=F0=9F=90=9B=20fix(openai):=20use=20one?=
  =?UTF-8?q?=20attempt=20and=20a=20one-hour=20timeout?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Co-authored-by: Cursor GPT-5.6 Sol <cursoragent@cursor.com.invalid>
+Co-authored-by: Cursor Grok 4.7 <cursoragent@cursor.com.invalid>
 ---
- .../adapters/ServerLLMTransport.ts            | 55 +-----------
+ .../adapters/ServerLLMTransport.ts            | 60 ++-----------
  packages/model-runtime/package.json           |  1 +
  .../src/core/openaiCompatibleFactory/index.ts | 29 ++++++-
  .../core/openaiCompatibleFactory/timeout.ts   | 86 +++++++++++++++++++
@@ -1036,14 +1025,14 @@ Co-authored-by: Cursor GPT-5.6 Sol <cursoragent@cursor.com.invalid>
  src/instrumentation.ts                        | 26 ++++++
  src/libs/next/config/define-config.ts         |  1 +
  .../agents/transports/ClientLLMTransport.ts   |  1 +
- 8 files changed, 172 insertions(+), 60 deletions(-)
+ 8 files changed, 173 insertions(+), 64 deletions(-)
  create mode 100644 packages/model-runtime/src/core/openaiCompatibleFactory/timeout.ts
 
 diff --git a/apps/server/src/modules/AgentRuntime/adapters/ServerLLMTransport.ts b/apps/server/src/modules/AgentRuntime/adapters/ServerLLMTransport.ts
-index b2e2addc39..25d29e4cd5 100644
+index b86e9ca06b..4f17f5ff42 100644
 --- a/apps/server/src/modules/AgentRuntime/adapters/ServerLLMTransport.ts
 +++ b/apps/server/src/modules/AgentRuntime/adapters/ServerLLMTransport.ts
-@@ -18,7 +18,6 @@ import { BRANDING_PROVIDER } from '@lobechat/business-const';
+@@ -24,7 +24,6 @@ import { BRANDING_PROVIDER } from '@lobechat/business-const';
  import {
    type ChatStreamPayload,
    consumeStreamUntilDone,
@@ -1051,7 +1040,15 @@ index b2e2addc39..25d29e4cd5 100644
    type ModelRuntime,
  } from '@lobechat/model-runtime';
  import {
-@@ -53,64 +52,19 @@ const getErrorMessage = (error: unknown): string => {
+@@ -49,7 +48,6 @@ import { classifyLLMError } from '../llmErrorClassification';
+ import {
+   createClientLlmExecutorUnavailableError,
+   isClientLlmRelayError,
+-  resolveLlmRelayRetryBudget,
+ } from '../llmRelay/errors';
+ import { buildLlmRelayCallId } from '../llmRelay/protocol';
+ import { RelayModelRuntime } from '../llmRelay/RelayModelRuntime';
+@@ -70,64 +68,19 @@ const getErrorMessage = (error: unknown): string => {
  };
  
  const SERVER_LLM_RETRY_POLICY = {
@@ -1119,18 +1116,22 @@ index b2e2addc39..25d29e4cd5 100644
    }
  
    onError({ error }: LLMCallErrorInput) {
-@@ -132,8 +86,7 @@ class ServerLLMRetryPolicy implements LLMRetryPolicy {
+@@ -149,11 +102,8 @@ class ServerLLMRetryPolicy implements LLMRetryPolicy {
      );
    }
  
 -  resolveRetryBudget(provider: string, error: unknown) {
 -    if (isRetryableNetworkEmptyCompletion(error)) return NETWORK_EMPTY_COMPLETION_MAX_RETRIES;
+-    return (
+-      resolveLlmRelayRetryBudget(error) ?? resolveLLMRetryBudget(provider, SERVER_LLM_RETRY_POLICY)
+-    );
 +  resolveRetryBudget(provider: string, _error: unknown) {
-     return resolveLLMRetryBudget(provider, SERVER_LLM_RETRY_POLICY);
++    return resolveLLMRetryBudget(provider, SERVER_LLM_RETRY_POLICY);
    }
  
+   async waitForRetry(delayMs: number): Promise<void> {
 diff --git a/packages/model-runtime/package.json b/packages/model-runtime/package.json
-index c8c59be051..f3a8465ce4 100644
+index d7166ef1dd..6e0c458418 100644
 --- a/packages/model-runtime/package.json
 +++ b/packages/model-runtime/package.json
 @@ -51,6 +51,7 @@
@@ -1142,10 +1143,10 @@ index c8c59be051..f3a8465ce4 100644
    },
    "devDependencies": {
 diff --git a/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts b/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
-index 4c3179d985..3dd86ca0e0 100644
+index 0cd42e256d..fb4103000e 100644
 --- a/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
 +++ b/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
-@@ -88,10 +88,12 @@ import {
+@@ -93,10 +93,12 @@ import {
    recordOpenAIResponsesResponse,
    resolveOpenAIResponseWithMetadata,
  } from './providerDiagnostics';
@@ -1158,7 +1159,7 @@ index 4c3179d985..3dd86ca0e0 100644
  
  /**
   * Detect provider 400/422 errors that reject `response_format: { type: 'json_schema' }`.
-@@ -382,7 +384,31 @@ export const createOpenAICompatibleRuntime = <T extends Record<string, any> = an
+@@ -398,7 +400,31 @@ export const createOpenAICompatibleRuntime = <T extends Record<string, any> = an
  
        if (!apiKey) throw AgentRuntimeError.createError(ErrorType?.invalidAPIKey);
  
@@ -1191,7 +1192,7 @@ index 4c3179d985..3dd86ca0e0 100644
  
        // if the custom client is provided, use it as client
        if (customClient?.createClient) {
-@@ -704,6 +730,7 @@ export const createOpenAICompatibleRuntime = <T extends Record<string, any> = an
+@@ -720,6 +746,7 @@ export const createOpenAICompatibleRuntime = <T extends Record<string, any> = an
              baseURL: targetBaseURL,
              ...constructorOptions,
              ...restOptions,
@@ -1411,32 +1412,32 @@ index 7eb9ee3901..98723dba29 100644
 2.39.5
 
 
-From dcd2fcc61db055f8171cec8229520c270bf4a87e Mon Sep 17 00:00:00 2001
+From c0a4544d7a27b2092febaf4ea2e42b1e6c7fb899 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
-Date: Thu, 24 Sep 2026 06:58:04 +0000
-Subject: [PATCH 06/17] =?UTF-8?q?=E2=9C=A8=20feat(agent):=20keep=20prompts?=
+Date: Wed, 7 Oct 2026 16:25:57 +0000
+Subject: [PATCH 06/16] =?UTF-8?q?=E2=9C=A8=20feat(agent):=20keep=20prompts?=
  =?UTF-8?q?=20explicitly=20user-controlled?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Co-authored-by: Cursor GPT-5.6 Sol <cursoragent@cursor.com.invalid>
+Co-authored-by: Cursor Grok 4.7 <cursoragent@cursor.com.invalid>
 ---
  .../__tests__/serverMessagesEngine.test.ts    | 35 ++++---------------
  .../execAgent.builtinRuntime.test.ts          | 19 +++-------
  .../__tests__/resolveRunAgentConfig.test.ts   |  4 +--
  .../builtin-agents/src/agents/inbox/index.ts  |  6 +---
- .../src/engine/messages/MessagesEngine.ts     | 28 +--------------
+ .../src/engine/messages/MessagesEngine.ts     | 27 +-------------
  .../messages/__tests__/MessagesEngine.test.ts | 15 ++++----
  packages/mecha/src/resolveAgentConfig.test.ts |  8 ++---
  packages/mecha/src/resolveAgentConfig.ts      | 29 ++++++---------
  src/services/chat/chat.test.ts                | 17 ++++-----
  .../chat/mecha/agentConfigResolver.test.ts    | 14 +++-----
  .../chat/mecha/contextEngineering.test.ts     | 25 +++++--------
- 11 files changed, 54 insertions(+), 146 deletions(-)
+ 11 files changed, 54 insertions(+), 145 deletions(-)
 
 diff --git a/apps/server/src/modules/Mecha/ContextEngineering/__tests__/serverMessagesEngine.test.ts b/apps/server/src/modules/Mecha/ContextEngineering/__tests__/serverMessagesEngine.test.ts
-index 18a739e9a9..ffb32ecc3b 100644
+index ade958553b..2df9bf2996 100644
 --- a/apps/server/src/modules/Mecha/ContextEngineering/__tests__/serverMessagesEngine.test.ts
 +++ b/apps/server/src/modules/Mecha/ContextEngineering/__tests__/serverMessagesEngine.test.ts
 @@ -4,16 +4,6 @@ import { describe, expect, it, vi } from 'vitest';
@@ -1475,8 +1476,8 @@ index 18a739e9a9..ffb32ecc3b 100644
 +      expect(result[0].content).toBe(systemRole);
      });
  
-     it('renders {{workingDirectory}} to a fallback instead of leaking the literal ', async () => {
-@@ -281,7 +269,7 @@ describe('serverMessagesEngine', () => {
+     it('renders the cloud-sandbox workspace placeholders to the ephemeral wording unless the builder supplies them', async () => {
+@@ -321,7 +309,7 @@ describe('serverMessagesEngine', () => {
        expect(result[0].content).toContain(`Day: ${partsMap.day}`);
      });
  
@@ -1484,8 +1485,8 @@ index 18a739e9a9..ffb32ecc3b 100644
 +    it('should not inject model knowledge cutoff when provided', async () => {
        const messages = createBasicMessages();
  
-       const result = await serverMessagesEngine({
-@@ -293,14 +281,10 @@ describe('serverMessagesEngine', () => {
+       const { messages: result } = await serverMessagesEngine({
+@@ -333,14 +321,10 @@ describe('serverMessagesEngine', () => {
        });
  
        expect(result[0].role).toBe('system');
@@ -1501,8 +1502,8 @@ index 18a739e9a9..ffb32ecc3b 100644
 +    it('should not inject model name and id when displayName is provided', async () => {
        const messages = createBasicMessages();
  
-       const result = await serverMessagesEngine({
-@@ -313,11 +297,7 @@ describe('serverMessagesEngine', () => {
+       const { messages: result } = await serverMessagesEngine({
+@@ -353,11 +337,7 @@ describe('serverMessagesEngine', () => {
        });
  
        expect(result[0].role).toBe('system');
@@ -1515,7 +1516,7 @@ index 18a739e9a9..ffb32ecc3b 100644
      });
  
      it('should handle empty messages', async () => {
-@@ -327,8 +307,7 @@ describe('serverMessagesEngine', () => {
+@@ -367,8 +347,7 @@ describe('serverMessagesEngine', () => {
          provider: 'openai',
        });
  
@@ -1632,10 +1633,10 @@ index 49383f1748..d7da07aefe 100644
  
    slug: BUILTIN_AGENT_SLUGS.inbox,
 diff --git a/packages/context-engine/src/engine/messages/MessagesEngine.ts b/packages/context-engine/src/engine/messages/MessagesEngine.ts
-index d97c48d636..2b4111853f 100644
+index 8779ea9566..1356aef103 100644
 --- a/packages/context-engine/src/engine/messages/MessagesEngine.ts
 +++ b/packages/context-engine/src/engine/messages/MessagesEngine.ts
-@@ -49,7 +49,6 @@ import {
+@@ -51,7 +51,6 @@ import {
    HistorySummaryProvider,
    KnowledgeInjector,
    LocalSystemToolSnapshotInjector,
@@ -1643,7 +1644,7 @@ index d97c48d636..2b4111853f 100644
    OnboardingActionHintInjector,
    OnboardingContextInjector,
    OnboardingSyntheticStateInjector,
-@@ -64,7 +63,6 @@ import {
+@@ -66,7 +65,6 @@ import {
    SKILL_STORE_TOOL_ID,
    SkillContextProvider,
    SkillImportRouteInjector,
@@ -1651,7 +1652,7 @@ index d97c48d636..2b4111853f 100644
    SystemRoleInjector,
    TaskManagerContextInjector,
    TodoInjector,
-@@ -152,8 +150,6 @@ export class MessagesEngine {
+@@ -157,8 +155,6 @@ export class MessagesEngine {
    private buildProcessors(): ContextProcessor[] {
      const {
        model,
@@ -1660,7 +1661,7 @@ index d97c48d636..2b4111853f 100644
        provider,
        systemRole,
        agentIdentity,
-@@ -193,8 +189,6 @@ export class MessagesEngine {
+@@ -199,8 +195,6 @@ export class MessagesEngine {
        stepContext,
        pageContentContext,
        topicReferences,
@@ -1669,20 +1670,20 @@ index d97c48d636..2b4111853f 100644
      } = this.params;
  
      const isAgentBuilderEnabled = !!agentBuilderContext;
-@@ -228,12 +222,6 @@ export class MessagesEngine {
+@@ -234,12 +228,7 @@ export class MessagesEngine {
            : undefined;
      const isTodoEnabled = effectiveTodos !== undefined;
  
 -    // System date is redundant when web-browsing or memory tools are enabled,
 -    // as they already include current date in their system prompts
--    const toolIds = toolsConfig?.tools || [];
+     const toolIds = toolsConfig?.tools || [];
 -    const hasDateAwareTools =
 -      toolIds.includes('lobe-web-browsing') || toolIds.includes('lobe-user-memory');
 -    const isSystemDateEnabled = enableSystemDate !== false && !hasDateAwareTools;
      const currentUserMessage = [...messages]
        .reverse()
        .find((m) => m.role === 'user' && typeof m.content === 'string')?.content as
-@@ -318,22 +306,8 @@ export class MessagesEngine {
+@@ -327,22 +316,8 @@ export class MessagesEngine {
          context: botPlatformContext,
          enabled: !!botPlatformContext,
        }),
@@ -1707,7 +1708,7 @@ index d97c48d636..2b4111853f 100644
          context: workspaceContext,
          enabled: !!workspaceContext,
 diff --git a/packages/context-engine/src/engine/messages/__tests__/MessagesEngine.test.ts b/packages/context-engine/src/engine/messages/__tests__/MessagesEngine.test.ts
-index 384c90d0b2..5185af2d25 100644
+index 5c02ecf5de..70ac6868e3 100644
 --- a/packages/context-engine/src/engine/messages/__tests__/MessagesEngine.test.ts
 +++ b/packages/context-engine/src/engine/messages/__tests__/MessagesEngine.test.ts
 @@ -289,7 +289,7 @@ describe('MessagesEngine', () => {
@@ -1856,7 +1857,7 @@ index 77e96fab3b..d2149ef343 100644
        finalAgentConfig = {
          ...finalAgentConfig,
 diff --git a/src/services/chat/chat.test.ts b/src/services/chat/chat.test.ts
-index 52ac5efddd..3d11879eb1 100644
+index 15edea6561..6495054ff5 100644
 --- a/src/services/chat/chat.test.ts
 +++ b/src/services/chat/chat.test.ts
 @@ -51,14 +51,9 @@ const mockCreateHeaderWithAuth = vi.hoisted(() =>
@@ -1958,7 +1959,7 @@ index 562284431d..029a68a499 100644
  
      it('should not modify systemRole when userLocale is falsy', () => {
 diff --git a/src/services/chat/mecha/contextEngineering.test.ts b/src/services/chat/mecha/contextEngineering.test.ts
-index 920769160f..80262fc772 100644
+index 76317a8af7..45589cd5ba 100644
 --- a/src/services/chat/mecha/contextEngineering.test.ts
 +++ b/src/services/chat/mecha/contextEngineering.test.ts
 @@ -95,14 +95,9 @@ afterEach(() => {
@@ -2016,15 +2017,15 @@ index 920769160f..80262fc772 100644
 +    expect(output[0].content).not.toContain('Current model:');
    });
  
-   describe('handle with files content in server mode', () => {
+   it('renders the cloud-sandbox workspace placeholders to the ephemeral wording on the client', async () => {
 -- 
 2.39.5
 
 
-From f33f18c30b3b05373d8907b64158adcd304ae89b Mon Sep 17 00:00:00 2001
+From 4579a49b167a8d5d5b269375e616d4f0b6114130 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:58:13 +0000
-Subject: [PATCH 07/17] =?UTF-8?q?=E2=9C=A8=20feat(agent):=20keep=20tools?=
+Subject: [PATCH 07/16] =?UTF-8?q?=E2=9C=A8=20feat(agent):=20keep=20tools?=
  =?UTF-8?q?=20explicitly=20user-controlled?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -2041,10 +2042,10 @@ Co-authored-by: Cursor GPT-5.6 Sol <cursoragent@cursor.com.invalid>
  6 files changed, 26 insertions(+), 65 deletions(-)
 
 diff --git a/apps/server/src/modules/Mecha/AgentToolsEngine/__tests__/index.test.ts b/apps/server/src/modules/Mecha/AgentToolsEngine/__tests__/index.test.ts
-index 0d3eaa70ac..d985b50dab 100644
+index 3f11360211..c11b3ded2d 100644
 --- a/apps/server/src/modules/Mecha/AgentToolsEngine/__tests__/index.test.ts
 +++ b/apps/server/src/modules/Mecha/AgentToolsEngine/__tests__/index.test.ts
-@@ -544,7 +544,7 @@ describe('createServerAgentToolsEngine', () => {
+@@ -610,7 +610,7 @@ describe('createServerAgentToolsEngine', () => {
      expect(result.enabledToolIds).toContain(LobeAgentManifest.identifier);
    });
  
@@ -2053,7 +2054,7 @@ index 0d3eaa70ac..d985b50dab 100644
      const context = createMockContext();
      const engine = createServerAgentToolsEngine(context, {
        agentConfig: { plugins: [] },
-@@ -558,20 +558,13 @@ describe('createServerAgentToolsEngine', () => {
+@@ -624,20 +624,13 @@ describe('createServerAgentToolsEngine', () => {
        toolIds: [],
      });
  
@@ -2077,7 +2078,7 @@ index 0d3eaa70ac..d985b50dab 100644
        disabledPluginIds: [LobeAgentManifest.identifier],
        model: 'deepseek-chat',
        provider: 'deepseek',
-@@ -580,7 +573,7 @@ describe('createServerAgentToolsEngine', () => {
+@@ -646,7 +639,7 @@ describe('createServerAgentToolsEngine', () => {
      const result = engine.generateToolsDetailed({
        model: 'deepseek-chat',
        provider: 'deepseek',
@@ -2086,7 +2087,7 @@ index 0d3eaa70ac..d985b50dab 100644
      });
  
      expect(result.enabledToolIds).not.toContain(LobeAgentManifest.identifier);
-@@ -592,7 +585,7 @@ describe('createServerAgentToolsEngine', () => {
+@@ -658,7 +651,7 @@ describe('createServerAgentToolsEngine', () => {
    it('hides lobe-agent callSubAgent when manifestContext.isSubAgent is true', () => {
      const context = createMockContext();
      const engine = createServerAgentToolsEngine(context, {
@@ -2095,7 +2096,7 @@ index 0d3eaa70ac..d985b50dab 100644
        manifestContext: { isSubAgent: true },
        model: 'deepseek-chat',
        provider: 'deepseek',
-@@ -601,10 +594,10 @@ describe('createServerAgentToolsEngine', () => {
+@@ -667,10 +660,10 @@ describe('createServerAgentToolsEngine', () => {
      const result = engine.generateToolsDetailed({
        model: 'deepseek-chat',
        provider: 'deepseek',
@@ -2108,7 +2109,7 @@ index 0d3eaa70ac..d985b50dab 100644
      expect(result.enabledToolIds).toContain(LobeAgentManifest.identifier);
      const lobeAgent = result.enabledManifests.find(
        (m) => m.identifier === LobeAgentManifest.identifier,
-@@ -616,7 +609,7 @@ describe('createServerAgentToolsEngine', () => {
+@@ -682,7 +675,7 @@ describe('createServerAgentToolsEngine', () => {
    it('rewrites lobe-skills exec descriptions when manifestContext.executionEnv is device-unrouted', () => {
      const context = createMockContext();
      const engine = createServerAgentToolsEngine(context, {
@@ -2117,7 +2118,7 @@ index 0d3eaa70ac..d985b50dab 100644
        manifestContext: {
          executionEnv: 'device-unrouted',
          executionEnvUnroutedReason: 'bound-device-offline',
-@@ -628,10 +621,9 @@ describe('createServerAgentToolsEngine', () => {
+@@ -694,10 +687,9 @@ describe('createServerAgentToolsEngine', () => {
      const result = engine.generateToolsDetailed({
        model: 'deepseek-chat',
        provider: 'deepseek',
@@ -2129,7 +2130,7 @@ index 0d3eaa70ac..d985b50dab 100644
      const skills = result.enabledManifests.find((m) => m.identifier === SkillsManifest.identifier);
      const runCommand = skills?.api.find((a) => a.name === SkillsApiName.runCommand);
      expect(runCommand?.description).toContain('local device but it is offline');
-@@ -644,7 +636,7 @@ describe('createServerAgentToolsEngine', () => {
+@@ -710,7 +702,7 @@ describe('createServerAgentToolsEngine', () => {
    it('hides lobe-agent callSubAgent inside a group run (scope=group)', () => {
      const context = createMockContext();
      const engine = createServerAgentToolsEngine(context, {
@@ -2138,7 +2139,7 @@ index 0d3eaa70ac..d985b50dab 100644
        manifestContext: { scope: 'group' },
        model: 'deepseek-chat',
        provider: 'deepseek',
-@@ -653,7 +645,7 @@ describe('createServerAgentToolsEngine', () => {
+@@ -719,7 +711,7 @@ describe('createServerAgentToolsEngine', () => {
      const result = engine.generateToolsDetailed({
        model: 'deepseek-chat',
        provider: 'deepseek',
@@ -2148,10 +2149,10 @@ index 0d3eaa70ac..d985b50dab 100644
  
      const lobeAgent = result.enabledManifests.find(
 diff --git a/packages/builtin-tools/src/index.ts b/packages/builtin-tools/src/index.ts
-index 4ffe76578f..d52fc63705 100644
+index ab3da6edd8..0d14915aaa 100644
 --- a/packages/builtin-tools/src/index.ts
 +++ b/packages/builtin-tools/src/index.ts
-@@ -67,25 +67,9 @@ export const defaultToolIds = [
+@@ -81,25 +81,9 @@ export const defaultToolIds = [
  
  /**
   * Tool IDs that are always enabled regardless of user selection.
@@ -2179,7 +2180,7 @@ index 4ffe76578f..d52fc63705 100644
  
  /**
   * Runtime tools represented by the skill activation mode control itself. They remain part
-@@ -274,22 +258,16 @@ const builtinToolRegistry: LobeBuiltinTool[] = [
+@@ -303,22 +287,16 @@ const builtinToolRegistry: LobeBuiltinTool[] = [
      type: 'builtin',
    },
    {
@@ -2203,10 +2204,10 @@ index 4ffe76578f..d52fc63705 100644
      manifest: SkillsManifest,
      // Context-aware: prefixes exec-class API descriptions with the run's
 diff --git a/packages/mecha/src/toolSet/resolveToolRules.test.ts b/packages/mecha/src/toolSet/resolveToolRules.test.ts
-index 4a543a0a8a..15729c92a3 100644
+index fd359ca062..ef5a681116 100644
 --- a/packages/mecha/src/toolSet/resolveToolRules.test.ts
 +++ b/packages/mecha/src/toolSet/resolveToolRules.test.ts
-@@ -54,14 +54,14 @@ describe('resolveToolRules', () => {
+@@ -67,14 +67,14 @@ describe('resolveToolRules', () => {
      expect(resolved.allowExplicitActivation).toBe(false);
    });
  
@@ -2224,10 +2225,10 @@ index 4a543a0a8a..15729c92a3 100644
        expect(resolved.rules[id]).toBe(true);
        expect(resolved.defaultToolIds).toContain(id);
 diff --git a/src/helpers/toolEngineering/index.test.ts b/src/helpers/toolEngineering/index.test.ts
-index 3ff9600729..2bdc5a0336 100644
+index fe0e1cd059..a30ee569a9 100644
 --- a/src/helpers/toolEngineering/index.test.ts
 +++ b/src/helpers/toolEngineering/index.test.ts
-@@ -437,9 +437,8 @@ describe('toolEngineering', () => {
+@@ -498,9 +498,8 @@ describe('toolEngineering', () => {
          provider: 'openai',
        });
  
@@ -2239,7 +2240,7 @@ index 3ff9600729..2bdc5a0336 100644
      });
  
      it('should enable lobe-agent when it is injected into runtime plugin ids', () => {
-@@ -456,7 +455,7 @@ describe('toolEngineering', () => {
+@@ -517,7 +516,7 @@ describe('toolEngineering', () => {
        expect(result.enabledToolIds).toContain('lobe-agent');
      });
  
@@ -2248,7 +2249,7 @@ index 3ff9600729..2bdc5a0336 100644
        const toolsEngine = createAgentToolsEngine({
          model: 'deepseek-chat',
          provider: 'deepseek',
-@@ -468,10 +467,10 @@ describe('toolEngineering', () => {
+@@ -529,10 +528,10 @@ describe('toolEngineering', () => {
          toolIds: [],
        });
  
@@ -2327,10 +2328,10 @@ index c7240e961f..d486b4efee 100644
 2.39.5
 
 
-From ebdec748525bc59b573ca430055b4ae1aecbfecc Mon Sep 17 00:00:00 2001
+From ba82973c0c3691f830467fdb9ba548f28fd87274 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:58:21 +0000
-Subject: [PATCH 08/17] =?UTF-8?q?=E2=9C=A8=20feat(agent):=20summarize=20to?=
+Subject: [PATCH 08/16] =?UTF-8?q?=E2=9C=A8=20feat(agent):=20summarize=20to?=
  =?UTF-8?q?pics=20in=20the=20conversation=20language?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -2372,21 +2373,21 @@ index cc24fb2baa..151b64af37 100644
 2.39.5
 
 
-From 41c51650d20dfe1f638e73ea2f8bf22b786eee75 Mon Sep 17 00:00:00 2001
+From a1859272c3ed7bb9d5fda2e06936c2501067e6d8 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
-Date: Thu, 24 Sep 2026 06:58:27 +0000
-Subject: [PATCH 09/17] =?UTF-8?q?=F0=9F=90=9B=20fix(qstash):=20construct?=
+Date: Wed, 7 Oct 2026 16:25:57 +0000
+Subject: [PATCH 09/16] =?UTF-8?q?=F0=9F=90=9B=20fix(qstash):=20construct?=
  =?UTF-8?q?=20the=20client=20lazily=20and=20drop=20debug=20logs?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Co-authored-by: Cursor GPT-5.6 Sol <cursoragent@cursor.com.invalid>
+Co-authored-by: Cursor Grok 4.7 <cursoragent@cursor.com.invalid>
 ---
  .../src/router-hono/workflows/qstashClient.ts | 18 ++++--
- patches/@upstash__qstash.patch                | 23 +-------
+ patches/@upstash__qstash.patch                | 24 +-------
  src/libs/qstash/index.ts                      | 58 ++++++++++++-------
- 3 files changed, 53 insertions(+), 46 deletions(-)
+ 3 files changed, 53 insertions(+), 47 deletions(-)
 
 diff --git a/apps/server/src/router-hono/workflows/qstashClient.ts b/apps/server/src/router-hono/workflows/qstashClient.ts
 index d8b4d255ed..cd5e57e084 100644
@@ -2423,14 +2424,15 @@ index d8b4d255ed..cd5e57e084 100644
  
  export { upstashWorkflowExtraHeaders };
 diff --git a/patches/@upstash__qstash.patch b/patches/@upstash__qstash.patch
-index 17450e52da..5e4c5031b6 100644
+index a675531317..ac614233c0 100644
 --- a/patches/@upstash__qstash.patch
 +++ b/patches/@upstash__qstash.patch
-@@ -1,28 +1,7 @@
- diff --git a/chunk-JYPXGFWX.mjs b/chunk-JYPXGFWX.mjs
- --- a/chunk-JYPXGFWX.mjs
- +++ b/chunk-JYPXGFWX.mjs
--@@ -1526,6 +1526,20 @@ var HttpClient = class {
+@@ -1,29 +1,7 @@
+ diff --git a/chunk-F7X2AQ7W.mjs b/chunk-F7X2AQ7W.mjs
+-index 62b68ef..1e24e58 100644
+ --- a/chunk-F7X2AQ7W.mjs
+ +++ b/chunk-F7X2AQ7W.mjs
+-@@ -1547,6 +1547,20 @@ var HttpClient = class {
 -     }
 -     if (response.status < 200 || response.status >= 300) {
 -       const body = await response.text();
@@ -2446,13 +2448,13 @@ index 17450e52da..5e4c5031b6 100644
 -+          })
 -+        );
 -+      } catch {
--+        // ignore logging failures to preserve original throw path
+-+        // ignore logging failures to preserve original error path
 -+      }
--       throw new QstashError(
+-       return new QstashError(
 -         body.length > 0 ? body : `Error: status=${response.status}`,
 -         response.status
--@@ -2797,8 +2811,10 @@ var AutoExecutor = class _AutoExecutor {
-+@@ -2797,8 +2797,10 @@ var AutoExecutor = class _AutoExecutor {
+-@@ -2841,8 +2855,10 @@ var AutoExecutor = class _AutoExecutor {
++@@ -2841,8 +2841,10 @@ var AutoExecutor = class _AutoExecutor {
             if (error instanceof QStashWorkflowAbort) {
               throw error;
             }
@@ -2561,10 +2563,10 @@ index c113c0bf70..58ff24d9b3 100644
 2.39.5
 
 
-From 19cb8239a8cd57912085d2ee29cad19e7884778d Mon Sep 17 00:00:00 2001
+From 4c3e68398eaf185d14cba2ca3ca84bbebd8519f5 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:58:34 +0000
-Subject: [PATCH 10/17] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20keep=20patched=20?=
+Subject: [PATCH 10/16] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20keep=20patched=20?=
  =?UTF-8?q?fonts=20at=20the=20app=20boundary?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -2816,10 +2818,10 @@ index 7bcdcc01bd..997cefc067 100644
 2.39.5
 
 
-From 1015352d42ecc23e51c12443554866a4c1e296ac Mon Sep 17 00:00:00 2001
+From f2c0b943c63463215a2131eeda7a8f7308c59a13 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:58:41 +0000
-Subject: [PATCH 11/17] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20offer=20only=20En?=
+Subject: [PATCH 11/16] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20offer=20only=20En?=
  =?UTF-8?q?glish=20and=20Japanese?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -2902,22 +2904,22 @@ index 5dbaf4408b..cdad3d1f89 100644
 2.39.5
 
 
-From 8ff0525f200b6eab458412c615c9a40baa793111 Mon Sep 17 00:00:00 2001
+From 9287184a1e5307b90a779f4261111a076d8f2fae Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
-Date: Thu, 24 Sep 2026 06:58:48 +0000
-Subject: [PATCH 12/17] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20keep=20user-messa?=
+Date: Wed, 7 Oct 2026 16:25:57 +0000
+Subject: [PATCH 12/16] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20keep=20user-messa?=
  =?UTF-8?q?ge=20edits=20manual?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Co-authored-by: Cursor GPT-5.6 Sol <cursoragent@cursor.com.invalid>
+Co-authored-by: Cursor Grok 4.7 <cursoragent@cursor.com.invalid>
 ---
- .../components/MessageContent/index.tsx       | 13 +++---------
- .../User/components/MessageContent.test.tsx   |  6 +++---
- .../User/components/MessageContent.tsx        | 18 ++++++----------
- src/features/EditorModal/EditorCanvas.tsx     | 21 ++++++++++++++++---
- 4 files changed, 30 insertions(+), 28 deletions(-)
+ .../components/MessageContent/index.tsx       | 13 +++-------
+ .../User/components/MessageContent.test.tsx   |  6 ++---
+ .../User/components/MessageContent.tsx        | 25 +++++--------------
+ src/features/EditorModal/EditorCanvas.tsx     | 21 +++++++++++++---
+ 4 files changed, 30 insertions(+), 35 deletions(-)
 
 diff --git a/src/features/Conversation/ChatItem/components/MessageContent/index.tsx b/src/features/Conversation/ChatItem/components/MessageContent/index.tsx
 index 26f1916311..7c92bd8f2e 100644
@@ -2951,19 +2953,19 @@ index 26f1916311..7c92bd8f2e 100644
  
      const { t } = useTranslation('common');
 diff --git a/src/features/Conversation/Messages/User/components/MessageContent.test.tsx b/src/features/Conversation/Messages/User/components/MessageContent.test.tsx
-index 5b854281a1..c97f51570c 100644
+index 456e831525..78908483f5 100644
 --- a/src/features/Conversation/Messages/User/components/MessageContent.test.tsx
 +++ b/src/features/Conversation/Messages/User/components/MessageContent.test.tsx
-@@ -35,7 +35,7 @@ vi.mock('./AudioFileListViewer', () => ({
- }));
+@@ -60,7 +60,7 @@ describe('User MessageContent', () => {
+     expect(document.body.textContent).not.toContain('<speaker');
+   });
  
- describe('User MessageContent', () => {
 -  it('should prefer rich text rendering when editorData exists', () => {
 +  it('should render markdown when editorData exists', () => {
      render(
        <MessageContent
          content={'markdown-content'}
-@@ -47,8 +47,8 @@ describe('User MessageContent', () => {
+@@ -72,8 +72,8 @@ describe('User MessageContent', () => {
        />,
      );
  
@@ -2975,13 +2977,25 @@ index 5b854281a1..c97f51570c 100644
  
    it('should render markdown when editorData is missing', () => {
 diff --git a/src/features/Conversation/Messages/User/components/MessageContent.tsx b/src/features/Conversation/Messages/User/components/MessageContent.tsx
-index 4dcb722ff8..7eea615f67 100644
+index c288e37b22..c27af032be 100644
 --- a/src/features/Conversation/Messages/User/components/MessageContent.tsx
 +++ b/src/features/Conversation/Messages/User/components/MessageContent.tsx
-@@ -11,30 +11,24 @@ import AudioFileListViewer from './AudioFileListViewer';
+@@ -3,25 +3,21 @@ import { memo, useMemo } from 'react';
+ 
+ import CollapsibleContent from '@/components/CollapsibleContent';
+ import MarkdownMessage from '@/features/Conversation/Markdown';
+-import { StartTopicConversationContext } from '@/features/LocalFile';
+ import { cleanSpeakerTag } from '@/store/chat/utils/cleanSpeakerTag';
+ import { splitReferencedMessage } from '@/store/chat/utils/parseReferencedMessage';
+ import { type UIChatMessage } from '@/types/index';
+ 
+-import { useStartTopicConversation } from '../../../hooks/useStartTopicConversation';
+ import { useMarkdown } from '../useMarkdown';
+ import AudioFileListViewer from './AudioFileListViewer';
  import FileListViewer from './FileListViewer';
  import ImageFileListViewer from './ImageFileListViewer';
  import PageSelections from './PageSelections';
+ import ReferencedMessage from './ReferencedMessage';
 -import RichTextMessage from './RichTextMessage';
  import VideoFileListViewer from './VideoFileListViewer';
  
@@ -2989,16 +3003,23 @@ index 4dcb722ff8..7eea615f67 100644
 -  ({ id, content, editorData, imageList, videoList, audioList, fileList, metadata }) => {
 +  ({ id, content, imageList, videoList, audioList, fileList, metadata }) => {
      const markdownProps = useMarkdown(id);
+-    const startTopicConversation = useStartTopicConversation();
      const selections = metadata?.contextSelections?.length
        ? metadata.contextSelections
        : metadata?.pageSelections;
-     const displayContent = useMemo(() => (content ? cleanSpeakerTag(content) : content), [content]);
+@@ -34,24 +30,15 @@ const UserMessageContent = memo<UIChatMessage>(
+       return { displayContent: body, reference };
+     }, [content]);
  
 -    const hasEditorData =
 -      editorData && typeof editorData === 'object' && Object.keys(editorData).length > 0;
 -
 -    const textBody = hasEditorData ? (
--      <RichTextMessage editorState={editorData} />
+-      // Rich-text folder chips render headlessly, so they receive the
+-      // conversation through context rather than props.
+-      <StartTopicConversationContext value={startTopicConversation}>
+-        <RichTextMessage editorState={editorData} />
+-      </StartTopicConversationContext>
 -    ) : (
 -      displayContent && <MarkdownMessage {...markdownProps}>{displayContent}</MarkdownMessage>
 -    );
@@ -3006,6 +3027,7 @@ index 4dcb722ff8..7eea615f67 100644
      return (
        <Flexbox gap={8} id={id}>
          {selections && selections.length > 0 && <PageSelections selections={selections} />}
+         {reference && <ReferencedMessage reference={reference} />}
 -        {textBody && <CollapsibleContent>{textBody}</CollapsibleContent>}
 +        {displayContent && (
 +          <CollapsibleContent>
@@ -3069,10 +3091,10 @@ index d5e11d7aa1..e72383895b 100644
 2.39.5
 
 
-From 72f853b96d5a3bb22ada24511e1b75332abbb4de Mon Sep 17 00:00:00 2001
+From 06006d73ec957f6fb92482e3729dab1f37946a40 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:58:55 +0000
-Subject: [PATCH 13/17] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20show=20exact=20to?=
+Subject: [PATCH 13/16] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20show=20exact=20to?=
  =?UTF-8?q?ken=20counts?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -3086,10 +3108,10 @@ Co-authored-by: Cursor GPT-5.6 Sol <cursoragent@cursor.com.invalid>
  3 files changed, 17 insertions(+), 22 deletions(-)
 
 diff --git a/packages/utils/src/format.test.ts b/packages/utils/src/format.test.ts
-index 6d8c9d4232..c64573f5f4 100644
+index b98df68d7d..ca2faf6dda 100644
 --- a/packages/utils/src/format.test.ts
 +++ b/packages/utils/src/format.test.ts
-@@ -269,16 +269,16 @@ describe('format', () => {
+@@ -264,16 +264,16 @@ describe('format', () => {
    });
  
    describe('formatUsageValue', () => {
@@ -3114,7 +3136,7 @@ index 6d8c9d4232..c64573f5f4 100644
      });
  
      it('keeps small token counts readable without suffixes', () => {
-@@ -287,16 +287,16 @@ describe('format', () => {
+@@ -282,16 +282,16 @@ describe('format', () => {
        expect(formatUsageValue(999)).toBe('999');
      });
  
@@ -3154,7 +3176,7 @@ index 208c5e4496..4e46cc3ab4 100644
  };
  
 diff --git a/src/features/Conversation/ChatInput/OpStatusTray.tsx b/src/features/Conversation/ChatInput/OpStatusTray.tsx
-index cab4c39d72..e0b70dee85 100644
+index ae72e8679b..e33186139c 100644
 --- a/src/features/Conversation/ChatInput/OpStatusTray.tsx
 +++ b/src/features/Conversation/ChatInput/OpStatusTray.tsx
 @@ -206,9 +206,7 @@ const ActivityGlyph = () => (
@@ -3172,16 +3194,16 @@ index cab4c39d72..e0b70dee85 100644
 2.39.5
 
 
-From 01711e5a6ef97d7d30c6450ba034a7db12edae92 Mon Sep 17 00:00:00 2001
+From 7be2f906db32055c9bcad87a798fc382551b1999 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
-Date: Thu, 24 Sep 2026 06:59:02 +0000
-Subject: [PATCH 14/17] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20use=20MSM=20defau?=
+Date: Wed, 7 Oct 2026 16:25:57 +0000
+Subject: [PATCH 14/16] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20use=20MSM=20defau?=
  =?UTF-8?q?lts=20for=20model=20and=20share=20panels?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Co-authored-by: Cursor GPT-5.6 Sol <cursoragent@cursor.com.invalid>
+Co-authored-by: Cursor Grok 4.7 <cursoragent@cursor.com.invalid>
 ---
  .../ModelSwitchPanel/components/PanelContent.tsx       | 10 +++++++++-
  src/features/ShareModal/Modal.tsx                      |  2 +-
@@ -3190,17 +3212,17 @@ Co-authored-by: Cursor GPT-5.6 Sol <cursoragent@cursor.com.invalid>
  4 files changed, 11 insertions(+), 6 deletions(-)
 
 diff --git a/src/features/ModelSwitchPanel/components/PanelContent.tsx b/src/features/ModelSwitchPanel/components/PanelContent.tsx
-index 3212079217..d47451004c 100644
+index 10ac780269..f68bca5f45 100644
 --- a/src/features/ModelSwitchPanel/components/PanelContent.tsx
 +++ b/src/features/ModelSwitchPanel/components/PanelContent.tsx
 @@ -1,5 +1,5 @@
  import { Flexbox } from '@lobehub/ui';
--import { type ComponentType, type FC } from 'react';
-+import { type ComponentType, type FC, useEffect } from 'react';
+-import { type ComponentType, type FC, type ReactNode } from 'react';
++import { type ComponentType, type FC, type ReactNode, useEffect } from 'react';
  import { useState } from 'react';
  import { Rnd } from 'react-rnd';
  
-@@ -67,6 +67,14 @@ export const PanelContent: FC<PanelContentProps> = ({
+@@ -85,6 +85,14 @@ export const PanelContent: FC<PanelContentProps> = ({
      </>
    );
  
@@ -3214,7 +3236,7 @@ index 3212079217..d47451004c 100644
 +
    if (isDevMode) {
      return (
-       <Rnd
+       <>
 diff --git a/src/features/ShareModal/Modal.tsx b/src/features/ShareModal/Modal.tsx
 index e11767381d..871f824541 100644
 --- a/src/features/ShareModal/Modal.tsx
@@ -3229,10 +3251,10 @@ index e11767381d..871f824541 100644
    const [rendererState, setRendererState] = useState<ShareTabRendererState>({ status: 'loading' });
    const { t } = useTranslation('chat');
 diff --git a/src/features/ShareModal/ShareJSON/index.tsx b/src/features/ShareModal/ShareJSON/index.tsx
-index c85ab65d77..dd163f1586 100644
+index 7fb20bcace..3ea11dee48 100644
 --- a/src/features/ShareModal/ShareJSON/index.tsx
 +++ b/src/features/ShareModal/ShareJSON/index.tsx
-@@ -18,7 +18,7 @@ import Preview from './Preview';
+@@ -19,7 +19,7 @@ import Preview from './Preview';
  import { type FieldType } from './type';
  
  const DEFAULT_FIELD_VALUE: FieldType = {
@@ -3242,10 +3264,10 @@ index c85ab65d77..dd163f1586 100644
    withSystemRole: true,
  };
 diff --git a/src/store/global/initialState.ts b/src/store/global/initialState.ts
-index 1958c6b9fd..f9258310c5 100644
+index 8c85372dbf..9f129f6bc8 100644
 --- a/src/store/global/initialState.ts
 +++ b/src/store/global/initialState.ts
-@@ -132,9 +132,6 @@ export type ModelDetailPanelExpandedKey = (typeof MODEL_DETAIL_PANEL_EXPANDED_KE
+@@ -134,9 +134,6 @@ export type ModelDetailPanelExpandedKey = (typeof MODEL_DETAIL_PANEL_EXPANDED_KE
   * newly added sections default to expanded automatically.
   */
  export const MODEL_DETAIL_PANEL_EXPANDABLE_KEYS = [
@@ -3259,10 +3281,10 @@ index 1958c6b9fd..f9258310c5 100644
 2.39.5
 
 
-From 8fdc926c014cd59807f51bf2b12ad8b0b8121253 Mon Sep 17 00:00:00 2001
+From 1d747f41e9fd95cb087fe7e10ba3b5ab930f9eda Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:59:09 +0000
-Subject: [PATCH 15/17] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20shorten=20topic?=
+Subject: [PATCH 15/16] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20shorten=20topic?=
  =?UTF-8?q?=20previews=20and=20honor=20modifier-clicks?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -3275,7 +3297,7 @@ Co-authored-by: Cursor GPT-5.6 Sol <cursoragent@cursor.com.invalid>
  2 files changed, 45 insertions(+), 15 deletions(-)
 
 diff --git a/src/features/AgentSidebar/Topic/List/Item/index.tsx b/src/features/AgentSidebar/Topic/List/Item/index.tsx
-index c369b96e18..7e71cd9a5d 100644
+index 5a7d45f2f0..b770b85154 100644
 --- a/src/features/AgentSidebar/Topic/List/Item/index.tsx
 +++ b/src/features/AgentSidebar/Topic/List/Item/index.tsx
 @@ -11,7 +11,7 @@ import { createStaticStyles, cssVar, useTheme } from 'antd-style';
@@ -3295,7 +3317,7 @@ index c369b96e18..7e71cd9a5d 100644
  
  import { useTopicNavigation } from '../../hooks/useTopicNavigation';
  import ThreadList from '../../TopicListContent/ThreadList';
-@@ -263,17 +264,21 @@ const TopicItemRow = memo<TopicItemRowProps>(
+@@ -305,17 +306,21 @@ const TopicItemRow = memo<TopicItemRowProps>(
        [id, title],
      );
  
@@ -3402,1410 +3424,10 @@ index 20f1b19d3d..f10470bbb5 100644
 2.39.5
 
 
-From b422b2b2c0f4158703e8d927221188edf25ce730 Mon Sep 17 00:00:00 2001
-From: YuTengjing <ytj2713151713@gmail.com>
-Date: Wed, 23 Sep 2026 14:48:54 +0800
-Subject: [PATCH 16/17] =?UTF-8?q?=F0=9F=92=84=20style(model-bank):=20add?=
- =?UTF-8?q?=20Opus=205.5,=20GPT-6,=20Grok=204.7=20and=20MiMo-V2.6=20(#1987?=
- =?UTF-8?q?4)?=
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-Co-authored-by: Claude Sonnet 5 <noreply@anthropic.com>
-Co-authored-by: Claude Opus 5.5 (1M context) <noreply@anthropic.com>
----
- .../src/aiModels/__tests__/index.test.ts      |   2 +-
- packages/model-bank/src/aiModels/aihubmix.ts  | 306 +++++++++++++++++-
- packages/model-bank/src/aiModels/anthropic.ts |  37 +++
- packages/model-bank/src/aiModels/azure.ts     | 202 ++++++++++++
- packages/model-bank/src/aiModels/bedrock.ts   |  33 ++
- packages/model-bank/src/aiModels/chatGPT.ts   |   2 +
- packages/model-bank/src/aiModels/openai.ts    | 130 ++++++++
- .../model-bank/src/aiModels/openrouter.ts     | 292 +++++++++++++++++
- packages/model-bank/src/aiModels/superGrok.ts |  24 ++
- packages/model-bank/src/aiModels/xai.ts       |  56 ++++
- .../model-bank/src/aiModels/xiaomimimo.ts     | 102 ++++++
- 11 files changed, 1179 insertions(+), 7 deletions(-)
-
-diff --git a/packages/model-bank/src/aiModels/__tests__/index.test.ts b/packages/model-bank/src/aiModels/__tests__/index.test.ts
-index 8cd7265ad1..31bea91581 100644
---- a/packages/model-bank/src/aiModels/__tests__/index.test.ts
-+++ b/packages/model-bank/src/aiModels/__tests__/index.test.ts
-@@ -106,7 +106,7 @@ describe('ChatGPT subscription models', () => {
-       (model) => model.providerId === ModelProvider.ChatGPT,
-     );
- 
--    expect(models).toHaveLength(5);
-+    expect(models).toHaveLength(7);
-     expect(
-       models.every((model) => model.settings?.extendParams?.includes('preserveThinking')),
-     ).toBe(true);
-diff --git a/packages/model-bank/src/aiModels/aihubmix.ts b/packages/model-bank/src/aiModels/aihubmix.ts
-index 2c5ec18ed8..3d59c5b0c7 100644
---- a/packages/model-bank/src/aiModels/aihubmix.ts
-+++ b/packages/model-bank/src/aiModels/aihubmix.ts
-@@ -2,6 +2,128 @@ import { gptImage2Schema, nanoBanana2LiteParameters } from '../const/imageParame
- import type { AIChatModelCard, AIImageModelCard } from '../types/aiModel';
- 
- const aihubmixChatModels: AIChatModelCard[] = [
-+  {
-+    abilities: {
-+      functionCall: true,
-+      reasoning: true,
-+      search: true,
-+      structuredOutput: true,
-+      vision: true,
-+    },
-+    contextWindowTokens: 1_050_000,
-+    description: 'GPT-6 Sol is built for complex coding and agentic workflows.',
-+    displayName: 'GPT-6 Sol',
-+    enabled: true,
-+    family: 'gpt',
-+    generation: 'gpt-6',
-+    id: 'gpt-6-sol',
-+    knowledgeCutoff: '2026-04',
-+    maxOutput: 128_000,
-+    pricing: {
-+      units: [
-+        {
-+          name: 'textInput',
-+          strategy: 'tiered',
-+          tiers: [
-+            { rate: 2, upTo: 272_000 },
-+            { rate: 4, upTo: 'infinity' },
-+          ],
-+          unit: 'millionTokens',
-+        },
-+        {
-+          name: 'textInput_cacheRead',
-+          strategy: 'tiered',
-+          tiers: [
-+            { rate: 0.2, upTo: 272_000 },
-+            { rate: 0.4, upTo: 'infinity' },
-+          ],
-+          unit: 'millionTokens',
-+        },
-+        {
-+          name: 'textInput_cacheWrite',
-+          strategy: 'tiered',
-+          tiers: [
-+            { rate: 2.5, upTo: 272_000 },
-+            { rate: 5, upTo: 'infinity' },
-+          ],
-+          unit: 'millionTokens',
-+        },
-+        {
-+          name: 'textOutput',
-+          strategy: 'tiered',
-+          tiers: [
-+            { rate: 10, upTo: 272_000 },
-+            { rate: 15, upTo: 'infinity' },
-+          ],
-+          unit: 'millionTokens',
-+        },
-+      ],
-+    },
-+    releasedAt: '2026-09-22',
-+    settings: { extendParams: ['gpt5_6ReasoningEffort', 'textVerbosity'], searchImpl: 'params' },
-+    type: 'chat',
-+  },
-+  {
-+    abilities: {
-+      functionCall: true,
-+      reasoning: true,
-+      search: true,
-+      structuredOutput: true,
-+      vision: true,
-+    },
-+    contextWindowTokens: 1_050_000,
-+    description: 'GPT-6 Luna is OpenAI’s most efficient model for focused, high-volume tasks.',
-+    displayName: 'GPT-6 Luna',
-+    enabled: true,
-+    family: 'gpt',
-+    generation: 'gpt-6',
-+    id: 'gpt-6-luna',
-+    knowledgeCutoff: '2026-05',
-+    maxOutput: 128_000,
-+    pricing: {
-+      units: [
-+        {
-+          name: 'textInput',
-+          strategy: 'tiered',
-+          tiers: [
-+            { rate: 0.1, upTo: 272_000 },
-+            { rate: 0.2, upTo: 'infinity' },
-+          ],
-+          unit: 'millionTokens',
-+        },
-+        {
-+          name: 'textInput_cacheRead',
-+          strategy: 'tiered',
-+          tiers: [
-+            { rate: 0.01, upTo: 272_000 },
-+            { rate: 0.02, upTo: 'infinity' },
-+          ],
-+          unit: 'millionTokens',
-+        },
-+        {
-+          name: 'textInput_cacheWrite',
-+          strategy: 'tiered',
-+          tiers: [
-+            { rate: 0.125, upTo: 272_000 },
-+            { rate: 0.25, upTo: 'infinity' },
-+          ],
-+          unit: 'millionTokens',
-+        },
-+        {
-+          name: 'textOutput',
-+          strategy: 'tiered',
-+          tiers: [
-+            { rate: 0.5, upTo: 272_000 },
-+            { rate: 0.75, upTo: 'infinity' },
-+          ],
-+          unit: 'millionTokens',
-+        },
-+      ],
-+    },
-+    releasedAt: '2026-09-22',
-+    settings: { extendParams: ['gpt5_6ReasoningEffort', 'textVerbosity'], searchImpl: 'params' },
-+    type: 'chat',
-+  },
-   {
-     abilities: {
-       functionCall: true,
-@@ -866,6 +988,58 @@ const aihubmixChatModels: AIChatModelCard[] = [
-     },
-     type: 'chat',
-   },
-+  {
-+    abilities: {
-+      functionCall: true,
-+      reasoning: true,
-+      search: true,
-+      structuredOutput: true,
-+      vision: true,
-+    },
-+    contextWindowTokens: 500_000,
-+    description:
-+      'Grok 4.7 is more reliable than Grok 4.6 on long-running coding and knowledge work, at the same price and speed, with a 500K context window.',
-+    displayName: 'Grok 4.7',
-+    enabled: true,
-+    family: 'grok',
-+    generation: 'grok-4.7',
-+    id: 'grok-4.7',
-+    knowledgeCutoff: '2026-05',
-+    pricing: {
-+      units: [
-+        {
-+          name: 'textInput_cacheRead',
-+          strategy: 'tiered',
-+          tiers: [
-+            { rate: 0.55, upTo: 199_999 },
-+            { rate: 1.1, upTo: 'infinity' },
-+          ],
-+          unit: 'millionTokens',
-+        },
-+        {
-+          name: 'textInput',
-+          strategy: 'tiered',
-+          tiers: [
-+            { rate: 2.2, upTo: 199_999 },
-+            { rate: 4.4, upTo: 'infinity' },
-+          ],
-+          unit: 'millionTokens',
-+        },
-+        {
-+          name: 'textOutput',
-+          strategy: 'tiered',
-+          tiers: [
-+            { rate: 6.6, upTo: 199_999 },
-+            { rate: 13.2, upTo: 'infinity' },
-+          ],
-+          unit: 'millionTokens',
-+        },
-+      ],
-+    },
-+    releasedAt: '2026-09-21',
-+    settings: { extendParams: ['grok4_7ReasoningEffort'], searchImpl: 'params' },
-+    type: 'chat',
-+  },
-   {
-     abilities: {
-       functionCall: true,
-@@ -1000,6 +1174,41 @@ const aihubmixChatModels: AIChatModelCard[] = [
-     },
-     type: 'chat',
-   },
-+  {
-+    abilities: {
-+      functionCall: true,
-+      reasoning: true,
-+      search: true,
-+      structuredOutput: true,
-+      vision: true,
-+    },
-+    contextWindowTokens: 1_000_000,
-+    description:
-+      'Claude Opus 5.5 is built for long-running agentic coding and knowledge work, outperforming Claude Fable 5.1 on Terminal-Bench 4.0 at a lower price than Claude Opus 5.',
-+    displayName: 'Claude Opus 5.5',
-+    enabled: true,
-+    family: 'claude-opus',
-+    generation: 'claude-5.5',
-+    id: 'claude-opus-5-5',
-+    knowledgeCutoff: '2026-06',
-+    maxOutput: 128_000,
-+    pricing: {
-+      units: [
-+        { name: 'textInput_cacheRead', rate: 0.2, strategy: 'fixed', unit: 'millionTokens' },
-+        { name: 'textInput', rate: 4, strategy: 'fixed', unit: 'millionTokens' },
-+        { name: 'textOutput', rate: 20, strategy: 'fixed', unit: 'millionTokens' },
-+        { name: 'textInput_cacheWrite', rate: 5, strategy: 'fixed', unit: 'millionTokens' },
-+      ],
-+    },
-+    releasedAt: '2026-09-22',
-+    // Thinking is always on for Opus 5.5, so `enableAdaptiveThinking` is omitted.
-+    settings: {
-+      disabledParams: ['temperature', 'top_p'],
-+      extendParams: ['disableContextCaching', 'opus47Effort'],
-+      searchImpl: 'params',
-+    },
-+    type: 'chat',
-+  },
-   {
-     abilities: {
-       functionCall: true,
-@@ -1225,6 +1434,91 @@ const aihubmixChatModels: AIChatModelCard[] = [
-     },
-     type: 'chat',
-   },
-+  {
-+    abilities: {
-+      audio: true,
-+      functionCall: true,
-+      reasoning: true,
-+      structuredOutput: true,
-+      video: true,
-+      vision: true,
-+    },
-+    contextWindowTokens: 1_048_576,
-+    description:
-+      "MiMo-V2.6-Pro is Xiaomi's open-source multimodal flagship (1.02T total / 42B active) for long-horizon coding and computer use, accepting text, image, video, and audio input with a 1M context window at the previous Pro price.",
-+    displayName: 'MiMo-V2.6 Pro',
-+    enabled: true,
-+    family: 'mimo',
-+    generation: 'mimo-v2.6',
-+    id: 'mimo-v2.6-pro',
-+    maxOutput: 131_072,
-+    pricing: {
-+      units: [
-+        { name: 'textInput_cacheRead', rate: 0.00384, strategy: 'fixed', unit: 'millionTokens' },
-+        { name: 'textInput', rate: 0.48, strategy: 'fixed', unit: 'millionTokens' },
-+        { name: 'textOutput', rate: 0.96, strategy: 'fixed', unit: 'millionTokens' },
-+      ],
-+    },
-+    releasedAt: '2026-09-22',
-+    // Served through AIHubMix's generic OpenAI-compatible route, which does not forward the MiMo `thinking` toggle, so no reasoning switch is exposed.
-+    type: 'chat',
-+  },
-+  {
-+    abilities: {
-+      audio: true,
-+      functionCall: true,
-+      reasoning: true,
-+      structuredOutput: true,
-+      video: true,
-+      vision: true,
-+    },
-+    contextWindowTokens: 1_048_576,
-+    description:
-+      'MiMo-V2.6-Pro-UltraSpeed serves the same weights as MiMo-V2.6-Pro at up to 20x the output speed for latency-sensitive agents.',
-+    displayName: 'MiMo-V2.6 Pro UltraSpeed',
-+    enabled: true,
-+    family: 'mimo',
-+    generation: 'mimo-v2.6',
-+    id: 'mimo-v2.6-pro-ultraspeed',
-+    maxOutput: 131_072,
-+    pricing: {
-+      units: [
-+        { name: 'textInput_cacheRead', rate: 0.0384, strategy: 'fixed', unit: 'millionTokens' },
-+        { name: 'textInput', rate: 4.8, strategy: 'fixed', unit: 'millionTokens' },
-+        { name: 'textOutput', rate: 9.6, strategy: 'fixed', unit: 'millionTokens' },
-+      ],
-+    },
-+    releasedAt: '2026-09-22',
-+    type: 'chat',
-+  },
-+  {
-+    abilities: {
-+      audio: true,
-+      functionCall: true,
-+      reasoning: true,
-+      structuredOutput: true,
-+      video: true,
-+      vision: true,
-+    },
-+    contextWindowTokens: 1_048_576,
-+    description:
-+      'MiMo-V2.6-Flash is a low-cost omni-modal agent model (about 310B total / 15B active) that surpasses MiMo-V2.5-Pro on agent benchmarks at the previous MiMo-V2.5 price, with a 1M context window.',
-+    displayName: 'MiMo-V2.6 Flash',
-+    enabled: true,
-+    family: 'mimo',
-+    generation: 'mimo-v2.6',
-+    id: 'mimo-v2.6-flash',
-+    maxOutput: 131_072,
-+    pricing: {
-+      units: [
-+        { name: 'textInput_cacheRead', rate: 0.0031, strategy: 'fixed', unit: 'millionTokens' },
-+        { name: 'textInput', rate: 0.155, strategy: 'fixed', unit: 'millionTokens' },
-+        { name: 'textOutput', rate: 0.31, strategy: 'fixed', unit: 'millionTokens' },
-+      ],
-+    },
-+    releasedAt: '2026-09-22',
-+    type: 'chat',
-+  },
-   {
-     abilities: {
-       functionCall: true,
-@@ -1383,7 +1677,7 @@ const aihubmixChatModels: AIChatModelCard[] = [
-           name: 'textInput_cacheRead',
-           strategy: 'tiered',
-           tiers: [
--            { rate: 0.2, upTo: 200_000 },
-+            { rate: 0.2, upTo: 199_999 },
-             { rate: 0.4, upTo: 'infinity' },
-           ],
-           unit: 'millionTokens',
-@@ -1392,7 +1686,7 @@ const aihubmixChatModels: AIChatModelCard[] = [
-           name: 'textInput',
-           strategy: 'tiered',
-           tiers: [
--            { rate: 2, upTo: 200_000 },
-+            { rate: 2, upTo: 199_999 },
-             { rate: 4, upTo: 'infinity' },
-           ],
-           unit: 'millionTokens',
-@@ -1401,7 +1695,7 @@ const aihubmixChatModels: AIChatModelCard[] = [
-           name: 'textOutput',
-           strategy: 'tiered',
-           tiers: [
--            { rate: 12, upTo: 200_000 },
-+            { rate: 12, upTo: 199_999 },
-             { rate: 18, upTo: 'infinity' },
-           ],
-           unit: 'millionTokens',
-@@ -1480,7 +1774,7 @@ const aihubmixChatModels: AIChatModelCard[] = [
-           name: 'textInput_cacheRead',
-           strategy: 'tiered',
-           tiers: [
--            { rate: 0.2, upTo: 200_000 },
-+            { rate: 0.2, upTo: 199_999 },
-             { rate: 0.4, upTo: 'infinity' },
-           ],
-           unit: 'millionTokens',
-@@ -1489,7 +1783,7 @@ const aihubmixChatModels: AIChatModelCard[] = [
-           name: 'textInput',
-           strategy: 'tiered',
-           tiers: [
--            { rate: 2, upTo: 200_000 },
-+            { rate: 2, upTo: 199_999 },
-             { rate: 4, upTo: 'infinity' },
-           ],
-           unit: 'millionTokens',
-@@ -1498,7 +1792,7 @@ const aihubmixChatModels: AIChatModelCard[] = [
-           name: 'textOutput',
-           strategy: 'tiered',
-           tiers: [
--            { rate: 12, upTo: 200_000 },
-+            { rate: 12, upTo: 199_999 },
-             { rate: 18, upTo: 'infinity' },
-           ],
-           unit: 'millionTokens',
-diff --git a/packages/model-bank/src/aiModels/anthropic.ts b/packages/model-bank/src/aiModels/anthropic.ts
-index e86d35a6be..1a1015e070 100644
---- a/packages/model-bank/src/aiModels/anthropic.ts
-+++ b/packages/model-bank/src/aiModels/anthropic.ts
-@@ -1,6 +1,43 @@
- import { type AIChatModelCard } from '../types/aiModel';
- 
- const anthropicChatModels: AIChatModelCard[] = [
-+  {
-+    abilities: {
-+      functionCall: true,
-+      reasoning: true,
-+      search: true,
-+      structuredOutput: true,
-+      vision: true,
-+    },
-+    contextWindowTokens: 1_000_000,
-+    description:
-+      'Claude Opus 5.5 is built for long-running agentic coding and knowledge work, outperforming Claude Fable 5.1 on Terminal-Bench 4.0 at a lower price than Claude Opus 5.',
-+    displayName: 'Claude Opus 5.5',
-+    enabled: true,
-+    family: 'claude-opus',
-+    generation: 'claude-5.5',
-+    id: 'claude-opus-5-5',
-+    knowledgeCutoff: '2026-06',
-+    maxOutput: 128_000,
-+    pricing: {
-+      units: [
-+        { name: 'textInput_cacheRead', rate: 0.2, strategy: 'fixed', unit: 'millionTokens' },
-+        { name: 'textInput', rate: 4, strategy: 'fixed', unit: 'millionTokens' },
-+        { name: 'textOutput', rate: 20, strategy: 'fixed', unit: 'millionTokens' },
-+        { name: 'textInput_cacheWrite', rate: 5, strategy: 'fixed', unit: 'millionTokens' },
-+      ],
-+    },
-+    releasedAt: '2026-09-22',
-+    // Like Fable 5.1, thinking is always on (400 on `thinking.type: disabled`), so the
-+    // `enableAdaptiveThinking` toggle is intentionally omitted.
-+    // https://platform.claude.com/docs/en/models/opus-5-5/whats-new-opus-5-5#breaking-changes
-+    settings: {
-+      disabledParams: ['temperature', 'top_p'],
-+      extendParams: ['disableContextCaching', 'opus47Effort'],
-+      searchImpl: 'params',
-+    },
-+    type: 'chat',
-+  },
-   {
-     abilities: {
-       functionCall: true,
-diff --git a/packages/model-bank/src/aiModels/azure.ts b/packages/model-bank/src/aiModels/azure.ts
-index 6bb8ba8481..8ed8c4de43 100644
---- a/packages/model-bank/src/aiModels/azure.ts
-+++ b/packages/model-bank/src/aiModels/azure.ts
-@@ -1,6 +1,208 @@
- import type { AIChatModelCard, AIImageModelCard } from '../types/aiModel';
- 
- const azureChatModels: AIChatModelCard[] = [
-+  {
-+    abilities: {
-+      functionCall: true,
-+      reasoning: true,
-+      search: true,
-+      structuredOutput: true,
-+      vision: true,
-+    },
-+    config: {
-+      deploymentName: 'gpt-6-astra',
-+    },
-+    contextWindowTokens: 1_050_000,
-+    description:
-+      'OpenAI’s most capable model for complex reasoning, coding, computer use, research, and document creation.',
-+    displayName: 'GPT-6 Astra',
-+    enabled: true,
-+    id: 'gpt-6-astra',
-+    maxOutput: 128_000,
-+    pricing: {
-+      units: [
-+        {
-+          name: 'textInput',
-+          unit: 'millionTokens',
-+          strategy: 'tiered',
-+          tiers: [
-+            { rate: 10, upTo: 272_000 },
-+            { rate: 20, upTo: 'infinity' },
-+          ],
-+        },
-+        {
-+          name: 'textInput_cacheRead',
-+          unit: 'millionTokens',
-+          strategy: 'tiered',
-+          tiers: [
-+            { rate: 1, upTo: 272_000 },
-+            { rate: 2, upTo: 'infinity' },
-+          ],
-+        },
-+        {
-+          name: 'textInput_cacheWrite',
-+          unit: 'millionTokens',
-+          strategy: 'tiered',
-+          tiers: [
-+            { rate: 12.5, upTo: 272_000 },
-+            { rate: 25, upTo: 'infinity' },
-+          ],
-+        },
-+        {
-+          name: 'textOutput',
-+          unit: 'millionTokens',
-+          strategy: 'tiered',
-+          tiers: [
-+            { rate: 50, upTo: 272_000 },
-+            { rate: 75, upTo: 'infinity' },
-+          ],
-+        },
-+      ],
-+    },
-+    releasedAt: '2026-09-03',
-+    settings: {
-+      extendParams: ['gpt6ReasoningEffort', 'textVerbosity'],
-+      searchImpl: 'params',
-+    },
-+    type: 'chat',
-+    family: 'gpt',
-+    generation: 'gpt-6',
-+    knowledgeCutoff: '2026-04',
-+  },
-+  {
-+    abilities: {
-+      functionCall: true,
-+      reasoning: true,
-+      search: true,
-+      structuredOutput: true,
-+      vision: true,
-+    },
-+    config: {
-+      deploymentName: 'gpt-6-sol',
-+    },
-+    contextWindowTokens: 1_050_000,
-+    description: 'GPT-6 Sol is built for complex coding and agentic workflows.',
-+    displayName: 'GPT-6 Sol',
-+    enabled: true,
-+    family: 'gpt',
-+    generation: 'gpt-6',
-+    id: 'gpt-6-sol',
-+    knowledgeCutoff: '2026-04',
-+    maxOutput: 128_000,
-+    pricing: {
-+      units: [
-+        {
-+          name: 'textInput',
-+          unit: 'millionTokens',
-+          strategy: 'tiered',
-+          tiers: [
-+            { rate: 2, upTo: 272_000 },
-+            { rate: 4, upTo: 'infinity' },
-+          ],
-+        },
-+        {
-+          name: 'textInput_cacheRead',
-+          unit: 'millionTokens',
-+          strategy: 'tiered',
-+          tiers: [
-+            { rate: 0.2, upTo: 272_000 },
-+            { rate: 0.4, upTo: 'infinity' },
-+          ],
-+        },
-+        {
-+          name: 'textInput_cacheWrite',
-+          unit: 'millionTokens',
-+          strategy: 'tiered',
-+          tiers: [
-+            { rate: 2.5, upTo: 272_000 },
-+            { rate: 5, upTo: 'infinity' },
-+          ],
-+        },
-+        {
-+          name: 'textOutput',
-+          unit: 'millionTokens',
-+          strategy: 'tiered',
-+          tiers: [
-+            { rate: 10, upTo: 272_000 },
-+            { rate: 15, upTo: 'infinity' },
-+          ],
-+        },
-+      ],
-+    },
-+    releasedAt: '2026-09-22',
-+    settings: {
-+      extendParams: ['gpt5_6ReasoningEffort', 'textVerbosity'],
-+      searchImpl: 'params',
-+    },
-+    type: 'chat',
-+  },
-+  {
-+    abilities: {
-+      functionCall: true,
-+      reasoning: true,
-+      search: true,
-+      structuredOutput: true,
-+      vision: true,
-+    },
-+    config: {
-+      deploymentName: 'gpt-6-luna',
-+    },
-+    contextWindowTokens: 1_050_000,
-+    description: 'GPT-6 Luna is OpenAI’s most efficient model for focused, high-volume tasks.',
-+    displayName: 'GPT-6 Luna',
-+    enabled: true,
-+    family: 'gpt',
-+    generation: 'gpt-6',
-+    id: 'gpt-6-luna',
-+    knowledgeCutoff: '2026-05',
-+    maxOutput: 128_000,
-+    pricing: {
-+      units: [
-+        {
-+          name: 'textInput',
-+          unit: 'millionTokens',
-+          strategy: 'tiered',
-+          tiers: [
-+            { rate: 0.1, upTo: 272_000 },
-+            { rate: 0.2, upTo: 'infinity' },
-+          ],
-+        },
-+        {
-+          name: 'textInput_cacheRead',
-+          unit: 'millionTokens',
-+          strategy: 'tiered',
-+          tiers: [
-+            { rate: 0.01, upTo: 272_000 },
-+            { rate: 0.02, upTo: 'infinity' },
-+          ],
-+        },
-+        {
-+          name: 'textInput_cacheWrite',
-+          unit: 'millionTokens',
-+          strategy: 'tiered',
-+          tiers: [
-+            { rate: 0.125, upTo: 272_000 },
-+            { rate: 0.25, upTo: 'infinity' },
-+          ],
-+        },
-+        {
-+          name: 'textOutput',
-+          unit: 'millionTokens',
-+          strategy: 'tiered',
-+          tiers: [
-+            { rate: 0.5, upTo: 272_000 },
-+            { rate: 0.75, upTo: 'infinity' },
-+          ],
-+        },
-+      ],
-+    },
-+    releasedAt: '2026-09-22',
-+    settings: {
-+      extendParams: ['gpt5_6ReasoningEffort', 'textVerbosity'],
-+      searchImpl: 'params',
-+    },
-+    type: 'chat',
-+  },
-   {
-     abilities: {
-       functionCall: true,
-diff --git a/packages/model-bank/src/aiModels/bedrock.ts b/packages/model-bank/src/aiModels/bedrock.ts
-index a62db61ef8..acd7c2dd89 100644
---- a/packages/model-bank/src/aiModels/bedrock.ts
-+++ b/packages/model-bank/src/aiModels/bedrock.ts
-@@ -1,6 +1,39 @@
- import type { AIChatModelCard } from '../types/aiModel';
- 
- const bedrockChatModels: AIChatModelCard[] = [
-+  {
-+    abilities: {
-+      functionCall: true,
-+      reasoning: true,
-+      structuredOutput: true,
-+      vision: true,
-+    },
-+    contextWindowTokens: 1_000_000,
-+    description:
-+      'Claude Opus 5.5 is built for long-running agentic coding and knowledge work, outperforming Claude Fable 5.1 on Terminal-Bench 4.0 at a lower price than Claude Opus 5.',
-+    displayName: 'Claude Opus 5.5',
-+    enabled: true,
-+    family: 'claude-opus',
-+    generation: 'claude-5.5',
-+    id: 'global.anthropic.claude-opus-5-5',
-+    knowledgeCutoff: '2026-06',
-+    maxOutput: 128_000,
-+    pricing: {
-+      units: [
-+        { name: 'textInput_cacheRead', rate: 0.2, strategy: 'fixed', unit: 'millionTokens' },
-+        { name: 'textInput', rate: 4, strategy: 'fixed', unit: 'millionTokens' },
-+        { name: 'textOutput', rate: 20, strategy: 'fixed', unit: 'millionTokens' },
-+        { name: 'textInput_cacheWrite', rate: 5, strategy: 'fixed', unit: 'millionTokens' },
-+      ],
-+    },
-+    releasedAt: '2026-09-22',
-+    // Thinking is always on for Opus 5.5, so `enableAdaptiveThinking` is omitted.
-+    settings: {
-+      disabledParams: ['temperature', 'top_p'],
-+      extendParams: ['disableContextCaching', 'opus47Effort'],
-+    },
-+    type: 'chat',
-+  },
-   {
-     abilities: {
-       functionCall: true,
-diff --git a/packages/model-bank/src/aiModels/chatGPT.ts b/packages/model-bank/src/aiModels/chatGPT.ts
-index 86c3329de5..fac939b08d 100644
---- a/packages/model-bank/src/aiModels/chatGPT.ts
-+++ b/packages/model-bank/src/aiModels/chatGPT.ts
-@@ -3,6 +3,8 @@ import { openaiChatModels } from './openai';
- 
- const CHATGPT_MODEL_IDS = new Set([
-   'gpt-6-astra',
-+  'gpt-6-sol',
-+  'gpt-6-luna',
-   'gpt-5.6-sol',
-   'gpt-5.6-terra',
-   'gpt-5.6-luna',
-diff --git a/packages/model-bank/src/aiModels/openai.ts b/packages/model-bank/src/aiModels/openai.ts
-index 5209ec02de..b97cb05d30 100644
---- a/packages/model-bank/src/aiModels/openai.ts
-+++ b/packages/model-bank/src/aiModels/openai.ts
-@@ -76,6 +76,136 @@ export const openaiChatModels: AIChatModelCard[] = [
-     generation: 'gpt-6',
-     knowledgeCutoff: '2026-04',
-   },
-+  {
-+    abilities: {
-+      functionCall: true,
-+      reasoning: true,
-+      search: true,
-+      structuredOutput: true,
-+      vision: true,
-+    },
-+    contextWindowTokens: 1_050_000,
-+    description: 'GPT-6 Sol is built for complex coding and agentic workflows.',
-+    displayName: 'GPT-6 Sol',
-+    enabled: true,
-+    family: 'gpt',
-+    generation: 'gpt-6',
-+    id: 'gpt-6-sol',
-+    knowledgeCutoff: '2026-04',
-+    maxOutput: 128_000,
-+    /** @see https://developers.openai.com/api/docs/models/gpt-6-sol */
-+    pricing: {
-+      units: [
-+        {
-+          name: 'textInput',
-+          unit: 'millionTokens',
-+          strategy: 'tiered',
-+          tiers: [
-+            { rate: 2, upTo: 272_000 },
-+            { rate: 4, upTo: 'infinity' },
-+          ],
-+        },
-+        {
-+          name: 'textInput_cacheRead',
-+          unit: 'millionTokens',
-+          strategy: 'tiered',
-+          tiers: [
-+            { rate: 0.2, upTo: 272_000 },
-+            { rate: 0.4, upTo: 'infinity' },
-+          ],
-+        },
-+        {
-+          name: 'textInput_cacheWrite',
-+          unit: 'millionTokens',
-+          strategy: 'tiered',
-+          tiers: [
-+            { rate: 2.5, upTo: 272_000 },
-+            { rate: 5, upTo: 'infinity' },
-+          ],
-+        },
-+        {
-+          name: 'textOutput',
-+          unit: 'millionTokens',
-+          strategy: 'tiered',
-+          tiers: [
-+            { rate: 10, upTo: 272_000 },
-+            { rate: 15, upTo: 'infinity' },
-+          ],
-+        },
-+      ],
-+    },
-+    releasedAt: '2026-09-22',
-+    settings: {
-+      extendParams: ['gpt5_6ReasoningEffort', 'textVerbosity'],
-+      searchImpl: 'params',
-+    },
-+    type: 'chat',
-+  },
-+  {
-+    abilities: {
-+      functionCall: true,
-+      reasoning: true,
-+      search: true,
-+      structuredOutput: true,
-+      vision: true,
-+    },
-+    contextWindowTokens: 1_050_000,
-+    description: 'GPT-6 Luna is OpenAI’s most efficient model for focused, high-volume tasks.',
-+    displayName: 'GPT-6 Luna',
-+    enabled: true,
-+    family: 'gpt',
-+    generation: 'gpt-6',
-+    id: 'gpt-6-luna',
-+    knowledgeCutoff: '2026-05',
-+    maxOutput: 128_000,
-+    /** @see https://developers.openai.com/api/docs/models/gpt-6-luna */
-+    pricing: {
-+      units: [
-+        {
-+          name: 'textInput',
-+          unit: 'millionTokens',
-+          strategy: 'tiered',
-+          tiers: [
-+            { rate: 0.1, upTo: 272_000 },
-+            { rate: 0.2, upTo: 'infinity' },
-+          ],
-+        },
-+        {
-+          name: 'textInput_cacheRead',
-+          unit: 'millionTokens',
-+          strategy: 'tiered',
-+          tiers: [
-+            { rate: 0.01, upTo: 272_000 },
-+            { rate: 0.02, upTo: 'infinity' },
-+          ],
-+        },
-+        {
-+          name: 'textInput_cacheWrite',
-+          unit: 'millionTokens',
-+          strategy: 'tiered',
-+          tiers: [
-+            { rate: 0.125, upTo: 272_000 },
-+            { rate: 0.25, upTo: 'infinity' },
-+          ],
-+        },
-+        {
-+          name: 'textOutput',
-+          unit: 'millionTokens',
-+          strategy: 'tiered',
-+          tiers: [
-+            { rate: 0.5, upTo: 272_000 },
-+            { rate: 0.75, upTo: 'infinity' },
-+          ],
-+        },
-+      ],
-+    },
-+    releasedAt: '2026-09-22',
-+    settings: {
-+      extendParams: ['gpt5_6ReasoningEffort', 'textVerbosity'],
-+      searchImpl: 'params',
-+    },
-+    type: 'chat',
-+  },
-   {
-     abilities: {
-       functionCall: true,
-diff --git a/packages/model-bank/src/aiModels/openrouter.ts b/packages/model-bank/src/aiModels/openrouter.ts
-index 4d010c4fe0..20d9e4e0ee 100644
---- a/packages/model-bank/src/aiModels/openrouter.ts
-+++ b/packages/model-bank/src/aiModels/openrouter.ts
-@@ -11,6 +11,298 @@ const openrouterChatModels: AIChatModelCard[] = [
-     id: 'openrouter/auto',
-     type: 'chat',
-   },
-+  {
-+    abilities: {
-+      functionCall: true,
-+      reasoning: true,
-+      search: true,
-+      structuredOutput: true,
-+      vision: true,
-+    },
-+    contextWindowTokens: 1_000_000,
-+    description:
-+      'Claude Opus 5.5 is built for long-running agentic coding and knowledge work, outperforming Claude Fable 5.1 on Terminal-Bench 4.0 at a lower price than Claude Opus 5.',
-+    displayName: 'Claude Opus 5.5',
-+    enabled: true,
-+    family: 'claude-opus',
-+    generation: 'claude-5.5',
-+    id: 'anthropic/claude-opus-5.5',
-+    knowledgeCutoff: '2026-06',
-+    maxOutput: 128_000,
-+    pricing: {
-+      units: [
-+        { name: 'textInput_cacheRead', rate: 0.2, strategy: 'fixed', unit: 'millionTokens' },
-+        { name: 'textInput', rate: 4, strategy: 'fixed', unit: 'millionTokens' },
-+        { name: 'textOutput', rate: 20, strategy: 'fixed', unit: 'millionTokens' },
-+        { name: 'textInput_cacheWrite', rate: 5, strategy: 'fixed', unit: 'millionTokens' },
-+      ],
-+    },
-+    releasedAt: '2026-09-22',
-+    // Thinking is always on for Opus 5.5 and budget tokens are not accepted, so no reasoning toggle.
-+    settings: { extendParams: ['disableContextCaching'], searchImpl: 'params' },
-+    type: 'chat',
-+  },
-+  {
-+    abilities: {
-+      functionCall: true,
-+      reasoning: true,
-+      search: true,
-+      structuredOutput: true,
-+      vision: true,
-+    },
-+    contextWindowTokens: 1_050_000,
-+    description: 'GPT-6 Sol is built for complex coding and agentic workflows.',
-+    displayName: 'GPT-6 Sol',
-+    enabled: true,
-+    family: 'gpt',
-+    generation: 'gpt-6',
-+    id: 'openai/gpt-6-sol',
-+    knowledgeCutoff: '2026-04',
-+    maxOutput: 128_000,
-+    pricing: {
-+      units: [
-+        {
-+          name: 'textInput',
-+          strategy: 'tiered',
-+          tiers: [
-+            { rate: 2, upTo: 272_000 },
-+            { rate: 4, upTo: 'infinity' },
-+          ],
-+          unit: 'millionTokens',
-+        },
-+        {
-+          name: 'textInput_cacheRead',
-+          strategy: 'tiered',
-+          tiers: [
-+            { rate: 0.2, upTo: 272_000 },
-+            { rate: 0.4, upTo: 'infinity' },
-+          ],
-+          unit: 'millionTokens',
-+        },
-+        {
-+          name: 'textInput_cacheWrite',
-+          strategy: 'tiered',
-+          tiers: [
-+            { rate: 2.5, upTo: 272_000 },
-+            { rate: 5, upTo: 'infinity' },
-+          ],
-+          unit: 'millionTokens',
-+        },
-+        {
-+          name: 'textOutput',
-+          strategy: 'tiered',
-+          tiers: [
-+            { rate: 10, upTo: 272_000 },
-+            { rate: 15, upTo: 'infinity' },
-+          ],
-+          unit: 'millionTokens',
-+        },
-+      ],
-+    },
-+    releasedAt: '2026-09-22',
-+    settings: { extendParams: ['gpt5_6ReasoningEffort', 'textVerbosity'], searchImpl: 'params' },
-+    type: 'chat',
-+  },
-+  {
-+    abilities: {
-+      functionCall: true,
-+      reasoning: true,
-+      search: true,
-+      structuredOutput: true,
-+      vision: true,
-+    },
-+    contextWindowTokens: 1_050_000,
-+    description: 'GPT-6 Luna is OpenAI’s most efficient model for focused, high-volume tasks.',
-+    displayName: 'GPT-6 Luna',
-+    enabled: true,
-+    family: 'gpt',
-+    generation: 'gpt-6',
-+    id: 'openai/gpt-6-luna',
-+    knowledgeCutoff: '2026-05',
-+    maxOutput: 128_000,
-+    pricing: {
-+      units: [
-+        {
-+          name: 'textInput',
-+          strategy: 'tiered',
-+          tiers: [
-+            { rate: 0.1, upTo: 272_000 },
-+            { rate: 0.2, upTo: 'infinity' },
-+          ],
-+          unit: 'millionTokens',
-+        },
-+        {
-+          name: 'textInput_cacheRead',
-+          strategy: 'tiered',
-+          tiers: [
-+            { rate: 0.01, upTo: 272_000 },
-+            { rate: 0.02, upTo: 'infinity' },
-+          ],
-+          unit: 'millionTokens',
-+        },
-+        {
-+          name: 'textInput_cacheWrite',
-+          strategy: 'tiered',
-+          tiers: [
-+            { rate: 0.125, upTo: 272_000 },
-+            { rate: 0.25, upTo: 'infinity' },
-+          ],
-+          unit: 'millionTokens',
-+        },
-+        {
-+          name: 'textOutput',
-+          strategy: 'tiered',
-+          tiers: [
-+            { rate: 0.5, upTo: 272_000 },
-+            { rate: 0.75, upTo: 'infinity' },
-+          ],
-+          unit: 'millionTokens',
-+        },
-+      ],
-+    },
-+    releasedAt: '2026-09-22',
-+    settings: { extendParams: ['gpt5_6ReasoningEffort', 'textVerbosity'], searchImpl: 'params' },
-+    type: 'chat',
-+  },
-+  {
-+    abilities: {
-+      functionCall: true,
-+      reasoning: true,
-+      search: true,
-+      structuredOutput: true,
-+      vision: true,
-+    },
-+    contextWindowTokens: 500_000,
-+    description:
-+      'Grok 4.7 is more reliable than Grok 4.6 on long-running coding and knowledge work, at the same price and speed, with a 500K context window.',
-+    displayName: 'Grok 4.7',
-+    enabled: true,
-+    family: 'grok',
-+    generation: 'grok-4.7',
-+    id: 'x-ai/grok-4.7',
-+    knowledgeCutoff: '2026-05',
-+    pricing: {
-+      units: [
-+        {
-+          name: 'textInput_cacheRead',
-+          strategy: 'tiered',
-+          tiers: [
-+            { rate: 0.4, upTo: 199_999 },
-+            { rate: 0.8, upTo: 'infinity' },
-+          ],
-+          unit: 'millionTokens',
-+        },
-+        {
-+          name: 'textInput',
-+          strategy: 'tiered',
-+          tiers: [
-+            { rate: 1.6, upTo: 199_999 },
-+            { rate: 3.2, upTo: 'infinity' },
-+          ],
-+          unit: 'millionTokens',
-+        },
-+        {
-+          name: 'textOutput',
-+          strategy: 'tiered',
-+          tiers: [
-+            { rate: 4.8, upTo: 199_999 },
-+            { rate: 9.6, upTo: 'infinity' },
-+          ],
-+          unit: 'millionTokens',
-+        },
-+      ],
-+    },
-+    releasedAt: '2026-09-21',
-+    settings: { extendParams: ['grok4_7ReasoningEffort'], searchImpl: 'params' },
-+    type: 'chat',
-+  },
-+  {
-+    abilities: {
-+      audio: true,
-+      functionCall: true,
-+      reasoning: true,
-+      structuredOutput: true,
-+      video: true,
-+      vision: true,
-+    },
-+    contextWindowTokens: 1_048_576,
-+    description:
-+      "MiMo-V2.6-Pro is Xiaomi's open-source multimodal flagship (1.02T total / 42B active) for long-horizon coding and computer use, accepting text, image, video, and audio input with a 1M context window at the previous Pro price.",
-+    displayName: 'MiMo-V2.6 Pro',
-+    enabled: true,
-+    family: 'mimo',
-+    generation: 'mimo-v2.6',
-+    id: 'xiaomi/mimo-v2.6-pro',
-+    maxOutput: 131_072,
-+    pricing: {
-+      units: [
-+        { name: 'textInput_cacheRead', rate: 0.0036, strategy: 'fixed', unit: 'millionTokens' },
-+        { name: 'textInput', rate: 0.435, strategy: 'fixed', unit: 'millionTokens' },
-+        { name: 'textOutput', rate: 0.87, strategy: 'fixed', unit: 'millionTokens' },
-+      ],
-+    },
-+    releasedAt: '2026-09-22',
-+    settings: { extendParams: ['enableReasoning'] },
-+    type: 'chat',
-+  },
-+  {
-+    abilities: {
-+      audio: true,
-+      functionCall: true,
-+      reasoning: true,
-+      structuredOutput: true,
-+      video: true,
-+      vision: true,
-+    },
-+    contextWindowTokens: 1_048_576,
-+    description:
-+      'MiMo-V2.6-Pro-UltraSpeed serves the same weights as MiMo-V2.6-Pro at up to 20x the output speed for latency-sensitive agents.',
-+    displayName: 'MiMo-V2.6 Pro UltraSpeed',
-+    enabled: true,
-+    family: 'mimo',
-+    generation: 'mimo-v2.6',
-+    id: 'xiaomi/mimo-v2.6-pro-ultraspeed',
-+    maxOutput: 131_072,
-+    pricing: {
-+      units: [
-+        { name: 'textInput_cacheRead', rate: 0.036, strategy: 'fixed', unit: 'millionTokens' },
-+        { name: 'textInput', rate: 4.35, strategy: 'fixed', unit: 'millionTokens' },
-+        { name: 'textOutput', rate: 8.7, strategy: 'fixed', unit: 'millionTokens' },
-+      ],
-+    },
-+    releasedAt: '2026-09-22',
-+    settings: { extendParams: ['enableReasoning'] },
-+    type: 'chat',
-+  },
-+  {
-+    abilities: {
-+      audio: true,
-+      functionCall: true,
-+      reasoning: true,
-+      structuredOutput: true,
-+      video: true,
-+      vision: true,
-+    },
-+    contextWindowTokens: 1_048_576,
-+    description:
-+      'MiMo-V2.6-Flash is a low-cost omni-modal agent model (about 310B total / 15B active) that surpasses MiMo-V2.5-Pro on agent benchmarks at the previous MiMo-V2.5 price, with a 1M context window.',
-+    displayName: 'MiMo-V2.6 Flash',
-+    enabled: true,
-+    family: 'mimo',
-+    generation: 'mimo-v2.6',
-+    id: 'xiaomi/mimo-v2.6-flash',
-+    maxOutput: 131_072,
-+    pricing: {
-+      units: [
-+        { name: 'textInput_cacheRead', rate: 0.0028, strategy: 'fixed', unit: 'millionTokens' },
-+        { name: 'textInput', rate: 0.14, strategy: 'fixed', unit: 'millionTokens' },
-+        { name: 'textOutput', rate: 0.28, strategy: 'fixed', unit: 'millionTokens' },
-+      ],
-+    },
-+    releasedAt: '2026-09-22',
-+    settings: { extendParams: ['enableReasoning'] },
-+    type: 'chat',
-+  },
-   {
-     abilities: {
-       functionCall: true,
-diff --git a/packages/model-bank/src/aiModels/superGrok.ts b/packages/model-bank/src/aiModels/superGrok.ts
-index 8f861c2d3c..9a2c1490e3 100644
---- a/packages/model-bank/src/aiModels/superGrok.ts
-+++ b/packages/model-bank/src/aiModels/superGrok.ts
-@@ -7,6 +7,30 @@ import type { AIChatModelCard } from '../types/aiModel';
- // be pulled in via the remote model list.
- // ref: https://docs.x.ai/docs/models
- const superGrokChatModels: AIChatModelCard[] = [
-+  {
-+    abilities: {
-+      functionCall: true,
-+      reasoning: true,
-+      search: true,
-+      structuredOutput: true,
-+      vision: true,
-+    },
-+    contextWindowTokens: 500_000,
-+    description:
-+      "SpaceXAI's flagship model for long-running coding, agentic tasks, and knowledge work — configurable reasoning (low/medium/high/xhigh).",
-+    displayName: 'Grok 4.7',
-+    enabled: true,
-+    family: 'grok',
-+    generation: 'grok-4.7',
-+    id: 'grok-4.7',
-+    knowledgeCutoff: '2026-05',
-+    releasedAt: '2026-09-21',
-+    settings: {
-+      extendParams: ['grok4_7ReasoningEffort'],
-+      searchImpl: 'params',
-+    },
-+    type: 'chat',
-+  },
-   {
-     abilities: {
-       functionCall: true,
-diff --git a/packages/model-bank/src/aiModels/xai.ts b/packages/model-bank/src/aiModels/xai.ts
-index 3460b87eca..6af7d8e50f 100644
---- a/packages/model-bank/src/aiModels/xai.ts
-+++ b/packages/model-bank/src/aiModels/xai.ts
-@@ -2,6 +2,62 @@ import type { AIChatModelCard, AIImageModelCard, AIVideoModelCard } from '../typ
- 
- // https://docs.x.ai/docs/models
- const xaiChatModels: AIChatModelCard[] = [
-+  {
-+    abilities: {
-+      functionCall: true,
-+      reasoning: true,
-+      search: true,
-+      vision: true,
-+      structuredOutput: true,
-+    },
-+    contextWindowTokens: 500_000,
-+    description:
-+      'Grok 4.7 is more reliable than Grok 4.6 on long-running coding and knowledge work, at the same price and speed, with a 500K context window.',
-+    displayName: 'Grok 4.7',
-+    enabled: true,
-+    id: 'grok-4.7',
-+    /** @see https://docs.x.ai/developers/models/grok-4.7 */
-+    pricing: {
-+      units: [
-+        {
-+          name: 'textInput_cacheRead',
-+          unit: 'millionTokens',
-+          strategy: 'tiered',
-+          tiers: [
-+            { rate: 0.5, upTo: 199_999 },
-+            { rate: 1, upTo: 'infinity' },
-+          ],
-+        },
-+        {
-+          name: 'textInput',
-+          unit: 'millionTokens',
-+          strategy: 'tiered',
-+          tiers: [
-+            { rate: 2, upTo: 199_999 },
-+            { rate: 4, upTo: 'infinity' },
-+          ],
-+        },
-+        {
-+          name: 'textOutput',
-+          unit: 'millionTokens',
-+          strategy: 'tiered',
-+          tiers: [
-+            { rate: 6, upTo: 199_999 },
-+            { rate: 12, upTo: 'infinity' },
-+          ],
-+        },
-+      ],
-+    },
-+    releasedAt: '2026-09-21',
-+    settings: {
-+      extendParams: ['grok4_7ReasoningEffort'],
-+      searchImpl: 'params',
-+    },
-+    type: 'chat',
-+    family: 'grok',
-+    generation: 'grok-4.7',
-+    knowledgeCutoff: '2026-05',
-+  },
-   {
-     abilities: {
-       functionCall: true,
-diff --git a/packages/model-bank/src/aiModels/xiaomimimo.ts b/packages/model-bank/src/aiModels/xiaomimimo.ts
-index 0a0ba52816..b8a826e4ef 100644
---- a/packages/model-bank/src/aiModels/xiaomimimo.ts
-+++ b/packages/model-bank/src/aiModels/xiaomimimo.ts
-@@ -1,6 +1,108 @@
- import type { AIChatModelCard } from '../types/aiModel';
- 
- const xiaomimimoChatModels: AIChatModelCard[] = [
-+  {
-+    abilities: {
-+      audio: true,
-+      functionCall: true,
-+      reasoning: true,
-+      search: true,
-+      structuredOutput: true,
-+      video: true,
-+      vision: true,
-+    },
-+    contextWindowTokens: 1_000_000,
-+    description:
-+      "MiMo-V2.6-Pro is Xiaomi's open-source multimodal flagship (1.02T total / 42B active) for long-horizon coding and computer use, accepting text, image, video, and audio input with a 1M context window at the previous Pro price.",
-+    displayName: 'MiMo-V2.6 Pro',
-+    enabled: true,
-+    family: 'mimo',
-+    generation: 'mimo-v2.6',
-+    id: 'mimo-v2.6-pro',
-+    maxOutput: 131_072,
-+    pricing: {
-+      currency: 'CNY',
-+      units: [
-+        { name: 'textInput_cacheRead', rate: 0.025, strategy: 'fixed', unit: 'millionTokens' },
-+        { name: 'textInput', rate: 3, strategy: 'fixed', unit: 'millionTokens' },
-+        { name: 'textOutput', rate: 6, strategy: 'fixed', unit: 'millionTokens' },
-+      ],
-+    },
-+    releasedAt: '2026-09-22',
-+    settings: {
-+      extendParams: ['enableReasoning'],
-+      searchImpl: 'params',
-+    },
-+    type: 'chat',
-+  },
-+  {
-+    abilities: {
-+      audio: true,
-+      functionCall: true,
-+      reasoning: true,
-+      search: true,
-+      structuredOutput: true,
-+      video: true,
-+      vision: true,
-+    },
-+    contextWindowTokens: 1_000_000,
-+    description:
-+      'MiMo-V2.6-Pro-UltraSpeed serves the same weights as MiMo-V2.6-Pro at up to 20x the output speed for latency-sensitive agents.',
-+    displayName: 'MiMo-V2.6 Pro UltraSpeed',
-+    enabled: true,
-+    family: 'mimo',
-+    generation: 'mimo-v2.6',
-+    id: 'mimo-v2.6-pro-ultraspeed',
-+    maxOutput: 131_072,
-+    pricing: {
-+      currency: 'CNY',
-+      units: [
-+        { name: 'textInput_cacheRead', rate: 0.25, strategy: 'fixed', unit: 'millionTokens' },
-+        { name: 'textInput', rate: 30, strategy: 'fixed', unit: 'millionTokens' },
-+        { name: 'textOutput', rate: 60, strategy: 'fixed', unit: 'millionTokens' },
-+      ],
-+    },
-+    releasedAt: '2026-09-22',
-+    settings: {
-+      extendParams: ['enableReasoning'],
-+      searchImpl: 'params',
-+    },
-+    type: 'chat',
-+  },
-+  {
-+    abilities: {
-+      audio: true,
-+      functionCall: true,
-+      reasoning: true,
-+      search: true,
-+      structuredOutput: true,
-+      video: true,
-+      vision: true,
-+    },
-+    contextWindowTokens: 1_000_000,
-+    description:
-+      'MiMo-V2.6-Flash is a low-cost omni-modal agent model (about 310B total / 15B active) that surpasses MiMo-V2.5-Pro on agent benchmarks at the previous MiMo-V2.5 price, with a 1M context window.',
-+    displayName: 'MiMo-V2.6 Flash',
-+    enabled: true,
-+    family: 'mimo',
-+    generation: 'mimo-v2.6',
-+    id: 'mimo-v2.6-flash',
-+    maxOutput: 131_072,
-+    pricing: {
-+      currency: 'CNY',
-+      units: [
-+        { name: 'textInput_cacheRead', rate: 0.02, strategy: 'fixed', unit: 'millionTokens' },
-+        { name: 'textInput', rate: 1, strategy: 'fixed', unit: 'millionTokens' },
-+        { name: 'textOutput', rate: 2, strategy: 'fixed', unit: 'millionTokens' },
-+      ],
-+    },
-+    releasedAt: '2026-09-22',
-+    settings: {
-+      extendParams: ['enableReasoning'],
-+      searchImpl: 'params',
-+    },
-+    type: 'chat',
-+  },
-   {
-     abilities: {
-       functionCall: true,
--- 
-2.39.5
-
-
-From 0cdf7c4b5ddc4cfe2ff35969babe82351cb7c925 Mon Sep 17 00:00:00 2001
+From 3199fd59efa641eb5b012a1521bd4407b924cc49 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 25 Sep 2026 04:09:38 +0000
-Subject: [PATCH 17/17] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20add=20text=20verb?=
+Subject: [PATCH 16/16] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20add=20text=20verb?=
  =?UTF-8?q?osity=20to=20the=20composer=20model=20menu?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -4822,10 +3444,10 @@ Co-authored-by: Cursor Grok 4.7 <cursoragent@cursor.com.invalid>
  create mode 100644 src/features/ChatInput/hooks/useTextVerbosityControl.ts
 
 diff --git a/src/features/ChatInput/ActionBar/Model/SelectorMenu.tsx b/src/features/ChatInput/ActionBar/Model/SelectorMenu.tsx
-index ff763c95e1..2a5b9bd949 100644
+index 5d8566256e..08291c2d7b 100644
 --- a/src/features/ChatInput/ActionBar/Model/SelectorMenu.tsx
 +++ b/src/features/ChatInput/ActionBar/Model/SelectorMenu.tsx
-@@ -24,6 +24,7 @@ import { ModelSwitchSubmenuPopup } from '@/features/ModelSwitchPanel';
+@@ -25,6 +25,7 @@ import type { EnabledProviderWithModels } from '@/types/aiProvider';
  import type { SelectorSubmenuItem } from '../../components/buildSelectorSubmenu';
  import { buildSelectorSubmenu } from '../../components/buildSelectorSubmenu';
  import type { ReasoningEffortControl } from '../../hooks/useReasoningEffortControl';
@@ -4833,7 +3455,7 @@ index ff763c95e1..2a5b9bd949 100644
  import { type DropdownPlacement } from '../context';
  
  const styles = createStaticStyles(({ css }) => ({
-@@ -69,6 +70,12 @@ const SubmenuArrow = () => (
+@@ -70,6 +71,12 @@ const SubmenuArrow = () => (
    </svg>
  );
  
@@ -4846,7 +3468,7 @@ index ff763c95e1..2a5b9bd949 100644
  interface SelectorMenuProps {
    canSelectModel: boolean;
    children: ReactNode;
-@@ -79,12 +86,13 @@ interface SelectorMenuProps {
+@@ -82,12 +89,13 @@ interface SelectorMenuProps {
    openOnHover?: boolean;
    placement?: DropdownPlacement;
    provider: string;
@@ -4863,7 +3485,7 @@ index ff763c95e1..2a5b9bd949 100644
   * surfaces read the same way.
   */
  const SelectorMenu = memo<SelectorMenuProps>(
-@@ -98,6 +106,7 @@ const SelectorMenu = memo<SelectorMenuProps>(
+@@ -103,6 +111,7 @@ const SelectorMenu = memo<SelectorMenuProps>(
      openOnHover = false,
      placement = 'topLeft',
      provider,
@@ -4871,7 +3493,7 @@ index ff763c95e1..2a5b9bd949 100644
    }) => {
      const { t } = useTranslation('chat');
      const [open, setOpen] = useState(false);
-@@ -149,8 +158,35 @@ const SelectorMenu = memo<SelectorMenuProps>(
+@@ -154,8 +163,35 @@ const SelectorMenu = memo<SelectorMenuProps>(
            }),
          );
  
@@ -4909,10 +3531,10 @@ index ff763c95e1..2a5b9bd949 100644
      const modelMeta = (
        <DropdownMenuItemExtra className={styles.meta}>
 diff --git a/src/features/ChatInput/ActionBar/Model/index.tsx b/src/features/ChatInput/ActionBar/Model/index.tsx
-index 584862d332..c4353039bc 100644
+index 19e3c96255..e86504c878 100644
 --- a/src/features/ChatInput/ActionBar/Model/index.tsx
 +++ b/src/features/ChatInput/ActionBar/Model/index.tsx
-@@ -12,6 +12,7 @@ import { useAgentId } from '../../hooks/useAgentId';
+@@ -16,6 +16,7 @@ import { useAgentId } from '../../hooks/useAgentId';
  import { useAgentModelSelection } from '../../hooks/useAgentModelSelection';
  import { useModelLockTooltip } from '../../hooks/useModelLockTooltip';
  import { useReasoningEffortControl } from '../../hooks/useReasoningEffortControl';
@@ -4920,7 +3542,7 @@ index 584862d332..c4353039bc 100644
  import { useActionBarContext } from '../context';
  import SelectorMenu from './SelectorMenu';
  
-@@ -44,8 +45,10 @@ const ModelSwitch = memo(() => {
+@@ -62,8 +63,10 @@ const ModelSwitch = memo(() => {
    // second action slot. Like the model, it pins to the active topic when there
    // is one and edits the user's per-model default otherwise.
    const effort = useReasoningEffortControl(model, provider, activeTopicId ?? undefined);
@@ -4933,7 +3555,7 @@ index 584862d332..c4353039bc 100644
  
    const handleModelChange = useCallback(
      async (params: { model: string; provider: string }) => {
-@@ -77,9 +80,9 @@ const ModelSwitch = memo(() => {
+@@ -95,9 +98,9 @@ const ModelSwitch = memo(() => {
  
    if (!canDisplayModel) return null;
  
@@ -4946,8 +3568,8 @@ index 584862d332..c4353039bc 100644
      return (
        <SelectorMenu
          canSelectModel={canSelectModel}
-@@ -88,6 +91,7 @@ const ModelSwitch = memo(() => {
-         model={model}
+@@ -108,6 +111,7 @@ const ModelSwitch = memo(() => {
+         modelNotice={modelNotice}
          placement={dropdownPlacement ?? 'topRight'}
          provider={provider}
 +        verbosity={verbosity}
