@@ -42,6 +42,7 @@ export default defineConfig({
       testIgnore: /api\/.*\.spec\.ts/,
       use: {
         ...devices['Desktop Chrome'],
+        screen: { height: 800, width: 1280 },
         viewport: { height: 800, width: 1280 },
       },
     },
