@@ -62,12 +62,12 @@ jobs:
           set -euo pipefail
           cd ../
           git clone https://github.com/lobehub/lobe-ui.git --depth 50
+      - uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v5.0.0
+        with:
+          package_json_file: ../lobe-ui/package.json
       - uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
         with:
           node-version: 24.22.1
-      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
-        with:
-          bun-version: 1.4.2
       - name: Apply Lobe UI patch
         working-directory: ../lobe-ui
         run: |
@@ -76,6 +76,14 @@ jobs:
       - name: Build and pack Lobe UI package
         run: |
           set -euo pipefail
+          (
+            cd ../lobe-ui
+            npm config set --location=project registry "$AUDITED_NPM_REGISTRY"
+            test "$(npm config get registry | sed 's#/*$#/#')" = "$AUDITED_NPM_REGISTRY"
+            pnpm config --global set --json fetchRetries 5
+            pnpm config --global set --json fetchRetryMintimeout 30000
+            pnpm config --global set --json networkConcurrency 8
+          )
           LOBE_UI_DIR="$(realpath ../lobe-ui)" node scripts/prepare-lobe-ui-msm.mjs
       - name: Workaround actions/upload-artifact#176
         run: |

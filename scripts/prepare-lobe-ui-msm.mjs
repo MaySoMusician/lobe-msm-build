@@ -14,20 +14,7 @@ const lobeUiDir = path.resolve(
 const outputDir = path.resolve(
   process.env.LOBE_UI_ARTIFACT_DIR ?? path.join(repositoryRoot, '.artifacts'),
 );
-const auditedRegistry = process.env.AUDITED_NPM_REGISTRY ?? 'https://npm.flatt.tech/';
 const skipBuild = process.argv.includes('--skip-build');
-const bunInstallAttempts = 5;
-const bunInstallRetryDelayMs = 30_000;
-const bunfigPath = path.join(lobeUiDir, 'bunfig.toml');
-const bunfigPolicy = `[install]
-minimumReleaseAge = 604800
-ignoreScripts = true
-minimumReleaseAgeExcludes = ["@lobehub/ui"]
-`;
-
-const sleep = (milliseconds) => {
-  Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, milliseconds);
-};
 
 const run = (command, args, options = {}) => {
   const result = spawnSync(command, args, {
@@ -46,34 +33,6 @@ const run = (command, args, options = {}) => {
   }
 
   return options.capture ? String(result.stdout).trim() : '';
-};
-
-const runBunInstall = (env) => {
-  const args = ['install', '--network-concurrency', '8'];
-
-  for (let attempt = 1; attempt <= bunInstallAttempts; attempt++) {
-    const result = spawnSync('bun', args, {
-      cwd: lobeUiDir,
-      encoding: 'utf8',
-      env,
-      stdio: 'inherit',
-    });
-
-    if (result.error) {
-      throw result.error;
-    }
-    if (result.status === 0) {
-      return;
-    }
-    if (attempt === bunInstallAttempts) {
-      throw new Error(`bun install failed after ${bunInstallAttempts} attempts`);
-    }
-
-    console.error(
-      `bun install failed on attempt ${attempt}/${bunInstallAttempts}; waiting 30 seconds before retrying...`,
-    );
-    sleep(bunInstallRetryDelayMs);
-  }
 };
 
 if (!fs.existsSync(path.join(lobeUiDir, 'package.json'))) {
@@ -101,23 +60,8 @@ if (sourcePackage.name !== '@lobehub/ui') {
 // }
 
 if (!skipBuild) {
-  const installEnv = {
-    ...process.env,
-    npm_config_registry: auditedRegistry,
-  };
-  const previousBunfig = fs.existsSync(bunfigPath) ? fs.readFileSync(bunfigPath, 'utf8') : null;
-  fs.writeFileSync(bunfigPath, bunfigPolicy);
-
-  try {
-    runBunInstall(installEnv);
-    run('bun', ['run', 'build']);
-  } finally {
-    if (previousBunfig === null) {
-      fs.rmSync(bunfigPath, { force: true });
-    } else {
-      fs.writeFileSync(bunfigPath, previousBunfig);
-    }
-  }
+  run('pnpm', ['install']);
+  run('pnpm', ['run', 'build']);
 }
 
 const esDir = path.join(lobeUiDir, 'es');
