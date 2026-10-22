@@ -16,7 +16,7 @@ export const checks = [
     asserts: [
       {
         file: 'Dockerfile',
-        patterns: ['ARG NODEJS_VERSION="24.21.0"', 'FROM busybox:1.38.0 AS app'],
+        patterns: ['ARG NODEJS_VERSION="24.22.1"', 'FROM busybox:1.38.0 AS app'],
       },
     ],
   },
