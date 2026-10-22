@@ -1,7 +1,7 @@
 From abe60f622afe329ff6eda56828218a3c4eca4ed4 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 14 Oct 2024 10:15:38 +0000
-Subject: [PATCH 1/7] Change font list for Japanese
+Subject: [PATCH 1/8] Change font list for Japanese
 
 ---
  src/styles/theme/token/base.ts | 17 ++++-------------
@@ -57,7 +57,7 @@ index 21047cf2..9342f1d4 100644
 From 2f83ef14aadf1c908e3ddf5b8890b06ba80eeaf8 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 28 Oct 2024 15:09:31 +0000
-Subject: [PATCH 2/7] Do not load default EN & CN fonts
+Subject: [PATCH 2/8] Do not load default EN & CN fonts
 
 ---
  src/ConfigProvider/index.tsx | 11 -----------
@@ -92,7 +92,7 @@ index d6291583..ab2e8d67 100644
 From 7ab612c828c1b3cfe75d271de35b258f74f1f86b Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sat, 13 Dec 2025 07:36:47 +0000
-Subject: [PATCH 3/7] Change colorTextSecondary color
+Subject: [PATCH 3/8] Change colorTextSecondary color
 
 ---
  src/styles/theme/generateColorPalette.ts | 2 +-
@@ -118,7 +118,7 @@ index 98af6a26..f5b0887b 100644
 From d085f36fee15469f8bb460efd391b82064bf8851 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sat, 10 Jan 2026 01:03:48 +0000
-Subject: [PATCH 4/7] Darken slate[12] dark color for text
+Subject: [PATCH 4/8] Darken slate[12] dark color for text
 
 ---
  src/color/neutrals/slate.ts | 2 +-
@@ -144,7 +144,7 @@ index 7341851a..cb38fec6 100644
 From 0ef3b777cb7173583914ec18dc11e0d52b64302f Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 27 Jul 2026 19:10:04 +0000
-Subject: [PATCH 5/7] Add workspaces config to package.json
+Subject: [PATCH 5/8] Add workspaces config to package.json
 
 ---
  package.json | 3 +++
@@ -171,7 +171,7 @@ index 61b74f7e..75ac40d8 100644
 From f290900cf9f07df89fcfcfef953da941857ed6c8 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 23 Sep 2026 22:33:49 +0000
-Subject: [PATCH 6/7] Use the exact same package of this for dependencies
+Subject: [PATCH 6/8] Use the exact same package of this for dependencies
 
 ---
  package.json | 3 +++
@@ -198,7 +198,7 @@ index 75ac40d8..80d19b76 100644
 From 39a4d89f9057a5c6dfb858814bac99e5773430f9 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 22 Oct 2026 02:07:52 +0000
-Subject: [PATCH 7/7] Temporarily ban virtua 0.53.6 due to min release age
+Subject: [PATCH 7/8] Temporarily ban virtua 0.53.6 due to min release age
 
 ---
  package.json | 2 +-
@@ -217,6 +217,48 @@ index 80d19b76..999c07df 100644
    },
    "devDependencies": {
      "@commitlint/cli": "^21.2.3",
+-- 
+2.39.5
+
+
+From 3663e6e33b5d027dcf220e528fa8c8ac089da2eb Mon Sep 17 00:00:00 2001
+From: MaySoMusician <maysomusician@gmail.com>
+Date: Thu, 22 Oct 2026 03:04:51 +0000
+Subject: [PATCH 8/8] =?UTF-8?q?=F0=9F=94=92=EF=B8=8F=20build(deps):=20enfo?=
+ =?UTF-8?q?rce=20a=207-day=20pnpm=20release=20age?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+The install policy now lives in pnpm-workspace.yaml: ignore dependency
+scripts, keep @lobehub/ui on the age exclude list, and link that package
+to this checkout.
+
+Co-authored-by: Cursor Grok 4.7 <cursoragent@cursor.com.invalid>
+---
+ pnpm-workspace.yaml | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/pnpm-workspace.yaml b/pnpm-workspace.yaml
+index 20af4b87..f622f99d 100644
+--- a/pnpm-workspace.yaml
++++ b/pnpm-workspace.yaml
+@@ -21,6 +21,7 @@ publicHoistPattern:
+ 
+ overrides:
+   katex: ^0.19.0
++  '@lobehub/ui': 'link:.'
+ 
+ patchedDependencies:
+   conventional-changelog-gitmoji-config@1.5.2: patches/conventional-changelog-gitmoji-config@1.5.2.patch
+@@ -54,3 +55,7 @@ minimumReleaseAgeExclude:
+   - '@lobehub/semantic-release-config@2.1.6'
+   - '@lobehub/stylelint-config@2.1.6'
+   - '@lobehub/docs-kit@6.2.1'
++  - '@lobehub/ui'
++
++minimumReleaseAge: 10080
++ignoreScripts: true
 -- 
 2.39.5
 
