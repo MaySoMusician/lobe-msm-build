@@ -1,4 +1,4 @@
-From c4c541c1c335303351e38bdbc6dc645f101bc12b Mon Sep 17 00:00:00 2001
+From abe60f622afe329ff6eda56828218a3c4eca4ed4 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 14 Oct 2024 10:15:38 +0000
 Subject: [PATCH 1/7] Change font list for Japanese
@@ -8,10 +8,10 @@ Subject: [PATCH 1/7] Change font list for Japanese
  1 file changed, 4 insertions(+), 13 deletions(-)
 
 diff --git a/src/styles/theme/token/base.ts b/src/styles/theme/token/base.ts
-index 1191ab67..3fad6abf 100644
+index 21047cf2..9342f1d4 100644
 --- a/src/styles/theme/token/base.ts
 +++ b/src/styles/theme/token/base.ts
-@@ -5,14 +5,14 @@ const joinFontFamily = (fonts: string[]) =>
+@@ -3,14 +3,14 @@ const joinFontFamily = (fonts: string[]) =>
  
  const FONT_EMOJI = [
    '/* EMOJI */',
@@ -28,7 +28,7 @@ index 1191ab67..3fad6abf 100644
    '-apple-system',
    'BlinkMacSystemFont',
    'Segoe UI Variable Display',
-@@ -22,19 +22,10 @@ const FONT_EN = [
+@@ -20,19 +20,10 @@ const FONT_EN = [
    'Arial',
  ];
  
@@ -54,47 +54,42 @@ index 1191ab67..3fad6abf 100644
 2.39.5
 
 
-From 9a85f5c1c1a297391ea17b4bf9aa379fa2daa5a2 Mon Sep 17 00:00:00 2001
+From 2f83ef14aadf1c908e3ddf5b8890b06ba80eeaf8 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 28 Oct 2024 15:09:31 +0000
 Subject: [PATCH 2/7] Do not load default EN & CN fonts
 
 ---
- src/ThemeProvider/ThemeProvider.tsx | 16 ----------------
- 1 file changed, 16 deletions(-)
+ src/ConfigProvider/index.tsx | 11 -----------
+ 1 file changed, 11 deletions(-)
 
-diff --git a/src/ThemeProvider/ThemeProvider.tsx b/src/ThemeProvider/ThemeProvider.tsx
-index dc4ad2d0..f2287d0d 100644
---- a/src/ThemeProvider/ThemeProvider.tsx
-+++ b/src/ThemeProvider/ThemeProvider.tsx
-@@ -43,22 +43,6 @@ const ThemeProvider = memo<ThemeProviderProps>(
-     const webfontUrls = useMemo(
-       () =>
-         customFonts || [
--          genCdnUrl({
--            path: 'css/index.css',
--            pkg: '@lobehub/webfont-mono',
--            version: '1.0.0',
--          }),
--          genCdnUrl({
--            path: 'css/index-full.css',
--            pkg: '@lobehub/webfont-harmony-sans',
--            version: '1.0.0',
--          }),
--          genCdnUrl({
--            path: 'css/index.css',
--            pkg: '@lobehub/webfont-harmony-sans-sc',
--            // pkg: '@lobehub/webfont-harmony-sans-sc-mini',
--            version: '1.0.0',
--          }),
-           genCdnUrl({
-             path: 'dist/katex.min.css',
-             pkg: 'katex',
+diff --git a/src/ConfigProvider/index.tsx b/src/ConfigProvider/index.tsx
+index d6291583..ab2e8d67 100644
+--- a/src/ConfigProvider/index.tsx
++++ b/src/ConfigProvider/index.tsx
+@@ -170,17 +170,6 @@ const WebFonts = ({ customFonts }: { customFonts?: string[] }) => {
+   const urls = useMemo(
+     () =>
+       customFonts || [
+-        genCdnUrl({ path: 'css/index.css', pkg: '@lobehub/webfont-mono', version: '1.0.0' }),
+-        genCdnUrl({
+-          path: 'css/index-full.css',
+-          pkg: '@lobehub/webfont-harmony-sans',
+-          version: '1.0.0',
+-        }),
+-        genCdnUrl({
+-          path: 'css/index.css',
+-          pkg: '@lobehub/webfont-harmony-sans-sc',
+-          version: '1.0.0',
+-        }),
+         genCdnUrl({ path: 'dist/katex.min.css', pkg: 'katex', version: KATEX_CSS_VERSION }),
+       ],
+     [customFonts, genCdnUrl],
 -- 
 2.39.5
 
 
-From 004d2c65556e47dcae073bb51f5b381a7149476f Mon Sep 17 00:00:00 2001
+From 7ab612c828c1b3cfe75d271de35b258f74f1f86b Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sat, 13 Dec 2025 07:36:47 +0000
 Subject: [PATCH 3/7] Change colorTextSecondary color
@@ -104,10 +99,10 @@ Subject: [PATCH 3/7] Change colorTextSecondary color
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/src/styles/theme/generateColorPalette.ts b/src/styles/theme/generateColorPalette.ts
-index 406ed592..2e0362db 100644
+index 98af6a26..f5b0887b 100644
 --- a/src/styles/theme/generateColorPalette.ts
 +++ b/src/styles/theme/generateColorPalette.ts
-@@ -53,7 +53,7 @@ export const generateColorNeutralPalette = ({
+@@ -68,7 +68,7 @@ export const generateColorNeutralPalette = ({
      colorFillTertiary: scale[`${appearance}A`][1],
      colorText: scale[appearance][12],
      colorTextQuaternary: scale[appearance][6],
@@ -120,7 +115,7 @@ index 406ed592..2e0362db 100644
 2.39.5
 
 
-From af96bd5cce4556e973e8e709b776dc39d88c5420 Mon Sep 17 00:00:00 2001
+From d085f36fee15469f8bb460efd391b82064bf8851 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sat, 10 Jan 2026 01:03:48 +0000
 Subject: [PATCH 4/7] Darken slate[12] dark color for text
@@ -146,7 +141,7 @@ index 7341851a..cb38fec6 100644
 2.39.5
 
 
-From dd55485225b1eb2e5a6f7771ce260dce08c4ab4e Mon Sep 17 00:00:00 2001
+From 0ef3b777cb7173583914ec18dc11e0d52b64302f Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 27 Jul 2026 19:10:04 +0000
 Subject: [PATCH 5/7] Add workspaces config to package.json
@@ -156,10 +151,10 @@ Subject: [PATCH 5/7] Add workspaces config to package.json
  1 file changed, 3 insertions(+)
 
 diff --git a/package.json b/package.json
-index 2b80a43c..36389912 100644
+index 61b74f7e..75ac40d8 100644
 --- a/package.json
 +++ b/package.json
-@@ -112,6 +112,9 @@
+@@ -117,6 +117,9 @@
    "files": [
      "es"
    ],
@@ -167,13 +162,13 @@ index 2b80a43c..36389912 100644
 +    "packages/*"
 +  ],
    "scripts": {
-     "build": "tsdown && npm run build:packages",
+     "build": "tsdown && tsx ./scripts/buildThemeCss.ts && tsx ./scripts/publishStylexTokens.ts && tsx ./scripts/checkStylexBuild.ts && npm run build:packages",
      "build:packages": "tsx ./scripts/build.ts",
 -- 
 2.39.5
 
 
-From d3a6a78b9f098f9175876aa6a773628639874cab Mon Sep 17 00:00:00 2001
+From f290900cf9f07df89fcfcfef953da941857ed6c8 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 23 Sep 2026 22:33:49 +0000
 Subject: [PATCH 6/7] Use the exact same package of this for dependencies
@@ -183,10 +178,10 @@ Subject: [PATCH 6/7] Use the exact same package of this for dependencies
  1 file changed, 3 insertions(+)
 
 diff --git a/package.json b/package.json
-index 36389912..a6af1b59 100644
+index 75ac40d8..80d19b76 100644
 --- a/package.json
 +++ b/package.json
-@@ -161,6 +161,9 @@
+@@ -167,6 +167,9 @@
        "eslint --fix"
      ]
    },
@@ -194,34 +189,34 @@ index 36389912..a6af1b59 100644
 +    "@lobehub/ui": "."
 +  },
    "dependencies": {
-     "@ant-design/cssinjs": "^2.1.2",
-     "@base-ui/react": "1.8.0",
+     "@base-ui/react": "1.9.0",
+     "@dnd-kit/core": "^6.3.1",
 -- 
 2.39.5
 
 
-From a7aa06196a87ee37f3ca88cd898a78325d39b546 Mon Sep 17 00:00:00 2001
+From 39a4d89f9057a5c6dfb858814bac99e5773430f9 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
-Date: Wed, 23 Sep 2026 22:34:12 +0000
-Subject: [PATCH 7/7] Temporarily ban virtua 0.52.x due to min release age
+Date: Thu, 22 Oct 2026 02:07:52 +0000
+Subject: [PATCH 7/7] Temporarily ban virtua 0.53.6 due to min release age
 
 ---
  package.json | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/package.json b/package.json
-index a6af1b59..0191f559 100644
+index 80d19b76..999c07df 100644
 --- a/package.json
 +++ b/package.json
-@@ -240,7 +240,7 @@
-     "use-merge-value": "^1.2.0",
-     "uuid": "^14.0.1",
+@@ -221,7 +221,7 @@
+     "unist-util-visit-parents": "^6.0.2",
+     "uqr": "^0.1.3",
      "vfile": "^6.0.3",
--    "virtua": "^0.52.0"
-+    "virtua": "0.51.3"
+-    "virtua": "^0.53.5"
++    "virtua": "0.53.5"
    },
    "devDependencies": {
-     "@ant-design/icons": "^6.3.2",
+     "@commitlint/cli": "^21.2.3",
 -- 
 2.39.5
 
