@@ -8,17 +8,15 @@ import { describe, expect, it, vi } from 'vitest';
 const dropdownProps = vi.hoisted(() => ({ current: null as any }));
 
 vi.mock('@lobehub/ui', () => ({
+  Button: ({ children }: { children?: ReactNode }) => <button type="button">{children}</button>,
   DropdownMenu: (props: any) => {
     dropdownProps.current = props;
     return <div data-testid="lang-dropdown" />;
   },
   Flexbox: ({ children }: { children?: ReactNode }) => <div>{children}</div>,
   Icon: () => null,
-}));
-
-vi.mock('@lobehub/ui/base-ui', () => ({
-  Button: ({ children }: { children?: ReactNode }) => <button type="button">{children}</button>,
   Text: ({ children }: { children?: ReactNode }) => <span>{children}</span>,
+  cssVar: { colorFillTertiary: '#eee', colorTextSecondary: '#999' },
 }));
 
 vi.mock('antd-style', () => ({

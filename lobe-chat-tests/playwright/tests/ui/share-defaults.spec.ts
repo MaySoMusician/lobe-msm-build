@@ -28,8 +28,5 @@ test('opens Share on JSON with OpenAI-compatible export selected', async ({ page
   const dialog = page.getByRole('dialog');
   await expect(dialog).toBeVisible();
   await expect(dialog.getByRole('tab', { name: 'JSON' })).toHaveAttribute('aria-selected', 'true');
-  await expect(dialog.getByRole('tab', { name: /^OpenAI Compatible$/i })).toHaveAttribute(
-    'aria-selected',
-    'true',
-  );
+  await expect(dialog.getByRole('button', { name: /^Schema\s*OpenAI Compatible$/i })).toBeVisible();
 });

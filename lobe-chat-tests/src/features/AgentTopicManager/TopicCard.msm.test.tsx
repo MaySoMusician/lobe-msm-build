@@ -9,14 +9,24 @@ vi.mock('@lobehub/ui', () => ({
   Block: ({ children, ...props }: { children?: ReactNode; [key: string]: unknown }) => (
     <div {...props}>{children}</div>
   ),
+  Checkbox: () => <input type="checkbox" />,
   Flexbox: ({ children }: { children?: ReactNode }) => <div>{children}</div>,
   Icon: () => null,
-}));
-
-vi.mock('@lobehub/ui/base-ui', () => ({
-  Checkbox: () => <input type="checkbox" />,
   Tag: ({ children }: { children?: ReactNode }) => <span>{children}</span>,
   Text: ({ children }: { children?: ReactNode }) => <span>{children}</span>,
+  createStaticStyles: () =>
+    new Proxy(
+      {},
+      {
+        get: (_t, prop) => String(prop),
+      },
+    ),
+  cssVar: {
+    colorPrimary: '#00f',
+    colorSplit: '#ddd',
+    colorTextQuaternary: '#aaa',
+    colorWarning: '#fa0',
+  },
 }));
 
 vi.mock('@lobechat/const', () => ({
@@ -56,7 +66,7 @@ vi.mock('@/hooks/useActivityTime', () => ({
   useActivityTime: () => ({ text: 'now', title: 'now' }),
 }));
 
-vi.mock('@/routes/(main)/agent/channel/const', () => ({
+vi.mock('@/features/AgentChannel/const', () => ({
   getPlatformIcon: () => null,
 }));
 
