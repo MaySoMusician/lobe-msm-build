@@ -44,21 +44,6 @@ if (sourcePackage.name !== '@lobehub/ui') {
   throw new Error(`Unexpected package in LOBE_UI_DIR: ${sourcePackage.name}`);
 }
 
-// const fontTokens = fs.readFileSync(
-//   path.join(lobeUiDir, 'src', 'styles', 'theme', 'token', 'base.ts'),
-//   'utf8',
-// );
-// const themeProvider = fs.readFileSync(
-//   path.join(lobeUiDir, 'src', 'ThemeProvider', 'ThemeProvider.tsx'),
-//   'utf8',
-// );
-// if (!fontTokens.includes('IBM Plex Sans JP') || !fontTokens.includes('Mgen+ 1mn')) {
-//   throw new Error('LOBE_UI_DIR does not contain the expected MSM font stack');
-// }
-// if (/webfont-harmony-sans/.test(themeProvider)) {
-//   throw new Error('LOBE_UI_DIR still loads the default Harmony font packages');
-// }
-
 if (!skipBuild) {
   run('pnpm', ['install']);
   run('pnpm', ['run', 'build']);
@@ -68,20 +53,6 @@ const esDir = path.join(lobeUiDir, 'es');
 if (!fs.existsSync(esDir)) {
   throw new Error(`Built output is missing: ${esDir}`);
 }
-// const builtFontTokens = fs.readFileSync(
-//   path.join(esDir, 'styles', 'theme', 'token', 'base.mjs'),
-//   'utf8',
-// );
-// const builtThemeProvider = fs.readFileSync(
-//   path.join(esDir, 'ThemeProvider', 'ThemeProvider.mjs'),
-//   'utf8',
-// );
-// if (!builtFontTokens.includes('IBM Plex Sans JP') || !builtFontTokens.includes('Mgen+ 1mn')) {
-//   throw new Error('Built Lobe UI output does not contain the expected MSM font stack');
-// }
-// if (/webfont-(?:harmony|mono)/.test(builtThemeProvider)) {
-//   throw new Error('Built Lobe UI output still loads removed Harmony/mono webfonts');
-// }
 
 const sourceSha = run('git', ['rev-parse', 'HEAD'], { capture: true });
 const packageVersion = sourcePackage.version.endsWith('-msm')
@@ -128,28 +99,12 @@ try {
       cwd: outputDir,
     }),
   );
-  // const packedFontTokens = run(
-  //   'tar',
-  //   ['-xOzf', artifactPath, 'package/es/styles/theme/token/base.mjs'],
-  //   { capture: true, cwd: outputDir },
-  // );
-  // const packedThemeProvider = run(
-  //   'tar',
-  //   ['-xOzf', artifactPath, 'package/es/ThemeProvider/ThemeProvider.mjs'],
-  //   { capture: true, cwd: outputDir },
-  // );
   if (packedPackage.name !== '@lobehub/ui' || !packedPackage.version.endsWith('-msm')) {
     throw new Error('Packed Lobe UI manifest does not identify the MSM package');
   }
   if (packedPackage.scripts || packedPackage.devDependencies || packedPackage.workspaces) {
     throw new Error('Packed Lobe UI manifest still contains build-only fields');
   }
-  // if (!packedFontTokens.includes('IBM Plex Sans JP') || !packedFontTokens.includes('Mgen+ 1mn')) {
-  //   throw new Error('Packed Lobe UI artifact does not contain the expected MSM font stack');
-  // }
-  // if (/webfont-(?:harmony|mono)/.test(packedThemeProvider)) {
-  //   throw new Error('Packed Lobe UI artifact still loads removed Harmony/mono webfonts');
-  // }
 
   const sha256 = crypto.createHash('sha256').update(fs.readFileSync(artifactPath)).digest('hex');
   const metadata = {

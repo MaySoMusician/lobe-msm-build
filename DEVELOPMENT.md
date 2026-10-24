@@ -18,12 +18,11 @@ cd /path/to/lobe-msm-build
 export LOBE_CHAT_DIR=/path/to/lobe-chat   # optional if sibling ../lobe-chat
 
 ./scripts/apply-lobe-chat-msm-tests.sh
-node scripts/verify-lobe-chat-patch-invariants.mjs
 node scripts/run-lobe-chat-msm-tests.mjs
 ```
 
 - Overlay deletes existing `*.msm.test.ts(x)` in the lobe-chat tree, then copies `lobe-chat-tests/**/*.msm.test.ts(x)` (skipping `lobe-chat-tests/playwright`). Do not commit those files into the patch branch or regenerate them into `lobe-chat.patch`.
-- Invariants need no install. The Vitest runner runs **only** `*.msm.test.ts(x)` — never full `bun run test` / unfiltered vitest.
+- The Vitest runner runs **only** `*.msm.test.ts(x)` — never full `bun run test` / unfiltered vitest.
 
 # Assembled behavior tests
 
@@ -95,8 +94,8 @@ On failure, inspect:
 - `lobe-chat-tests/playwright/test-results/`
 - the application log uploaded by CI as `lobe-chat-behavior-failure`
 
-Use static invariants only for build/supply-chain configuration with no
-runtime seam. Use focused Vitest for low-level contracts that would require
-unreasonable wall-clock time or cannot be observed externally. Prefer HTTP
-tests for provider/server contracts and Playwright for user-visible behavior.
+Do not grep patched source or build output. Use focused Vitest for low-level
+contracts that would require unreasonable wall-clock time or cannot be observed
+externally. Prefer HTTP tests for provider/server contracts and Playwright for
+user-visible behavior.
 CI runs all layers and blocks image push/deploy on behavior-test failure.
