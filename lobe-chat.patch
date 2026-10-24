@@ -1,4 +1,4 @@
-From 64b8ad9dae60a6793b1197afea2c73096dc399f4 Mon Sep 17 00:00:00 2001
+From 5b763634ba360f83f49a4a7414c1b80599b911c4 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 22 Oct 2026 01:38:45 +0000
 Subject: [PATCH 01/18] =?UTF-8?q?=F0=9F=94=92=EF=B8=8F=20build(docker):=20?=
@@ -26,7 +26,7 @@ index fc4c2e7966..020c7d1022 100644
  .next
  .git
 diff --git a/Dockerfile b/Dockerfile
-index 826fb06763..4588594b58 100644
+index 924acdc3eb..35e2b8aa6c 100644
 --- a/Dockerfile
 +++ b/Dockerfile
 @@ -1,9 +1,13 @@
@@ -92,7 +92,7 @@ index 826fb06763..4588594b58 100644
 2.39.5
 
 
-From 7789cca452e8c0fe0ad3192da236bf718f9da354 Mon Sep 17 00:00:00 2001
+From 7a186ad1c097fb3a6e8905225439c7c31fde7132 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 7 Oct 2026 16:25:57 +0000
 Subject: [PATCH 02/18] =?UTF-8?q?=F0=9F=94=92=EF=B8=8F=20build(deps):=20en?=
@@ -105,8 +105,8 @@ Co-authored-by: Cursor Grok 4.7 <cursoragent@cursor.com.invalid>
 ---
  apps/cli/pnpm-workspace.yaml     | 23 +++++++++++++++++++++++
  apps/desktop/pnpm-workspace.yaml | 23 +++++++++++++++++++++++
- pnpm-workspace.yaml              | 27 ++++++++++++++++++++++++++-
- 3 files changed, 72 insertions(+), 1 deletion(-)
+ pnpm-workspace.yaml              | 32 +++++++++++++++++++++++++++++++-
+ 3 files changed, 77 insertions(+), 1 deletion(-)
 
 diff --git a/apps/cli/pnpm-workspace.yaml b/apps/cli/pnpm-workspace.yaml
 index 03bb2caeef..508bf3e2b5 100644
@@ -140,13 +140,13 @@ index 03bb2caeef..508bf3e2b5 100644
 +blockExoticSubdeps: true
 +strictDepBuilds: true
 diff --git a/apps/desktop/pnpm-workspace.yaml b/apps/desktop/pnpm-workspace.yaml
-index a20694247e..b6d3720a52 100644
+index cf34ba5dec..159cf620c6 100644
 --- a/apps/desktop/pnpm-workspace.yaml
 +++ b/apps/desktop/pnpm-workspace.yaml
 @@ -76,3 +76,26 @@ minimumReleaseAgeExclude:
-   - electron-sparkle-updater@0.5.2
- patchedDependencies:
-   electron-sparkle-updater@0.5.2: patches/electron-sparkle-updater@0.5.2.patch
+   - '@auv-js/sdk@0.0.33'
+   - electron-sparkle-updater@0.5.3
+   - '@lobehub/*'
 +
 +minimumReleaseAge: 10080
 +minimumReleaseAgeStrict: true
@@ -171,36 +171,32 @@ index a20694247e..b6d3720a52 100644
 +blockExoticSubdeps: true
 +strictDepBuilds: true
 diff --git a/pnpm-workspace.yaml b/pnpm-workspace.yaml
-index fd0656b89b..679e0fe014 100644
+index 1e9892d0a6..e609ca3cc6 100644
 --- a/pnpm-workspace.yaml
 +++ b/pnpm-workspace.yaml
-@@ -36,7 +36,7 @@ minimumReleaseAgeExclude:
+@@ -36,7 +36,9 @@ minimumReleaseAgeExclude:
    - '@auv-js/cli-win32-x64-msvc@0.0.25'
    - '@auv-js/cli@0.0.25'
    - '@auv-js/sdk@0.0.25'
 -  - '@lobehub/*'
-+  - '@lobehub/ui@5.49.0'
++  - '@pierre/diffs@1.6.1'
++  - '@pierre/highlights@0.2.0'
++  - '@pierre/theming@1.0.2'
+   - virtua@0.53.5
  
  # Build scripts run one at a time. Several peer-variant copies of
- # @lobehub/editor resolve in this workspace and every copy's postinstall
-@@ -62,6 +62,7 @@ allowBuilds:
+@@ -62,6 +64,7 @@ allowBuilds:
+   workerd: true
  
  overrides:
-   '@ant-design/icons': 6.3.2
 +  '@hono/node-server': 1.19.17
-   '@react-pdf/image': 3.0.4
-   '@types/react': 19.2.13
-   '@vitest/coverage-v8': 5.0.0
-@@ -77,8 +78,32 @@ overrides:
-   's3rver>fast-xml-parser': 3.21.1
-   stylelint-config-clean-order: 7.0.0
-   typescript: 6.0.3
-+  virtua: 0.51.3
-   vitest: 5.0.0
-   'zod@^4': 4.6.5
- 
- patchedDependencies:
+   '@lobehub/ui': ^6.0.4
+   '@lobehub/icons': ^6.0.0
+   '@lobehub/editor': ^5.0.0
+@@ -94,3 +97,30 @@ patchedDependencies:
    '@upstash/qstash': patches/@upstash__qstash.patch
+   micromark@4.0.3: patches/micromark@4.0.3.patch
+   micromark-extension-gfm-autolink-literal@2.1.0: patches/micromark-extension-gfm-autolink-literal@2.1.0.patch
 +
 +minimumReleaseAge: 10080
 +minimumReleaseAgeStrict: true
@@ -217,10 +213,14 @@ index fd0656b89b..679e0fe014 100644
 +  - '@octokit/endpoint@9.0.6'
 +  - '@trickfilm400/rollup-plugin-off-main-thread@3.0.0-pre1'
 +  - '@pierre/theme@1.1.0'
++  - '@pierre/theme@2.0.0'
 +  - '@vercel/cli-config@0.3.0'
++  - '@vercel/cli-config@0.3.1'
 +  - '@vercel/cli-exec@1.0.1'
 +  - '@vercel/functions@3.9.9'
++  - '@vercel/functions@3.10.1'
 +  - '@vercel/oidc@3.8.9'
++  - '@vercel/oidc@4.0.1'
 +
 +blockExoticSubdeps: true
 +strictDepBuilds: true
@@ -228,7 +228,7 @@ index fd0656b89b..679e0fe014 100644
 2.39.5
 
 
-From d42d803832ea28bd53a2abd7de1b8f51cfcf8310 Mon Sep 17 00:00:00 2001
+From 7108f5fd7da596361a94197a1e8b885858df108a Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 7 Oct 2026 16:25:57 +0000
 Subject: [PATCH 03/18] =?UTF-8?q?=E2=9C=A8=20feat(openai):=20keep=20GPT=20?=
@@ -247,10 +247,10 @@ Co-authored-by: Cursor Grok 4.7 <cursoragent@cursor.com.invalid>
  5 files changed, 113 insertions(+), 20 deletions(-)
 
 diff --git a/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts b/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
-index 70a99a6444..0cd42e256d 100644
+index 32851cf353..c67b0eaf13 100644
 --- a/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
 +++ b/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
-@@ -1623,7 +1623,7 @@ export const createOpenAICompatibleRuntime = <T extends Record<string, any> = an
+@@ -1611,7 +1611,7 @@ export const createOpenAICompatibleRuntime = <T extends Record<string, any> = an
          strictToolPairing: true,
        });
  
@@ -554,7 +554,7 @@ index a7ebcd844c..0b35e2e216 100644
 2.39.5
 
 
-From e3cb159e81cd2df300dc1ef6206a996f2e3ffa14 Mon Sep 17 00:00:00 2001
+From 31c093807e90f27e174ffb49091be30e7aff44cd Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 7 Oct 2026 16:25:57 +0000
 Subject: [PATCH 04/18] =?UTF-8?q?=E2=9C=A8=20feat(openai):=20preserve=20de?=
@@ -566,8 +566,8 @@ Content-Transfer-Encoding: 8bit
 Co-authored-by: Cursor Grok 4.7 <cursoragent@cursor.com.invalid>
 ---
  .../nonStreamToStream.test.ts                 | 100 +++----
- .../nonStreamToStream.ts                      | 257 ++++++++++++++----
- 2 files changed, 234 insertions(+), 123 deletions(-)
+ .../nonStreamToStream.ts                      | 263 ++++++++++++++----
+ 2 files changed, 239 insertions(+), 124 deletions(-)
 
 diff --git a/packages/model-runtime/src/core/openaiCompatibleFactory/nonStreamToStream.test.ts b/packages/model-runtime/src/core/openaiCompatibleFactory/nonStreamToStream.test.ts
 index 9927e9cede..b6a523351a 100644
@@ -728,10 +728,10 @@ index 9927e9cede..b6a523351a 100644
    });
  });
 diff --git a/packages/model-runtime/src/core/openaiCompatibleFactory/nonStreamToStream.ts b/packages/model-runtime/src/core/openaiCompatibleFactory/nonStreamToStream.ts
-index c580dcd260..adb525fce9 100644
+index af6734ddaf..0308bd1d26 100644
 --- a/packages/model-runtime/src/core/openaiCompatibleFactory/nonStreamToStream.ts
 +++ b/packages/model-runtime/src/core/openaiCompatibleFactory/nonStreamToStream.ts
-@@ -89,72 +89,211 @@ export const transformResponseToStream = (data: OpenAI.ChatCompletion) =>
+@@ -89,73 +89,216 @@ export const transformResponseToStream = (data: OpenAI.ChatCompletion) =>
      },
    });
  
@@ -803,6 +803,7 @@ index c580dcd260..adb525fce9 100644
 +        content: (item as any).content,
 +        encrypted_content: (item as any).encrypted_content,
 +        id: item.id,
++        input: (item as any).input,
 +        name: (item as any).name,
 +        role: (item as any).role,
 +        status: (item as any).status,
@@ -815,15 +816,19 @@ index c580dcd260..adb525fce9 100644
 +
 +    // Branch processing according to item.type.
 +    switch (item.type) {
++      case 'custom_tool_call':
 +      case 'function_call': {
 +        // In src/utils/fetch/fetchSSE.ts, the argument duplication occurs during parse, so we won't send a delta.
++        // A custom tool call carries its input on the added item. Treat it like a function call so a
++        // tool-only response is not dropped.
 +        events.push({
 +          item: {
-+            arguments: item.arguments, // dummy placeholder
++            arguments: (item as any).arguments,
 +            call_id: item.call_id,
 +            id: item.id,
++            input: (item as any).input,
 +            name: '', // dummy placeholder
-+            type: 'function_call',
++            type: item.type,
 +          },
 +          output_index: 1,
 +          sequence_number: seq++,
@@ -873,10 +878,11 @@ index c580dcd260..adb525fce9 100644
 -              break;
 -            }
 -            /**
--             * A completed function call already carries its full arguments. The stream parser
+-             * A completed tool call already carries its full arguments/input. The stream parser
 -             * reads them from `output_item.added`, so no argument deltas are needed; dropping
 -             * this item would turn a tool-call-only response into an empty completion.
 -             */
+-            case 'custom_tool_call':
 -            case 'function_call': {
 -              controller.enqueue({
 -                item: output,
@@ -1006,7 +1012,7 @@ index c580dcd260..adb525fce9 100644
 2.39.5
 
 
-From e5e0b06a4cc906592133a87d29c880220f563dab Mon Sep 17 00:00:00 2001
+From 7b0bc1d4209ed597902f8f64f3519d4b9970c0a2 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 7 Oct 2026 16:25:57 +0000
 Subject: [PATCH 05/18] =?UTF-8?q?=F0=9F=90=9B=20fix(openai):=20use=20one?=
@@ -1029,7 +1035,7 @@ Co-authored-by: Cursor Grok 4.7 <cursoragent@cursor.com.invalid>
  create mode 100644 packages/model-runtime/src/core/openaiCompatibleFactory/timeout.ts
 
 diff --git a/apps/server/src/modules/AgentRuntime/adapters/ServerLLMTransport.ts b/apps/server/src/modules/AgentRuntime/adapters/ServerLLMTransport.ts
-index b86e9ca06b..4f17f5ff42 100644
+index de0c252341..3ea9f55ecd 100644
 --- a/apps/server/src/modules/AgentRuntime/adapters/ServerLLMTransport.ts
 +++ b/apps/server/src/modules/AgentRuntime/adapters/ServerLLMTransport.ts
 @@ -24,7 +24,6 @@ import { BRANDING_PROVIDER } from '@lobechat/business-const';
@@ -1040,7 +1046,7 @@ index b86e9ca06b..4f17f5ff42 100644
    type ModelRuntime,
  } from '@lobechat/model-runtime';
  import {
-@@ -49,7 +48,6 @@ import { classifyLLMError } from '../llmErrorClassification';
+@@ -51,7 +50,6 @@ import { classifyLLMError } from '../llmErrorClassification';
  import {
    createClientLlmExecutorUnavailableError,
    isClientLlmRelayError,
@@ -1048,13 +1054,17 @@ index b86e9ca06b..4f17f5ff42 100644
  } from '../llmRelay/errors';
  import { buildLlmRelayCallId } from '../llmRelay/protocol';
  import { RelayModelRuntime } from '../llmRelay/RelayModelRuntime';
-@@ -70,64 +68,19 @@ const getErrorMessage = (error: unknown): string => {
+@@ -72,6 +70,7 @@ const getErrorMessage = (error: unknown): string => {
  };
  
  const SERVER_LLM_RETRY_POLICY = {
 +  maxRetries: 0,
    noRetryProviders: [BRANDING_PROVIDER],
  };
+ 
+@@ -88,61 +87,15 @@ const DEPLOYMENT_NAME_PROVIDERS = new Set<string>([
+   ModelProvider.Volcengine,
+ ]);
  
 -const NETWORK_EMPTY_COMPLETION_MAX_RETRIES = 3;
 -const NETWORK_EMPTY_COMPLETION_MAX_ATTEMPTS = NETWORK_EMPTY_COMPLETION_MAX_RETRIES + 1;
@@ -1116,7 +1126,7 @@ index b86e9ca06b..4f17f5ff42 100644
    }
  
    onError({ error }: LLMCallErrorInput) {
-@@ -149,11 +102,8 @@ class ServerLLMRetryPolicy implements LLMRetryPolicy {
+@@ -164,11 +117,8 @@ class ServerLLMRetryPolicy implements LLMRetryPolicy {
      );
    }
  
@@ -1131,10 +1141,10 @@ index b86e9ca06b..4f17f5ff42 100644
  
    async waitForRetry(delayMs: number): Promise<void> {
 diff --git a/packages/model-runtime/package.json b/packages/model-runtime/package.json
-index d7166ef1dd..6e0c458418 100644
+index 1fcc3d2d40..2b6c421e36 100644
 --- a/packages/model-runtime/package.json
 +++ b/packages/model-runtime/package.json
-@@ -51,6 +51,7 @@
+@@ -52,6 +52,7 @@
      "replicate": "^1.4.0",
      "tokenx": "^1.3.0",
      "type-fest": "^5.7.0",
@@ -1143,13 +1153,13 @@ index d7166ef1dd..6e0c458418 100644
    },
    "devDependencies": {
 diff --git a/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts b/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
-index 0cd42e256d..fb4103000e 100644
+index c67b0eaf13..6661dc0288 100644
 --- a/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
 +++ b/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
-@@ -93,10 +93,12 @@ import {
-   recordOpenAIResponsesResponse,
-   resolveOpenAIResponseWithMetadata,
- } from './providerDiagnostics';
+@@ -102,10 +102,12 @@ import {
+   parseStructuredToolArguments,
+   StructuredOutputError,
+ } from './structuredOutput';
 +import { DEFAULT_OPENAI_TIMEOUT, resolveOpenAIClientNetworkOptions } from './timeout';
  
  export type { PollVideoStatusResult };
@@ -1159,7 +1169,7 @@ index 0cd42e256d..fb4103000e 100644
  
  /**
   * Detect provider 400/422 errors that reject `response_format: { type: 'json_schema' }`.
-@@ -398,7 +400,31 @@ export const createOpenAICompatibleRuntime = <T extends Record<string, any> = an
+@@ -407,7 +409,31 @@ export const createOpenAICompatibleRuntime = <T extends Record<string, any> = an
  
        if (!apiKey) throw AgentRuntimeError.createError(ErrorType?.invalidAPIKey);
  
@@ -1192,7 +1202,7 @@ index 0cd42e256d..fb4103000e 100644
  
        // if the custom client is provided, use it as client
        if (customClient?.createClient) {
-@@ -720,6 +746,7 @@ export const createOpenAICompatibleRuntime = <T extends Record<string, any> = an
+@@ -729,6 +755,7 @@ export const createOpenAICompatibleRuntime = <T extends Record<string, any> = an
              baseURL: targetBaseURL,
              ...constructorOptions,
              ...restOptions,
@@ -1293,10 +1303,10 @@ index 0000000000..5fd44d0c2e
 +  };
 +};
 diff --git a/src/app/(backend)/webapi/chat/[provider]/route.ts b/src/app/(backend)/webapi/chat/[provider]/route.ts
-index 2d2379091d..e0acd6ce1b 100644
+index 369cf795f0..740c58e0f2 100644
 --- a/src/app/(backend)/webapi/chat/[provider]/route.ts
 +++ b/src/app/(backend)/webapi/chat/[provider]/route.ts
-@@ -13,7 +13,22 @@ import { resolveValidWorkspaceIdFromRequest } from '../../_utils/workspace';
+@@ -15,7 +15,22 @@ import { resolveValidWorkspaceIdFromRequest } from '../../_utils/workspace';
  
  // If user don't use fluid compute, will build  failed
  // this enforce user to enable fluid compute
@@ -1320,28 +1330,28 @@ index 2d2379091d..e0acd6ce1b 100644
  
  export const POST = checkAuth(async (req: Request, { params, userId, serverDB }) => {
    const provider = (await params)!.provider!;
-@@ -36,12 +51,14 @@ export const POST = checkAuth(async (req: Request, { params, userId, serverDB })
-       traceOptions = createTraceOptions(data, { provider, trace: tracePayload });
-     }
+@@ -44,12 +59,14 @@ export const POST = checkAuth(async (req: Request, { params, userId, serverDB })
+         traceOptions = createTraceOptions(data, { provider, trace: tracePayload });
+       }
  
--    return await modelRuntime.chat(data, {
--      user: userId,
--      ...traceOptions,
--      metadata: { topicId: req.headers.get(REQUEST_TOPIC_ID_HEADER) ?? undefined },
--      signal: req.signal,
--    });
-+    return withUndiciHeader(
-+      await modelRuntime.chat(data, {
-+        user: userId,
-+        ...traceOptions,
-+        metadata: { topicId: req.headers.get(REQUEST_TOPIC_ID_HEADER) ?? undefined },
-+        signal: req.signal,
-+      }),
-+    );
+-      return await modelRuntime.chat(data, {
+-        user: userId,
+-        ...traceOptions,
+-        metadata: { topicId: req.headers.get(REQUEST_TOPIC_ID_HEADER) ?? undefined },
+-        signal: req.signal,
+-      });
++      return withUndiciHeader(
++        await modelRuntime.chat(data, {
++          user: userId,
++          ...traceOptions,
++          metadata: { topicId: req.headers.get(REQUEST_TOPIC_ID_HEADER) ?? undefined },
++          signal: req.signal,
++        }),
++      );
+     });
    } catch (e) {
      const {
-       errorType = ChatErrorType.InternalServerError,
-@@ -58,6 +75,6 @@ export const POST = checkAuth(async (req: Request, { params, userId, serverDB })
+@@ -67,6 +84,6 @@ export const POST = checkAuth(async (req: Request, { params, userId, serverDB })
        console.error(`Route: [${provider}] ${errorType}:`, error);
      }
  
@@ -1385,10 +1395,10 @@ index daa1510fe5..a094abbe6e 100644
    if (process.env.NODE_ENV !== 'production' && process.env.NEXT_RUNTIME === 'nodejs') {
      await import('./libs/debug-file-logger');
 diff --git a/src/libs/next/config/define-config.ts b/src/libs/next/config/define-config.ts
-index 064e83d2bb..03d286d03d 100644
+index 9b0762ba4a..e396771854 100644
 --- a/src/libs/next/config/define-config.ts
 +++ b/src/libs/next/config/define-config.ts
-@@ -369,6 +369,7 @@ export function defineConfig(config: CustomNextConfig) {
+@@ -373,6 +373,7 @@ export function defineConfig(config: CustomNextConfig) {
        'pdfjs-dist',
        'ajv',
        'oidc-provider',
@@ -1397,7 +1407,7 @@ index 064e83d2bb..03d286d03d 100644
  
      transpilePackages: ['mermaid'],
 diff --git a/src/store/chat/agents/transports/ClientLLMTransport.ts b/src/store/chat/agents/transports/ClientLLMTransport.ts
-index 7eb9ee3901..98723dba29 100644
+index 67b1494f48..8ec11b3441 100644
 --- a/src/store/chat/agents/transports/ClientLLMTransport.ts
 +++ b/src/store/chat/agents/transports/ClientLLMTransport.ts
 @@ -36,6 +36,7 @@ import type { ClientLLMModelParameters } from './ClientContextBuilder';
@@ -1412,7 +1422,7 @@ index 7eb9ee3901..98723dba29 100644
 2.39.5
 
 
-From 8193a83a7525cdda1ae6e9b41fbb5462c556c3da Mon Sep 17 00:00:00 2001
+From 84a98aa9d3f93d7416fb9ef44fa9a035958931db Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 7 Oct 2026 16:25:57 +0000
 Subject: [PATCH 06/18] =?UTF-8?q?=E2=9C=A8=20feat(agent):=20keep=20prompts?=
@@ -1437,7 +1447,7 @@ Co-authored-by: Cursor Grok 4.7 <cursoragent@cursor.com.invalid>
  11 files changed, 54 insertions(+), 145 deletions(-)
 
 diff --git a/apps/server/src/modules/Mecha/ContextEngineering/__tests__/serverMessagesEngine.test.ts b/apps/server/src/modules/Mecha/ContextEngineering/__tests__/serverMessagesEngine.test.ts
-index ade958553b..2df9bf2996 100644
+index d768efb154..2f5a6e46c4 100644
 --- a/apps/server/src/modules/Mecha/ContextEngineering/__tests__/serverMessagesEngine.test.ts
 +++ b/apps/server/src/modules/Mecha/ContextEngineering/__tests__/serverMessagesEngine.test.ts
 @@ -4,16 +4,6 @@ import { describe, expect, it, vi } from 'vitest';
@@ -1457,7 +1467,7 @@ index ade958553b..2df9bf2996 100644
  describe('serverMessagesEngine', () => {
    const createBasicMessages = (): UIChatMessage[] => [
      {
-@@ -161,9 +151,7 @@ describe('serverMessagesEngine', () => {
+@@ -167,9 +157,7 @@ describe('serverMessagesEngine', () => {
        });
  
        expect(Array.isArray(result)).toBe(true);
@@ -1468,7 +1478,7 @@ index ade958553b..2df9bf2996 100644
        result.forEach((msg) => {
          expect(msg).toHaveProperty('role');
          expect(msg).toHaveProperty('content');
-@@ -185,7 +173,7 @@ describe('serverMessagesEngine', () => {
+@@ -191,7 +179,7 @@ describe('serverMessagesEngine', () => {
        });
  
        expect(result[0].role).toBe('system');
@@ -1477,7 +1487,7 @@ index ade958553b..2df9bf2996 100644
      });
  
      it('renders the cloud-sandbox workspace placeholders to the ephemeral wording unless the builder supplies them', async () => {
-@@ -321,7 +309,7 @@ describe('serverMessagesEngine', () => {
+@@ -327,7 +315,7 @@ describe('serverMessagesEngine', () => {
        expect(result[0].content).toContain(`Day: ${partsMap.day}`);
      });
  
@@ -1486,7 +1496,7 @@ index ade958553b..2df9bf2996 100644
        const messages = createBasicMessages();
  
        const { messages: result } = await serverMessagesEngine({
-@@ -333,14 +321,10 @@ describe('serverMessagesEngine', () => {
+@@ -339,14 +327,10 @@ describe('serverMessagesEngine', () => {
        });
  
        expect(result[0].role).toBe('system');
@@ -1503,7 +1513,7 @@ index ade958553b..2df9bf2996 100644
        const messages = createBasicMessages();
  
        const { messages: result } = await serverMessagesEngine({
-@@ -353,11 +337,7 @@ describe('serverMessagesEngine', () => {
+@@ -359,11 +343,7 @@ describe('serverMessagesEngine', () => {
        });
  
        expect(result[0].role).toBe('system');
@@ -1516,7 +1526,7 @@ index ade958553b..2df9bf2996 100644
      });
  
      it('should handle empty messages', async () => {
-@@ -367,8 +347,7 @@ describe('serverMessagesEngine', () => {
+@@ -373,8 +353,7 @@ describe('serverMessagesEngine', () => {
          provider: 'openai',
        });
  
@@ -1527,10 +1537,10 @@ index ade958553b..2df9bf2996 100644
  
      it('should include file URLs in server-side file context', async () => {
 diff --git a/apps/server/src/services/aiAgent/__tests__/execAgent.builtinRuntime.test.ts b/apps/server/src/services/aiAgent/__tests__/execAgent.builtinRuntime.test.ts
-index 3d1d234645..b259cd9110 100644
+index 55ccdf8821..c187887abf 100644
 --- a/apps/server/src/services/aiAgent/__tests__/execAgent.builtinRuntime.test.ts
 +++ b/apps/server/src/services/aiAgent/__tests__/execAgent.builtinRuntime.test.ts
-@@ -394,7 +394,7 @@ describe('AiAgentService.execAgent - builtin agent runtime config', () => {
+@@ -391,7 +391,7 @@ describe('AiAgentService.execAgent - builtin agent runtime config', () => {
      expect(mockGetBuiltinAgent).not.toHaveBeenCalled();
    });
  
@@ -1539,7 +1549,7 @@ index 3d1d234645..b259cd9110 100644
      // Inbox agent with no user-customized systemRole in DB
      mockGetAgentConfig.mockResolvedValue({
        chatConfig: {},
-@@ -411,13 +411,9 @@ describe('AiAgentService.execAgent - builtin agent runtime config', () => {
+@@ -408,13 +408,9 @@ describe('AiAgentService.execAgent - builtin agent runtime config', () => {
        prompt: 'Hello',
      });
  
@@ -1554,7 +1564,7 @@ index 3d1d234645..b259cd9110 100644
    });
  
    it('should pass user response language into web onboarding runtime systemRole', async () => {
-@@ -469,12 +465,6 @@ describe('AiAgentService.execAgent - builtin agent runtime config', () => {
+@@ -466,12 +462,6 @@ describe('AiAgentService.execAgent - builtin agent runtime config', () => {
      expect(callArgs.agentConfig.systemRole).toBe(customSystemRole);
    });
  
@@ -1567,7 +1577,7 @@ index 3d1d234645..b259cd9110 100644
    it('should not apply runtime config for non-builtin agents', async () => {
      mockGetAgentConfig.mockResolvedValue({
        chatConfig: {},
-@@ -492,8 +482,7 @@ describe('AiAgentService.execAgent - builtin agent runtime config', () => {
+@@ -489,8 +479,7 @@ describe('AiAgentService.execAgent - builtin agent runtime config', () => {
      });
  
      const callArgs = mockCreateOperation.mock.calls[0][0];
@@ -1577,7 +1587,7 @@ index 3d1d234645..b259cd9110 100644
    });
  
    it('should not apply runtime config for agents without slug', async () => {
-@@ -512,7 +501,7 @@ describe('AiAgentService.execAgent - builtin agent runtime config', () => {
+@@ -509,7 +498,7 @@ describe('AiAgentService.execAgent - builtin agent runtime config', () => {
      });
  
      const callArgs = mockCreateOperation.mock.calls[0][0];
@@ -1587,10 +1597,10 @@ index 3d1d234645..b259cd9110 100644
  
    it('should persist request trigger metadata on the created user message', async () => {
 diff --git a/apps/server/src/services/aiAgent/__tests__/resolveRunAgentConfig.test.ts b/apps/server/src/services/aiAgent/__tests__/resolveRunAgentConfig.test.ts
-index b29ca33164..d857b25396 100644
+index 9a160b5425..5e55342bc1 100644
 --- a/apps/server/src/services/aiAgent/__tests__/resolveRunAgentConfig.test.ts
 +++ b/apps/server/src/services/aiAgent/__tests__/resolveRunAgentConfig.test.ts
-@@ -69,7 +69,7 @@ describe('resolveRunAgentConfig', () => {
+@@ -73,7 +73,7 @@ describe('resolveRunAgentConfig', () => {
      expect(agentConfig.agencyConfig?.executionTarget).toBe('none');
    });
  
@@ -1599,7 +1609,7 @@ index b29ca33164..d857b25396 100644
      getInfoForAIGeneration.mockImplementation(async (_db: unknown, userId: string) => ({
        responseLanguage: userId === 'visitor-1' ? 'ja-JP' : 'en-US',
      }));
-@@ -88,7 +88,7 @@ describe('resolveRunAgentConfig', () => {
+@@ -92,7 +92,7 @@ describe('resolveRunAgentConfig', () => {
      );
  
      expect(getInfoForAIGeneration).toHaveBeenCalledWith(expect.anything(), 'visitor-1');
@@ -1633,7 +1643,7 @@ index 49383f1748..d7da07aefe 100644
  
    slug: BUILTIN_AGENT_SLUGS.inbox,
 diff --git a/packages/context-engine/src/engine/messages/MessagesEngine.ts b/packages/context-engine/src/engine/messages/MessagesEngine.ts
-index 8779ea9566..1356aef103 100644
+index 31ec7b5856..da901659ce 100644
 --- a/packages/context-engine/src/engine/messages/MessagesEngine.ts
 +++ b/packages/context-engine/src/engine/messages/MessagesEngine.ts
 @@ -51,7 +51,6 @@ import {
@@ -1708,10 +1718,10 @@ index 8779ea9566..1356aef103 100644
          context: workspaceContext,
          enabled: !!workspaceContext,
 diff --git a/packages/context-engine/src/engine/messages/__tests__/MessagesEngine.test.ts b/packages/context-engine/src/engine/messages/__tests__/MessagesEngine.test.ts
-index 5c02ecf5de..70ac6868e3 100644
+index 5d3e83c74a..8caf719df2 100644
 --- a/packages/context-engine/src/engine/messages/__tests__/MessagesEngine.test.ts
 +++ b/packages/context-engine/src/engine/messages/__tests__/MessagesEngine.test.ts
-@@ -289,7 +289,7 @@ describe('MessagesEngine', () => {
+@@ -349,7 +349,7 @@ describe('MessagesEngine', () => {
        expect(result.messages[0].content).toBe(systemRole);
      });
  
@@ -1720,7 +1730,7 @@ index 5c02ecf5de..70ac6868e3 100644
        const params = createBasicParams({
          modelKnowledgeCutoff: '2024-06',
          systemRole: 'You are a helpful assistant',
-@@ -299,10 +299,10 @@ describe('MessagesEngine', () => {
+@@ -359,10 +359,10 @@ describe('MessagesEngine', () => {
        const result = await engine.process();
  
        expect(result.messages[0]).toEqual({
@@ -1733,7 +1743,7 @@ index 5c02ecf5de..70ac6868e3 100644
      });
  
      it('should skip model knowledge cutoff injection when unknown', async () => {
-@@ -318,7 +318,7 @@ describe('MessagesEngine', () => {
+@@ -378,7 +378,7 @@ describe('MessagesEngine', () => {
        expect(result.metadata.modelInfoInjected).toBeUndefined();
      });
  
@@ -1742,7 +1752,7 @@ index 5c02ecf5de..70ac6868e3 100644
        const params = createBasicParams({
          model: 'claude-fable-5',
          modelDisplayName: 'Fable 5',
-@@ -330,11 +330,10 @@ describe('MessagesEngine', () => {
+@@ -390,11 +390,10 @@ describe('MessagesEngine', () => {
        const result = await engine.process();
  
        expect(result.messages[0]).toEqual({
@@ -1756,7 +1766,7 @@ index 5c02ecf5de..70ac6868e3 100644
      });
  
      it('should inject history summary when provided', async () => {
-@@ -523,11 +522,9 @@ describe('MessagesEngine', () => {
+@@ -583,11 +582,9 @@ describe('MessagesEngine', () => {
  
        const result = await engine.process();
  
@@ -1857,10 +1867,10 @@ index 77e96fab3b..d2149ef343 100644
        finalAgentConfig = {
          ...finalAgentConfig,
 diff --git a/src/services/chat/chat.test.ts b/src/services/chat/chat.test.ts
-index 15edea6561..6495054ff5 100644
+index 37ce8d4559..40861bfecc 100644
 --- a/src/services/chat/chat.test.ts
 +++ b/src/services/chat/chat.test.ts
-@@ -51,14 +51,9 @@ const mockCreateHeaderWithAuth = vi.hoisted(() =>
+@@ -52,14 +52,9 @@ const mockCreateHeaderWithAuth = vi.hoisted(() =>
    vi.fn(async ({ headers }: { headers: Record<string, string> }) => headers),
  );
  
@@ -1877,7 +1887,7 @@ index 15edea6561..6495054ff5 100644
  };
  
  /**
-@@ -740,7 +735,7 @@ describe('ChatService', () => {
+@@ -741,7 +736,7 @@ describe('ChatService', () => {
            {
              messages: [
                expect.objectContaining({
@@ -1886,7 +1896,7 @@ index 15edea6561..6495054ff5 100644
                  role: 'system',
                }),
                {
-@@ -803,7 +798,7 @@ describe('ChatService', () => {
+@@ -804,7 +799,7 @@ describe('ChatService', () => {
              enabledSearch: undefined,
              messages: [
                expect.objectContaining({
@@ -1895,7 +1905,7 @@ index 15edea6561..6495054ff5 100644
                  role: 'system',
                }),
                { content: 'Hello', role: 'user' },
-@@ -892,7 +887,7 @@ describe('ChatService', () => {
+@@ -893,7 +888,7 @@ describe('ChatService', () => {
            {
              messages: [
                expect.objectContaining({
@@ -1904,7 +1914,7 @@ index 15edea6561..6495054ff5 100644
                  role: 'system',
                }),
                {
-@@ -993,7 +988,7 @@ describe('ChatService', () => {
+@@ -994,7 +989,7 @@ describe('ChatService', () => {
            {
              messages: [
                expect.objectContaining({
@@ -2022,7 +2032,7 @@ index 76317a8af7..45589cd5ba 100644
 2.39.5
 
 
-From a9ac3c4a436ad66a062107eaf72419683d5d1900 Mon Sep 17 00:00:00 2001
+From a52b6ec00eaaab4ece6643cd5cbabeed5c89edb0 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:58:13 +0000
 Subject: [PATCH 07/18] =?UTF-8?q?=E2=9C=A8=20feat(agent):=20keep=20tools?=
@@ -2149,10 +2159,10 @@ index 3f11360211..c11b3ded2d 100644
  
      const lobeAgent = result.enabledManifests.find(
 diff --git a/packages/builtin-tools/src/index.ts b/packages/builtin-tools/src/index.ts
-index ab3da6edd8..0d14915aaa 100644
+index 9fc8c95f12..b129cb30eb 100644
 --- a/packages/builtin-tools/src/index.ts
 +++ b/packages/builtin-tools/src/index.ts
-@@ -81,25 +81,9 @@ export const defaultToolIds = [
+@@ -80,25 +80,9 @@ export const defaultToolIds = [
  
  /**
   * Tool IDs that are always enabled regardless of user selection.
@@ -2180,7 +2190,7 @@ index ab3da6edd8..0d14915aaa 100644
  
  /**
   * Runtime tools represented by the skill activation mode control itself. They remain part
-@@ -303,22 +287,16 @@ const builtinToolRegistry: LobeBuiltinTool[] = [
+@@ -308,22 +292,16 @@ const builtinToolRegistry: LobeBuiltinTool[] = [
      type: 'builtin',
    },
    {
@@ -2225,10 +2235,10 @@ index fd359ca062..ef5a681116 100644
        expect(resolved.rules[id]).toBe(true);
        expect(resolved.defaultToolIds).toContain(id);
 diff --git a/src/helpers/toolEngineering/index.test.ts b/src/helpers/toolEngineering/index.test.ts
-index fe0e1cd059..a30ee569a9 100644
+index 5a7c0b9a8e..5b81a2ea13 100644
 --- a/src/helpers/toolEngineering/index.test.ts
 +++ b/src/helpers/toolEngineering/index.test.ts
-@@ -498,9 +498,8 @@ describe('toolEngineering', () => {
+@@ -536,9 +536,8 @@ describe('toolEngineering', () => {
          provider: 'openai',
        });
  
@@ -2240,8 +2250,8 @@ index fe0e1cd059..a30ee569a9 100644
      });
  
      it('should enable lobe-agent when it is injected into runtime plugin ids', () => {
-@@ -517,7 +516,7 @@ describe('toolEngineering', () => {
-       expect(result.enabledToolIds).toContain('lobe-agent');
+@@ -572,7 +571,7 @@ describe('toolEngineering', () => {
+       expect(result.enabledToolIds.includes('lobe-attachments')).toBe(flag);
      });
  
 -    it('should enable lobe-agent by default since it is always-on', () => {
@@ -2249,7 +2259,7 @@ index fe0e1cd059..a30ee569a9 100644
        const toolsEngine = createAgentToolsEngine({
          model: 'deepseek-chat',
          provider: 'deepseek',
-@@ -529,10 +528,10 @@ describe('toolEngineering', () => {
+@@ -584,10 +583,10 @@ describe('toolEngineering', () => {
          toolIds: [],
        });
  
@@ -2328,7 +2338,7 @@ index c7240e961f..d486b4efee 100644
 2.39.5
 
 
-From 9f6d5449ea360330385ddc85c5d0e0225440642e Mon Sep 17 00:00:00 2001
+From a82b5696f6d3152b24ee9aaa0457a523468cc4fe Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:58:21 +0000
 Subject: [PATCH 08/18] =?UTF-8?q?=E2=9C=A8=20feat(agent):=20summarize=20to?=
@@ -2373,7 +2383,7 @@ index cc24fb2baa..151b64af37 100644
 2.39.5
 
 
-From 976fd12d7e98ebccdc02d71e98b038bceb579f78 Mon Sep 17 00:00:00 2001
+From 8148d5e03920c2b490624d20c888102ffe7f02c1 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 7 Oct 2026 16:25:57 +0000
 Subject: [PATCH 09/18] =?UTF-8?q?=F0=9F=90=9B=20fix(qstash):=20construct?=
@@ -2459,7 +2469,7 @@ index a675531317..ac614233c0 100644
               throw error;
             }
 diff --git a/src/libs/qstash/index.ts b/src/libs/qstash/index.ts
-index c113c0bf70..58ff24d9b3 100644
+index ac71484a97..6ea7aab524 100644
 --- a/src/libs/qstash/index.ts
 +++ b/src/libs/qstash/index.ts
 @@ -2,9 +2,6 @@ import { recordUpstashWorkflowEvent } from '@lobechat/observability-otel/modules
@@ -2470,9 +2480,9 @@ index c113c0bf70..58ff24d9b3 100644
 -
 -const log = debug('lobe-server:qstash');
  
- const headers = {
-   ...(process.env.VERCEL_AUTOMATION_BYPASS_SECRET && {
-@@ -130,25 +127,49 @@ export class OtelWorkflowClient extends WorkflowClient {
+ export { toQStashDeduplicationId } from './deduplicationId';
+ 
+@@ -132,25 +129,49 @@ export class OtelWorkflowClient extends WorkflowClient {
    }
  }
  
@@ -2535,7 +2545,7 @@ index c113c0bf70..58ff24d9b3 100644
  
  /**
   * Verify QStash signature using Receiver.
-@@ -159,13 +180,11 @@ export async function verifyQStashSignature(request: Request, rawBody: string):
+@@ -161,13 +182,11 @@ export async function verifyQStashSignature(request: Request, rawBody: string):
    const nextSigningKey = process.env.QSTASH_NEXT_SIGNING_KEY;
  
    if (!currentSigningKey || !nextSigningKey) {
@@ -2549,7 +2559,7 @@ index c113c0bf70..58ff24d9b3 100644
      return false;
    }
  
-@@ -173,8 +192,7 @@ export async function verifyQStashSignature(request: Request, rawBody: string):
+@@ -175,8 +194,7 @@ export async function verifyQStashSignature(request: Request, rawBody: string):
  
    try {
      return await receiver.verify({ body: rawBody, signature });
@@ -2563,7 +2573,7 @@ index c113c0bf70..58ff24d9b3 100644
 2.39.5
 
 
-From 6937fad97fe014cc74cd7b5ce048c63631b15b9c Mon Sep 17 00:00:00 2001
+From cc68ae18cc25c5663c09e0e00489b3c3ef30ad99 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:58:34 +0000
 Subject: [PATCH 10/18] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20keep=20patched=20?=
@@ -2818,7 +2828,7 @@ index 7bcdcc01bd..997cefc067 100644
 2.39.5
 
 
-From fb21c85eb6b38f13c9469e6427e4276bc3809985 Mon Sep 17 00:00:00 2001
+From 06b837abf6f040cf820270dd175edb7dd62107c1 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:58:41 +0000
 Subject: [PATCH 11/18] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20offer=20only=20En?=
@@ -2834,10 +2844,10 @@ Co-authored-by: Cursor GPT-5.6 Sol <cursoragent@cursor.com.invalid>
  2 files changed, 23 insertions(+), 21 deletions(-)
 
 diff --git a/src/features/User/UserPanel/LangButton.tsx b/src/features/User/UserPanel/LangButton.tsx
-index eab88bdc71..3c39c74f38 100644
+index e71319384f..ad10bf32bc 100644
 --- a/src/features/User/UserPanel/LangButton.tsx
 +++ b/src/features/User/UserPanel/LangButton.tsx
-@@ -50,25 +50,27 @@ const LangButton = memo<{ compact?: boolean; placement?: DropdownMenuProps['plac
+@@ -48,25 +48,27 @@ const LangButton = memo<{ compact?: boolean; placement?: DropdownMenuProps['plac
          type: 'checkbox',
        };
  
@@ -2885,10 +2895,10 @@ index eab88bdc71..3c39c74f38 100644
        return [autoItem, ...localeItems];
      }, [language, switchLocale, t]);
 diff --git a/src/utils/locale.ts b/src/utils/locale.ts
-index 5dbaf4408b..cdad3d1f89 100644
+index 0dd8228306..e3bb30bc76 100644
 --- a/src/utils/locale.ts
 +++ b/src/utils/locale.ts
-@@ -52,9 +52,9 @@ export const parseBrowserLanguage = (headers: Headers, defaultLang: string = DEF
+@@ -37,9 +37,9 @@ export const parseBrowserLanguage = (headers: Headers, defaultLang: string = DEF
    );
  
    // if match the ar-EG then fallback to ar
@@ -2904,7 +2914,7 @@ index 5dbaf4408b..cdad3d1f89 100644
 2.39.5
 
 
-From 12e05262aee1db78a31ac509006b9fbccb3036f9 Mon Sep 17 00:00:00 2001
+From 4b51063a13a032db16f23c997149b53994e1680b Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 7 Oct 2026 16:25:57 +0000
 Subject: [PATCH 12/18] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20keep=20user-messa?=
@@ -2915,43 +2925,29 @@ Content-Transfer-Encoding: 8bit
 
 Co-authored-by: Cursor Grok 4.7 <cursoragent@cursor.com.invalid>
 ---
- .../components/MessageContent/index.tsx       | 13 +++-------
+ .../MessageContent/useEditConfirmation.ts     |  5 ++--
  .../User/components/MessageContent.test.tsx   |  6 ++---
  .../User/components/MessageContent.tsx        | 25 +++++--------------
  src/features/EditorModal/EditorCanvas.tsx     | 21 +++++++++++++---
- 4 files changed, 30 insertions(+), 35 deletions(-)
+ 4 files changed, 30 insertions(+), 27 deletions(-)
 
-diff --git a/src/features/Conversation/ChatItem/components/MessageContent/index.tsx b/src/features/Conversation/ChatItem/components/MessageContent/index.tsx
-index 26f1916311..7c92bd8f2e 100644
---- a/src/features/Conversation/ChatItem/components/MessageContent/index.tsx
-+++ b/src/features/Conversation/ChatItem/components/MessageContent/index.tsx
-@@ -5,11 +5,7 @@ import { type ReactNode } from 'react';
- import { memo, useCallback, useEffect, useRef } from 'react';
- import { useTranslation } from 'react-i18next';
+diff --git a/src/features/Conversation/ChatItem/components/MessageContent/useEditConfirmation.ts b/src/features/Conversation/ChatItem/components/MessageContent/useEditConfirmation.ts
+index 4c6ffb7dba..5e7c432f4a 100644
+--- a/src/features/Conversation/ChatItem/components/MessageContent/useEditConfirmation.ts
++++ b/src/features/Conversation/ChatItem/components/MessageContent/useEditConfirmation.ts
+@@ -73,9 +73,10 @@ export const useEditConfirmation = ({
+   // otherwise the initial send phase — where the persisted id has just swapped in
+   // under an optimistic tmp_* op — would flip to Send and kick off a duplicate
+   // regenerate for the same prompt.
++  // Ordinary edits save in place. Only a Codex user turn offers Send, and that
++  // resend is a separate action from the inbox Save button.
+   const shouldSendOnConfirm = useConversationStore((s) => {
+-    if (!editing || !isUserMessage || (isCodex && !canEditCodex)) return false;
+-    if (!isCodex && s.displayMessages.findLast((m) => m.role === 'user')?.id !== id) return false;
++    if (!editing || !isUserMessage || !isCodex || !canEditCodex) return false;
+     return !messageStateSelectors.isInputLoading(s);
+   });
  
--import {
--  dataSelectors,
--  messageStateSelectors,
--  useConversationStore,
--} from '@/features/Conversation/store';
-+import { dataSelectors, useConversationStore } from '@/features/Conversation/store';
- import { openEditorModal } from '@/features/EditorModal';
- import { usePermission } from '@/hooks/usePermission';
- 
-@@ -78,11 +74,8 @@ const MessageContent = memo<MessageContentProps>(
-     // otherwise the initial send phase — where the persisted id has just swapped in
-     // under an optimistic tmp_* op — would flip to Send and kick off a duplicate
-     // regenerate for the same prompt.
--    const shouldSendOnConfirm = useConversationStore((s) => {
--      if (!editing) return false;
--      if (dataSelectors.getDisplayMessageById(id)(s)?.role !== 'user') return false;
--      if (s.displayMessages.findLast((m) => m.role === 'user')?.id !== id) return false;
--      return !messageStateSelectors.isInputLoading(s);
-+    const shouldSendOnConfirm = useConversationStore(() => {
-+      return false;
-     });
- 
-     const { t } = useTranslation('common');
 diff --git a/src/features/Conversation/Messages/User/components/MessageContent.test.tsx b/src/features/Conversation/Messages/User/components/MessageContent.test.tsx
 index 456e831525..78908483f5 100644
 --- a/src/features/Conversation/Messages/User/components/MessageContent.test.tsx
@@ -3091,7 +3087,7 @@ index d5e11d7aa1..e72383895b 100644
 2.39.5
 
 
-From e962d289a864d188c1629c0b436498f4a437eaf8 Mon Sep 17 00:00:00 2001
+From 826c754c517a162a1926a168513e5c1d65be7cd9 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:58:55 +0000
 Subject: [PATCH 13/18] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20show=20exact=20to?=
@@ -3176,10 +3172,10 @@ index 208c5e4496..4e46cc3ab4 100644
  };
  
 diff --git a/src/features/Conversation/ChatInput/OpStatusTray.tsx b/src/features/Conversation/ChatInput/OpStatusTray.tsx
-index ae72e8679b..e33186139c 100644
+index 792544c453..7e9144b8fe 100644
 --- a/src/features/Conversation/ChatInput/OpStatusTray.tsx
 +++ b/src/features/Conversation/ChatInput/OpStatusTray.tsx
-@@ -206,9 +206,7 @@ const ActivityGlyph = () => (
+@@ -205,9 +205,7 @@ const ActivityGlyph = () => (
  );
  
  const formatTokens = (n: number) => {
@@ -3194,7 +3190,7 @@ index ae72e8679b..e33186139c 100644
 2.39.5
 
 
-From 83899ba288f67a68489308b6c64257ad5477f855 Mon Sep 17 00:00:00 2001
+From 56c47551e081369b7760ecd283ad36d4379fc7bd Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 7 Oct 2026 16:25:57 +0000
 Subject: [PATCH 14/18] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20use=20MSM=20defau?=
@@ -3238,7 +3234,7 @@ index 10ac780269..f68bca5f45 100644
      return (
        <>
 diff --git a/src/features/ShareModal/Modal.tsx b/src/features/ShareModal/Modal.tsx
-index e11767381d..871f824541 100644
+index d04d3f80f1..dd5c871f69 100644
 --- a/src/features/ShareModal/Modal.tsx
 +++ b/src/features/ShareModal/Modal.tsx
 @@ -25,7 +25,7 @@ export interface OpenShareModalOptions {
@@ -3251,10 +3247,10 @@ index e11767381d..871f824541 100644
    const [rendererState, setRendererState] = useState<ShareTabRendererState>({ status: 'loading' });
    const { t } = useTranslation('chat');
 diff --git a/src/features/ShareModal/ShareJSON/index.tsx b/src/features/ShareModal/ShareJSON/index.tsx
-index 7fb20bcace..3ea11dee48 100644
+index dbef53fdd6..a74db2befd 100644
 --- a/src/features/ShareModal/ShareJSON/index.tsx
 +++ b/src/features/ShareModal/ShareJSON/index.tsx
-@@ -19,7 +19,7 @@ import Preview from './Preview';
+@@ -16,7 +16,7 @@ import Preview from './Preview';
  import { type FieldType } from './type';
  
  const DEFAULT_FIELD_VALUE: FieldType = {
@@ -3264,7 +3260,7 @@ index 7fb20bcace..3ea11dee48 100644
    withSystemRole: true,
  };
 diff --git a/src/store/global/initialState.ts b/src/store/global/initialState.ts
-index 8c85372dbf..9f129f6bc8 100644
+index f0801c4bd4..9c579f34e4 100644
 --- a/src/store/global/initialState.ts
 +++ b/src/store/global/initialState.ts
 @@ -134,9 +134,6 @@ export type ModelDetailPanelExpandedKey = (typeof MODEL_DETAIL_PANEL_EXPANDED_KE
@@ -3281,7 +3277,7 @@ index 8c85372dbf..9f129f6bc8 100644
 2.39.5
 
 
-From fad8352f94616843b9a221ac711cf34f048a62a7 Mon Sep 17 00:00:00 2001
+From dba3e42b3dd84eb7f8a8d92004f4339acb06cd10 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:59:09 +0000
 Subject: [PATCH 15/18] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20shorten=20topic?=
@@ -3292,84 +3288,51 @@ Content-Transfer-Encoding: 8bit
 
 Co-authored-by: Cursor GPT-5.6 Sol <cursoragent@cursor.com.invalid>
 ---
- .../AgentSidebar/Topic/List/Item/index.tsx    | 27 ++++++++-------
+ .../AgentSidebar/Topic/List/Item/index.tsx    |  2 ++
  src/features/AgentTopicManager/TopicCard.tsx  | 33 ++++++++++++++++---
- 2 files changed, 45 insertions(+), 15 deletions(-)
+ 2 files changed, 31 insertions(+), 4 deletions(-)
 
 diff --git a/src/features/AgentSidebar/Topic/List/Item/index.tsx b/src/features/AgentSidebar/Topic/List/Item/index.tsx
-index 5a7d45f2f0..b770b85154 100644
+index 3a71501f2e..27f2e0bd9f 100644
 --- a/src/features/AgentSidebar/Topic/List/Item/index.tsx
 +++ b/src/features/AgentSidebar/Topic/List/Item/index.tsx
-@@ -11,7 +11,7 @@ import { createStaticStyles, cssVar, useTheme } from 'antd-style';
- import dayjs from 'dayjs';
- import isEqual from 'fast-deep-equal';
- import { MessageSquareDashed } from 'lucide-react';
--import type { CSSProperties, DragEvent, RefObject } from 'react';
-+import type { CSSProperties, DragEvent, MouseEvent, RefObject } from 'react';
- import { memo, Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react';
- import { useTranslation } from 'react-i18next';
- 
-@@ -36,6 +36,7 @@ import { useChatStore } from '@/store/chat';
+@@ -46,6 +46,7 @@ import { agentSelectors, builtinAgentSelectors } from '@/store/agent/selectors';
+ import { useChatStore } from '@/store/chat';
  import { operationSelectors } from '@/store/chat/selectors';
  import { messageMapKey } from '@/store/chat/utils/messageMapKey';
- import { useElectronStore } from '@/store/electron';
 +import { isModifierClick } from '@/utils/navigation';
  
  import { useTopicNavigation } from '../../hooks/useTopicNavigation';
  import ThreadList from '../../TopicListContent/ThreadList';
-@@ -305,17 +306,21 @@ const TopicItemRow = memo<TopicItemRowProps>(
-       [id, title],
-     );
+@@ -326,6 +327,7 @@ const TopicItemRow = memo<TopicItemRowProps>(
  
--    const handleClick = useCallback(() => {
--      if (isDesktop) {
--        cancelPendingSingleClick();
--        pendingSingleClickTimer = setTimeout(() => {
--          pendingSingleClickTimer = null;
-+    const handleClick = useCallback(
-+      (e: MouseEvent) => {
-+        if (isModifierClick(e)) return;
-+        if (isDesktop) {
-+          cancelPendingSingleClick();
-+          pendingSingleClickTimer = setTimeout(() => {
-+            pendingSingleClickTimer = null;
-+            void navRef.current.navigateToTopic(id);
-+          }, 250);
-+        } else {
-           void navRef.current.navigateToTopic(id);
--        }, 250);
--      } else {
--        void navRef.current.navigateToTopic(id);
--      }
--    }, [id, navRef]);
-+        }
-+      },
-+      [id, navRef],
-+    );
- 
-     const handleDoubleClick = useCallback(async () => {
-       if (!id || !activeAgentId || !isDesktop) return;
+     const handleClick = useCallback(
+       (event?: MouseEvent) => {
++        if (event && isModifierClick(event)) return;
+         if (event && event.detail > 1) return;
+         if (isDesktop && id) recordTopicClickOrigin(id);
+         void navRef.current.navigateToTopic(id);
 diff --git a/src/features/AgentTopicManager/TopicCard.tsx b/src/features/AgentTopicManager/TopicCard.tsx
-index 20f1b19d3d..f10470bbb5 100644
+index 66ba829e5d..7930f700b8 100644
 --- a/src/features/AgentTopicManager/TopicCard.tsx
 +++ b/src/features/AgentTopicManager/TopicCard.tsx
-@@ -6,13 +6,14 @@ import { Block, Flexbox, Icon } from '@lobehub/ui';
- import { Checkbox, Tag, Text } from '@lobehub/ui/base-ui';
- import { createStaticStyles, cssVar } from 'antd-style';
+@@ -4,13 +4,14 @@ import { AGENT_CHAT_TOPIC_URL } from '@lobechat/const';
+ import { formatPrice, formatTokenNumber } from '@lobechat/utils/format';
+ import { Block, Checkbox, createStaticStyles, cssVar, Flexbox, Icon, Tag, Text } from '@lobehub/ui';
  import { CircleDollarSign, FolderIcon, MessageSquare, Star, Zap } from 'lucide-react';
 -import { memo, type MouseEvent, useCallback } from 'react';
 +import { memo, type MouseEvent, useCallback, useMemo } from 'react';
  import { useTranslation } from 'react-i18next';
  
+ import { getPlatformIcon } from '@/features/AgentChannel/const';
  import { useWorkspaceAwareNavigate } from '@/features/Workspace/useWorkspaceAwareNavigate';
  import { useActivityTime } from '@/hooks/useActivityTime';
- import { getPlatformIcon } from '@/routes/(main)/agent/channel/const';
  import type { ChatTopic } from '@/types/topic';
 +import { isModifierClick } from '@/utils/navigation';
  
  import StatusDot from './StatusDot';
  import { useTopicsViewStore } from './store';
-@@ -107,6 +108,8 @@ const TopicCard = memo<TopicCardProps>(({ topic, agentId }) => {
+@@ -105,6 +106,8 @@ const TopicCard = memo<TopicCardProps>(({ topic, agentId }) => {
      [selectMode, topic.id, agentId, toggleSelected, navigate],
    );
  
@@ -3378,7 +3341,7 @@ index 20f1b19d3d..f10470bbb5 100644
    const handleCheckboxChange = useCallback(() => {
      if (!selectMode) toggleSelectMode();
      toggleSelected(topic.id);
-@@ -123,8 +126,15 @@ const TopicCard = memo<TopicCardProps>(({ topic, agentId }) => {
+@@ -121,8 +124,15 @@ const TopicCard = memo<TopicCardProps>(({ topic, agentId }) => {
    const BotPlatformIcon = botPlatform ? getPlatformIcon(botPlatform) : undefined;
    // Preview priority: user-written description → AI history summary → first user
    // message (sliced server-side when neither richer field exists).
@@ -3396,7 +3359,7 @@ index 20f1b19d3d..f10470bbb5 100644
    const updatedAt = useActivityTime(topic.updatedAt);
    // Postgres `numeric` / `int` round-trip through TRPC/JSON as strings in
    // some shapes, so coerce defensively before any `.toFixed` / format call.
-@@ -160,7 +170,22 @@ const TopicCard = memo<TopicCardProps>(({ topic, agentId }) => {
+@@ -158,7 +168,22 @@ const TopicCard = memo<TopicCardProps>(({ topic, agentId }) => {
            />
          )}
          <Text className={styles.title} fontSize={14} weight={600}>
@@ -3424,7 +3387,7 @@ index 20f1b19d3d..f10470bbb5 100644
 2.39.5
 
 
-From 4e5dd9df057583ec260bc693341d9b0307147bd7 Mon Sep 17 00:00:00 2001
+From 700fbe43745c22ed01c40b8a6d85a1595ff0bf2d Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 25 Sep 2026 04:09:38 +0000
 Subject: [PATCH 16/18] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20add=20text=20verb?=
@@ -3444,10 +3407,10 @@ Co-authored-by: Cursor Grok 4.7 <cursoragent@cursor.com.invalid>
  create mode 100644 src/features/ChatInput/hooks/useTextVerbosityControl.ts
 
 diff --git a/src/features/ChatInput/ActionBar/Model/SelectorMenu.tsx b/src/features/ChatInput/ActionBar/Model/SelectorMenu.tsx
-index 5d8566256e..08291c2d7b 100644
+index 1bd37e3ff1..2cd9d25ff6 100644
 --- a/src/features/ChatInput/ActionBar/Model/SelectorMenu.tsx
 +++ b/src/features/ChatInput/ActionBar/Model/SelectorMenu.tsx
-@@ -25,6 +25,7 @@ import type { EnabledProviderWithModels } from '@/types/aiProvider';
+@@ -26,6 +26,7 @@ import type { EnabledProviderWithModels } from '@/types/aiProvider';
  import type { SelectorSubmenuItem } from '../../components/buildSelectorSubmenu';
  import { buildSelectorSubmenu } from '../../components/buildSelectorSubmenu';
  import type { ReasoningEffortControl } from '../../hooks/useReasoningEffortControl';
@@ -3455,7 +3418,7 @@ index 5d8566256e..08291c2d7b 100644
  import { type DropdownPlacement } from '../context';
  
  const styles = createStaticStyles(({ css }) => ({
-@@ -70,6 +71,12 @@ const SubmenuArrow = () => (
+@@ -71,6 +72,12 @@ const SubmenuArrow = () => (
    </svg>
  );
  
@@ -3468,7 +3431,7 @@ index 5d8566256e..08291c2d7b 100644
  interface SelectorMenuProps {
    canSelectModel: boolean;
    children: ReactNode;
-@@ -82,12 +89,13 @@ interface SelectorMenuProps {
+@@ -83,12 +90,13 @@ interface SelectorMenuProps {
    openOnHover?: boolean;
    placement?: DropdownPlacement;
    provider: string;
@@ -3485,7 +3448,7 @@ index 5d8566256e..08291c2d7b 100644
   * surfaces read the same way.
   */
  const SelectorMenu = memo<SelectorMenuProps>(
-@@ -103,6 +111,7 @@ const SelectorMenu = memo<SelectorMenuProps>(
+@@ -104,6 +112,7 @@ const SelectorMenu = memo<SelectorMenuProps>(
      openOnHover = false,
      placement = 'topLeft',
      provider,
@@ -3493,7 +3456,7 @@ index 5d8566256e..08291c2d7b 100644
    }) => {
      const { t } = useTranslation('chat');
      const [open, setOpen] = useState(false);
-@@ -154,8 +163,35 @@ const SelectorMenu = memo<SelectorMenuProps>(
+@@ -155,8 +164,35 @@ const SelectorMenu = memo<SelectorMenuProps>(
            }),
          );
  
@@ -3531,21 +3494,21 @@ index 5d8566256e..08291c2d7b 100644
      const modelMeta = (
        <DropdownMenuItemExtra className={styles.meta}>
 diff --git a/src/features/ChatInput/ActionBar/Model/index.tsx b/src/features/ChatInput/ActionBar/Model/index.tsx
-index 19e3c96255..e86504c878 100644
+index abadb6cfec..718f8f6396 100644
 --- a/src/features/ChatInput/ActionBar/Model/index.tsx
 +++ b/src/features/ChatInput/ActionBar/Model/index.tsx
-@@ -16,6 +16,7 @@ import { useAgentId } from '../../hooks/useAgentId';
+@@ -13,6 +13,7 @@ import { useAgentId } from '../../hooks/useAgentId';
  import { useAgentModelSelection } from '../../hooks/useAgentModelSelection';
  import { useModelLockTooltip } from '../../hooks/useModelLockTooltip';
  import { useReasoningEffortControl } from '../../hooks/useReasoningEffortControl';
 +import { useTextVerbosityControl } from '../../hooks/useTextVerbosityControl';
  import { useActionBarContext } from '../context';
  import SelectorMenu from './SelectorMenu';
- 
-@@ -62,8 +63,10 @@ const ModelSwitch = memo(() => {
-   // second action slot. Like the model, it pins to the active topic when there
-   // is one and edits the user's per-model default otherwise.
-   const effort = useReasoningEffortControl(model, provider, activeTopicId ?? undefined);
+ import { useTopicModelSwitch } from './useTopicModelSwitch';
+@@ -52,8 +53,10 @@ const ModelSwitch = memo(() => {
+   // second action slot. Like the model, it pins to the composer's topic when
+   // there is one and edits the user's per-model default otherwise.
+   const effort = useReasoningEffortControl(model, provider, topicId ?? undefined);
 -  // A pinned model still opens the menu when there is an effort to pick there.
 -  const interactive = canSelectModel || effort.hasReasoningParams;
 +  const verbosity = useTextVerbosityControl(model, provider);
@@ -3553,9 +3516,9 @@ index 19e3c96255..e86504c878 100644
 +  const showSelectorMenu = effort.hasReasoningParams || verbosity.available;
 +  const interactive = canSelectModel || showSelectorMenu;
  
-   const handleModelChange = useCallback(
-     async (params: { model: string; provider: string }) => {
-@@ -95,9 +98,9 @@ const ModelSwitch = memo(() => {
+   // Both current values on one chip, the way the heterogeneous selector reads:
+   // "GPT-5.6 Sol 中". The effort half is dropped for models without one; the
+@@ -75,9 +78,9 @@ const ModelSwitch = memo(() => {
  
    if (!canDisplayModel) return null;
  
@@ -3568,7 +3531,7 @@ index 19e3c96255..e86504c878 100644
      return (
        <SelectorMenu
          canSelectModel={canSelectModel}
-@@ -108,6 +111,7 @@ const ModelSwitch = memo(() => {
+@@ -88,6 +91,7 @@ const ModelSwitch = memo(() => {
          modelNotice={modelNotice}
          placement={dropdownPlacement ?? 'topRight'}
          provider={provider}
@@ -3643,7 +3606,7 @@ index 0000000000..4b57db4136
 2.39.5
 
 
-From b4a1382b3a54ecaa4bdf986fc6fb3763ac726a8e Mon Sep 17 00:00:00 2001
+From cf17abe0f804c42b9eb72e04e30b971515899449 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 8 Oct 2026 13:47:42 +0000
 Subject: [PATCH 17/18] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20open=20usage=20de?=
@@ -3660,10 +3623,10 @@ Co-authored-by: Cursor Grok 4.7 <cursoragent@cursor.com.invalid>
  1 file changed, 4 insertions(+), 24 deletions(-)
 
 diff --git a/src/features/Conversation/Messages/components/Extras/Usage/UsageDetail/index.tsx b/src/features/Conversation/Messages/components/Extras/Usage/UsageDetail/index.tsx
-index 06657399fd..586392dc30 100644
+index 13c0d34c3a..4c749f0bca 100644
 --- a/src/features/Conversation/Messages/components/Extras/Usage/UsageDetail/index.tsx
 +++ b/src/features/Conversation/Messages/components/Extras/Usage/UsageDetail/index.tsx
-@@ -11,7 +11,7 @@ import InfoTooltip from '@/components/InfoTooltip';
+@@ -9,7 +9,7 @@ import InfoTooltip from '@/components/InfoTooltip';
  import { aiModelSelectors, useAiInfraStore } from '@/store/aiInfra';
  import { useGlobalStore } from '@/store/global';
  import { systemStatusSelectors } from '@/store/global/selectors';
@@ -3672,7 +3635,7 @@ index 06657399fd..586392dc30 100644
  
  import AnimatedNumber from './AnimatedNumber';
  import ModelCard from './ModelCard';
-@@ -29,10 +29,6 @@ interface TokenDetailProps {
+@@ -27,10 +27,6 @@ interface TokenDetailProps {
  const TokenDetail = memo<TokenDetailProps>(({ usage, performance, model, provider }) => {
    const { t } = useTranslation('chat');
  
@@ -3683,7 +3646,7 @@ index 06657399fd..586392dc30 100644
    const modelCard = useAiInfraStore(aiModelSelectors.getModelCard(model, provider));
    const isShowCredit = useGlobalStore(systemStatusSelectors.isShowCredit) && !!modelCard?.pricing;
  
-@@ -145,7 +141,7 @@ const TokenDetail = memo<TokenDetailProps>(({ usage, performance, model, provide
+@@ -143,7 +139,7 @@ const TokenDetail = memo<TokenDetailProps>(({ usage, performance, model, provide
    return (
      <Popover
        placement={'top'}
@@ -3692,7 +3655,7 @@ index 06657399fd..586392dc30 100644
        content={
          <Flexbox gap={8} style={{ minWidth: 200 }}>
            {modelCard && <ModelCard {...modelCard} provider={provider} />}
-@@ -235,31 +231,15 @@ const TokenDetail = memo<TokenDetailProps>(({ usage, performance, model, provide
+@@ -233,31 +229,15 @@ const TokenDetail = memo<TokenDetailProps>(({ usage, performance, model, provide
          </Flexbox>
        }
      >
@@ -3730,7 +3693,7 @@ index 06657399fd..586392dc30 100644
 2.39.5
 
 
-From 14a48df1b656a5ec82be9e3c0a903431c3bba855 Mon Sep 17 00:00:00 2001
+From 2be71130581990c42296124715a6f206c80b7e55 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 8 Oct 2026 15:26:32 +0000
 Subject: [PATCH 18/18] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20show=20USD=20cost?=
@@ -3754,10 +3717,10 @@ Co-authored-by: Cursor Grok 4.7 <cursoragent@cursor.com.invalid>
  create mode 100644 src/features/Conversation/Messages/components/Extras/Usage/UsageDetail/usageCost.ts
 
 diff --git a/locales/en-US/chat.json b/locales/en-US/chat.json
-index 1a16b4c29d..b610e49615 100644
+index fbb3ca875a..bb1e958806 100644
 --- a/locales/en-US/chat.json
 +++ b/locales/en-US/chat.json
-@@ -1529,15 +1529,15 @@
+@@ -1671,15 +1671,15 @@
    "messageLongCollapse.expand": "Show more",
    "messages.dm.sentTo": "Visible only to {{name}}",
    "messages.dm.title": "DM",
@@ -3780,10 +3743,10 @@ index 1a16b4c29d..b610e49615 100644
    "messages.tokenDetails.cacheRate": "Cache rate",
    "messages.tokenDetails.cliCredits.title": "{{value}} Credits",
 diff --git a/packages/locales/src/default/chat.ts b/packages/locales/src/default/chat.ts
-index bb2754464c..75beb546fc 100644
+index 7ce1ee952b..77c7a7ab86 100644
 --- a/packages/locales/src/default/chat.ts
 +++ b/packages/locales/src/default/chat.ts
-@@ -909,17 +909,16 @@ export default {
+@@ -1047,17 +1047,16 @@ export default {
    'messageLongCollapse.expand': 'Show more',
    'messages.dm.sentTo': 'Visible only to {{name}}',
    'messages.dm.title': 'DM',
@@ -3808,7 +3771,7 @@ index bb2754464c..75beb546fc 100644
    'messages.tokenDetails.cliCredits.title': '{{value}} Credits',
    'messages.tokenDetails.cliCredits.tooltip':
 diff --git a/packages/model-runtime/package.json b/packages/model-runtime/package.json
-index 6e0c458418..a0709529e2 100644
+index 2b6c421e36..9882ca65f6 100644
 --- a/packages/model-runtime/package.json
 +++ b/packages/model-runtime/package.json
 @@ -12,6 +12,7 @@
@@ -3820,10 +3783,10 @@ index 6e0c458418..a0709529e2 100644
      "./resolveVideoSinglePrice": "./src/core/usageConverters/utils/resolveVideoSinglePrice.ts",
      "./types/error": "./src/types/error.ts",
 diff --git a/src/features/Conversation/Messages/components/Extras/Usage/UsageDetail/ModelCard.tsx b/src/features/Conversation/Messages/components/Extras/Usage/UsageDetail/ModelCard.tsx
-index 32e736e24c..562425b070 100644
+index edba57f064..cce7953e98 100644
 --- a/src/features/Conversation/Messages/components/Extras/Usage/UsageDetail/ModelCard.tsx
 +++ b/src/features/Conversation/Messages/components/Extras/Usage/UsageDetail/ModelCard.tsx
-@@ -63,12 +63,12 @@ const ModelCard = memo<ModelCardProps>(({ pricing, id, provider, displayName })
+@@ -61,12 +61,12 @@ const ModelCard = memo<ModelCardProps>(({ pricing, id, provider, displayName })
          {!!pricing && (
            <Flexbox>
              <Tabs
@@ -3838,7 +3801,7 @@ index 32e736e24c..562425b070 100644
                    label: (
                      <Tooltip title={t('messages.modelCard.creditTooltip')}>
                        <span>{t('messages.modelCard.credit')}</span>
-@@ -77,7 +77,7 @@ const ModelCard = memo<ModelCardProps>(({ pricing, id, provider, displayName })
+@@ -75,7 +75,7 @@ const ModelCard = memo<ModelCardProps>(({ pricing, id, provider, displayName })
                  },
                ]}
                onChange={(key) => {
@@ -3848,10 +3811,10 @@ index 32e736e24c..562425b070 100644
              />
            </Flexbox>
 diff --git a/src/features/Conversation/Messages/components/Extras/Usage/UsageDetail/TokenProgress.tsx b/src/features/Conversation/Messages/components/Extras/Usage/UsageDetail/TokenProgress.tsx
-index ffcef8ae8e..dd7d16cd20 100644
+index 5f290aff46..ab8a9369fc 100644
 --- a/src/features/Conversation/Messages/components/Extras/Usage/UsageDetail/TokenProgress.tsx
 +++ b/src/features/Conversation/Messages/components/Extras/Usage/UsageDetail/TokenProgress.tsx
-@@ -12,56 +12,59 @@ export interface TokenProgressItem {
+@@ -11,56 +11,59 @@ export interface TokenProgressItem {
  
  interface TokenProgressProps {
    data: TokenProgressItem[];
@@ -3957,17 +3920,17 @@ index ffcef8ae8e..dd7d16cd20 100644
  
  export default TokenProgress;
 diff --git a/src/features/Conversation/Messages/components/Extras/Usage/UsageDetail/index.tsx b/src/features/Conversation/Messages/components/Extras/Usage/UsageDetail/index.tsx
-index 586392dc30..51b67673c6 100644
+index 4c749f0bca..5dee204ef3 100644
 --- a/src/features/Conversation/Messages/components/Extras/Usage/UsageDetail/index.tsx
 +++ b/src/features/Conversation/Messages/components/Extras/Usage/UsageDetail/index.tsx
 @@ -1,5 +1,5 @@
  import { type ModelPerformance, type ModelUsage } from '@lobechat/types';
 -import { formatUsageValue } from '@lobechat/utils';
 +import { formatCost, formatPrice, formatUsageValue } from '@lobechat/utils';
- import { Center, Flexbox, Icon, Popover } from '@lobehub/ui';
- import { Divider } from '@lobehub/ui/base-ui';
- import { cssVar } from 'antd-style';
-@@ -18,6 +18,9 @@ import ModelCard from './ModelCard';
+ import { Center, cssVar, Divider, Flexbox, Icon, Popover } from '@lobehub/ui';
+ import { BadgeCent, CoinsIcon } from 'lucide-react';
+ import { memo } from 'react';
+@@ -16,6 +16,9 @@ import ModelCard from './ModelCard';
  import type { TokenProgressItem } from './TokenProgress';
  import TokenProgress from './TokenProgress';
  import { getDetailsToken } from './tokens';
@@ -3977,7 +3940,7 @@ index 586392dc30..51b67673c6 100644
  
  interface TokenDetailProps {
    model: string;
-@@ -31,26 +34,29 @@ const TokenDetail = memo<TokenDetailProps>(({ usage, performance, model, provide
+@@ -29,26 +32,29 @@ const TokenDetail = memo<TokenDetailProps>(({ usage, performance, model, provide
  
    const modelCard = useAiInfraStore(aiModelSelectors.getModelCard(model, provider));
    const isShowCredit = useGlobalStore(systemStatusSelectors.isShowCredit) && !!modelCard?.pricing;
@@ -4010,7 +3973,7 @@ index 586392dc30..51b67673c6 100644
      },
    ].filter(Boolean) as TokenProgressItem[];
  
-@@ -59,27 +65,25 @@ const TokenDetail = memo<TokenDetailProps>(({ usage, performance, model, provide
+@@ -57,27 +63,25 @@ const TokenDetail = memo<TokenDetailProps>(({ usage, performance, model, provide
        color: cssVar.pink,
        id: 'reasoning',
        title: t('messages.tokenDetails.reasoning'),
@@ -4042,7 +4005,7 @@ index 586392dc30..51b67673c6 100644
      },
    ].filter(Boolean) as TokenProgressItem[];
  
-@@ -89,51 +93,47 @@ const TokenDetail = memo<TokenDetailProps>(({ usage, performance, model, provide
+@@ -87,51 +91,47 @@ const TokenDetail = memo<TokenDetailProps>(({ usage, performance, model, provide
  
        id: 'uncachedInput',
        title: t('messages.tokenDetails.inputUncached'),
@@ -4106,7 +4069,7 @@ index 586392dc30..51b67673c6 100644
  
    const tps = performance?.tps ? formatNumber(performance.tps, 2) : undefined;
    const ttft = performance?.ttft ? formatNumber(performance.ttft / 1000, 2) : undefined;
-@@ -160,7 +160,11 @@ const TokenDetail = memo<TokenDetailProps>(({ usage, performance, model, provide
+@@ -158,7 +158,11 @@ const TokenDetail = memo<TokenDetailProps>(({ usage, performance, model, provide
                      {t('messages.tokenDetails.inputTitle')}
                    </div>
                  </Flexbox>
@@ -4119,7 +4082,7 @@ index 586392dc30..51b67673c6 100644
                </Flexbox>
              )}
              {outputDetails.length > 1 && (
-@@ -176,11 +180,19 @@ const TokenDetail = memo<TokenDetailProps>(({ usage, performance, model, provide
+@@ -174,11 +178,19 @@ const TokenDetail = memo<TokenDetailProps>(({ usage, performance, model, provide
                      {t('messages.tokenDetails.outputTitle')}
                    </div>
                  </Flexbox>
@@ -4141,7 +4104,7 @@ index 586392dc30..51b67673c6 100644
                <Divider style={{ marginBlock: 8 }} />
                {cacheRate && (
                  <Flexbox horizontal align={'center'} gap={4} justify={'space-between'}>
-@@ -196,7 +208,7 @@ const TokenDetail = memo<TokenDetailProps>(({ usage, performance, model, provide
+@@ -194,7 +206,7 @@ const TokenDetail = memo<TokenDetailProps>(({ usage, performance, model, provide
                  </div>
                  <div style={{ fontWeight: 500 }}>{detailTotal}</div>
                </Flexbox>
@@ -4150,7 +4113,7 @@ index 586392dc30..51b67673c6 100644
                  <Flexbox horizontal align={'center'} gap={4} justify={'space-between'}>
                    <div style={{ color: cssVar.colorTextSecondary }}>
                      {t('messages.tokenDetails.average')}
-@@ -232,14 +244,16 @@ const TokenDetail = memo<TokenDetailProps>(({ usage, performance, model, provide
+@@ -230,14 +242,16 @@ const TokenDetail = memo<TokenDetailProps>(({ usage, performance, model, provide
        }
      >
        <Center horizontal gap={2} style={{ cursor: 'pointer' }}>
