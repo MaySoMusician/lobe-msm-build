@@ -1,40 +1,38 @@
-From 4f1ae8caa21cacea0aebb3b30e8ac7ea6f44eda1 Mon Sep 17 00:00:00 2001
+From 1ad7e67e516a698aedf5f5578b9bdc4b59016a8d Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
-Date: Mon, 14 Oct 2024 10:15:38 +0000
+Date: Fri, 30 Oct 2026 04:07:04 +0000
 Subject: [PATCH 1/8] Change font list for Japanese
 
+Co-Authored-By: Claude Opus 5.5 <claude@anthropic.com.invalid>
 ---
- src/styles/theme/token/base.ts | 17 ++++-------------
- 1 file changed, 4 insertions(+), 13 deletions(-)
+ src/styles/theme/token/font.ts | 19 ++++++-------------
+ 1 file changed, 6 insertions(+), 13 deletions(-)
 
-diff --git a/src/styles/theme/token/base.ts b/src/styles/theme/token/base.ts
-index 21047cf2..9342f1d4 100644
---- a/src/styles/theme/token/base.ts
-+++ b/src/styles/theme/token/base.ts
-@@ -3,14 +3,14 @@ const joinFontFamily = (fonts: string[]) =>
- 
- const FONT_EMOJI = [
-   '/* EMOJI */',
-+  'Noto Color Emoji',
-   'Apple Color Emoji',
-   'Segoe UI Emoji',
-   'Segoe UI Symbol',
--  'Noto Color Emoji',
- ];
- 
- const FONT_EN = [
--  'HarmonyOS Sans',
-+  'IBM Plex Sans JP',
-   '-apple-system',
-   'BlinkMacSystemFont',
-   'Segoe UI Variable Display',
-@@ -20,19 +20,10 @@ const FONT_EN = [
+diff --git a/src/styles/theme/token/font.ts b/src/styles/theme/token/font.ts
+index 49ea42e3..6e285d12 100644
+--- a/src/styles/theme/token/font.ts
++++ b/src/styles/theme/token/font.ts
+@@ -8,12 +8,12 @@ const SYSTEM_SANS = [
    'Arial',
  ];
  
--const FONT_CN = [
--  '/* SC */',
--  'HarmonyOS Sans SC',
+-const LATIN = ['Geist', ...SYSTEM_SANS];
++const LATIN = ['IBM Plex Sans JP', ...SYSTEM_SANS];
+ 
+-const LATIN_ZH_HANS = ['HarmonyOS Sans', ...SYSTEM_SANS];
++const LATIN_ZH_HANS = ['IBM Plex Sans JP', ...SYSTEM_SANS];
+ 
+ const CODE = [
+-  'Geist Mono',
++  'Mgen+ 1mn',
+   'ui-monospace',
+   'SFMono-Regular',
+   'SF Mono',
+@@ -23,16 +23,9 @@ const CODE = [
+   'Liberation Mono',
+ ];
+ 
+-const SC_SYSTEM = [
 -  'PingFang SC',
 -  'Hiragino Sans GB',
 -  'Microsoft YaHei UI',
@@ -42,54 +40,55 @@ index 21047cf2..9342f1d4 100644
 -  'Source Han Sans SC',
 -  'Noto Sans CJK SC',
 -];
-+const FONT_CN = ['/* SC */'];
++const SC_SYSTEM: string[] = [];
  
- const FONT_CODE = [
--  'Hack',
-+  'Mgen+ 1mn',
-   'ui-monospace',
-   'SFMono-Regular',
-   'SF Mono',
+-const SC = ['HarmonyOS Sans SC', ...SC_SYSTEM];
++const SC: string[] = [];
+ 
+ const TC = [
+   'PingFang TC',
+@@ -71,7 +64,7 @@ const FALLBACK = ['ui-sans-serif', 'system-ui', 'sans-serif'];
+ 
+ const FALLBACK_CODE = ['monospace'];
+ 
+-const EMOJI = ['Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'];
++const EMOJI = ['Noto Color Emoji', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'];
+ 
+ interface LocaleFonts {
+   langs: string[];
 -- 
 2.39.5
 
 
-From 3f46662db1a16ca95a13b702dafa69db348bce75 Mon Sep 17 00:00:00 2001
+From 524d571b2cbd37d14c3a61f6264575a4e01ffbe6 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
-Date: Mon, 28 Oct 2024 15:09:31 +0000
+Date: Fri, 30 Oct 2026 04:07:12 +0000
 Subject: [PATCH 2/8] Do not load default EN & CN fonts
 
+Co-Authored-By: Claude Opus 5.5 <claude@anthropic.com.invalid>
 ---
- src/ConfigProvider/index.tsx | 11 -----------
- 1 file changed, 11 deletions(-)
+ src/ConfigProvider/cdnAssets.ts | 4 ----
+ 1 file changed, 4 deletions(-)
 
-diff --git a/src/ConfigProvider/index.tsx b/src/ConfigProvider/index.tsx
-index d6291583..ab2e8d67 100644
---- a/src/ConfigProvider/index.tsx
-+++ b/src/ConfigProvider/index.tsx
-@@ -170,17 +170,6 @@ const WebFonts = ({ customFonts }: { customFonts?: string[] }) => {
-   const urls = useMemo(
-     () =>
-       customFonts || [
--        genCdnUrl({ path: 'css/index.css', pkg: '@lobehub/webfont-mono', version: '1.0.0' }),
--        genCdnUrl({
--          path: 'css/index-full.css',
--          pkg: '@lobehub/webfont-harmony-sans',
--          version: '1.0.0',
--        }),
--        genCdnUrl({
--          path: 'css/index.css',
--          pkg: '@lobehub/webfont-harmony-sans-sc',
--          version: '1.0.0',
--        }),
-         genCdnUrl({ path: 'dist/katex.min.css', pkg: 'katex', version: KATEX_CSS_VERSION }),
-       ],
-     [customFonts, genCdnUrl],
+diff --git a/src/ConfigProvider/cdnAssets.ts b/src/ConfigProvider/cdnAssets.ts
+index 39130fef..be7989ef 100644
+--- a/src/ConfigProvider/cdnAssets.ts
++++ b/src/ConfigProvider/cdnAssets.ts
+@@ -3,9 +3,5 @@ import type { CdnApi } from '@/utils/genCdnUrl';
+ export const KATEX_CSS_VERSION = '0.19.0';
+ 
+ export const DEFAULT_WEB_FONTS: CdnApi[] = [
+-  { path: 'css/index-full.css', pkg: '@lobehub/webfont-geist', version: '1.0.0' },
+-  { path: 'css/index-full.css', pkg: '@lobehub/webfont-geist-mono', version: '1.0.0' },
+-  { path: 'css/index-full.css', pkg: '@lobehub/webfont-harmony-sans', version: '1.0.0' },
+-  { path: 'css/index.css', pkg: '@lobehub/webfont-harmony-sans-sc', version: '1.0.0' },
+   { path: 'dist/katex.min.css', pkg: 'katex', version: KATEX_CSS_VERSION },
+ ];
 -- 
 2.39.5
 
 
-From b39231a2266f9b66d5254671727f0da9f73696dc Mon Sep 17 00:00:00 2001
+From a552223acf6a50bafe993cde288e0de980b1ea1a Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sat, 13 Dec 2025 07:36:47 +0000
 Subject: [PATCH 3/8] Change colorTextSecondary color
@@ -115,7 +114,7 @@ index 98af6a26..f5b0887b 100644
 2.39.5
 
 
-From 7874d2edd136320215114181937d6cd35102df9a Mon Sep 17 00:00:00 2001
+From eed763ede4ca96acd64080a953595eaf03bc7977 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sat, 10 Jan 2026 01:03:48 +0000
 Subject: [PATCH 4/8] Darken slate[12] dark color for text
@@ -141,7 +140,7 @@ index 7341851a..cb38fec6 100644
 2.39.5
 
 
-From 0043f4af7a8678c3260bb36e02194916f537d1ca Mon Sep 17 00:00:00 2001
+From 893ce8879c66be912003e10c6c18df2d32e1c034 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 27 Jul 2026 19:10:04 +0000
 Subject: [PATCH 5/8] Add workspaces config to package.json
@@ -151,7 +150,7 @@ Subject: [PATCH 5/8] Add workspaces config to package.json
  1 file changed, 3 insertions(+)
 
 diff --git a/package.json b/package.json
-index f8ae6db1..03d4edf1 100644
+index c8874b7f..52534aa3 100644
 --- a/package.json
 +++ b/package.json
 @@ -117,6 +117,9 @@
@@ -168,7 +167,7 @@ index f8ae6db1..03d4edf1 100644
 2.39.5
 
 
-From 1087344284d0e77cd577913b2ce8e3df63073ab5 Mon Sep 17 00:00:00 2001
+From dd13efe6f6f6117d42a213e3819ef60a04ec059d Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 23 Sep 2026 22:33:49 +0000
 Subject: [PATCH 6/8] Use the exact same package of this for dependencies
@@ -178,7 +177,7 @@ Subject: [PATCH 6/8] Use the exact same package of this for dependencies
  1 file changed, 3 insertions(+)
 
 diff --git a/package.json b/package.json
-index 03d4edf1..276d5442 100644
+index 52534aa3..e1d83dd1 100644
 --- a/package.json
 +++ b/package.json
 @@ -167,6 +167,9 @@
@@ -195,17 +194,18 @@ index 03d4edf1..276d5442 100644
 2.39.5
 
 
-From 29b758d99c3318d031e673ff2aca8128209fe954 Mon Sep 17 00:00:00 2001
+From 542e752e6b42b1f9398fa75a6a2451b1b9dc76f4 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
-Date: Thu, 22 Oct 2026 02:07:52 +0000
-Subject: [PATCH 7/8] Temporarily ban virtua 0.53.6 due to min release age
+Date: Fri, 30 Oct 2026 04:07:21 +0000
+Subject: [PATCH 7/8] Pin virtua to 0.53.6
 
+Co-Authored-By: Claude Opus 5.5 <claude@anthropic.com.invalid>
 ---
  package.json | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/package.json b/package.json
-index 276d5442..eb30bbd3 100644
+index e1d83dd1..258470fc 100644
 --- a/package.json
 +++ b/package.json
 @@ -219,7 +219,7 @@
@@ -213,7 +213,7 @@ index 276d5442..eb30bbd3 100644
      "uqr": "^0.1.3",
      "vfile": "^6.0.3",
 -    "virtua": "^0.53.5"
-+    "virtua": "0.53.5"
++    "virtua": "0.53.6"
    },
    "devDependencies": {
      "@commitlint/cli": "^21.2.3",
@@ -221,7 +221,7 @@ index 276d5442..eb30bbd3 100644
 2.39.5
 
 
-From 7c41a58b7802bc3e1b254963236e99c912bab258 Mon Sep 17 00:00:00 2001
+From 1696c556ffdd9a146a517f5114f85741e33fe58f Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 22 Oct 2026 03:04:51 +0000
 Subject: [PATCH 8/8] =?UTF-8?q?=F0=9F=94=92=EF=B8=8F=20build(deps):=20enfo?=
