@@ -85,7 +85,7 @@ vi.mock('./StatusDot', () => ({
 }));
 
 vi.mock('./utils', () => ({
-  getProjectLabel: () => undefined,
+  getProjectInfo: () => undefined,
 }));
 
 import TopicCard from './TopicCard';

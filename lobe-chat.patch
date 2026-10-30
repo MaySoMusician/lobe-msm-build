@@ -1,4 +1,4 @@
-From 5b763634ba360f83f49a4a7414c1b80599b911c4 Mon Sep 17 00:00:00 2001
+From 8d26601fc8711de7ec71f9f2e9b1bbf7fce3893b Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 22 Oct 2026 01:38:45 +0000
 Subject: [PATCH 01/18] =?UTF-8?q?=F0=9F=94=92=EF=B8=8F=20build(docker):=20?=
@@ -92,21 +92,21 @@ index 924acdc3eb..35e2b8aa6c 100644
 2.39.5
 
 
-From 7a186ad1c097fb3a6e8905225439c7c31fde7132 Mon Sep 17 00:00:00 2001
+From 1846a2d2187eac76c38a4355a2f7d4a85697216b Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
-Date: Wed, 7 Oct 2026 16:25:57 +0000
+Date: Fri, 30 Oct 2026 04:08:22 +0000
 Subject: [PATCH 02/18] =?UTF-8?q?=F0=9F=94=92=EF=B8=8F=20build(deps):=20en?=
  =?UTF-8?q?force=20mature=20trusted=20dependency=20resolution?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Co-authored-by: Cursor Grok 4.7 <cursoragent@cursor.com.invalid>
+Co-Authored-By: Claude Opus 5.5 <claude@anthropic.com.invalid>
 ---
- apps/cli/pnpm-workspace.yaml     | 23 +++++++++++++++++++++++
- apps/desktop/pnpm-workspace.yaml | 23 +++++++++++++++++++++++
- pnpm-workspace.yaml              | 32 +++++++++++++++++++++++++++++++-
- 3 files changed, 77 insertions(+), 1 deletion(-)
+ apps/cli/pnpm-workspace.yaml     | 23 +++++++++++++++++++
+ apps/desktop/pnpm-workspace.yaml | 23 +++++++++++++++++++
+ pnpm-workspace.yaml              | 39 ++++++++++++++++++++++++++++++--
+ 3 files changed, 83 insertions(+), 2 deletions(-)
 
 diff --git a/apps/cli/pnpm-workspace.yaml b/apps/cli/pnpm-workspace.yaml
 index 03bb2caeef..508bf3e2b5 100644
@@ -140,11 +140,11 @@ index 03bb2caeef..508bf3e2b5 100644
 +blockExoticSubdeps: true
 +strictDepBuilds: true
 diff --git a/apps/desktop/pnpm-workspace.yaml b/apps/desktop/pnpm-workspace.yaml
-index cf34ba5dec..159cf620c6 100644
+index 85356e7a50..f445ccf5c0 100644
 --- a/apps/desktop/pnpm-workspace.yaml
 +++ b/apps/desktop/pnpm-workspace.yaml
 @@ -76,3 +76,26 @@ minimumReleaseAgeExclude:
-   - '@auv-js/sdk@0.0.33'
+   - '@auv-js/sdk@0.0.38'
    - electron-sparkle-updater@0.5.3
    - '@lobehub/*'
 +
@@ -171,29 +171,34 @@ index cf34ba5dec..159cf620c6 100644
 +blockExoticSubdeps: true
 +strictDepBuilds: true
 diff --git a/pnpm-workspace.yaml b/pnpm-workspace.yaml
-index 1e9892d0a6..e609ca3cc6 100644
+index e21e375aa2..015eaf6595 100644
 --- a/pnpm-workspace.yaml
 +++ b/pnpm-workspace.yaml
-@@ -36,7 +36,9 @@ minimumReleaseAgeExclude:
+@@ -36,9 +36,13 @@ minimumReleaseAgeExclude:
    - '@auv-js/cli-win32-x64-msvc@0.0.25'
    - '@auv-js/cli@0.0.25'
    - '@auv-js/sdk@0.0.25'
 -  - '@lobehub/*'
-+  - '@pierre/diffs@1.6.1'
-+  - '@pierre/highlights@0.2.0'
-+  - '@pierre/theming@1.0.2'
    - virtua@0.53.5
+-  - local-replica
++  - local-replica@0.0.4
++  - '@lobehub/editor@7.0.4'
++  - '@modelcontextprotocol/client@2.4.0'
++  - '@modelcontextprotocol/core@2.4.0'
++  - '@modelcontextprotocol/node@2.1.2'
++  - '@modelcontextprotocol/server@2.4.0'
  
  # Build scripts run one at a time. Several peer-variant copies of
-@@ -62,6 +64,7 @@ allowBuilds:
+ # @lobehub/editor resolve in this workspace and every copy's postinstall
+@@ -63,6 +67,7 @@ allowBuilds:
    workerd: true
  
  overrides:
 +  '@hono/node-server': 1.19.17
-   '@lobehub/ui': ^6.0.4
+   '@lobehub/ui': ^6.9.0
    '@lobehub/icons': ^6.0.0
-   '@lobehub/editor': ^5.0.0
-@@ -94,3 +97,30 @@ patchedDependencies:
+   '@lobehub/editor': ^7.0.0
+@@ -98,3 +103,33 @@ patchedDependencies:
    '@upstash/qstash': patches/@upstash__qstash.patch
    micromark@4.0.3: patches/micromark@4.0.3.patch
    micromark-extension-gfm-autolink-literal@2.1.0: patches/micromark-extension-gfm-autolink-literal@2.1.0.patch
@@ -216,11 +221,14 @@ index 1e9892d0a6..e609ca3cc6 100644
 +  - '@pierre/theme@2.0.0'
 +  - '@vercel/cli-config@0.3.0'
 +  - '@vercel/cli-config@0.3.1'
++  - '@vercel/cli-config@0.3.3'
 +  - '@vercel/cli-exec@1.0.1'
 +  - '@vercel/functions@3.9.9'
 +  - '@vercel/functions@3.10.1'
++  - '@vercel/functions@3.10.3'
 +  - '@vercel/oidc@3.8.9'
 +  - '@vercel/oidc@4.0.1'
++  - '@vercel/oidc@4.0.3'
 +
 +blockExoticSubdeps: true
 +strictDepBuilds: true
@@ -228,7 +236,7 @@ index 1e9892d0a6..e609ca3cc6 100644
 2.39.5
 
 
-From 7108f5fd7da596361a94197a1e8b885858df108a Mon Sep 17 00:00:00 2001
+From 56d11de92269983c08cad464f5df424d0d3fb0c5 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 7 Oct 2026 16:25:57 +0000
 Subject: [PATCH 03/18] =?UTF-8?q?=E2=9C=A8=20feat(openai):=20keep=20GPT=20?=
@@ -247,10 +255,10 @@ Co-authored-by: Cursor Grok 4.7 <cursoragent@cursor.com.invalid>
  5 files changed, 113 insertions(+), 20 deletions(-)
 
 diff --git a/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts b/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
-index 32851cf353..c67b0eaf13 100644
+index 02f8cb7c45..dd9da8fdcf 100644
 --- a/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
 +++ b/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
-@@ -1611,7 +1611,7 @@ export const createOpenAICompatibleRuntime = <T extends Record<string, any> = an
+@@ -1445,7 +1445,7 @@ export const createOpenAICompatibleRuntime = <T extends Record<string, any> = an
          strictToolPairing: true,
        });
  
@@ -260,7 +268,7 @@ index 32851cf353..c67b0eaf13 100644
          'isStreaming: %s, hasTools: %s, hasReasoning: %s',
          isStreaming,
 diff --git a/packages/model-runtime/src/providers/openai/index.test.ts b/packages/model-runtime/src/providers/openai/index.test.ts
-index a2d89c8aa3..0004f47860 100644
+index a0c87b52f8..0421396800 100644
 --- a/packages/model-runtime/src/providers/openai/index.test.ts
 +++ b/packages/model-runtime/src/providers/openai/index.test.ts
 @@ -33,7 +33,12 @@ describe('LobeOpenAI', () => {
@@ -277,7 +285,7 @@ index a2d89c8aa3..0004f47860 100644
    });
  
    afterEach(() => {
-@@ -419,7 +424,7 @@ describe('LobeOpenAI', () => {
+@@ -433,7 +438,7 @@ describe('LobeOpenAI', () => {
        expect(createCall.top_p).toBeUndefined();
        expect(createCall.frequency_penalty).toBeUndefined();
        expect(createCall.presence_penalty).toBeUndefined();
@@ -286,7 +294,7 @@ index a2d89c8aa3..0004f47860 100644
      });
  
      it('should handle regular models with all parameters', async () => {
-@@ -440,7 +445,7 @@ describe('LobeOpenAI', () => {
+@@ -454,7 +459,7 @@ describe('LobeOpenAI', () => {
        expect(createCall.top_p).toBe(0.9);
        expect(createCall.frequency_penalty).toBe(0.5);
        expect(createCall.presence_penalty).toBe(0.3);
@@ -295,7 +303,7 @@ index a2d89c8aa3..0004f47860 100644
      });
    });
  
-@@ -468,7 +473,7 @@ describe('LobeOpenAI', () => {
+@@ -482,7 +487,7 @@ describe('LobeOpenAI', () => {
        ]);
        expect(createCall).toMatchObject({
          model: 'gpt-5.6-sol',
@@ -304,7 +312,7 @@ index a2d89c8aa3..0004f47860 100644
        });
        expect(createCall.frequency_penalty).toBeUndefined();
        expect(createCall.presence_penalty).toBeUndefined();
-@@ -490,7 +495,7 @@ describe('LobeOpenAI', () => {
+@@ -504,7 +509,7 @@ describe('LobeOpenAI', () => {
        const createCall = (instance['client'].responses.create as Mock).mock.calls[0][0];
        expect(createCall).toMatchObject({
          model: 'gpt-6-astra',
@@ -313,7 +321,7 @@ index a2d89c8aa3..0004f47860 100644
        });
        expect(createCall.temperature).toBeUndefined();
        expect(createCall.top_logprobs).toBeUndefined();
-@@ -528,7 +533,7 @@ describe('LobeOpenAI', () => {
+@@ -542,7 +547,7 @@ describe('LobeOpenAI', () => {
  
        const createCall = (instance['client'].responses.create as Mock).mock.calls[0][0];
        expect(createCall.truncation).toBe('auto');
@@ -322,7 +330,7 @@ index a2d89c8aa3..0004f47860 100644
      });
  
      it('should handle reasoning payload models without computer-use truncation', async () => {
-@@ -541,7 +546,7 @@ describe('LobeOpenAI', () => {
+@@ -555,7 +560,7 @@ describe('LobeOpenAI', () => {
        await instance.chat(payload);
  
        const createCall = (instance['client'].responses.create as Mock).mock.calls[0][0];
@@ -331,7 +339,7 @@ index a2d89c8aa3..0004f47860 100644
        expect(createCall.truncation).toBeUndefined();
      });
  
-@@ -555,7 +560,7 @@ describe('LobeOpenAI', () => {
+@@ -569,7 +574,7 @@ describe('LobeOpenAI', () => {
        await instance.chat(payload);
  
        const createCall = (instance['client'].responses.create as Mock).mock.calls[0][0];
@@ -340,7 +348,7 @@ index a2d89c8aa3..0004f47860 100644
      });
  
      it('should set reasoning.effort to high for gpt-5-pro-2025-10-06 models', async () => {
-@@ -568,7 +573,7 @@ describe('LobeOpenAI', () => {
+@@ -582,7 +587,7 @@ describe('LobeOpenAI', () => {
        await instance.chat(payload);
  
        const createCall = (instance['client'].responses.create as Mock).mock.calls[0][0];
@@ -349,7 +357,7 @@ index a2d89c8aa3..0004f47860 100644
      });
  
      it('should set reasoning.effort to high for gpt-5.5-pro', async () => {
-@@ -581,7 +586,7 @@ describe('LobeOpenAI', () => {
+@@ -595,7 +600,7 @@ describe('LobeOpenAI', () => {
        await instance.chat(payload);
  
        const createCall = (instance['client'].responses.create as Mock).mock.calls[0][0];
@@ -359,10 +367,10 @@ index a2d89c8aa3..0004f47860 100644
  
      it('should convert max_tokens to max_output_tokens for responses API', async () => {
 diff --git a/packages/model-runtime/src/providers/openai/index.ts b/packages/model-runtime/src/providers/openai/index.ts
-index 5b064aec99..bcce9211b7 100644
+index c749a16e7a..c2f2806ce6 100644
 --- a/packages/model-runtime/src/providers/openai/index.ts
 +++ b/packages/model-runtime/src/providers/openai/index.ts
-@@ -23,6 +23,25 @@ const hasAudioInput = (payload: ChatStreamPayload) =>
+@@ -24,6 +24,25 @@ const hasAudioInput = (payload: ChatStreamPayload) =>
        Array.isArray(message.content) && message.content.some((part) => part.type === 'audio_url'),
    );
  
@@ -388,7 +396,7 @@ index 5b064aec99..bcce9211b7 100644
  const oaiSearchContextSize = process.env.OPENAI_SEARCH_CONTEXT_SIZE; // low, medium, high
  const enableServiceTierFlex = process.env.OPENAI_SERVICE_TIER_FLEX === '1';
  
-@@ -39,10 +58,11 @@ export const params = {
+@@ -40,10 +59,11 @@ export const params = {
        }
  
        if (isOpenAIReasoningPayloadModel(model)) {
@@ -401,7 +409,7 @@ index 5b064aec99..bcce9211b7 100644
          } as ChatStreamPayload) as any;
        }
  
-@@ -52,7 +72,7 @@ export const params = {
+@@ -53,7 +73,7 @@ export const params = {
            frequency_penalty: undefined,
            model,
            presence_penalty: undefined,
@@ -410,7 +418,7 @@ index 5b064aec99..bcce9211b7 100644
            temperature: undefined,
            top_p: undefined,
            ...(enableServiceTierFlex &&
-@@ -71,7 +91,7 @@ export const params = {
+@@ -72,7 +92,7 @@ export const params = {
          model,
          ...(enableServiceTierFlex &&
            supportsOpenAIServiceTierFlex(model) && { service_tier: 'flex' }),
@@ -419,7 +427,7 @@ index 5b064aec99..bcce9211b7 100644
        };
      },
      supportsAudioInput: true,
-@@ -106,18 +126,18 @@ export const params = {
+@@ -111,18 +131,18 @@ export const params = {
  
        if (isOpenAIReasoningPayloadModel(model)) {
          const reasoning = payload.reasoning
@@ -442,7 +450,7 @@ index 5b064aec99..bcce9211b7 100644
            tools: openaiTools as any,
            // computer-use series must set truncation as auto
            ...(isOpenAIComputerUseModel(model) && { truncation: 'auto' }),
-@@ -130,7 +150,7 @@ export const params = {
+@@ -135,7 +155,7 @@ export const params = {
          model,
          ...(enableServiceTierFlex &&
            supportsOpenAIServiceTierFlex(model) && { service_tier: 'flex' }),
@@ -554,7 +562,7 @@ index a7ebcd844c..0b35e2e216 100644
 2.39.5
 
 
-From 31c093807e90f27e174ffb49091be30e7aff44cd Mon Sep 17 00:00:00 2001
+From 23af6e972258751a7c33a55b0df073548b739fa3 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 7 Oct 2026 16:25:57 +0000
 Subject: [PATCH 04/18] =?UTF-8?q?=E2=9C=A8=20feat(openai):=20preserve=20de?=
@@ -1012,7 +1020,7 @@ index af6734ddaf..0308bd1d26 100644
 2.39.5
 
 
-From 7b0bc1d4209ed597902f8f64f3519d4b9970c0a2 Mon Sep 17 00:00:00 2001
+From 92603d8cc55a51f2beaaca55cec51b2f4f56302b Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 7 Oct 2026 16:25:57 +0000
 Subject: [PATCH 05/18] =?UTF-8?q?=F0=9F=90=9B=20fix(openai):=20use=20one?=
@@ -1035,7 +1043,7 @@ Co-authored-by: Cursor Grok 4.7 <cursoragent@cursor.com.invalid>
  create mode 100644 packages/model-runtime/src/core/openaiCompatibleFactory/timeout.ts
 
 diff --git a/apps/server/src/modules/AgentRuntime/adapters/ServerLLMTransport.ts b/apps/server/src/modules/AgentRuntime/adapters/ServerLLMTransport.ts
-index de0c252341..3ea9f55ecd 100644
+index ea04371ce3..db828adad1 100644
 --- a/apps/server/src/modules/AgentRuntime/adapters/ServerLLMTransport.ts
 +++ b/apps/server/src/modules/AgentRuntime/adapters/ServerLLMTransport.ts
 @@ -24,7 +24,6 @@ import { BRANDING_PROVIDER } from '@lobechat/business-const';
@@ -1046,7 +1054,7 @@ index de0c252341..3ea9f55ecd 100644
    type ModelRuntime,
  } from '@lobechat/model-runtime';
  import {
-@@ -51,7 +50,6 @@ import { classifyLLMError } from '../llmErrorClassification';
+@@ -55,7 +54,6 @@ import { classifyLLMError } from '../llmErrorClassification';
  import {
    createClientLlmExecutorUnavailableError,
    isClientLlmRelayError,
@@ -1054,7 +1062,7 @@ index de0c252341..3ea9f55ecd 100644
  } from '../llmRelay/errors';
  import { buildLlmRelayCallId } from '../llmRelay/protocol';
  import { RelayModelRuntime } from '../llmRelay/RelayModelRuntime';
-@@ -72,6 +70,7 @@ const getErrorMessage = (error: unknown): string => {
+@@ -76,6 +74,7 @@ const getErrorMessage = (error: unknown): string => {
  };
  
  const SERVER_LLM_RETRY_POLICY = {
@@ -1062,7 +1070,7 @@ index de0c252341..3ea9f55ecd 100644
    noRetryProviders: [BRANDING_PROVIDER],
  };
  
-@@ -88,61 +87,15 @@ const DEPLOYMENT_NAME_PROVIDERS = new Set<string>([
+@@ -92,61 +91,15 @@ const DEPLOYMENT_NAME_PROVIDERS = new Set<string>([
    ModelProvider.Volcengine,
  ]);
  
@@ -1126,7 +1134,7 @@ index de0c252341..3ea9f55ecd 100644
    }
  
    onError({ error }: LLMCallErrorInput) {
-@@ -164,11 +117,8 @@ class ServerLLMRetryPolicy implements LLMRetryPolicy {
+@@ -168,11 +121,8 @@ class ServerLLMRetryPolicy implements LLMRetryPolicy {
      );
    }
  
@@ -1141,22 +1149,22 @@ index de0c252341..3ea9f55ecd 100644
  
    async waitForRetry(delayMs: number): Promise<void> {
 diff --git a/packages/model-runtime/package.json b/packages/model-runtime/package.json
-index 1fcc3d2d40..2b6c421e36 100644
+index b387a2a544..13a2b47fe3 100644
 --- a/packages/model-runtime/package.json
 +++ b/packages/model-runtime/package.json
-@@ -52,6 +52,7 @@
+@@ -55,6 +55,7 @@
      "replicate": "^1.4.0",
      "tokenx": "^1.3.0",
      "type-fest": "^5.7.0",
 +    "undici": "^7.29.0",
      "url-join": "^5.0.0"
    },
-   "devDependencies": {
+   "peerDependencies": {
 diff --git a/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts b/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
-index c67b0eaf13..6661dc0288 100644
+index dd9da8fdcf..e35bf9ec90 100644
 --- a/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
 +++ b/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
-@@ -102,10 +102,12 @@ import {
+@@ -102,6 +102,7 @@ import {
    parseStructuredToolArguments,
    StructuredOutputError,
  } from './structuredOutput';
@@ -1164,12 +1172,15 @@ index c67b0eaf13..6661dc0288 100644
  
  export type { PollVideoStatusResult };
  export * from './createVideo';
+@@ -112,6 +113,7 @@ export type {
+   OpenAICompatibleFactoryOptions,
+ } from './factoryOptions';
  export * from './nonStreamToStream';
 +export * from './timeout';
  
  /**
   * Detect provider 400/422 errors that reject `response_format: { type: 'json_schema' }`.
-@@ -407,7 +409,31 @@ export const createOpenAICompatibleRuntime = <T extends Record<string, any> = an
+@@ -231,7 +233,31 @@ export const createOpenAICompatibleRuntime = <T extends Record<string, any> = an
  
        if (!apiKey) throw AgentRuntimeError.createError(ErrorType?.invalidAPIKey);
  
@@ -1202,7 +1213,7 @@ index c67b0eaf13..6661dc0288 100644
  
        // if the custom client is provided, use it as client
        if (customClient?.createClient) {
-@@ -729,6 +755,7 @@ export const createOpenAICompatibleRuntime = <T extends Record<string, any> = an
+@@ -563,6 +589,7 @@ export const createOpenAICompatibleRuntime = <T extends Record<string, any> = an
              baseURL: targetBaseURL,
              ...constructorOptions,
              ...restOptions,
@@ -1422,7 +1433,7 @@ index 67b1494f48..8ec11b3441 100644
 2.39.5
 
 
-From 84a98aa9d3f93d7416fb9ef44fa9a035958931db Mon Sep 17 00:00:00 2001
+From f69404c3db9e703813165a66a2be81e13b9012bf Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 7 Oct 2026 16:25:57 +0000
 Subject: [PATCH 06/18] =?UTF-8?q?=E2=9C=A8=20feat(agent):=20keep=20prompts?=
@@ -1537,10 +1548,10 @@ index d768efb154..2f5a6e46c4 100644
  
      it('should include file URLs in server-side file context', async () => {
 diff --git a/apps/server/src/services/aiAgent/__tests__/execAgent.builtinRuntime.test.ts b/apps/server/src/services/aiAgent/__tests__/execAgent.builtinRuntime.test.ts
-index 55ccdf8821..c187887abf 100644
+index abec7f2dfe..0fffd53d1f 100644
 --- a/apps/server/src/services/aiAgent/__tests__/execAgent.builtinRuntime.test.ts
 +++ b/apps/server/src/services/aiAgent/__tests__/execAgent.builtinRuntime.test.ts
-@@ -391,7 +391,7 @@ describe('AiAgentService.execAgent - builtin agent runtime config', () => {
+@@ -420,7 +420,7 @@ describe('AiAgentService.execAgent - builtin agent runtime config', () => {
      expect(mockGetBuiltinAgent).not.toHaveBeenCalled();
    });
  
@@ -1549,7 +1560,7 @@ index 55ccdf8821..c187887abf 100644
      // Inbox agent with no user-customized systemRole in DB
      mockGetAgentConfig.mockResolvedValue({
        chatConfig: {},
-@@ -408,13 +408,9 @@ describe('AiAgentService.execAgent - builtin agent runtime config', () => {
+@@ -437,13 +437,9 @@ describe('AiAgentService.execAgent - builtin agent runtime config', () => {
        prompt: 'Hello',
      });
  
@@ -1564,7 +1575,7 @@ index 55ccdf8821..c187887abf 100644
    });
  
    it('should pass user response language into web onboarding runtime systemRole', async () => {
-@@ -466,12 +462,6 @@ describe('AiAgentService.execAgent - builtin agent runtime config', () => {
+@@ -495,12 +491,6 @@ describe('AiAgentService.execAgent - builtin agent runtime config', () => {
      expect(callArgs.agentConfig.systemRole).toBe(customSystemRole);
    });
  
@@ -1577,7 +1588,7 @@ index 55ccdf8821..c187887abf 100644
    it('should not apply runtime config for non-builtin agents', async () => {
      mockGetAgentConfig.mockResolvedValue({
        chatConfig: {},
-@@ -489,8 +479,7 @@ describe('AiAgentService.execAgent - builtin agent runtime config', () => {
+@@ -518,8 +508,7 @@ describe('AiAgentService.execAgent - builtin agent runtime config', () => {
      });
  
      const callArgs = mockCreateOperation.mock.calls[0][0];
@@ -1587,7 +1598,7 @@ index 55ccdf8821..c187887abf 100644
    });
  
    it('should not apply runtime config for agents without slug', async () => {
-@@ -509,7 +498,7 @@ describe('AiAgentService.execAgent - builtin agent runtime config', () => {
+@@ -538,7 +527,7 @@ describe('AiAgentService.execAgent - builtin agent runtime config', () => {
      });
  
      const callArgs = mockCreateOperation.mock.calls[0][0];
@@ -1643,10 +1654,10 @@ index 49383f1748..d7da07aefe 100644
  
    slug: BUILTIN_AGENT_SLUGS.inbox,
 diff --git a/packages/context-engine/src/engine/messages/MessagesEngine.ts b/packages/context-engine/src/engine/messages/MessagesEngine.ts
-index 31ec7b5856..da901659ce 100644
+index 5a683aeb9f..e58595bd5f 100644
 --- a/packages/context-engine/src/engine/messages/MessagesEngine.ts
 +++ b/packages/context-engine/src/engine/messages/MessagesEngine.ts
-@@ -51,7 +51,6 @@ import {
+@@ -52,7 +52,6 @@ import {
    HistorySummaryProvider,
    KnowledgeInjector,
    LocalSystemToolSnapshotInjector,
@@ -1654,7 +1665,7 @@ index 31ec7b5856..da901659ce 100644
    OnboardingActionHintInjector,
    OnboardingContextInjector,
    OnboardingSyntheticStateInjector,
-@@ -66,7 +65,6 @@ import {
+@@ -68,7 +67,6 @@ import {
    SKILL_STORE_TOOL_ID,
    SkillContextProvider,
    SkillImportRouteInjector,
@@ -1662,7 +1673,7 @@ index 31ec7b5856..da901659ce 100644
    SystemRoleInjector,
    TaskManagerContextInjector,
    TodoInjector,
-@@ -157,8 +155,6 @@ export class MessagesEngine {
+@@ -159,8 +157,6 @@ export class MessagesEngine {
    private buildProcessors(): ContextProcessor[] {
      const {
        model,
@@ -1671,7 +1682,7 @@ index 31ec7b5856..da901659ce 100644
        provider,
        systemRole,
        agentIdentity,
-@@ -199,8 +195,6 @@ export class MessagesEngine {
+@@ -201,8 +197,6 @@ export class MessagesEngine {
        stepContext,
        pageContentContext,
        topicReferences,
@@ -1680,7 +1691,7 @@ index 31ec7b5856..da901659ce 100644
      } = this.params;
  
      const isAgentBuilderEnabled = !!agentBuilderContext;
-@@ -234,12 +228,7 @@ export class MessagesEngine {
+@@ -236,12 +230,7 @@ export class MessagesEngine {
            : undefined;
      const isTodoEnabled = effectiveTodos !== undefined;
  
@@ -1693,7 +1704,7 @@ index 31ec7b5856..da901659ce 100644
      const currentUserMessage = [...messages]
        .reverse()
        .find((m) => m.role === 'user' && typeof m.content === 'string')?.content as
-@@ -327,22 +316,8 @@ export class MessagesEngine {
+@@ -329,22 +318,8 @@ export class MessagesEngine {
          context: botPlatformContext,
          enabled: !!botPlatformContext,
        }),
@@ -2032,7 +2043,7 @@ index 76317a8af7..45589cd5ba 100644
 2.39.5
 
 
-From a52b6ec00eaaab4ece6643cd5cbabeed5c89edb0 Mon Sep 17 00:00:00 2001
+From f29784a41d15ec92936c3aa2dfc3aff486075674 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:58:13 +0000
 Subject: [PATCH 07/18] =?UTF-8?q?=E2=9C=A8=20feat(agent):=20keep=20tools?=
@@ -2159,7 +2170,7 @@ index 3f11360211..c11b3ded2d 100644
  
      const lobeAgent = result.enabledManifests.find(
 diff --git a/packages/builtin-tools/src/index.ts b/packages/builtin-tools/src/index.ts
-index 9fc8c95f12..b129cb30eb 100644
+index ade4ccd722..646e93e0d6 100644
 --- a/packages/builtin-tools/src/index.ts
 +++ b/packages/builtin-tools/src/index.ts
 @@ -80,25 +80,9 @@ export const defaultToolIds = [
@@ -2338,7 +2349,7 @@ index c7240e961f..d486b4efee 100644
 2.39.5
 
 
-From a82b5696f6d3152b24ee9aaa0457a523468cc4fe Mon Sep 17 00:00:00 2001
+From 14bd71aa5110b6dea143a65ead15aafb0e7477bf Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:58:21 +0000
 Subject: [PATCH 08/18] =?UTF-8?q?=E2=9C=A8=20feat(agent):=20summarize=20to?=
@@ -2383,7 +2394,7 @@ index cc24fb2baa..151b64af37 100644
 2.39.5
 
 
-From 8148d5e03920c2b490624d20c888102ffe7f02c1 Mon Sep 17 00:00:00 2001
+From 0c404b1e35323a02ec16169a6fa78cc89bfe5e90 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 7 Oct 2026 16:25:57 +0000
 Subject: [PATCH 09/18] =?UTF-8?q?=F0=9F=90=9B=20fix(qstash):=20construct?=
@@ -2573,7 +2584,7 @@ index ac71484a97..6ea7aab524 100644
 2.39.5
 
 
-From cc68ae18cc25c5663c09e0e00489b3c3ef30ad99 Mon Sep 17 00:00:00 2001
+From fefad11daafd49a6253cc83a63c923e8af96e5fb Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:58:34 +0000
 Subject: [PATCH 10/18] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20keep=20patched=20?=
@@ -2812,10 +2823,10 @@ index 4563d764c0..673328318e 100644
    'ja-JP': FONT_JP,
    'ko-KR': FONT_KR,
 diff --git a/vite.config.ts b/vite.config.ts
-index 7bcdcc01bd..997cefc067 100644
+index 135b45086c..e67a6aed69 100644
 --- a/vite.config.ts
 +++ b/vite.config.ts
-@@ -129,7 +129,7 @@ export default defineConfig({
+@@ -141,7 +141,7 @@ export default defineConfig({
      bundledDev: false,
    },
    resolve: {
@@ -2823,12 +2834,12 @@ index 7bcdcc01bd..997cefc067 100644
 +    dedupe: [...sharedRendererDedupe, '@lobehub/ui', '@lobehub/icons', 'antd', 'motion'],
      tsconfigPaths: true,
    },
-   optimizeDeps: sharedOptimizeDeps,
+   optimizeDeps: {
 -- 
 2.39.5
 
 
-From 06b837abf6f040cf820270dd175edb7dd62107c1 Mon Sep 17 00:00:00 2001
+From 9b2c54ba9398f8fe8954394d484f0c2e1e3dcea1 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:58:41 +0000
 Subject: [PATCH 11/18] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20offer=20only=20En?=
@@ -2914,7 +2925,7 @@ index 0dd8228306..e3bb30bc76 100644
 2.39.5
 
 
-From 4b51063a13a032db16f23c997149b53994e1680b Mon Sep 17 00:00:00 2001
+From 7fab368e6d0513261545ab518f0eca22c87baf91 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 7 Oct 2026 16:25:57 +0000
 Subject: [PATCH 12/18] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20keep=20user-messa?=
@@ -2949,7 +2960,7 @@ index 4c6ffb7dba..5e7c432f4a 100644
    });
  
 diff --git a/src/features/Conversation/Messages/User/components/MessageContent.test.tsx b/src/features/Conversation/Messages/User/components/MessageContent.test.tsx
-index 456e831525..78908483f5 100644
+index 5fe45fdd48..33ae350ca1 100644
 --- a/src/features/Conversation/Messages/User/components/MessageContent.test.tsx
 +++ b/src/features/Conversation/Messages/User/components/MessageContent.test.tsx
 @@ -60,7 +60,7 @@ describe('User MessageContent', () => {
@@ -2961,7 +2972,7 @@ index 456e831525..78908483f5 100644
      render(
        <MessageContent
          content={'markdown-content'}
-@@ -72,8 +72,8 @@ describe('User MessageContent', () => {
+@@ -78,8 +78,8 @@ describe('User MessageContent', () => {
        />,
      );
  
@@ -2971,12 +2982,12 @@ index 456e831525..78908483f5 100644
 +    expect(screen.queryByTestId('rich-message')).not.toBeInTheDocument();
    });
  
-   it('should render markdown when editorData is missing', () => {
+   /**
 diff --git a/src/features/Conversation/Messages/User/components/MessageContent.tsx b/src/features/Conversation/Messages/User/components/MessageContent.tsx
-index c288e37b22..c27af032be 100644
+index 199f41e881..c27af032be 100644
 --- a/src/features/Conversation/Messages/User/components/MessageContent.tsx
 +++ b/src/features/Conversation/Messages/User/components/MessageContent.tsx
-@@ -3,25 +3,21 @@ import { memo, useMemo } from 'react';
+@@ -3,26 +3,21 @@ import { memo, useMemo } from 'react';
  
  import CollapsibleContent from '@/components/CollapsibleContent';
  import MarkdownMessage from '@/features/Conversation/Markdown';
@@ -2986,6 +2997,7 @@ index c288e37b22..c27af032be 100644
  import { type UIChatMessage } from '@/types/index';
  
 -import { useStartTopicConversation } from '../../../hooks/useStartTopicConversation';
+-import { hasRenderableEditorData } from '../editorData';
  import { useMarkdown } from '../useMarkdown';
  import AudioFileListViewer from './AudioFileListViewer';
  import FileListViewer from './FileListViewer';
@@ -3003,12 +3015,11 @@ index c288e37b22..c27af032be 100644
      const selections = metadata?.contextSelections?.length
        ? metadata.contextSelections
        : metadata?.pageSelections;
-@@ -34,24 +30,15 @@ const UserMessageContent = memo<UIChatMessage>(
+@@ -35,23 +30,15 @@ const UserMessageContent = memo<UIChatMessage>(
        return { displayContent: body, reference };
      }, [content]);
  
--    const hasEditorData =
--      editorData && typeof editorData === 'object' && Object.keys(editorData).length > 0;
+-    const hasEditorData = hasRenderableEditorData(editorData);
 -
 -    const textBody = hasEditorData ? (
 -      // Rich-text folder chips render headlessly, so they receive the
@@ -3087,7 +3098,7 @@ index d5e11d7aa1..e72383895b 100644
 2.39.5
 
 
-From 826c754c517a162a1926a168513e5c1d65be7cd9 Mon Sep 17 00:00:00 2001
+From 453e3bbb079e7e11e7299d93784ef2e818cfce11 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:58:55 +0000
 Subject: [PATCH 13/18] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20show=20exact=20to?=
@@ -3172,7 +3183,7 @@ index 208c5e4496..4e46cc3ab4 100644
  };
  
 diff --git a/src/features/Conversation/ChatInput/OpStatusTray.tsx b/src/features/Conversation/ChatInput/OpStatusTray.tsx
-index 792544c453..7e9144b8fe 100644
+index 3c5b0a87b1..5ac5dd9600 100644
 --- a/src/features/Conversation/ChatInput/OpStatusTray.tsx
 +++ b/src/features/Conversation/ChatInput/OpStatusTray.tsx
 @@ -205,9 +205,7 @@ const ActivityGlyph = () => (
@@ -3190,7 +3201,7 @@ index 792544c453..7e9144b8fe 100644
 2.39.5
 
 
-From 56c47551e081369b7760ecd283ad36d4379fc7bd Mon Sep 17 00:00:00 2001
+From 40a761c659dc284da0bf106e6a8fb2bbad0cb935 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 7 Oct 2026 16:25:57 +0000
 Subject: [PATCH 14/18] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20use=20MSM=20defau?=
@@ -3260,10 +3271,10 @@ index dbef53fdd6..a74db2befd 100644
    withSystemRole: true,
  };
 diff --git a/src/store/global/initialState.ts b/src/store/global/initialState.ts
-index f0801c4bd4..9c579f34e4 100644
+index a4e4426648..73ac6a0605 100644
 --- a/src/store/global/initialState.ts
 +++ b/src/store/global/initialState.ts
-@@ -134,9 +134,6 @@ export type ModelDetailPanelExpandedKey = (typeof MODEL_DETAIL_PANEL_EXPANDED_KE
+@@ -143,9 +143,6 @@ export type ModelDetailPanelExpandedKey = (typeof MODEL_DETAIL_PANEL_EXPANDED_KE
   * newly added sections default to expanded automatically.
   */
  export const MODEL_DETAIL_PANEL_EXPANDABLE_KEYS = [
@@ -3277,7 +3288,7 @@ index f0801c4bd4..9c579f34e4 100644
 2.39.5
 
 
-From dba3e42b3dd84eb7f8a8d92004f4339acb06cd10 Mon Sep 17 00:00:00 2001
+From f14cc81526efc435503bb9d3f7d3144748d0be6c Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:59:09 +0000
 Subject: [PATCH 15/18] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20shorten=20topic?=
@@ -3293,33 +3304,33 @@ Co-authored-by: Cursor GPT-5.6 Sol <cursoragent@cursor.com.invalid>
  2 files changed, 31 insertions(+), 4 deletions(-)
 
 diff --git a/src/features/AgentSidebar/Topic/List/Item/index.tsx b/src/features/AgentSidebar/Topic/List/Item/index.tsx
-index 3a71501f2e..27f2e0bd9f 100644
+index 6b4b8b9681..15fed6fe5d 100644
 --- a/src/features/AgentSidebar/Topic/List/Item/index.tsx
 +++ b/src/features/AgentSidebar/Topic/List/Item/index.tsx
-@@ -46,6 +46,7 @@ import { agentSelectors, builtinAgentSelectors } from '@/store/agent/selectors';
- import { useChatStore } from '@/store/chat';
- import { operationSelectors } from '@/store/chat/selectors';
+@@ -49,6 +49,7 @@ import { operationSelectors } from '@/store/chat/selectors';
  import { messageMapKey } from '@/store/chat/utils/messageMapKey';
+ import { useUserStore } from '@/store/user';
+ import { labPreferSelectors, userProfileSelectors } from '@/store/user/selectors';
 +import { isModifierClick } from '@/utils/navigation';
  
- import { useTopicNavigation } from '../../hooks/useTopicNavigation';
- import ThreadList from '../../TopicListContent/ThreadList';
-@@ -326,6 +327,7 @@ const TopicItemRow = memo<TopicItemRowProps>(
+ import { useTopicHoverPrefetch } from '../../hooks/topicHoverPrefetch/useTopicHoverPrefetch';
+ import { markSidebarTopicActivation } from '../../hooks/useScrollActiveTopicIntoView';
+@@ -339,6 +340,7 @@ const TopicItemRow = memo<TopicItemRowProps>(
  
      const handleClick = useCallback(
        (event?: MouseEvent) => {
 +        if (event && isModifierClick(event)) return;
          if (event && event.detail > 1) return;
+         if (id) markSidebarTopicActivation(id);
          if (isDesktop && id) recordTopicClickOrigin(id);
-         void navRef.current.navigateToTopic(id);
 diff --git a/src/features/AgentTopicManager/TopicCard.tsx b/src/features/AgentTopicManager/TopicCard.tsx
-index 66ba829e5d..7930f700b8 100644
+index 64f4949b1f..b655f2efd9 100644
 --- a/src/features/AgentTopicManager/TopicCard.tsx
 +++ b/src/features/AgentTopicManager/TopicCard.tsx
 @@ -4,13 +4,14 @@ import { AGENT_CHAT_TOPIC_URL } from '@lobechat/const';
  import { formatPrice, formatTokenNumber } from '@lobechat/utils/format';
  import { Block, Checkbox, createStaticStyles, cssVar, Flexbox, Icon, Tag, Text } from '@lobehub/ui';
- import { CircleDollarSign, FolderIcon, MessageSquare, Star, Zap } from 'lucide-react';
+ import { CircleDollarSign, FolderIcon, GitBranchIcon, MessageSquare, Pin, Zap } from 'lucide-react';
 -import { memo, type MouseEvent, useCallback } from 'react';
 +import { memo, type MouseEvent, useCallback, useMemo } from 'react';
  import { useTranslation } from 'react-i18next';
@@ -3332,7 +3343,7 @@ index 66ba829e5d..7930f700b8 100644
  
  import StatusDot from './StatusDot';
  import { useTopicsViewStore } from './store';
-@@ -105,6 +106,8 @@ const TopicCard = memo<TopicCardProps>(({ topic, agentId }) => {
+@@ -121,6 +122,8 @@ const TopicCard = memo<TopicCardProps>(({ topic, agentId }) => {
      [selectMode, topic.id, agentId, toggleSelected, navigate],
    );
  
@@ -3341,7 +3352,7 @@ index 66ba829e5d..7930f700b8 100644
    const handleCheckboxChange = useCallback(() => {
      if (!selectMode) toggleSelectMode();
      toggleSelected(topic.id);
-@@ -121,8 +124,15 @@ const TopicCard = memo<TopicCardProps>(({ topic, agentId }) => {
+@@ -137,8 +140,15 @@ const TopicCard = memo<TopicCardProps>(({ topic, agentId }) => {
    const BotPlatformIcon = botPlatform ? getPlatformIcon(botPlatform) : undefined;
    // Preview priority: user-written description → AI history summary → first user
    // message (sliced server-side when neither richer field exists).
@@ -3359,7 +3370,7 @@ index 66ba829e5d..7930f700b8 100644
    const updatedAt = useActivityTime(topic.updatedAt);
    // Postgres `numeric` / `int` round-trip through TRPC/JSON as strings in
    // some shapes, so coerce defensively before any `.toFixed` / format call.
-@@ -158,7 +168,22 @@ const TopicCard = memo<TopicCardProps>(({ topic, agentId }) => {
+@@ -174,7 +184,22 @@ const TopicCard = memo<TopicCardProps>(({ topic, agentId }) => {
            />
          )}
          <Text className={styles.title} fontSize={14} weight={600}>
@@ -3387,7 +3398,7 @@ index 66ba829e5d..7930f700b8 100644
 2.39.5
 
 
-From 700fbe43745c22ed01c40b8a6d85a1595ff0bf2d Mon Sep 17 00:00:00 2001
+From 51c7da5c27cc926fcc48f8bfffcea592ede2c4e0 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 25 Sep 2026 04:09:38 +0000
 Subject: [PATCH 16/18] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20add=20text=20verb?=
@@ -3606,7 +3617,7 @@ index 0000000000..4b57db4136
 2.39.5
 
 
-From cf17abe0f804c42b9eb72e04e30b971515899449 Mon Sep 17 00:00:00 2001
+From 739f3735ffb9024388cbe411d0eef5266bcf28e1 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 8 Oct 2026 13:47:42 +0000
 Subject: [PATCH 17/18] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20open=20usage=20de?=
@@ -3693,7 +3704,7 @@ index 13c0d34c3a..4c749f0bca 100644
 2.39.5
 
 
-From 2be71130581990c42296124715a6f206c80b7e55 Mon Sep 17 00:00:00 2001
+From 7e185e20d837932f97499d2a2d28a82cd3450132 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 8 Oct 2026 15:26:32 +0000
 Subject: [PATCH 18/18] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20show=20USD=20cost?=
@@ -3717,10 +3728,10 @@ Co-authored-by: Cursor Grok 4.7 <cursoragent@cursor.com.invalid>
  create mode 100644 src/features/Conversation/Messages/components/Extras/Usage/UsageDetail/usageCost.ts
 
 diff --git a/locales/en-US/chat.json b/locales/en-US/chat.json
-index fbb3ca875a..bb1e958806 100644
+index 596d720e77..e0db65e2c3 100644
 --- a/locales/en-US/chat.json
 +++ b/locales/en-US/chat.json
-@@ -1671,15 +1671,15 @@
+@@ -1795,15 +1795,15 @@
    "messageLongCollapse.expand": "Show more",
    "messages.dm.sentTo": "Visible only to {{name}}",
    "messages.dm.title": "DM",
@@ -3743,10 +3754,10 @@ index fbb3ca875a..bb1e958806 100644
    "messages.tokenDetails.cacheRate": "Cache rate",
    "messages.tokenDetails.cliCredits.title": "{{value}} Credits",
 diff --git a/packages/locales/src/default/chat.ts b/packages/locales/src/default/chat.ts
-index 7ce1ee952b..77c7a7ab86 100644
+index 0740e8d81c..63d26c90d5 100644
 --- a/packages/locales/src/default/chat.ts
 +++ b/packages/locales/src/default/chat.ts
-@@ -1047,17 +1047,16 @@ export default {
+@@ -1135,17 +1135,16 @@ export default {
    'messageLongCollapse.expand': 'Show more',
    'messages.dm.sentTo': 'Visible only to {{name}}',
    'messages.dm.title': 'DM',
@@ -3771,7 +3782,7 @@ index 7ce1ee952b..77c7a7ab86 100644
    'messages.tokenDetails.cliCredits.title': '{{value}} Credits',
    'messages.tokenDetails.cliCredits.tooltip':
 diff --git a/packages/model-runtime/package.json b/packages/model-runtime/package.json
-index 2b6c421e36..9882ca65f6 100644
+index 13a2b47fe3..b3327bc85b 100644
 --- a/packages/model-runtime/package.json
 +++ b/packages/model-runtime/package.json
 @@ -12,6 +12,7 @@

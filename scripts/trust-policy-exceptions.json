@@ -169,5 +169,32 @@
     "tarballHost": "registry.npmjs.org",
     "reason": "Checked 2026-10-22, high-risk trust downgrade required by @vercel/functions@3.10.1 on v2.2.20. Same Vercel publishers as 3.8.9.",
     "expiresOn": "2027-01-22"
+  },
+  {
+    "name": "@vercel/cli-config",
+    "version": "0.3.3",
+    "publishedAt": "2026-10-22T08:27:13.598Z",
+    "integrity": "sha512-5T0ZtIFgcFHuPFuuoJKno5ZeKvLQGiS/JAFMI1zG1HBw2dklScoHdA0LDb/SoeRYD53N33iXFAqyRA0tHLhdnQ==",
+    "tarballHost": "registry.npmjs.org",
+    "reason": "Checked 2026-10-30, high-risk trust downgrade required by @vercel/oidc@4.0.3 on v2.2.21. Same Vercel publishers as 0.3.1.",
+    "expiresOn": "2027-01-30"
+  },
+  {
+    "name": "@vercel/functions",
+    "version": "3.10.3",
+    "publishedAt": "2026-10-22T08:26:47.797Z",
+    "integrity": "sha512-EjMUf+myWckV9vj5FbzRG1wQP1IFRgmlOu2ho1FiFTjLs1mFnY4dxeI8Swk9pszj4jv/jGdvlmqRKHipuEt5bw==",
+    "tarballHost": "registry.npmjs.org",
+    "reason": "Checked 2026-10-30, high-risk trust downgrade required by ^3.9.2 on v2.2.21. Same Vercel publishers as 3.10.1.",
+    "expiresOn": "2027-01-30"
+  },
+  {
+    "name": "@vercel/oidc",
+    "version": "4.0.3",
+    "publishedAt": "2026-10-22T08:26:19.192Z",
+    "integrity": "sha512-0sljpA/leE1vLkY7DVOs/z/OH6x1hgKhrF+IY2YdbRYm/6UnQjeu0SMnzOKLtkJWp13srUFkWdir4iU3feFYfg==",
+    "tarballHost": "registry.npmjs.org",
+    "reason": "Checked 2026-10-30, high-risk trust downgrade required by @vercel/functions@3.10.3 on v2.2.21. Same Vercel publishers as 4.0.1.",
+    "expiresOn": "2027-01-30"
   }
 ]
