@@ -1,26 +1,157 @@
-From 1ad7e67e516a698aedf5f5578b9bdc4b59016a8d Mon Sep 17 00:00:00 2001
+From a992d1d568ab56481ac3f388fe385cf33ad92ded Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
-Date: Fri, 30 Oct 2026 04:07:04 +0000
-Subject: [PATCH 1/8] Change font list for Japanese
+Date: Mon, 2 Nov 2026 03:54:27 +0000
+Subject: [PATCH 1/7] Change font list for Japanese
 
 Co-Authored-By: Claude Opus 5.5 <claude@anthropic.com.invalid>
 ---
- src/styles/theme/token/font.ts | 19 ++++++-------------
- 1 file changed, 6 insertions(+), 13 deletions(-)
+ src/styles/theme/token/font.test.ts | 88 ++++++++++++++++++-----------
+ src/styles/theme/token/font.ts      | 46 ++++-----------
+ 2 files changed, 67 insertions(+), 67 deletions(-)
 
+diff --git a/src/styles/theme/token/font.test.ts b/src/styles/theme/token/font.test.ts
+index afc328bd..f2880881 100644
+--- a/src/styles/theme/token/font.test.ts
++++ b/src/styles/theme/token/font.test.ts
+@@ -8,13 +8,33 @@ const before = (stack: string, a: string, b: string) => {
+   expect(list.indexOf(a)).toBeLessThan(list.indexOf(b));
+ };
+ 
++const CHINESE_FAMILY =
++  /HarmonyOS|PingFang|Microsoft (YaHei|JhengHei)|Hiragino Sans (GB|CNS)|Source Han Sans (SC|TC|HC)|Noto Sans CJK (SC|TC|HK)/;
++
++const ALL_LOCALES = [
++  undefined,
++  'en-US',
++  'zh',
++  'zh-CN',
++  'zh-SG',
++  'zh-Hans',
++  'zh-TW',
++  'zh-HK',
++  'zh-MO',
++  'zh-Hant',
++  'zh-Hant-TW',
++  'ja-JP',
++  'ko-KR',
++];
++
+ describe('genFontFamily', () => {
+-  it('leads with Geist and keeps the SC families as the CJK fallback', () => {
++  it('leads with IBM Plex Sans JP and puts Noto Color Emoji first among emoji', () => {
+     const stack = genFontFamily();
+ 
+-    expect(fonts(stack)[0]).toBe('Geist');
+-    before(stack, '"HarmonyOS Sans SC"', 'ui-sans-serif');
+-    before(stack, 'sans-serif', '"Apple Color Emoji"');
++    expect(fonts(stack)[0]).toBe('"IBM Plex Sans JP"');
++    expect(fonts(stack)).not.toContain('Geist');
++    before(stack, 'sans-serif', '"Noto Color Emoji"');
++    before(stack, '"Noto Color Emoji"', '"Apple Color Emoji"');
+   });
+ 
+   it('never emits comment markers as font names', () => {
+@@ -24,34 +44,37 @@ describe('genFontFamily', () => {
+     }
+   });
+ 
+-  it('pairs HarmonyOS Sans with HarmonyOS Sans SC for simplified chinese', () => {
+-    for (const locale of ['zh', 'zh-CN', 'zh-SG', 'zh-Hans']) {
+-      const stack = genFontFamily({ locale });
+-
+-      expect(fonts(stack)[0]).toBe('"HarmonyOS Sans"');
+-      expect(fonts(stack)).not.toContain('Geist');
+-      before(stack, '"HarmonyOS Sans SC"', '"PingFang SC"');
++  it('never names a Chinese font family for any locale', () => {
++    for (const locale of ALL_LOCALES) {
++      expect(genFontFamily({ locale })).not.toMatch(CHINESE_FAMILY);
++      expect(genFontFamilyCode({ locale })).not.toMatch(CHINESE_FAMILY);
+     }
+   });
+ 
+-  it('keeps traditional chinese on system fonts only', () => {
+-    for (const locale of ['zh-TW', 'zh-HK', 'zh-MO', 'zh-Hant', 'zh-Hant-TW']) {
++  it('gives every chinese locale the IBM Plex + Japanese stack', () => {
++    const japanese = genFontFamily({ locale: 'ja-JP' });
++
++    for (const locale of [
++      'zh',
++      'zh-CN',
++      'zh-SG',
++      'zh-Hans',
++      'zh-TW',
++      'zh-HK',
++      'zh-MO',
++      'zh-Hant',
++    ]) {
+       const stack = genFontFamily({ locale });
+ 
+-      expect(stack).not.toContain('HarmonyOS');
+-      expect(fonts(stack)).not.toContain('Geist');
+-      before(stack, '"PingFang TC"', '"PingFang SC"');
++      expect(stack).toBe(japanese);
++      expect(fonts(stack)[0]).toBe('"IBM Plex Sans JP"');
++      before(stack, '"IBM Plex Sans JP"', '"Hiragino Sans"');
+     }
+   });
+ 
+-  it('prefers the hong kong families for zh-HK and zh-MO', () => {
+-    before(genFontFamily({ locale: 'zh-HK' }), '"PingFang HK"', '"PingFang TC"');
+-    before(genFontFamily({ locale: 'zh-MO' }), '"PingFang MO"', '"PingFang TC"');
+-  });
+-
+-  it('puts the locale CJK families ahead of the SC fallback', () => {
+-    before(genFontFamily({ locale: 'ja-JP' }), '"Hiragino Sans"', '"HarmonyOS Sans SC"');
+-    before(genFontFamily({ locale: 'ko-KR' }), '"Apple SD Gothic Neo"', '"HarmonyOS Sans SC"');
++  it('puts the locale CJK families after IBM Plex', () => {
++    before(genFontFamily({ locale: 'ja-JP' }), '"IBM Plex Sans JP"', '"Hiragino Sans"');
++    before(genFontFamily({ locale: 'ko-KR' }), '"IBM Plex Sans JP"', '"Apple SD Gothic Neo"');
+   });
+ 
+   it('adds script families for arabic and persian', () => {
+@@ -69,21 +92,22 @@ describe('genFontFamily', () => {
+   it('prepends custom fonts and leaves composed lists untouched', () => {
+     const stack = genFontFamily({ prepend: [' LXGW WenKai ', 'Foo, "Bar Baz"', '', undefined] });
+ 
+-    expect(stack.startsWith('"LXGW WenKai",Foo, "Bar Baz",Geist,')).toBe(true);
++    expect(stack.startsWith('"LXGW WenKai",Foo, "Bar Baz","IBM Plex Sans JP",')).toBe(true);
+   });
+ });
+ 
+ describe('genFontFamilyCode', () => {
+-  it('leads with Geist Mono and ends on monospace before emoji', () => {
++  it('leads with Mgen+ 1mn and ends on monospace before emoji', () => {
+     const stack = genFontFamilyCode();
+ 
+-    expect(fonts(stack)[0]).toBe('"Geist Mono"');
+-    before(stack, '"HarmonyOS Sans SC"', 'monospace');
+-    before(stack, 'monospace', '"Apple Color Emoji"');
++    expect(fonts(stack)[0]).toBe('"Mgen+ 1mn"');
++    expect(fonts(stack)).not.toContain('"Geist Mono"');
++    before(stack, 'monospace', '"Noto Color Emoji"');
+   });
+ 
+-  it('uses the locale CJK families for code too', () => {
+-    before(genFontFamilyCode({ locale: 'ja-JP' }), '"Hiragino Sans"', '"HarmonyOS Sans SC"');
+-    expect(genFontFamilyCode({ locale: 'zh-TW' })).not.toContain('HarmonyOS');
++  it('uses the Japanese families for code in japanese and chinese locales', () => {
++    for (const locale of ['ja-JP', 'zh-CN', 'zh-TW']) {
++      before(genFontFamilyCode({ locale }), '"Mgen+ 1mn"', '"Hiragino Sans"');
++    }
+   });
+ });
 diff --git a/src/styles/theme/token/font.ts b/src/styles/theme/token/font.ts
-index 49ea42e3..6e285d12 100644
+index 49ea42e3..526336cc 100644
 --- a/src/styles/theme/token/font.ts
 +++ b/src/styles/theme/token/font.ts
-@@ -8,12 +8,12 @@ const SYSTEM_SANS = [
+@@ -8,12 +8,10 @@ const SYSTEM_SANS = [
    'Arial',
  ];
  
 -const LATIN = ['Geist', ...SYSTEM_SANS];
-+const LATIN = ['IBM Plex Sans JP', ...SYSTEM_SANS];
- 
+-
 -const LATIN_ZH_HANS = ['HarmonyOS Sans', ...SYSTEM_SANS];
-+const LATIN_ZH_HANS = ['IBM Plex Sans JP', ...SYSTEM_SANS];
++const LATIN = ['IBM Plex Sans JP', ...SYSTEM_SANS];
  
  const CODE = [
 -  'Geist Mono',
@@ -28,7 +159,7 @@ index 49ea42e3..6e285d12 100644
    'ui-monospace',
    'SFMono-Regular',
    'SF Mono',
-@@ -23,16 +23,9 @@ const CODE = [
+@@ -23,29 +21,7 @@ const CODE = [
    'Liberation Mono',
  ];
  
@@ -40,14 +171,26 @@ index 49ea42e3..6e285d12 100644
 -  'Source Han Sans SC',
 -  'Noto Sans CJK SC',
 -];
-+const SC_SYSTEM: string[] = [];
- 
+-
 -const SC = ['HarmonyOS Sans SC', ...SC_SYSTEM];
+-
+-const TC = [
+-  'PingFang TC',
+-  'Hiragino Sans CNS',
+-  'Microsoft JhengHei UI',
+-  'Microsoft JhengHei',
+-  'Source Han Sans TC',
+-  'Noto Sans CJK TC',
+-];
+-
+-const HK = ['PingFang HK', 'Source Han Sans HC', 'Noto Sans CJK HK', ...TC];
+-
+-const MO = ['PingFang MO', ...HK];
 +const SC: string[] = [];
  
- const TC = [
-   'PingFang TC',
-@@ -71,7 +64,7 @@ const FALLBACK = ['ui-sans-serif', 'system-ui', 'sans-serif'];
+ const JP = [
+   'Hiragino Sans',
+@@ -71,7 +47,7 @@ const FALLBACK = ['ui-sans-serif', 'system-ui', 'sans-serif'];
  
  const FALLBACK_CODE = ['monospace'];
  
@@ -56,14 +199,37 @@ index 49ea42e3..6e285d12 100644
  
  interface LocaleFonts {
    langs: string[];
+@@ -80,15 +56,15 @@ interface LocaleFonts {
+   sc?: string[];
+ }
+ 
+-// Han glyphs differ per region and the first CJK family in the stack wins, so a locale's own
+-// families go ahead of the SC fallback. Traditional chinese stays on system fonts because
+-// HarmonyOS Sans SC draws traditional characters with mainland glyph shapes.
++// Han glyphs differ per region and the first CJK family in the stack wins. MSM never names a
++// Chinese family: every Chinese locale uses the IBM Plex + Japanese stack, so Han characters
++// render with Japanese glyph shapes instead of falling back to an OS Chinese font.
+ // Later entries are more specific: the generated :lang() rules rely on this source order.
+ export const LOCALE_FONTS: LocaleFonts[] = [
+-  { langs: ['zh'], latin: LATIN_ZH_HANS },
+-  { langs: ['zh-TW', 'zh-Hant'], latin: SYSTEM_SANS, local: TC, sc: SC_SYSTEM },
+-  { langs: ['zh-HK'], latin: SYSTEM_SANS, local: HK, sc: SC_SYSTEM },
+-  { langs: ['zh-MO'], latin: SYSTEM_SANS, local: MO, sc: SC_SYSTEM },
++  { langs: ['zh'], local: JP },
++  { langs: ['zh-TW', 'zh-Hant'], local: JP },
++  { langs: ['zh-HK'], local: JP },
++  { langs: ['zh-MO'], local: JP },
+   { langs: ['ja'], local: JP },
+   { langs: ['ko'], local: KR },
+   { langs: ['ar', 'fa'], local: ARABIC },
 -- 
 2.39.5
 
 
-From 524d571b2cbd37d14c3a61f6264575a4e01ffbe6 Mon Sep 17 00:00:00 2001
+From 8895490445afe50640862a58dc4a46774b1d65eb Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 30 Oct 2026 04:07:12 +0000
-Subject: [PATCH 2/8] Do not load default EN & CN fonts
+Subject: [PATCH 2/7] Do not load default EN & CN fonts
 
 Co-Authored-By: Claude Opus 5.5 <claude@anthropic.com.invalid>
 ---
@@ -88,10 +254,10 @@ index 39130fef..be7989ef 100644
 2.39.5
 
 
-From a552223acf6a50bafe993cde288e0de980b1ea1a Mon Sep 17 00:00:00 2001
+From 1ecfd1745fdf952b6c8c7ad13f90647d47dcbd3a Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sat, 13 Dec 2025 07:36:47 +0000
-Subject: [PATCH 3/8] Change colorTextSecondary color
+Subject: [PATCH 3/7] Change colorTextSecondary color
 
 ---
  src/styles/theme/generateColorPalette.ts | 2 +-
@@ -114,10 +280,10 @@ index 98af6a26..f5b0887b 100644
 2.39.5
 
 
-From eed763ede4ca96acd64080a953595eaf03bc7977 Mon Sep 17 00:00:00 2001
+From 7fec612a07421f2529368c502c8f2709d6228c0f Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sat, 10 Jan 2026 01:03:48 +0000
-Subject: [PATCH 4/8] Darken slate[12] dark color for text
+Subject: [PATCH 4/7] Darken slate[12] dark color for text
 
 ---
  src/color/neutrals/slate.ts | 2 +-
@@ -140,10 +306,10 @@ index 7341851a..cb38fec6 100644
 2.39.5
 
 
-From 893ce8879c66be912003e10c6c18df2d32e1c034 Mon Sep 17 00:00:00 2001
+From efc3a09ab90fe79cabe35f6fc9e7a08435a86acf Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 27 Jul 2026 19:10:04 +0000
-Subject: [PATCH 5/8] Add workspaces config to package.json
+Subject: [PATCH 5/7] Add workspaces config to package.json
 
 ---
  package.json | 3 +++
@@ -167,10 +333,10 @@ index c8874b7f..52534aa3 100644
 2.39.5
 
 
-From dd13efe6f6f6117d42a213e3819ef60a04ec059d Mon Sep 17 00:00:00 2001
+From 9b695a59aa35205b365db0ecef179f2d827447ca Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 23 Sep 2026 22:33:49 +0000
-Subject: [PATCH 6/8] Use the exact same package of this for dependencies
+Subject: [PATCH 6/7] Use the exact same package of this for dependencies
 
 ---
  package.json | 3 +++
@@ -194,37 +360,10 @@ index 52534aa3..e1d83dd1 100644
 2.39.5
 
 
-From 542e752e6b42b1f9398fa75a6a2451b1b9dc76f4 Mon Sep 17 00:00:00 2001
+From d2ad5ba901d83a3006c43d0b7271d25ca2ee8ae1 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
-Date: Fri, 30 Oct 2026 04:07:21 +0000
-Subject: [PATCH 7/8] Pin virtua to 0.53.6
-
-Co-Authored-By: Claude Opus 5.5 <claude@anthropic.com.invalid>
----
- package.json | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/package.json b/package.json
-index e1d83dd1..258470fc 100644
---- a/package.json
-+++ b/package.json
-@@ -219,7 +219,7 @@
-     "unist-util-visit-parents": "^6.0.2",
-     "uqr": "^0.1.3",
-     "vfile": "^6.0.3",
--    "virtua": "^0.53.5"
-+    "virtua": "0.53.6"
-   },
-   "devDependencies": {
-     "@commitlint/cli": "^21.2.3",
--- 
-2.39.5
-
-
-From 1696c556ffdd9a146a517f5114f85741e33fe58f Mon Sep 17 00:00:00 2001
-From: MaySoMusician <maysomusician@gmail.com>
-Date: Thu, 22 Oct 2026 03:04:51 +0000
-Subject: [PATCH 8/8] =?UTF-8?q?=F0=9F=94=92=EF=B8=8F=20build(deps):=20enfo?=
+Date: Mon, 2 Nov 2026 03:54:46 +0000
+Subject: [PATCH 7/7] =?UTF-8?q?=F0=9F=94=92=EF=B8=8F=20build(deps):=20enfo?=
  =?UTF-8?q?rce=20a=207-day=20pnpm=20release=20age?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -234,13 +373,13 @@ The install policy now lives in pnpm-workspace.yaml: ignore dependency
 scripts, keep @lobehub/ui on the age exclude list, and link that package
 to this checkout.
 
-Co-authored-by: Cursor Grok 4.7 <cursoragent@cursor.com.invalid>
+Co-Authored-By: Claude Opus 5.5 <claude@anthropic.com.invalid>
 ---
- pnpm-workspace.yaml | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+ pnpm-workspace.yaml | 5 +++++
+ 1 file changed, 5 insertions(+)
 
 diff --git a/pnpm-workspace.yaml b/pnpm-workspace.yaml
-index 0873f34a..5bb75fb1 100644
+index 0873f34a..1ae328fe 100644
 --- a/pnpm-workspace.yaml
 +++ b/pnpm-workspace.yaml
 @@ -21,6 +21,7 @@ publicHoistPattern:
@@ -251,19 +390,11 @@ index 0873f34a..5bb75fb1 100644
  
  patchedDependencies:
    conventional-changelog-gitmoji-config@1.5.2: patches/conventional-changelog-gitmoji-config@1.5.2.patch
-@@ -55,3 +56,15 @@ minimumReleaseAgeExclude:
+@@ -55,3 +56,7 @@ minimumReleaseAgeExclude:
    - '@lobehub/stylelint-config@2.1.6'
    - '@lobehub/docs-kit@6.2.1'
    - '@pierre/highlights@0.2.0'
 +  - '@lobehub/ui'
-+  - '@pierre/diffs@1.6.1'
-+  - '@pierre/theming@1.0.2'
-+  - tsrs@0.18.0-ts7.1.0-dev.20260929
-+  - '@tsrs/darwin-arm64@0.18.0-ts7.1.0-dev.20260929'
-+  - '@tsrs/linux-arm64-gnu@0.18.0-ts7.1.0-dev.20260929'
-+  - '@tsrs/linux-arm64-musl@0.18.0-ts7.1.0-dev.20260929'
-+  - '@tsrs/linux-x64-gnu@0.18.0-ts7.1.0-dev.20260929'
-+  - '@tsrs/linux-x64-musl@0.18.0-ts7.1.0-dev.20260929'
 +
 +minimumReleaseAge: 10080
 +ignoreScripts: true
