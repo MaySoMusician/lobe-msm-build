@@ -1,4 +1,4 @@
-From 8d26601fc8711de7ec71f9f2e9b1bbf7fce3893b Mon Sep 17 00:00:00 2001
+From 4615fc1292b2ba0bd7a73a5679b570bbdbfc1e50 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 22 Oct 2026 01:38:45 +0000
 Subject: [PATCH 01/18] =?UTF-8?q?=F0=9F=94=92=EF=B8=8F=20build(docker):=20?=
@@ -92,9 +92,9 @@ index 924acdc3eb..35e2b8aa6c 100644
 2.39.5
 
 
-From 1846a2d2187eac76c38a4355a2f7d4a85697216b Mon Sep 17 00:00:00 2001
+From 2125e6f6c6e8410655ff2b03c24ef9296a443c2d Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
-Date: Fri, 30 Oct 2026 04:08:22 +0000
+Date: Mon, 2 Nov 2026 04:03:20 +0000
 Subject: [PATCH 02/18] =?UTF-8?q?=F0=9F=94=92=EF=B8=8F=20build(deps):=20en?=
  =?UTF-8?q?force=20mature=20trusted=20dependency=20resolution?=
 MIME-Version: 1.0
@@ -103,10 +103,10 @@ Content-Transfer-Encoding: 8bit
 
 Co-Authored-By: Claude Opus 5.5 <claude@anthropic.com.invalid>
 ---
- apps/cli/pnpm-workspace.yaml     | 23 +++++++++++++++++++
- apps/desktop/pnpm-workspace.yaml | 23 +++++++++++++++++++
- pnpm-workspace.yaml              | 39 ++++++++++++++++++++++++++++++--
- 3 files changed, 83 insertions(+), 2 deletions(-)
+ apps/cli/pnpm-workspace.yaml     | 23 ++++++++++++++++++++
+ apps/desktop/pnpm-workspace.yaml | 23 ++++++++++++++++++++
+ pnpm-workspace.yaml              | 37 ++++++++++++++++++++++++++++++--
+ 3 files changed, 81 insertions(+), 2 deletions(-)
 
 diff --git a/apps/cli/pnpm-workspace.yaml b/apps/cli/pnpm-workspace.yaml
 index 03bb2caeef..508bf3e2b5 100644
@@ -140,10 +140,10 @@ index 03bb2caeef..508bf3e2b5 100644
 +blockExoticSubdeps: true
 +strictDepBuilds: true
 diff --git a/apps/desktop/pnpm-workspace.yaml b/apps/desktop/pnpm-workspace.yaml
-index 85356e7a50..f445ccf5c0 100644
+index 7f5d1a6d15..3ed75ee526 100644
 --- a/apps/desktop/pnpm-workspace.yaml
 +++ b/apps/desktop/pnpm-workspace.yaml
-@@ -76,3 +76,26 @@ minimumReleaseAgeExclude:
+@@ -77,3 +77,26 @@ minimumReleaseAgeExclude:
    - '@auv-js/sdk@0.0.38'
    - electron-sparkle-updater@0.5.3
    - '@lobehub/*'
@@ -171,34 +171,32 @@ index 85356e7a50..f445ccf5c0 100644
 +blockExoticSubdeps: true
 +strictDepBuilds: true
 diff --git a/pnpm-workspace.yaml b/pnpm-workspace.yaml
-index e21e375aa2..015eaf6595 100644
+index 55bb8902eb..8a27ad9c0f 100644
 --- a/pnpm-workspace.yaml
 +++ b/pnpm-workspace.yaml
-@@ -36,9 +36,13 @@ minimumReleaseAgeExclude:
+@@ -36,9 +36,11 @@ minimumReleaseAgeExclude:
    - '@auv-js/cli-win32-x64-msvc@0.0.25'
    - '@auv-js/cli@0.0.25'
    - '@auv-js/sdk@0.0.25'
 -  - '@lobehub/*'
    - virtua@0.53.5
 -  - local-replica
-+  - local-replica@0.0.4
-+  - '@lobehub/editor@7.0.4'
-+  - '@modelcontextprotocol/client@2.4.0'
-+  - '@modelcontextprotocol/core@2.4.0'
-+  - '@modelcontextprotocol/node@2.1.2'
-+  - '@modelcontextprotocol/server@2.4.0'
++  - '@lobehub/editor@7.1.0'
++  - '@lobehub/market-sdk@0.46.0'
++  - '@lobehub/market-types@1.22.0'
++  - local-replica@0.1.1
  
  # Build scripts run one at a time. Several peer-variant copies of
  # @lobehub/editor resolve in this workspace and every copy's postinstall
-@@ -63,6 +67,7 @@ allowBuilds:
+@@ -63,6 +65,7 @@ allowBuilds:
    workerd: true
  
  overrides:
 +  '@hono/node-server': 1.19.17
    '@lobehub/ui': ^6.9.0
    '@lobehub/icons': ^6.0.0
-   '@lobehub/editor': ^7.0.0
-@@ -98,3 +103,33 @@ patchedDependencies:
+   # Exact: an editor release can move its lexical version, and the root pins
+@@ -100,3 +103,33 @@ patchedDependencies:
    '@upstash/qstash': patches/@upstash__qstash.patch
    micromark@4.0.3: patches/micromark@4.0.3.patch
    micromark-extension-gfm-autolink-literal@2.1.0: patches/micromark-extension-gfm-autolink-literal@2.1.0.patch
@@ -236,7 +234,7 @@ index e21e375aa2..015eaf6595 100644
 2.39.5
 
 
-From 56d11de92269983c08cad464f5df424d0d3fb0c5 Mon Sep 17 00:00:00 2001
+From 14d9c8fea906c155045dd8cb21d9a8db1074d5c2 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 7 Oct 2026 16:25:57 +0000
 Subject: [PATCH 03/18] =?UTF-8?q?=E2=9C=A8=20feat(openai):=20keep=20GPT=20?=
@@ -255,10 +253,10 @@ Co-authored-by: Cursor Grok 4.7 <cursoragent@cursor.com.invalid>
  5 files changed, 113 insertions(+), 20 deletions(-)
 
 diff --git a/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts b/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
-index 02f8cb7c45..dd9da8fdcf 100644
+index 8d365b7a31..4a93aea8e0 100644
 --- a/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
 +++ b/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
-@@ -1445,7 +1445,7 @@ export const createOpenAICompatibleRuntime = <T extends Record<string, any> = an
+@@ -1433,7 +1433,7 @@ export const createOpenAICompatibleRuntime = <T extends Record<string, any> = an
          strictToolPairing: true,
        });
  
@@ -562,7 +560,7 @@ index a7ebcd844c..0b35e2e216 100644
 2.39.5
 
 
-From 23af6e972258751a7c33a55b0df073548b739fa3 Mon Sep 17 00:00:00 2001
+From 1f9f45e9d3719475f68ce8705d4777f437e50073 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 7 Oct 2026 16:25:57 +0000
 Subject: [PATCH 04/18] =?UTF-8?q?=E2=9C=A8=20feat(openai):=20preserve=20de?=
@@ -1020,7 +1018,7 @@ index af6734ddaf..0308bd1d26 100644
 2.39.5
 
 
-From 92603d8cc55a51f2beaaca55cec51b2f4f56302b Mon Sep 17 00:00:00 2001
+From 41fd6a903b46b182813740e3bc969be4ba057ae9 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 7 Oct 2026 16:25:57 +0000
 Subject: [PATCH 05/18] =?UTF-8?q?=F0=9F=90=9B=20fix(openai):=20use=20one?=
@@ -1161,18 +1159,18 @@ index b387a2a544..13a2b47fe3 100644
    },
    "peerDependencies": {
 diff --git a/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts b/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
-index dd9da8fdcf..e35bf9ec90 100644
+index 4a93aea8e0..2e8dfda163 100644
 --- a/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
 +++ b/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
-@@ -102,6 +102,7 @@ import {
-   parseStructuredToolArguments,
+@@ -103,6 +103,7 @@ import {
    StructuredOutputError,
  } from './structuredOutput';
+ import { createOpenAICompatibleSpeech } from './textToSpeech';
 +import { DEFAULT_OPENAI_TIMEOUT, resolveOpenAIClientNetworkOptions } from './timeout';
  
  export type { PollVideoStatusResult };
  export * from './createVideo';
-@@ -112,6 +113,7 @@ export type {
+@@ -113,6 +114,7 @@ export type {
    OpenAICompatibleFactoryOptions,
  } from './factoryOptions';
  export * from './nonStreamToStream';
@@ -1180,7 +1178,7 @@ index dd9da8fdcf..e35bf9ec90 100644
  
  /**
   * Detect provider 400/422 errors that reject `response_format: { type: 'json_schema' }`.
-@@ -231,7 +233,31 @@ export const createOpenAICompatibleRuntime = <T extends Record<string, any> = an
+@@ -232,7 +234,31 @@ export const createOpenAICompatibleRuntime = <T extends Record<string, any> = an
  
        if (!apiKey) throw AgentRuntimeError.createError(ErrorType?.invalidAPIKey);
  
@@ -1213,7 +1211,7 @@ index dd9da8fdcf..e35bf9ec90 100644
  
        // if the custom client is provided, use it as client
        if (customClient?.createClient) {
-@@ -563,6 +589,7 @@ export const createOpenAICompatibleRuntime = <T extends Record<string, any> = an
+@@ -564,6 +590,7 @@ export const createOpenAICompatibleRuntime = <T extends Record<string, any> = an
              baseURL: targetBaseURL,
              ...constructorOptions,
              ...restOptions,
@@ -1406,10 +1404,10 @@ index daa1510fe5..a094abbe6e 100644
    if (process.env.NODE_ENV !== 'production' && process.env.NEXT_RUNTIME === 'nodejs') {
      await import('./libs/debug-file-logger');
 diff --git a/src/libs/next/config/define-config.ts b/src/libs/next/config/define-config.ts
-index 9b0762ba4a..e396771854 100644
+index 54ee07ea86..e3f5f5e3ff 100644
 --- a/src/libs/next/config/define-config.ts
 +++ b/src/libs/next/config/define-config.ts
-@@ -373,6 +373,7 @@ export function defineConfig(config: CustomNextConfig) {
+@@ -375,6 +375,7 @@ export function defineConfig(config: CustomNextConfig) {
        'pdfjs-dist',
        'ajv',
        'oidc-provider',
@@ -1433,7 +1431,7 @@ index 67b1494f48..8ec11b3441 100644
 2.39.5
 
 
-From f69404c3db9e703813165a66a2be81e13b9012bf Mon Sep 17 00:00:00 2001
+From 8e22131c470c8c17870d3e751745f8b8bc267755 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 7 Oct 2026 16:25:57 +0000
 Subject: [PATCH 06/18] =?UTF-8?q?=E2=9C=A8=20feat(agent):=20keep=20prompts?=
@@ -1445,7 +1443,7 @@ Content-Transfer-Encoding: 8bit
 Co-authored-by: Cursor Grok 4.7 <cursoragent@cursor.com.invalid>
 ---
  .../__tests__/serverMessagesEngine.test.ts    | 35 ++++---------------
- .../execAgent.builtinRuntime.test.ts          | 19 +++-------
+ .../execAgent.builtinRuntime.test.ts          | 22 +++---------
  .../__tests__/resolveRunAgentConfig.test.ts   |  4 +--
  .../builtin-agents/src/agents/inbox/index.ts  |  6 +---
  .../src/engine/messages/MessagesEngine.ts     | 27 +-------------
@@ -1455,10 +1453,10 @@ Co-authored-by: Cursor Grok 4.7 <cursoragent@cursor.com.invalid>
  src/services/chat/chat.test.ts                | 17 ++++-----
  .../chat/mecha/agentConfigResolver.test.ts    | 14 +++-----
  .../chat/mecha/contextEngineering.test.ts     | 25 +++++--------
- 11 files changed, 54 insertions(+), 145 deletions(-)
+ 11 files changed, 54 insertions(+), 148 deletions(-)
 
 diff --git a/apps/server/src/modules/Mecha/ContextEngineering/__tests__/serverMessagesEngine.test.ts b/apps/server/src/modules/Mecha/ContextEngineering/__tests__/serverMessagesEngine.test.ts
-index d768efb154..2f5a6e46c4 100644
+index 5879513441..b1b7f43592 100644
 --- a/apps/server/src/modules/Mecha/ContextEngineering/__tests__/serverMessagesEngine.test.ts
 +++ b/apps/server/src/modules/Mecha/ContextEngineering/__tests__/serverMessagesEngine.test.ts
 @@ -4,16 +4,6 @@ import { describe, expect, it, vi } from 'vitest';
@@ -1548,10 +1546,18 @@ index d768efb154..2f5a6e46c4 100644
  
      it('should include file URLs in server-side file context', async () => {
 diff --git a/apps/server/src/services/aiAgent/__tests__/execAgent.builtinRuntime.test.ts b/apps/server/src/services/aiAgent/__tests__/execAgent.builtinRuntime.test.ts
-index abec7f2dfe..0fffd53d1f 100644
+index e679dccb0d..f0568e73c3 100644
 --- a/apps/server/src/services/aiAgent/__tests__/execAgent.builtinRuntime.test.ts
 +++ b/apps/server/src/services/aiAgent/__tests__/execAgent.builtinRuntime.test.ts
-@@ -420,7 +420,7 @@ describe('AiAgentService.execAgent - builtin agent runtime config', () => {
+@@ -1,7 +1,6 @@
+ import { GeneralChatAgent, GraphAgent } from '@lobechat/agent-runtime';
+ import { PageAgentIdentifier } from '@lobechat/builtin-tool-page-agent';
+ import { SELF_FEEDBACK_INTENT_IDENTIFIER } from '@lobechat/builtin-tool-self-iteration';
+-import { promptAssistantName } from '@lobechat/const';
+ import { RequestTrigger } from '@lobechat/types';
+ import type * as ModelBankModule from 'model-bank';
+ import { beforeEach, describe, expect, it, vi } from 'vitest';
+@@ -428,7 +427,7 @@ describe('AiAgentService.execAgent - builtin agent runtime config', () => {
      expect(mockGetBuiltinAgent).not.toHaveBeenCalled();
    });
  
@@ -1560,14 +1566,16 @@ index abec7f2dfe..0fffd53d1f 100644
      // Inbox agent with no user-customized systemRole in DB
      mockGetAgentConfig.mockResolvedValue({
        chatConfig: {},
-@@ -437,13 +437,9 @@ describe('AiAgentService.execAgent - builtin agent runtime config', () => {
+@@ -445,15 +444,9 @@ describe('AiAgentService.execAgent - builtin agent runtime config', () => {
        prompt: 'Hello',
      });
  
 -    // Verify createOperation was called with agentConfig containing the runtime systemRole
      expect(mockCreateOperation).toHaveBeenCalledTimes(1);
      const callArgs = mockCreateOperation.mock.calls[0][0];
--    expect(callArgs.agentConfig.systemRole).toContain('You are Lobe');
+-    // Derived, not a literal: the assistant's name comes from the branding slot,
+-    // so a hardcoded 'Lobe' here only passes on the upstream default.
+-    expect(callArgs.agentConfig.systemRole).toContain(`You are ${promptAssistantName('Lobe')}`);
 -    // Model identity is injected by ModelInfoProvider now, not the `{{model}}`
 -    // template placeholder; `{{date}}` still proves the runtime template merged.
 -    expect(callArgs.agentConfig.systemRole).toContain('{{date}}');
@@ -1575,7 +1583,7 @@ index abec7f2dfe..0fffd53d1f 100644
    });
  
    it('should pass user response language into web onboarding runtime systemRole', async () => {
-@@ -495,12 +491,6 @@ describe('AiAgentService.execAgent - builtin agent runtime config', () => {
+@@ -505,12 +498,6 @@ describe('AiAgentService.execAgent - builtin agent runtime config', () => {
      expect(callArgs.agentConfig.systemRole).toBe(customSystemRole);
    });
  
@@ -1588,7 +1596,7 @@ index abec7f2dfe..0fffd53d1f 100644
    it('should not apply runtime config for non-builtin agents', async () => {
      mockGetAgentConfig.mockResolvedValue({
        chatConfig: {},
-@@ -518,8 +508,7 @@ describe('AiAgentService.execAgent - builtin agent runtime config', () => {
+@@ -528,8 +515,7 @@ describe('AiAgentService.execAgent - builtin agent runtime config', () => {
      });
  
      const callArgs = mockCreateOperation.mock.calls[0][0];
@@ -1598,7 +1606,7 @@ index abec7f2dfe..0fffd53d1f 100644
    });
  
    it('should not apply runtime config for agents without slug', async () => {
-@@ -538,7 +527,7 @@ describe('AiAgentService.execAgent - builtin agent runtime config', () => {
+@@ -548,7 +534,7 @@ describe('AiAgentService.execAgent - builtin agent runtime config', () => {
      });
  
      const callArgs = mockCreateOperation.mock.calls[0][0];
@@ -1630,10 +1638,10 @@ index 9a160b5425..5e55342bc1 100644
  
    it('reads the reply language for the caller on an ordinary run', async () => {
 diff --git a/packages/builtin-agents/src/agents/inbox/index.ts b/packages/builtin-agents/src/agents/inbox/index.ts
-index 49383f1748..d7da07aefe 100644
+index 871a3ecbaf..3617b8c153 100644
 --- a/packages/builtin-agents/src/agents/inbox/index.ts
 +++ b/packages/builtin-agents/src/agents/inbox/index.ts
-@@ -3,7 +3,6 @@ import { UserInteractionIdentifier } from '@lobechat/builtin-tool-user-interacti
+@@ -4,7 +4,6 @@ import { DEFAULT_INBOX_AVATAR } from '@lobechat/const';
  
  import type { BuiltinAgentDefinition } from '../../types';
  import { BUILTIN_AGENT_SLUGS } from '../../types';
@@ -1641,8 +1649,8 @@ index 49383f1748..d7da07aefe 100644
  
  /**
   * Inbox Agent - the default assistant agent for general conversations
-@@ -14,10 +13,7 @@ export const INBOX: BuiltinAgentDefinition = {
-   avatar: '/avatars/lobe-ai.png',
+@@ -15,10 +14,7 @@ export const INBOX: BuiltinAgentDefinition = {
+   avatar: DEFAULT_INBOX_AVATAR,
    runtime: (ctx) => ({
      plugins: [AgentDocumentsIdentifier, UserInteractionIdentifier, ...(ctx.plugins || [])],
 -    // A user-customized prompt wins; the runtime one is only the default.
@@ -1654,10 +1662,10 @@ index 49383f1748..d7da07aefe 100644
  
    slug: BUILTIN_AGENT_SLUGS.inbox,
 diff --git a/packages/context-engine/src/engine/messages/MessagesEngine.ts b/packages/context-engine/src/engine/messages/MessagesEngine.ts
-index 5a683aeb9f..e58595bd5f 100644
+index 093feeaafa..aeaa7a4ab3 100644
 --- a/packages/context-engine/src/engine/messages/MessagesEngine.ts
 +++ b/packages/context-engine/src/engine/messages/MessagesEngine.ts
-@@ -52,7 +52,6 @@ import {
+@@ -54,7 +54,6 @@ import {
    HistorySummaryProvider,
    KnowledgeInjector,
    LocalSystemToolSnapshotInjector,
@@ -1682,16 +1690,16 @@ index 5a683aeb9f..e58595bd5f 100644
        provider,
        systemRole,
        agentIdentity,
-@@ -201,8 +197,6 @@ export class MessagesEngine {
+@@ -200,8 +196,6 @@ export class MessagesEngine {
+       initialContext,
        stepContext,
-       pageContentContext,
        topicReferences,
 -      enableSystemDate,
 -      timezone,
      } = this.params;
  
      const isAgentBuilderEnabled = !!agentBuilderContext;
-@@ -236,12 +230,7 @@ export class MessagesEngine {
+@@ -233,12 +227,7 @@ export class MessagesEngine {
            : undefined;
      const isTodoEnabled = effectiveTodos !== undefined;
  
@@ -1704,7 +1712,7 @@ index 5a683aeb9f..e58595bd5f 100644
      const currentUserMessage = [...messages]
        .reverse()
        .find((m) => m.role === 'user' && typeof m.content === 'string')?.content as
-@@ -329,22 +318,8 @@ export class MessagesEngine {
+@@ -326,22 +315,8 @@ export class MessagesEngine {
          context: botPlatformContext,
          enabled: !!botPlatformContext,
        }),
@@ -1729,7 +1737,7 @@ index 5a683aeb9f..e58595bd5f 100644
          context: workspaceContext,
          enabled: !!workspaceContext,
 diff --git a/packages/context-engine/src/engine/messages/__tests__/MessagesEngine.test.ts b/packages/context-engine/src/engine/messages/__tests__/MessagesEngine.test.ts
-index 5d3e83c74a..8caf719df2 100644
+index d63455d50b..73a13edff2 100644
 --- a/packages/context-engine/src/engine/messages/__tests__/MessagesEngine.test.ts
 +++ b/packages/context-engine/src/engine/messages/__tests__/MessagesEngine.test.ts
 @@ -349,7 +349,7 @@ describe('MessagesEngine', () => {
@@ -1790,7 +1798,7 @@ index 5d3e83c74a..8caf719df2 100644
        expect(userContent).toContain('use an available visual-analysis tool before answering');
        expect(userContent).toMatch(/ref=\\"msg_[^"]+\.image_1\\"/);
 diff --git a/packages/mecha/src/resolveAgentConfig.test.ts b/packages/mecha/src/resolveAgentConfig.test.ts
-index 6b2d948772..f0c50b5583 100644
+index 625e2a6632..3abde4265a 100644
 --- a/packages/mecha/src/resolveAgentConfig.test.ts
 +++ b/packages/mecha/src/resolveAgentConfig.test.ts
 @@ -26,10 +26,10 @@ describe('resolveAgentConfig without a host', () => {
@@ -1806,7 +1814,7 @@ index 6b2d948772..f0c50b5583 100644
    });
  
    it('leaves the system role alone when no locale is supplied', () => {
-@@ -174,8 +174,6 @@ describe('resolveAgentConfig without a host', () => {
+@@ -174,9 +174,7 @@ describe('resolveAgentConfig without a host', () => {
          slug: 'inbox',
        }),
      );
@@ -1816,11 +1824,12 @@ index 6b2d948772..f0c50b5583 100644
 +    expect(empty.agentConfig.systemRole).toBe('');
    });
  });
+ 
 diff --git a/packages/mecha/src/resolveAgentConfig.ts b/packages/mecha/src/resolveAgentConfig.ts
-index 77e96fab3b..d2149ef343 100644
+index 3c4c01dd8c..b3d3f32e7f 100644
 --- a/packages/mecha/src/resolveAgentConfig.ts
 +++ b/packages/mecha/src/resolveAgentConfig.ts
-@@ -375,20 +375,13 @@ export const resolveAgentConfig = (
+@@ -382,20 +382,13 @@ export const resolveAgentConfig = (
      // Regular agent - use provided plugins if available, fallback to agent's plugins
      const finalPlugins = plugins && plugins.length > 0 ? plugins : basePlugins;
  
@@ -1845,7 +1854,7 @@ index 77e96fab3b..d2149ef343 100644
        chatConfig,
      );
      let finalChatConfig = chatConfig;
-@@ -406,13 +399,13 @@ export const resolveAgentConfig = (
+@@ -413,13 +406,13 @@ export const resolveAgentConfig = (
        const pageAgentRuntime = getAgentRuntimeConfig(BUILTIN_AGENT_SLUGS.pageAgent, {});
        const pageAgentSystemRole = pageAgentRuntime?.systemRole || '';
  
@@ -1863,7 +1872,7 @@ index 77e96fab3b..d2149ef343 100644
  
        finalAgentConfig = {
          ...finalAgentConfig,
-@@ -440,10 +433,10 @@ export const resolveAgentConfig = (
+@@ -447,10 +440,10 @@ export const resolveAgentConfig = (
        const taskAgentRuntime = getAgentRuntimeConfig(BUILTIN_AGENT_SLUGS.taskAgent, {});
        const taskAgentSystemRole = taskAgentRuntime?.systemRole || '';
        const mergedSystemRole = taskAgentSystemRole
@@ -2043,7 +2052,7 @@ index 76317a8af7..45589cd5ba 100644
 2.39.5
 
 
-From f29784a41d15ec92936c3aa2dfc3aff486075674 Mon Sep 17 00:00:00 2001
+From 6d168d18f4354791adb1de153c67e3888d7581f7 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:58:13 +0000
 Subject: [PATCH 07/18] =?UTF-8?q?=E2=9C=A8=20feat(agent):=20keep=20tools?=
@@ -2170,10 +2179,10 @@ index 3f11360211..c11b3ded2d 100644
  
      const lobeAgent = result.enabledManifests.find(
 diff --git a/packages/builtin-tools/src/index.ts b/packages/builtin-tools/src/index.ts
-index ade4ccd722..646e93e0d6 100644
+index bb039d442e..2f35fe17a2 100644
 --- a/packages/builtin-tools/src/index.ts
 +++ b/packages/builtin-tools/src/index.ts
-@@ -80,25 +80,9 @@ export const defaultToolIds = [
+@@ -82,25 +82,9 @@ export const defaultToolIds = [
  
  /**
   * Tool IDs that are always enabled regardless of user selection.
@@ -2201,7 +2210,7 @@ index ade4ccd722..646e93e0d6 100644
  
  /**
   * Runtime tools represented by the skill activation mode control itself. They remain part
-@@ -308,22 +292,16 @@ const builtinToolRegistry: LobeBuiltinTool[] = [
+@@ -310,22 +294,16 @@ const builtinToolRegistry: LobeBuiltinTool[] = [
      type: 'builtin',
    },
    {
@@ -2246,7 +2255,7 @@ index fd359ca062..ef5a681116 100644
        expect(resolved.rules[id]).toBe(true);
        expect(resolved.defaultToolIds).toContain(id);
 diff --git a/src/helpers/toolEngineering/index.test.ts b/src/helpers/toolEngineering/index.test.ts
-index 5a7c0b9a8e..5b81a2ea13 100644
+index bcbaf7d8bf..7ff59888f3 100644
 --- a/src/helpers/toolEngineering/index.test.ts
 +++ b/src/helpers/toolEngineering/index.test.ts
 @@ -536,9 +536,8 @@ describe('toolEngineering', () => {
@@ -2349,7 +2358,7 @@ index c7240e961f..d486b4efee 100644
 2.39.5
 
 
-From 14bd71aa5110b6dea143a65ead15aafb0e7477bf Mon Sep 17 00:00:00 2001
+From eaefebd98cb3c1cbf4da23b027721f0e1443762d Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:58:21 +0000
 Subject: [PATCH 08/18] =?UTF-8?q?=E2=9C=A8=20feat(agent):=20summarize=20to?=
@@ -2394,7 +2403,7 @@ index cc24fb2baa..151b64af37 100644
 2.39.5
 
 
-From 0c404b1e35323a02ec16169a6fa78cc89bfe5e90 Mon Sep 17 00:00:00 2001
+From 6494fc1df529a1416a385e2fbccfb629f4667ef3 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 7 Oct 2026 16:25:57 +0000
 Subject: [PATCH 09/18] =?UTF-8?q?=F0=9F=90=9B=20fix(qstash):=20construct?=
@@ -2584,27 +2593,33 @@ index ac71484a97..6ea7aab524 100644
 2.39.5
 
 
-From fefad11daafd49a6253cc83a63c923e8af96e5fb Mon Sep 17 00:00:00 2001
+From 50b2c157edae6603e24c198d2420124e2ffbda7a Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
-Date: Thu, 24 Sep 2026 06:58:34 +0000
+Date: Mon, 2 Nov 2026 03:55:50 +0000
 Subject: [PATCH 10/18] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20keep=20patched=20?=
  =?UTF-8?q?fonts=20at=20the=20app=20boundary?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Co-authored-by: Cursor GPT-5.6 Sol <cursoragent@cursor.com.invalid>
+Upstream now takes the per-language font stack from @lobehub/ui, so the
+stack itself lives in the lobe-ui patch. Keep the IBM Plex Sans JP
+links in every entry document (including the not-compatible page, which
+no longer loads the Harmony webfonts) and expect the patched stack in
+the custom-font override test.
+
+Co-Authored-By: Claude Opus 5.5 <claude@anthropic.com.invalid>
 ---
- apps/share/index.html     |  6 ++++++
- apps/workbench/index.html |  6 ++++++
- index.auth.html           |  6 ++++++
- index.html                |  6 ++++++
- index.mobile.html         |  6 ++++++
- index.workbench.html      |  6 ++++++
- src/const/font.test.ts    | 25 +++++++++++++++++--------
- src/const/font.ts         | 20 ++++++--------------
- vite.config.ts            |  2 +-
- 9 files changed, 60 insertions(+), 23 deletions(-)
+ apps/share/index.html                                |  6 ++++++
+ apps/workbench/index.html                            |  6 ++++++
+ index.auth.html                                      |  6 ++++++
+ index.html                                           |  6 ++++++
+ index.mobile.html                                    |  6 ++++++
+ index.workbench.html                                 |  6 ++++++
+ public/not-compatible.html                           | 10 ++++------
+ src/layout/GlobalProvider/fontFamilyOverride.test.ts |  5 +++--
+ vite.config.ts                                       |  2 +-
+ 9 files changed, 44 insertions(+), 9 deletions(-)
 
 diff --git a/apps/share/index.html b/apps/share/index.html
 index dd01f35f85..32c28329f6 100644
@@ -2708,120 +2723,55 @@ index c8c4d3c3ee..8ded019ec1 100644
    </head>
  
    <body>
-diff --git a/src/const/font.test.ts b/src/const/font.test.ts
-index 173d8c7fe0..8900988bf7 100644
---- a/src/const/font.test.ts
-+++ b/src/const/font.test.ts
-@@ -1,20 +1,22 @@
- import { describe, expect, it } from 'vitest';
- 
--import { genFontFamily } from './font';
-+import { genFontFamily, genFontFamilyCode } from './font';
- 
- describe('genFontFamily', () => {
--  it('puts japanese families ahead of the SC fallback for ja-JP', () => {
-+  it('puts IBM Plex first and retains Japanese fallbacks for ja-JP', () => {
-     const stack = genFontFamily({ locale: 'ja-JP' });
- 
-+    expect(stack.startsWith('"IBM Plex Sans JP"')).toBe(true);
-     expect(stack.indexOf('"Hiragino Sans"')).toBeGreaterThan(-1);
--    expect(stack.indexOf('"Hiragino Sans"')).toBeLessThan(stack.indexOf('"HarmonyOS Sans SC"'));
-+    expect(stack).not.toContain('HarmonyOS');
-   });
- 
--  it('keeps the SC stack first for zh-CN and unknown locales', () => {
-+  it('does not inject a Harmony SC fallback for zh-CN and unknown locales', () => {
-     for (const locale of ['zh-CN', 'de-DE', undefined]) {
-       const stack = genFontFamily({ locale });
- 
--      expect(stack).toContain('"HarmonyOS Sans SC"');
-+      expect(stack.startsWith('"IBM Plex Sans JP"')).toBe(true);
-+      expect(stack).not.toContain('HarmonyOS');
-       expect(stack).not.toContain('"PingFang TC"');
-       expect(stack).not.toContain('"Hiragino Sans"');
-     }
-@@ -23,7 +25,8 @@ describe('genFontFamily', () => {
-   it('prefers TC families for zh-TW', () => {
-     const stack = genFontFamily({ locale: 'zh-TW' });
- 
--    expect(stack.indexOf('"PingFang TC"')).toBeLessThan(stack.indexOf('"PingFang SC"'));
-+    expect(stack).toContain('"PingFang TC"');
-+    expect(stack).not.toContain('"PingFang SC"');
-   });
- 
-   it('puts the user font first, then the env custom font', () => {
-@@ -33,12 +36,18 @@ describe('genFontFamily', () => {
+diff --git a/public/not-compatible.html b/public/not-compatible.html
+index 24a68ab04e..eda6a218fd 100644
+--- a/public/not-compatible.html
++++ b/public/not-compatible.html
+@@ -7,17 +7,15 @@
+     <meta name="color-scheme" content="light dark" />
+     <title>Browser Not Compatible - LobeHub</title>
+     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
++    <link href="https://fonts.googleapis.com" rel="preconnect" />
++    <link crossorigin="anonymous" href="https://fonts.gstatic.com" rel="preconnect" />
+     <link
++      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+JP:wght@400;500;600;700&display=swap"
+       rel="stylesheet"
+-      href="https://registry.npmmirror.com/@lobehub/webfont-harmony-sans-sc/latest/files/css/index.css"
+-    />
+-    <link
+-      rel="stylesheet"
+-      href="https://registry.npmmirror.com/@lobehub/webfont-harmony-sans/latest/files/css/index.css"
+     />
+     <style>
+       html {
+-        font-family: 'HarmonyOS Sans SC', 'HarmonyOS Sans', sans-serif, system-ui;
++        font-family: 'IBM Plex Sans JP', sans-serif, system-ui;
+       }
+       /* Theme Variables - Light Mode (Default) */
+       :root {
+diff --git a/src/layout/GlobalProvider/fontFamilyOverride.test.ts b/src/layout/GlobalProvider/fontFamilyOverride.test.ts
+index ba69e938bc..b9e5260964 100644
+--- a/src/layout/GlobalProvider/fontFamilyOverride.test.ts
++++ b/src/layout/GlobalProvider/fontFamilyOverride.test.ts
+@@ -21,7 +21,8 @@ describe('resolveFontFamilyOverride', () => {
        userFontFamily: ' LXGW WenKai ',
      });
  
--    expect(stack.startsWith('"LXGW WenKai","Env Font",Geist')).toBe(true);
-+    expect(stack.startsWith('"LXGW WenKai","Env Font","IBM Plex Sans JP"')).toBe(true);
+-    expect(fontFamily?.startsWith('"LXGW WenKai","Env Font","HarmonyOS Sans",')).toBe(true);
++    expect(fontFamily?.startsWith('"LXGW WenKai","Env Font","IBM Plex Sans JP",')).toBe(true);
++    expect(fontFamily).not.toMatch(/HarmonyOS|PingFang/);
+     expect(fontFamilyCode).toBeUndefined();
    });
  
-   it('leaves an already composed font-family list untouched', () => {
-     expect(
--      genFontFamily({ customFontFamily: 'Foo, "Bar Baz"' }).startsWith('Foo, "Bar Baz",Geist'),
-+      genFontFamily({ customFontFamily: 'Foo, "Bar Baz"' }).startsWith(
-+        'Foo, "Bar Baz","IBM Plex Sans JP"',
-+      ),
-     ).toBe(true);
+@@ -32,7 +33,7 @@ describe('resolveFontFamilyOverride', () => {
+     });
+ 
+     expect(fontFamily).toBeUndefined();
+-    expect(fontFamilyCode?.startsWith('"JetBrains Mono","Geist Mono",')).toBe(true);
++    expect(fontFamilyCode?.startsWith('"JetBrains Mono","Mgen+ 1mn",')).toBe(true);
+     expect(fontFamilyCode).toContain('"Hiragino Sans"');
    });
-+
-+  it('uses Mgen+ 1mn as the local-first code font', () => {
-+    expect(genFontFamilyCode().startsWith('"Mgen+ 1mn"')).toBe(true);
-+  });
  });
-diff --git a/src/const/font.ts b/src/const/font.ts
-index 4563d764c0..673328318e 100644
---- a/src/const/font.ts
-+++ b/src/const/font.ts
-@@ -1,5 +1,5 @@
- const FONT_EN = [
--  'Geist',
-+  'IBM Plex Sans JP',
-   '-apple-system',
-   'BlinkMacSystemFont',
-   'Segoe UI Variable Display',
-@@ -9,15 +9,7 @@ const FONT_EN = [
-   'Arial',
- ];
- 
--const FONT_SC = [
--  'HarmonyOS Sans SC',
--  'PingFang SC',
--  'Hiragino Sans GB',
--  'Microsoft YaHei UI',
--  'Microsoft YaHei',
--  'Source Han Sans SC',
--  'Noto Sans CJK SC',
--];
-+const FONT_SC: string[] = [];
- 
- const FONT_TC = [
-   'PingFang TC',
-@@ -41,7 +33,7 @@ const FONT_JP = [
- const FONT_KR = ['Apple SD Gothic Neo', 'Malgun Gothic', 'Source Han Sans KR', 'Noto Sans CJK KR'];
- 
- const FONT_CODE = [
--  'Geist Mono',
-+  'Mgen+ 1mn',
-   'ui-monospace',
-   'SFMono-Regular',
-   'SF Mono',
-@@ -55,10 +47,10 @@ const FALLBACK = ['ui-sans-serif', 'system-ui', 'sans-serif'];
- 
- const FALLBACK_CODE = ['monospace'];
- 
--const FONT_EMOJI = ['Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'];
-+const FONT_EMOJI = ['Noto Color Emoji', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'];
- 
--// Han glyphs differ per region, so the locale's own CJK family must win over the
--// SC families that stay in the stack as the last-resort CJK fallback.
-+// Han glyphs differ per region, so locale-specific CJK families follow the
-+// primary IBM Plex stack only when the selected locale needs them.
- const LOCALE_CJK_FONTS: Record<string, string[]> = {
-   'ja-JP': FONT_JP,
-   'ko-KR': FONT_KR,
 diff --git a/vite.config.ts b/vite.config.ts
 index 135b45086c..e67a6aed69 100644
 --- a/vite.config.ts
@@ -2839,7 +2789,7 @@ index 135b45086c..e67a6aed69 100644
 2.39.5
 
 
-From 9b2c54ba9398f8fe8954394d484f0c2e1e3dcea1 Mon Sep 17 00:00:00 2001
+From b051a935e4b9be0abcabe85458a036dcade51bd2 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:58:41 +0000
 Subject: [PATCH 11/18] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20offer=20only=20En?=
@@ -2925,7 +2875,7 @@ index 0dd8228306..e3bb30bc76 100644
 2.39.5
 
 
-From 7fab368e6d0513261545ab518f0eca22c87baf91 Mon Sep 17 00:00:00 2001
+From f77c4473de9cc54153806e3daf8f82b1c31ff682 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 7 Oct 2026 16:25:57 +0000
 Subject: [PATCH 12/18] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20keep=20user-messa?=
@@ -3098,7 +3048,7 @@ index d5e11d7aa1..e72383895b 100644
 2.39.5
 
 
-From 453e3bbb079e7e11e7299d93784ef2e818cfce11 Mon Sep 17 00:00:00 2001
+From 62f2dbedf0163d02813405285966478b8e4d28f5 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:58:55 +0000
 Subject: [PATCH 13/18] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20show=20exact=20to?=
@@ -3183,10 +3133,10 @@ index 208c5e4496..4e46cc3ab4 100644
  };
  
 diff --git a/src/features/Conversation/ChatInput/OpStatusTray.tsx b/src/features/Conversation/ChatInput/OpStatusTray.tsx
-index 3c5b0a87b1..5ac5dd9600 100644
+index dab78f1104..dcadb8cf01 100644
 --- a/src/features/Conversation/ChatInput/OpStatusTray.tsx
 +++ b/src/features/Conversation/ChatInput/OpStatusTray.tsx
-@@ -205,9 +205,7 @@ const ActivityGlyph = () => (
+@@ -207,9 +207,7 @@ const ActivityGlyph = () => (
  );
  
  const formatTokens = (n: number) => {
@@ -3201,7 +3151,7 @@ index 3c5b0a87b1..5ac5dd9600 100644
 2.39.5
 
 
-From 40a761c659dc284da0bf106e6a8fb2bbad0cb935 Mon Sep 17 00:00:00 2001
+From 299cfab0f8dae91f4c2472045c970a86e73fdfbd Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 7 Oct 2026 16:25:57 +0000
 Subject: [PATCH 14/18] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20use=20MSM=20defau?=
@@ -3271,7 +3221,7 @@ index dbef53fdd6..a74db2befd 100644
    withSystemRole: true,
  };
 diff --git a/src/store/global/initialState.ts b/src/store/global/initialState.ts
-index a4e4426648..73ac6a0605 100644
+index 5d5d2a10d5..055709c8e4 100644
 --- a/src/store/global/initialState.ts
 +++ b/src/store/global/initialState.ts
 @@ -143,9 +143,6 @@ export type ModelDetailPanelExpandedKey = (typeof MODEL_DETAIL_PANEL_EXPANDED_KE
@@ -3288,7 +3238,7 @@ index a4e4426648..73ac6a0605 100644
 2.39.5
 
 
-From f14cc81526efc435503bb9d3f7d3144748d0be6c Mon Sep 17 00:00:00 2001
+From d2165bf7f39bf72d060b96e91df1819a44e499a9 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:59:09 +0000
 Subject: [PATCH 15/18] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20shorten=20topic?=
@@ -3398,7 +3348,7 @@ index 64f4949b1f..b655f2efd9 100644
 2.39.5
 
 
-From 51c7da5c27cc926fcc48f8bfffcea592ede2c4e0 Mon Sep 17 00:00:00 2001
+From ec5b4a80555626a4bd905f4ba272076e73458084 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 25 Sep 2026 04:09:38 +0000
 Subject: [PATCH 16/18] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20add=20text=20verb?=
@@ -3617,7 +3567,7 @@ index 0000000000..4b57db4136
 2.39.5
 
 
-From 739f3735ffb9024388cbe411d0eef5266bcf28e1 Mon Sep 17 00:00:00 2001
+From 5e50ab5b924a4a4b740a716f23012c666abbe8c8 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 8 Oct 2026 13:47:42 +0000
 Subject: [PATCH 17/18] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20open=20usage=20de?=
@@ -3704,7 +3654,7 @@ index 13c0d34c3a..4c749f0bca 100644
 2.39.5
 
 
-From 7e185e20d837932f97499d2a2d28a82cd3450132 Mon Sep 17 00:00:00 2001
+From 942cfdf5d77c9a2de57baa63c7a9c42845c5eb81 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 8 Oct 2026 15:26:32 +0000
 Subject: [PATCH 18/18] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20show=20USD=20cost?=
@@ -3728,10 +3678,10 @@ Co-authored-by: Cursor Grok 4.7 <cursoragent@cursor.com.invalid>
  create mode 100644 src/features/Conversation/Messages/components/Extras/Usage/UsageDetail/usageCost.ts
 
 diff --git a/locales/en-US/chat.json b/locales/en-US/chat.json
-index 596d720e77..e0db65e2c3 100644
+index 3157248490..7408da0d26 100644
 --- a/locales/en-US/chat.json
 +++ b/locales/en-US/chat.json
-@@ -1795,15 +1795,15 @@
+@@ -1811,15 +1811,15 @@
    "messageLongCollapse.expand": "Show more",
    "messages.dm.sentTo": "Visible only to {{name}}",
    "messages.dm.title": "DM",
@@ -3754,10 +3704,10 @@ index 596d720e77..e0db65e2c3 100644
    "messages.tokenDetails.cacheRate": "Cache rate",
    "messages.tokenDetails.cliCredits.title": "{{value}} Credits",
 diff --git a/packages/locales/src/default/chat.ts b/packages/locales/src/default/chat.ts
-index 0740e8d81c..63d26c90d5 100644
+index ae15c80ea3..a024e89e4b 100644
 --- a/packages/locales/src/default/chat.ts
 +++ b/packages/locales/src/default/chat.ts
-@@ -1135,17 +1135,16 @@ export default {
+@@ -1141,17 +1141,16 @@ export default {
    'messageLongCollapse.expand': 'Show more',
    'messages.dm.sentTo': 'Visible only to {{name}}',
    'messages.dm.title': 'DM',
@@ -3794,10 +3744,10 @@ index 13a2b47fe3..b3327bc85b 100644
      "./resolveVideoSinglePrice": "./src/core/usageConverters/utils/resolveVideoSinglePrice.ts",
      "./types/error": "./src/types/error.ts",
 diff --git a/src/features/Conversation/Messages/components/Extras/Usage/UsageDetail/ModelCard.tsx b/src/features/Conversation/Messages/components/Extras/Usage/UsageDetail/ModelCard.tsx
-index edba57f064..cce7953e98 100644
+index b9ef704802..3c9d14bed0 100644
 --- a/src/features/Conversation/Messages/components/Extras/Usage/UsageDetail/ModelCard.tsx
 +++ b/src/features/Conversation/Messages/components/Extras/Usage/UsageDetail/ModelCard.tsx
-@@ -61,12 +61,12 @@ const ModelCard = memo<ModelCardProps>(({ pricing, id, provider, displayName })
+@@ -53,12 +53,12 @@ const ModelCard = memo<ModelCardProps>(({ pricing, id, provider, displayName })
          {!!pricing && (
            <Flexbox>
              <Tabs
@@ -3812,7 +3762,7 @@ index edba57f064..cce7953e98 100644
                    label: (
                      <Tooltip title={t('messages.modelCard.creditTooltip')}>
                        <span>{t('messages.modelCard.credit')}</span>
-@@ -75,7 +75,7 @@ const ModelCard = memo<ModelCardProps>(({ pricing, id, provider, displayName })
+@@ -67,7 +67,7 @@ const ModelCard = memo<ModelCardProps>(({ pricing, id, provider, displayName })
                  },
                ]}
                onChange={(key) => {
