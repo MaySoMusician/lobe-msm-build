@@ -9,9 +9,7 @@ import {
   waitForAssistantText,
 } from '../../support/ui.js';
 
-// MSM intent: in Chat mode with no skills selected (search and memory off),
-// no tool prompt is loaded automatically, so it costs 0 tokens. Every
-// precondition is set through the UI, the way a user would.
+// Every precondition is set through the UI, the way a user would.
 
 type Mode = 'Agent' | 'Chat';
 type Capability = 'Memory' | 'Web Browsing';
