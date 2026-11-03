@@ -1,4 +1,4 @@
-From 4615fc1292b2ba0bd7a73a5679b570bbdbfc1e50 Mon Sep 17 00:00:00 2001
+From f04700cec79b70deadb81768f8a26c2fdde3af5b Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 22 Oct 2026 01:38:45 +0000
 Subject: [PATCH 01/18] =?UTF-8?q?=F0=9F=94=92=EF=B8=8F=20build(docker):=20?=
@@ -92,9 +92,9 @@ index 924acdc3eb..35e2b8aa6c 100644
 2.39.5
 
 
-From 2125e6f6c6e8410655ff2b03c24ef9296a443c2d Mon Sep 17 00:00:00 2001
+From df263dae0d688f92dfacbac73965a3e065b6fa07 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
-Date: Mon, 2 Nov 2026 04:03:20 +0000
+Date: Tue, 3 Nov 2026 17:47:09 +0000
 Subject: [PATCH 02/18] =?UTF-8?q?=F0=9F=94=92=EF=B8=8F=20build(deps):=20en?=
  =?UTF-8?q?force=20mature=20trusted=20dependency=20resolution?=
 MIME-Version: 1.0
@@ -103,10 +103,10 @@ Content-Transfer-Encoding: 8bit
 
 Co-Authored-By: Claude Opus 5.5 <claude@anthropic.com.invalid>
 ---
- apps/cli/pnpm-workspace.yaml     | 23 ++++++++++++++++++++
- apps/desktop/pnpm-workspace.yaml | 23 ++++++++++++++++++++
- pnpm-workspace.yaml              | 37 ++++++++++++++++++++++++++++++--
- 3 files changed, 81 insertions(+), 2 deletions(-)
+ apps/cli/pnpm-workspace.yaml     | 23 +++++++++++++++++++++
+ apps/desktop/pnpm-workspace.yaml | 23 +++++++++++++++++++++
+ pnpm-workspace.yaml              | 34 +++++++++++++++++++++++++++++++-
+ 3 files changed, 79 insertions(+), 1 deletion(-)
 
 diff --git a/apps/cli/pnpm-workspace.yaml b/apps/cli/pnpm-workspace.yaml
 index 03bb2caeef..508bf3e2b5 100644
@@ -140,11 +140,11 @@ index 03bb2caeef..508bf3e2b5 100644
 +blockExoticSubdeps: true
 +strictDepBuilds: true
 diff --git a/apps/desktop/pnpm-workspace.yaml b/apps/desktop/pnpm-workspace.yaml
-index 7f5d1a6d15..3ed75ee526 100644
+index 8a8fbc6129..6e06a3ede7 100644
 --- a/apps/desktop/pnpm-workspace.yaml
 +++ b/apps/desktop/pnpm-workspace.yaml
 @@ -77,3 +77,26 @@ minimumReleaseAgeExclude:
-   - '@auv-js/sdk@0.0.38'
+   - '@auv-js/sdk@0.0.40'
    - electron-sparkle-updater@0.5.3
    - '@lobehub/*'
 +
@@ -171,24 +171,27 @@ index 7f5d1a6d15..3ed75ee526 100644
 +blockExoticSubdeps: true
 +strictDepBuilds: true
 diff --git a/pnpm-workspace.yaml b/pnpm-workspace.yaml
-index 55bb8902eb..8a27ad9c0f 100644
+index 55bb8902eb..c8e0616354 100644
 --- a/pnpm-workspace.yaml
 +++ b/pnpm-workspace.yaml
-@@ -36,9 +36,11 @@ minimumReleaseAgeExclude:
-   - '@auv-js/cli-win32-x64-msvc@0.0.25'
-   - '@auv-js/cli@0.0.25'
+@@ -38,7 +38,15 @@ minimumReleaseAgeExclude:
    - '@auv-js/sdk@0.0.25'
--  - '@lobehub/*'
+   - '@lobehub/*'
    - virtua@0.53.5
 -  - local-replica
-+  - '@lobehub/editor@7.1.0'
-+  - '@lobehub/market-sdk@0.46.0'
-+  - '@lobehub/market-types@1.22.0'
 +  - local-replica@0.1.1
++  - '@tsrs/darwin-arm64@0.20.1-ts7.1.0-beta'
++  - '@tsrs/darwin-x64@0.20.1-ts7.1.0-beta'
++  - '@tsrs/linux-arm64-gnu@0.20.1-ts7.1.0-beta'
++  - '@tsrs/linux-arm64-musl@0.20.1-ts7.1.0-beta'
++  - '@tsrs/linux-x64-gnu@0.20.1-ts7.1.0-beta'
++  - '@tsrs/linux-x64-musl@0.20.1-ts7.1.0-beta'
++  - '@tsrs/win32-x64@0.20.1-ts7.1.0-beta'
++  - tsrs@0.20.1-ts7.1.0-beta
  
  # Build scripts run one at a time. Several peer-variant copies of
  # @lobehub/editor resolve in this workspace and every copy's postinstall
-@@ -63,6 +65,7 @@ allowBuilds:
+@@ -63,6 +71,7 @@ allowBuilds:
    workerd: true
  
  overrides:
@@ -196,7 +199,7 @@ index 55bb8902eb..8a27ad9c0f 100644
    '@lobehub/ui': ^6.9.0
    '@lobehub/icons': ^6.0.0
    # Exact: an editor release can move its lexical version, and the root pins
-@@ -100,3 +103,33 @@ patchedDependencies:
+@@ -100,3 +109,26 @@ patchedDependencies:
    '@upstash/qstash': patches/@upstash__qstash.patch
    micromark@4.0.3: patches/micromark@4.0.3.patch
    micromark-extension-gfm-autolink-literal@2.1.0: patches/micromark-extension-gfm-autolink-literal@2.1.0.patch
@@ -211,22 +214,15 @@ index 55bb8902eb..8a27ad9c0f 100644
 +  - 'undici-types@6.21.0'
 +  - 'chokidar@4.0.3'
 +  - 'semver@5.7.2 || 6.3.1'
-+  - 'eslint-config-prettier@9.1.2'
 +  - '@octokit/plugin-paginate-rest@9.2.2'
 +  - '@octokit/endpoint@9.0.6'
 +  - '@trickfilm400/rollup-plugin-off-main-thread@3.0.0-pre1'
-+  - '@pierre/theme@1.1.0'
 +  - '@pierre/theme@2.0.0'
-+  - '@vercel/cli-config@0.3.0'
-+  - '@vercel/cli-config@0.3.1'
-+  - '@vercel/cli-config@0.3.3'
++  - '@vercel/cli-config@0.3.4'
 +  - '@vercel/cli-exec@1.0.1'
-+  - '@vercel/functions@3.9.9'
-+  - '@vercel/functions@3.10.1'
-+  - '@vercel/functions@3.10.3'
-+  - '@vercel/oidc@3.8.9'
-+  - '@vercel/oidc@4.0.1'
-+  - '@vercel/oidc@4.0.3'
++  - '@vercel/functions@3.10.4'
++  - '@vercel/oidc@4.0.4'
++  - 'tsrs@0.20.1-ts7.1.0-beta'
 +
 +blockExoticSubdeps: true
 +strictDepBuilds: true
@@ -234,7 +230,7 @@ index 55bb8902eb..8a27ad9c0f 100644
 2.39.5
 
 
-From 14d9c8fea906c155045dd8cb21d9a8db1074d5c2 Mon Sep 17 00:00:00 2001
+From 047ed85a3ccd35c6567153c2b708eb739a805302 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 7 Oct 2026 16:25:57 +0000
 Subject: [PATCH 03/18] =?UTF-8?q?=E2=9C=A8=20feat(openai):=20keep=20GPT=20?=
@@ -253,7 +249,7 @@ Co-authored-by: Cursor Grok 4.7 <cursoragent@cursor.com.invalid>
  5 files changed, 113 insertions(+), 20 deletions(-)
 
 diff --git a/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts b/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
-index 8d365b7a31..4a93aea8e0 100644
+index 57025680a5..0880a02d0f 100644
 --- a/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
 +++ b/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
 @@ -1433,7 +1433,7 @@ export const createOpenAICompatibleRuntime = <T extends Record<string, any> = an
@@ -560,7 +556,7 @@ index a7ebcd844c..0b35e2e216 100644
 2.39.5
 
 
-From 1f9f45e9d3719475f68ce8705d4777f437e50073 Mon Sep 17 00:00:00 2001
+From e3215bdc83dc03fa93284662f569af89fa8d2ddc Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 7 Oct 2026 16:25:57 +0000
 Subject: [PATCH 04/18] =?UTF-8?q?=E2=9C=A8=20feat(openai):=20preserve=20de?=
@@ -1018,7 +1014,7 @@ index af6734ddaf..0308bd1d26 100644
 2.39.5
 
 
-From 41fd6a903b46b182813740e3bc969be4ba057ae9 Mon Sep 17 00:00:00 2001
+From f0e8943e174eddb571bb05ddd517c431a6eaa6e4 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 7 Oct 2026 16:25:57 +0000
 Subject: [PATCH 05/18] =?UTF-8?q?=F0=9F=90=9B=20fix(openai):=20use=20one?=
@@ -1159,10 +1155,10 @@ index b387a2a544..13a2b47fe3 100644
    },
    "peerDependencies": {
 diff --git a/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts b/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
-index 4a93aea8e0..2e8dfda163 100644
+index 0880a02d0f..d851d3d30b 100644
 --- a/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
 +++ b/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
-@@ -103,6 +103,7 @@ import {
+@@ -104,6 +104,7 @@ import {
    StructuredOutputError,
  } from './structuredOutput';
  import { createOpenAICompatibleSpeech } from './textToSpeech';
@@ -1170,7 +1166,7 @@ index 4a93aea8e0..2e8dfda163 100644
  
  export type { PollVideoStatusResult };
  export * from './createVideo';
-@@ -113,6 +114,7 @@ export type {
+@@ -114,6 +115,7 @@ export type {
    OpenAICompatibleFactoryOptions,
  } from './factoryOptions';
  export * from './nonStreamToStream';
@@ -1178,7 +1174,7 @@ index 4a93aea8e0..2e8dfda163 100644
  
  /**
   * Detect provider 400/422 errors that reject `response_format: { type: 'json_schema' }`.
-@@ -232,7 +234,31 @@ export const createOpenAICompatibleRuntime = <T extends Record<string, any> = an
+@@ -233,7 +235,31 @@ export const createOpenAICompatibleRuntime = <T extends Record<string, any> = an
  
        if (!apiKey) throw AgentRuntimeError.createError(ErrorType?.invalidAPIKey);
  
@@ -1211,7 +1207,7 @@ index 4a93aea8e0..2e8dfda163 100644
  
        // if the custom client is provided, use it as client
        if (customClient?.createClient) {
-@@ -564,6 +590,7 @@ export const createOpenAICompatibleRuntime = <T extends Record<string, any> = an
+@@ -565,6 +591,7 @@ export const createOpenAICompatibleRuntime = <T extends Record<string, any> = an
              baseURL: targetBaseURL,
              ...constructorOptions,
              ...restOptions,
@@ -1431,7 +1427,7 @@ index 67b1494f48..8ec11b3441 100644
 2.39.5
 
 
-From 8e22131c470c8c17870d3e751745f8b8bc267755 Mon Sep 17 00:00:00 2001
+From d8faa13c26194088b86ecf43928ed0a2755a9c30 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 7 Oct 2026 16:25:57 +0000
 Subject: [PATCH 06/18] =?UTF-8?q?=E2=9C=A8=20feat(agent):=20keep=20prompts?=
@@ -2052,7 +2048,7 @@ index 76317a8af7..45589cd5ba 100644
 2.39.5
 
 
-From f0757b033830cb24a520b02285ce0251d801cdcf Mon Sep 17 00:00:00 2001
+From ee5b43a66fed816566337cde5c711ef063b2eb4d Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:58:13 +0000
 Subject: [PATCH 07/18] =?UTF-8?q?=E2=9C=A8=20feat(agent):=20keep=20tools?=
@@ -2363,7 +2359,7 @@ index c7240e961f..d486b4efee 100644
 2.39.5
 
 
-From ec0eb2fc85652dea94dd4630c5ebbb648b4bc9b1 Mon Sep 17 00:00:00 2001
+From 824465d255b715e27ef6cdb428b5fe8d66c7f5a8 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:58:21 +0000
 Subject: [PATCH 08/18] =?UTF-8?q?=E2=9C=A8=20feat(agent):=20summarize=20to?=
@@ -2408,7 +2404,7 @@ index cc24fb2baa..151b64af37 100644
 2.39.5
 
 
-From 5f5f31b5366e88acb1fcb303f952761bcb26f95d Mon Sep 17 00:00:00 2001
+From f59ac24595963834f19b0e9c642a20ef0bb9207f Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 7 Oct 2026 16:25:57 +0000
 Subject: [PATCH 09/18] =?UTF-8?q?=F0=9F=90=9B=20fix(qstash):=20construct?=
@@ -2598,7 +2594,7 @@ index ac71484a97..6ea7aab524 100644
 2.39.5
 
 
-From 90849005b51fce6c0b0dbec522580e8fe56c7a8b Mon Sep 17 00:00:00 2001
+From 11b30c5eb35c17e30cceca85ae4f46dcaadcb17a Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 2 Nov 2026 03:55:50 +0000
 Subject: [PATCH 10/18] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20keep=20patched=20?=
@@ -2794,7 +2790,7 @@ index 135b45086c..e67a6aed69 100644
 2.39.5
 
 
-From ce29ef27bdbf5358ce0280256ed90047f64ce5f3 Mon Sep 17 00:00:00 2001
+From b8489590523346aa026131dc004cd300bb64239e Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:58:41 +0000
 Subject: [PATCH 11/18] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20offer=20only=20En?=
@@ -2880,7 +2876,7 @@ index 0dd8228306..e3bb30bc76 100644
 2.39.5
 
 
-From b4dbd8c259dc5e0d1fb32c71c744b1e468da03ad Mon Sep 17 00:00:00 2001
+From bad72d85acba431af39a953ec3b330a91cf5df85 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 7 Oct 2026 16:25:57 +0000
 Subject: [PATCH 12/18] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20keep=20user-messa?=
@@ -3053,7 +3049,7 @@ index d5e11d7aa1..e72383895b 100644
 2.39.5
 
 
-From cd936d80e10ee96d9746ccaf13603969d6b65665 Mon Sep 17 00:00:00 2001
+From a08e779712536e13fd76a9ae0bfc010a9f7c0c86 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:58:55 +0000
 Subject: [PATCH 13/18] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20show=20exact=20to?=
@@ -3156,7 +3152,7 @@ index dab78f1104..dcadb8cf01 100644
 2.39.5
 
 
-From 5fc0662ba3826d8168f38c0b288f4fd5c88f7666 Mon Sep 17 00:00:00 2001
+From a9f3271f0e6b039dbbf5273dfb292a1f2bd2e842 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 7 Oct 2026 16:25:57 +0000
 Subject: [PATCH 14/18] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20use=20MSM=20defau?=
@@ -3226,10 +3222,10 @@ index dbef53fdd6..a74db2befd 100644
    withSystemRole: true,
  };
 diff --git a/src/store/global/initialState.ts b/src/store/global/initialState.ts
-index 5d5d2a10d5..055709c8e4 100644
+index 5123d25fc1..a4cfd4de01 100644
 --- a/src/store/global/initialState.ts
 +++ b/src/store/global/initialState.ts
-@@ -143,9 +143,6 @@ export type ModelDetailPanelExpandedKey = (typeof MODEL_DETAIL_PANEL_EXPANDED_KE
+@@ -144,9 +144,6 @@ export type ModelDetailPanelExpandedKey = (typeof MODEL_DETAIL_PANEL_EXPANDED_KE
   * newly added sections default to expanded automatically.
   */
  export const MODEL_DETAIL_PANEL_EXPANDABLE_KEYS = [
@@ -3243,7 +3239,7 @@ index 5d5d2a10d5..055709c8e4 100644
 2.39.5
 
 
-From e33b3f9617dabcfa70dcb4a8f343a9859b2da4fa Mon Sep 17 00:00:00 2001
+From b7c50c01d1e8ddad945e9cd3e20f3f70ccc8d61c Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:59:09 +0000
 Subject: [PATCH 15/18] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20shorten=20topic?=
@@ -3353,7 +3349,7 @@ index 64f4949b1f..b655f2efd9 100644
 2.39.5
 
 
-From 728cc7ccf5020d4e1232e3675331c268a8c8e24f Mon Sep 17 00:00:00 2001
+From b01393c6685b888c40d2137739fc0c8ddf55174d Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 25 Sep 2026 04:09:38 +0000
 Subject: [PATCH 16/18] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20add=20text=20verb?=
@@ -3572,7 +3568,7 @@ index 0000000000..4b57db4136
 2.39.5
 
 
-From 12a6e54e0f737ad73b9c3f24d30939e70fb80b04 Mon Sep 17 00:00:00 2001
+From 82d30b6ede113ea4da7a1b15f39933b569bd014f Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 8 Oct 2026 13:47:42 +0000
 Subject: [PATCH 17/18] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20open=20usage=20de?=
@@ -3659,7 +3655,7 @@ index 13c0d34c3a..4c749f0bca 100644
 2.39.5
 
 
-From 12b5bdd2e777bd131c23ad53542bc0f232008ae5 Mon Sep 17 00:00:00 2001
+From ce0d3380dda34be49106fb04137f412163d3a672 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 8 Oct 2026 15:26:32 +0000
 Subject: [PATCH 18/18] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20show=20USD=20cost?=
@@ -3683,10 +3679,10 @@ Co-authored-by: Cursor Grok 4.7 <cursoragent@cursor.com.invalid>
  create mode 100644 src/features/Conversation/Messages/components/Extras/Usage/UsageDetail/usageCost.ts
 
 diff --git a/locales/en-US/chat.json b/locales/en-US/chat.json
-index 3157248490..7408da0d26 100644
+index 9f5c5dc7e8..adaf881205 100644
 --- a/locales/en-US/chat.json
 +++ b/locales/en-US/chat.json
-@@ -1811,15 +1811,15 @@
+@@ -1813,15 +1813,15 @@
    "messageLongCollapse.expand": "Show more",
    "messages.dm.sentTo": "Visible only to {{name}}",
    "messages.dm.title": "DM",
@@ -3709,10 +3705,10 @@ index 3157248490..7408da0d26 100644
    "messages.tokenDetails.cacheRate": "Cache rate",
    "messages.tokenDetails.cliCredits.title": "{{value}} Credits",
 diff --git a/packages/locales/src/default/chat.ts b/packages/locales/src/default/chat.ts
-index ae15c80ea3..a024e89e4b 100644
+index 9ca55f48be..f3b6dbcd5f 100644
 --- a/packages/locales/src/default/chat.ts
 +++ b/packages/locales/src/default/chat.ts
-@@ -1141,17 +1141,16 @@ export default {
+@@ -1162,17 +1162,16 @@ export default {
    'messageLongCollapse.expand': 'Show more',
    'messages.dm.sentTo': 'Visible only to {{name}}',
    'messages.dm.title': 'DM',
