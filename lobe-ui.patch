@@ -1,4 +1,4 @@
-From a992d1d568ab56481ac3f388fe385cf33ad92ded Mon Sep 17 00:00:00 2001
+From a2cc999afa997acba0a2c5ce191ed1212901faa6 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 2 Nov 2026 03:54:27 +0000
 Subject: [PATCH 1/7] Change font list for Japanese
@@ -226,7 +226,7 @@ index 49ea42e3..526336cc 100644
 2.39.5
 
 
-From 8895490445afe50640862a58dc4a46774b1d65eb Mon Sep 17 00:00:00 2001
+From ebc71125d73837224cc4cdc0afa7f431b3424733 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 30 Oct 2026 04:07:12 +0000
 Subject: [PATCH 2/7] Do not load default EN & CN fonts
@@ -254,7 +254,7 @@ index 39130fef..be7989ef 100644
 2.39.5
 
 
-From 1ecfd1745fdf952b6c8c7ad13f90647d47dcbd3a Mon Sep 17 00:00:00 2001
+From 00b91d4335d3d05e243ca2b31a8ee7b13d92804b Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sat, 13 Dec 2025 07:36:47 +0000
 Subject: [PATCH 3/7] Change colorTextSecondary color
@@ -280,7 +280,7 @@ index 98af6a26..f5b0887b 100644
 2.39.5
 
 
-From 7fec612a07421f2529368c502c8f2709d6228c0f Mon Sep 17 00:00:00 2001
+From e089f91c73f57ec58674482e69634b82252308be Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sat, 10 Jan 2026 01:03:48 +0000
 Subject: [PATCH 4/7] Darken slate[12] dark color for text
@@ -306,7 +306,7 @@ index 7341851a..cb38fec6 100644
 2.39.5
 
 
-From efc3a09ab90fe79cabe35f6fc9e7a08435a86acf Mon Sep 17 00:00:00 2001
+From b498c7ebc4402f5f397b4d4e0d8a5c749193c83c Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 27 Jul 2026 19:10:04 +0000
 Subject: [PATCH 5/7] Add workspaces config to package.json
@@ -316,10 +316,10 @@ Subject: [PATCH 5/7] Add workspaces config to package.json
  1 file changed, 3 insertions(+)
 
 diff --git a/package.json b/package.json
-index c8874b7f..52534aa3 100644
+index 2e4478eb..01900552 100644
 --- a/package.json
 +++ b/package.json
-@@ -117,6 +117,9 @@
+@@ -118,6 +118,9 @@
    "files": [
      "es"
    ],
@@ -333,7 +333,7 @@ index c8874b7f..52534aa3 100644
 2.39.5
 
 
-From 9b695a59aa35205b365db0ecef179f2d827447ca Mon Sep 17 00:00:00 2001
+From 3936fc87babc963443aa1c3cff4d18738997c382 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 23 Sep 2026 22:33:49 +0000
 Subject: [PATCH 6/7] Use the exact same package of this for dependencies
@@ -343,10 +343,10 @@ Subject: [PATCH 6/7] Use the exact same package of this for dependencies
  1 file changed, 3 insertions(+)
 
 diff --git a/package.json b/package.json
-index 52534aa3..e1d83dd1 100644
+index 01900552..57c72d15 100644
 --- a/package.json
 +++ b/package.json
-@@ -167,6 +167,9 @@
+@@ -168,6 +168,9 @@
        "eslint --fix"
      ]
    },
@@ -360,7 +360,7 @@ index 52534aa3..e1d83dd1 100644
 2.39.5
 
 
-From d2ad5ba901d83a3006c43d0b7271d25ca2ee8ae1 Mon Sep 17 00:00:00 2001
+From da72eb02534962b39c0226da446560a6b6a41347 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 2 Nov 2026 03:54:46 +0000
 Subject: [PATCH 7/7] =?UTF-8?q?=F0=9F=94=92=EF=B8=8F=20build(deps):=20enfo?=
