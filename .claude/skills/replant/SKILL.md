@@ -167,7 +167,9 @@ CI consumes patch files, so verify **candidate** patches written to the scratchp
    - Wire `@lobehub/ui` to `file:<tgz>` in `package.json` `dependencies` and the `pnpm-workspace.yaml` `overrides`. Use the same script as the "Apply lobe-chat patch and wire patched @lobehub/ui" step.
    - Set the audited registry and run `pnpm install`. Grep the log for `was published at` (age gate) and trust-downgrade errors.
    - It's fine to experiment with exceptions in the scratch tree to find the full set `pnpm install` demands.
-   - Type check: `NODE_OPTIONS=--max-old-space-size=12288 pnpm exec tsc --noEmit -p tsconfig.json`.
+   - Type check: `NODE_OPTIONS=--max-old-space-size=12288 pnpm exec tsc --noEmit -p tsconfig.type-check.json`.
+     - Not `-p tsconfig.json`: an error in its project setup can make tsc skip type checking entirely.
+     - Only errors that an unpatched checkout of the target doesn't also report count as failures.
 4. **MSM Vitest:** `LOBE_CHAT_DIR=<scratch> ./scripts/apply-lobe-chat-msm-tests.sh && node scripts/run-lobe-chat-msm-tests.mjs`.
    - If `bunx` is missing, put a shim on `PATH` from the scratchpad (`#!/bin/sh` + `exec pnpm exec "$@"`), or ask before installing bun 1.4.2 (the CI version).
 5. **Behavior suite (Docker, heavy, run in the background):** `LOBE_UI_TARBALL=$PWD/.artifacts/lobehub-ui.tgz LOBE_CHAT_DIR=<scratch> AUDITED_NPM_REGISTRY=https://npm.flatt.tech/ node scripts/run-lobe-chat-behavior-tests.mjs`.
