@@ -124,4 +124,10 @@ test('shows the USD cost instead of credits', async ({ page }) => {
   const row = (label: string) => page.getByText(label, { exact: true }).locator('xpath=../..');
   await expect(row('Uncached Input')).toContainText('$0.04938');
   await expect(row('Output')).toContainText('$1.975');
+
+  // The average stays a per-1M USD price under the MSM label, from the unrounded tiered
+  // total: $2.02468 / 111,110 tokens = $18.22 / 1M.
+  await expect(page.getByText('Average price per 1M tokens', { exact: true })).toHaveCount(0);
+  const average = page.getByText('Average unit price', { exact: true }).locator('xpath=..');
+  await expect(average).toContainText('$18.22 / 1M');
 });

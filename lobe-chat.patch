@@ -1,13 +1,13 @@
-From f04700cec79b70deadb81768f8a26c2fdde3af5b Mon Sep 17 00:00:00 2001
+From aae43e5115be62fdce1020f4f77481deb484f567 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
-Date: Thu, 22 Oct 2026 01:38:45 +0000
-Subject: [PATCH 01/18] =?UTF-8?q?=F0=9F=94=92=EF=B8=8F=20build(docker):=20?=
+Date: Thu, 12 Nov 2026 23:25:10 +0000
+Subject: [PATCH 01/19] =?UTF-8?q?=F0=9F=94=92=EF=B8=8F=20build(docker):=20?=
  =?UTF-8?q?pin=20images=20and=20harden=20the=20image=20install?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Co-authored-by: Cursor GPT-5.6 Sol <cursoragent@cursor.com.invalid>
+Co-Authored-By: Claude Opus 5.5 <claude@anthropic.com.invalid>
 ---
  .dockerignore |  1 +
  Dockerfile    | 22 ++++++++++++++++++----
@@ -26,13 +26,13 @@ index fc4c2e7966..020c7d1022 100644
  .next
  .git
 diff --git a/Dockerfile b/Dockerfile
-index 924acdc3eb..35e2b8aa6c 100644
+index 924acdc3eb..7104f6ab31 100644
 --- a/Dockerfile
 +++ b/Dockerfile
 @@ -1,9 +1,13 @@
  ## Set global build ENV
 -ARG NODEJS_VERSION="24"
-+ARG NODEJS_VERSION="24.22.1"
++ARG NODEJS_VERSION="24.22.3"
  
  ## Base image for all building stages
  FROM node:${NODEJS_VERSION}-slim AS base
@@ -92,10 +92,10 @@ index 924acdc3eb..35e2b8aa6c 100644
 2.39.5
 
 
-From df263dae0d688f92dfacbac73965a3e065b6fa07 Mon Sep 17 00:00:00 2001
+From 97cb473540b2d6678b0ab7f159be4081f30e459a Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
-Date: Tue, 3 Nov 2026 17:47:09 +0000
-Subject: [PATCH 02/18] =?UTF-8?q?=F0=9F=94=92=EF=B8=8F=20build(deps):=20en?=
+Date: Thu, 12 Nov 2026 23:43:08 +0000
+Subject: [PATCH 02/19] =?UTF-8?q?=F0=9F=94=92=EF=B8=8F=20build(deps):=20en?=
  =?UTF-8?q?force=20mature=20trusted=20dependency=20resolution?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -103,10 +103,10 @@ Content-Transfer-Encoding: 8bit
 
 Co-Authored-By: Claude Opus 5.5 <claude@anthropic.com.invalid>
 ---
- apps/cli/pnpm-workspace.yaml     | 23 +++++++++++++++++++++
- apps/desktop/pnpm-workspace.yaml | 23 +++++++++++++++++++++
- pnpm-workspace.yaml              | 34 +++++++++++++++++++++++++++++++-
- 3 files changed, 79 insertions(+), 1 deletion(-)
+ apps/cli/pnpm-workspace.yaml     | 23 +++++++++++++++++++++++
+ apps/desktop/pnpm-workspace.yaml | 23 +++++++++++++++++++++++
+ pnpm-workspace.yaml              | 26 +++++++++++++++++++++++++-
+ 3 files changed, 71 insertions(+), 1 deletion(-)
 
 diff --git a/apps/cli/pnpm-workspace.yaml b/apps/cli/pnpm-workspace.yaml
 index 03bb2caeef..508bf3e2b5 100644
@@ -140,11 +140,11 @@ index 03bb2caeef..508bf3e2b5 100644
 +blockExoticSubdeps: true
 +strictDepBuilds: true
 diff --git a/apps/desktop/pnpm-workspace.yaml b/apps/desktop/pnpm-workspace.yaml
-index 8a8fbc6129..6e06a3ede7 100644
+index 1a5bd830d1..b53f40d41d 100644
 --- a/apps/desktop/pnpm-workspace.yaml
 +++ b/apps/desktop/pnpm-workspace.yaml
 @@ -77,3 +77,26 @@ minimumReleaseAgeExclude:
-   - '@auv-js/sdk@0.0.40'
+   - '@auv-js/sdk@0.0.43'
    - electron-sparkle-updater@0.5.3
    - '@lobehub/*'
 +
@@ -171,35 +171,27 @@ index 8a8fbc6129..6e06a3ede7 100644
 +blockExoticSubdeps: true
 +strictDepBuilds: true
 diff --git a/pnpm-workspace.yaml b/pnpm-workspace.yaml
-index 55bb8902eb..c8e0616354 100644
+index c44fcc3a7d..8dc9ef9b6b 100644
 --- a/pnpm-workspace.yaml
 +++ b/pnpm-workspace.yaml
-@@ -38,7 +38,15 @@ minimumReleaseAgeExclude:
+@@ -38,7 +38,7 @@ minimumReleaseAgeExclude:
    - '@auv-js/sdk@0.0.25'
    - '@lobehub/*'
    - virtua@0.53.5
 -  - local-replica
-+  - local-replica@0.1.1
-+  - '@tsrs/darwin-arm64@0.20.1-ts7.1.0-beta'
-+  - '@tsrs/darwin-x64@0.20.1-ts7.1.0-beta'
-+  - '@tsrs/linux-arm64-gnu@0.20.1-ts7.1.0-beta'
-+  - '@tsrs/linux-arm64-musl@0.20.1-ts7.1.0-beta'
-+  - '@tsrs/linux-x64-gnu@0.20.1-ts7.1.0-beta'
-+  - '@tsrs/linux-x64-musl@0.20.1-ts7.1.0-beta'
-+  - '@tsrs/win32-x64@0.20.1-ts7.1.0-beta'
-+  - tsrs@0.20.1-ts7.1.0-beta
++  - chroma-js@3.3.0
  
  # Build scripts run one at a time. Several peer-variant copies of
  # @lobehub/editor resolve in this workspace and every copy's postinstall
-@@ -63,6 +71,7 @@ allowBuilds:
+@@ -63,6 +63,7 @@ allowBuilds:
    workerd: true
  
  overrides:
 +  '@hono/node-server': 1.19.17
-   '@lobehub/ui': ^6.9.0
+   '@lobehub/ui': ^6.13.1
    '@lobehub/icons': ^6.0.0
    # Exact: an editor release can move its lexical version, and the root pins
-@@ -100,3 +109,26 @@ patchedDependencies:
+@@ -100,3 +101,26 @@ patchedDependencies:
    '@upstash/qstash': patches/@upstash__qstash.patch
    micromark@4.0.3: patches/micromark@4.0.3.patch
    micromark-extension-gfm-autolink-literal@2.1.0: patches/micromark-extension-gfm-autolink-literal@2.1.0.patch
@@ -218,10 +210,10 @@ index 55bb8902eb..c8e0616354 100644
 +  - '@octokit/endpoint@9.0.6'
 +  - '@trickfilm400/rollup-plugin-off-main-thread@3.0.0-pre1'
 +  - '@pierre/theme@2.0.0'
-+  - '@vercel/cli-config@0.3.4'
++  - '@vercel/cli-config@0.3.7'
 +  - '@vercel/cli-exec@1.0.1'
-+  - '@vercel/functions@3.10.4'
-+  - '@vercel/oidc@4.0.4'
++  - '@vercel/functions@3.11.0'
++  - '@vercel/oidc@4.0.7'
 +  - 'tsrs@0.20.1-ts7.1.0-beta'
 +
 +blockExoticSubdeps: true
@@ -230,37 +222,37 @@ index 55bb8902eb..c8e0616354 100644
 2.39.5
 
 
-From 047ed85a3ccd35c6567153c2b708eb739a805302 Mon Sep 17 00:00:00 2001
+From 8426ffa6d443ca04dc362cfc8666cac353116424 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
-Date: Wed, 7 Oct 2026 16:25:57 +0000
-Subject: [PATCH 03/18] =?UTF-8?q?=E2=9C=A8=20feat(openai):=20keep=20GPT=20?=
+Date: Thu, 12 Nov 2026 23:25:40 +0000
+Subject: [PATCH 03/19] =?UTF-8?q?=E2=9C=A8=20feat(openai):=20keep=20GPT=20?=
  =?UTF-8?q?requests=20non-streaming=20and=20summary-free?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Co-authored-by: Cursor Grok 4.7 <cursoragent@cursor.com.invalid>
+Co-Authored-By: Claude Opus 5.5 <claude@anthropic.com.invalid>
 ---
- .../src/core/openaiCompatibleFactory/index.ts |  2 +-
+ .../core/protocols/openaiResponses/chat.ts    |  2 +-
  .../src/providers/openai/index.test.ts        | 25 ++++---
  .../src/providers/openai/index.ts             | 36 +++++++---
  .../src/providers/openai/modelId.ts           | 68 +++++++++++++++++++
  .../providers/openai/openaiPayload.test.ts    |  2 +-
  5 files changed, 113 insertions(+), 20 deletions(-)
 
-diff --git a/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts b/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
-index 57025680a5..0880a02d0f 100644
---- a/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
-+++ b/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
-@@ -1433,7 +1433,7 @@ export const createOpenAICompatibleRuntime = <T extends Record<string, any> = an
-         strictToolPairing: true,
-       });
+diff --git a/packages/model-runtime/src/core/protocols/openaiResponses/chat.ts b/packages/model-runtime/src/core/protocols/openaiResponses/chat.ts
+index 7495e4590c..f54b6c7a42 100644
+--- a/packages/model-runtime/src/core/protocols/openaiResponses/chat.ts
++++ b/packages/model-runtime/src/core/protocols/openaiResponses/chat.ts
+@@ -68,7 +68,7 @@ export const chatViaResponses = async (
+     strictToolPairing: true,
+   });
  
--      const isStreaming = payload.stream !== false;
-+      const isStreaming = res.stream !== false;
-       log(
-         'isStreaming: %s, hasTools: %s, hasReasoning: %s',
-         isStreaming,
+-  const isStreaming = payload.stream !== false;
++  const isStreaming = res.stream !== false;
+   log(
+     'isStreaming: %s, hasTools: %s, hasReasoning: %s',
+     isStreaming,
 diff --git a/packages/model-runtime/src/providers/openai/index.test.ts b/packages/model-runtime/src/providers/openai/index.test.ts
 index a0c87b52f8..0421396800 100644
 --- a/packages/model-runtime/src/providers/openai/index.test.ts
@@ -361,7 +353,7 @@ index a0c87b52f8..0421396800 100644
  
      it('should convert max_tokens to max_output_tokens for responses API', async () => {
 diff --git a/packages/model-runtime/src/providers/openai/index.ts b/packages/model-runtime/src/providers/openai/index.ts
-index c749a16e7a..c2f2806ce6 100644
+index 0b33e5313c..9f1037630c 100644
 --- a/packages/model-runtime/src/providers/openai/index.ts
 +++ b/packages/model-runtime/src/providers/openai/index.ts
 @@ -24,6 +24,25 @@ const hasAudioInput = (payload: ChatStreamPayload) =>
@@ -556,26 +548,26 @@ index a7ebcd844c..0b35e2e216 100644
 2.39.5
 
 
-From e3215bdc83dc03fa93284662f569af89fa8d2ddc Mon Sep 17 00:00:00 2001
+From 43f31d73acfa4ea4d5bec4458a2be4e613319505 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
-Date: Wed, 7 Oct 2026 16:25:57 +0000
-Subject: [PATCH 04/18] =?UTF-8?q?=E2=9C=A8=20feat(openai):=20preserve=20de?=
+Date: Thu, 12 Nov 2026 23:28:02 +0000
+Subject: [PATCH 04/19] =?UTF-8?q?=E2=9C=A8=20feat(openai):=20preserve=20de?=
  =?UTF-8?q?tail=20when=20converting=20non-streaming=20responses?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Co-authored-by: Cursor Grok 4.7 <cursoragent@cursor.com.invalid>
+Co-Authored-By: Claude Opus 5.5 <claude@anthropic.com.invalid>
 ---
- .../nonStreamToStream.test.ts                 | 100 +++----
- .../nonStreamToStream.ts                      | 263 ++++++++++++++----
- 2 files changed, 239 insertions(+), 124 deletions(-)
+ .../openaiResponses/nonStreamToStream.test.ts | 153 +++++-----
+ .../openaiResponses/nonStreamToStream.ts      | 263 ++++++++++++++----
+ 2 files changed, 282 insertions(+), 134 deletions(-)
 
-diff --git a/packages/model-runtime/src/core/openaiCompatibleFactory/nonStreamToStream.test.ts b/packages/model-runtime/src/core/openaiCompatibleFactory/nonStreamToStream.test.ts
-index 9927e9cede..b6a523351a 100644
---- a/packages/model-runtime/src/core/openaiCompatibleFactory/nonStreamToStream.test.ts
-+++ b/packages/model-runtime/src/core/openaiCompatibleFactory/nonStreamToStream.test.ts
-@@ -403,19 +403,19 @@ describe('nonStreamToStream', () => {
+diff --git a/packages/model-runtime/src/core/protocols/openaiResponses/nonStreamToStream.test.ts b/packages/model-runtime/src/core/protocols/openaiResponses/nonStreamToStream.test.ts
+index 140f8f2d90..d46ab653f5 100644
+--- a/packages/model-runtime/src/core/protocols/openaiResponses/nonStreamToStream.test.ts
++++ b/packages/model-runtime/src/core/protocols/openaiResponses/nonStreamToStream.test.ts
+@@ -57,19 +57,19 @@ describe('nonStreamToStream', () => {
          events.push(value);
        }
  
@@ -606,7 +598,7 @@ index 9927e9cede..b6a523351a 100644
      });
  
      it('should handle Response API without message output', async () => {
-@@ -455,14 +455,9 @@ describe('nonStreamToStream', () => {
+@@ -103,14 +103,9 @@ describe('nonStreamToStream', () => {
          events.push(value);
        }
  
@@ -624,7 +616,70 @@ index 9927e9cede..b6a523351a 100644
      });
  
      it('should preserve function calls in a non-streaming response', async () => {
-@@ -531,19 +526,19 @@ describe('nonStreamToStream', () => {
+@@ -138,19 +133,52 @@ describe('nonStreamToStream', () => {
+         events.push(value);
+       }
+ 
+-      expect(events).toEqual([
+-        {
++      // The whole item travels with its real index, so the parser can key it by `output_index`.
++      expect(events).toContainEqual(
++        expect.objectContaining({
+           item: functionCall,
+           output_index: 1,
+-          sequence_number: 1,
+           type: 'response.output_item.added',
+-        },
+-        {
+-          response: mockResponse,
+-          sequence_number: 999,
+-          type: 'response.completed',
+-        },
+-      ]);
++        }),
++      );
++      expect(events).toContainEqual(
++        expect.objectContaining({
++          item: functionCall,
++          output_index: 1,
++          type: 'response.output_item.done',
++        }),
++      );
++      expect(events[0].type).toBe('response.created');
++      expect(events.at(-1)?.type).toBe('response.completed');
++    });
++
++    it('should keep the namespace of a namespaced tool call', async () => {
++      const toolCall = {
++        call_id: 'call_ns',
++        id: 'ctc_ns',
++        input: 'ls',
++        name: 'shell',
++        namespace: 'local-system',
++        status: 'completed',
++        type: 'custom_tool_call',
++      };
++      const mockResponse = {
++        id: 'resp_ns',
++        output: [toolCall],
++        status: 'completed',
++      } as unknown as OpenAI.Responses.Response;
++
++      const reader = transformResponseAPIToStream(mockResponse).getReader();
++      const events: any[] = [];
++
++      while (true) {
++        const { value, done } = await reader.read();
++        if (done) break;
++        events.push(value);
++      }
++
++      const added = events.find((event) => event.type === 'response.output_item.added');
++      expect(added).toMatchObject({ item: { namespace: 'local-system' }, output_index: 0 });
+     });
+ 
+     it('should preserve encrypted reasoning in a non-streaming response', async () => {
+@@ -179,19 +207,19 @@ describe('nonStreamToStream', () => {
          events.push(value);
        }
  
@@ -656,7 +711,7 @@ index 9927e9cede..b6a523351a 100644
      });
  
      it('should handle Response API with message but no text content', async () => {
-@@ -590,14 +585,9 @@ describe('nonStreamToStream', () => {
+@@ -232,14 +260,9 @@ describe('nonStreamToStream', () => {
          events.push(value);
        }
  
@@ -674,7 +729,7 @@ index 9927e9cede..b6a523351a 100644
      });
  
      it('should handle Response API with message id missing', async () => {
-@@ -643,17 +633,13 @@ describe('nonStreamToStream', () => {
+@@ -285,17 +308,13 @@ describe('nonStreamToStream', () => {
          events.push(value);
        }
  
@@ -697,7 +752,7 @@ index 9927e9cede..b6a523351a 100644
      });
  
      it('should handle empty output array', async () => {
-@@ -685,14 +671,7 @@ describe('nonStreamToStream', () => {
+@@ -321,14 +340,7 @@ describe('nonStreamToStream', () => {
          events.push(value);
        }
  
@@ -713,7 +768,7 @@ index 9927e9cede..b6a523351a 100644
      });
  
      it('should handle missing output field', async () => {
-@@ -724,14 +703,7 @@ describe('nonStreamToStream', () => {
+@@ -354,14 +366,7 @@ describe('nonStreamToStream', () => {
          events.push(value);
        }
  
@@ -729,13 +784,12 @@ index 9927e9cede..b6a523351a 100644
      });
    });
  });
-diff --git a/packages/model-runtime/src/core/openaiCompatibleFactory/nonStreamToStream.ts b/packages/model-runtime/src/core/openaiCompatibleFactory/nonStreamToStream.ts
-index af6734ddaf..0308bd1d26 100644
---- a/packages/model-runtime/src/core/openaiCompatibleFactory/nonStreamToStream.ts
-+++ b/packages/model-runtime/src/core/openaiCompatibleFactory/nonStreamToStream.ts
-@@ -89,73 +89,216 @@ export const transformResponseToStream = (data: OpenAI.ChatCompletion) =>
-     },
-   });
+diff --git a/packages/model-runtime/src/core/protocols/openaiResponses/nonStreamToStream.ts b/packages/model-runtime/src/core/protocols/openaiResponses/nonStreamToStream.ts
+index 9de1c3e498..1830ef0949 100644
+--- a/packages/model-runtime/src/core/protocols/openaiResponses/nonStreamToStream.ts
++++ b/packages/model-runtime/src/core/protocols/openaiResponses/nonStreamToStream.ts
+@@ -1,72 +1,215 @@
+ import type OpenAI from 'openai';
  
 -/**
 - * transform the OpenAI Response API data to stream format for non-streaming responses
@@ -796,22 +850,29 @@ index af6734ddaf..0308bd1d26 100644
 +  });
 +
 +  // 2. Traverse the output array and generate events according to each item's type.
-+  for (const item of nonStreamingResponse.output ?? []) {
++  for (const [outputIndex, item] of (nonStreamingResponse.output ?? []).entries()) {
++    const isToolCall = item.type === 'function_call' || item.type === 'custom_tool_call';
++
 +    // Send the "response.output_item.added" event first.
++    // A tool call goes out whole, with its real index: the stream parser keys `responseTools`
++    // by `output_index` and reads `namespace` from this item.
 +    events.push({
-+      item: {
-+        arguments: (item as any).arguments,
-+        call_id: (item as any).call_id,
-+        content: (item as any).content,
-+        encrypted_content: (item as any).encrypted_content,
-+        id: item.id,
-+        input: (item as any).input,
-+        name: (item as any).name,
-+        role: (item as any).role,
-+        status: (item as any).status,
-+        summary: (item as any).summary,
-+        type: item.type,
-+      },
++      item: isToolCall
++        ? { ...item }
++        : {
++            arguments: (item as any).arguments,
++            call_id: (item as any).call_id,
++            content: (item as any).content,
++            encrypted_content: (item as any).encrypted_content,
++            id: item.id,
++            input: (item as any).input,
++            name: (item as any).name,
++            role: (item as any).role,
++            status: (item as any).status,
++            summary: (item as any).summary,
++            type: item.type,
++          },
++      ...(isToolCall && { output_index: outputIndex }),
 +      sequence_number: seq++,
 +      type: 'response.output_item.added',
 +    } as any);
@@ -824,15 +885,8 @@ index af6734ddaf..0308bd1d26 100644
 +        // A custom tool call carries its input on the added item. Treat it like a function call so a
 +        // tool-only response is not dropped.
 +        events.push({
-+          item: {
-+            arguments: (item as any).arguments,
-+            call_id: item.call_id,
-+            id: item.id,
-+            input: (item as any).input,
-+            name: '', // dummy placeholder
-+            type: item.type,
-+          },
-+          output_index: 1,
++          item: { ...item },
++          output_index: outputIndex,
 +          sequence_number: seq++,
 +          type: 'response.output_item.done',
 +        });
@@ -992,10 +1046,10 @@ index af6734ddaf..0308bd1d26 100644
 +    sequence_number: seq,
 +    type: 'response.completed',
 +  });
-+
+ 
 +  return events;
 +}
- 
++
 +/**
 + * transform the OpenAI Response API data to stream format for non-streaming responses
 + */
@@ -1014,27 +1068,27 @@ index af6734ddaf..0308bd1d26 100644
 2.39.5
 
 
-From f0e8943e174eddb571bb05ddd517c431a6eaa6e4 Mon Sep 17 00:00:00 2001
+From 49e7bdf338a21f9fe08b12f85962866ba1a4e019 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
-Date: Wed, 7 Oct 2026 16:25:57 +0000
-Subject: [PATCH 05/18] =?UTF-8?q?=F0=9F=90=9B=20fix(openai):=20use=20one?=
+Date: Thu, 12 Nov 2026 23:28:59 +0000
+Subject: [PATCH 05/19] =?UTF-8?q?=F0=9F=90=9B=20fix(openai):=20use=20one?=
  =?UTF-8?q?=20attempt=20and=20a=20one-hour=20timeout?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Co-authored-by: Cursor Grok 4.7 <cursoragent@cursor.com.invalid>
+Co-Authored-By: Claude Opus 5.5 <claude@anthropic.com.invalid>
 ---
- .../adapters/ServerLLMTransport.ts            | 60 ++-----------
- packages/model-runtime/package.json           |  1 +
- .../src/core/openaiCompatibleFactory/index.ts | 29 ++++++-
- .../core/openaiCompatibleFactory/timeout.ts   | 86 +++++++++++++++++++
- .../(backend)/webapi/chat/[provider]/route.ts | 33 +++++--
- src/instrumentation.ts                        | 26 ++++++
- src/libs/next/config/define-config.ts         |  1 +
- .../agents/transports/ClientLLMTransport.ts   |  1 +
- 8 files changed, 173 insertions(+), 64 deletions(-)
- create mode 100644 packages/model-runtime/src/core/openaiCompatibleFactory/timeout.ts
+ .../adapters/ServerLLMTransport.ts            |  60 +--------
+ packages/model-runtime/package.json           |   1 +
+ .../src/core/openaiCompatible/index.ts        |  24 ++--
+ .../src/core/openaiCompatible/timeout.ts      | 119 ++++++++++++++++++
+ .../(backend)/webapi/chat/[provider]/route.ts |  21 +++-
+ src/instrumentation.ts                        |  26 ++++
+ src/libs/next/config/define-config.ts         |   1 +
+ .../agents/transports/ClientLLMTransport.ts   |   1 +
+ 8 files changed, 188 insertions(+), 65 deletions(-)
+ create mode 100644 packages/model-runtime/src/core/openaiCompatible/timeout.ts
 
 diff --git a/apps/server/src/modules/AgentRuntime/adapters/ServerLLMTransport.ts b/apps/server/src/modules/AgentRuntime/adapters/ServerLLMTransport.ts
 index ea04371ce3..db828adad1 100644
@@ -1154,73 +1208,67 @@ index b387a2a544..13a2b47fe3 100644
      "url-join": "^5.0.0"
    },
    "peerDependencies": {
-diff --git a/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts b/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
-index 0880a02d0f..d851d3d30b 100644
---- a/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
-+++ b/packages/model-runtime/src/core/openaiCompatibleFactory/index.ts
-@@ -104,6 +104,7 @@ import {
-   StructuredOutputError,
- } from './structuredOutput';
+diff --git a/packages/model-runtime/src/core/openaiCompatible/index.ts b/packages/model-runtime/src/core/openaiCompatible/index.ts
+index b6ff0eda0b..d2df52d8a9 100644
+--- a/packages/model-runtime/src/core/openaiCompatible/index.ts
++++ b/packages/model-runtime/src/core/openaiCompatible/index.ts
+@@ -60,12 +60,14 @@ import type {
+ import { generateObject as runGenerateObject } from './generateObject';
+ import { listOpenAICompatibleModels } from './models';
  import { createOpenAICompatibleSpeech } from './textToSpeech';
-+import { DEFAULT_OPENAI_TIMEOUT, resolveOpenAIClientNetworkOptions } from './timeout';
++import { applyOpenAIClientNetworkDefaults } from './timeout';
  
  export type { PollVideoStatusResult };
+ export { isResponseFormatUnsupportedError } from '../protocols/openaiChatCompletions/generateObject';
+ export * from '../protocols/openaiChatCompletions/nonStreamToStream';
+ export * from '../protocols/openaiResponses/nonStreamToStream';
  export * from './createVideo';
-@@ -114,6 +115,7 @@ export type {
-   OpenAICompatibleFactoryOptions,
- } from './factoryOptions';
- export * from './nonStreamToStream';
 +export * from './timeout';
- 
- /**
-  * Detect provider 400/422 errors that reject `response_format: { type: 'json_schema' }`.
-@@ -233,7 +235,31 @@ export const createOpenAICompatibleRuntime = <T extends Record<string, any> = an
+ export type {
+   CreateImageOptions,
+   CreateVideoOptions,
+@@ -130,7 +132,10 @@ export const createOpenAICompatibleRuntime = <T extends Record<string, any> = an
  
        if (!apiKey) throw AgentRuntimeError.createError(ErrorType?.invalidAPIKey);
  
 -      const initOptions = { apiKey, baseURL, ...constructorOptions, ...res };
-+      const explicitTimeout =
-+        (typeof res.timeout === 'number' ? res.timeout : undefined) ??
-+        (typeof constructorOptions?.timeout === 'number' ? constructorOptions.timeout : undefined);
-+      const resolvedTimeout = explicitTimeout ?? DEFAULT_OPENAI_TIMEOUT;
-+      const networkOptions = resolveOpenAIClientNetworkOptions(resolvedTimeout);
-+
-+      const initOptions: LobeClientOptions & Record<string, any> = {
-+        apiKey,
-+        baseURL,
-+        ...constructorOptions,
-+        ...res,
-+        // Self-host: never auto-retry upstream — timeouts/5xx would re-bill the same prompt.
-+        maxRetries: 0,
-+        timeout: resolvedTimeout,
-+      };
-+
-+      // Align undici headers/body timeouts with the SDK abort timer. Skip when the
-+      // caller already supplied a custom fetch (must stay on the same undici instance).
-+      if (!initOptions.fetch && networkOptions.fetch) {
-+        initOptions.fetch = networkOptions.fetch;
-+        initOptions.fetchOptions = {
-+          ...(initOptions.fetchOptions as object | undefined),
-+          ...networkOptions.fetchOptions,
-+        };
-+      }
++      const initOptions = applyOpenAIClientNetworkDefaults(
++        { apiKey, baseURL, ...constructorOptions, ...res } as LobeClientOptions & Record<string, any>,
++        [res.timeout, constructorOptions?.timeout],
++      );
  
        // if the custom client is provided, use it as client
        if (customClient?.createClient) {
-@@ -565,6 +591,7 @@ export const createOpenAICompatibleRuntime = <T extends Record<string, any> = an
-             baseURL: targetBaseURL,
-             ...constructorOptions,
-             ...restOptions,
-+            maxRetries: 0,
-           } as ConstructorOptions<T> & Record<string, any>;
+@@ -302,12 +307,17 @@ export const createOpenAICompatibleRuntime = <T extends Record<string, any> = an
+         baseURL: targetBaseURL,
+       } as ConstructorOptions<T>;
  
-           this._options = nextOptions;
-diff --git a/packages/model-runtime/src/core/openaiCompatibleFactory/timeout.ts b/packages/model-runtime/src/core/openaiCompatibleFactory/timeout.ts
+-      const initOptions = {
+-        apiKey: sanitizedApiKey,
+-        baseURL: targetBaseURL,
+-        ...constructorOptions,
+-        ...restOptions,
+-      } as ConstructorOptions<T> & Record<string, any>;
++      // Same self-host defaults as the constructor: one attempt, the resolved timeout and
++      // the matching undici fetch (these live only on the client options, not `_options`).
++      const initOptions = applyOpenAIClientNetworkDefaults(
++        {
++          apiKey: sanitizedApiKey,
++          baseURL: targetBaseURL,
++          ...constructorOptions,
++          ...restOptions,
++        } as ConstructorOptions<T> & Record<string, any>,
++        [restOptions.timeout, constructorOptions?.timeout],
++      );
+ 
+       this._options = nextOptions;
+ 
+diff --git a/packages/model-runtime/src/core/openaiCompatible/timeout.ts b/packages/model-runtime/src/core/openaiCompatible/timeout.ts
 new file mode 100644
-index 0000000000..5fd44d0c2e
+index 0000000000..894a3c87dc
 --- /dev/null
-+++ b/packages/model-runtime/src/core/openaiCompatibleFactory/timeout.ts
-@@ -0,0 +1,86 @@
++++ b/packages/model-runtime/src/core/openaiCompatible/timeout.ts
+@@ -0,0 +1,119 @@
 +export const DEFAULT_OPENAI_TIMEOUT = 3_600_000;
 +
 +export interface OpenAIClientNetworkOptions {
@@ -1307,8 +1355,41 @@ index 0000000000..5fd44d0c2e
 +    timeout,
 +  };
 +};
++
++/**
++ * Self-host client defaults, shared by every place that builds an OpenAI client:
++ * never auto-retry upstream (timeouts/5xx would re-bill the same prompt), use the
++ * first numeric timeout candidate (else one hour), and align undici headers/body
++ * timeouts with it. A caller-supplied fetch is kept (it must stay on its own undici).
++ */
++export const applyOpenAIClientNetworkDefaults = <O extends Record<string, any>>(
++  initOptions: O,
++  timeoutCandidates: unknown[] = [initOptions.timeout],
++): O & { maxRetries: 0; timeout: number } => {
++  const explicitTimeout = timeoutCandidates.find(
++    (candidate): candidate is number => typeof candidate === 'number',
++  );
++  const resolvedTimeout = explicitTimeout ?? DEFAULT_OPENAI_TIMEOUT;
++  const networkOptions = resolveOpenAIClientNetworkOptions(resolvedTimeout);
++
++  const options: Record<string, any> = {
++    ...initOptions,
++    maxRetries: 0,
++    timeout: resolvedTimeout,
++  };
++
++  if (!options.fetch && networkOptions.fetch) {
++    options.fetch = networkOptions.fetch;
++    options.fetchOptions = {
++      ...(options.fetchOptions as object | undefined),
++      ...networkOptions.fetchOptions,
++    };
++  }
++
++  return options as O & { maxRetries: 0; timeout: number };
++};
 diff --git a/src/app/(backend)/webapi/chat/[provider]/route.ts b/src/app/(backend)/webapi/chat/[provider]/route.ts
-index 369cf795f0..740c58e0f2 100644
+index f78a016dfb..27caaec561 100644
 --- a/src/app/(backend)/webapi/chat/[provider]/route.ts
 +++ b/src/app/(backend)/webapi/chat/[provider]/route.ts
 @@ -15,7 +15,22 @@ import { resolveValidWorkspaceIdFromRequest } from '../../_utils/workspace';
@@ -1335,28 +1416,16 @@ index 369cf795f0..740c58e0f2 100644
  
  export const POST = checkAuth(async (req: Request, { params, userId, serverDB }) => {
    const provider = (await params)!.provider!;
-@@ -44,12 +59,14 @@ export const POST = checkAuth(async (req: Request, { params, userId, serverDB })
-         traceOptions = createTraceOptions(data, { provider, trace: tracePayload });
-       }
+@@ -53,7 +68,7 @@ export const POST = checkAuth(async (req: Request, { params, userId, serverDB })
  
--      return await modelRuntime.chat(data, {
--        user: userId,
--        ...traceOptions,
--        metadata: { topicId: req.headers.get(REQUEST_TOPIC_ID_HEADER) ?? undefined },
--        signal: req.signal,
--      });
-+      return withUndiciHeader(
-+        await modelRuntime.chat(data, {
-+          user: userId,
-+          ...traceOptions,
-+          metadata: { topicId: req.headers.get(REQUEST_TOPIC_ID_HEADER) ?? undefined },
-+          signal: req.signal,
-+        }),
-+      );
+       // A routed chat can fail before its first byte (e.g. an empty completion); surface that
+       // as the structured error below instead of the framework's 500 page.
+-      return await awaitFirstResponseChunk(response);
++      return withUndiciHeader(await awaitFirstResponseChunk(response));
      });
    } catch (e) {
      const {
-@@ -67,6 +84,6 @@ export const POST = checkAuth(async (req: Request, { params, userId, serverDB })
+@@ -71,6 +86,6 @@ export const POST = checkAuth(async (req: Request, { params, userId, serverDB })
        console.error(`Route: [${provider}] ${errorType}:`, error);
      }
  
@@ -1412,7 +1481,7 @@ index 54ee07ea86..e3f5f5e3ff 100644
  
      transpilePackages: ['mermaid'],
 diff --git a/src/store/chat/agents/transports/ClientLLMTransport.ts b/src/store/chat/agents/transports/ClientLLMTransport.ts
-index 67b1494f48..8ec11b3441 100644
+index eb9464a642..99ad28c19e 100644
 --- a/src/store/chat/agents/transports/ClientLLMTransport.ts
 +++ b/src/store/chat/agents/transports/ClientLLMTransport.ts
 @@ -36,6 +36,7 @@ import type { ClientLLMModelParameters } from './ClientContextBuilder';
@@ -1427,29 +1496,30 @@ index 67b1494f48..8ec11b3441 100644
 2.39.5
 
 
-From d8faa13c26194088b86ecf43928ed0a2755a9c30 Mon Sep 17 00:00:00 2001
+From 491081e9428365f1e108994c137662b93b91ddcf Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
-Date: Wed, 7 Oct 2026 16:25:57 +0000
-Subject: [PATCH 06/18] =?UTF-8?q?=E2=9C=A8=20feat(agent):=20keep=20prompts?=
+Date: Thu, 12 Nov 2026 23:29:53 +0000
+Subject: [PATCH 06/19] =?UTF-8?q?=E2=9C=A8=20feat(agent):=20keep=20prompts?=
  =?UTF-8?q?=20explicitly=20user-controlled?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Co-authored-by: Cursor Grok 4.7 <cursoragent@cursor.com.invalid>
+Co-Authored-By: Claude Opus 5.5 <claude@anthropic.com.invalid>
 ---
- .../__tests__/serverMessagesEngine.test.ts    | 35 ++++---------------
- .../execAgent.builtinRuntime.test.ts          | 22 +++---------
- .../__tests__/resolveRunAgentConfig.test.ts   |  4 +--
- .../builtin-agents/src/agents/inbox/index.ts  |  6 +---
- .../src/engine/messages/MessagesEngine.ts     | 27 +-------------
- .../messages/__tests__/MessagesEngine.test.ts | 15 ++++----
- packages/mecha/src/resolveAgentConfig.test.ts |  8 ++---
- packages/mecha/src/resolveAgentConfig.ts      | 29 ++++++---------
- src/services/chat/chat.test.ts                | 17 ++++-----
- .../chat/mecha/agentConfigResolver.test.ts    | 14 +++-----
- .../chat/mecha/contextEngineering.test.ts     | 25 +++++--------
- 11 files changed, 54 insertions(+), 148 deletions(-)
+ .../__tests__/serverMessagesEngine.test.ts    | 35 ++++-------------
+ .../__tests__/inboxContext.test.ts            | 12 +++---
+ .../execAgent.builtinRuntime.test.ts          | 22 ++---------
+ .../__tests__/resolveRunAgentConfig.test.ts   |  4 +-
+ .../builtin-agents/src/agents/inbox/index.ts  |  6 +--
+ .../src/engine/messages/MessagesEngine.ts     | 38 +------------------
+ .../messages/__tests__/MessagesEngine.test.ts | 15 +++-----
+ packages/mecha/src/resolveAgentConfig.test.ts |  8 ++--
+ packages/mecha/src/resolveAgentConfig.ts      | 29 ++++++--------
+ src/services/chat/chat.test.ts                | 17 +++------
+ .../chat/mecha/agentConfigResolver.test.ts    | 14 +++----
+ .../chat/mecha/contextEngineering.test.ts     | 25 ++++--------
+ 12 files changed, 59 insertions(+), 166 deletions(-)
 
 diff --git a/apps/server/src/modules/Mecha/ContextEngineering/__tests__/serverMessagesEngine.test.ts b/apps/server/src/modules/Mecha/ContextEngineering/__tests__/serverMessagesEngine.test.ts
 index 5879513441..b1b7f43592 100644
@@ -1541,8 +1611,45 @@ index 5879513441..b1b7f43592 100644
      });
  
      it('should include file URLs in server-side file context', async () => {
+diff --git a/apps/server/src/services/agentIdentity/__tests__/inboxContext.test.ts b/apps/server/src/services/agentIdentity/__tests__/inboxContext.test.ts
+index 7b59867d4a..6853e972ad 100644
+--- a/apps/server/src/services/agentIdentity/__tests__/inboxContext.test.ts
++++ b/apps/server/src/services/agentIdentity/__tests__/inboxContext.test.ts
+@@ -104,7 +104,7 @@ const providers = () =>
+   });
+ 
+ describe('Agent identity as first-class runtime state', () => {
+-  it('injects the agent addresses and unread count, never the message content', async () => {
++  it('gathers the agent addresses and unread count but keeps them out of the prompt', async () => {
+     const account = await new AgentAccountService(serverDB, userId, {
+       registry: new AgentAccountProviderRegistry(),
+     }).create({
+@@ -138,7 +138,7 @@ describe('Agent identity as first-class runtime state', () => {
+     expect(facts.step.agentAccountContext?.accounts).toHaveLength(1);
+     expect(facts.step.agentAccountContext?.inbox.unreadCount).toBe(1);
+ 
+-    // 2. The shared context engine renders it into the system message.
++    // 2. MSM: the shared context engine never injects it — prompts stay user-controlled.
+     const { messages } = await serverMessagesEngine({
+       agentAccountContext: facts.step.agentAccountContext,
+       messages: [{ content: 'hi', id: 'm1', role: 'user' } as any],
+@@ -148,11 +148,9 @@ describe('Agent identity as first-class runtime state', () => {
+     });
+ 
+     const system = String(messages.find((m) => m.role === 'system')?.content ?? '');
+-    // Surface the exact block for the delivery report.
+-    console.log(`\n[identity-context-block]\n${system}\n[/identity-context-block]\n`);
+-    expect(system).toContain('<agent_identity>');
+-    expect(system).toContain('mail toby-agent@lobe.id — user, can receive/send');
+-    expect(system).toContain('<inbox unread="1" />');
++    expect(system).not.toContain('<agent_identity>');
++    expect(system).not.toContain('toby-agent@lobe.id');
++    expect(system).not.toContain('<inbox');
+     // Nothing a sender wrote may carry system authority: no sender, subject,
+     // body or code reaches the system message.
+     expect(system).not.toContain('login@service.com');
 diff --git a/apps/server/src/services/aiAgent/__tests__/execAgent.builtinRuntime.test.ts b/apps/server/src/services/aiAgent/__tests__/execAgent.builtinRuntime.test.ts
-index e679dccb0d..f0568e73c3 100644
+index 15e24e1573..2595c67d20 100644
 --- a/apps/server/src/services/aiAgent/__tests__/execAgent.builtinRuntime.test.ts
 +++ b/apps/server/src/services/aiAgent/__tests__/execAgent.builtinRuntime.test.ts
 @@ -1,7 +1,6 @@
@@ -1553,7 +1660,7 @@ index e679dccb0d..f0568e73c3 100644
  import { RequestTrigger } from '@lobechat/types';
  import type * as ModelBankModule from 'model-bank';
  import { beforeEach, describe, expect, it, vi } from 'vitest';
-@@ -428,7 +427,7 @@ describe('AiAgentService.execAgent - builtin agent runtime config', () => {
+@@ -443,7 +442,7 @@ describe('AiAgentService.execAgent - builtin agent runtime config', () => {
      expect(mockGetBuiltinAgent).not.toHaveBeenCalled();
    });
  
@@ -1562,9 +1669,9 @@ index e679dccb0d..f0568e73c3 100644
      // Inbox agent with no user-customized systemRole in DB
      mockGetAgentConfig.mockResolvedValue({
        chatConfig: {},
-@@ -445,15 +444,9 @@ describe('AiAgentService.execAgent - builtin agent runtime config', () => {
-       prompt: 'Hello',
-     });
+@@ -457,15 +456,9 @@ describe('AiAgentService.execAgent - builtin agent runtime config', () => {
+ 
+     await service.execAgent(inboxRunInput());
  
 -    // Verify createOperation was called with agentConfig containing the runtime systemRole
      expect(mockCreateOperation).toHaveBeenCalledTimes(1);
@@ -1579,7 +1686,7 @@ index e679dccb0d..f0568e73c3 100644
    });
  
    it('should pass user response language into web onboarding runtime systemRole', async () => {
-@@ -505,12 +498,6 @@ describe('AiAgentService.execAgent - builtin agent runtime config', () => {
+@@ -514,12 +507,6 @@ describe('AiAgentService.execAgent - builtin agent runtime config', () => {
      expect(callArgs.agentConfig.systemRole).toBe(customSystemRole);
    });
  
@@ -1592,7 +1699,7 @@ index e679dccb0d..f0568e73c3 100644
    it('should not apply runtime config for non-builtin agents', async () => {
      mockGetAgentConfig.mockResolvedValue({
        chatConfig: {},
-@@ -528,8 +515,7 @@ describe('AiAgentService.execAgent - builtin agent runtime config', () => {
+@@ -537,8 +524,7 @@ describe('AiAgentService.execAgent - builtin agent runtime config', () => {
      });
  
      const callArgs = mockCreateOperation.mock.calls[0][0];
@@ -1602,7 +1709,7 @@ index e679dccb0d..f0568e73c3 100644
    });
  
    it('should not apply runtime config for agents without slug', async () => {
-@@ -548,7 +534,7 @@ describe('AiAgentService.execAgent - builtin agent runtime config', () => {
+@@ -557,7 +543,7 @@ describe('AiAgentService.execAgent - builtin agent runtime config', () => {
      });
  
      const callArgs = mockCreateOperation.mock.calls[0][0];
@@ -1658,10 +1765,18 @@ index 871a3ecbaf..3617b8c153 100644
  
    slug: BUILTIN_AGENT_SLUGS.inbox,
 diff --git a/packages/context-engine/src/engine/messages/MessagesEngine.ts b/packages/context-engine/src/engine/messages/MessagesEngine.ts
-index 093feeaafa..aeaa7a4ab3 100644
+index b23a6cce3b..041e4a552d 100644
 --- a/packages/context-engine/src/engine/messages/MessagesEngine.ts
 +++ b/packages/context-engine/src/engine/messages/MessagesEngine.ts
-@@ -54,7 +54,6 @@ import {
+@@ -33,7 +33,6 @@ import {
+ } from '../../processors';
+ import {
+   ActiveTopicDocumentContextInjector,
+-  AgentAccountContextInjector,
+   AgentBuilderContextInjector,
+   AgentDocumentBeforeSystemInjector,
+   AgentDocumentContextInjector,
+@@ -56,7 +55,6 @@ import {
    HistorySummaryProvider,
    KnowledgeInjector,
    LocalSystemToolSnapshotInjector,
@@ -1669,7 +1784,7 @@ index 093feeaafa..aeaa7a4ab3 100644
    OnboardingActionHintInjector,
    OnboardingContextInjector,
    OnboardingSyntheticStateInjector,
-@@ -68,7 +67,6 @@ import {
+@@ -70,7 +68,6 @@ import {
    SKILL_STORE_TOOL_ID,
    SkillContextProvider,
    SkillImportRouteInjector,
@@ -1677,7 +1792,7 @@ index 093feeaafa..aeaa7a4ab3 100644
    SystemRoleInjector,
    TaskManagerContextInjector,
    TodoInjector,
-@@ -159,8 +157,6 @@ export class MessagesEngine {
+@@ -162,12 +159,9 @@ export class MessagesEngine {
    private buildProcessors(): ContextProcessor[] {
      const {
        model,
@@ -1686,16 +1801,20 @@ index 093feeaafa..aeaa7a4ab3 100644
        provider,
        systemRole,
        agentIdentity,
-@@ -200,8 +196,6 @@ export class MessagesEngine {
-       initialContext,
+-      agentAccountContext,
+       inputTemplate,
+       enableAgentMode,
+       enableHistoryCount,
+@@ -205,8 +199,6 @@ export class MessagesEngine {
        stepContext,
        topicReferences,
+       documentReferences,
 -      enableSystemDate,
 -      timezone,
      } = this.params;
  
      const isAgentBuilderEnabled = !!agentBuilderContext;
-@@ -233,12 +227,7 @@ export class MessagesEngine {
+@@ -238,14 +230,7 @@ export class MessagesEngine {
            : undefined;
      const isTodoEnabled = effectiveTodos !== undefined;
  
@@ -1705,15 +1824,31 @@ index 093feeaafa..aeaa7a4ab3 100644
 -    const hasDateAwareTools =
 -      toolIds.includes('lobe-web-browsing') || toolIds.includes('lobe-user-memory');
 -    const isSystemDateEnabled = enableSystemDate !== false && !hasDateAwareTools;
+-    // An eval attempt renders "today" from its case clock, never the wall clock.
+-    const evalClock = evalContext?.sessionDate ? new Date(evalContext.sessionDate) : undefined;
      const currentUserMessage = [...messages]
        .reverse()
        .find((m) => m.role === 'user' && typeof m.content === 'string')?.content as
-@@ -326,22 +315,8 @@ export class MessagesEngine {
+@@ -329,13 +314,6 @@ export class MessagesEngine {
+         enabled: !isGroupContextEnabled,
+         identity: agentIdentity,
+       }),
+-      // The agent's own accounts + inbox, as first-class state. Injected right
+-      // after the person's identity because it refines "who am I" with "and I
+-      // can be reached here". Skipped entirely when the agent owns nothing.
+-      new AgentAccountContextInjector({
+-        context: agentAccountContext,
+-        enabled: isAgentMode,
+-      }),
+       // Eval context (appends envPrompt)
+       new EvalContextSystemInjector({ enabled: !!evalContext?.envPrompt, evalContext }),
+       // Bot platform context (formatting instructions for non-Markdown platforms)
+@@ -343,22 +321,8 @@ export class MessagesEngine {
          context: botPlatformContext,
          enabled: !!botPlatformContext,
        }),
 -      // System date
--      new SystemDateProvider({ enabled: isSystemDateEnabled, timezone }),
+-      new SystemDateProvider({ enabled: isSystemDateEnabled, now: evalClock, timezone }),
 -      // Model info (name / id / knowledge cutoff)
 -      new ModelInfoProvider({
 -        displayName: modelDisplayName,
@@ -1883,7 +2018,7 @@ index 3c4c01dd8c..b3d3f32e7f 100644
        finalAgentConfig = {
          ...finalAgentConfig,
 diff --git a/src/services/chat/chat.test.ts b/src/services/chat/chat.test.ts
-index 37ce8d4559..40861bfecc 100644
+index 59474ec539..eb1f408764 100644
 --- a/src/services/chat/chat.test.ts
 +++ b/src/services/chat/chat.test.ts
 @@ -52,14 +52,9 @@ const mockCreateHeaderWithAuth = vi.hoisted(() =>
@@ -1903,7 +2038,7 @@ index 37ce8d4559..40861bfecc 100644
  };
  
  /**
-@@ -741,7 +736,7 @@ describe('ChatService', () => {
+@@ -805,7 +800,7 @@ describe('ChatService', () => {
            {
              messages: [
                expect.objectContaining({
@@ -1912,7 +2047,7 @@ index 37ce8d4559..40861bfecc 100644
                  role: 'system',
                }),
                {
-@@ -804,7 +799,7 @@ describe('ChatService', () => {
+@@ -868,7 +863,7 @@ describe('ChatService', () => {
              enabledSearch: undefined,
              messages: [
                expect.objectContaining({
@@ -1921,7 +2056,7 @@ index 37ce8d4559..40861bfecc 100644
                  role: 'system',
                }),
                { content: 'Hello', role: 'user' },
-@@ -893,7 +888,7 @@ describe('ChatService', () => {
+@@ -957,7 +952,7 @@ describe('ChatService', () => {
            {
              messages: [
                expect.objectContaining({
@@ -1930,7 +2065,7 @@ index 37ce8d4559..40861bfecc 100644
                  role: 'system',
                }),
                {
-@@ -994,7 +989,7 @@ describe('ChatService', () => {
+@@ -1058,7 +1053,7 @@ describe('ChatService', () => {
            {
              messages: [
                expect.objectContaining({
@@ -1940,10 +2075,10 @@ index 37ce8d4559..40861bfecc 100644
                }),
                {
 diff --git a/src/services/chat/mecha/agentConfigResolver.test.ts b/src/services/chat/mecha/agentConfigResolver.test.ts
-index 562284431d..029a68a499 100644
+index 91a671193c..192a63d92b 100644
 --- a/src/services/chat/mecha/agentConfigResolver.test.ts
 +++ b/src/services/chat/mecha/agentConfigResolver.test.ts
-@@ -1480,12 +1480,12 @@ describe('resolveAgentConfig', () => {
+@@ -1452,12 +1452,12 @@ describe('resolveAgentConfig', () => {
      });
    });
  
@@ -1958,7 +2093,7 @@ index 562284431d..029a68a499 100644
        vi.spyOn(
          userSelectors.userGeneralSettingsSelectors,
          'currentResponseLanguage',
-@@ -1493,12 +1493,10 @@ describe('resolveAgentConfig', () => {
+@@ -1465,12 +1465,10 @@ describe('resolveAgentConfig', () => {
  
        const result = resolveAgentConfig({ agentId: 'test-agent' });
  
@@ -1973,7 +2108,7 @@ index 562284431d..029a68a499 100644
        vi.spyOn(
          userSelectors.userGeneralSettingsSelectors,
          'currentResponseLanguage',
-@@ -1513,9 +1511,7 @@ describe('resolveAgentConfig', () => {
+@@ -1485,9 +1483,7 @@ describe('resolveAgentConfig', () => {
  
        const result = resolveAgentConfig({ agentId: 'test-agent' });
  
@@ -2048,35 +2183,32 @@ index 76317a8af7..45589cd5ba 100644
 2.39.5
 
 
-From ee5b43a66fed816566337cde5c711ef063b2eb4d Mon Sep 17 00:00:00 2001
+From a78c5aa11b1adb097d651cdab8ba7d6ae56308d5 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
-Date: Thu, 24 Sep 2026 06:58:13 +0000
-Subject: [PATCH 07/18] =?UTF-8?q?=E2=9C=A8=20feat(agent):=20keep=20tools?=
+Date: Thu, 12 Nov 2026 23:31:05 +0000
+Subject: [PATCH 07/19] =?UTF-8?q?=E2=9C=A8=20feat(agent):=20keep=20tools?=
  =?UTF-8?q?=20explicitly=20user-controlled?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-In Chat mode with no skills selected, and with search and memory off, no
-tool prompt is loaded automatically: the Context Details "Skill Settings"
-count is 0 and the chat request carries no tools, so these chats spend no
-tokens on tool definitions.
-
-Co-authored-by: Cursor GPT-5.6 Sol <cursoragent@cursor.com.invalid>
+Co-Authored-By: Claude Opus 5.5 <claude@anthropic.com.invalid>
 ---
- .../AgentToolsEngine/__tests__/index.test.ts  | 32 +++++++------------
- packages/builtin-tools/src/index.ts           | 26 ++-------------
- .../src/toolSet/resolveToolRules.test.ts      |  4 +--
- src/helpers/toolEngineering/index.test.ts     | 11 +++----
- .../tool/slices/builtin/selectors.test.ts     | 14 ++------
- src/store/tool/slices/builtin/selectors.ts    |  4 +--
- 6 files changed, 26 insertions(+), 65 deletions(-)
+ .../AgentToolsEngine/__tests__/index.test.ts  | 44 ++++++++++---------
+ packages/builtin-tools/src/index.ts           | 26 +----------
+ .../toolSet/resolveToolRules.identity.test.ts |  5 ++-
+ .../src/toolSet/resolveToolRules.test.ts      |  4 +-
+ .../mecha/src/toolSet/resolveToolRules.ts     |  6 +--
+ src/helpers/toolEngineering/index.test.ts     | 11 +++--
+ .../tool/slices/builtin/selectors.test.ts     | 14 ++----
+ src/store/tool/slices/builtin/selectors.ts    |  4 +-
+ 8 files changed, 43 insertions(+), 71 deletions(-)
 
 diff --git a/apps/server/src/modules/Mecha/AgentToolsEngine/__tests__/index.test.ts b/apps/server/src/modules/Mecha/AgentToolsEngine/__tests__/index.test.ts
-index 3f11360211..c11b3ded2d 100644
+index 9655452b29..b9b97b0af4 100644
 --- a/apps/server/src/modules/Mecha/AgentToolsEngine/__tests__/index.test.ts
 +++ b/apps/server/src/modules/Mecha/AgentToolsEngine/__tests__/index.test.ts
-@@ -610,7 +610,7 @@ describe('createServerAgentToolsEngine', () => {
+@@ -618,7 +618,7 @@ describe('createServerAgentToolsEngine', () => {
      expect(result.enabledToolIds).toContain(LobeAgentManifest.identifier);
    });
  
@@ -2085,9 +2217,9 @@ index 3f11360211..c11b3ded2d 100644
      const context = createMockContext();
      const engine = createServerAgentToolsEngine(context, {
        agentConfig: { plugins: [] },
-@@ -624,20 +624,13 @@ describe('createServerAgentToolsEngine', () => {
-       toolIds: [],
-     });
+@@ -628,26 +628,22 @@ describe('createServerAgentToolsEngine', () => {
+ 
+     const result = engine.generateToolsDetailed(deepseekToolInput());
  
 -    // lobe-agent is in alwaysOnToolIds, so its core capabilities are on for every agent-mode turn.
 -    expect(result.enabledToolIds).toContain(LobeAgentManifest.identifier);
@@ -2109,16 +2241,17 @@ index 3f11360211..c11b3ded2d 100644
        disabledPluginIds: [LobeAgentManifest.identifier],
        model: 'deepseek-chat',
        provider: 'deepseek',
-@@ -646,7 +639,7 @@ describe('createServerAgentToolsEngine', () => {
-     const result = engine.generateToolsDetailed({
-       model: 'deepseek-chat',
-       provider: 'deepseek',
--      toolIds: [],
-+      toolIds: [LobeAgentManifest.identifier],
      });
  
+-    const result = engine.generateToolsDetailed(deepseekToolInput());
++    const result = engine.generateToolsDetailed({
++      ...deepseekToolInput(),
++      toolIds: [LobeAgentManifest.identifier],
++    });
+ 
      expect(result.enabledToolIds).not.toContain(LobeAgentManifest.identifier);
-@@ -658,7 +651,7 @@ describe('createServerAgentToolsEngine', () => {
+     expect(result.enabledManifests).not.toContainEqual(
+@@ -658,15 +654,18 @@ describe('createServerAgentToolsEngine', () => {
    it('hides lobe-agent callSubAgent when manifestContext.isSubAgent is true', () => {
      const context = createMockContext();
      const engine = createServerAgentToolsEngine(context, {
@@ -2127,20 +2260,20 @@ index 3f11360211..c11b3ded2d 100644
        manifestContext: { isSubAgent: true },
        model: 'deepseek-chat',
        provider: 'deepseek',
-@@ -667,10 +660,10 @@ describe('createServerAgentToolsEngine', () => {
-     const result = engine.generateToolsDetailed({
-       model: 'deepseek-chat',
-       provider: 'deepseek',
--      toolIds: [],
-+      toolIds: [LobeAgentManifest.identifier],
      });
+ 
+-    const result = engine.generateToolsDetailed(deepseekToolInput());
++    const result = engine.generateToolsDetailed({
++      ...deepseekToolInput(),
++      toolIds: [LobeAgentManifest.identifier],
++    });
  
 -    // lobe-agent's other capabilities (plan / todo / visual-media) stay on...
 +    // lobe-agent's other capabilities (plan / todo / visual-media) stay enabled...
      expect(result.enabledToolIds).toContain(LobeAgentManifest.identifier);
      const lobeAgent = result.enabledManifests.find(
        (m) => m.identifier === LobeAgentManifest.identifier,
-@@ -682,7 +675,7 @@ describe('createServerAgentToolsEngine', () => {
+@@ -678,7 +677,7 @@ describe('createServerAgentToolsEngine', () => {
    it('rewrites lobe-skills exec descriptions when manifestContext.executionEnv is device-unrouted', () => {
      const context = createMockContext();
      const engine = createServerAgentToolsEngine(context, {
@@ -2149,19 +2282,21 @@ index 3f11360211..c11b3ded2d 100644
        manifestContext: {
          executionEnv: 'device-unrouted',
          executionEnvUnroutedReason: 'bound-device-offline',
-@@ -694,10 +687,9 @@ describe('createServerAgentToolsEngine', () => {
-     const result = engine.generateToolsDetailed({
-       model: 'deepseek-chat',
+@@ -687,9 +686,11 @@ describe('createServerAgentToolsEngine', () => {
        provider: 'deepseek',
--      toolIds: [],
-+      toolIds: [SkillsManifest.identifier],
      });
+ 
+-    const result = engine.generateToolsDetailed(deepseekToolInput());
++    const result = engine.generateToolsDetailed({
++      ...deepseekToolInput(),
++      toolIds: [SkillsManifest.identifier],
++    });
  
 -    // lobe-skills is always-on, so the resolved manifest is what the model sees.
      const skills = result.enabledManifests.find((m) => m.identifier === SkillsManifest.identifier);
      const runCommand = skills?.api.find((a) => a.name === SkillsApiName.runCommand);
      expect(runCommand?.description).toContain('local device but it is offline');
-@@ -710,7 +702,7 @@ describe('createServerAgentToolsEngine', () => {
+@@ -702,13 +703,16 @@ describe('createServerAgentToolsEngine', () => {
    it('hides lobe-agent callSubAgent inside a group run (scope=group)', () => {
      const context = createMockContext();
      const engine = createServerAgentToolsEngine(context, {
@@ -2170,20 +2305,21 @@ index 3f11360211..c11b3ded2d 100644
        manifestContext: { scope: 'group' },
        model: 'deepseek-chat',
        provider: 'deepseek',
-@@ -719,7 +711,7 @@ describe('createServerAgentToolsEngine', () => {
-     const result = engine.generateToolsDetailed({
-       model: 'deepseek-chat',
-       provider: 'deepseek',
--      toolIds: [],
-+      toolIds: [LobeAgentManifest.identifier],
      });
  
+-    const result = engine.generateToolsDetailed(deepseekToolInput());
++    const result = engine.generateToolsDetailed({
++      ...deepseekToolInput(),
++      toolIds: [LobeAgentManifest.identifier],
++    });
+ 
      const lobeAgent = result.enabledManifests.find(
+       (m) => m.identifier === LobeAgentManifest.identifier,
 diff --git a/packages/builtin-tools/src/index.ts b/packages/builtin-tools/src/index.ts
-index bb039d442e..2f35fe17a2 100644
+index 0c7d0783dc..667e68b1fc 100644
 --- a/packages/builtin-tools/src/index.ts
 +++ b/packages/builtin-tools/src/index.ts
-@@ -82,25 +82,9 @@ export const defaultToolIds = [
+@@ -83,25 +83,9 @@ export const defaultToolIds = [
  
  /**
   * Tool IDs that are always enabled regardless of user selection.
@@ -2211,7 +2347,7 @@ index bb039d442e..2f35fe17a2 100644
  
  /**
   * Runtime tools represented by the skill activation mode control itself. They remain part
-@@ -310,22 +294,16 @@ const builtinToolRegistry: LobeBuiltinTool[] = [
+@@ -315,22 +299,16 @@ const builtinToolRegistry: LobeBuiltinTool[] = [
      type: 'builtin',
    },
    {
@@ -2234,6 +2370,25 @@ index bb039d442e..2f35fe17a2 100644
      identifier: SkillsManifest.identifier,
      manifest: SkillsManifest,
      // Context-aware: prefixes exec-class API descriptions with the run's
+diff --git a/packages/mecha/src/toolSet/resolveToolRules.identity.test.ts b/packages/mecha/src/toolSet/resolveToolRules.identity.test.ts
+index 6d7f7772fe..e35ea2eb1b 100644
+--- a/packages/mecha/src/toolSet/resolveToolRules.identity.test.ts
++++ b/packages/mecha/src/toolSet/resolveToolRules.identity.test.ts
+@@ -25,11 +25,12 @@ describe('resolveToolRules — agent-account gating', () => {
+     expect(resolved.defaultToolIds).not.toContain(AgentAccountIdentifier);
+   });
+ 
+-  it('enables and pools the tool once the agent owns an account', () => {
++  it('allows the tool once the agent owns an account, but never pools it by default', () => {
+     const resolved = resolveToolRules(request({ hasIdentityAccount: true }));
+ 
+     expect(resolved.rules[AgentAccountIdentifier]).toBe(true);
+-    expect(resolved.defaultToolIds).toContain(AgentAccountIdentifier);
++    // MSM: tools stay user-controlled — owning an account does not switch the tool on.
++    expect(resolved.defaultToolIds).not.toContain(AgentAccountIdentifier);
+   });
+ 
+   it('defaults the fact to absent, so a host that cannot answer pays nothing', () => {
 diff --git a/packages/mecha/src/toolSet/resolveToolRules.test.ts b/packages/mecha/src/toolSet/resolveToolRules.test.ts
 index fd359ca062..ef5a681116 100644
 --- a/packages/mecha/src/toolSet/resolveToolRules.test.ts
@@ -2255,6 +2410,30 @@ index fd359ca062..ef5a681116 100644
      for (const id of groupSupervisorToolIds) {
        expect(resolved.rules[id]).toBe(true);
        expect(resolved.defaultToolIds).toContain(id);
+diff --git a/packages/mecha/src/toolSet/resolveToolRules.ts b/packages/mecha/src/toolSet/resolveToolRules.ts
+index e869076d12..147f79c7b9 100644
+--- a/packages/mecha/src/toolSet/resolveToolRules.ts
++++ b/packages/mecha/src/toolSet/resolveToolRules.ts
+@@ -106,9 +106,8 @@ export const resolveToolRules = (request: ToolRuleRequest): ResolvedToolRules =>
+     [BrowserManifest.identifier]: runtimeMode === 'local' && request.localExecutionReady,
+     [MemoryManifest.identifier]: memoryEnabled,
+     ...(request.isBotConversation && { [MessageManifest.identifier]: true }),
+-    // The identity/inbox state is context, not a tool; this tool is the
+-    // on-demand action half and only costs a schema when the agent owns an
+-    // account. Replaces the always-on mailbox slot the channel design paid.
++    // A gate, not an auto-enable: the account tool is only allowed for an agent
++    // that owns an account, and only when a run asks for it explicitly.
+     [AgentAccountManifest.identifier]: request.hasIdentityAccount ?? false,
+     ...(request.isGroupSupervisor && enableAll(groupSupervisorToolIds)),
+     // The device picker: only for device-capable targets behind a gateway,
+@@ -140,7 +139,6 @@ export const resolveToolRules = (request: ToolRuleRequest): ResolvedToolRules =>
+           ? [...chatModeAllowedToolIds]
+           : [
+               ...defaultToolIds,
+-              ...(request.hasIdentityAccount ? [AgentAccountManifest.identifier] : []),
+               ...(request.isGroupSupervisor ? groupSupervisorToolIds : []),
+             ],
+     deviceCapable,
 diff --git a/src/helpers/toolEngineering/index.test.ts b/src/helpers/toolEngineering/index.test.ts
 index bcbaf7d8bf..7ff59888f3 100644
 --- a/src/helpers/toolEngineering/index.test.ts
@@ -2294,10 +2473,10 @@ index bcbaf7d8bf..7ff59888f3 100644
  
        const toolsEngine = createAgentToolsEngine({
 diff --git a/src/store/tool/slices/builtin/selectors.test.ts b/src/store/tool/slices/builtin/selectors.test.ts
-index 2c01ffc201..40f54d751b 100644
+index 505445f0bd..be4b1a4767 100644
 --- a/src/store/tool/slices/builtin/selectors.test.ts
 +++ b/src/store/tool/slices/builtin/selectors.test.ts
-@@ -148,25 +148,17 @@ describe('builtinToolSelectors', () => {
+@@ -150,25 +150,17 @@ describe('builtinToolSelectors', () => {
        uninstalledBuiltinTools: [],
      } as ToolStoreState;
  
@@ -2359,10 +2538,10 @@ index c7240e961f..d486b4efee 100644
 2.39.5
 
 
-From 824465d255b715e27ef6cdb428b5fe8d66c7f5a8 Mon Sep 17 00:00:00 2001
+From 017f7de328b21a873a0c07e6ae59d8a72f636e63 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:58:21 +0000
-Subject: [PATCH 08/18] =?UTF-8?q?=E2=9C=A8=20feat(agent):=20summarize=20to?=
+Subject: [PATCH 08/19] =?UTF-8?q?=E2=9C=A8=20feat(agent):=20summarize=20to?=
  =?UTF-8?q?pics=20in=20the=20conversation=20language?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -2404,21 +2583,21 @@ index cc24fb2baa..151b64af37 100644
 2.39.5
 
 
-From f59ac24595963834f19b0e9c642a20ef0bb9207f Mon Sep 17 00:00:00 2001
+From c5a187b60ffed7148721c0ef83859e64161f8f99 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
-Date: Wed, 7 Oct 2026 16:25:57 +0000
-Subject: [PATCH 09/18] =?UTF-8?q?=F0=9F=90=9B=20fix(qstash):=20construct?=
+Date: Thu, 12 Nov 2026 23:31:23 +0000
+Subject: [PATCH 09/19] =?UTF-8?q?=F0=9F=90=9B=20fix(qstash):=20construct?=
  =?UTF-8?q?=20the=20client=20lazily=20and=20drop=20debug=20logs?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Co-authored-by: Cursor Grok 4.7 <cursoragent@cursor.com.invalid>
+Co-Authored-By: Claude Opus 5.5 <claude@anthropic.com.invalid>
 ---
  .../src/router-hono/workflows/qstashClient.ts | 18 ++++--
  patches/@upstash__qstash.patch                | 24 +-------
- src/libs/qstash/index.ts                      | 58 ++++++++++++-------
- 3 files changed, 53 insertions(+), 47 deletions(-)
+ src/libs/qstash/index.ts                      | 59 ++++++++++++-------
+ 3 files changed, 54 insertions(+), 47 deletions(-)
 
 diff --git a/apps/server/src/router-hono/workflows/qstashClient.ts b/apps/server/src/router-hono/workflows/qstashClient.ts
 index d8b4d255ed..cd5e57e084 100644
@@ -2490,20 +2669,23 @@ index a675531317..ac614233c0 100644
               throw error;
             }
 diff --git a/src/libs/qstash/index.ts b/src/libs/qstash/index.ts
-index ac71484a97..6ea7aab524 100644
+index 2d01dae7ed..cb311c47e6 100644
 --- a/src/libs/qstash/index.ts
 +++ b/src/libs/qstash/index.ts
-@@ -2,9 +2,6 @@ import { recordUpstashWorkflowEvent } from '@lobechat/observability-otel/modules
+@@ -3,12 +3,9 @@ import { recordUpstashWorkflowEvent } from '@lobechat/observability-otel/modules
  import { errorNameFrom } from '@lobechat/utils';
  import { Client, type PublishRequest, type PublishResponse, Receiver } from '@upstash/qstash';
  import { Client as WorkflowClient, type TriggerOptions } from '@upstash/workflow';
 -import debug from 'debug';
--
--const log = debug('lobe-server:qstash');
  
+ import { verifyInternalCallback } from './internalSignature';
+ 
+-const log = debug('lobe-server:qstash');
+-
  export { toQStashDeduplicationId } from './deduplicationId';
  
-@@ -132,25 +129,49 @@ export class OtelWorkflowClient extends WorkflowClient {
+ const headers = {
+@@ -135,25 +132,49 @@ export class OtelWorkflowClient extends WorkflowClient {
    }
  }
  
@@ -2566,38 +2748,28 @@ index ac71484a97..6ea7aab524 100644
  
  /**
   * Verify QStash signature using Receiver.
-@@ -161,13 +182,11 @@ export async function verifyQStashSignature(request: Request, rawBody: string):
-   const nextSigningKey = process.env.QSTASH_NEXT_SIGNING_KEY;
+@@ -178,11 +199,9 @@ export async function verifyQStashSignature(request: Request, rawBody: string):
  
-   if (!currentSigningKey || !nextSigningKey) {
--    log('QStash signature verification disabled (no signing keys configured)');
-     return false;
-   }
- 
-   const signature = request.headers.get('Upstash-Signature');
-   if (!signature) {
+     try {
+       if (await receiver.verify({ body: rawBody, signature })) return true;
+-    } catch (error) {
+-      log('QStash signature verification failed: %O', error);
++    } catch {
++      // Fall through to the internal callback signature below.
+     }
+-  } else {
 -    log('Missing Upstash-Signature header');
-     return false;
    }
  
-@@ -175,8 +194,7 @@ export async function verifyQStashSignature(request: Request, rawBody: string):
- 
-   try {
-     return await receiver.verify({ body: rawBody, signature });
--  } catch (error) {
--    log('QStash signature verification failed: %O', error);
-+  } catch {
-     return false;
-   }
- }
+   // QStash publish failures fall back to a direct HTTP callback, which is signed
 -- 
 2.39.5
 
 
-From 11b30c5eb35c17e30cceca85ae4f46dcaadcb17a Mon Sep 17 00:00:00 2001
+From 7dde7f2f1524fd8edca1f0bac6bac71e8caf63b4 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 2 Nov 2026 03:55:50 +0000
-Subject: [PATCH 10/18] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20keep=20patched=20?=
+Subject: [PATCH 10/19] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20keep=20patched=20?=
  =?UTF-8?q?fonts=20at=20the=20app=20boundary?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -2790,10 +2962,10 @@ index 135b45086c..e67a6aed69 100644
 2.39.5
 
 
-From b8489590523346aa026131dc004cd300bb64239e Mon Sep 17 00:00:00 2001
+From aa2336cbb701cce3809aa26e12391a11a427fd27 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:58:41 +0000
-Subject: [PATCH 11/18] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20offer=20only=20En?=
+Subject: [PATCH 11/19] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20offer=20only=20En?=
  =?UTF-8?q?glish=20and=20Japanese?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -2876,22 +3048,23 @@ index 0dd8228306..e3bb30bc76 100644
 2.39.5
 
 
-From bad72d85acba431af39a953ec3b330a91cf5df85 Mon Sep 17 00:00:00 2001
+From e95917faead9890492f7130a19fa243cb9dd641b Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
-Date: Wed, 7 Oct 2026 16:25:57 +0000
-Subject: [PATCH 12/18] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20keep=20user-messa?=
+Date: Fri, 13 Nov 2026 01:05:12 +0000
+Subject: [PATCH 12/19] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20keep=20user-messa?=
  =?UTF-8?q?ge=20edits=20manual?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Co-authored-by: Cursor Grok 4.7 <cursoragent@cursor.com.invalid>
+Co-Authored-By: Claude Opus 5.5 <claude@anthropic.com.invalid>
 ---
- .../MessageContent/useEditConfirmation.ts     |  5 ++--
- .../User/components/MessageContent.test.tsx   |  6 ++---
- .../User/components/MessageContent.tsx        | 25 +++++--------------
- src/features/EditorModal/EditorCanvas.tsx     | 21 +++++++++++++---
- 4 files changed, 30 insertions(+), 27 deletions(-)
+ .../MessageContent/useEditConfirmation.ts     |  5 +-
+ .../User/components/MessageContent.test.tsx   |  6 +-
+ .../User/components/MessageContent.tsx        | 25 ++-----
+ .../EditorModal/EditorCanvas.test.tsx         | 15 ++--
+ src/features/EditorModal/EditorCanvas.tsx     | 75 ++++++++-----------
+ 5 files changed, 53 insertions(+), 73 deletions(-)
 
 diff --git a/src/features/Conversation/ChatItem/components/MessageContent/useEditConfirmation.ts b/src/features/Conversation/ChatItem/components/MessageContent/useEditConfirmation.ts
 index 4c6ffb7dba..5e7c432f4a 100644
@@ -2995,64 +3168,144 @@ index 199f41e881..c27af032be 100644
          {imageList && imageList?.length > 0 && <ImageFileListViewer items={imageList} />}
          {videoList && videoList?.length > 0 && <VideoFileListViewer items={videoList} />}
          {audioList && audioList?.length > 0 && (
+diff --git a/src/features/EditorModal/EditorCanvas.test.tsx b/src/features/EditorModal/EditorCanvas.test.tsx
+index bc6455158b..2e2d4db98f 100644
+--- a/src/features/EditorModal/EditorCanvas.test.tsx
++++ b/src/features/EditorModal/EditorCanvas.test.tsx
+@@ -70,23 +70,26 @@ afterEach(() => {
+ });
+ 
+ describe('EditorModal EditorCanvas', () => {
+-  it('should render mention nodes from editor data', async () => {
+-    const { container } = render(<TestWrapper editorData={mentionEditorState} />);
++  it('should edit the message text, not the saved rich data, so a mention never blanks it', async () => {
++    const { container } = render(
++      <TestWrapper defaultValue={'@Agent A please check'} editorData={mentionEditorState} />,
++    );
+ 
+     await act(async () => {
+       await moment();
+     });
+ 
+-    expect(container.querySelector('.editor_mention')?.textContent).toBe('@Agent A');
++    expect(container.querySelector('.editor_mention')).toBeNull();
++    expect(screen.getByText('@Agent A please check')).toBeInTheDocument();
+   });
+ 
+-  it('should render markdown default value when editor data is missing', async () => {
+-    render(<TestWrapper defaultValue={'Hello from markdown'} />);
++  it('should keep markdown syntax as plain text', async () => {
++    render(<TestWrapper defaultValue={'**Hello** from markdown'} />);
+ 
+     await act(async () => {
+       await moment();
+     });
+ 
+-    expect(screen.getByText('Hello from markdown')).toBeInTheDocument();
++    expect(screen.getByText('**Hello** from markdown')).toBeInTheDocument();
+   });
+ });
 diff --git a/src/features/EditorModal/EditorCanvas.tsx b/src/features/EditorModal/EditorCanvas.tsx
-index d5e11d7aa1..e72383895b 100644
+index d5e11d7aa1..16812b2ac2 100644
 --- a/src/features/EditorModal/EditorCanvas.tsx
 +++ b/src/features/EditorModal/EditorCanvas.tsx
-@@ -6,6 +6,8 @@ import { type FC, useMemo } from 'react';
- 
- import { createChatInputRichPlugins } from '@/features/ChatInput/InputEditor/plugins';
- import { TypoBar } from '@/features/EditorCanvas/TypoBar';
-+import { useUserStore } from '@/store/user';
-+import { labPreferSelectors } from '@/store/user/selectors';
+@@ -1,56 +1,45 @@
+ import { type IEditor } from '@lobehub/editor';
+-import { ReactLinkPlugin, ReactTablePlugin } from '@lobehub/editor';
+ import { Editor } from '@lobehub/editor/react';
+ import { Flexbox } from '@lobehub/ui';
+-import { type FC, useMemo } from 'react';
+-
+-import { createChatInputRichPlugins } from '@/features/ChatInput/InputEditor/plugins';
+-import { TypoBar } from '@/features/EditorCanvas/TypoBar';
++import { type FC } from 'react';
  
  interface EditorCanvasProps {
    defaultValue?: string;
-@@ -27,12 +29,25 @@ const EditorCanvas: FC<EditorCanvasProps> = ({ defaultValue, editor, editorData
-       return { content: JSON.stringify(editorData), type: 'json' as const };
-     }
+   editor?: IEditor;
++  /**
++   * Saved rich-editor state. Ignored on purpose: the plain-text editor has no plugins
++   * for rich nodes (mentions, chips), and loading such a document would open it empty.
++   */
+   editorData?: unknown;
+ }
  
+-const EDITOR_PLUGINS = [
+-  ...createChatInputRichPlugins({ linkPlugin: ReactLinkPlugin }),
+-  ReactTablePlugin,
+-];
+-
+-const EditorCanvas: FC<EditorCanvasProps> = ({ defaultValue, editor, editorData }) => {
+-  const { content, type } = useMemo(() => {
+-    const hasValidEditorData =
+-      editorData && typeof editorData === 'object' && Object.keys(editorData).length > 0;
+-
+-    if (hasValidEditorData) {
+-      return { content: JSON.stringify(editorData), type: 'json' as const };
+-    }
+-
 -    return { content: defaultValue || '', type: 'markdown' as const };
-+    return { content: defaultValue || '', type: 'text' as const };
-   }, [editorData, defaultValue]);
- 
-+  const enableRichRender = useUserStore(labPreferSelectors.enableInputMarkdown);
-+  const richRenderProps = useMemo(
-+    () =>
-+      enableRichRender
-+        ? { plugins: EDITOR_PLUGINS }
-+        : {
-+            enablePasteMarkdown: false,
-+            markdownOption: false,
-+            plugins: [],
-+          },
-+    [enableRichRender],
-+  );
-+
-   return (
-     <>
+-  }, [editorData, defaultValue]);
+-
+-  return (
+-    <>
 -      <TypoBar editor={editor} />
-+      {enableRichRender && <TypoBar editor={editor} />}
-       <Flexbox
-         padding={16}
-         style={{ cursor: 'text', maxHeight: '80vh', minHeight: '50vh', overflowY: 'auto' }}
-@@ -41,7 +56,7 @@ const EditorCanvas: FC<EditorCanvasProps> = ({ defaultValue, editor, editorData
-           autoFocus
-           content={content}
-           editor={editor}
+-      <Flexbox
+-        padding={16}
+-        style={{ cursor: 'text', maxHeight: '80vh', minHeight: '50vh', overflowY: 'auto' }}
+-      >
+-        <Editor
+-          autoFocus
+-          content={content}
+-          editor={editor}
 -          plugins={EDITOR_PLUGINS}
-+          {...richRenderProps}
-           type={type}
-           variant={'chat'}
-           style={{
+-          type={type}
+-          variant={'chat'}
+-          style={{
+-            paddingBottom: 120,
+-          }}
+-        />
+-      </Flexbox>
+-    </>
+-  );
++/**
++ * Message edits stay manual: the modal is a plain-text editor over the message text,
++ * with no rich plugins, no typography bar, and no Markdown conversion on load or paste.
++ */
++const PLAIN_TEXT_PROPS = {
++  enablePasteMarkdown: false,
++  markdownOption: false,
++  plugins: [],
+ };
+ 
++const EditorCanvas: FC<EditorCanvasProps> = ({ defaultValue, editor }) => (
++  <Flexbox
++    padding={16}
++    style={{ cursor: 'text', maxHeight: '80vh', minHeight: '50vh', overflowY: 'auto' }}
++  >
++    <Editor
++      autoFocus
++      content={defaultValue || ''}
++      editor={editor}
++      {...PLAIN_TEXT_PROPS}
++      type={'text'}
++      variant={'chat'}
++      style={{
++        paddingBottom: 120,
++      }}
++    />
++  </Flexbox>
++);
++
+ export default EditorCanvas;
 -- 
 2.39.5
 
 
-From a08e779712536e13fd76a9ae0bfc010a9f7c0c86 Mon Sep 17 00:00:00 2001
+From b455b2660374ebfa696e41c1a3fae4238849416b Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:58:55 +0000
-Subject: [PATCH 13/18] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20show=20exact=20to?=
+Subject: [PATCH 13/19] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20show=20exact=20to?=
  =?UTF-8?q?ken=20counts?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -3066,10 +3319,10 @@ Co-authored-by: Cursor GPT-5.6 Sol <cursoragent@cursor.com.invalid>
  3 files changed, 17 insertions(+), 22 deletions(-)
 
 diff --git a/packages/utils/src/format.test.ts b/packages/utils/src/format.test.ts
-index b98df68d7d..ca2faf6dda 100644
+index 514374a91e..4b5228f991 100644
 --- a/packages/utils/src/format.test.ts
 +++ b/packages/utils/src/format.test.ts
-@@ -264,16 +264,16 @@ describe('format', () => {
+@@ -265,16 +265,16 @@ describe('format', () => {
    });
  
    describe('formatUsageValue', () => {
@@ -3094,7 +3347,7 @@ index b98df68d7d..ca2faf6dda 100644
      });
  
      it('keeps small token counts readable without suffixes', () => {
-@@ -282,16 +282,16 @@ describe('format', () => {
+@@ -283,16 +283,16 @@ describe('format', () => {
        expect(formatUsageValue(999)).toBe('999');
      });
  
@@ -3120,7 +3373,7 @@ index b98df68d7d..ca2faf6dda 100644
    });
  
 diff --git a/packages/utils/src/format.ts b/packages/utils/src/format.ts
-index 208c5e4496..4e46cc3ab4 100644
+index d1a2efccae..b376602cb9 100644
 --- a/packages/utils/src/format.ts
 +++ b/packages/utils/src/format.ts
 @@ -82,9 +82,6 @@ export const formatIntergerNumber = (num?: any) => {
@@ -3152,10 +3405,10 @@ index dab78f1104..dcadb8cf01 100644
 2.39.5
 
 
-From a9f3271f0e6b039dbbf5273dfb292a1f2bd2e842 Mon Sep 17 00:00:00 2001
+From d0317feddb420651178f408ace4e1ac649e43ef9 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 7 Oct 2026 16:25:57 +0000
-Subject: [PATCH 14/18] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20use=20MSM=20defau?=
+Subject: [PATCH 14/19] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20use=20MSM=20defau?=
  =?UTF-8?q?lts=20for=20model=20and=20share=20panels?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -3222,10 +3475,10 @@ index dbef53fdd6..a74db2befd 100644
    withSystemRole: true,
  };
 diff --git a/src/store/global/initialState.ts b/src/store/global/initialState.ts
-index 5123d25fc1..a4cfd4de01 100644
+index 66c5fc05ba..b35a067692 100644
 --- a/src/store/global/initialState.ts
 +++ b/src/store/global/initialState.ts
-@@ -144,9 +144,6 @@ export type ModelDetailPanelExpandedKey = (typeof MODEL_DETAIL_PANEL_EXPANDED_KE
+@@ -143,9 +143,6 @@ export type ModelDetailPanelExpandedKey = (typeof MODEL_DETAIL_PANEL_EXPANDED_KE
   * newly added sections default to expanded automatically.
   */
  export const MODEL_DETAIL_PANEL_EXPANDABLE_KEYS = [
@@ -3239,10 +3492,10 @@ index 5123d25fc1..a4cfd4de01 100644
 2.39.5
 
 
-From b7c50c01d1e8ddad945e9cd3e20f3f70ccc8d61c Mon Sep 17 00:00:00 2001
+From 184e4f8493ed1afa3cca46adb31377c7fa88e4bb Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:59:09 +0000
-Subject: [PATCH 15/18] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20shorten=20topic?=
+Subject: [PATCH 15/19] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20shorten=20topic?=
  =?UTF-8?q?=20previews=20and=20honor=20modifier-clicks?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -3255,7 +3508,7 @@ Co-authored-by: Cursor GPT-5.6 Sol <cursoragent@cursor.com.invalid>
  2 files changed, 31 insertions(+), 4 deletions(-)
 
 diff --git a/src/features/AgentSidebar/Topic/List/Item/index.tsx b/src/features/AgentSidebar/Topic/List/Item/index.tsx
-index 6b4b8b9681..15fed6fe5d 100644
+index 25f962e15f..93f4ed7c1d 100644
 --- a/src/features/AgentSidebar/Topic/List/Item/index.tsx
 +++ b/src/features/AgentSidebar/Topic/List/Item/index.tsx
 @@ -49,6 +49,7 @@ import { operationSelectors } from '@/store/chat/selectors';
@@ -3349,10 +3602,10 @@ index 64f4949b1f..b655f2efd9 100644
 2.39.5
 
 
-From b01393c6685b888c40d2137739fc0c8ddf55174d Mon Sep 17 00:00:00 2001
+From a823976fa1f1a6bb140b83d22b5b000adac6c3ab Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 25 Sep 2026 04:09:38 +0000
-Subject: [PATCH 16/18] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20add=20text=20verb?=
+Subject: [PATCH 16/19] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20add=20text=20verb?=
  =?UTF-8?q?osity=20to=20the=20composer=20model=20menu?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -3369,7 +3622,7 @@ Co-authored-by: Cursor Grok 4.7 <cursoragent@cursor.com.invalid>
  create mode 100644 src/features/ChatInput/hooks/useTextVerbosityControl.ts
 
 diff --git a/src/features/ChatInput/ActionBar/Model/SelectorMenu.tsx b/src/features/ChatInput/ActionBar/Model/SelectorMenu.tsx
-index 1bd37e3ff1..2cd9d25ff6 100644
+index 253d561ad8..d1978a01dd 100644
 --- a/src/features/ChatInput/ActionBar/Model/SelectorMenu.tsx
 +++ b/src/features/ChatInput/ActionBar/Model/SelectorMenu.tsx
 @@ -26,6 +26,7 @@ import type { EnabledProviderWithModels } from '@/types/aiProvider';
@@ -3379,8 +3632,8 @@ index 1bd37e3ff1..2cd9d25ff6 100644
 +import type { TextVerbosity, TextVerbosityControl } from '../../hooks/useTextVerbosityControl';
  import { type DropdownPlacement } from '../context';
  
- const styles = createStaticStyles(({ css }) => ({
-@@ -71,6 +72,12 @@ const SubmenuArrow = () => (
+ const styles = stylex.create({
+@@ -63,6 +64,12 @@ const SubmenuArrow = () => (
    </svg>
  );
  
@@ -3393,7 +3646,7 @@ index 1bd37e3ff1..2cd9d25ff6 100644
  interface SelectorMenuProps {
    canSelectModel: boolean;
    children: ReactNode;
-@@ -83,12 +90,13 @@ interface SelectorMenuProps {
+@@ -75,12 +82,13 @@ interface SelectorMenuProps {
    openOnHover?: boolean;
    placement?: DropdownPlacement;
    provider: string;
@@ -3410,7 +3663,7 @@ index 1bd37e3ff1..2cd9d25ff6 100644
   * surfaces read the same way.
   */
  const SelectorMenu = memo<SelectorMenuProps>(
-@@ -104,6 +112,7 @@ const SelectorMenu = memo<SelectorMenuProps>(
+@@ -96,6 +104,7 @@ const SelectorMenu = memo<SelectorMenuProps>(
      openOnHover = false,
      placement = 'topLeft',
      provider,
@@ -3418,7 +3671,7 @@ index 1bd37e3ff1..2cd9d25ff6 100644
    }) => {
      const { t } = useTranslation('chat');
      const [open, setOpen] = useState(false);
-@@ -155,8 +164,35 @@ const SelectorMenu = memo<SelectorMenuProps>(
+@@ -147,8 +156,35 @@ const SelectorMenu = memo<SelectorMenuProps>(
            }),
          );
  
@@ -3454,7 +3707,7 @@ index 1bd37e3ff1..2cd9d25ff6 100644
 +    ]);
  
      const modelMeta = (
-       <DropdownMenuItemExtra className={styles.meta}>
+       <DropdownMenuItemExtra className={stylex.props(styles.meta).className}>
 diff --git a/src/features/ChatInput/ActionBar/Model/index.tsx b/src/features/ChatInput/ActionBar/Model/index.tsx
 index abadb6cfec..718f8f6396 100644
 --- a/src/features/ChatInput/ActionBar/Model/index.tsx
@@ -3568,24 +3821,22 @@ index 0000000000..4b57db4136
 2.39.5
 
 
-From 82d30b6ede113ea4da7a1b15f39933b569bd014f Mon Sep 17 00:00:00 2001
+From 1284209e1acdcbb82a993ebda27030cba16e1610 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
-Date: Thu, 8 Oct 2026 13:47:42 +0000
-Subject: [PATCH 17/18] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20open=20usage=20de?=
+Date: Thu, 12 Nov 2026 23:31:44 +0000
+Subject: [PATCH 17/19] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20open=20usage=20de?=
  =?UTF-8?q?tails=20on=20click=20and=20show=20the=20full=20count?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The footer token number no longer toggles a short format. Hover and click both open the detail card.
-
-Co-authored-by: Cursor Grok 4.7 <cursoragent@cursor.com.invalid>
+Co-Authored-By: Claude Opus 5.5 <claude@anthropic.com.invalid>
 ---
- .../Extras/Usage/UsageDetail/index.tsx        | 28 +++----------------
- 1 file changed, 4 insertions(+), 24 deletions(-)
+ .../Extras/Usage/UsageDetail/index.tsx        | 33 +++++--------------
+ 1 file changed, 8 insertions(+), 25 deletions(-)
 
 diff --git a/src/features/Conversation/Messages/components/Extras/Usage/UsageDetail/index.tsx b/src/features/Conversation/Messages/components/Extras/Usage/UsageDetail/index.tsx
-index 13c0d34c3a..4c749f0bca 100644
+index eb4004cf53..a5c45a8e45 100644
 --- a/src/features/Conversation/Messages/components/Extras/Usage/UsageDetail/index.tsx
 +++ b/src/features/Conversation/Messages/components/Extras/Usage/UsageDetail/index.tsx
 @@ -9,7 +9,7 @@ import InfoTooltip from '@/components/InfoTooltip';
@@ -3597,7 +3848,7 @@ index 13c0d34c3a..4c749f0bca 100644
  
  import AnimatedNumber from './AnimatedNumber';
  import ModelCard from './ModelCard';
-@@ -27,10 +27,6 @@ interface TokenDetailProps {
+@@ -31,10 +31,6 @@ interface TokenDetailProps {
  const TokenDetail = memo<TokenDetailProps>(({ usage, performance, model, provider }) => {
    const { t } = useTranslation('chat');
  
@@ -3608,7 +3859,7 @@ index 13c0d34c3a..4c749f0bca 100644
    const modelCard = useAiInfraStore(aiModelSelectors.getModelCard(model, provider));
    const isShowCredit = useGlobalStore(systemStatusSelectors.isShowCredit) && !!modelCard?.pricing;
  
-@@ -143,7 +139,7 @@ const TokenDetail = memo<TokenDetailProps>(({ usage, performance, model, provide
+@@ -152,7 +148,7 @@ const TokenDetail = memo<TokenDetailProps>(({ usage, performance, model, provide
    return (
      <Popover
        placement={'top'}
@@ -3617,14 +3868,14 @@ index 13c0d34c3a..4c749f0bca 100644
        content={
          <Flexbox gap={8} style={{ minWidth: 200 }}>
            {modelCard && <ModelCard {...modelCard} provider={provider} />}
-@@ -233,31 +229,15 @@ const TokenDetail = memo<TokenDetailProps>(({ usage, performance, model, provide
+@@ -242,32 +238,19 @@ const TokenDetail = memo<TokenDetailProps>(({ usage, performance, model, provide
          </Flexbox>
        }
      >
 -      <Center
 -        horizontal
 -        gap={2}
--        style={{ cursor: 'pointer' }}
+-        style={{ cursor: 'pointer', fontVariantNumeric: 'tabular-nums' }}
 -        onClick={(e) => {
 -          // Prevent Popover from closing and toggle the format
 -          e.preventDefault();
@@ -3632,16 +3883,21 @@ index 13c0d34c3a..4c749f0bca 100644
 -          updateSystemStatus({ tokenDisplayFormatShort: !isShortFormat });
 -        }}
 -      >
-+      <Center horizontal gap={2} style={{ cursor: 'pointer' }}>
++      <Center horizontal gap={2} style={{ cursor: 'pointer', fontVariantNumeric: 'tabular-nums' }}>
          <Icon icon={isShowCredit ? BadgeCent : CoinsIcon} />
          <AnimatedNumber
            duration={1500}
            // Force remount when switching between token/credit to prevent unwanted animation
            // See: https://github.com/lobehub/lobe-chat/pull/10098
-+          formatter={(value) => new Intl.NumberFormat('en-US').format(Math.round(value))}
++          formatter={(value) =>
++            isShowCredit
++              ? formatUsd(value)
++              : new Intl.NumberFormat('en-US').format(Math.round(value))
++          }
            key={isShowCredit ? 'credit' : 'token'}
            value={totalCount}
 -          formatter={(value) => {
+-            if (isShowCredit) return formatUsd(value);
 -            const roundedValue = Math.round(value);
 -            if (isShortFormat) {
 -              return (formatShortenNumber(roundedValue) as string).toLowerCase?.();
@@ -3655,10 +3911,10 @@ index 13c0d34c3a..4c749f0bca 100644
 2.39.5
 
 
-From ce0d3380dda34be49106fb04137f412163d3a672 Mon Sep 17 00:00:00 2001
+From 25a81e820cb4f50e73dd415bc15f9537ffec4054 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
-Date: Thu, 8 Oct 2026 15:26:32 +0000
-Subject: [PATCH 18/18] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20show=20USD=20cost?=
+Date: Fri, 13 Nov 2026 01:26:51 +0000
+Subject: [PATCH 18/19] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20show=20USD=20cost?=
  =?UTF-8?q?=20in=20the=20usage=20popover?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -3666,72 +3922,66 @@ Content-Transfer-Encoding: 8bit
 
 The credit tab was an internal counter, so the popover now shows dollars from each model's published price list.
 
-Co-authored-by: Cursor Grok 4.7 <cursoragent@cursor.com.invalid>
+Co-Authored-By: Claude Opus 5.5 <claude@anthropic.com.invalid>
 ---
- locales/en-US/chat.json                       |  12 +-
- packages/locales/src/default/chat.ts          |  13 +-
+ locales/en-US/chat.json                       |   6 +-
+ packages/locales/src/default/chat.ts          |   6 +-
  packages/model-runtime/package.json           |   1 +
  .../Extras/Usage/UsageDetail/ModelCard.tsx    |   6 +-
- .../Usage/UsageDetail/TokenProgress.tsx       |  93 +++++++-------
- .../Extras/Usage/UsageDetail/index.tsx        |  82 +++++++------
+ .../Extras/Usage/UsageDetail/index.tsx        |  72 +++++------
  .../Extras/Usage/UsageDetail/usageCost.ts     | 113 ++++++++++++++++++
- 7 files changed, 225 insertions(+), 95 deletions(-)
+ 6 files changed, 156 insertions(+), 48 deletions(-)
  create mode 100644 src/features/Conversation/Messages/components/Extras/Usage/UsageDetail/usageCost.ts
 
 diff --git a/locales/en-US/chat.json b/locales/en-US/chat.json
-index 9f5c5dc7e8..adaf881205 100644
+index fbbde4b421..3672795d64 100644
 --- a/locales/en-US/chat.json
 +++ b/locales/en-US/chat.json
-@@ -1813,15 +1813,15 @@
+@@ -1860,16 +1860,16 @@
    "messageLongCollapse.expand": "Show more",
    "messages.dm.sentTo": "Visible only to {{name}}",
    "messages.dm.title": "DM",
--  "messages.modelCard.credit": "Credits",
+-  "messages.modelCard.credit": "Cost",
 +  "messages.modelCard.credit": "USD",
    "messages.modelCard.creditPricing": "Pricing",
--  "messages.modelCard.creditTooltip": "For counting, we treat $1 as 1M credits. Example: $3/M tokens → 3 credits per token.",
--  "messages.modelCard.pricing.inputCachedTokens": "Cached input {{amount}} credits · ${{amount}}/M",
+-  "messages.modelCard.creditTooltip": "Prices are shown in US dollars. Example: $3/M tokens means $3 per million tokens.",
 +  "messages.modelCard.creditTooltip": "Estimated USD cost from the published model price, including cache and long-context tiers.",
-+  "messages.modelCard.pricing.inputCachedTokens": "Cached input ${{amount}}/M",
+   "messages.modelCard.pricing.inputCachedTokens": "Cached input ${{amount}}/M",
    "messages.modelCard.pricing.inputCharts": "${{amount}}/M characters",
    "messages.modelCard.pricing.inputMinutes": "${{amount}}/minute",
--  "messages.modelCard.pricing.inputTokens": "Input {{amount}} credits · ${{amount}}/M",
--  "messages.modelCard.pricing.outputTokens": "Output {{amount}} credits · ${{amount}}/M",
--  "messages.modelCard.pricing.writeCacheInputTokens": "Cache write {{amount}} credits · ${{amount}}/M",
-+  "messages.modelCard.pricing.inputTokens": "Input ${{amount}}/M",
-+  "messages.modelCard.pricing.outputTokens": "Output ${{amount}}/M",
-+  "messages.modelCard.pricing.writeCacheInputTokens": "Cache write ${{amount}}/M",
-   "messages.tokenDetails.average": "Average unit price",
+   "messages.modelCard.pricing.inputTokens": "Input ${{amount}}/M",
+   "messages.modelCard.pricing.outputTokens": "Output ${{amount}}/M",
+   "messages.modelCard.pricing.writeCacheInputTokens": "Cache write ${{amount}}/M",
+-  "messages.tokenDetails.average": "Average price per 1M tokens",
++  "messages.tokenDetails.average": "Average unit price",
    "messages.tokenDetails.cacheRate": "Cache rate",
    "messages.tokenDetails.cliCredits.title": "{{value}} Credits",
+   "messages.tokenDetails.cliCredits.tooltip": "Subscription credits reported by the agent CLI for this turn. The CLI bills in credits instead of reporting tokens; this is separate from your LobeHub usage.",
 diff --git a/packages/locales/src/default/chat.ts b/packages/locales/src/default/chat.ts
-index 9ca55f48be..f3b6dbcd5f 100644
+index 9859d32af5..e3c6db1d76 100644
 --- a/packages/locales/src/default/chat.ts
 +++ b/packages/locales/src/default/chat.ts
-@@ -1162,17 +1162,16 @@ export default {
+@@ -1190,17 +1190,17 @@ export default {
    'messageLongCollapse.expand': 'Show more',
    'messages.dm.sentTo': 'Visible only to {{name}}',
    'messages.dm.title': 'DM',
--  'messages.modelCard.credit': 'Credits',
+-  'messages.modelCard.credit': 'Cost',
 +  'messages.modelCard.credit': 'USD',
    'messages.modelCard.creditPricing': 'Pricing',
    'messages.modelCard.creditTooltip':
--    'For counting, we treat $1 as 1M credits. Example: $3/M tokens → 3 credits per token.',
--  'messages.modelCard.pricing.inputCachedTokens': 'Cached input {{amount}} credits · ${{amount}}/M',
+-    'Prices are shown in US dollars. Example: $3/M tokens means $3 per million tokens.',
 +    'Estimated USD cost from the published model price, including cache and long-context tiers.',
-+  'messages.modelCard.pricing.inputCachedTokens': 'Cached input ${{amount}}/M',
+   'messages.modelCard.pricing.inputCachedTokens': 'Cached input ${{amount}}/M',
    'messages.modelCard.pricing.inputCharts': '${{amount}}/M characters',
    'messages.modelCard.pricing.inputMinutes': '${{amount}}/minute',
--  'messages.modelCard.pricing.inputTokens': 'Input {{amount}} credits · ${{amount}}/M',
--  'messages.modelCard.pricing.outputTokens': 'Output {{amount}} credits · ${{amount}}/M',
--  'messages.modelCard.pricing.writeCacheInputTokens':
--    'Cache write {{amount}} credits · ${{amount}}/M',
-+  'messages.modelCard.pricing.inputTokens': 'Input ${{amount}}/M',
-+  'messages.modelCard.pricing.outputTokens': 'Output ${{amount}}/M',
-+  'messages.modelCard.pricing.writeCacheInputTokens': 'Cache write ${{amount}}/M',
-   'messages.tokenDetails.average': 'Average unit price',
+   'messages.modelCard.pricing.inputTokens': 'Input ${{amount}}/M',
+   'messages.modelCard.pricing.outputTokens': 'Output ${{amount}}/M',
+   'messages.modelCard.pricing.writeCacheInputTokens': 'Cache write ${{amount}}/M',
+-  'messages.tokenDetails.average': 'Average price per 1M tokens',
++  'messages.tokenDetails.average': 'Average unit price',
    'messages.tokenDetails.cliCredits.title': '{{value}} Credits',
    'messages.tokenDetails.cliCredits.tooltip':
+     'Subscription credits reported by the agent CLI for this turn. The CLI bills in credits instead of reporting tokens; this is separate from your LobeHub usage.',
 diff --git a/packages/model-runtime/package.json b/packages/model-runtime/package.json
 index 13a2b47fe3..b3327bc85b 100644
 --- a/packages/model-runtime/package.json
@@ -3745,10 +3995,10 @@ index 13a2b47fe3..b3327bc85b 100644
      "./resolveVideoSinglePrice": "./src/core/usageConverters/utils/resolveVideoSinglePrice.ts",
      "./types/error": "./src/types/error.ts",
 diff --git a/src/features/Conversation/Messages/components/Extras/Usage/UsageDetail/ModelCard.tsx b/src/features/Conversation/Messages/components/Extras/Usage/UsageDetail/ModelCard.tsx
-index b9ef704802..3c9d14bed0 100644
+index 470d2bbb44..54d91144fe 100644
 --- a/src/features/Conversation/Messages/components/Extras/Usage/UsageDetail/ModelCard.tsx
 +++ b/src/features/Conversation/Messages/components/Extras/Usage/UsageDetail/ModelCard.tsx
-@@ -53,12 +53,12 @@ const ModelCard = memo<ModelCardProps>(({ pricing, id, provider, displayName })
+@@ -58,12 +58,12 @@ const ModelCard = memo<ModelCardProps>(({ pricing, id, provider, displayName })
          {!!pricing && (
            <Flexbox>
              <Tabs
@@ -3763,7 +4013,7 @@ index b9ef704802..3c9d14bed0 100644
                    label: (
                      <Tooltip title={t('messages.modelCard.creditTooltip')}>
                        <span>{t('messages.modelCard.credit')}</span>
-@@ -67,7 +67,7 @@ const ModelCard = memo<ModelCardProps>(({ pricing, id, provider, displayName })
+@@ -72,7 +72,7 @@ const ModelCard = memo<ModelCardProps>(({ pricing, id, provider, displayName })
                  },
                ]}
                onChange={(key) => {
@@ -3772,137 +4022,29 @@ index b9ef704802..3c9d14bed0 100644
                }}
              />
            </Flexbox>
-diff --git a/src/features/Conversation/Messages/components/Extras/Usage/UsageDetail/TokenProgress.tsx b/src/features/Conversation/Messages/components/Extras/Usage/UsageDetail/TokenProgress.tsx
-index 5f290aff46..ab8a9369fc 100644
---- a/src/features/Conversation/Messages/components/Extras/Usage/UsageDetail/TokenProgress.tsx
-+++ b/src/features/Conversation/Messages/components/Extras/Usage/UsageDetail/TokenProgress.tsx
-@@ -11,56 +11,59 @@ export interface TokenProgressItem {
- 
- interface TokenProgressProps {
-   data: TokenProgressItem[];
-+  formatValue?: (value: number) => string;
-   showIcon?: boolean;
- }
- 
--const TokenProgress = memo<TokenProgressProps>(({ data, showIcon }) => {
--  const total = data.reduce((acc, item) => acc + item.value, 0);
-+const TokenProgress = memo<TokenProgressProps>(
-+  ({ data, formatValue = formatUsageValue, showIcon }) => {
-+    const total = data.reduce((acc, item) => acc + item.value, 0);
- 
--  return (
--    <Flexbox gap={8} style={{ position: 'relative' }} width={'100%'}>
--      <Flexbox
--        horizontal
--        height={6}
--        width={'100%'}
--        style={{
--          background: total === 0 ? cssVar.colorFill : undefined,
--          borderRadius: 3,
--          overflow: 'hidden',
--          position: 'relative',
--        }}
--      >
--        {data.map((item) => (
--          <Flexbox
--            height={'100%'}
--            key={item.id}
--            style={{ background: item.color, flex: item.value }}
--          />
--        ))}
--      </Flexbox>
--      <Flexbox>
--        {data.map((item) => (
--          <Flexbox horizontal align={'center'} gap={4} justify={'space-between'} key={item.id}>
--            <Flexbox horizontal align={'center'} gap={4}>
--              {showIcon && (
--                <div
--                  style={{
--                    background: item.color,
--                    borderRadius: '50%',
--                    flex: 'none',
--                    height: 6,
--                    width: 6,
--                  }}
--                />
--              )}
--              <div style={{ color: cssVar.colorTextSecondary }}>{item.title}</div>
-+    return (
-+      <Flexbox gap={8} style={{ position: 'relative' }} width={'100%'}>
-+        <Flexbox
-+          horizontal
-+          height={6}
-+          width={'100%'}
-+          style={{
-+            background: total === 0 ? cssVar.colorFill : undefined,
-+            borderRadius: 3,
-+            overflow: 'hidden',
-+            position: 'relative',
-+          }}
-+        >
-+          {data.map((item) => (
-+            <Flexbox
-+              height={'100%'}
-+              key={item.id}
-+              style={{ background: item.color, flex: item.value }}
-+            />
-+          ))}
-+        </Flexbox>
-+        <Flexbox>
-+          {data.map((item) => (
-+            <Flexbox horizontal align={'center'} gap={4} justify={'space-between'} key={item.id}>
-+              <Flexbox horizontal align={'center'} gap={4}>
-+                {showIcon && (
-+                  <div
-+                    style={{
-+                      background: item.color,
-+                      borderRadius: '50%',
-+                      flex: 'none',
-+                      height: 6,
-+                      width: 6,
-+                    }}
-+                  />
-+                )}
-+                <div style={{ color: cssVar.colorTextSecondary }}>{item.title}</div>
-+              </Flexbox>
-+              <div style={{ fontWeight: 500 }}>{formatValue(item.value)}</div>
-             </Flexbox>
--            <div style={{ fontWeight: 500 }}>{formatUsageValue(item.value)}</div>
--          </Flexbox>
--        ))}
-+          ))}
-+        </Flexbox>
-       </Flexbox>
--    </Flexbox>
--  );
--});
-+    );
-+  },
-+);
- 
- export default TokenProgress;
 diff --git a/src/features/Conversation/Messages/components/Extras/Usage/UsageDetail/index.tsx b/src/features/Conversation/Messages/components/Extras/Usage/UsageDetail/index.tsx
-index 4c749f0bca..5dee204ef3 100644
+index a5c45a8e45..9b93c7fee4 100644
 --- a/src/features/Conversation/Messages/components/Extras/Usage/UsageDetail/index.tsx
 +++ b/src/features/Conversation/Messages/components/Extras/Usage/UsageDetail/index.tsx
 @@ -1,5 +1,5 @@
  import { type ModelPerformance, type ModelUsage } from '@lobechat/types';
--import { formatUsageValue } from '@lobechat/utils';
+-import { formatUsageValue, formatUsd } from '@lobechat/utils';
 +import { formatCost, formatPrice, formatUsageValue } from '@lobechat/utils';
  import { Center, cssVar, Divider, Flexbox, Icon, Popover } from '@lobehub/ui';
  import { BadgeCent, CoinsIcon } from 'lucide-react';
  import { memo } from 'react';
-@@ -16,6 +16,9 @@ import ModelCard from './ModelCard';
+@@ -16,7 +16,9 @@ import ModelCard from './ModelCard';
  import type { TokenProgressItem } from './TokenProgress';
  import TokenProgress from './TokenProgress';
  import { getDetailsToken } from './tokens';
+-import { createUsdFormatter } from './usd';
 +import { getUsageUsdCost } from './usageCost';
 +
 +const formatUsd = (value: number) => `$${formatCost(value)}`;
  
- interface TokenDetailProps {
-   model: string;
-@@ -29,26 +32,29 @@ const TokenDetail = memo<TokenDetailProps>(({ usage, performance, model, provide
+ /** Right-hand values stack in one column, so digits keep the same width. */
+ const VALUE_STYLE = { fontVariantNumeric: 'tabular-nums', fontWeight: 500 } as const;
+@@ -33,26 +35,29 @@ const TokenDetail = memo<TokenDetailProps>(({ usage, performance, model, provide
  
    const modelCard = useAiInfraStore(aiModelSelectors.getModelCard(model, provider));
    const isShowCredit = useGlobalStore(systemStatusSelectors.isShowCredit) && !!modelCard?.pricing;
@@ -3916,69 +4058,67 @@ index 4c749f0bca..5dee204ef3 100644
        color: cssVar.cyan9,
        id: 'reasoning',
        title: t('messages.tokenDetails.inputAudio'),
--      value: isShowCredit ? detailTokens.inputAudio.credit : detailTokens.inputAudio.token,
+-      value: isShowCredit ? detailTokens.inputAudio.cost : detailTokens.inputAudio.token,
 +      value: amount(usdCost?.inputAudio, detailTokens.inputAudio.token),
      },
      !!detailTokens.inputCitation && {
        color: cssVar.orange,
        id: 'inputText',
        title: t('messages.tokenDetails.inputCitation'),
--      value: isShowCredit ? detailTokens.inputCitation.credit : detailTokens.inputCitation.token,
+-      value: isShowCredit ? detailTokens.inputCitation.cost : detailTokens.inputCitation.token,
 +      value: amount(usdCost?.inputCitation, detailTokens.inputCitation.token),
      },
      !!detailTokens.inputText && {
        color: cssVar.green,
        id: 'inputText',
        title: t('messages.tokenDetails.inputText'),
--      value: isShowCredit ? detailTokens.inputText.credit : detailTokens.inputText.token,
+-      value: isShowCredit ? detailTokens.inputText.cost : detailTokens.inputText.token,
 +      value: amount(usdCost?.inputText, detailTokens.inputText.token),
      },
    ].filter(Boolean) as TokenProgressItem[];
  
-@@ -57,27 +63,25 @@ const TokenDetail = memo<TokenDetailProps>(({ usage, performance, model, provide
+@@ -61,25 +66,25 @@ const TokenDetail = memo<TokenDetailProps>(({ usage, performance, model, provide
        color: cssVar.pink,
        id: 'reasoning',
        title: t('messages.tokenDetails.reasoning'),
--      value: isShowCredit
--        ? detailTokens.outputReasoning.credit
--        : detailTokens.outputReasoning.token,
+-      value: isShowCredit ? detailTokens.outputReasoning.cost : detailTokens.outputReasoning.token,
 +      value: amount(usdCost?.outputReasoning, detailTokens.outputReasoning.token),
      },
      !!detailTokens.outputImage && {
        color: cssVar.purple,
        id: 'outputImage',
        title: t('messages.tokenDetails.outputImage'),
--      value: isShowCredit ? detailTokens.outputImage.credit : detailTokens.outputImage.token,
+-      value: isShowCredit ? detailTokens.outputImage.cost : detailTokens.outputImage.token,
 +      value: amount(usdCost?.outputImage, detailTokens.outputImage.token),
      },
      !!detailTokens.outputAudio && {
        color: cssVar.cyan9,
        id: 'outputAudio',
        title: t('messages.tokenDetails.outputAudio'),
--      value: isShowCredit ? detailTokens.outputAudio.credit : detailTokens.outputAudio.token,
+-      value: isShowCredit ? detailTokens.outputAudio.cost : detailTokens.outputAudio.token,
 +      value: amount(usdCost?.outputAudio, detailTokens.outputAudio.token),
      },
      !!detailTokens.outputText && {
        color: cssVar.green,
        id: 'outputText',
        title: t('messages.tokenDetails.outputText'),
--      value: isShowCredit ? detailTokens.outputText.credit : detailTokens.outputText.token,
+-      value: isShowCredit ? detailTokens.outputText.cost : detailTokens.outputText.token,
 +      value: amount(usdCost?.outputText, detailTokens.outputText.token),
      },
    ].filter(Boolean) as TokenProgressItem[];
  
-@@ -87,51 +91,47 @@ const TokenDetail = memo<TokenDetailProps>(({ usage, performance, model, provide
+@@ -89,58 +94,49 @@ const TokenDetail = memo<TokenDetailProps>(({ usage, performance, model, provide
  
        id: 'uncachedInput',
        title: t('messages.tokenDetails.inputUncached'),
--      value: isShowCredit ? detailTokens.inputCacheMiss.credit : detailTokens.inputCacheMiss.token,
+-      value: isShowCredit ? detailTokens.inputCacheMiss.cost : detailTokens.inputCacheMiss.token,
 +      value: amount(usdCost?.inputCacheMiss, detailTokens.inputCacheMiss.token),
      },
      !!detailTokens.inputCached && {
        color: cssVar.orange,
        id: 'inputCached',
        title: t('messages.tokenDetails.inputCached'),
--      value: isShowCredit ? detailTokens.inputCached.credit : detailTokens.inputCached.token,
+-      value: isShowCredit ? detailTokens.inputCached.cost : detailTokens.inputCached.token,
 +      value: amount(usdCost?.inputCached, detailTokens.inputCached.token),
      },
      !!detailTokens.inputCachedWrite && {
@@ -3986,7 +4126,7 @@ index 4c749f0bca..5dee204ef3 100644
        id: 'cachedWriteInput',
        title: t('messages.tokenDetails.inputWriteCached'),
 -      value: isShowCredit
--        ? detailTokens.inputCachedWrite.credit
+-        ? detailTokens.inputCachedWrite.cost
 -        : detailTokens.inputCachedWrite.token,
 +      value: amount(usdCost?.inputCachedWrite, detailTokens.inputCachedWrite.token),
      },
@@ -3994,35 +4134,44 @@ index 4c749f0bca..5dee204ef3 100644
        color: cssVar.geekblue,
        id: 'inputTool',
        title: t('messages.tokenDetails.inputTool'),
--      value: isShowCredit ? detailTokens.inputTool.credit : detailTokens.inputTool.token,
+-      value: isShowCredit ? detailTokens.inputTool.cost : detailTokens.inputTool.token,
 +      value: amount(usdCost?.inputTool, detailTokens.inputTool.token),
      },
      !!detailTokens.totalOutput && {
        color: cssVar.colorSuccess,
        id: 'output',
        title: t('messages.tokenDetails.output'),
--      value: isShowCredit ? detailTokens.totalOutput.credit : detailTokens.totalOutput.token,
+-      value: isShowCredit ? detailTokens.totalOutput.cost : detailTokens.totalOutput.token,
 +      value: amount(usdCost?.totalOutput, detailTokens.totalOutput.token),
      },
    ].filter(Boolean) as TokenProgressItem[];
  
 -  const totalCount =
 -    isShowCredit && !!detailTokens.totalTokens
--      ? detailTokens.totalTokens.credit
+-      ? detailTokens.totalTokens.cost
 -      : detailTokens.totalTokens!.token;
 +  const totalTokens = detailTokens.totalTokens?.token ?? 0;
 +  const totalCount = usdCost?.total ?? totalTokens;
  
--  const detailTotal = formatUsageValue(totalCount);
+-  // Every amount in the panel shares one number of decimals, so the column reads at a glance
+-  const formatPanelUsd = createUsdFormatter(
+-    [...inputDetails, ...outputDetails, ...totalDetail]
+-      .map((item) => item.value)
+-      .concat(totalCount),
+-  );
+-  const formatValue = isShowCredit ? formatPanelUsd : formatUsageValue;
+-  const detailTotal = formatValue(totalCount);
++  // Undefined falls back to the compact token count format.
++  const formatValue = showUsd ? formatUsd : undefined;
 +  const detailTotal = usdCost ? formatUsd(usdCost.total) : formatUsageValue(totalTokens);
    const cacheRate =
      typeof detailTokens.inputCacheRate === 'number'
        ? `${formatNumber(detailTokens.inputCacheRate * 100, 1)}%`
        : undefined;
  
--  const averagePricing = formatNumber(
--    detailTokens.totalTokens!.credit / detailTokens.totalTokens!.token,
--    2,
+-  // Average unit price in USD per 1M tokens; the label carries the unit
+-  const averagePricing = formatUsd(
+-    (detailTokens.totalTokens!.cost * 1_000_000) / detailTokens.totalTokens!.token,
 -  );
 +  const averagePricing =
 +    usdCost && totalTokens > 0
@@ -4031,54 +4180,19 @@ index 4c749f0bca..5dee204ef3 100644
  
    const tps = performance?.tps ? formatNumber(performance.tps, 2) : undefined;
    const ttft = performance?.ttft ? formatNumber(performance.ttft / 1000, 2) : undefined;
-@@ -158,7 +158,11 @@ const TokenDetail = memo<TokenDetailProps>(({ usage, performance, model, provide
-                     {t('messages.tokenDetails.inputTitle')}
-                   </div>
-                 </Flexbox>
--                <TokenProgress showIcon data={inputDetails} />
-+                <TokenProgress
-+                  showIcon
-+                  data={inputDetails}
-+                  formatValue={showUsd ? formatUsd : undefined}
-+                />
-               </Flexbox>
-             )}
-             {outputDetails.length > 1 && (
-@@ -174,11 +178,19 @@ const TokenDetail = memo<TokenDetailProps>(({ usage, performance, model, provide
-                     {t('messages.tokenDetails.outputTitle')}
-                   </div>
-                 </Flexbox>
--                <TokenProgress showIcon data={outputDetails} />
-+                <TokenProgress
-+                  showIcon
-+                  data={outputDetails}
-+                  formatValue={showUsd ? formatUsd : undefined}
-+                />
-               </Flexbox>
-             )}
-             <Flexbox>
--              <TokenProgress showIcon data={totalDetail} />
-+              <TokenProgress
-+                showIcon
-+                data={totalDetail}
-+                formatValue={showUsd ? formatUsd : undefined}
-+              />
-               <Divider style={{ marginBlock: 8 }} />
-               {cacheRate && (
-                 <Flexbox horizontal align={'center'} gap={4} justify={'space-between'}>
-@@ -194,7 +206,7 @@ const TokenDetail = memo<TokenDetailProps>(({ usage, performance, model, provide
+@@ -203,7 +199,7 @@ const TokenDetail = memo<TokenDetailProps>(({ usage, performance, model, provide
                  </div>
-                 <div style={{ fontWeight: 500 }}>{detailTotal}</div>
+                 <div style={VALUE_STYLE}>{detailTotal}</div>
                </Flexbox>
 -              {isShowCredit && (
 +              {averagePricing && (
                  <Flexbox horizontal align={'center'} gap={4} justify={'space-between'}>
                    <div style={{ color: cssVar.colorTextSecondary }}>
                      {t('messages.tokenDetails.average')}
-@@ -230,14 +242,16 @@ const TokenDetail = memo<TokenDetailProps>(({ usage, performance, model, provide
+@@ -239,17 +235,15 @@ const TokenDetail = memo<TokenDetailProps>(({ usage, performance, model, provide
        }
      >
-       <Center horizontal gap={2} style={{ cursor: 'pointer' }}>
+       <Center horizontal gap={2} style={{ cursor: 'pointer', fontVariantNumeric: 'tabular-nums' }}>
 -        <Icon icon={isShowCredit ? BadgeCent : CoinsIcon} />
 +        <Icon icon={showUsd ? BadgeCent : CoinsIcon} />
          <AnimatedNumber
@@ -4086,16 +4200,17 @@ index 4c749f0bca..5dee204ef3 100644
 -          // Force remount when switching between token/credit to prevent unwanted animation
 +          // Force remount when switching between tokens and USD to prevent unwanted animation
            // See: https://github.com/lobehub/lobe-chat/pull/10098
--          formatter={(value) => new Intl.NumberFormat('en-US').format(Math.round(value))}
+           formatter={(value) =>
+-            isShowCredit
+-              ? formatUsd(value)
+-              : new Intl.NumberFormat('en-US').format(Math.round(value))
++            showUsd ? formatUsd(value) : new Intl.NumberFormat('en-US').format(Math.round(value))
+           }
 -          key={isShowCredit ? 'credit' : 'token'}
 +          key={showUsd ? 'usd' : 'token'}
            value={totalCount}
-+          formatter={(value) =>
-+            showUsd ? formatUsd(value) : new Intl.NumberFormat('en-US').format(Math.round(value))
-+          }
          />
        </Center>
-     </Popover>
 diff --git a/src/features/Conversation/Messages/components/Extras/Usage/UsageDetail/usageCost.ts b/src/features/Conversation/Messages/components/Extras/Usage/UsageDetail/usageCost.ts
 new file mode 100644
 index 0000000000..1e7e4bf1fc
@@ -4215,6 +4330,70 @@ index 0000000000..1e7e4bf1fc
 +    totalOutput,
 +  };
 +};
+-- 
+2.39.5
+
+
+From a753bf985c7665591227cd29cc9159d0b5401283 Mon Sep 17 00:00:00 2001
+From: MaySoMusician <maysomusician@gmail.com>
+Date: Sun, 15 Nov 2026 04:10:13 +0000
+Subject: [PATCH 19/19] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20keep=20the=20agen?=
+ =?UTF-8?q?t=20mode=20switch=20on=20mobile?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Upstream moved the Agent/Chat switch into the Advanced Parameters sidebar, which mobile never mounts. Show the mode pill in the composer control bar on mobile so the mode stays switchable there.
+
+Note: this is not a true MSM requirement. The pill exists only so the mode stays switchable on mobile, which the chat-mode behavior test needs. If upstream restores a mobile switch or offers any other way to change the mode on mobile, go back to the upstream implementation and drop this patch and its behavior test (mobile-mode-switch.spec.ts).
+
+Co-Authored-By: Claude Opus 5.5 <claude@anthropic.com.invalid>
+---
+ src/features/ChatInput/ControlBar/index.tsx | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/src/features/ChatInput/ControlBar/index.tsx b/src/features/ChatInput/ControlBar/index.tsx
+index b0c366822d..f77467d910 100644
+--- a/src/features/ChatInput/ControlBar/index.tsx
++++ b/src/features/ChatInput/ControlBar/index.tsx
+@@ -5,9 +5,11 @@ import { memo } from 'react';
+ import ChatInputCredits from '@/business/client/features/ChatInputCredits';
+ import { useBusinessAgentModeSync } from '@/business/client/hooks/useBusinessAgentMode';
+ import { SkeletonBar } from '@/components/Skeleton';
++import { useIsMobile } from '@/hooks/useIsMobile';
+ import { useAgentStore } from '@/store/agent';
+ import { agentByIdSelectors } from '@/store/agent/selectors';
+ 
++import AgentMode from '../ActionBar/AgentMode';
+ import ContextWindow from '../ActionBar/Token';
+ import { useAgentId } from '../hooks/useAgentId';
+ import { useChatInputResourceAccess } from '../hooks/useChatInputResourceAccess';
+@@ -73,6 +75,9 @@ const ControlBar = memo(() => {
+ 
+   const isLoading = useAgentStore((s) => agentByIdSelectors.isAgentConfigLoadingById(agentId)(s));
+   const { isAgentRuntimeMode, isPreferenceLoading } = useEffectiveAgentMode(agentId);
++  // Mobile has no working sidebar, so the Advanced Parameters switch is unreachable
++  // there; keep the Agent/Chat pill in the bar instead.
++  const isMobile = useIsMobile();
+ 
+   const view = resolveControlBarView({
+     agentId,
+@@ -92,13 +97,14 @@ const ControlBar = memo(() => {
+       className={stylex.props(styles.bar).className}
+       justify={'space-between'}
+     >
+-      {/* Left: (agent-only) execution device + working directory */}
++      {/* Left: (mobile) chat-mode switcher + (agent-only) execution device + working directory */}
+       <Flexbox
+         horizontal
+         align={'center'}
+         className={stylex.props(styles.leftGroup).className}
+         gap={4}
+       >
++        {isMobile && <AgentMode />}
+         {isAgentRuntimeMode && <WorkspaceControls agentId={agentId} />}
+       </Flexbox>
+ 
 -- 
 2.39.5
 

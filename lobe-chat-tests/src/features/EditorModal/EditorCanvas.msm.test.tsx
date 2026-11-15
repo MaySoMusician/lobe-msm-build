@@ -14,27 +14,8 @@ vi.mock('@lobehub/editor/react', () => ({
   },
 }));
 
-vi.mock('@lobehub/editor', () => ({
-  ReactLinkPlugin: {},
-  ReactTablePlugin: {},
-}));
-
 vi.mock('@lobehub/ui', () => ({
   Flexbox: ({ children }: { children?: ReactNode }) => <div>{children}</div>,
-}));
-
-vi.mock('@/features/ChatInput/InputEditor/plugins', () => ({
-  createChatInputRichPlugins: () => [{ name: 'rich' }],
-}));
-
-vi.mock('@/store/user', () => ({
-  useUserStore: (selector: (s: any) => unknown) => selector({}),
-}));
-
-vi.mock('@/store/user/selectors', () => ({
-  labPreferSelectors: {
-    enableInputMarkdown: () => false,
-  },
 }));
 
 vi.mock('@/features/EditorCanvas/TypoBar', () => ({
@@ -43,16 +24,34 @@ vi.mock('@/features/EditorCanvas/TypoBar', () => ({
 
 import EditorCanvas from './EditorCanvas';
 
-describe('msm EditorCanvas markdown disabled', () => {
-  it('gates rich markdown editing when enableInputMarkdown is false', () => {
+describe('msm EditorCanvas keeps message edits plain text', () => {
+  it('always uses the plain-text editor without rich plugins or the typography bar', () => {
     render(<EditorCanvas defaultValue="hello" />);
 
     expect(editorProps.current).toMatchObject({
+      content: 'hello',
       enablePasteMarkdown: false,
       markdownOption: false,
       plugins: [],
       type: 'text',
     });
     expect(screen.queryByTestId('typo-bar')).not.toBeInTheDocument();
+  });
+
+  it('edits the message text even when saved rich data exists, so a chip cannot blank it', () => {
+    const mentionState = {
+      root: {
+        children: [{ children: [{ label: 'Agent A', type: 'mention' }], type: 'paragraph' }],
+        type: 'root',
+      },
+    };
+
+    render(<EditorCanvas defaultValue="@Agent A please check" editorData={mentionState} />);
+
+    expect(editorProps.current).toMatchObject({
+      content: '@Agent A please check',
+      plugins: [],
+      type: 'text',
+    });
   });
 });

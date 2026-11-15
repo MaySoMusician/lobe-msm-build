@@ -94,3 +94,42 @@ export const openMessageActions = async (page: Page, message: Locator) => {
   await button.click();
   await expect(page.locator('[role="menuitem"]').first()).toBeVisible();
 };
+
+export type ChatMode = 'Agent' | 'Chat';
+
+/** Resolves on the next successful tRPC POST (settings and agent-config saves). */
+export const waitForTrpcSave = (page: Page) =>
+  page.waitForResponse(
+    (response) =>
+      response.request().method() === 'POST' && response.ok() && response.url().includes('/trpc/'),
+  );
+
+/**
+ * The MSM mobile Agent/Chat pill in the composer control bar: its own text is the current
+ * mode, next to the mode icon and a chevron. Upstream only offers the switch in the desktop
+ * Advanced Parameters sidebar, whose options carry no icons, so this never matches there.
+ */
+export const mobileModePill = (page: Page) =>
+  page
+    .locator('div')
+    .filter({ has: page.locator('svg.lucide-chevron-down') })
+    .filter({ has: page.locator('svg.lucide-infinity, svg.lucide-message-circle') })
+    .filter({ hasText: /^(Agent|Chat)$/ })
+    .filter({ visible: true })
+    .last();
+
+/** Mobile: open the mode pill and pick a mode; waits for the agent config to save. */
+export const selectMobileMode = async (page: Page, mode: ChatMode) => {
+  const pill = mobileModePill(page);
+  await expect(pill).toBeVisible({ timeout: 30_000 });
+  if ((await pill.textContent())?.trim() === mode) {
+    return;
+  }
+
+  await pill.click();
+  const saved = waitForTrpcSave(page);
+  // The popover renders after the bar, so its option title is the last exact match.
+  await page.getByText(mode, { exact: true }).filter({ visible: true }).last().click();
+  await saved;
+  await expect(mobileModePill(page)).toHaveText(mode);
+};

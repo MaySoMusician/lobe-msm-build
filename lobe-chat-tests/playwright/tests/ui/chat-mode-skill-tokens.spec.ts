@@ -2,24 +2,21 @@ import { expect, type Page, test } from '@playwright/test';
 
 import { BrowserChatMock } from '../../support/chatMock.js';
 import {
+  type ChatMode as Mode,
   findChatInput,
   gotoInbox,
+  mobileModePill,
+  selectMobileMode,
   sendMessage,
   visibleButtonByIcon,
   waitForAssistantText,
+  waitForTrpcSave as waitForSave,
 } from '../../support/ui.js';
 
 // Every precondition is set through the UI, the way a user would.
 
-type Mode = 'Agent' | 'Chat';
 type Capability = 'Memory' | 'Web Browsing';
 type Activation = 'Auto' | 'Disable';
-
-const waitForSave = (page: Page) =>
-  page.waitForResponse(
-    (response) =>
-      response.request().method() === 'POST' && response.ok() && response.url().includes('/trpc/'),
-  );
 
 const advancedToolsSwitch = (page: Page) =>
   page.getByRole('switch', { name: /^Advanced tools\b/ }).filter({ visible: true });
@@ -39,21 +36,83 @@ const setAdvancedTools = async (page: Page, enabled: boolean) => {
   return previous;
 };
 
-const modePill = (page: Page, mode: Mode) =>
-  page.getByRole('button', { name: new RegExp(`^${mode}$`) }).filter({ visible: true });
+// Desktop: the Agent/Chat switch is the "Mode" row of the Advanced Parameters sidebar.
+// Mobile has no sidebar; the MSM patch keeps the mode pill in the composer control bar
+// (tested on its own in mobile-mode-switch.spec.ts).
+const isMobileProject = () => test.info().project.name === 'mobile';
+
+/** Desktop: one option of the Agent/Chat switch in Advanced Parameters. */
+const modeSegment = (page: Page, mode: Mode) =>
+  page
+    .locator('[data-segmented-item]')
+    .and(page.getByRole('button', { exact: true, name: mode }))
+    .filter({ visible: true });
+
+const clickParamsMenuItem = async (page: Page) => {
+  const plus = await visibleButtonByIcon(page.locator('body'), ['lucide-plus']);
+  if (!plus) {
+    throw new Error('Could not find the composer "+" menu');
+  }
+  await plus.click();
+  const params = page.getByRole('menuitem', { name: /^Advanced Parameters\b/ }).first();
+  await expect(params).toBeVisible();
+  await params.click();
+};
+
+/** Desktop: composer "+" → Advanced Parameters opens the panel with the Agent/Chat switch. */
+const openModeSwitch = async (page: Page) => {
+  await findChatInput(page);
+  const anySegment = modeSegment(page, 'Agent').or(modeSegment(page, 'Chat')).first();
+  // The sidebar state persists across reloads; let a restored panel render before
+  // using the menu item, which toggles the panel closed when it is already open.
+  if (
+    await anySegment.waitFor({ timeout: 5000 }).then(
+      () => true,
+      () => false,
+    )
+  ) {
+    return;
+  }
+
+  await clickParamsMenuItem(page);
+  if (
+    !(await anySegment.waitFor({ timeout: 5000 }).then(
+      () => true,
+      () => false,
+    ))
+  ) {
+    // The click closed a panel that was open but not yet rendered; open it again.
+    await clickParamsMenuItem(page);
+  }
+  await expect(anySegment).toBeVisible({ timeout: 30_000 });
+};
+
+const expectMode = async (page: Page, mode: Mode) => {
+  if (isMobileProject()) {
+    await findChatInput(page);
+    await expect(mobileModePill(page)).toHaveText(mode, { timeout: 30_000 });
+    return;
+  }
+
+  await openModeSwitch(page);
+  await expect(modeSegment(page, mode)).toHaveAttribute('aria-pressed', 'true');
+};
 
 const setMode = async (page: Page, mode: Mode) => {
-  const other: Mode = mode === 'Chat' ? 'Agent' : 'Chat';
-  await expect(modePill(page, mode).or(modePill(page, other)).first()).toBeVisible({
-    timeout: 30_000,
-  });
-  if ((await modePill(page, mode).count()) === 0) {
-    await modePill(page, other).first().click();
+  if (isMobileProject()) {
+    await findChatInput(page);
+    await selectMobileMode(page, mode);
+    return;
+  }
+
+  await openModeSwitch(page);
+  const segment = modeSegment(page, mode);
+  if ((await segment.getAttribute('aria-pressed')) !== 'true') {
     const saved = waitForSave(page);
-    await page.getByText(mode, { exact: true }).filter({ visible: true }).last().click();
+    await segment.click();
     await saved;
   }
-  await expect(modePill(page, mode)).toHaveCount(1);
+  await expect(segment).toHaveAttribute('aria-pressed', 'true');
 };
 
 const openSkillsMenu = async (page: Page) => {
@@ -92,7 +151,7 @@ const setCapability = async (page: Page, capability: Capability, activation: Act
 };
 
 const openContextDetails = async (page: Page) => {
-  // The token tag sits in the control bar below the composer, next to the mode selector.
+  // The token tag sits in the control bar below the composer.
   const tag = page.locator('[class*="chat-token-tag"]').filter({ visible: true }).first();
   await expect(tag).toBeVisible({ timeout: 30_000 });
 
@@ -147,7 +206,7 @@ test.describe('Chat mode without skills', () => {
     await chat.install(page);
     await page.reload({ waitUntil: 'domcontentloaded' });
     await findChatInput(page);
-    await expect(modePill(page, 'Chat')).toHaveCount(1, { timeout: 30_000 });
+    await expectMode(page, 'Chat');
 
     await openContextDetails(page);
     await expect(page.getByText('Skill Settings', { exact: true })).toBeVisible();

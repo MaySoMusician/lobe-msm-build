@@ -41,4 +41,42 @@ describe('msm MessagesEngine additives', () => {
     expect(result.metadata?.systemDateInjected).toBeUndefined();
     expect(result.metadata?.modelInfoInjected).toBeUndefined();
   });
+
+  it('does not inject the agent identity / inbox block, even in agent mode with an account', async () => {
+    const result = await new MessagesEngine(
+      createParams({
+        agentAccountContext: {
+          accounts: [
+            {
+              capabilities: { receive: true, send: true },
+              displayName: 'Toby mailbox',
+              identifier: 'toby-agent@lobe.id',
+              kind: 'mail',
+              provider: 'agent-mail',
+              status: 'active',
+            },
+          ],
+          inbox: { unreadCount: 3 },
+          toolAvailable: true,
+        } as any,
+        enableAgentMode: true,
+      }),
+    ).process();
+    const content = String(result.messages.find((m) => m.role === 'system')?.content ?? '');
+
+    expect(content).toContain('You are a helpful assistant');
+    expect(content).not.toContain('<agent_identity>');
+    expect(content).not.toContain('toby-agent@lobe.id');
+    expect(content).not.toContain('<inbox');
+  });
+
+  it('does not render an eval session date into the system prompt', async () => {
+    const result = await new MessagesEngine(
+      createParams({ evalContext: { sessionDate: '2024-02-29T12:00:00.000Z' } as any }),
+    ).process();
+    const content = String(result.messages.find((m) => m.role === 'system')?.content ?? '');
+
+    expect(content).not.toContain('2024');
+    expect(content).not.toContain('Current date:');
+  });
 });

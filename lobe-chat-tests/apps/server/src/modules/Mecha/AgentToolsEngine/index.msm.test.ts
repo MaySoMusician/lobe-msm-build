@@ -1,4 +1,5 @@
 // @vitest-environment node
+import { AgentAccountIdentifier } from '@lobechat/builtin-tool-agent-account';
 import { ImageGenerationManifest } from '@lobechat/builtin-tool-image-generation';
 import { describe, expect, it } from 'vitest';
 
@@ -52,5 +53,20 @@ describe('msm createServerAgentToolsEngine chat-mode image generation', () => {
     });
 
     expect(result.enabledToolIds).toContain(ImageGenerationManifest.identifier);
+  });
+});
+
+describe('msm createServerAgentToolsEngine agent account tool', () => {
+  it('does not switch the account tool on just because the agent owns an account', () => {
+    const engine = createServerAgentToolsEngine(createMockContext(), {
+      agentConfig: { plugins: [] },
+      hasIdentityAccount: true,
+      model: 'gpt-4',
+      provider: 'openai',
+    });
+
+    const result = engine.generateToolsDetailed({ model: 'gpt-4', provider: 'openai', toolIds: [] });
+
+    expect(result.enabledToolIds).not.toContain(AgentAccountIdentifier);
   });
 });

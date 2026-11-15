@@ -1,7 +1,11 @@
 // @vitest-environment node
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { DEFAULT_OPENAI_TIMEOUT, resolveOpenAIClientNetworkOptions } from './timeout';
+import {
+  applyOpenAIClientNetworkDefaults,
+  DEFAULT_OPENAI_TIMEOUT,
+  resolveOpenAIClientNetworkOptions,
+} from './timeout';
 
 describe('msm openai timeout', () => {
   beforeEach(() => {
@@ -63,5 +67,36 @@ describe('msm openai timeout', () => {
       headersTimeout: 12_000,
     });
     expect(result.timeout).toBe(12_000);
+  });
+
+  describe('applyOpenAIClientNetworkDefaults', () => {
+    it('forces one attempt and the one-hour timeout with the undici fetch', () => {
+      const undiciFetch = vi.fn();
+      (globalThis as typeof globalThis & { __LOBE_UNDICI__?: unknown }).__LOBE_UNDICI__ = {
+        Agent: vi.fn(function MockAgent() {
+          return {};
+        }),
+        fetch: undiciFetch,
+      };
+
+      const options = applyOpenAIClientNetworkDefaults({ apiKey: 'k', maxRetries: 3 });
+
+      expect(options).toMatchObject({ apiKey: 'k', maxRetries: 0, timeout: DEFAULT_OPENAI_TIMEOUT });
+      expect(options.fetch).toBe(undiciFetch);
+    });
+
+    it('takes the first numeric timeout candidate and keeps a caller fetch', () => {
+      const callerFetch = vi.fn();
+
+      const options = applyOpenAIClientNetworkDefaults({ fetch: callerFetch, timeout: 'x' }, [
+        undefined,
+        'x',
+        45_000,
+        90_000,
+      ]);
+
+      expect(options.timeout).toBe(45_000);
+      expect(options.fetch).toBe(callerFetch);
+    });
   });
 });

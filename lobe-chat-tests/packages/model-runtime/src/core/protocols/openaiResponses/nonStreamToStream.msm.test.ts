@@ -79,4 +79,45 @@ describe('msm transformResponseAPIToStream', () => {
     expect(messageDeltaIdx).toBeGreaterThan(reasoningIdx);
     expect(functionDoneIdx).toBeGreaterThan(messageDeltaIdx);
   });
+
+  it('passes tool calls through whole, with their namespace and real output index', async () => {
+    const functionCall = {
+      arguments: '{"a":1}',
+      call_id: 'call_1',
+      id: 'fc_1',
+      name: 'lookup',
+      namespace: 'mcp-search',
+      status: 'completed',
+      type: 'function_call',
+    };
+    const customCall = {
+      call_id: 'call_2',
+      id: 'ctc_2',
+      input: 'ls -la',
+      name: 'shell',
+      namespace: 'local-system',
+      status: 'completed',
+      type: 'custom_tool_call',
+    };
+    const response = {
+      id: 'resp_tools',
+      output: [{ id: 'rs_1', summary: [], type: 'reasoning' }, functionCall, customCall],
+      status: 'completed',
+    } as unknown as OpenAI.Responses.Response;
+
+    const events = (await readStreamEvents(transformResponseAPIToStream(response))) as any[];
+    const toolEvents = events.filter(
+      (event) =>
+        (event.type === 'response.output_item.added' ||
+          event.type === 'response.output_item.done') &&
+        (event.item?.type === 'function_call' || event.item?.type === 'custom_tool_call'),
+    );
+
+    expect(toolEvents).toEqual([
+      expect.objectContaining({ item: functionCall, output_index: 1, type: 'response.output_item.added' }),
+      expect.objectContaining({ item: functionCall, output_index: 1, type: 'response.output_item.done' }),
+      expect.objectContaining({ item: customCall, output_index: 2, type: 'response.output_item.added' }),
+      expect.objectContaining({ item: customCall, output_index: 2, type: 'response.output_item.done' }),
+    ]);
+  });
 });
