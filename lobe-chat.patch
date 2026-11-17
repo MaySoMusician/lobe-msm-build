@@ -92,9 +92,9 @@ index 924acdc3eb..7104f6ab31 100644
 2.39.5
 
 
-From 97cb473540b2d6678b0ab7f159be4081f30e459a Mon Sep 17 00:00:00 2001
+From 823bb0df707b48343e6d712cb9f9859ae1bcb5d5 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
-Date: Thu, 12 Nov 2026 23:43:08 +0000
+Date: Mon, 16 Nov 2026 23:33:25 +0000
 Subject: [PATCH 02/19] =?UTF-8?q?=F0=9F=94=92=EF=B8=8F=20build(deps):=20en?=
  =?UTF-8?q?force=20mature=20trusted=20dependency=20resolution?=
 MIME-Version: 1.0
@@ -171,7 +171,7 @@ index 1a5bd830d1..b53f40d41d 100644
 +blockExoticSubdeps: true
 +strictDepBuilds: true
 diff --git a/pnpm-workspace.yaml b/pnpm-workspace.yaml
-index c44fcc3a7d..8dc9ef9b6b 100644
+index c44fcc3a7d..3b731b242a 100644
 --- a/pnpm-workspace.yaml
 +++ b/pnpm-workspace.yaml
 @@ -38,7 +38,7 @@ minimumReleaseAgeExclude:
@@ -210,10 +210,10 @@ index c44fcc3a7d..8dc9ef9b6b 100644
 +  - '@octokit/endpoint@9.0.6'
 +  - '@trickfilm400/rollup-plugin-off-main-thread@3.0.0-pre1'
 +  - '@pierre/theme@2.0.0'
-+  - '@vercel/cli-config@0.3.7'
++  - '@vercel/cli-config@0.3.8'
 +  - '@vercel/cli-exec@1.0.1'
-+  - '@vercel/functions@3.11.0'
-+  - '@vercel/oidc@4.0.7'
++  - '@vercel/functions@3.11.1'
++  - '@vercel/oidc@4.0.8'
 +  - 'tsrs@0.20.1-ts7.1.0-beta'
 +
 +blockExoticSubdeps: true
@@ -222,7 +222,7 @@ index c44fcc3a7d..8dc9ef9b6b 100644
 2.39.5
 
 
-From 8426ffa6d443ca04dc362cfc8666cac353116424 Mon Sep 17 00:00:00 2001
+From 1c72ac0a7bddfc582580906d054f6b3655860875 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 12 Nov 2026 23:25:40 +0000
 Subject: [PATCH 03/19] =?UTF-8?q?=E2=9C=A8=20feat(openai):=20keep=20GPT=20?=
@@ -548,7 +548,7 @@ index a7ebcd844c..0b35e2e216 100644
 2.39.5
 
 
-From 43f31d73acfa4ea4d5bec4458a2be4e613319505 Mon Sep 17 00:00:00 2001
+From 395a412fbce6ae05d841dea135c2a540fb536f5c Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 12 Nov 2026 23:28:02 +0000
 Subject: [PATCH 04/19] =?UTF-8?q?=E2=9C=A8=20feat(openai):=20preserve=20de?=
@@ -1068,7 +1068,7 @@ index 9de1c3e498..1830ef0949 100644
 2.39.5
 
 
-From 49e7bdf338a21f9fe08b12f85962866ba1a4e019 Mon Sep 17 00:00:00 2001
+From dd41a5aeb13c013abdaf6f587f4fb803f36f5cd0 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 12 Nov 2026 23:28:59 +0000
 Subject: [PATCH 05/19] =?UTF-8?q?=F0=9F=90=9B=20fix(openai):=20use=20one?=
@@ -1496,7 +1496,7 @@ index eb9464a642..99ad28c19e 100644
 2.39.5
 
 
-From 491081e9428365f1e108994c137662b93b91ddcf Mon Sep 17 00:00:00 2001
+From f8412dcd12e8b3048f02e09d6f7d29e9f2d8ba90 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 12 Nov 2026 23:29:53 +0000
 Subject: [PATCH 06/19] =?UTF-8?q?=E2=9C=A8=20feat(agent):=20keep=20prompts?=
@@ -2183,7 +2183,7 @@ index 76317a8af7..45589cd5ba 100644
 2.39.5
 
 
-From a78c5aa11b1adb097d651cdab8ba7d6ae56308d5 Mon Sep 17 00:00:00 2001
+From 48d017c76576729eb857358573f29dd0fe1b424c Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 12 Nov 2026 23:31:05 +0000
 Subject: [PATCH 07/19] =?UTF-8?q?=E2=9C=A8=20feat(agent):=20keep=20tools?=
@@ -2538,7 +2538,7 @@ index c7240e961f..d486b4efee 100644
 2.39.5
 
 
-From 017f7de328b21a873a0c07e6ae59d8a72f636e63 Mon Sep 17 00:00:00 2001
+From b0287922c5004862a1bd27f6cd3c8ceb2166f428 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:58:21 +0000
 Subject: [PATCH 08/19] =?UTF-8?q?=E2=9C=A8=20feat(agent):=20summarize=20to?=
@@ -2583,7 +2583,7 @@ index cc24fb2baa..151b64af37 100644
 2.39.5
 
 
-From c5a187b60ffed7148721c0ef83859e64161f8f99 Mon Sep 17 00:00:00 2001
+From bd91413d10543af95312bc70009ea3b3f33e2d73 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 12 Nov 2026 23:31:23 +0000
 Subject: [PATCH 09/19] =?UTF-8?q?=F0=9F=90=9B=20fix(qstash):=20construct?=
@@ -2766,7 +2766,7 @@ index 2d01dae7ed..cb311c47e6 100644
 2.39.5
 
 
-From 7dde7f2f1524fd8edca1f0bac6bac71e8caf63b4 Mon Sep 17 00:00:00 2001
+From 12d5e92922a66ff29e99895cff8753693093e2ce Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 2 Nov 2026 03:55:50 +0000
 Subject: [PATCH 10/19] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20keep=20patched=20?=
@@ -2962,7 +2962,7 @@ index 135b45086c..e67a6aed69 100644
 2.39.5
 
 
-From aa2336cbb701cce3809aa26e12391a11a427fd27 Mon Sep 17 00:00:00 2001
+From 22832df267bfb906eec3ec50c6f75f8b907303f2 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:58:41 +0000
 Subject: [PATCH 11/19] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20offer=20only=20En?=
@@ -3048,7 +3048,7 @@ index 0dd8228306..e3bb30bc76 100644
 2.39.5
 
 
-From e95917faead9890492f7130a19fa243cb9dd641b Mon Sep 17 00:00:00 2001
+From b4f28b33b2bd97103d70fa6b3eaa2312a72bd4bf Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 13 Nov 2026 01:05:12 +0000
 Subject: [PATCH 12/19] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20keep=20user-messa?=
@@ -3302,7 +3302,7 @@ index d5e11d7aa1..16812b2ac2 100644
 2.39.5
 
 
-From b455b2660374ebfa696e41c1a3fae4238849416b Mon Sep 17 00:00:00 2001
+From b8dcd6c1fb81ba30a93606cc0007601a8f3934a4 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:58:55 +0000
 Subject: [PATCH 13/19] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20show=20exact=20to?=
@@ -3405,7 +3405,7 @@ index dab78f1104..dcadb8cf01 100644
 2.39.5
 
 
-From d0317feddb420651178f408ace4e1ac649e43ef9 Mon Sep 17 00:00:00 2001
+From a73e1312d747a67ea96657b9ca58a456e97488c6 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 7 Oct 2026 16:25:57 +0000
 Subject: [PATCH 14/19] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20use=20MSM=20defau?=
@@ -3492,7 +3492,7 @@ index 66c5fc05ba..b35a067692 100644
 2.39.5
 
 
-From 184e4f8493ed1afa3cca46adb31377c7fa88e4bb Mon Sep 17 00:00:00 2001
+From c3af7e54e5d23fbd3b38373688a6dee479f54208 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:59:09 +0000
 Subject: [PATCH 15/19] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20shorten=20topic?=
@@ -3602,7 +3602,7 @@ index 64f4949b1f..b655f2efd9 100644
 2.39.5
 
 
-From a823976fa1f1a6bb140b83d22b5b000adac6c3ab Mon Sep 17 00:00:00 2001
+From daa058220c7d284d074e86346a184917327b2159 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 25 Sep 2026 04:09:38 +0000
 Subject: [PATCH 16/19] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20add=20text=20verb?=
@@ -3821,7 +3821,7 @@ index 0000000000..4b57db4136
 2.39.5
 
 
-From 1284209e1acdcbb82a993ebda27030cba16e1610 Mon Sep 17 00:00:00 2001
+From f5204c878007f86776e0c9728a43833eb4a7b065 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 12 Nov 2026 23:31:44 +0000
 Subject: [PATCH 17/19] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20open=20usage=20de?=
@@ -3911,7 +3911,7 @@ index eb4004cf53..a5c45a8e45 100644
 2.39.5
 
 
-From 25a81e820cb4f50e73dd415bc15f9537ffec4054 Mon Sep 17 00:00:00 2001
+From 03012d51af85b9cd1252640e6a81f590086d9a0a Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 13 Nov 2026 01:26:51 +0000
 Subject: [PATCH 18/19] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20show=20USD=20cost?=
@@ -4334,7 +4334,7 @@ index 0000000000..1e7e4bf1fc
 2.39.5
 
 
-From a753bf985c7665591227cd29cc9159d0b5401283 Mon Sep 17 00:00:00 2001
+From 8070967b2e37cf4b4f9365129e9aa9166416d2bd Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 15 Nov 2026 04:10:13 +0000
 Subject: [PATCH 19/19] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20keep=20the=20agen?=
