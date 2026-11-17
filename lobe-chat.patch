@@ -1,7 +1,7 @@
 From aae43e5115be62fdce1020f4f77481deb484f567 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 12 Nov 2026 23:25:10 +0000
-Subject: [PATCH 01/19] =?UTF-8?q?=F0=9F=94=92=EF=B8=8F=20build(docker):=20?=
+Subject: [PATCH 01/21] =?UTF-8?q?=F0=9F=94=92=EF=B8=8F=20build(docker):=20?=
  =?UTF-8?q?pin=20images=20and=20harden=20the=20image=20install?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -95,7 +95,7 @@ index 924acdc3eb..7104f6ab31 100644
 From 823bb0df707b48343e6d712cb9f9859ae1bcb5d5 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 16 Nov 2026 23:33:25 +0000
-Subject: [PATCH 02/19] =?UTF-8?q?=F0=9F=94=92=EF=B8=8F=20build(deps):=20en?=
+Subject: [PATCH 02/21] =?UTF-8?q?=F0=9F=94=92=EF=B8=8F=20build(deps):=20en?=
  =?UTF-8?q?force=20mature=20trusted=20dependency=20resolution?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -225,7 +225,7 @@ index c44fcc3a7d..3b731b242a 100644
 From 1c72ac0a7bddfc582580906d054f6b3655860875 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 12 Nov 2026 23:25:40 +0000
-Subject: [PATCH 03/19] =?UTF-8?q?=E2=9C=A8=20feat(openai):=20keep=20GPT=20?=
+Subject: [PATCH 03/21] =?UTF-8?q?=E2=9C=A8=20feat(openai):=20keep=20GPT=20?=
  =?UTF-8?q?requests=20non-streaming=20and=20summary-free?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -551,7 +551,7 @@ index a7ebcd844c..0b35e2e216 100644
 From 395a412fbce6ae05d841dea135c2a540fb536f5c Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 12 Nov 2026 23:28:02 +0000
-Subject: [PATCH 04/19] =?UTF-8?q?=E2=9C=A8=20feat(openai):=20preserve=20de?=
+Subject: [PATCH 04/21] =?UTF-8?q?=E2=9C=A8=20feat(openai):=20preserve=20de?=
  =?UTF-8?q?tail=20when=20converting=20non-streaming=20responses?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -1071,7 +1071,7 @@ index 9de1c3e498..1830ef0949 100644
 From dd41a5aeb13c013abdaf6f587f4fb803f36f5cd0 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 12 Nov 2026 23:28:59 +0000
-Subject: [PATCH 05/19] =?UTF-8?q?=F0=9F=90=9B=20fix(openai):=20use=20one?=
+Subject: [PATCH 05/21] =?UTF-8?q?=F0=9F=90=9B=20fix(openai):=20use=20one?=
  =?UTF-8?q?=20attempt=20and=20a=20one-hour=20timeout?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -1499,7 +1499,7 @@ index eb9464a642..99ad28c19e 100644
 From f8412dcd12e8b3048f02e09d6f7d29e9f2d8ba90 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 12 Nov 2026 23:29:53 +0000
-Subject: [PATCH 06/19] =?UTF-8?q?=E2=9C=A8=20feat(agent):=20keep=20prompts?=
+Subject: [PATCH 06/21] =?UTF-8?q?=E2=9C=A8=20feat(agent):=20keep=20prompts?=
  =?UTF-8?q?=20explicitly=20user-controlled?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -2186,7 +2186,7 @@ index 76317a8af7..45589cd5ba 100644
 From 48d017c76576729eb857358573f29dd0fe1b424c Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 12 Nov 2026 23:31:05 +0000
-Subject: [PATCH 07/19] =?UTF-8?q?=E2=9C=A8=20feat(agent):=20keep=20tools?=
+Subject: [PATCH 07/21] =?UTF-8?q?=E2=9C=A8=20feat(agent):=20keep=20tools?=
  =?UTF-8?q?=20explicitly=20user-controlled?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -2541,7 +2541,7 @@ index c7240e961f..d486b4efee 100644
 From b0287922c5004862a1bd27f6cd3c8ceb2166f428 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:58:21 +0000
-Subject: [PATCH 08/19] =?UTF-8?q?=E2=9C=A8=20feat(agent):=20summarize=20to?=
+Subject: [PATCH 08/21] =?UTF-8?q?=E2=9C=A8=20feat(agent):=20summarize=20to?=
  =?UTF-8?q?pics=20in=20the=20conversation=20language?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -2586,7 +2586,7 @@ index cc24fb2baa..151b64af37 100644
 From bd91413d10543af95312bc70009ea3b3f33e2d73 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 12 Nov 2026 23:31:23 +0000
-Subject: [PATCH 09/19] =?UTF-8?q?=F0=9F=90=9B=20fix(qstash):=20construct?=
+Subject: [PATCH 09/21] =?UTF-8?q?=F0=9F=90=9B=20fix(qstash):=20construct?=
  =?UTF-8?q?=20the=20client=20lazily=20and=20drop=20debug=20logs?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -2769,7 +2769,7 @@ index 2d01dae7ed..cb311c47e6 100644
 From 12d5e92922a66ff29e99895cff8753693093e2ce Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 2 Nov 2026 03:55:50 +0000
-Subject: [PATCH 10/19] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20keep=20patched=20?=
+Subject: [PATCH 10/21] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20keep=20patched=20?=
  =?UTF-8?q?fonts=20at=20the=20app=20boundary?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -2965,7 +2965,7 @@ index 135b45086c..e67a6aed69 100644
 From 22832df267bfb906eec3ec50c6f75f8b907303f2 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:58:41 +0000
-Subject: [PATCH 11/19] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20offer=20only=20En?=
+Subject: [PATCH 11/21] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20offer=20only=20En?=
  =?UTF-8?q?glish=20and=20Japanese?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -3051,7 +3051,7 @@ index 0dd8228306..e3bb30bc76 100644
 From b4f28b33b2bd97103d70fa6b3eaa2312a72bd4bf Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 13 Nov 2026 01:05:12 +0000
-Subject: [PATCH 12/19] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20keep=20user-messa?=
+Subject: [PATCH 12/21] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20keep=20user-messa?=
  =?UTF-8?q?ge=20edits=20manual?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -3305,7 +3305,7 @@ index d5e11d7aa1..16812b2ac2 100644
 From b8dcd6c1fb81ba30a93606cc0007601a8f3934a4 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:58:55 +0000
-Subject: [PATCH 13/19] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20show=20exact=20to?=
+Subject: [PATCH 13/21] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20show=20exact=20to?=
  =?UTF-8?q?ken=20counts?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -3408,7 +3408,7 @@ index dab78f1104..dcadb8cf01 100644
 From a73e1312d747a67ea96657b9ca58a456e97488c6 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 7 Oct 2026 16:25:57 +0000
-Subject: [PATCH 14/19] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20use=20MSM=20defau?=
+Subject: [PATCH 14/21] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20use=20MSM=20defau?=
  =?UTF-8?q?lts=20for=20model=20and=20share=20panels?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -3495,7 +3495,7 @@ index 66c5fc05ba..b35a067692 100644
 From c3af7e54e5d23fbd3b38373688a6dee479f54208 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:59:09 +0000
-Subject: [PATCH 15/19] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20shorten=20topic?=
+Subject: [PATCH 15/21] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20shorten=20topic?=
  =?UTF-8?q?=20previews=20and=20honor=20modifier-clicks?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -3605,7 +3605,7 @@ index 64f4949b1f..b655f2efd9 100644
 From daa058220c7d284d074e86346a184917327b2159 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 25 Sep 2026 04:09:38 +0000
-Subject: [PATCH 16/19] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20add=20text=20verb?=
+Subject: [PATCH 16/21] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20add=20text=20verb?=
  =?UTF-8?q?osity=20to=20the=20composer=20model=20menu?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -3824,7 +3824,7 @@ index 0000000000..4b57db4136
 From f5204c878007f86776e0c9728a43833eb4a7b065 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 12 Nov 2026 23:31:44 +0000
-Subject: [PATCH 17/19] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20open=20usage=20de?=
+Subject: [PATCH 17/21] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20open=20usage=20de?=
  =?UTF-8?q?tails=20on=20click=20and=20show=20the=20full=20count?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -3914,7 +3914,7 @@ index eb4004cf53..a5c45a8e45 100644
 From 03012d51af85b9cd1252640e6a81f590086d9a0a Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 13 Nov 2026 01:26:51 +0000
-Subject: [PATCH 18/19] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20show=20USD=20cost?=
+Subject: [PATCH 18/21] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20show=20USD=20cost?=
  =?UTF-8?q?=20in=20the=20usage=20popover?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -4337,7 +4337,7 @@ index 0000000000..1e7e4bf1fc
 From 8070967b2e37cf4b4f9365129e9aa9166416d2bd Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 15 Nov 2026 04:10:13 +0000
-Subject: [PATCH 19/19] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20keep=20the=20agen?=
+Subject: [PATCH 19/21] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20keep=20the=20agen?=
  =?UTF-8?q?t=20mode=20switch=20on=20mobile?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -4394,6 +4394,3037 @@ index b0c366822d..f77467d910 100644
          {isAgentRuntimeMode && <WorkspaceControls agentId={agentId} />}
        </Flexbox>
  
+-- 
+2.39.5
+
+
+From 0768af68dd7a437f24ffa32119d7a6c2a95b484f Mon Sep 17 00:00:00 2001
+From: MaySoMusician <maysomusician@gmail.com>
+Date: Mon, 16 Nov 2026 22:04:46 +0000
+Subject: [PATCH 20/21] =?UTF-8?q?=F0=9F=8F=B7=EF=B8=8F=20fix(types):=20pin?=
+ =?UTF-8?q?=20two=20order-sensitive=20inferences?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+`createElement` on the union of brand avatars and the i18next/plain-function
+`t` union both resolve according to the order the type checker meets them,
+so unrelated changes elsewhere can turn them into TS2769 / TS2589 errors.
+Give each an explicit type; no runtime change.
+
+Co-Authored-By: Claude Opus 5.5 <claude@anthropic.com.invalid>
+---
+ src/features/MCPApp/appHost.ts                      | 5 ++++-
+ src/features/Recommendations/actions/heteroAgent.ts | 7 +++++--
+ 2 files changed, 9 insertions(+), 3 deletions(-)
+
+diff --git a/src/features/MCPApp/appHost.ts b/src/features/MCPApp/appHost.ts
+index 0e518f06ec..cdc64adc92 100644
+--- a/src/features/MCPApp/appHost.ts
++++ b/src/features/MCPApp/appHost.ts
+@@ -128,7 +128,10 @@ export const connectAppView = ({
+     // Views may only call tools on the server that rendered them, and
+     // under the same approval rules as the conversation.
+     callTool: async (name, toolArgs, request) => {
+-      const { agentId, identifier, onThisDevice, server, t } = getContext();
++      const { agentId, identifier, onThisDevice, server, t: translate } = getContext();
++      // One plain signature: the i18next/plain-function union can exceed the
++      // checker's instantiation depth depending on check order.
++      const t = translate as (key: string, options?: Record<string, unknown>) => string;
+       const policy = await getAppToolCallPolicy(identifier, name, { agentId, toolArgs });
+       let allowed = policy === 'allow';
+       if (policy === 'confirm') {
+diff --git a/src/features/Recommendations/actions/heteroAgent.ts b/src/features/Recommendations/actions/heteroAgent.ts
+index e0f33efcc6..e20b2084f8 100644
+--- a/src/features/Recommendations/actions/heteroAgent.ts
++++ b/src/features/Recommendations/actions/heteroAgent.ts
+@@ -17,7 +17,7 @@ import {
+   Qoder,
+   Trae,
+ } from '@lobehub/icons';
+-import { createElement } from 'react';
++import { type ComponentType, createElement, type CSSProperties } from 'react';
+ 
+ import type { RecommendedAction } from './types';
+ 
+@@ -46,7 +46,10 @@ const avatarIcons = {
+ export const buildHeteroAgentAction = (
+   config: HeterogeneousAgentClientConfig,
+ ): RecommendedAction => {
+-  const Avatar = avatarIcons[config.type];
++  // Typed explicitly: inferring props from the union of brand avatars depends on
++  // the order the checker meets them, which unrelated changes can flip.
++  const Avatar: ComponentType<{ shape?: 'square'; size: number; style?: CSSProperties }> =
++    avatarIcons[config.type];
+ 
+   return {
+     ctaKey: 'recommendations.heteroAgent.cta',
+-- 
+2.39.5
+
+
+From d9b36b227d47f5972c6a0a862036b82d6b9f27ea Mon Sep 17 00:00:00 2001
+From: MaySoMusician <maysomusician@gmail.com>
+Date: Tue, 17 Nov 2026 00:14:13 +0000
+Subject: [PATCH 21/21] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20keep=20editors=20?=
+ =?UTF-8?q?plain=20text?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Every editor is a plain-text editor: no lists, code blocks, math, tables,
+headings or quotes, no Markdown typing shortcuts, no Ctrl+B/I/U, no Markdown
+paste conversion, and no formatting toolbars or rich slash blocks. Markdown is
+kept exactly as typed: the plain-text plugin reads `markdown` documents as raw
+lines and writes them back verbatim, and turns stray rich nodes (formatted
+text, headings, quotes, LiteXML blocks from agents) back into Markdown source.
+
+Inline chips (mentions, skills, tools, topic / document / file references)
+and image, video and file attachments stay. The message edit dialog loads the
+saved editor data again, so chips come back there too; saved data a plain
+editor can't show falls back to the text instead of opening empty.
+
+Pages the user can't write (no permission, view access, locked by someone
+else, view-only room), the room-sync preview and the skill viewer render the
+stored Markdown richly instead.
+
+Co-Authored-By: Claude Opus 5.5 <claude@anthropic.com.invalid>
+---
+ .../src/client/Intervention/CreatePlan.tsx    |  31 +-
+ .../src/client/Intervention/CreateGoal.tsx    |  34 +--
+ src/features/AgentSkillEdit/SkillEditForm.tsx |  24 +-
+ .../AgentTaskDetail/RunReplyEditor.tsx        |   6 +-
+ .../AttachmentInput/AttachmentMenu.tsx        | 128 ++++----
+ src/features/Channels/Composer.tsx            |  14 +-
+ src/features/Channels/useComposerDraft.ts     |  11 +-
+ .../ActionBar/ActionToolbar.test.tsx          |   4 +-
+ .../ChatInput/ActionBar/Plus/index.tsx        |  20 +-
+ src/features/ChatInput/ActionBar/index.tsx    |  17 +-
+ src/features/ChatInput/Desktop/index.tsx      |   5 +-
+ .../ChatInput/InputEditor/index.test.tsx      |  30 +-
+ src/features/ChatInput/InputEditor/index.tsx  |   8 +-
+ src/features/ChatInput/InputEditor/plugins.ts |  51 ++--
+ .../ChatInput/hooks/useChatInputDraft.ts      |  12 +-
+ .../ChatInput/hooks/useChatInputHistory.ts    |   5 +-
+ src/features/DailyBrief/CommentInput.tsx      |   6 +-
+ src/features/EditorCanvas/EditorCanvas.tsx    |   8 +-
+ src/features/EditorCanvas/EditorDataMode.tsx  |  20 +-
+ .../InternalEditor.readonly.test.tsx          |  27 +-
+ .../EditorCanvas/InternalEditor.test.tsx      |   6 +-
+ src/features/EditorCanvas/InternalEditor.tsx  |  67 ++--
+ .../EditorCanvas/ReadOnlyMarkdown.tsx         | 105 +++++++
+ .../EditorModal/EditorCanvas.test.tsx         |   5 +-
+ src/features/EditorModal/EditorCanvas.tsx     |  83 +++--
+ .../DocumentComments/CommentCard.tsx          |   9 -
+ .../PageEditor/DocumentComments/Composer.tsx  |  25 +-
+ .../EditorCanvas/RoomBodyPreview.test.tsx     |  46 +--
+ .../EditorCanvas/RoomBodyPreview.tsx          |  54 ++--
+ .../PageEditor/EditorCanvas/index.tsx         |  48 ++-
+ .../EditorCanvas/useSlashItems.test.ts        |  34 +--
+ .../PageEditor/EditorCanvas/useSlashItems.tsx | 166 +---------
+ .../PageEditor/TableOfContents/headings.ts    |   6 +-
+ .../PageEditor/usePageReadOnlyView.ts         |  32 ++
+ .../TopicComments/TopicCommentEditor.tsx      |  20 +-
+ .../features/ChatAppearance/index.tsx         |  19 +-
+ src/features/SkillViewer/index.tsx            |  13 +-
+ src/libs/editor/plainText/PlainTextPlugin.ts  | 288 ++++++++++++++++++
+ .../editor/plainText/ReactPlainTextPlugin.tsx |  21 ++
+ src/libs/editor/plainText/index.ts            |   4 +
+ src/libs/editor/plainText/plainEditorData.ts  | 104 +++++++
+ src/libs/editor/plainText/props.ts            |  15 +
+ .../HeterogeneousChatInput/HeteroPlus.tsx     |  31 +-
+ .../features/EditorCanvas/index.test.tsx      |   4 +-
+ .../profile/features/EditorCanvas/index.tsx   |  49 +--
+ src/store/document/slices/editor/action.ts    |   6 +-
+ 46 files changed, 1026 insertions(+), 695 deletions(-)
+ create mode 100644 src/features/EditorCanvas/ReadOnlyMarkdown.tsx
+ create mode 100644 src/features/PageEditor/usePageReadOnlyView.ts
+ create mode 100644 src/libs/editor/plainText/PlainTextPlugin.ts
+ create mode 100644 src/libs/editor/plainText/ReactPlainTextPlugin.tsx
+ create mode 100644 src/libs/editor/plainText/index.ts
+ create mode 100644 src/libs/editor/plainText/plainEditorData.ts
+ create mode 100644 src/libs/editor/plainText/props.ts
+
+diff --git a/packages/builtin-tool-lobe-agent/src/client/Intervention/CreatePlan.tsx b/packages/builtin-tool-lobe-agent/src/client/Intervention/CreatePlan.tsx
+index 598bdcd467..a8fb457584 100644
+--- a/packages/builtin-tool-lobe-agent/src/client/Intervention/CreatePlan.tsx
++++ b/packages/builtin-tool-lobe-agent/src/client/Intervention/CreatePlan.tsx
+@@ -1,15 +1,6 @@
+ 'use client';
+ 
+ import type { BuiltinInterventionProps } from '@lobechat/types';
+-import {
+-  ReactCodeblockPlugin,
+-  ReactCodePlugin,
+-  ReactHRPlugin,
+-  ReactLinkPlugin,
+-  ReactListPlugin,
+-  ReactMathPlugin,
+-  ReactTablePlugin,
+-} from '@lobehub/editor';
+ import { Editor, useEditor } from '@lobehub/editor/react';
+ import { Flexbox, TextArea } from '@lobehub/ui';
+ import { cssVar } from '@lobehub/ui/stylex/cssVar.stylex';
+@@ -18,6 +9,9 @@ import isEqual from 'fast-deep-equal';
+ import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
+ import { useTranslation } from 'react-i18next';
+ 
++import { PLAIN_TEXT_PLUGINS } from '@/libs/editor/plainText';
++import { PLAIN_TEXT_EDITOR_PROPS } from '@/libs/editor/plainText/props';
++
+ import type { CreatePlanParams } from '../../types';
+ 
+ const styles = stylex.create({
+@@ -40,7 +34,7 @@ const CreatePlanIntervention = memo<BuiltinInterventionProps<CreatePlanParams>>(
+     // Initialize editor content when args.context changes
+     useEffect(() => {
+       if (editor && args?.context && !editorInitializedRef.current) {
+-        editor.setDocument('text', args.context);
++        editor.setDocument('markdown', args.context);
+         editorInitializedRef.current = true;
+       }
+     }, [editor, args?.context]);
+@@ -48,7 +42,7 @@ const CreatePlanIntervention = memo<BuiltinInterventionProps<CreatePlanParams>>(
+     // Get current context from editor
+     const getContext = useCallback(() => {
+       if (!editor) return args?.context || '';
+-      return (editor.getDocument('text') as unknown as string) || '';
++      return (editor.getDocument('markdown') as unknown as string) || '';
+     }, [editor, args?.context]);
+ 
+     // Save function
+@@ -159,23 +153,16 @@ const CreatePlanIntervention = memo<BuiltinInterventionProps<CreatePlanParams>>(
+           onKeyDown={handleDescriptionKeyDown}
+         />
+ 
+-        {/* Context - Rich Text Editor */}
++        {/* Context - plain text; its Markdown is kept exactly as typed */}
+         <div style={{ marginTop: 8, minHeight: 200 }}>
+           <Editor
++            {...PLAIN_TEXT_EDITOR_PROPS}
+             content={args.context}
+             editor={editor}
+             lineEmptyPlaceholder={t('lobe-agent.createPlan.context.placeholder')}
+             placeholder={t('lobe-agent.createPlan.context.placeholder')}
+-            type={'text'}
+-            plugins={[
+-              ReactListPlugin,
+-              ReactCodePlugin,
+-              ReactCodeblockPlugin,
+-              ReactHRPlugin,
+-              ReactLinkPlugin,
+-              ReactTablePlugin,
+-              ReactMathPlugin,
+-            ]}
++            plugins={PLAIN_TEXT_PLUGINS}
++            type={'markdown'}
+             style={{
+               minHeight: 200,
+             }}
+diff --git a/packages/builtin-tool-task/src/client/Intervention/CreateGoal.tsx b/packages/builtin-tool-task/src/client/Intervention/CreateGoal.tsx
+index 4b849e6a2a..e858f5478f 100644
+--- a/packages/builtin-tool-task/src/client/Intervention/CreateGoal.tsx
++++ b/packages/builtin-tool-task/src/client/Intervention/CreateGoal.tsx
+@@ -1,18 +1,18 @@
+ 'use client';
+ 
+ import type { BuiltinInterventionProps } from '@lobechat/types';
+-import {
+-  ReactCodeblockPlugin,
+-  ReactCodePlugin,
+-  ReactHRPlugin,
+-  ReactLinkPlugin,
+-  ReactListPlugin,
+-  ReactTablePlugin,
+-} from '@lobehub/editor';
+ import { Editor, useEditor } from '@lobehub/editor/react';
+-import { Flexbox, Icon } from '@lobehub/ui';
+-import { ActionIcon, Button, Input, InputNumber, Text } from '@lobehub/ui';
+-import { createStaticStyles, cssVar } from '@lobehub/ui';
++import {
++  Flexbox,
++  Icon,
++  ActionIcon,
++  Button,
++  Input,
++  InputNumber,
++  Text,
++  createStaticStyles,
++  cssVar,
++} from '@lobehub/ui';
+ import { ChevronRight, Pencil, Plus, Trash2 } from 'lucide-react';
+ import { memo, useCallback, useEffect, useRef, useState } from 'react';
+ import { useTranslation } from 'react-i18next';
+@@ -23,6 +23,8 @@ import {
+   CriterionRow,
+   openCriterionEditModal,
+ } from '@/features/Acceptance/CriterionList';
++import { PLAIN_TEXT_PLUGINS } from '@/libs/editor/plainText';
++import { PLAIN_TEXT_EDITOR_PROPS } from '@/libs/editor/plainText/props';
+ 
+ import type { CreateGoalParams, GoalCriterionDraft } from '../../types';
+ 
+@@ -208,17 +210,11 @@ const CreateGoalIntervention = memo<BuiltinInterventionProps<CreateGoalParams>>(
+         >
+           <Flexbox className={styles.instructionEditor}>
+             <Editor
++              {...PLAIN_TEXT_EDITOR_PROPS}
+               content={initialInstruction}
+               editor={editor}
++              plugins={PLAIN_TEXT_PLUGINS}
+               type={'markdown'}
+-              plugins={[
+-                ReactCodePlugin,
+-                ReactCodeblockPlugin,
+-                ReactHRPlugin,
+-                ReactLinkPlugin,
+-                ReactListPlugin,
+-                ReactTablePlugin,
+-              ]}
+               onTextChange={handleInstructionChange}
+             />
+           </Flexbox>
+diff --git a/src/features/AgentSkillEdit/SkillEditForm.tsx b/src/features/AgentSkillEdit/SkillEditForm.tsx
+index 3b41b5a897..5f2e198f16 100644
+--- a/src/features/AgentSkillEdit/SkillEditForm.tsx
++++ b/src/features/AgentSkillEdit/SkillEditForm.tsx
+@@ -1,20 +1,14 @@
+ 'use client';
+ 
+-import {
+-  ReactCodemirrorPlugin,
+-  ReactCodePlugin,
+-  ReactHRPlugin,
+-  ReactLinkPlugin,
+-  ReactListPlugin,
+-  ReactMathPlugin,
+-  ReactTablePlugin,
+-} from '@lobehub/editor';
+ import { Editor, useEditor } from '@lobehub/editor/react';
+ import { createStaticStyles, cssVar, Input, TextArea } from '@lobehub/ui';
+ import { Form, type FormFieldProps, type FormInstance } from '@lobehub/ui/form';
+ import { memo, useCallback, useEffect, useRef } from 'react';
+ import { useTranslation } from 'react-i18next';
+ 
++import { PLAIN_TEXT_PLUGINS } from '@/libs/editor/plainText';
++import { PLAIN_TEXT_EDITOR_PROPS } from '@/libs/editor/plainText/props';
++
+ const styles = createStaticStyles(({ css }) => ({
+   editorWrapper: css`
+     min-height: 200px;
+@@ -31,15 +25,8 @@ const styles = createStaticStyles(({ css }) => ({
+   `,
+ }));
+ 
+-const PLUGINS = [
+-  ReactListPlugin,
+-  ReactCodePlugin,
+-  ReactCodemirrorPlugin,
+-  ReactHRPlugin,
+-  ReactLinkPlugin,
+-  ReactTablePlugin,
+-  ReactMathPlugin,
+-];
++// Skill instructions are plain text: the Markdown is stored exactly as typed.
++const PLUGINS = PLAIN_TEXT_PLUGINS;
+ 
+ export interface SkillEditFormValues {
+   content: string;
+@@ -118,6 +105,7 @@ const SkillEditForm = memo<SkillEditFormProps>(({ name, disabled, form, initialV
+           style={{ pointerEvents: disabled ? 'none' : undefined }}
+         >
+           <Editor
++            {...PLAIN_TEXT_EDITOR_PROPS}
+             content={''}
+             editor={editor}
+             lineEmptyPlaceholder={t('agentSkillEdit.instructionsPlaceholder')}
+diff --git a/src/features/AgentTasks/AgentTaskDetail/RunReplyEditor.tsx b/src/features/AgentTasks/AgentTaskDetail/RunReplyEditor.tsx
+index 796864823e..cfd7e42994 100644
+--- a/src/features/AgentTasks/AgentTaskDetail/RunReplyEditor.tsx
++++ b/src/features/AgentTasks/AgentTaskDetail/RunReplyEditor.tsx
+@@ -5,6 +5,8 @@ import { memo, useCallback, useState } from 'react';
+ import { useTranslation } from 'react-i18next';
+ 
+ import { useEnterToSend } from '@/hooks/useEnterToSend';
++import { PLAIN_TEXT_PLUGINS } from '@/libs/editor/plainText';
++import { PLAIN_TEXT_EDITOR_PROPS } from '@/libs/editor/plainText/props';
+ 
+ interface RunReplyEditorProps {
+   onCancel: () => void;
+@@ -65,9 +67,9 @@ const RunReplyEditor = memo<RunReplyEditorProps>(({ onSubmit, onCancel, placehol
+       <Editor
+         content={''}
+         editor={editor}
+-        enablePasteMarkdown={false}
+-        markdownOption={false}
++        {...PLAIN_TEXT_EDITOR_PROPS}
+         placeholder={placeholder ?? t('taskDetail.runFollowUpPlaceholder')}
++        plugins={PLAIN_TEXT_PLUGINS}
+         type={'text'}
+         variant={'chat'}
+         onPressEnter={({ event }) => {
+diff --git a/src/features/AttachmentInput/AttachmentMenu.tsx b/src/features/AttachmentInput/AttachmentMenu.tsx
+index 981e725a56..2b66444cdf 100644
+--- a/src/features/AttachmentInput/AttachmentMenu.tsx
++++ b/src/features/AttachmentInput/AttachmentMenu.tsx
+@@ -1,7 +1,7 @@
+ 'use client';
+ 
+ import { ActionIcon, css, cx, Icon, Upload } from '@lobehub/ui';
+-import { FileUp, LibraryBig, PlusIcon, TypeIcon } from 'lucide-react';
++import { FileUp, LibraryBig, PlusIcon } from 'lucide-react';
+ import { memo, useMemo, useState } from 'react';
+ import { useTranslation } from 'react-i18next';
+ 
+@@ -24,83 +24,71 @@ const hotArea = css`
+ 
+ interface AttachmentMenuProps {
+   disabled?: boolean;
+-  formatEnabled: boolean;
+   onFiles: (files: File[]) => void | Promise<void>;
+-  onFormatEnabledChange: (enabled: boolean) => void;
+   onLibraryFiles: (attachments: ExistingEditorAttachment[]) => void;
+ }
+ 
+-const AttachmentMenu = memo<AttachmentMenuProps>(
+-  ({ disabled, formatEnabled, onFiles, onFormatEnabledChange, onLibraryFiles }) => {
+-    const { t } = useTranslation(['chat', 'editor', 'file']);
+-    const [open, setOpen] = useState(false);
++const AttachmentMenu = memo<AttachmentMenuProps>(({ disabled, onFiles, onLibraryFiles }) => {
++  const { t } = useTranslation(['chat', 'editor', 'file']);
++  const [open, setOpen] = useState(false);
+ 
+-    const items = useMemo<ActionDropdownMenuItems>(
+-      () => [
+-        {
+-          children: [
+-            {
+-              closeOnClick: false,
+-              icon: <Icon icon={FileUp} size={18} />,
+-              key: 'upload',
+-              label: (
+-                <Upload
+-                  multiple
+-                  onFiles={(files) => {
+-                    setOpen(false);
+-                    void onFiles(files);
+-                  }}
+-                >
+-                  <div className={cx(hotArea)}>
+-                    {t('upload.action.fileOrImageUpload', { ns: 'chat' })}
+-                  </div>
+-                </Upload>
+-              ),
++  const items = useMemo<ActionDropdownMenuItems>(
++    () => [
++      {
++        children: [
++          {
++            closeOnClick: false,
++            icon: <Icon icon={FileUp} size={18} />,
++            key: 'upload',
++            label: (
++              <Upload
++                multiple
++                onFiles={(files) => {
++                  setOpen(false);
++                  void onFiles(files);
++                }}
++              >
++                <div className={cx(hotArea)}>
++                  {t('upload.action.fileOrImageUpload', { ns: 'chat' })}
++                </div>
++              </Upload>
++            ),
++          },
++          {
++            icon: <Icon icon={LibraryBig} size={18} />,
++            key: 'library',
++            label: t('pageEditor.comments.attachments.chooseLibrary', { ns: 'file' }),
++            onClick: () => {
++              setOpen(false);
++              openLibraryFilePicker(onLibraryFiles);
+             },
+-            {
+-              icon: <Icon icon={LibraryBig} size={18} />,
+-              key: 'library',
+-              label: t('pageEditor.comments.attachments.chooseLibrary', { ns: 'file' }),
+-              onClick: () => {
+-                setOpen(false);
+-                openLibraryFilePicker(onLibraryFiles);
+-              },
+-            },
+-          ],
+-          extra: <SubmenuChevron />,
+-          icon: LibraryBig,
+-          key: 'attachments',
+-          label: t('plus.addAttachments', { ns: 'chat' }),
+-        },
+-        { type: 'divider' },
+-        {
+-          checked: formatEnabled,
+-          icon: TypeIcon,
+-          key: 'formatting',
+-          label: t('actions.typobar.title', { ns: 'editor' }),
+-          onCheckedChange: onFormatEnabledChange,
+-          type: 'switch',
+-        },
+-      ],
+-      [formatEnabled, onFiles, onFormatEnabledChange, onLibraryFiles, t],
+-    );
++          },
++        ],
++        extra: <SubmenuChevron />,
++        icon: LibraryBig,
++        key: 'attachments',
++        label: t('plus.addAttachments', { ns: 'chat' }),
++      },
++      // No formatting switch: comment editors are plain text.
++    ],
++    [onFiles, onLibraryFiles, t],
++  );
+ 
+-    const title = t('pageEditor.comments.attachments.add', { ns: 'file' });
++  const title = t('pageEditor.comments.attachments.add', { ns: 'file' });
+ 
+-    return (
+-      <ActionDropdown menu={{ items }} open={open} placement={'topLeft'} onOpenChange={setOpen}>
+-        <ActionIcon
+-          aria-label={title}
+-          disabled={disabled}
+-          icon={PlusIcon}
+-          size={{ blockSize: 32, size: 18 }}
+-          title={title}
+-          onClick={() => setOpen(true)}
+-        />
+-      </ActionDropdown>
+-    );
+-  },
+-);
++  return (
++    <ActionDropdown menu={{ items }} open={open} placement={'topLeft'} onOpenChange={setOpen}>
++      <ActionIcon
++        aria-label={title}
++        disabled={disabled}
++        icon={PlusIcon}
++        size={{ blockSize: 32, size: 18 }}
++        title={title}
++        onClick={() => setOpen(true)}
++      />
++    </ActionDropdown>
++  );
++});
+ 
+ AttachmentMenu.displayName = 'AttachmentMenu';
+ 
+diff --git a/src/features/Channels/Composer.tsx b/src/features/Channels/Composer.tsx
+index 1775301bc4..aa424eaf2b 100644
+--- a/src/features/Channels/Composer.tsx
++++ b/src/features/Channels/Composer.tsx
+@@ -1,12 +1,6 @@
+ import type { ChannelListItem, ChannelPublicMember } from '@lobechat/types';
+ import type { ISlashOption } from '@lobehub/editor';
+-import {
+-  INSERT_MENTION_COMMAND,
+-  ReactCodePlugin,
+-  ReactLinkHighlightPlugin,
+-  ReactListPlugin,
+-  ReactMentionPlugin,
+-} from '@lobehub/editor';
++import { INSERT_MENTION_COMMAND, ReactMentionPlugin } from '@lobehub/editor';
+ import { ChatInput, Editor, SendButton, useEditor } from '@lobehub/editor/react';
+ import { ActionIcon, Flexbox, Text } from '@lobehub/ui';
+ import { cssVar } from '@lobehub/ui/stylex/cssVar.stylex';
+@@ -24,6 +18,8 @@ import WideScreenContainer from '@/features/WideScreenContainer';
+ import { useEnterToSend } from '@/hooks/useEnterToSend';
+ import { usePermission } from '@/hooks/usePermission';
+ import { useSingleton } from '@/hooks/useSingleton';
++import { PLAIN_TEXT_PLUGINS } from '@/libs/editor/plainText';
++import { PLAIN_TEXT_EDITOR_PROPS } from '@/libs/editor/plainText/props';
+ import { cacheScope } from '@/libs/replica';
+ import type { ChannelQueuedSendInput } from '@/store/channel';
+ import { useHomeStore } from '@/store/home';
+@@ -76,7 +72,8 @@ type ComposerDelivery =
+       onSend: ChannelComposerSend;
+     };
+ 
+-const plugins = [ReactCodePlugin, ReactListPlugin, ReactLinkHighlightPlugin];
++// Plain text with member mentions: no code, list or link formatting.
++const plugins = PLAIN_TEXT_PLUGINS;
+ 
+ /** Highlighted text like the rest of the line, not the editor's default boxed tag. */
+ const mentionTheme = { mention: stylex.props(styles.composerMention).className };
+@@ -289,6 +286,7 @@ export function Composer({
+             <div {...stylex.props(styles.composerEditor)}>
+               <Editor
+                 autoFocus
++                {...PLAIN_TEXT_EDITOR_PROPS}
+                 aria-label={placeholder}
+                 content=""
+                 editable={!busy}
+diff --git a/src/features/Channels/useComposerDraft.ts b/src/features/Channels/useComposerDraft.ts
+index 80cb69f295..4bf181a44f 100644
+--- a/src/features/Channels/useComposerDraft.ts
++++ b/src/features/Channels/useComposerDraft.ts
+@@ -7,7 +7,8 @@ import {
+   removeDraftIfUnchanged,
+   saveDraft,
+ } from '@/features/ChatInput/draftStorage';
+-import { canSerialize, readDocument, writeDocument } from '@/features/ChatInput/editorDocument';
++import { canSerialize, readDocument } from '@/features/ChatInput/editorDocument';
++import { loadPlainDocument } from '@/libs/editor/plainText/plainEditorData';
+ 
+ const SAVE_DEBOUNCE_MS = 500;
+ 
+@@ -43,7 +44,13 @@ export const useComposerDraft = (editor: IEditor, draftKey: string) => {
+     if (!canSerialize(editor)) return;
+     const draft = getDraftEntry(draftKey);
+     loaded.current = draft?.updatedAt;
+-    if (draft && editor.isEmpty) writeDocument(editor, 'json', draft.json);
++    if (!draft || !editor.isEmpty) return;
++    try {
++      // A draft saved by a rich editor falls back to its text instead of blanking.
++      loadPlainDocument(editor, { editorData: draft.json });
++    } catch {
++      /* the composer this content belongs to went away mid write */
++    }
+   }, [draftKey, editor]);
+ 
+   /** Saves pending input and returns its stored revision, taken when a send starts. */
+diff --git a/src/features/ChatInput/ActionBar/ActionToolbar.test.tsx b/src/features/ChatInput/ActionBar/ActionToolbar.test.tsx
+index df33840a23..866b3af742 100644
+--- a/src/features/ChatInput/ActionBar/ActionToolbar.test.tsx
++++ b/src/features/ChatInput/ActionBar/ActionToolbar.test.tsx
+@@ -64,10 +64,10 @@ describe('ActionToolbar', () => {
+     expect(probe.dataset.borderRadius).toBe('12');
+   });
+ 
+-  it('always shows the typography action', () => {
++  it('never shows the typography action, since the editor is plain text', () => {
+     render(createElement(ActionToolbar));
+ 
+-    expect(screen.getByTestId('typo')).toBeDefined();
++    expect(screen.queryByTestId('typo')).toBeNull();
+   });
+ 
+   it('leaves the action size unset without an outer context', () => {
+diff --git a/src/features/ChatInput/ActionBar/Plus/index.tsx b/src/features/ChatInput/ActionBar/Plus/index.tsx
+index 52452006d5..d78bd5912a 100644
+--- a/src/features/ChatInput/ActionBar/Plus/index.tsx
++++ b/src/features/ChatInput/ActionBar/Plus/index.tsx
+@@ -13,7 +13,6 @@ import {
+   PlusIcon,
+   Settings2Icon,
+   TargetIcon,
+-  TypeIcon,
+ } from 'lucide-react';
+ import type { ReactNode } from 'react';
+ import { memo, Suspense, useCallback, useMemo, useRef } from 'react';
+@@ -240,7 +239,6 @@ const usePlusMenuItems = ({ close }: { close: () => void }): ActionDropdownMenuI
+   );
+   const isGatewayModeEnabled = (disableGatewayMode ?? defaultDisableGatewayMode) !== true;
+ 
+-  const [showTypoBar, setShowTypoBar] = useChatInputStore((s) => [s.showTypoBar, s.setShowTypoBar]);
+   const editor = useChatInputStore((s) => s.editor);
+   const routeLargeFilesToLocalPaths = useLargeFileLocalPath(agentId, editor);
+   const { canUploadImage, canUploadVideo, canUploadAudio } = useMediaUploadAbility(
+@@ -417,19 +415,9 @@ const usePlusMenuItems = ({ close }: { close: () => void }): ActionDropdownMenuI
+     // so this menu only owns the route to them.
+     const coreItems: ActionDropdownMenuItems = canConfigureResource ? [...toolsItems] : [];
+ 
+-    // Formatting toolbar is always available; Agent Gateway + advanced params
+-    // only when the user can configure resources.
++    // Editors are plain text, so there is no formatting toolbar to toggle; Agent
++    // Gateway + advanced params only when the user can configure resources.
+     const formatItems: ActionDropdownMenuItems = [
+-      // Formatting toolbar toggle — trailing switch; toggle by clicking the switch or the whole row
+-      {
+-        checked: Boolean(showTypoBar),
+-        icon: TypeIcon,
+-        key: 'typo',
+-        label: tEditor('actions.typobar.title'),
+-        onCheckedChange: (checked: boolean) => setShowTypoBar(checked),
+-        type: 'switch',
+-      },
+-      // Agent Gateway directly below the formatting toolbar.
+       ...gatewayItem,
+       // Advanced parameter settings — only when resources can be configured.
+       ...(canConfigureResource
+@@ -496,7 +484,7 @@ const usePlusMenuItems = ({ close }: { close: () => void }): ActionDropdownMenuI
+       : [];
+ 
+     // Grouped with a single divider only between non-empty groups:
+-    // [attachments] | [memory · search · skills] | [set goal] | [formatting · gateway · params]
++    // [attachments] | [memory · search · skills] | [set goal] | [gateway · params]
+     const menuGroups: ActionDropdownMenuItems[] = [
+       attachmentsItems,
+       coreItems,
+@@ -525,8 +513,6 @@ const usePlusMenuItems = ({ close }: { close: () => void }): ActionDropdownMenuI
+     isParamsPanelActive,
+     isSkillPolicyMenuOpen,
+     knowledgeEnabledCount,
+-    setShowTypoBar,
+-    showTypoBar,
+     skillActivateMode,
+     skillAutoCount,
+     skillPinnedCount,
+diff --git a/src/features/ChatInput/ActionBar/index.tsx b/src/features/ChatInput/ActionBar/index.tsx
+index af833fdd1d..c7288021d5 100644
+--- a/src/features/ChatInput/ActionBar/index.tsx
++++ b/src/features/ChatInput/ActionBar/index.tsx
+@@ -25,11 +25,26 @@ const mapActionToItem = (actionKey: ActionKey) => {
+   };
+ };
+ 
++// Editors are plain text, so the typography bar toggle is never offered, even
++// where a preset still lists it.
++const withoutTypo = (keys: ActionKeys[]): ActionKeys[] => {
++  const result: ActionKeys[] = [];
++  for (const actionKey of keys) {
++    if (typeof actionKey === 'string') {
++      if (actionKey !== 'typo') result.push(actionKey);
++      continue;
++    }
++    const group = actionKey.filter((groupActionKey) => groupActionKey !== 'typo');
++    if (group.length > 0) result.push(group);
++  }
++  return result;
++};
++
+ const mapActionsToItems = (
+   keys: ActionKeys[],
+   { disableCollapse = false }: { disableCollapse?: boolean } = {},
+ ): ChatInputActionsProps['items'] =>
+-  keys.flatMap((actionKey, index) => {
++  withoutTypo(keys).flatMap((actionKey, index) => {
+     if (typeof actionKey === 'string') {
+       if (actionKey === '---') {
+         return {
+diff --git a/src/features/ChatInput/Desktop/index.tsx b/src/features/ChatInput/Desktop/index.tsx
+index e2ec7e80e3..966b006dc1 100644
+--- a/src/features/ChatInput/Desktop/index.tsx
++++ b/src/features/ChatInput/Desktop/index.tsx
+@@ -32,7 +32,6 @@ import { useTopicDrop } from '../InputEditor/ReferTopic/useTopicDrop';
+ import { useWorkspaceFileDrop } from '../InputEditor/useWorkspaceFileDrop';
+ import { composerHoverMarker } from '../markers.stylex';
+ import SendArea from '../SendArea';
+-import TypoBar from '../TypoBar';
+ import ContextContainer from './ContextContainer';
+ 
+ const styles = stylex.create({
+@@ -132,10 +131,9 @@ const DesktopChatInput = memo<DesktopChatInputProps>(
+     );
+     const uploadContextKey = useChatInputUploadKey();
+     const hasFiles = useFileStore(fileChatSelectors.chatUploadFileListHasItem(uploadContextKey));
+-    const [slashMenuRef, expand, showTypoBar, editor, leftActions] = useChatInputStore((s) => [
++    const [slashMenuRef, expand, editor, leftActions] = useChatInputStore((s) => [
+       s.slashMenuRef,
+       s.expand,
+-      s.showTypoBar,
+       s.editor,
+       s.leftActions,
+     ]);
+@@ -261,7 +259,6 @@ const DesktopChatInput = memo<DesktopChatInputProps>(
+           header={
+             <Flexbox gap={0}>
+               {extentHeaderContent}
+-              {showTypoBar && <TypoBar />}
+               {contextContainerNode}
+             </Flexbox>
+           }
+diff --git a/src/features/ChatInput/InputEditor/index.test.tsx b/src/features/ChatInput/InputEditor/index.test.tsx
+index 56f8daec55..ae52981329 100644
+--- a/src/features/ChatInput/InputEditor/index.test.tsx
++++ b/src/features/ChatInput/InputEditor/index.test.tsx
+@@ -328,30 +328,26 @@ describe('ChatInput InputEditor', () => {
+     );
+   });
+ 
+-  it('always mounts the rich text plugins with markdown shortcuts', async () => {
++  it('mounts the plain-text plugins without markdown shortcuts', async () => {
+     render(<InputEditor />);
+ 
+     const props = await getEditorProps();
+     expect(props.plugins).toEqual(['rich-plugins']);
+-    expect(props.markdownOption).toBeUndefined();
++    expect(props.markdownOption).toBe(false);
++    expect(props.autoFormatMarkdown).toBe(false);
+   });
+ 
+-  it('converts pasted markdown when paste auto-convert is on', async () => {
+-    render(<InputEditor />);
+-
+-    const props = await getEditorProps();
+-    expect(props.enablePasteMarkdown).toBe(true);
+-    expect(props.pasteAsPlainText).toBe(true);
+-  });
+-
+-  it('pastes verbatim when paste auto-convert is off', async () => {
+-    userSettings.enablePasteAutoConvert = false;
++  it('pastes verbatim whatever the paste auto-convert setting says', async () => {
++    for (const enabled of [true, false]) {
++      userSettings.enablePasteAutoConvert = enabled;
++      const { unmount } = render(<InputEditor />);
+ 
+-    render(<InputEditor />);
+-
+-    const props = await getEditorProps();
+-    expect(props.enablePasteMarkdown).toBe(false);
+-    expect(props.pasteAsPlainText).toBe(true);
++      const props = await getEditorProps();
++      expect(props.enablePasteMarkdown).toBe(false);
++      expect(props.pasteAsPlainText).toBe(true);
++      expect(props.pasteVSCodeAsCodeBlock).toBe(false);
++      unmount();
++    }
+   });
+ 
+   it('renders the editor at 16px on mobile', async () => {
+diff --git a/src/features/ChatInput/InputEditor/index.tsx b/src/features/ChatInput/InputEditor/index.tsx
+index c1abd5ee33..71f332cc02 100644
+--- a/src/features/ChatInput/InputEditor/index.tsx
++++ b/src/features/ChatInput/InputEditor/index.tsx
+@@ -25,6 +25,7 @@ import { useEnterToSend } from '@/hooks/useEnterToSend';
+ import { useIMECompositionEvent } from '@/hooks/useIMECompositionEvent';
+ import { usePermission } from '@/hooks/usePermission';
+ import { useSingleton } from '@/hooks/useSingleton';
++import { PLAIN_TEXT_EDITOR_PROPS } from '@/libs/editor/plainText/props';
+ import { aiChatService } from '@/services/aiChat';
+ import {
+   prepareMentionedMarketAgent,
+@@ -38,7 +39,6 @@ import { useUserStore } from '@/store/user';
+ import {
+   settingsSelectors,
+   systemAgentSelectors,
+-  userGeneralSettingsSelectors,
+   userProfileSelectors,
+ } from '@/store/user/selectors';
+ 
+@@ -307,8 +307,6 @@ const InputEditor = memo<{
+     };
+   }, [state.isEmpty]);
+ 
+-  const enablePasteAutoConvert = useUserStore(userGeneralSettingsSelectors.enablePasteAutoConvert);
+-
+   const slashActionItems = useSlashActionItems();
+   const slashItems = useCallback(
+     async (
+@@ -569,6 +567,7 @@ const InputEditor = memo<{
+   );
+ 
+   const plugins = useMemo(() => {
++    // Plain text with chips (see plugins.ts); the options are ignored now.
+     const basePlugins = createChatInputRichPlugins({ linkPlugin: false });
+ 
+     return autoCompletePlugin ? [...basePlugins, autoCompletePlugin] : basePlugins;
+@@ -610,14 +609,13 @@ const InputEditor = memo<{
+       />
+       <Editor
+         autoFocus
+-        pasteAsPlainText
+         className={className}
+         content={initialContent}
+         editable={canCreateContent && canUseResource}
+         editor={editor}
+         getPopupContainer={() => (slashMenuRef as any)?.current ?? null}
+         {...{ slashPlacement }}
+-        enablePasteMarkdown={enablePasteAutoConvert}
++        {...PLAIN_TEXT_EDITOR_PROPS}
+         mentionOption={mentionOption}
+         plugins={plugins}
+         slashOption={slashOption}
+diff --git a/src/features/ChatInput/InputEditor/plugins.ts b/src/features/ChatInput/InputEditor/plugins.ts
+index 116b655625..369ab6646e 100644
+--- a/src/features/ChatInput/InputEditor/plugins.ts
++++ b/src/features/ChatInput/InputEditor/plugins.ts
+@@ -1,15 +1,8 @@
+-import {
+-  ReactCodemirrorPlugin,
+-  ReactCodePlugin,
+-  ReactHRPlugin,
+-  ReactLinkHighlightPlugin,
+-  ReactListPlugin,
+-  ReactMathPlugin,
+-  ReactMentionPlugin,
+-  ReactVirtualBlockPlugin,
+-} from '@lobehub/editor';
++import { ReactMentionPlugin, ReactVirtualBlockPlugin } from '@lobehub/editor';
+ import { type Editor } from '@lobehub/editor/react';
+ 
++import ReactPlainTextPlugin from '@/libs/editor/plainText/ReactPlainTextPlugin';
++
+ import { ReactActionTagPlugin } from './ActionTag';
+ import { ReactLocalFileTagPlugin } from './LocalFileTag';
+ import { ReactReferDocumentPlugin } from './ReferDocument';
+@@ -17,6 +10,9 @@ import { ReactReferTopicPlugin } from './ReferTopic';
+ 
+ type EditorPlugins = NonNullable<Parameters<typeof Editor>[0]['plugins']>;
+ 
++/**
++ * @deprecated Ignored: editors stay plain text, so there is no link or math plugin to choose.
++ */
+ interface CreateChatInputRichPluginsOptions {
+   linkPlugin?: EditorPlugins[number] | false;
+   mathPlugin?: EditorPlugins[number] | false;
+@@ -30,16 +26,31 @@ export const CHAT_INPUT_EMBED_PLUGINS: EditorPlugins = [
+   ReactMentionPlugin,
+ ];
+ 
+-export const createChatInputRichPlugins = ({
+-  linkPlugin = ReactLinkHighlightPlugin,
+-  mathPlugin = ReactMathPlugin,
+-}: CreateChatInputRichPluginsOptions = {}): EditorPlugins => [
+-  ReactListPlugin,
+-  ReactCodePlugin,
+-  ReactCodemirrorPlugin,
+-  ReactHRPlugin,
+-  ...(linkPlugin ? [linkPlugin] : []),
++/**
++ * Plain-text editing with inline chips: no lists, code blocks, math, rules, link
++ * nodes, or text formatting. Pair with `PLAIN_TEXT_EDITOR_PROPS` on `<Editor>`.
++ */
++export const createChatInputPlainPlugins = (): EditorPlugins => [
++  ReactPlainTextPlugin,
+   ReactVirtualBlockPlugin,
+-  ...(mathPlugin ? [mathPlugin] : []),
+   ...CHAT_INPUT_EMBED_PLUGINS,
+ ];
++
++/**
++ * Kept under its upstream name for existing call sites; it now returns the
++ * plain-text set and ignores its options.
++ */
++export const createChatInputRichPlugins = (
++  _options: CreateChatInputRichPluginsOptions = {},
++): EditorPlugins => createChatInputPlainPlugins();
++
++/** Markdown for a chat-input mention chip, the format the message is sent in. */
++export const writeChatInputMentionMarkdown = (mention: any): string => {
++  if (mention.metadata?.type === 'topic') {
++    return `<refer_topic name="${mention.metadata.topicTitle}" id="${mention.metadata.topicId}" />`;
++  }
++  // localFile references are their own node (LocalFileTagNode) and serialize
++  // via that plugin's always-registered markdown writer — they never reach this
++  // generic mention writer, which is only wired up when mentionOption is enabled.
++  return `<mention name="${mention.label}" id="${mention.metadata.id}" />`;
++};
+diff --git a/src/features/ChatInput/hooks/useChatInputDraft.ts b/src/features/ChatInput/hooks/useChatInputDraft.ts
+index 8132d22d61..ad3d64dadc 100644
+--- a/src/features/ChatInput/hooks/useChatInputDraft.ts
++++ b/src/features/ChatInput/hooks/useChatInputDraft.ts
+@@ -2,8 +2,10 @@ import type { IEditor } from '@lobehub/editor';
+ import { debounce } from 'es-toolkit/compat';
+ import { useCallback, useEffect, useMemo, useRef } from 'react';
+ 
++import { loadPlainDocument } from '@/libs/editor/plainText/plainEditorData';
++
+ import { getDraftEntry, removeDraftIfUnchanged, saveDraft } from '../draftStorage';
+-import { canSerialize, writeDocument } from '../editorDocument';
++import { canSerialize } from '../editorDocument';
+ import { useStoreApi } from '../store';
+ 
+ const SAVE_DEBOUNCE_MS = 500;
+@@ -79,7 +81,13 @@ export const useChatInputDraft = () => {
+ 
+       if (!editor.isEmpty) return;
+ 
+-      if (draft) writeDocument(editor, 'json', draft.json);
++      if (!draft) return;
++      try {
++        // A draft saved by a rich editor falls back to its text instead of blanking.
++        loadPlainDocument(editor, { editorData: draft.json });
++      } catch {
++        /* the composer this content belongs to went away mid write */
++      }
+     },
+     [storeApi],
+   );
+diff --git a/src/features/ChatInput/hooks/useChatInputHistory.ts b/src/features/ChatInput/hooks/useChatInputHistory.ts
+index b971c06739..7cdde97263 100644
+--- a/src/features/ChatInput/hooks/useChatInputHistory.ts
++++ b/src/features/ChatInput/hooks/useChatInputHistory.ts
+@@ -2,6 +2,8 @@ import type { IEditor } from '@lobehub/editor';
+ import type { RefObject } from 'react';
+ import { useCallback, useRef, useState } from 'react';
+ 
++import { hasRichEditorNodes } from '@/libs/editor/plainText/plainEditorData';
++
+ import type { ChatInputHistoryEntry, ChatInputHistoryScope } from '../inputHistoryStorage';
+ import { getInputHistory } from '../inputHistoryStorage';
+ 
+@@ -35,7 +37,8 @@ const focusEditorAfterHistoryNavigation = (editor: IEditor) => {
+ };
+ 
+ const restoreHistoryEntryDocument = (editor: IEditor, entry: ChatInputHistoryEntry) => {
+-  if (!entry.json) {
++  // Formatted JSON would lose its formatting in the plain editor; its markdown keeps it as text.
++  if (!entry.json || hasRichEditorNodes(entry.json)) {
+     editor.setDocument('markdown', entry.markdown, { keepHistory: true });
+     return;
+   }
+diff --git a/src/features/DailyBrief/CommentInput.tsx b/src/features/DailyBrief/CommentInput.tsx
+index 33e64f8557..906a608784 100644
+--- a/src/features/DailyBrief/CommentInput.tsx
++++ b/src/features/DailyBrief/CommentInput.tsx
+@@ -5,6 +5,8 @@ import { memo, useCallback, useState } from 'react';
+ import { useTranslation } from 'react-i18next';
+ 
+ import { useEnterToSend } from '@/hooks/useEnterToSend';
++import { PLAIN_TEXT_PLUGINS } from '@/libs/editor/plainText';
++import { PLAIN_TEXT_EDITOR_PROPS } from '@/libs/editor/plainText/props';
+ 
+ interface CommentInputProps {
+   onCancel: () => void;
+@@ -61,9 +63,9 @@ const CommentInput = memo<CommentInputProps>(({ onSubmit, onCancel }) => {
+       <Editor
+         content={''}
+         editor={editor}
+-        enablePasteMarkdown={false}
+-        markdownOption={false}
++        {...PLAIN_TEXT_EDITOR_PROPS}
+         placeholder={t('brief.commentPlaceholder')}
++        plugins={PLAIN_TEXT_PLUGINS}
+         type={'text'}
+         variant={'chat'}
+         onPressEnter={({ event }) => {
+diff --git a/src/features/EditorCanvas/EditorCanvas.tsx b/src/features/EditorCanvas/EditorCanvas.tsx
+index 5567e47e42..47627c8fae 100644
+--- a/src/features/EditorCanvas/EditorCanvas.tsx
++++ b/src/features/EditorCanvas/EditorCanvas.tsx
+@@ -104,9 +104,7 @@ export interface EditorCanvasProps {
+   };
+ 
+   /**
+-   * Convert `$...$` input and Markdown inline-math tokens into formula nodes.
+-   * Defaults to true. PageEditor disables this because business documents use
+-   * dollar signs far more often than inline formulas.
++   * @deprecated Ignored: editors are plain text and have no formula nodes.
+    */
+   enableInlineMath?: boolean;
+ 
+@@ -124,7 +122,9 @@ export interface EditorCanvasProps {
+   extraPlugins?: EditorPlugins;
+ 
+   /**
+-   * Whether to show the floating toolbar. Defaults to true.
++   * Whether to show the floating selection toolbar. Defaults to true. It has no
++   * formatting controls (editors are plain text); it only carries
++   * `toolbarExtraItems` / `readonlySelectionItems` and is omitted when they are empty.
+    */
+   floatingToolbar?: boolean;
+ 
+diff --git a/src/features/EditorCanvas/EditorDataMode.tsx b/src/features/EditorCanvas/EditorDataMode.tsx
+index 2c909621d8..11ddc0f5c9 100644
+--- a/src/features/EditorCanvas/EditorDataMode.tsx
++++ b/src/features/EditorCanvas/EditorDataMode.tsx
+@@ -5,6 +5,7 @@ import { memo, useCallback, useEffect, useRef } from 'react';
+ import { useTranslation } from 'react-i18next';
+ 
+ import { EMPTY_EDITOR_STATE } from '@/libs/editor/constants';
++import { hasRichEditorNodes } from '@/libs/editor/plainText/plainEditorData';
+ 
+ import { type EditorCanvasProps } from './EditorCanvas';
+ import InternalEditor from './InternalEditor';
+@@ -34,13 +35,24 @@ const loadEditorContent = (
+     editorData.editorData &&
+     typeof editorData.editorData === 'object' &&
+     Object.keys(editorData.editorData as object).length > 0 &&
+-    !isEmptyParseShell;
++    !isEmptyParseShell &&
++    // Formatted JSON would lose its formatting in the plain editor; the markdown
++    // content keeps it visible as text.
++    !hasRichEditorNodes(editorData.editorData);
+ 
+-  try {
+-    if (hasValidEditorData) {
++  if (hasValidEditorData) {
++    try {
+       editorInstance.setDocument('json', JSON.stringify(editorData.editorData));
+       return true;
+-    } else if (editorData.content?.trim()) {
++    } catch (err) {
++      // e.g. a list or table node the plain editor doesn't register: fall back to
++      // the markdown content instead of leaving the editor blank.
++      console.warn('[loadEditorContent] Falling back to content:', err);
++    }
++  }
++
++  try {
++    if (editorData.content?.trim()) {
+       editorInstance.setDocument('markdown', editorData.content, { keepId: true });
+       return true;
+     } else {
+diff --git a/src/features/EditorCanvas/InternalEditor.readonly.test.tsx b/src/features/EditorCanvas/InternalEditor.readonly.test.tsx
+index 14549ce6fc..959493afc5 100644
+--- a/src/features/EditorCanvas/InternalEditor.readonly.test.tsx
++++ b/src/features/EditorCanvas/InternalEditor.readonly.test.tsx
+@@ -146,23 +146,20 @@ describe('InternalEditor readonly state', () => {
+     });
+   });
+ 
+-  it('registers the alert, footnote, chart and video nodes the document service can write', () => {
++  it('keeps attachment nodes but no rich alert, footnote or chart blocks (plain text)', () => {
+     render(<InternalEditor editor={editor} />);
+ 
+-    expect(editorProps.last?.plugins).toEqual(
+-      expect.arrayContaining([
+-        ReactAlertPlugin,
+-        ReactChartPlugin,
+-        ReactFootnotePlugin,
+-        ReactVideoPlugin,
+-      ]),
+-    );
++    const plugins = editorProps.last?.plugins;
++    expect(plugins).toContain(ReactVideoPlugin);
++    expect(plugins).not.toContain(ReactAlertPlugin);
++    expect(plugins).not.toContain(ReactChartPlugin);
++    expect(plugins).not.toContain(ReactFootnotePlugin);
+   });
+ 
+-  it('registers the floating toolbar when editable', () => {
++  it('registers no formatting toolbar when editable without selection actions', () => {
+     render(<InternalEditor editor={editor} />);
+ 
+-    expect(editorProps.last?.plugins).toContain(ReactToolbarPlugin);
++    expect(editorProps.last?.plugins).not.toContain(ReactToolbarPlugin);
+   });
+ 
+   it('does not register the floating toolbar when not editable (locked page)', () => {
+@@ -198,7 +195,7 @@ describe('InternalEditor readonly state', () => {
+       });
+     });
+ 
+-    it('offers the formatting toolbar with its own extras while editable', () => {
++    it('offers only its selection actions while editable, with no formatting controls', () => {
+       render(
+         <InternalEditor
+           editor={editor}
+@@ -208,8 +205,10 @@ describe('InternalEditor readonly state', () => {
+       );
+ 
+       expect(editorProps.last?.plugins).toContain(ReactToolbarPlugin);
+-      expect(editorProps.toolbar).toMatchObject({ extraItems: [askItem, commentItem] });
+-      expect(editorProps.toolbar?.selectionOnly).toBeUndefined();
++      expect(editorProps.toolbar).toMatchObject({
++        extraItems: [askItem, commentItem],
++        selectionOnly: true,
++      });
+     });
+ 
+     it('registers nothing when not editable and there is nothing to act on', () => {
+diff --git a/src/features/EditorCanvas/InternalEditor.test.tsx b/src/features/EditorCanvas/InternalEditor.test.tsx
+index ffaff33531..7debcf3d9d 100644
+--- a/src/features/EditorCanvas/InternalEditor.test.tsx
++++ b/src/features/EditorCanvas/InternalEditor.test.tsx
+@@ -155,7 +155,7 @@ describe('InternalEditor', () => {
+   });
+ 
+   describe('video', () => {
+-    it('reads a markdown <video> into a video node with the default plugins', async () => {
++    it('keeps a markdown <video> tag as typed text and saves it verbatim (plain text)', async () => {
+       let editorInstance: IEditor | undefined;
+ 
+       render(
+@@ -178,8 +178,8 @@ describe('InternalEditor', () => {
+         await moment();
+       });
+ 
+-      expect(JSON.stringify(editorInstance!.getDocument('json'))).toContain('"type":"video"');
+-      expect(editorInstance!.getDocument('markdown')).toContain(
++      expect(JSON.stringify(editorInstance!.getDocument('json'))).not.toContain('"type":"video"');
++      expect(editorInstance!.getDocument('markdown')).toBe(
+         '<video src="https://cdn.test/a.mp4" style="width: 50%" controls></video>',
+       );
+     });
+diff --git a/src/features/EditorCanvas/InternalEditor.tsx b/src/features/EditorCanvas/InternalEditor.tsx
+index 5a84b952dd..37d9cc4618 100644
+--- a/src/features/EditorCanvas/InternalEditor.tsx
++++ b/src/features/EditorCanvas/InternalEditor.tsx
+@@ -3,15 +3,9 @@
+ import { isDesktop } from '@lobechat/const';
+ import type { IEditor } from '@lobehub/editor';
+ import {
+-  ReactAlertPlugin,
+-  ReactChartPlugin,
+-  ReactFootnotePlugin,
+   ReactImagePlugin,
+-  ReactLinkPlugin,
+   ReactLiteXmlPlugin,
+-  ReactMathPlugin,
+   ReactMentionPlugin,
+-  ReactTablePlugin,
+   ReactToolbarPlugin,
+   ReactVideoPlugin,
+ } from '@lobehub/editor';
+@@ -24,6 +18,8 @@ import { useTranslation } from 'react-i18next';
+ 
+ import { createChatInputRichPlugins } from '@/features/ChatInput/InputEditor/plugins';
+ import { writeTopicCommentMentionMarkdown } from '@/features/Portal/TopicComments/editorUtils';
++import { PLAIN_TEXT_EDITOR_PROPS } from '@/libs/editor/plainText/props';
++import ReactPlainTextPlugin from '@/libs/editor/plainText/ReactPlainTextPlugin';
+ 
+ import { type EditorCanvasProps } from './EditorCanvas';
+ import InlineToolbar from './InlineToolbar';
+@@ -33,8 +29,7 @@ import { registerBlockDecoratorCaretGuard } from './registerBlockDecoratorCaretG
+ import { registerBlockDecoratorClickToWrite } from './registerBlockDecoratorClickToWrite';
+ import { registerImageFilePastePreference } from './registerImageFilePastePreference';
+ import { needsImageRehost, rehostImage } from './rehostImage';
+-import OrderedListNumberMenu from './richList/OrderedListNumberMenu';
+-import { LIST_HEADING_ATTRIBUTE, ReactRichListPlugin } from './richList/RichListPlugin';
++import { LIST_HEADING_ATTRIBUTE } from './richList/RichListPlugin';
+ import { useFileUpload, useImageUpload } from './useImageUpload';
+ 
+ interface FileFilter {
+@@ -150,23 +145,19 @@ const listMarkerStyles = createStaticStyles(({ css, cssVar }) => {
+ });
+ 
+ /**
+- * Base plugins for the editor (without image and toolbar, which need dynamic config)
++ * Base plugins for the editor (without image and toolbar, which need dynamic config).
++ * Editing is plain text with inline chips: no lists, tables, code, math, alerts,
++ * footnotes, charts or link nodes. LiteXML stays for agent diffs and Ask Copilot.
+  */
+ const STATIC_PLUGINS = [
+   ReactLiteXmlPlugin,
+-  ...createChatInputRichPlugins({ linkPlugin: ReactLinkPlugin, mathPlugin: false }),
++  ...createChatInputRichPlugins(),
+   // The kernel reads a plugin's config once at init, and `mentionOption` can
+   // arrive later (workspace pages resolve their member source asynchronously),
+   // so pin the member chip's markdown form here rather than relying on
+   // `mentionOption.markdownWriter` being present at mount. Same writer as the
+   // comment editors, so a chip serialises identically in every canvas.
+   Editor.withProps(ReactMentionPlugin, { markdownWriter: writeTopicCommentMentionMarkdown }),
+-  ReactTablePlugin,
+-  ReactAlertPlugin,
+-  ReactFootnotePlugin,
+-  ReactChartPlugin,
+-  // After ReactListPlugin (in the rich plugins above), whose markdown it extends.
+-  ReactRichListPlugin,
+ ];
+ 
+ const EDITOR_INIT_DATA_SOURCE_TYPES = ['json', 'markdown'] as const;
+@@ -227,7 +218,6 @@ const InternalEditor = memo<InternalEditorProps>(
+     disabled,
+     editable = true,
+     editor,
+-    enableInlineMath = true,
+     extraPlugins,
+     floatingToolbar = true,
+     getPopupContainer,
+@@ -275,8 +265,8 @@ const InternalEditor = memo<InternalEditorProps>(
+ 
+     // Build plugins array
+     const plugins = useMemo(() => {
+-      // If custom plugins provided, use them directly
+-      if (customPlugins) return customPlugins;
++      // If custom plugins provided, use them directly (still plain text)
++      if (customPlugins) return [ReactPlainTextPlugin, ...customPlugins];
+ 
+       const imagePlugin = Editor.withProps(ReactImagePlugin, {
+         defaultBlockImage: true,
+@@ -297,38 +287,18 @@ const InternalEditor = memo<InternalEditorProps>(
+         theme: { file: fileNodeStyles.fileWrapper as unknown as string },
+       });
+ 
+-      const mathPlugin = Editor.withProps(ReactMathPlugin, { enableInlineMath });
+-
+       // Build base plugins with optional extra plugins prepended
+       const basePlugins = extraPlugins
+-        ? [...extraPlugins, ...STATIC_PLUGINS, mathPlugin, imagePlugin, videoPlugin, filePlugin]
+-        : [...STATIC_PLUGINS, mathPlugin, imagePlugin, videoPlugin, filePlugin];
++        ? [...extraPlugins, ...STATIC_PLUGINS, imagePlugin, videoPlugin, filePlugin]
++        : [...STATIC_PLUGINS, imagePlugin, videoPlugin, filePlugin];
+ 
+       if (!floatingToolbar || disabled) return basePlugins;
+ 
+-      // The formatting toolbar only when the editor is actually editable — a
+-      // locked / read-only page must not surface it on text selection (its
+-      // buttons would dispatch commands that never save).
+-      if (editable) {
+-        return [
+-          ...basePlugins,
+-          Editor.withProps(ReactToolbarPlugin, {
+-            children: (
+-              <InlineToolbar
+-                floating
+-                editor={editor}
+-                editorState={editorState}
+-                extraItems={toolbarExtraItems}
+-              />
+-            ),
+-          }),
+-        ];
+-      }
+-
+-      // A read-only body can still be selected; selection-scoped actions that
+-      // never edit (comment on it, ask about it) stay reachable through a
+-      // toolbar that carries nothing else.
+-      if (readonlySelectionItems?.length) {
++      // There is no formatting toolbar: editing is plain text. Selection-scoped
++      // actions (ask Copilot, comment) stay reachable through a toolbar that
++      // carries nothing else, both while editing and on a read-only body.
++      const selectionItems = editable ? toolbarExtraItems : readonlySelectionItems;
++      if (selectionItems?.length) {
+         return [
+           ...basePlugins,
+           Editor.withProps(ReactToolbarPlugin, {
+@@ -338,7 +308,7 @@ const InternalEditor = memo<InternalEditorProps>(
+                 selectionOnly
+                 editor={editor}
+                 editorState={editorState}
+-                extraItems={readonlySelectionItems}
++                extraItems={selectionItems}
+               />
+             ),
+           }),
+@@ -352,7 +322,6 @@ const InternalEditor = memo<InternalEditorProps>(
+       editable,
+       editor,
+       editorState,
+-      enableInlineMath,
+       extraPlugins,
+       floatingToolbar,
+       handleFileUpload,
+@@ -513,10 +482,10 @@ const InternalEditor = memo<InternalEditorProps>(
+               ...style,
+               ...contentStyle,
+             }}
++            {...PLAIN_TEXT_EDITOR_PROPS}
+             {...(onPressEnter ? { onPressEnter } : {})}
+           />
+         </div>
+-        {editable && !disabled && <OrderedListNumberMenu editor={editor} />}
+       </>
+     );
+   },
+diff --git a/src/features/EditorCanvas/ReadOnlyMarkdown.tsx b/src/features/EditorCanvas/ReadOnlyMarkdown.tsx
+new file mode 100644
+index 0000000000..bfc11f29e7
+--- /dev/null
++++ b/src/features/EditorCanvas/ReadOnlyMarkdown.tsx
+@@ -0,0 +1,105 @@
++'use client';
++
++import type { IEditor } from '@lobehub/editor';
++import { type MarkdownProps } from '@lobehub/ui';
++import { type CSSProperties, memo, useEffect, useState } from 'react';
++
++import MarkdownMessage from '@/features/Conversation/Markdown';
++import { markdownElements } from '@/features/Conversation/Markdown/plugins';
++
++// Same elements a sent user message renders, so chip tags (`<mention … />`,
++// `<refer_topic … />`, skills, tools, local files) show as chips here too.
++const userElements = markdownElements.filter((element) => element.scope !== 'assistant');
++
++const MARKDOWN_PROPS = {
++  components: Object.fromEntries(
++    userElements.map((element) => {
++      const Component = element.Component;
++      return [element.tag, (props: any) => <Component {...props} id={''} />];
++    }),
++  ) as any,
++  enableStream: false,
++  rehypePlugins: userElements.map((element) => element.rehypePlugin).filter(Boolean),
++  remarkPlugins: userElements.map((element) => element.remarkPlugin).filter(Boolean),
++} satisfies Partial<MarkdownProps>;
++
++const LIVE_DEBOUNCE_MS = 150;
++
++const readEditorMarkdown = (editor?: IEditor): string | undefined => {
++  if (!editor?.getLexicalEditor?.()) return undefined;
++  try {
++    const markdown = editor.getDocument('markdown');
++    return typeof markdown === 'string' ? markdown : undefined;
++  } catch {
++    return undefined;
++  }
++};
++
++/**
++ * Follow the (hidden, still mounted) editor's document, so a read-only view stays
++ * current while a collaborator or agent writes; `fallback` covers the time before
++ * the editor holds a document.
++ */
++const useLiveMarkdown = (editor: IEditor | undefined, fallback: string): string => {
++  const [markdown, setMarkdown] = useState(() => readEditorMarkdown(editor) ?? fallback);
++
++  useEffect(() => {
++    if (!editor) return;
++
++    let timer: ReturnType<typeof setTimeout> | undefined;
++    let unregister: (() => void) | undefined;
++
++    const refresh = () => setMarkdown(readEditorMarkdown(editor) ?? fallback);
++    const subscribe = () => {
++      unregister?.();
++      unregister = editor
++        .getLexicalEditor?.()
++        ?.registerUpdateListener(({ dirtyElements, dirtyLeaves }) => {
++          if (dirtyElements.size === 0 && dirtyLeaves.size === 0) return;
++          clearTimeout(timer);
++          timer = setTimeout(refresh, LIVE_DEBOUNCE_MS);
++        });
++      refresh();
++    };
++
++    subscribe();
++    editor.on('initialized', subscribe);
++    editor.on('documentChange', refresh);
++
++    return () => {
++      clearTimeout(timer);
++      unregister?.();
++      editor.off('initialized', subscribe);
++      editor.off('documentChange', refresh);
++    };
++  }, [editor, fallback]);
++
++  return editor ? markdown : fallback;
++};
++
++interface ReadOnlyMarkdownProps {
++  className?: string;
++  /** Stored Markdown; shown until (or without) a live editor. */
++  content?: string;
++  /** When given, the view follows this editor's document. */
++  editor?: IEditor;
++  style?: CSSProperties;
++}
++
++/**
++ * Read-only rendering of a plain-text document's Markdown. Editors stay plain
++ * text; surfaces that only display a document render it richly with this.
++ */
++const ReadOnlyMarkdown = memo<ReadOnlyMarkdownProps>(({ className, content, editor, style }) => {
++  const markdown = useLiveMarkdown(editor, content ?? '');
++
++  return (
++    <div data-plain-markdown-body className={className} style={style}>
++      <MarkdownMessage {...MARKDOWN_PROPS}>{markdown}</MarkdownMessage>
++    </div>
++  );
++});
++
++ReadOnlyMarkdown.displayName = 'ReadOnlyMarkdown';
++
++export default ReadOnlyMarkdown;
+diff --git a/src/features/EditorModal/EditorCanvas.test.tsx b/src/features/EditorModal/EditorCanvas.test.tsx
+index 2e2d4db98f..ffb5f63340 100644
+--- a/src/features/EditorModal/EditorCanvas.test.tsx
++++ b/src/features/EditorModal/EditorCanvas.test.tsx
+@@ -70,7 +70,7 @@ afterEach(() => {
+ });
+ 
+ describe('EditorModal EditorCanvas', () => {
+-  it('should edit the message text, not the saved rich data, so a mention never blanks it', async () => {
++  it('should render mention chips from the saved editor data', async () => {
+     const { container } = render(
+       <TestWrapper defaultValue={'@Agent A please check'} editorData={mentionEditorState} />,
+     );
+@@ -79,8 +79,7 @@ describe('EditorModal EditorCanvas', () => {
+       await moment();
+     });
+ 
+-    expect(container.querySelector('.editor_mention')).toBeNull();
+-    expect(screen.getByText('@Agent A please check')).toBeInTheDocument();
++    expect(container.querySelector('.editor_mention')?.textContent).toBe('@Agent A');
+   });
+ 
+   it('should keep markdown syntax as plain text', async () => {
+diff --git a/src/features/EditorModal/EditorCanvas.tsx b/src/features/EditorModal/EditorCanvas.tsx
+index 16812b2ac2..ed6dc9b69e 100644
+--- a/src/features/EditorModal/EditorCanvas.tsx
++++ b/src/features/EditorModal/EditorCanvas.tsx
+@@ -1,45 +1,72 @@
+-import { type IEditor } from '@lobehub/editor';
++import { type IEditor, ReactMentionPlugin } from '@lobehub/editor';
+ import { Editor } from '@lobehub/editor/react';
+ import { Flexbox } from '@lobehub/ui';
+-import { type FC } from 'react';
++import { type FC, useCallback } from 'react';
++
++import {
++  createChatInputPlainPlugins,
++  writeChatInputMentionMarkdown,
++} from '@/features/ChatInput/InputEditor/plugins';
++import { createStore, Provider as ChatInputStoreProvider } from '@/features/ChatInput/store';
++import { loadPlainDocument } from '@/libs/editor/plainText/plainEditorData';
++import { PLAIN_TEXT_EDITOR_PROPS } from '@/libs/editor/plainText/props';
+ 
+ interface EditorCanvasProps {
+   defaultValue?: string;
+   editor?: IEditor;
+   /**
+-   * Saved rich-editor state. Ignored on purpose: the plain-text editor has no plugins
+-   * for rich nodes (mentions, chips), and loading such a document would open it empty.
++   * Saved editor state. Loaded when present so the message's chips (mentions,
++   * skills, references) come back; formatted or unloadable state falls back to
++   * the message text, so the editor never opens empty.
+    */
+   editorData?: unknown;
+ }
+ 
+ /**
+  * Message edits stay manual: the modal is a plain-text editor over the message text,
+- * with no rich plugins, no typography bar, and no Markdown conversion on load or paste.
++ * with inline chips but no formatting, no typography bar, and no Markdown conversion
++ * on load or paste.
+  */
+-const PLAIN_TEXT_PROPS = {
+-  enablePasteMarkdown: false,
+-  markdownOption: false,
+-  plugins: [],
+-};
++const EDITOR_PLUGINS = [
++  ...createChatInputPlainPlugins(),
++  // Same chip markdown as the chat input, so a saved edit sends the mention it shows.
++  Editor.withProps(ReactMentionPlugin, { markdownWriter: writeChatInputMentionMarkdown }),
++];
+ 
+-const EditorCanvas: FC<EditorCanvasProps> = ({ defaultValue, editor }) => (
+-  <Flexbox
+-    padding={16}
+-    style={{ cursor: 'text', maxHeight: '80vh', minHeight: '50vh', overflowY: 'auto' }}
+-  >
+-    <Editor
+-      autoFocus
+-      content={defaultValue || ''}
+-      editor={editor}
+-      {...PLAIN_TEXT_PROPS}
+-      type={'text'}
+-      variant={'chat'}
+-      style={{
+-        paddingBottom: 120,
+-      }}
+-    />
+-  </Flexbox>
+-);
++const EditorCanvas: FC<EditorCanvasProps> = ({ defaultValue, editor, editorData }) => {
++  // Runs after the editor's own initial load, replacing it with the saved document.
++  const handleInit = useCallback(
++    (instance: IEditor) => {
++      loadPlainDocument(instance, { editorData, markdown: defaultValue });
++    },
++    [defaultValue, editorData],
++  );
++
++  return (
++    // Skill / tool chips read the chat-input store (for the agent they belong to);
++    // the modal sits outside any composer, so it gets an empty one of its own and
++    // chips resolve against the active agent.
++    <ChatInputStoreProvider createStore={() => createStore()}>
++      <Flexbox
++        padding={16}
++        style={{ cursor: 'text', maxHeight: '80vh', minHeight: '50vh', overflowY: 'auto' }}
++      >
++        <Editor
++          autoFocus
++          content={defaultValue || ''}
++          editor={editor}
++          {...PLAIN_TEXT_EDITOR_PROPS}
++          plugins={EDITOR_PLUGINS}
++          type={'markdown'}
++          variant={'chat'}
++          style={{
++            paddingBottom: 120,
++          }}
++          onInit={handleInit}
++        />
++      </Flexbox>
++    </ChatInputStoreProvider>
++  );
++};
+ 
+ export default EditorCanvas;
+diff --git a/src/features/PageEditor/DocumentComments/CommentCard.tsx b/src/features/PageEditor/DocumentComments/CommentCard.tsx
+index 32623bd020..f2137f1364 100644
+--- a/src/features/PageEditor/DocumentComments/CommentCard.tsx
++++ b/src/features/PageEditor/DocumentComments/CommentCard.tsx
+@@ -17,7 +17,6 @@ import { useTranslation } from 'react-i18next';
+ 
+ import { AttachmentMenu } from '@/features/AttachmentInput';
+ import RichTextMessage from '@/features/Conversation/Messages/User/components/RichTextMessage';
+-import { TypoBar } from '@/features/EditorCanvas';
+ import {
+   getEditorAttachmentStateFromJson,
+   insertExistingAttachmentsIntoEditor,
+@@ -25,7 +24,6 @@ import {
+ } from '@/features/EditorCanvas/editorAttachments';
+ import { useActivityTime } from '@/hooks/useActivityTime';
+ import { useEnterToSend } from '@/hooks/useEnterToSend';
+-import { useLocalStorageState } from '@/hooks/useLocalStorageState';
+ import { documentCommentService } from '@/services/documentComment';
+ 
+ import AnchorQuote from './anchor/AnchorQuote';
+@@ -106,10 +104,6 @@ const CommentCard = memo<CommentCardProps>(
+     const editEditor = useEditor();
+     const editorRef = useRef<DocumentCommentEditorRef>(null);
+     const editInputRef = useRef<HTMLDivElement>(null);
+-    const [showTypoBar, setShowTypoBar] = useLocalStorageState(
+-      'document-comment:show-formatting-toolbar',
+-      false,
+-    );
+     const [mutating, setMutating] = useState(false);
+     const { locateInBody, orphanedRootIds, setHoveredRootId } = useCommentAnchors();
+     const anchor = comment.selectionAnchor;
+@@ -320,7 +314,6 @@ const CommentCard = memo<CommentCardProps>(
+           ) : editing ? (
+             <ChatInput
+               className={styles.editComposer}
+-              header={showTypoBar ? <TypoBar editor={editEditor} /> : undefined}
+               maxHeight={COMMENT_INPUT_MAX_HEIGHT}
+               minHeight={64}
+               resize={false}
+@@ -331,9 +324,7 @@ const CommentCard = memo<CommentCardProps>(
+                   left={
+                     <AttachmentMenu
+                       disabled={mutating}
+-                      formatEnabled={showTypoBar}
+                       onFiles={handleAttach}
+-                      onFormatEnabledChange={setShowTypoBar}
+                       onLibraryFiles={(attachments) =>
+                         insertExistingAttachmentsIntoEditor(editEditor, attachments)
+                       }
+diff --git a/src/features/PageEditor/DocumentComments/Composer.tsx b/src/features/PageEditor/DocumentComments/Composer.tsx
+index 5758293c5a..b56d430757 100644
+--- a/src/features/PageEditor/DocumentComments/Composer.tsx
++++ b/src/features/PageEditor/DocumentComments/Composer.tsx
+@@ -7,7 +7,6 @@ import { useTranslation } from 'react-i18next';
+ 
+ import { useActiveWorkspaceId } from '@/business/client/hooks/useActiveWorkspaceId';
+ import { AttachmentMenu } from '@/features/AttachmentInput';
+-import { TypoBar } from '@/features/EditorCanvas';
+ import {
+   getEditorAttachmentStateFromJson,
+   insertExistingAttachmentsIntoEditor,
+@@ -358,10 +357,6 @@ const Composer = memo<ComposerProps>(
+     // in flight.
+     const storeApi = useStoreApi();
+     const anchor = adoptsAnchor ? draft.selectionAnchor : undefined;
+-    const [showTypoBar, setShowTypoBar] = useLocalStorageState(
+-      'document-comment:show-formatting-toolbar',
+-      false,
+-    );
+     const [submitting, setSubmitting] = useState(false);
+     // The draft lives in storage as well as in state. Storage is written from
+     // inside the state updater, which React only runs when the box renders
+@@ -704,9 +699,7 @@ const Composer = memo<ComposerProps>(
+     const attachmentMenu = (
+       <AttachmentMenu
+         disabled={submitting}
+-        formatEnabled={showTypoBar}
+         onFiles={handleAttach}
+-        onFormatEnabledChange={setShowTypoBar}
+         onLibraryFiles={(attachments) => insertExistingAttachmentsIntoEditor(editor, attachments)}
+       />
+     );
+@@ -719,7 +712,6 @@ const Composer = memo<ComposerProps>(
+         <Flexbox gap={8} ref={rootRef}>
+           <ChatInput
+             className={styles.composerPlain}
+-            header={showTypoBar ? <TypoBar editor={editor} /> : undefined}
+             maxHeight={COMMENT_INPUT_MAX_HEIGHT}
+             minHeight={56}
+             resize={false}
+@@ -786,17 +778,12 @@ const Composer = memo<ComposerProps>(
+             />
+           }
+           header={
+-            anchor || showTypoBar ? (
+-              <>
+-                {anchor && (
+-                  <AnchorQuote
+-                    anchor={anchor}
+-                    className={styles.composerAnchor}
+-                    onDismiss={clearAnchor}
+-                  />
+-                )}
+-                {showTypoBar && <TypoBar editor={editor} />}
+-              </>
++            anchor ? (
++              <AnchorQuote
++                anchor={anchor}
++                className={styles.composerAnchor}
++                onDismiss={clearAnchor}
++              />
+             ) : undefined
+           }
+           onBodyClick={() => editor.focus()}
+diff --git a/src/features/PageEditor/EditorCanvas/RoomBodyPreview.test.tsx b/src/features/PageEditor/EditorCanvas/RoomBodyPreview.test.tsx
+index 14134a0c31..9f3d72b74a 100644
+--- a/src/features/PageEditor/EditorCanvas/RoomBodyPreview.test.tsx
++++ b/src/features/PageEditor/EditorCanvas/RoomBodyPreview.test.tsx
+@@ -5,35 +5,41 @@ import { render } from '@testing-library/react';
+ import { describe, expect, it, vi } from 'vitest';
+ 
+ import { EditorCanvas } from '@/features/EditorCanvas';
++import ReadOnlyMarkdown from '@/features/EditorCanvas/ReadOnlyMarkdown';
+ 
+ import RoomBodyPreview from './RoomBodyPreview';
+ 
+-const previewEditor = { id: 'preview-editor' };
+-const storedEditorData = { root: { children: [{ type: 'paragraph' }] } };
++const documents: Record<string, unknown> = {
++  'doc-1': { content: 'stored body', editorData: { root: { children: [{ type: 'paragraph' }] } } },
++  'skill-1': {
++    content: '---\nname: demo\n---\n\nskill body',
++    contentFormat: 'skillMarkdown',
++  },
++};
+ 
+-vi.mock('@lobehub/editor/react', () => ({ useEditor: () => previewEditor }));
+-
+-vi.mock('@/features/EditorCanvas', () => ({
+-  EditorCanvas: vi.fn(() => null),
+-}));
++vi.mock('@/features/EditorCanvas', () => ({ EditorCanvas: vi.fn(() => null) }));
++vi.mock('@/features/EditorCanvas/ReadOnlyMarkdown', () => ({ default: vi.fn(() => null) }));
+ 
+ vi.mock('@/store/document', () => ({
+-  useDocumentStore: (selector: (state: unknown) => unknown) =>
+-    selector({
+-      documents: { 'doc-1': { content: 'stored body', editorData: storedEditorData } },
+-    }),
++  useDocumentStore: (selector: (state: unknown) => unknown) => selector({ documents }),
+ }));
+ 
+ describe('RoomBodyPreview', () => {
+-  it('renders the stored body read-only on its own editor', () => {
+-    render(<RoomBodyPreview documentId="doc-1" placeholder="Type" />);
+-
+-    expect(vi.mocked(EditorCanvas).mock.lastCall?.[0]).toMatchObject({
+-      editable: false,
+-      editor: previewEditor,
+-      editorData: { content: 'stored body', editorData: storedEditorData },
+-      entityId: 'doc-1',
+-      placeholder: 'Type',
++  it('renders the stored body as Markdown, never on an editor', () => {
++    render(<RoomBodyPreview documentId="doc-1" />);
++
++    expect(vi.mocked(ReadOnlyMarkdown).mock.lastCall?.[0]).toMatchObject({
++      content: 'stored body',
++    });
++    expect(vi.mocked(ReadOnlyMarkdown).mock.lastCall?.[0]).not.toHaveProperty('editor');
++    expect(EditorCanvas).not.toHaveBeenCalled();
++  });
++
++  it('leaves SKILL.md frontmatter out of the body', () => {
++    render(<RoomBodyPreview documentId="skill-1" />);
++
++    expect(vi.mocked(ReadOnlyMarkdown).mock.lastCall?.[0]).toMatchObject({
++      content: expect.not.stringContaining('name: demo'),
+     });
+   });
+ });
+diff --git a/src/features/PageEditor/EditorCanvas/RoomBodyPreview.tsx b/src/features/PageEditor/EditorCanvas/RoomBodyPreview.tsx
+index 44ce58ca46..714a2f2bf2 100644
+--- a/src/features/PageEditor/EditorCanvas/RoomBodyPreview.tsx
++++ b/src/features/PageEditor/EditorCanvas/RoomBodyPreview.tsx
+@@ -1,37 +1,33 @@
+ 'use client';
+ 
+-import { useEditor } from '@lobehub/editor/react';
+-import { type ComponentProps, memo, useMemo } from 'react';
++import { type CSSProperties, memo } from 'react';
+ 
+-import { EditorCanvas as SharedEditorCanvas } from '@/features/EditorCanvas';
++import ReadOnlyMarkdown from '@/features/EditorCanvas/ReadOnlyMarkdown';
+ import { useDocumentStore } from '@/store/document';
++import { parseSkillMarkdownFrontmatter } from '@/utils/skillMarkdown';
+ 
+-type RoomBodyPreviewProps = Pick<
+-  ComponentProps<typeof SharedEditorCanvas>,
+-  'allowContentBleed' | 'className' | 'enableInlineMath' | 'extraPlugins' | 'placeholder' | 'style'
+-> & { documentId: string };
+-
+-// The stored body, read-only, while the room syncs. It runs on its own editor:
+-// writing the row into the room's editor would add a second copy of the page.
+-const RoomBodyPreview = memo<RoomBodyPreviewProps>(({ documentId, ...canvasProps }) => {
+-  const editor = useEditor();
+-  const content = useDocumentStore((s) => s.documents[documentId]?.content);
+-  const storedEditorData = useDocumentStore((s) => s.documents[documentId]?.editorData);
+-  const editorData = useMemo(
+-    () => ({ content: content ?? '', editorData: storedEditorData }),
+-    [content, storedEditorData],
+-  );
+-
+-  return (
+-    <SharedEditorCanvas
+-      editable={false}
+-      editor={editor}
+-      editorData={editorData}
+-      entityId={documentId}
+-      floatingToolbar={false}
+-      {...canvasProps}
+-    />
+-  );
++/** The stored page body as Markdown, without SKILL.md frontmatter (it isn't body). */
++export const useStoredBodyMarkdown = (documentId?: string): string =>
++  useDocumentStore((s) => {
++    const doc = documentId ? s.documents[documentId] : undefined;
++    if (!doc?.content) return '';
++    return doc.contentFormat === 'skillMarkdown'
++      ? parseSkillMarkdownFrontmatter(doc.content).body
++      : doc.content;
++  });
++
++interface RoomBodyPreviewProps {
++  className?: string;
++  documentId: string;
++  style?: CSSProperties;
++}
++
++// The stored body, rendered read-only while the room syncs. It never touches the
++// room's editor: writing the row into it would add a second copy of the page.
++const RoomBodyPreview = memo<RoomBodyPreviewProps>(({ documentId, className, style }) => {
++  const content = useStoredBodyMarkdown(documentId);
++
++  return <ReadOnlyMarkdown className={className} content={content} style={style} />;
+ });
+ 
+ RoomBodyPreview.displayName = 'RoomBodyPreview';
+diff --git a/src/features/PageEditor/EditorCanvas/index.tsx b/src/features/PageEditor/EditorCanvas/index.tsx
+index 4299da0a09..f0ea290eea 100644
+--- a/src/features/PageEditor/EditorCanvas/index.tsx
++++ b/src/features/PageEditor/EditorCanvas/index.tsx
+@@ -1,6 +1,6 @@
+ 'use client';
+ 
+-import { ReactBlockPlugin, ReactCollapsiblePlugin } from '@lobehub/editor';
++import { ReactBlockPlugin } from '@lobehub/editor';
+ import { Editor } from '@lobehub/editor/react';
+ import { type CSSProperties, memo, useMemo } from 'react';
+ import { useTranslation } from 'react-i18next';
+@@ -8,11 +8,13 @@ import { useTranslation } from 'react-i18next';
+ import { mentionPlainClassName } from '@/features/ChatInput/InputEditor/mentionStyle';
+ import type { ComposerTarget } from '@/features/Conversation/types';
+ import { EditorCanvas as SharedEditorCanvas } from '@/features/EditorCanvas';
++import ReadOnlyMarkdown from '@/features/EditorCanvas/ReadOnlyMarkdown';
+ 
+ import { usePageCollab } from '../collab/usePageCollab';
+ import { usePageEditorStore } from '../store';
+ import { usePageEditable } from '../usePageEditable';
+-import RoomBodyPreview from './RoomBodyPreview';
++import { usePageReadOnlyView } from '../usePageReadOnlyView';
++import RoomBodyPreview, { useStoredBodyMarkdown } from './RoomBodyPreview';
+ import { useAddCommentItem } from './useAddCommentItem';
+ import { useAskCopilotItem } from './useAskCopilotItem';
+ import { useDocumentMentionOption } from './useDocumentMentionOption';
+@@ -27,6 +29,8 @@ interface EditorCanvasProps {
+ const EditorCanvas = memo<EditorCanvasProps>(({ askCopilotTarget, placeholder, style }) => {
+   const { t } = useTranslation(['file', 'ui']);
+   const editable = usePageEditable();
++  // A page this user can't write shows its Markdown rendered; editing stays plain text.
++  const readOnlyView = usePageReadOnlyView();
+ 
+   const editor = usePageEditorStore((s) => s.editor);
+   const documentId = usePageEditorStore((s) => s.documentId);
+@@ -45,31 +49,23 @@ const EditorCanvas = memo<EditorCanvasProps>(({ askCopilotTarget, placeholder, s
+     [addCommentItem, askCopilotItem],
+   );
+ 
+-  const basePlugins = useMemo(
+-    () => [Editor.withProps(ReactBlockPlugin, { anchorPadding: 0 }), ReactCollapsiblePlugin],
+-    [],
+-  );
++  // No collapsible headings: the body is plain text, so it has none.
++  const basePlugins = useMemo(() => [Editor.withProps(ReactBlockPlugin, { anchorPadding: 0 })], []);
+   const extraPlugins = useMemo(
+     () => (collabPlugin ? [...basePlugins, collabPlugin] : basePlugins),
+     [basePlugins, collabPlugin],
+   );
+   const resolvedPlaceholder = placeholder || t('pageEditor.editorPlaceholder');
+   const showStoredBody = !!collabPlugin && !collabBodyShown && !!documentId;
+-  const pendingBody = useMemo(
+-    () =>
+-      showStoredBody ? (
+-        <RoomBodyPreview
+-          allowContentBleed
+-          className={mentionPlainClassName}
+-          documentId={documentId!}
+-          enableInlineMath={false}
+-          extraPlugins={basePlugins}
+-          placeholder={resolvedPlaceholder}
+-          style={style}
+-        />
+-      ) : undefined,
+-    [basePlugins, documentId, resolvedPlaceholder, showStoredBody, style],
+-  );
++  const storedBody = useStoredBodyMarkdown(documentId);
++  // The editor stays mounted behind either view, so collaboration, agent diffs
++  // and a released lock keep working; the read-only view follows its document.
++  const pendingBody = useMemo(() => {
++    if (showStoredBody) return <RoomBodyPreview documentId={documentId!} style={style} />;
++    if (readOnlyView)
++      return <ReadOnlyMarkdown content={storedBody} editor={editor} style={style} />;
++    return undefined;
++  }, [documentId, editor, readOnlyView, showStoredBody, storedBody, style]);
+ 
+   return (
+     <SharedEditorCanvas
+@@ -79,15 +75,15 @@ const EditorCanvas = memo<EditorCanvasProps>(({ askCopilotTarget, placeholder, s
+       documentId={documentId}
+       editable={editable}
+       editor={editor}
+-      enableInlineMath={false}
+       extraPlugins={extraPlugins}
+       mentionOption={mentionOption}
+       pendingBody={pendingBody}
+       placeholder={resolvedPlaceholder}
+-      // Commenting on a selection is a read action: it must survive the page
+-      // being locked by another collaborator or opened view-only, when the
+-      // formatting toolbar (and Ask Copilot with it) is withheld.
+-      readonlySelectionItems={editable ? undefined : addCommentItem}
++      // Commenting on a selection is a read action: it survives the page being
++      // briefly read-only (lock pending, agent writing), when Ask Copilot is
++      // withheld. A page that stays read-only shows rendered Markdown instead,
++      // which has no editor selection to comment on.
++      readonlySelectionItems={editable || readOnlyView ? undefined : addCommentItem}
+       slashItems={slashItems}
+       style={style}
+       toolbarExtraItems={editable ? toolbarExtraItems : undefined}
+diff --git a/src/features/PageEditor/EditorCanvas/useSlashItems.test.ts b/src/features/PageEditor/EditorCanvas/useSlashItems.test.ts
+index b6b937aca6..9c4c725fb4 100644
+--- a/src/features/PageEditor/EditorCanvas/useSlashItems.test.ts
++++ b/src/features/PageEditor/EditorCanvas/useSlashItems.test.ts
+@@ -1,15 +1,7 @@
+-import {
+-  INSERT_ALERT_COMMAND,
+-  INSERT_CHART_COMMAND,
+-  INSERT_FOOTNOTE_COMMAND,
+-  INSERT_VIDEO_COMMAND,
+-  type SlashOptions,
+-} from '@lobehub/editor';
++import { INSERT_VIDEO_COMMAND, type SlashOptions } from '@lobehub/editor';
+ import { renderHook } from '@testing-library/react';
+ import { describe, expect, it, vi } from 'vitest';
+ 
+-import { requestListNumberMenu } from '@/features/EditorCanvas';
+-
+ import { useSlashItems } from './useSlashItems';
+ 
+ vi.mock('@lobehub/editor', () => ({
+@@ -39,30 +31,10 @@ const findItem = (items: SlashOptions['items'], key: string) =>
+   (items as SlashItem[]).find((item) => item.key === key);
+ 
+ describe('useSlashItems', () => {
+-  it.each([
+-    ['alert', INSERT_ALERT_COMMAND],
+-    ['chart', INSERT_CHART_COMMAND],
+-    ['footnote', INSERT_FOOTNOTE_COMMAND],
+-  ])('inserts a %s block from the slash menu', (key, command) => {
++  it('offers only attachment inserts, since pages are plain text', () => {
+     const { result } = renderHook(() => useSlashItems());
+-    const item = findItem(result.current, key);
+-    const editor = { dispatchCommand: vi.fn(), focus: vi.fn() };
+-
+-    expect(item).toBeDefined();
+-    item!.onSelect!(editor as any, {} as any);
+-
+-    expect(editor.dispatchCommand).toHaveBeenCalledWith(command, undefined);
+-  });
+-
+-  it('opens the list number menu from the slash menu, for use without a pointer', () => {
+-    const { result } = renderHook(() => useSlashItems());
+-    const item = findItem(result.current, 'num');
+-    const editor = { dispatchCommand: vi.fn(), focus: vi.fn() };
+-
+-    expect(item).toBeDefined();
+-    item!.onSelect!(editor as any, {} as any);
+ 
+-    expect(requestListNumberMenu).toHaveBeenCalledWith(editor);
++    expect((result.current as SlashItem[]).map((item) => item.key)).toEqual(['image', 'video']);
+   });
+ 
+   it('inserts an empty video block from the slash menu', () => {
+diff --git a/src/features/PageEditor/EditorCanvas/useSlashItems.tsx b/src/features/PageEditor/EditorCanvas/useSlashItems.tsx
+index 3afb4d5f1e..b700608ec2 100644
+--- a/src/features/PageEditor/EditorCanvas/useSlashItems.tsx
++++ b/src/features/PageEditor/EditorCanvas/useSlashItems.tsx
+@@ -1,111 +1,21 @@
+ import { type SlashOptions } from '@lobehub/editor';
+-import {
+-  INSERT_ALERT_COMMAND,
+-  INSERT_CHART_COMMAND,
+-  INSERT_CHECK_LIST_COMMAND,
+-  INSERT_CODEMIRROR_COMMAND,
+-  INSERT_FOOTNOTE_COMMAND,
+-  INSERT_HEADING_COMMAND,
+-  INSERT_HORIZONTAL_RULE_COMMAND,
+-  INSERT_IMAGE_COMMAND,
+-  INSERT_MATH_COMMAND,
+-  INSERT_ORDERED_LIST_COMMAND,
+-  INSERT_TABLE_COMMAND,
+-  INSERT_UNORDERED_LIST_COMMAND,
+-  INSERT_VIDEO_COMMAND,
+-} from '@lobehub/editor';
++import { INSERT_IMAGE_COMMAND, INSERT_VIDEO_COMMAND } from '@lobehub/editor';
+ import { Text } from '@lobehub/ui';
+-import {
+-  ChartColumnIcon,
+-  Heading1Icon,
+-  Heading2Icon,
+-  Heading3Icon,
+-  ImageIcon,
+-  ListIcon,
+-  ListOrderedIcon,
+-  ListRestartIcon,
+-  ListTodoIcon,
+-  MessageSquareWarningIcon,
+-  MinusIcon,
+-  SigmaIcon,
+-  SquareDashedBottomCodeIcon,
+-  SuperscriptIcon,
+-  Table2Icon,
+-  VideoIcon,
+-} from 'lucide-react';
++import { ImageIcon, VideoIcon } from 'lucide-react';
+ import { useMemo } from 'react';
+ import { useTranslation } from 'react-i18next';
+ 
+-import { openFileSelector, requestListNumberMenu } from '@/features/EditorCanvas';
++import { openFileSelector } from '@/features/EditorCanvas';
+ 
++/**
++ * Pages are plain text, so `/` only inserts attachments; there are no headings,
++ * lists, tables, code blocks, formulas or other rich blocks to add.
++ */
+ export const useSlashItems = (): SlashOptions['items'] => {
+   const { t } = useTranslation('editor');
+ 
+   return useMemo(() => {
+     const data: SlashOptions['items'] = [
+-      {
+-        icon: Heading1Icon,
+-        key: 'h1',
+-        label: t('slash.h1'),
+-        onSelect: (editor) => {
+-          editor.dispatchCommand(INSERT_HEADING_COMMAND, { tag: 'h1' });
+-        },
+-      },
+-      {
+-        icon: Heading2Icon,
+-        key: 'h2',
+-        label: t('slash.h2'),
+-        onSelect: (editor) => {
+-          editor.dispatchCommand(INSERT_HEADING_COMMAND, { tag: 'h2' });
+-        },
+-      },
+-      {
+-        icon: Heading3Icon,
+-        key: 'h3',
+-        label: t('slash.h3'),
+-        onSelect: (editor) => {
+-          editor.dispatchCommand(INSERT_HEADING_COMMAND, { tag: 'h3' });
+-        },
+-      },
+-      {
+-        type: 'divider',
+-      },
+-      {
+-        icon: ListTodoIcon,
+-        key: 'tl',
+-        label: t('typobar.taskList'),
+-        onSelect: (editor) => {
+-          editor.dispatchCommand(INSERT_CHECK_LIST_COMMAND, undefined);
+-        },
+-      },
+-      {
+-        icon: ListIcon,
+-        key: 'ul',
+-        label: t('typobar.bulletList'),
+-        onSelect: (editor) => {
+-          editor.dispatchCommand(INSERT_UNORDERED_LIST_COMMAND, undefined);
+-        },
+-      },
+-      {
+-        icon: ListOrderedIcon,
+-        key: 'ol',
+-        label: t('typobar.numberList'),
+-        onSelect: (editor) => {
+-          editor.dispatchCommand(INSERT_ORDERED_LIST_COMMAND, undefined);
+-        },
+-      },
+-      {
+-        // The keyboard's way to the menu the pointer opens on a list number.
+-        icon: ListRestartIcon,
+-        key: 'num',
+-        label: t('list.number.set'),
+-        onSelect: (editor) => {
+-          requestListNumberMenu(editor);
+-        },
+-      },
+-      {
+-        type: 'divider',
+-      },
+       {
+         icon: ImageIcon,
+         key: 'image',
+@@ -128,68 +38,6 @@ export const useSlashItems = (): SlashOptions['items'] => {
+           editor.dispatchCommand(INSERT_VIDEO_COMMAND, {});
+         },
+       },
+-      {
+-        icon: MinusIcon,
+-        key: 'hr',
+-        label: t('slash.hr'),
+-        onSelect: (editor) => {
+-          editor.dispatchCommand(INSERT_HORIZONTAL_RULE_COMMAND, {});
+-        },
+-      },
+-      {
+-        icon: Table2Icon,
+-        key: 'table',
+-        label: t('slash.table'),
+-        onSelect: (editor) => {
+-          editor.dispatchCommand(INSERT_TABLE_COMMAND, { columns: '3', rows: '3' });
+-        },
+-      },
+-      {
+-        icon: MessageSquareWarningIcon,
+-        key: 'alert',
+-        label: t('slash.alert'),
+-        onSelect: (editor) => {
+-          editor.dispatchCommand(INSERT_ALERT_COMMAND, undefined);
+-        },
+-      },
+-      {
+-        icon: ChartColumnIcon,
+-        key: 'chart',
+-        label: t('slash.chart'),
+-        onSelect: (editor) => {
+-          editor.dispatchCommand(INSERT_CHART_COMMAND, undefined);
+-        },
+-      },
+-      {
+-        icon: SquareDashedBottomCodeIcon,
+-        key: 'codeblock',
+-        label: t('typobar.codeblock'),
+-        onSelect: (editor) => {
+-          editor.dispatchCommand(INSERT_CODEMIRROR_COMMAND, undefined);
+-          queueMicrotask(() => {
+-            editor.focus();
+-          });
+-        },
+-      },
+-      {
+-        icon: SigmaIcon,
+-        key: 'tex',
+-        label: t('slash.tex'),
+-        onSelect: (editor) => {
+-          editor.dispatchCommand(INSERT_MATH_COMMAND, { code: 'x^2 + y^2 = z^2' });
+-          queueMicrotask(() => {
+-            editor.focus();
+-          });
+-        },
+-      },
+-      {
+-        icon: SuperscriptIcon,
+-        key: 'footnote',
+-        label: t('slash.footnote'),
+-        onSelect: (editor) => {
+-          editor.dispatchCommand(INSERT_FOOTNOTE_COMMAND, undefined);
+-        },
+-      },
+     ];
+     return data.map((item) => {
+       if (item.type === 'divider') return item;
+diff --git a/src/features/PageEditor/TableOfContents/headings.ts b/src/features/PageEditor/TableOfContents/headings.ts
+index 646473d2ff..f25f14c2f8 100644
+--- a/src/features/PageEditor/TableOfContents/headings.ts
++++ b/src/features/PageEditor/TableOfContents/headings.ts
+@@ -10,8 +10,12 @@ const HEADING_SELECTOR = 'h1, h2, h3';
+  * The page body is the first Lexical root inside the editor content; later roots
+  * belong to the comment composers rendered below it.
+  */
++// A read-only page renders its Markdown (the plain-text editor has no headings)
++// while the editor stays mounted, hidden, behind it; prefer the rendered body.
+ export const findBodyRoot = (content: ParentNode | null | undefined): HTMLElement | null =>
+-  content?.querySelector<HTMLElement>('[data-lexical-editor]') ?? null;
++  content?.querySelector<HTMLElement>('[data-plain-markdown-body]') ??
++  content?.querySelector<HTMLElement>('[data-lexical-editor]') ??
++  null;
+ 
+ export const collectHeadings = (root: ParentNode | null | undefined): TocHeading[] => {
+   if (!root) return [];
+diff --git a/src/features/PageEditor/usePageReadOnlyView.ts b/src/features/PageEditor/usePageReadOnlyView.ts
+new file mode 100644
+index 0000000000..a76e6e95bd
+--- /dev/null
++++ b/src/features/PageEditor/usePageReadOnlyView.ts
+@@ -0,0 +1,32 @@
++'use client';
++
++import { useResourceAccess } from '@/features/ResourcePermission/useResourceAccess';
++import { usePermission } from '@/hooks/usePermission';
++
++import { usePageEditorStore } from './store';
++import { usePageLockedByOther } from './usePageLockedByOther';
++
++/**
++ * Whether the page body shows as rendered Markdown instead of the plain-text editor.
++ *
++ * True only while the page stays unwritable for this user: no edit permission,
++ * view-level access, another member holding the lock, or a view-only / blocked
++ * collaboration room. Transient read-only states (lock pending, an agent writing,
++ * the room still syncing) keep the editor, so it is ready the moment they end and
++ * an agent's live writes stay visible where they happen.
++ */
++export const usePageReadOnlyView = (): boolean => {
++  const { allowed: hasEditPermission } = usePermission('edit_own_content');
++  const documentId = usePageEditorStore((s) => s.documentId);
++  const isWorkspacePage = usePageEditorStore((s) => s.isWorkspacePage);
++  const isLockedByOther = usePageLockedByOther();
++  const { canEditResource } = useResourceAccess(
++    'document',
++    isWorkspacePage && documentId ? documentId : undefined,
++  );
++  const collabReadOnly = usePageEditorStore(
++    (s) => !!s.collab && (s.collab.access !== 'edit' || !!s.collab.blocked),
++  );
++
++  return !hasEditPermission || !canEditResource || isLockedByOther || collabReadOnly;
++};
+diff --git a/src/features/Portal/TopicComments/TopicCommentEditor.tsx b/src/features/Portal/TopicComments/TopicCommentEditor.tsx
+index b74b69d153..64bc98aa37 100644
+--- a/src/features/Portal/TopicComments/TopicCommentEditor.tsx
++++ b/src/features/Portal/TopicComments/TopicCommentEditor.tsx
+@@ -3,6 +3,10 @@ import { Editor, useEditor } from '@lobehub/editor/react';
+ import type { Ref } from 'react';
+ import { memo, useCallback, useImperativeHandle } from 'react';
+ 
++import { PLAIN_TEXT_PLUGINS } from '@/libs/editor/plainText';
++import { hasRichEditorNodes, loadPlainDocument } from '@/libs/editor/plainText/plainEditorData';
++import { PLAIN_TEXT_EDITOR_PROPS } from '@/libs/editor/plainText/props';
++
+ import {
+   readTopicCommentEditorValue,
+   resolveTopicCommentEditorContent,
+@@ -23,6 +27,7 @@ export interface TopicCommentEditorProps {
+   autoFocus?: boolean;
+   compact?: boolean;
+   disabled?: boolean;
++  /** @deprecated Ignored: comment editors are always plain text. */
+   enableMarkdown?: boolean;
+   initialContent: string;
+   initialEditorData?: TopicCommentJson | null;
+@@ -37,7 +42,6 @@ const TopicCommentEditor = memo(
+     autoFocus,
+     compact = false,
+     disabled,
+-    enableMarkdown = false,
+     initialContent,
+     initialEditorData,
+     onChange,
+@@ -49,8 +53,7 @@ const TopicCommentEditor = memo(
+ 
+     const setValue = useCallback(
+       (value: TopicCommentEditorValue) => {
+-        if (value.editorData) editor.setDocument('json', value.editorData);
+-        else editor.setDocument('markdown', value.content);
++        loadPlainDocument(editor, { editorData: value.editorData, markdown: value.content });
+       },
+       [editor],
+     );
+@@ -66,20 +69,23 @@ const TopicCommentEditor = memo(
+       [editor, setValue],
+     );
+ 
+-    const { content, type } = resolveTopicCommentEditorContent(initialContent, initialEditorData);
++    // Formatted JSON would lose its formatting in the plain editor; the text keeps it.
++    const { content, type } = resolveTopicCommentEditorContent(
++      initialContent,
++      hasRichEditorNodes(initialEditorData) ? null : initialEditorData,
++    );
+ 
+     return (
+       <Editor
+-        pasteAsPlainText
++        {...PLAIN_TEXT_EDITOR_PROPS}
+         autoFocus={autoFocus}
+         content={content}
+         debounceWait={0}
+         editable={!disabled}
+         editor={editor}
+-        enablePasteMarkdown={enableMarkdown}
+-        markdownOption={enableMarkdown}
+         mentionOption={mentionOption}
+         placeholder={placeholder}
++        plugins={PLAIN_TEXT_PLUGINS}
+         type={type}
+         variant={'chat'}
+         style={{
+diff --git a/src/features/Settings/chat-appearance/features/ChatAppearance/index.tsx b/src/features/Settings/chat-appearance/features/ChatAppearance/index.tsx
+index 2a970a6fe5..b4541a2c53 100644
+--- a/src/features/Settings/chat-appearance/features/ChatAppearance/index.tsx
++++ b/src/features/Settings/chat-appearance/features/ChatAppearance/index.tsx
+@@ -11,7 +11,7 @@ import { ChatAppearanceSectionSkeleton } from '@/components/Skeleton/Settings/ta
+ import { FORM_STYLE } from '@/const/layoutTokens';
+ import { useSaveState } from '@/hooks/useSaveState';
+ import { useUserStore } from '@/store/user';
+-import { settingsSelectors, userGeneralSettingsSelectors } from '@/store/user/selectors';
++import { settingsSelectors } from '@/store/user/selectors';
+ 
+ import ChatTransitionPreview from './ChatTransitionPreview';
+ import HighlighterPreview from './HighlighterPreview';
+@@ -21,7 +21,6 @@ import MermaidPreview from './MermaidPreview';
+ const ChatAppearance = memo(() => {
+   const { t } = useTranslation('setting');
+   const { general } = useUserStore(settingsSelectors.currentSettings, isEqual);
+-  const enablePasteAutoConvert = useUserStore(userGeneralSettingsSelectors.enablePasteAutoConvert);
+   const [setSettings, isUserStateInit] = useUserStore((s) => [s.setSettings, s.isUserStateInit]);
+   const { status: saveStatus, lastSavedAt, save, retry } = useSaveState();
+   const [savingKey, setSavingKey] = useState<string>();
+@@ -121,20 +120,8 @@ const ChatAppearance = memo(() => {
+                 label: t('settingChatAppearance.linkIcon.title'),
+                 minWidth: undefined,
+               },
+-              {
+-                children: (
+-                  <Flexbox horizontal align={'center'} gap={8}>
+-                    {renderSaveHint('enablePasteAutoConvert')}
+-                    <Switch
+-                      checked={enablePasteAutoConvert}
+-                      onChange={(checked) => handleChange('enablePasteAutoConvert', checked)}
+-                    />
+-                  </Flexbox>
+-                ),
+-                desc: t('settingChatAppearance.pasteAutoConvert.desc'),
+-                label: t('settingChatAppearance.pasteAutoConvert.title'),
+-                minWidth: undefined,
+-              },
++              // No paste auto-convert switch: editors are plain text, so pasted
++              // Markdown always stays as typed.
+             ],
+             title: t('settingChatAppearance.chatBehavior.title'),
+           },
+diff --git a/src/features/SkillViewer/index.tsx b/src/features/SkillViewer/index.tsx
+index 86af085f80..6e3927ea4c 100644
+--- a/src/features/SkillViewer/index.tsx
++++ b/src/features/SkillViewer/index.tsx
+@@ -1,6 +1,5 @@
+ 'use client';
+ 
+-import { useEditor } from '@lobehub/editor/react';
+ import { ActionIcon, Flexbox, Text } from '@lobehub/ui';
+ import { cssVar } from '@lobehub/ui/stylex/cssVar.stylex';
+ import * as stylex from '@stylexjs/stylex';
+@@ -14,7 +13,7 @@ import { type ReactNode, useMemo, useState } from 'react';
+ import { useTranslation } from 'react-i18next';
+ 
+ import ContentViewer from '@/features/AgentSkillDetail/ContentViewer';
+-import { EditorCanvas } from '@/features/EditorCanvas';
++import ReadOnlyMarkdown from '@/features/EditorCanvas/ReadOnlyMarkdown';
+ import FileTree from '@/features/FileTree';
+ import SkillFrontmatterCard from '@/features/Portal/Document/SkillFrontmatterCard';
+ import { parseSkillMarkdownFrontmatter } from '@/utils/skillMarkdown';
+@@ -99,7 +98,6 @@ const SkillViewer = ({
+   notice,
+ }: SkillViewerProps) => {
+   const { t } = useTranslation('chat');
+-  const editor = useEditor();
+   const [selectedFile, setSelectedFile] = useState(SKILL_INDEX);
+   const [filesOpen, setFilesOpen] = useState(true);
+   const resourceTree = useMemo(() => skillFileTree(files), [files]);
+@@ -176,13 +174,8 @@ const SkillViewer = ({
+           {atStart && intro}
+           {shown === SKILL_INDEX ? (
+             <div {...stylex.props(styles.index)}>
+-              <EditorCanvas
+-                editable={false}
+-                editor={editor}
+-                editorData={{ content: body }}
+-                entityId={entityId}
+-                floatingToolbar={false}
+-              />
++              {/* A viewer, not an editor: the skill body renders as Markdown. */}
++              <ReadOnlyMarkdown content={body} key={entityId} />
+             </div>
+           ) : (
+             <ContentViewer contentMap={contentMap} key={shown} selectedFile={shown} />
+diff --git a/src/libs/editor/plainText/PlainTextPlugin.ts b/src/libs/editor/plainText/PlainTextPlugin.ts
+new file mode 100644
+index 0000000000..29cdfe88a2
+--- /dev/null
++++ b/src/libs/editor/plainText/PlainTextPlugin.ts
+@@ -0,0 +1,288 @@
++import {
++  type getKernelFromEditor,
++  ILitexmlService,
++  IMarkdownShortCutService,
++} from '@lobehub/editor';
++import {
++  $createParagraphNode,
++  $createTextNode,
++  $getRoot,
++  $getSelection,
++  $isElementNode,
++  $isTextNode,
++  COMMAND_PRIORITY_CRITICAL,
++  type ElementNode,
++  FORMAT_TEXT_COMMAND,
++  type Klass,
++  type LexicalEditor,
++  type LexicalNode,
++  type TextFormatType,
++  TextNode,
++} from 'lexical';
++
++type IEditorKernel = ReturnType<typeof getKernelFromEditor>;
++
++interface DataSourceLike {
++  read: (editor: LexicalEditor, data: unknown, options?: Record<string, unknown>) => void;
++  write: (editor: LexicalEditor, options?: Record<string, unknown>) => unknown;
++}
++
++type MarkdownWriter = (ctx: any, node: LexicalNode) => boolean | void;
++
++const PATCHED = Symbol.for('msm.plainText.markdownDataSource');
++const LITEXML_PATCHED = Symbol.for('msm.plainText.litexmlReaders');
++
++/** Inline formats that still have a plain Markdown spelling; the rest are dropped. */
++const FORMAT_MARKERS: Array<[TextFormatType, string]> = [
++  ['code', '`'],
++  ['italic', '*'],
++  ['bold', '**'],
++  ['strikethrough', '~~'],
++];
++
++const stripOneTrailingNewline = (value: string) =>
++  value.endsWith('\n') ? value.slice(0, -1) : value;
++
++/**
++ * A formatted text node (from a legacy document, a collaborator, or an agent
++ * edit) turns back into its Markdown source, so it shows and saves as text.
++ */
++export const $normalizeFormattedText = (node: TextNode) => {
++  if (node.getType() !== 'text' || node.getFormat() === 0) return;
++
++  let text = node.getTextContent();
++  for (const [format, marker] of FORMAT_MARKERS) {
++    if (node.hasFormat(format)) text = `${marker}${text}${marker}`;
++  }
++
++  node.setFormat(0);
++  if (text !== node.getTextContent()) node.setTextContent(text);
++};
++
++const blockPrefix = (node: LexicalNode): string | undefined => {
++  const type = node.getType();
++  if (type === 'quote') return '> ';
++  if (type === 'heading') {
++    const tag = (node as unknown as { getTag?: () => string }).getTag?.() ?? 'h1';
++    const level = Number.parseInt(tag.slice(1), 10) || 1;
++    return `${'#'.repeat(level)} `;
++  }
++  return undefined;
++};
++
++/** A heading or quote block becomes a paragraph that starts with its Markdown marker. */
++export const $normalizeBlock = (node: ElementNode) => {
++  const prefix = blockPrefix(node);
++  if (prefix === undefined) return;
++
++  const paragraph = $createParagraphNode();
++  paragraph.append($createTextNode(prefix), ...node.getChildren());
++  node.replace(paragraph);
++};
++
++/** Text that a chip plugin's text transform may turn into a chip (e.g. `<skill … />`). */
++const mayHoldChipTag = (node: TextNode) => node.getTextContent().includes('<');
++
++const $needsPass = (node: LexicalNode): boolean => {
++  if ($isTextNode(node)) return node.getFormat() !== 0 || mayHoldChipTag(node);
++  if (!$isElementNode(node)) return false;
++  return blockPrefix(node) !== undefined || node.getChildren().some($needsPass);
++};
++
++/**
++ * Loading a document replaces the editor state without running node transforms,
++ * so normalize rich nodes here and let chip transforms see the loaded text.
++ */
++const $normalizeTree = (node: LexicalNode) => {
++  if ($isTextNode(node)) {
++    if (node.getFormat() !== 0) $normalizeFormattedText(node);
++    else if (mayHoldChipTag(node)) node.markDirty();
++    return;
++  }
++  if (!$isElementNode(node)) return;
++
++  for (const child of node.getChildren()) $normalizeTree(child);
++  if (blockPrefix(node) !== undefined) $normalizeBlock(node);
++};
++
++/** Writers that spell every node as the text the user typed. */
++const PLAIN_MARKDOWN_WRITERS: Record<string, MarkdownWriter> = {
++  heading: (ctx, node) => ctx.wrap(blockPrefix(node) ?? '', '\n'),
++  paragraph: (ctx) => ctx.wrap('', '\n'),
++  quote: (ctx) => ctx.wrap('> ', '\n'),
++  tab: (ctx) => ctx.appendLine('\t'),
++  text: (ctx, node) => {
++    if (!$isTextNode(node)) return;
++    let text = node.getTextContent();
++    for (const [format, marker] of FORMAT_MARKERS) {
++      if (node.hasFormat(format)) text = `${marker}${text}${marker}`;
++    }
++    ctx.appendLine(text);
++  },
++};
++
++const plainParagraph = (text: string) => ({
++  children: text
++    ? [{ detail: 0, format: 0, mode: 'normal', style: '', text, type: 'text', version: 1 }]
++    : [],
++  direction: null,
++  format: '',
++  indent: 0,
++  textFormat: 0,
++  textStyle: '',
++  type: 'paragraph',
++  version: 1,
++});
++
++const elementChildren = (element: Element) =>
++  Array.from(element.childNodes).filter((child): child is Element => child.nodeType === 1);
++
++const listReader = (ordered: boolean) => (element: Element) =>
++  elementChildren(element)
++    .filter((child) => child.tagName.toLowerCase() === 'li')
++    .map((item, index) =>
++      plainParagraph(`${ordered ? `${index + 1}.` : '-'} ${item.textContent?.trim() ?? ''}`),
++    );
++
++/**
++ * LiteXML (page agent, Ask Copilot) can still describe rich blocks. A plain editor
++ * has no nodes for them, so they land as their Markdown source instead of throwing.
++ */
++const PLAIN_LITEXML_READERS: Record<string, (element: Element) => unknown> = {
++  blockquote: (element) => plainParagraph(`> ${element.textContent?.trim() ?? ''}`),
++  code: (element) => ({
++    detail: 0,
++    format: 0,
++    mode: 'normal',
++    style: '',
++    text: `\`${element.textContent ?? ''}\``,
++    type: 'text',
++    version: 1,
++  }),
++  hr: () => plainParagraph('---'),
++  ol: listReader(true),
++  pre: (element) => (element.textContent ?? '').split('\n').map((line) => plainParagraph(line)),
++  table: (element) =>
++    Array.from(element.querySelectorAll('tr')).map((row) =>
++      plainParagraph(
++        Array.from(row.children)
++          .map((cell) => cell.textContent?.trim() ?? '')
++          .join(' | '),
++      ),
++    ),
++  ul: listReader(false),
++  ...Object.fromEntries(
++    [1, 2, 3, 4, 5, 6].map((level) => [
++      `h${level}`,
++      (element: Element) =>
++        plainParagraph(`${'#'.repeat(level)} ${element.textContent?.trim() ?? ''}`),
++    ]),
++  ),
++};
++
++/**
++ * Keeps an editor plain text:
++ * - formatting commands (Ctrl+B/I/U, `beforeinput` formats, toolbar buttons) do nothing;
++ * - `'markdown'` documents are read as raw text (one paragraph per line) and written
++ *   back verbatim, so loading and saving never reinterprets or escapes what was typed;
++ * - stray rich nodes (formatted text, headings, quotes) turn back into Markdown source.
++ *
++ * Inline chips and attachment blocks keep their own Markdown writers and stay intact.
++ */
++export class PlainTextPlugin {
++  static pluginName = 'MsmPlainTextPlugin';
++
++  private kernel: IEditorKernel;
++  private editor?: LexicalEditor;
++  private clears: Array<() => void> = [];
++
++  constructor(kernel: IEditorKernel) {
++    this.kernel = kernel;
++  }
++
++  onInit(editor: LexicalEditor): void {
++    this.editor = editor;
++
++    this.clears.push(
++      editor.registerCommand(FORMAT_TEXT_COMMAND, () => true, COMMAND_PRIORITY_CRITICAL),
++      editor.registerNodeTransform(TextNode, $normalizeFormattedText),
++    );
++
++    for (const type of ['heading', 'quote']) {
++      const klass = editor._nodes.get(type)?.klass as Klass<ElementNode> | undefined;
++      if (klass) this.clears.push(editor.registerNodeTransform(klass, $normalizeBlock));
++    }
++
++    this.patchMarkdownDataSource();
++    this.registerLiteXmlReaders();
++  }
++
++  onDocumentChange(): void {
++    const editor = this.editor;
++    if (!editor || !editor.getEditorState().read(() => $needsPass($getRoot()))) return;
++    editor.update(() => $normalizeTree($getRoot()), { tag: 'history-merge' });
++  }
++
++  destroy(): void {
++    for (const clear of this.clears) clear();
++    this.clears = [];
++    this.editor = undefined;
++  }
++
++  private dataSource(type: string): (DataSourceLike & { [PATCHED]?: boolean }) | undefined {
++    const map = (this.kernel as unknown as { dataTypeMap?: Map<string, DataSourceLike> })
++      .dataTypeMap;
++    return map?.get(type);
++  }
++
++  private applyPlainWriters(): void {
++    const service = this.kernel.requireService(IMarkdownShortCutService) as
++      { markdownWriters?: Record<string, MarkdownWriter> } | null | undefined;
++    const writers = service?.markdownWriters;
++    if (writers) Object.assign(writers, PLAIN_MARKDOWN_WRITERS);
++  }
++
++  private patchMarkdownDataSource(): void {
++    const markdown = this.dataSource('markdown');
++    const text = this.dataSource('text');
++    if (!markdown || !text || markdown[PATCHED]) return;
++
++    const originalWrite = markdown.write.bind(markdown);
++
++    markdown.read = (editor, data, options) =>
++      text.read(editor, typeof data === 'string' ? data : String(data ?? ''), options);
++
++    markdown.write = (editor, options) => {
++      if (options?.selection) {
++        return editor
++          .getEditorState()
++          .read(() => $getSelection()?.getTextContent().replaceAll('\uFEFF', '') ?? null);
++      }
++
++      // Other plugins register their writers during their own onInit, so the plain
++      // ones are applied right before each write rather than once up front.
++      this.applyPlainWriters();
++      const markdownText = originalWrite(editor, { ...options, format: false });
++      return typeof markdownText === 'string'
++        ? stripOneTrailingNewline(markdownText)
++        : markdownText;
++    };
++
++    markdown[PATCHED] = true;
++  }
++
++  private registerLiteXmlReaders(): void {
++    const service = this.kernel.requireService(ILitexmlService) as
++      | ({
++          registerXMLReader?: (tag: string, reader: (element: Element) => unknown) => void;
++        } & { [LITEXML_PATCHED]?: boolean })
++      | null
++      | undefined;
++    if (!service?.registerXMLReader || service[LITEXML_PATCHED]) return;
++
++    for (const [tag, reader] of Object.entries(PLAIN_LITEXML_READERS)) {
++      service.registerXMLReader(tag, reader);
++    }
++    service[LITEXML_PATCHED] = true;
++  }
++}
+diff --git a/src/libs/editor/plainText/ReactPlainTextPlugin.tsx b/src/libs/editor/plainText/ReactPlainTextPlugin.tsx
+new file mode 100644
+index 0000000000..5236330422
+--- /dev/null
++++ b/src/libs/editor/plainText/ReactPlainTextPlugin.tsx
+@@ -0,0 +1,21 @@
++import { useLexicalComposerContext } from '@lobehub/editor';
++import { type FC, useLayoutEffect } from 'react';
++
++import { PlainTextPlugin } from './PlainTextPlugin';
++
++const ReactPlainTextPlugin: FC = () => {
++  const [editor] = useLexicalComposerContext();
++
++  useLayoutEffect(() => {
++    editor.registerPlugin(PlainTextPlugin);
++  }, [editor]);
++
++  return null;
++};
++
++ReactPlainTextPlugin.displayName = 'ReactPlainTextPlugin';
++
++export default ReactPlainTextPlugin;
++
++/** Plugins every plain-text editor loads; surfaces add their own chip and attachment plugins. */
++export const PLAIN_TEXT_PLUGINS = [ReactPlainTextPlugin];
+diff --git a/src/libs/editor/plainText/index.ts b/src/libs/editor/plainText/index.ts
+new file mode 100644
+index 0000000000..e37e2cb860
+--- /dev/null
++++ b/src/libs/editor/plainText/index.ts
+@@ -0,0 +1,4 @@
++export { extractPlainText, hasRichEditorNodes, loadPlainDocument } from './plainEditorData';
++export { PlainTextPlugin } from './PlainTextPlugin';
++export { PLAIN_TEXT_EDITOR_PROPS } from './props';
++export { PLAIN_TEXT_PLUGINS, default as ReactPlainTextPlugin } from './ReactPlainTextPlugin';
+diff --git a/src/libs/editor/plainText/plainEditorData.ts b/src/libs/editor/plainText/plainEditorData.ts
+new file mode 100644
+index 0000000000..f8be91441f
+--- /dev/null
++++ b/src/libs/editor/plainText/plainEditorData.ts
+@@ -0,0 +1,104 @@
++import { EMPTY_EDITOR_STATE } from '../constants';
++
++interface SerializedNodeLike {
++  children?: unknown;
++  format?: unknown;
++  label?: unknown;
++  text?: unknown;
++  type?: unknown;
++}
++
++const RICH_BLOCK_TYPES = new Set(['heading', 'quote']);
++
++const childrenOf = (node: SerializedNodeLike): SerializedNodeLike[] =>
++  Array.isArray(node.children)
++    ? (node.children.filter((child) => typeof child === 'object' && child) as SerializedNodeLike[])
++    : [];
++
++const isRichNode = (node: SerializedNodeLike): boolean => {
++  if (typeof node.type === 'string' && RICH_BLOCK_TYPES.has(node.type)) return true;
++  if (node.type === 'text' && typeof node.format === 'number' && node.format !== 0) return true;
++  return childrenOf(node).some(isRichNode);
++};
++
++const rootOf = (editorData: unknown): SerializedNodeLike | undefined => {
++  if (!editorData || typeof editorData !== 'object') return undefined;
++  const root = (editorData as { root?: unknown }).root;
++  return root && typeof root === 'object' ? (root as SerializedNodeLike) : undefined;
++};
++
++/**
++ * True when saved editor JSON holds formatting a plain-text editor would hide:
++ * headings, quotes, or formatted text. Such documents load from their Markdown
++ * text instead, which keeps the formatting visible as source.
++ * Node types the plain editor doesn't register (lists, tables, code blocks) still
++ * fail to load as JSON, and `loadPlainDocument` falls back to the text for those.
++ */
++export const hasRichEditorNodes = (editorData: unknown): boolean => {
++  const root = rootOf(editorData);
++  return root ? isRichNode(root) : false;
++};
++
++const textOf = (node: SerializedNodeLike): string => {
++  if (typeof node.text === 'string') return node.text;
++  if (node.type === 'linebreak') return '\n';
++  if (node.type === 'tab') return '\t';
++  if (typeof node.label === 'string') return node.label;
++  return childrenOf(node).map(textOf).join('');
++};
++
++/** The visible text of saved editor JSON, one line per top-level block. */
++export const extractPlainText = (editorData: unknown): string => {
++  const root = rootOf(editorData);
++  return root ? childrenOf(root).map(textOf).join('\n') : '';
++};
++
++/**
++ * Saved JSON worth loading: any non-empty object except the childless root shell,
++ * which Lexical rejects. Mirrors the checks the upstream loaders apply.
++ */
++const isLoadableEditorData = (editorData: unknown): boolean => {
++  if (!editorData || typeof editorData !== 'object') return false;
++  if (Object.keys(editorData).length === 0) return false;
++  const root = rootOf(editorData);
++  return !(root && Array.isArray(root.children) && root.children.length === 0);
++};
++
++interface PlainDocumentEditor {
++  setDocument: (type: string, content: any, options?: Record<string, unknown>) => void;
++}
++
++interface PlainDocumentSource {
++  editorData?: unknown;
++  markdown?: string | null;
++}
++
++/**
++ * Load saved content into a plain-text editor without ever blanking it.
++ * Chip-bearing JSON loads as is; formatted or unloadable JSON falls back to the
++ * Markdown text (or, without one, to the JSON's own text).
++ * Returns which source was loaded.
++ */
++export const loadPlainDocument = (
++  editor: PlainDocumentEditor,
++  { editorData, markdown }: PlainDocumentSource,
++  options?: Record<string, unknown>,
++): 'json' | 'markdown' | 'empty' => {
++  if (isLoadableEditorData(editorData) && !hasRichEditorNodes(editorData)) {
++    try {
++      editor.setDocument('json', editorData, options);
++      return 'json';
++    } catch (error) {
++      console.warn('[PlainText] Falling back to text for saved editor data', error);
++    }
++  }
++
++  const text = markdown || extractPlainText(editorData);
++  if (text) {
++    editor.setDocument('markdown', text, options);
++    return 'markdown';
++  }
++
++  editor.setDocument('json', EMPTY_EDITOR_STATE, options);
++  return 'empty';
++};
+diff --git a/src/libs/editor/plainText/props.ts b/src/libs/editor/plainText/props.ts
+new file mode 100644
+index 0000000000..e8aeafa2ef
+--- /dev/null
++++ b/src/libs/editor/plainText/props.ts
+@@ -0,0 +1,15 @@
++/**
++ * `<Editor>` props that keep a `@lobehub/editor` surface plain text: no Markdown
++ * typing shortcuts, no Markdown or VS Code paste conversion, and pastes land as
++ * plain text. Pair with `PLAIN_TEXT_PLUGINS` (or `ReactPlainTextPlugin`), which
++ * blocks formatting commands and stores the text verbatim.
++ *
++ * Kept free of value imports so heavily mocked tests can import it.
++ */
++export const PLAIN_TEXT_EDITOR_PROPS = {
++  autoFormatMarkdown: false,
++  enablePasteMarkdown: false,
++  markdownOption: false,
++  pasteAsPlainText: true,
++  pasteVSCodeAsCodeBlock: false,
++} as const;
+diff --git a/src/routes/(main)/agent/features/Conversation/HeterogeneousChatInput/HeteroPlus.tsx b/src/routes/(main)/agent/features/Conversation/HeterogeneousChatInput/HeteroPlus.tsx
+index e6702d3a58..90caa8d58e 100644
+--- a/src/routes/(main)/agent/features/Conversation/HeterogeneousChatInput/HeteroPlus.tsx
++++ b/src/routes/(main)/agent/features/Conversation/HeterogeneousChatInput/HeteroPlus.tsx
+@@ -3,7 +3,7 @@
+ import { cssVar, Icon, Upload } from '@lobehub/ui';
+ import * as stylex from '@stylexjs/stylex';
+ import dayjs from 'dayjs';
+-import { CalendarClockIcon, CheckIcon, FileUp, PlusIcon, TargetIcon, TypeIcon } from 'lucide-react';
++import { CalendarClockIcon, CheckIcon, FileUp, PlusIcon, TargetIcon } from 'lucide-react';
+ import { memo, useCallback, useMemo, useState } from 'react';
+ import { useTranslation } from 'react-i18next';
+ 
+@@ -56,11 +56,7 @@ const HeteroPlus = memo<HeteroPlusProps>(({ providerType }) => {
+   const { t: tEditor } = useTranslation('editor');
+   const [open, setOpen] = useState(false);
+ 
+-  const [editor, showTypoBar, setShowTypoBar] = useChatInputStore((s) => [
+-    s.editor,
+-    s.showTypoBar,
+-    s.setShowTypoBar,
+-  ]);
++  const editor = useChatInputStore((s) => s.editor);
+ 
+   const scheduledSendAt = useConversationStore((s) => s.scheduledSendAt);
+   const setScheduledSendAt = useConversationStore((s) => s.setScheduledSendAt);
+@@ -119,16 +115,6 @@ const HeteroPlus = memo<HeteroPlusProps>(({ providerType }) => {
+         key: 'scheduleSend',
+         label: t('input.schedule.title'),
+       },
+-      { type: 'divider' },
+-      // Formatting toolbar toggle — same trailing-switch row as the agent Plus.
+-      {
+-        checked: Boolean(showTypoBar),
+-        icon: TypeIcon,
+-        key: 'typo',
+-        label: tEditor('actions.typobar.title'),
+-        onCheckedChange: (checked: boolean) => setShowTypoBar(checked),
+-        type: 'switch',
+-      },
+       // Goal creation shares the standard input's goal chip.
+       ...(enableGoals
+         ? ([
+@@ -146,18 +132,7 @@ const HeteroPlus = memo<HeteroPlusProps>(({ providerType }) => {
+           ] as ActionDropdownMenuItems)
+         : []),
+     ];
+-  }, [
+-    t,
+-    tEditor,
+-    showTypoBar,
+-    setShowTypoBar,
+-    armSchedule,
+-    scheduledSendAt,
+-    enableGoals,
+-    editor,
+-    beforeUpload,
+-    onFiles,
+-  ]);
++  }, [t, tEditor, armSchedule, scheduledSendAt, enableGoals, editor, beforeUpload, onFiles]);
+ 
+   return (
+     <ChatInputAction
+diff --git a/src/routes/(main)/agent/profile/features/EditorCanvas/index.test.tsx b/src/routes/(main)/agent/profile/features/EditorCanvas/index.test.tsx
+index 98da241919..039993e3b4 100644
+--- a/src/routes/(main)/agent/profile/features/EditorCanvas/index.test.tsx
++++ b/src/routes/(main)/agent/profile/features/EditorCanvas/index.test.tsx
+@@ -4,6 +4,7 @@
+ import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
+ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+ 
++import { EMPTY_EDITOR_STATE } from '@/libs/editor/constants';
+ import { type SaveStatus } from '@/types/saveState';
+ 
+ import EditorCanvas from './index';
+@@ -415,7 +416,8 @@ describe('Agent profile EditorCanvas', () => {
+     });
+ 
+     await waitFor(() => expect(flushSave).toHaveBeenCalledWith('agent-a'));
+-    expect(editorProps.last?.content).toEqual(agentBEditorData);
++    // The editor mounts empty; the content-init effect loads the saved prompt.
++    expect(editorProps.last?.content).toEqual(EMPTY_EDITOR_STATE);
+ 
+     act(() => editorProps.last?.onInit());
+     await waitFor(() => expect(editor.setDocument).toHaveBeenCalledWith('json', agentBEditorData));
+diff --git a/src/routes/(main)/agent/profile/features/EditorCanvas/index.tsx b/src/routes/(main)/agent/profile/features/EditorCanvas/index.tsx
+index 108393dc52..745a81a98a 100644
+--- a/src/routes/(main)/agent/profile/features/EditorCanvas/index.tsx
++++ b/src/routes/(main)/agent/profile/features/EditorCanvas/index.tsx
+@@ -1,7 +1,7 @@
+ 'use client';
+ 
+ import type { IEditor } from '@lobehub/editor';
+-import { ReactMentionPlugin, ReactTablePlugin, ReactToolbarPlugin } from '@lobehub/editor';
++import { ReactMentionPlugin } from '@lobehub/editor';
+ import { Editor } from '@lobehub/editor/react';
+ import { ActionIcon, createStaticStyles, cssVar, Flexbox, toast } from '@lobehub/ui';
+ import isEqual from 'fast-deep-equal';
+@@ -18,14 +18,14 @@ import { useResourceAccess } from '@/features/ResourcePermission/useResourceAcce
+ import { useLocalStorageState } from '@/hooks/useLocalStorageState';
+ import { usePermission } from '@/hooks/usePermission';
+ import { EMPTY_EDITOR_STATE } from '@/libs/editor/constants';
++import { hasRichEditorNodes } from '@/libs/editor/plainText/plainEditorData';
++import { PLAIN_TEXT_EDITOR_PROPS } from '@/libs/editor/plainText/props';
+ import { useAgentStore } from '@/store/agent';
+ 
+ import { useMentionOptions } from '../ProfileEditor/MentionList';
+ import { useProfileStore, useStoreApi } from '../store';
+ import { type UpdateConfigById } from '../store/action';
+ import { selectors as profileSelectors } from '../store/selectors';
+-import TypoBar from './TypoBar';
+-import { useSlashItems } from './useSlashItems';
+ 
+ const styles = createStaticStyles(({ css }) => ({
+   editorShell: css`
+@@ -100,7 +100,10 @@ const AgentEditorCanvas = memo<AgentEditorCanvasProps>(({ agentId }) => {
+   const { activeEditorMode, setEditorMode, setSourceMarkdown, sourceMarkdown, syncSourceMarkdown } =
+     usePromptEditorMode();
+   const config = useAgentStore((s) => s.agentMap[agentId], isEqual);
+-  const editorData = config?.editorData;
++  const storedEditorData = config?.editorData;
++  // The prompt editor is plain text: formatted JSON would lose its formatting there,
++  // so it loads from `systemRole`, which keeps the formatting visible as text.
++  const editorData = hasRichEditorNodes(storedEditorData) ? undefined : storedEditorData;
+   const systemRole = config?.systemRole;
+   const updateConfigById = useAgentStore((s) => s.updateAgentConfigById);
+   const updatePromptConfigById = useCallback<UpdateConfigById>(
+@@ -108,13 +111,12 @@ const AgentEditorCanvas = memo<AgentEditorCanvasProps>(({ agentId }) => {
+       updateConfigById(targetAgentId, payload, { rethrow: true, showErrorMessage: false }),
+     [updateConfigById],
+   );
+-  const [initialLoad] = useState(
+-    editorData === undefined || editorData?.root === undefined ? EMPTY_EDITOR_STATE : editorData,
+-  );
++  // Start empty; the content-init effect below loads the saved prompt with a
++  // fallback, which the editor's own initial load could not do.
++  const [initialLoad] = useState(EMPTY_EDITOR_STATE);
+   const mentionOptions = useMentionOptions();
+   const editor = useProfileStore((s) => s.editor);
+   const handleContentChange = useProfileStore((s) => s.handleContentChange);
+-  const slashItems = useSlashItems();
+ 
+   // Streaming state from AgentStore
+   const streamingSystemRoleAgentId = useAgentStore((s) => s.streamingSystemRoleAgentId);
+@@ -347,9 +349,19 @@ const AgentEditorCanvas = memo<AgentEditorCanvasProps>(({ agentId }) => {
+     // Don't init if streaming is in progress
+     if (streamingInProgress) return;
+     try {
++      let loadedJson = false;
+       if (editorData && editorData?.root !== undefined) {
+-        setProgrammaticDocument(editor, 'json', editorData, systemRole);
+-        lastSyncedEditorDataRef.current = structuredClone(editorData);
++        try {
++          setProgrammaticDocument(editor, 'json', editorData, systemRole);
++          lastSyncedEditorDataRef.current = structuredClone(editorData);
++          loadedJson = true;
++        } catch (error) {
++          // e.g. a node the plain editor doesn't register: fall back to the text.
++          console.warn('[EditorCanvas] Falling back to systemRole:', error);
++        }
++      }
++      if (loadedJson) {
++        // The saved editor state is showing.
+       } else if (systemRole) {
+         setProgrammaticDocument(editor, 'markdown', systemRole, systemRole);
+         // Record the displayed role so the external-update re-sync below doesn't
+@@ -399,6 +411,8 @@ const AgentEditorCanvas = memo<AgentEditorCanvasProps>(({ agentId }) => {
+         lastSyncedEditorDataRef.current = structuredClone(editorData);
+       } catch (error) {
+         console.error('[EditorCanvas] Failed to sync editor content:', error);
++        // Never leave the prompt blank: show its text instead.
++        if (systemRole) setProgrammaticDocument(editor, 'markdown', systemRole, systemRole);
+       }
+       return;
+     }
+@@ -496,17 +510,10 @@ const AgentEditorCanvas = memo<AgentEditorCanvasProps>(({ agentId }) => {
+             mentionOption={mentionOptions}
+             placeholder={t('settingAgent.prompt.editorPlaceholder')}
+             style={{ paddingBottom: 0 }}
+-            plugins={[
+-              ...createChatInputRichPlugins(),
+-              ReactTablePlugin,
+-              ReactMentionPlugin,
+-              Editor.withProps(ReactToolbarPlugin, {
+-                children: <TypoBar />,
+-              }),
+-            ]}
+-            slashOption={{
+-              items: slashItems,
+-            }}
++            // Plain text with tool / skill chips: no tables, formatting toolbar or
++            // rich slash blocks.
++            {...PLAIN_TEXT_EDITOR_PROPS}
++            plugins={[...createChatInputRichPlugins(), ReactMentionPlugin]}
+             onInit={() => setEditorInit(true)}
+             onTextChange={handleChange}
+           />
+diff --git a/src/store/document/slices/editor/action.ts b/src/store/document/slices/editor/action.ts
+index b4c7b38fb3..9b4c9b28fe 100644
+--- a/src/store/document/slices/editor/action.ts
++++ b/src/store/document/slices/editor/action.ts
+@@ -8,6 +8,7 @@ import { t } from 'i18next';
+ 
+ import { EMPTY_EDITOR_STATE } from '@/libs/editor/constants';
+ import { isValidEditorData } from '@/libs/editor/isValidEditorData';
++import { hasRichEditorNodes } from '@/libs/editor/plainText/plainEditorData';
+ import { documentService } from '@/services/document';
+ import type { StoreSetter } from '@/store/types';
+ import { composeSkillMarkdown, parseSkillMarkdownFrontmatter } from '@/utils/skillMarkdown';
+@@ -527,7 +528,10 @@ export class EditorActionImpl {
+       doc.editorData &&
+       typeof doc.editorData === 'object' &&
+       Object.keys(doc.editorData).length > 0 &&
+-      !isEmptyParseShell;
++      !isEmptyParseShell &&
++      // Formatted JSON would lose its formatting in the plain editor; the markdown
++      // content keeps it visible as text.
++      !hasRichEditorNodes(doc.editorData);
+ 
+     // SKILL.md frontmatter is metadata, not editable document body. Keep it out of the rich
+     // Markdown editor because `---` fences are otherwise parsed as Markdown dividers/headings,
 -- 
 2.39.5
 
