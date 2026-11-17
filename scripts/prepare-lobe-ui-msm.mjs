@@ -75,7 +75,7 @@ try {
     `${JSON.stringify(stagedPackage, null, 2)}\n`,
   );
 
-  for (const file of ['LICENSE', 'README.md']) {
+  for (const file of ['LICENSE', 'README.md', 'THIRD_PARTY_NOTICES.md']) {
     const source = path.join(lobeUiDir, file);
     if (fs.existsSync(source)) {
       fs.copyFileSync(source, path.join(stagingDir, file));
