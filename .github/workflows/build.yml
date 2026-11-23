@@ -371,7 +371,7 @@ jobs:
       - name: Load assembled Lobe Chat image
         run: gunzip -c lobe-chat-image.tar.gz | docker load
       - name: Install standalone test dependencies
-        working-directory: lobe-chat-tests/playwright
+        working-directory: lobe-chat-behavior-tests
         run: |
           set -euo pipefail
           npm config set --location=project registry "$AUDITED_NPM_REGISTRY"
@@ -381,7 +381,7 @@ jobs:
           pnpm config --global set --json networkConcurrency 8
           pnpm install --frozen-lockfile
       - name: Install Chromium and system dependencies
-        working-directory: lobe-chat-tests/playwright
+        working-directory: lobe-chat-behavior-tests
         run: pnpm exec playwright install --with-deps chromium
       - name: Start assembled Lobe Chat image
         env:
@@ -421,7 +421,7 @@ jobs:
           docker logs lobe-chat-msm-behavior
           exit 1
       - name: Run standalone behavior tests
-        working-directory: lobe-chat-tests/playwright
+        working-directory: lobe-chat-behavior-tests
         env:
           BASE_URL: http://localhost:3210
           DATABASE_URL: postgresql://postgres:postgres@127.0.0.1:5432/postgres
@@ -437,8 +437,8 @@ jobs:
           name: lobe-chat-behavior-failure
           path: |
             lobe-chat-behavior-app.log
-            lobe-chat-tests/playwright/playwright-report
-            lobe-chat-tests/playwright/test-results
+            lobe-chat-behavior-tests/playwright-report
+            lobe-chat-behavior-tests/test-results
           if-no-files-found: ignore
           retention-days: 7
       - name: Stop behavior-test application

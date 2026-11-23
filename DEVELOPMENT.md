@@ -26,9 +26,9 @@ node scripts/run-lobe-chat-msm-tests.mjs
 
 # Assembled behavior tests
 
-The Playwright suite under `lobe-chat-tests/playwright` is standalone. It is
-excluded from the source overlay and tests the assembled application through
-browser and HTTP boundaries.
+The Playwright suite under `lobe-chat-behavior-tests/` is a standalone pnpm
+project, separate from the source overlay. It tests the assembled application
+through browser and HTTP boundaries.
 
 The application must contain the patched `@lobehub/ui`; using the registry
 package does not exercise the MSM font/theme changes. CI and the local runner
@@ -90,8 +90,8 @@ an external model.
 
 On failure, inspect:
 
-- `lobe-chat-tests/playwright/playwright-report/`
-- `lobe-chat-tests/playwright/test-results/`
+- `lobe-chat-behavior-tests/playwright-report/`
+- `lobe-chat-behavior-tests/test-results/`
 - the application log uploaded by CI as `lobe-chat-behavior-failure`
 
 Do not grep patched source or build output. Use focused Vitest for low-level

@@ -7,7 +7,7 @@ import { fileURLToPath } from 'node:url';
 
 const scriptDir = path.dirname(fileURLToPath(import.meta.url));
 const repositoryRoot = path.resolve(scriptDir, '..');
-const testDir = path.join(repositoryRoot, 'lobe-chat-tests', 'playwright');
+const testDir = path.join(repositoryRoot, 'lobe-chat-behavior-tests');
 const lobeChatDir = path.resolve(
   process.env.LOBE_CHAT_DIR ?? path.join(repositoryRoot, '..', 'lobe-chat'),
 );

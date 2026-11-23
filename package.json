@@ -7,8 +7,8 @@
     "node": ">=24"
   },
   "scripts": {
-    "lint": "eslint . && prettier --check \"scripts/**/*.{mjs,json}\" \"lobe-chat-tests/playwright/**/*.{ts,json}\"",
-    "lint:fix": "eslint . --fix && prettier --write \"scripts/**/*.{mjs,json}\" \"lobe-chat-tests/playwright/**/*.{ts,json}\""
+    "lint": "eslint . && prettier --check \"scripts/**/*.{mjs,json}\" \"lobe-chat-behavior-tests/**/*.{ts,json}\"",
+    "lint:fix": "eslint . --fix && prettier --write \"scripts/**/*.{mjs,json}\" \"lobe-chat-behavior-tests/**/*.{ts,json}\""
   },
   "devDependencies": {
     "@eslint/js": "^10.0.0",

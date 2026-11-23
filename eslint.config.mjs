@@ -5,7 +5,7 @@ import { defineConfig } from 'eslint/config';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
-const lintedFiles = ['scripts/**/*.mjs', 'lobe-chat-tests/playwright/**/*.ts'];
+const lintedFiles = ['scripts/**/*.mjs', 'lobe-chat-behavior-tests/**/*.ts'];
 
 // Unspecified block kinds inherit `consistent`, which keeps function and object
 // braces as they are. Naming only the control-flow keys without that default
@@ -34,10 +34,10 @@ export default defineConfig(
       'prettier.config.mjs',
       'lobe-chat-tests/**/*.msm.test.ts',
       'lobe-chat-tests/**/*.msm.test.tsx',
-      'lobe-chat-tests/playwright/pnpm-lock.yaml',
-      'lobe-chat-tests/playwright/playwright-report/**',
-      'lobe-chat-tests/playwright/test-results/**',
-      'lobe-chat-tests/playwright/.auth/**',
+      'lobe-chat-behavior-tests/pnpm-lock.yaml',
+      'lobe-chat-behavior-tests/playwright-report/**',
+      'lobe-chat-behavior-tests/test-results/**',
+      'lobe-chat-behavior-tests/.auth/**',
     ],
   },
   {
@@ -50,7 +50,7 @@ export default defineConfig(
     },
   },
   {
-    files: ['lobe-chat-tests/playwright/**/*.ts'],
+    files: ['lobe-chat-behavior-tests/**/*.ts'],
     languageOptions: {
       ecmaVersion: 'latest',
       globals: globals.node,
