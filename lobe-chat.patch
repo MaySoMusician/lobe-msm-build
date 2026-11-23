@@ -1,4 +1,4 @@
-From aae43e5115be62fdce1020f4f77481deb484f567 Mon Sep 17 00:00:00 2001
+From 634dc094c4b89ec5cff6956352c4be2b990942f1 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 12 Nov 2026 23:25:10 +0000
 Subject: [PATCH 01/21] =?UTF-8?q?=F0=9F=94=92=EF=B8=8F=20build(docker):=20?=
@@ -26,7 +26,7 @@ index fc4c2e7966..020c7d1022 100644
  .next
  .git
 diff --git a/Dockerfile b/Dockerfile
-index 924acdc3eb..7104f6ab31 100644
+index 0ecae9e760..f043172253 100644
 --- a/Dockerfile
 +++ b/Dockerfile
 @@ -1,9 +1,13 @@
@@ -92,9 +92,9 @@ index 924acdc3eb..7104f6ab31 100644
 2.39.5
 
 
-From 823bb0df707b48343e6d712cb9f9859ae1bcb5d5 Mon Sep 17 00:00:00 2001
+From 790993914cce1b2d03d24bc07f45e562b4b651e6 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
-Date: Mon, 16 Nov 2026 23:33:25 +0000
+Date: Mon, 23 Nov 2026 09:02:40 +0000
 Subject: [PATCH 02/21] =?UTF-8?q?=F0=9F=94=92=EF=B8=8F=20build(deps):=20en?=
  =?UTF-8?q?force=20mature=20trusted=20dependency=20resolution?=
 MIME-Version: 1.0
@@ -105,14 +105,14 @@ Co-Authored-By: Claude Opus 5.5 <claude@anthropic.com.invalid>
 ---
  apps/cli/pnpm-workspace.yaml     | 23 +++++++++++++++++++++++
  apps/desktop/pnpm-workspace.yaml | 23 +++++++++++++++++++++++
- pnpm-workspace.yaml              | 26 +++++++++++++++++++++++++-
- 3 files changed, 71 insertions(+), 1 deletion(-)
+ pnpm-workspace.yaml              | 28 +++++++++++++++++++++++++++-
+ 3 files changed, 73 insertions(+), 1 deletion(-)
 
 diff --git a/apps/cli/pnpm-workspace.yaml b/apps/cli/pnpm-workspace.yaml
-index 03bb2caeef..508bf3e2b5 100644
+index 75b93c090c..9237148124 100644
 --- a/apps/cli/pnpm-workspace.yaml
 +++ b/apps/cli/pnpm-workspace.yaml
-@@ -42,3 +42,26 @@ allowBuilds:
+@@ -43,3 +43,26 @@ allowBuilds:
  overrides:
    '@types/react': 19.2.13
    antd: 6.3.5
@@ -140,10 +140,10 @@ index 03bb2caeef..508bf3e2b5 100644
 +blockExoticSubdeps: true
 +strictDepBuilds: true
 diff --git a/apps/desktop/pnpm-workspace.yaml b/apps/desktop/pnpm-workspace.yaml
-index 1a5bd830d1..b53f40d41d 100644
+index 4bba68fa7e..e989587da0 100644
 --- a/apps/desktop/pnpm-workspace.yaml
 +++ b/apps/desktop/pnpm-workspace.yaml
-@@ -77,3 +77,26 @@ minimumReleaseAgeExclude:
+@@ -78,3 +78,26 @@ minimumReleaseAgeExclude:
    - '@auv-js/sdk@0.0.43'
    - electron-sparkle-updater@0.5.3
    - '@lobehub/*'
@@ -171,27 +171,28 @@ index 1a5bd830d1..b53f40d41d 100644
 +blockExoticSubdeps: true
 +strictDepBuilds: true
 diff --git a/pnpm-workspace.yaml b/pnpm-workspace.yaml
-index c44fcc3a7d..3b731b242a 100644
+index 621c06adab..1fb1b9a38b 100644
 --- a/pnpm-workspace.yaml
 +++ b/pnpm-workspace.yaml
-@@ -38,7 +38,7 @@ minimumReleaseAgeExclude:
+@@ -38,7 +38,8 @@ minimumReleaseAgeExclude:
    - '@auv-js/sdk@0.0.25'
    - '@lobehub/*'
    - virtua@0.53.5
 -  - local-replica
-+  - chroma-js@3.3.0
++  # The patched @lobehub/ui pins this exactly; published 2026-11-20, drop once it ages.
++  - open-bot-avatar@0.3.0
  
  # Build scripts run one at a time. Several peer-variant copies of
  # @lobehub/editor resolve in this workspace and every copy's postinstall
-@@ -63,6 +63,7 @@ allowBuilds:
+@@ -63,6 +64,7 @@ allowBuilds:
    workerd: true
  
  overrides:
 +  '@hono/node-server': 1.19.17
-   '@lobehub/ui': ^6.13.1
+   '@lobehub/ui': ^6.16.1
    '@lobehub/icons': ^6.0.0
    # Exact: an editor release can move its lexical version, and the root pins
-@@ -100,3 +101,26 @@ patchedDependencies:
+@@ -104,3 +106,27 @@ patchedDependencies:
    '@upstash/qstash': patches/@upstash__qstash.patch
    micromark@4.0.3: patches/micromark@4.0.3.patch
    micromark-extension-gfm-autolink-literal@2.1.0: patches/micromark-extension-gfm-autolink-literal@2.1.0.patch
@@ -210,11 +211,12 @@ index c44fcc3a7d..3b731b242a 100644
 +  - '@octokit/endpoint@9.0.6'
 +  - '@trickfilm400/rollup-plugin-off-main-thread@3.0.0-pre1'
 +  - '@pierre/theme@2.0.0'
-+  - '@vercel/cli-config@0.3.8'
++  - '@vercel/cli-config@0.4.0'
 +  - '@vercel/cli-exec@1.0.1'
-+  - '@vercel/functions@3.11.1'
-+  - '@vercel/oidc@4.0.8'
++  - '@vercel/functions@3.11.3'
++  - '@vercel/oidc@4.0.9'
 +  - 'tsrs@0.20.1-ts7.1.0-beta'
++  - 'open-bot-avatar@0.3.0'
 +
 +blockExoticSubdeps: true
 +strictDepBuilds: true
@@ -222,9 +224,9 @@ index c44fcc3a7d..3b731b242a 100644
 2.39.5
 
 
-From 1c72ac0a7bddfc582580906d054f6b3655860875 Mon Sep 17 00:00:00 2001
+From e916e69e0f4e640d6624ce497edbe50ee021e695 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
-Date: Thu, 12 Nov 2026 23:25:40 +0000
+Date: Mon, 23 Nov 2026 08:49:01 +0000
 Subject: [PATCH 03/21] =?UTF-8?q?=E2=9C=A8=20feat(openai):=20keep=20GPT=20?=
  =?UTF-8?q?requests=20non-streaming=20and=20summary-free?=
 MIME-Version: 1.0
@@ -236,9 +238,9 @@ Co-Authored-By: Claude Opus 5.5 <claude@anthropic.com.invalid>
  .../core/protocols/openaiResponses/chat.ts    |  2 +-
  .../src/providers/openai/index.test.ts        | 25 ++++---
  .../src/providers/openai/index.ts             | 36 +++++++---
- .../src/providers/openai/modelId.ts           | 68 +++++++++++++++++++
+ .../src/providers/openai/modelId.ts           | 70 +++++++++++++++++++
  .../providers/openai/openaiPayload.test.ts    |  2 +-
- 5 files changed, 113 insertions(+), 20 deletions(-)
+ 5 files changed, 115 insertions(+), 20 deletions(-)
 
 diff --git a/packages/model-runtime/src/core/protocols/openaiResponses/chat.ts b/packages/model-runtime/src/core/protocols/openaiResponses/chat.ts
 index 7495e4590c..f54b6c7a42 100644
@@ -446,10 +448,10 @@ index 0b33e5313c..9f1037630c 100644
        } as any;
      },
 diff --git a/packages/model-runtime/src/providers/openai/modelId.ts b/packages/model-runtime/src/providers/openai/modelId.ts
-index 620815d5b8..20ca19e71f 100644
+index 3d55045c23..f00beffb92 100644
 --- a/packages/model-runtime/src/providers/openai/modelId.ts
 +++ b/packages/model-runtime/src/providers/openai/modelId.ts
-@@ -34,6 +34,35 @@ export const disableStreamModels = new Set([
+@@ -34,6 +34,36 @@ export const disableStreamModels = new Set([
    */
    'computer-use-preview',
    'computer-use-preview-2025-03-11',
@@ -480,12 +482,13 @@ index 620815d5b8..20ca19e71f 100644
 +  'gpt-5.6-luna',
 +  'gpt-6-astra',
 +  'gpt-6.1-sol',
++  'gpt-6.1-terra',
 +  'gpt-6-sol',
 +  'gpt-6-luna',
  ]);
  
  // Static Responses API-only exceptions that do not follow the parsed GPT-5 rule.
-@@ -49,6 +78,45 @@ export const responsesAPIModels = new Set([
+@@ -49,6 +79,46 @@ export const responsesAPIModels = new Set([
    'codex-mini-latest',
    'computer-use-preview',
    'computer-use-preview-2025-03-11',
@@ -526,6 +529,7 @@ index 620815d5b8..20ca19e71f 100644
 +  'gpt-5.6-luna',
 +  'gpt-6-astra',
 +  'gpt-6.1-sol',
++  'gpt-6.1-terra',
 +  'gpt-6-sol',
 +  'gpt-6-luna',
  ]);
@@ -548,7 +552,7 @@ index a7ebcd844c..0b35e2e216 100644
 2.39.5
 
 
-From 395a412fbce6ae05d841dea135c2a540fb536f5c Mon Sep 17 00:00:00 2001
+From 9c7c4d4110bd5141b598a60022eba7786367aef7 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 12 Nov 2026 23:28:02 +0000
 Subject: [PATCH 04/21] =?UTF-8?q?=E2=9C=A8=20feat(openai):=20preserve=20de?=
@@ -1068,7 +1072,7 @@ index 9de1c3e498..1830ef0949 100644
 2.39.5
 
 
-From dd41a5aeb13c013abdaf6f587f4fb803f36f5cd0 Mon Sep 17 00:00:00 2001
+From 438d13e89da8067e919ea0f96aa828094659f15b Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 12 Nov 2026 23:28:59 +0000
 Subject: [PATCH 05/21] =?UTF-8?q?=F0=9F=90=9B=20fix(openai):=20use=20one?=
@@ -1197,10 +1201,10 @@ index ea04371ce3..db828adad1 100644
  
    async waitForRetry(delayMs: number): Promise<void> {
 diff --git a/packages/model-runtime/package.json b/packages/model-runtime/package.json
-index b387a2a544..13a2b47fe3 100644
+index a385ebf925..039960bb14 100644
 --- a/packages/model-runtime/package.json
 +++ b/packages/model-runtime/package.json
-@@ -55,6 +55,7 @@
+@@ -58,6 +58,7 @@
      "replicate": "^1.4.0",
      "tokenx": "^1.3.0",
      "type-fest": "^5.7.0",
@@ -1469,10 +1473,10 @@ index daa1510fe5..a094abbe6e 100644
    if (process.env.NODE_ENV !== 'production' && process.env.NEXT_RUNTIME === 'nodejs') {
      await import('./libs/debug-file-logger');
 diff --git a/src/libs/next/config/define-config.ts b/src/libs/next/config/define-config.ts
-index 54ee07ea86..e3f5f5e3ff 100644
+index eeb7791887..e3c2219830 100644
 --- a/src/libs/next/config/define-config.ts
 +++ b/src/libs/next/config/define-config.ts
-@@ -375,6 +375,7 @@ export function defineConfig(config: CustomNextConfig) {
+@@ -393,6 +393,7 @@ export function defineConfig(config: CustomNextConfig) {
        'pdfjs-dist',
        'ajv',
        'oidc-provider',
@@ -1481,7 +1485,7 @@ index 54ee07ea86..e3f5f5e3ff 100644
  
      transpilePackages: ['mermaid'],
 diff --git a/src/store/chat/agents/transports/ClientLLMTransport.ts b/src/store/chat/agents/transports/ClientLLMTransport.ts
-index eb9464a642..99ad28c19e 100644
+index 0d01692f2c..5df4d46882 100644
 --- a/src/store/chat/agents/transports/ClientLLMTransport.ts
 +++ b/src/store/chat/agents/transports/ClientLLMTransport.ts
 @@ -36,6 +36,7 @@ import type { ClientLLMModelParameters } from './ClientContextBuilder';
@@ -1496,7 +1500,7 @@ index eb9464a642..99ad28c19e 100644
 2.39.5
 
 
-From f8412dcd12e8b3048f02e09d6f7d29e9f2d8ba90 Mon Sep 17 00:00:00 2001
+From 0f1736f4963e54e6f3e5077577448c1c965e0b59 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 12 Nov 2026 23:29:53 +0000
 Subject: [PATCH 06/21] =?UTF-8?q?=E2=9C=A8=20feat(agent):=20keep=20prompts?=
@@ -1719,7 +1723,7 @@ index 15e24e1573..2595c67d20 100644
  
    it('should persist request trigger metadata on the created user message', async () => {
 diff --git a/apps/server/src/services/aiAgent/__tests__/resolveRunAgentConfig.test.ts b/apps/server/src/services/aiAgent/__tests__/resolveRunAgentConfig.test.ts
-index 9a160b5425..5e55342bc1 100644
+index 68f7056f79..3d42e66c7f 100644
 --- a/apps/server/src/services/aiAgent/__tests__/resolveRunAgentConfig.test.ts
 +++ b/apps/server/src/services/aiAgent/__tests__/resolveRunAgentConfig.test.ts
 @@ -73,7 +73,7 @@ describe('resolveRunAgentConfig', () => {
@@ -1765,18 +1769,18 @@ index 871a3ecbaf..3617b8c153 100644
  
    slug: BUILTIN_AGENT_SLUGS.inbox,
 diff --git a/packages/context-engine/src/engine/messages/MessagesEngine.ts b/packages/context-engine/src/engine/messages/MessagesEngine.ts
-index b23a6cce3b..041e4a552d 100644
+index 61b77d2832..04a8714e67 100644
 --- a/packages/context-engine/src/engine/messages/MessagesEngine.ts
 +++ b/packages/context-engine/src/engine/messages/MessagesEngine.ts
-@@ -33,7 +33,6 @@ import {
+@@ -34,7 +34,6 @@ import {
  } from '../../processors';
  import {
    ActiveTopicDocumentContextInjector,
 -  AgentAccountContextInjector,
    AgentBuilderContextInjector,
    AgentDocumentBeforeSystemInjector,
-   AgentDocumentContextInjector,
-@@ -56,7 +55,6 @@ import {
+   AgentDocumentChangesInjector,
+@@ -58,7 +57,6 @@ import {
    HistorySummaryProvider,
    KnowledgeInjector,
    LocalSystemToolSnapshotInjector,
@@ -1784,7 +1788,7 @@ index b23a6cce3b..041e4a552d 100644
    OnboardingActionHintInjector,
    OnboardingContextInjector,
    OnboardingSyntheticStateInjector,
-@@ -70,7 +68,6 @@ import {
+@@ -72,7 +70,6 @@ import {
    SKILL_STORE_TOOL_ID,
    SkillContextProvider,
    SkillImportRouteInjector,
@@ -1792,7 +1796,7 @@ index b23a6cce3b..041e4a552d 100644
    SystemRoleInjector,
    TaskManagerContextInjector,
    TodoInjector,
-@@ -162,12 +159,9 @@ export class MessagesEngine {
+@@ -164,12 +161,9 @@ export class MessagesEngine {
    private buildProcessors(): ContextProcessor[] {
      const {
        model,
@@ -1805,7 +1809,7 @@ index b23a6cce3b..041e4a552d 100644
        inputTemplate,
        enableAgentMode,
        enableHistoryCount,
-@@ -205,8 +199,6 @@ export class MessagesEngine {
+@@ -209,8 +203,6 @@ export class MessagesEngine {
        stepContext,
        topicReferences,
        documentReferences,
@@ -1814,7 +1818,7 @@ index b23a6cce3b..041e4a552d 100644
      } = this.params;
  
      const isAgentBuilderEnabled = !!agentBuilderContext;
-@@ -238,14 +230,7 @@ export class MessagesEngine {
+@@ -242,14 +234,7 @@ export class MessagesEngine {
            : undefined;
      const isTodoEnabled = effectiveTodos !== undefined;
  
@@ -1829,7 +1833,7 @@ index b23a6cce3b..041e4a552d 100644
      const currentUserMessage = [...messages]
        .reverse()
        .find((m) => m.role === 'user' && typeof m.content === 'string')?.content as
-@@ -329,13 +314,6 @@ export class MessagesEngine {
+@@ -333,13 +318,6 @@ export class MessagesEngine {
          enabled: !isGroupContextEnabled,
          identity: agentIdentity,
        }),
@@ -1843,7 +1847,7 @@ index b23a6cce3b..041e4a552d 100644
        // Eval context (appends envPrompt)
        new EvalContextSystemInjector({ enabled: !!evalContext?.envPrompt, evalContext }),
        // Bot platform context (formatting instructions for non-Markdown platforms)
-@@ -343,22 +321,8 @@ export class MessagesEngine {
+@@ -347,22 +325,8 @@ export class MessagesEngine {
          context: botPlatformContext,
          enabled: !!botPlatformContext,
        }),
@@ -2183,9 +2187,9 @@ index 76317a8af7..45589cd5ba 100644
 2.39.5
 
 
-From 48d017c76576729eb857358573f29dd0fe1b424c Mon Sep 17 00:00:00 2001
+From 82f9d3e3abf03e73a94dbd4c9e75e6de3d4efdad Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
-Date: Thu, 12 Nov 2026 23:31:05 +0000
+Date: Mon, 23 Nov 2026 08:49:38 +0000
 Subject: [PATCH 07/21] =?UTF-8?q?=E2=9C=A8=20feat(agent):=20keep=20tools?=
  =?UTF-8?q?=20explicitly=20user-controlled?=
 MIME-Version: 1.0
@@ -2197,12 +2201,13 @@ Co-Authored-By: Claude Opus 5.5 <claude@anthropic.com.invalid>
  .../AgentToolsEngine/__tests__/index.test.ts  | 44 ++++++++++---------
  packages/builtin-tools/src/index.ts           | 26 +----------
  .../toolSet/resolveToolRules.identity.test.ts |  5 ++-
+ .../resolveToolRules.mcpEvents.test.ts        |  5 ++-
  .../src/toolSet/resolveToolRules.test.ts      |  4 +-
- .../mecha/src/toolSet/resolveToolRules.ts     |  6 +--
+ .../mecha/src/toolSet/resolveToolRules.ts     |  8 ++--
  src/helpers/toolEngineering/index.test.ts     | 11 +++--
  .../tool/slices/builtin/selectors.test.ts     | 14 ++----
  src/store/tool/slices/builtin/selectors.ts    |  4 +-
- 8 files changed, 43 insertions(+), 71 deletions(-)
+ 9 files changed, 47 insertions(+), 74 deletions(-)
 
 diff --git a/apps/server/src/modules/Mecha/AgentToolsEngine/__tests__/index.test.ts b/apps/server/src/modules/Mecha/AgentToolsEngine/__tests__/index.test.ts
 index 9655452b29..b9b97b0af4 100644
@@ -2316,10 +2321,10 @@ index 9655452b29..b9b97b0af4 100644
      const lobeAgent = result.enabledManifests.find(
        (m) => m.identifier === LobeAgentManifest.identifier,
 diff --git a/packages/builtin-tools/src/index.ts b/packages/builtin-tools/src/index.ts
-index 0c7d0783dc..667e68b1fc 100644
+index b53a00bb53..c9dc226b17 100644
 --- a/packages/builtin-tools/src/index.ts
 +++ b/packages/builtin-tools/src/index.ts
-@@ -83,25 +83,9 @@ export const defaultToolIds = [
+@@ -85,25 +85,9 @@ export const defaultToolIds = [
  
  /**
   * Tool IDs that are always enabled regardless of user selection.
@@ -2347,7 +2352,7 @@ index 0c7d0783dc..667e68b1fc 100644
  
  /**
   * Runtime tools represented by the skill activation mode control itself. They remain part
-@@ -315,22 +299,16 @@ const builtinToolRegistry: LobeBuiltinTool[] = [
+@@ -318,22 +302,16 @@ const builtinToolRegistry: LobeBuiltinTool[] = [
      type: 'builtin',
    },
    {
@@ -2389,8 +2394,31 @@ index 6d7f7772fe..e35ea2eb1b 100644
    });
  
    it('defaults the fact to absent, so a host that cannot answer pays nothing', () => {
+diff --git a/packages/mecha/src/toolSet/resolveToolRules.mcpEvents.test.ts b/packages/mecha/src/toolSet/resolveToolRules.mcpEvents.test.ts
+index 23a2d85a69..ca403cbb6e 100644
+--- a/packages/mecha/src/toolSet/resolveToolRules.mcpEvents.test.ts
++++ b/packages/mecha/src/toolSet/resolveToolRules.mcpEvents.test.ts
+@@ -18,7 +18,7 @@ const request = (extra: Partial<ToolRuleRequest> = {}): ToolRuleRequest => ({
+ });
+ 
+ describe('MCP Events tool visibility', () => {
+-  it('only injects the tool when the server confirms an event connector', () => {
++  it('only allows the tool when the server confirms an event connector', () => {
+     const absent = resolveToolRules(request());
+     expect(absent.rules[McpEventsIdentifier]).toBe(false);
+     expect(absent.defaultToolIds).not.toContain(McpEventsIdentifier);
+@@ -26,7 +26,8 @@ describe('MCP Events tool visibility', () => {
+ 
+     const available = resolveToolRules(request({ hasEventConnector: true }));
+     expect(available.rules[McpEventsIdentifier]).toBe(true);
+-    expect(available.defaultToolIds).toContain(McpEventsIdentifier);
++    // MSM: tools stay user-controlled — an event connector does not switch the tool on.
++    expect(available.defaultToolIds).not.toContain(McpEventsIdentifier);
+     expect(available.excludedIdentifiers.has(McpEventsIdentifier)).toBe(false);
+   });
+ 
 diff --git a/packages/mecha/src/toolSet/resolveToolRules.test.ts b/packages/mecha/src/toolSet/resolveToolRules.test.ts
-index fd359ca062..ef5a681116 100644
+index cf43dce9e9..9e1060483c 100644
 --- a/packages/mecha/src/toolSet/resolveToolRules.test.ts
 +++ b/packages/mecha/src/toolSet/resolveToolRules.test.ts
 @@ -67,14 +67,14 @@ describe('resolveToolRules', () => {
@@ -2411,34 +2439,36 @@ index fd359ca062..ef5a681116 100644
        expect(resolved.rules[id]).toBe(true);
        expect(resolved.defaultToolIds).toContain(id);
 diff --git a/packages/mecha/src/toolSet/resolveToolRules.ts b/packages/mecha/src/toolSet/resolveToolRules.ts
-index e869076d12..147f79c7b9 100644
+index 6ecceaa99a..f502e1abcb 100644
 --- a/packages/mecha/src/toolSet/resolveToolRules.ts
 +++ b/packages/mecha/src/toolSet/resolveToolRules.ts
-@@ -106,9 +106,8 @@ export const resolveToolRules = (request: ToolRuleRequest): ResolvedToolRules =>
+@@ -107,9 +107,9 @@ export const resolveToolRules = (request: ToolRuleRequest): ResolvedToolRules =>
      [BrowserManifest.identifier]: runtimeMode === 'local' && request.localExecutionReady,
      [MemoryManifest.identifier]: memoryEnabled,
      ...(request.isBotConversation && { [MessageManifest.identifier]: true }),
 -    // The identity/inbox state is context, not a tool; this tool is the
 -    // on-demand action half and only costs a schema when the agent owns an
 -    // account. Replaces the always-on mailbox slot the channel design paid.
-+    // A gate, not an auto-enable: the account tool is only allowed for an agent
-+    // that owns an account, and only when a run asks for it explicitly.
++    // Gates, not auto-enables: the account tool is only allowed for an agent that
++    // owns an account, MCP Events only for one with an event connector, and each
++    // only when a run asks for it explicitly.
      [AgentAccountManifest.identifier]: request.hasIdentityAccount ?? false,
+     [McpEventsManifest.identifier]: request.hasEventConnector ?? false,
      ...(request.isGroupSupervisor && enableAll(groupSupervisorToolIds)),
-     // The device picker: only for device-capable targets behind a gateway,
-@@ -140,7 +139,6 @@ export const resolveToolRules = (request: ToolRuleRequest): ResolvedToolRules =>
+@@ -145,8 +145,6 @@ export const resolveToolRules = (request: ToolRuleRequest): ResolvedToolRules =>
            ? [...chatModeAllowedToolIds]
            : [
                ...defaultToolIds,
 -              ...(request.hasIdentityAccount ? [AgentAccountManifest.identifier] : []),
+-              ...(request.hasEventConnector ? [McpEventsManifest.identifier] : []),
                ...(request.isGroupSupervisor ? groupSupervisorToolIds : []),
              ],
      deviceCapable,
 diff --git a/src/helpers/toolEngineering/index.test.ts b/src/helpers/toolEngineering/index.test.ts
-index bcbaf7d8bf..7ff59888f3 100644
+index cc93ed9410..eb57a77ddb 100644
 --- a/src/helpers/toolEngineering/index.test.ts
 +++ b/src/helpers/toolEngineering/index.test.ts
-@@ -536,9 +536,8 @@ describe('toolEngineering', () => {
+@@ -558,9 +558,8 @@ describe('toolEngineering', () => {
          provider: 'openai',
        });
  
@@ -2450,7 +2480,7 @@ index bcbaf7d8bf..7ff59888f3 100644
      });
  
      it('should enable lobe-agent when it is injected into runtime plugin ids', () => {
-@@ -572,7 +571,7 @@ describe('toolEngineering', () => {
+@@ -594,7 +593,7 @@ describe('toolEngineering', () => {
        expect(result.enabledToolIds.includes('lobe-attachments')).toBe(flag);
      });
  
@@ -2459,7 +2489,7 @@ index bcbaf7d8bf..7ff59888f3 100644
        const toolsEngine = createAgentToolsEngine({
          model: 'deepseek-chat',
          provider: 'deepseek',
-@@ -584,10 +583,10 @@ describe('toolEngineering', () => {
+@@ -606,10 +605,10 @@ describe('toolEngineering', () => {
          toolIds: [],
        });
  
@@ -2538,7 +2568,7 @@ index c7240e961f..d486b4efee 100644
 2.39.5
 
 
-From b0287922c5004862a1bd27f6cd3c8ceb2166f428 Mon Sep 17 00:00:00 2001
+From e9a1b1b2b3e47aa92ba290f1a3302e64ae76607c Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:58:21 +0000
 Subject: [PATCH 08/21] =?UTF-8?q?=E2=9C=A8=20feat(agent):=20summarize=20to?=
@@ -2567,10 +2597,10 @@ index 5cbd31b0d6..087d6abbed 100644
  - Keep it short and to the point",
        "role": "system",
 diff --git a/packages/prompts/src/chains/summaryTitle.ts b/packages/prompts/src/chains/summaryTitle.ts
-index cc24fb2baa..151b64af37 100644
+index f8194b9dfd..8473bf11f9 100644
 --- a/packages/prompts/src/chains/summaryTitle.ts
 +++ b/packages/prompts/src/chains/summaryTitle.ts
-@@ -34,7 +34,7 @@ Rules:
+@@ -38,7 +38,7 @@ Rules:
  - Maximum 15 words
  - Maximum 80 characters
  - No punctuation marks
@@ -2583,7 +2613,7 @@ index cc24fb2baa..151b64af37 100644
 2.39.5
 
 
-From bd91413d10543af95312bc70009ea3b3f33e2d73 Mon Sep 17 00:00:00 2001
+From 49c34dec131a9ef04787a2d0fe7406e336d7411e Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 12 Nov 2026 23:31:23 +0000
 Subject: [PATCH 09/21] =?UTF-8?q?=F0=9F=90=9B=20fix(qstash):=20construct?=
@@ -2766,7 +2796,7 @@ index 2d01dae7ed..cb311c47e6 100644
 2.39.5
 
 
-From 12d5e92922a66ff29e99895cff8753693093e2ce Mon Sep 17 00:00:00 2001
+From 7da7692ca2ff5b2925f9b90eea308192f910c95f Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 2 Nov 2026 03:55:50 +0000
 Subject: [PATCH 10/21] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20keep=20patched=20?=
@@ -2946,13 +2976,13 @@ index ba69e938bc..b9e5260964 100644
    });
  });
 diff --git a/vite.config.ts b/vite.config.ts
-index 135b45086c..e67a6aed69 100644
+index 33486bce1b..7c4cdb6b27 100644
 --- a/vite.config.ts
 +++ b/vite.config.ts
-@@ -141,7 +141,7 @@ export default defineConfig({
-     bundledDev: false,
+@@ -143,7 +143,7 @@ export default defineConfig({
    },
    resolve: {
+     alias: sharedRendererAlias(),
 -    dedupe: sharedRendererDedupe,
 +    dedupe: [...sharedRendererDedupe, '@lobehub/ui', '@lobehub/icons', 'antd', 'motion'],
      tsconfigPaths: true,
@@ -2962,7 +2992,7 @@ index 135b45086c..e67a6aed69 100644
 2.39.5
 
 
-From 22832df267bfb906eec3ec50c6f75f8b907303f2 Mon Sep 17 00:00:00 2001
+From 4552ef28adf053d02ae7b7418fbb8e24cb306fa8 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:58:41 +0000
 Subject: [PATCH 11/21] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20offer=20only=20En?=
@@ -3048,7 +3078,7 @@ index 0dd8228306..e3bb30bc76 100644
 2.39.5
 
 
-From b4f28b33b2bd97103d70fa6b3eaa2312a72bd4bf Mon Sep 17 00:00:00 2001
+From be36f5dda380b2cb8e9ffb47201a380c879ccbb8 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 13 Nov 2026 01:05:12 +0000
 Subject: [PATCH 12/21] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20keep=20user-messa?=
@@ -3302,7 +3332,7 @@ index d5e11d7aa1..16812b2ac2 100644
 2.39.5
 
 
-From b8dcd6c1fb81ba30a93606cc0007601a8f3934a4 Mon Sep 17 00:00:00 2001
+From 8fcde117e0ce29800f397df0bc43460c613d25df Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:58:55 +0000
 Subject: [PATCH 13/21] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20show=20exact=20to?=
@@ -3405,7 +3435,7 @@ index dab78f1104..dcadb8cf01 100644
 2.39.5
 
 
-From a73e1312d747a67ea96657b9ca58a456e97488c6 Mon Sep 17 00:00:00 2001
+From dc9ef665930ee761803a3722d630a46393563cc9 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 7 Oct 2026 16:25:57 +0000
 Subject: [PATCH 14/21] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20use=20MSM=20defau?=
@@ -3475,10 +3505,10 @@ index dbef53fdd6..a74db2befd 100644
    withSystemRole: true,
  };
 diff --git a/src/store/global/initialState.ts b/src/store/global/initialState.ts
-index 66c5fc05ba..b35a067692 100644
+index fdb6091a00..b74675f157 100644
 --- a/src/store/global/initialState.ts
 +++ b/src/store/global/initialState.ts
-@@ -143,9 +143,6 @@ export type ModelDetailPanelExpandedKey = (typeof MODEL_DETAIL_PANEL_EXPANDED_KE
+@@ -146,9 +146,6 @@ export type ModelDetailPanelExpandedKey = (typeof MODEL_DETAIL_PANEL_EXPANDED_KE
   * newly added sections default to expanded automatically.
   */
  export const MODEL_DETAIL_PANEL_EXPANDABLE_KEYS = [
@@ -3492,25 +3522,34 @@ index 66c5fc05ba..b35a067692 100644
 2.39.5
 
 
-From c3af7e54e5d23fbd3b38373688a6dee479f54208 Mon Sep 17 00:00:00 2001
+From a8bdf3638082c98c0a96692429d43f8908e726e6 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
-Date: Thu, 24 Sep 2026 06:59:09 +0000
+Date: Mon, 23 Nov 2026 08:50:31 +0000
 Subject: [PATCH 15/21] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20shorten=20topic?=
  =?UTF-8?q?=20previews=20and=20honor=20modifier-clicks?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Co-authored-by: Cursor GPT-5.6 Sol <cursoragent@cursor.com.invalid>
+Co-Authored-By: Claude Opus 5.5 <claude@anthropic.com.invalid>
 ---
- .../AgentSidebar/Topic/List/Item/index.tsx    |  2 ++
- src/features/AgentTopicManager/TopicCard.tsx  | 33 ++++++++++++++++---
- 2 files changed, 31 insertions(+), 4 deletions(-)
+ .../AgentSidebar/Topic/List/Item/index.tsx    | 16 ++++++---
+ src/features/AgentTopicManager/TopicCard.tsx  | 35 +++++++++++++++----
+ 2 files changed, 40 insertions(+), 11 deletions(-)
 
 diff --git a/src/features/AgentSidebar/Topic/List/Item/index.tsx b/src/features/AgentSidebar/Topic/List/Item/index.tsx
-index 25f962e15f..93f4ed7c1d 100644
+index 488a6d786a..a8b320770e 100644
 --- a/src/features/AgentSidebar/Topic/List/Item/index.tsx
 +++ b/src/features/AgentSidebar/Topic/List/Item/index.tsx
+@@ -20,7 +20,7 @@ import {
+ import dayjs from 'dayjs';
+ import isEqual from 'fast-deep-equal';
+ import { MessageSquareDashed, TargetIcon } from 'lucide-react';
+-import type { CSSProperties, DragEvent, RefObject } from 'react';
++import type { CSSProperties, DragEvent, MouseEvent, RefObject } from 'react';
+ import { memo, Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+ import { useTranslation } from 'react-i18next';
+ 
 @@ -49,6 +49,7 @@ import { operationSelectors } from '@/store/chat/selectors';
  import { messageMapKey } from '@/store/chat/utils/messageMapKey';
  import { useUserStore } from '@/store/user';
@@ -3519,16 +3558,28 @@ index 25f962e15f..93f4ed7c1d 100644
  
  import { useTopicHoverPrefetch } from '../../hooks/topicHoverPrefetch/useTopicHoverPrefetch';
  import { markSidebarTopicActivation } from '../../hooks/useScrollActiveTopicIntoView';
-@@ -339,6 +340,7 @@ const TopicItemRow = memo<TopicItemRowProps>(
- 
-     const handleClick = useCallback(
-       (event?: MouseEvent) => {
+@@ -340,10 +341,15 @@ const TopicItemRow = memo<TopicItemRowProps>(
+     // gesture (Cmd/Ctrl+click, middle click, or the context menu): a double
+     // click used to open one, and a lagging UI turned repeated clicks into
+     // unwanted tabs.
+-    const handleClick = useCallback(() => {
+-      if (id) markSidebarTopicActivation(id);
+-      void navRef.current.navigateToTopic(id);
+-    }, [id, navRef]);
++    const handleClick = useCallback(
++      (event?: MouseEvent) => {
++        // A modifier click is left to the link, which opens the topic in a new tab.
 +        if (event && isModifierClick(event)) return;
-         if (event && event.detail > 1) return;
-         if (id) markSidebarTopicActivation(id);
-         if (isDesktop && id) recordTopicClickOrigin(id);
++        if (id) markSidebarTopicActivation(id);
++        void navRef.current.navigateToTopic(id);
++      },
++      [id, navRef],
++    );
+ 
+     const isFailed = status === 'failed';
+     const isRunning = status === 'running';
 diff --git a/src/features/AgentTopicManager/TopicCard.tsx b/src/features/AgentTopicManager/TopicCard.tsx
-index 64f4949b1f..b655f2efd9 100644
+index 2c5916afc9..fa46382842 100644
 --- a/src/features/AgentTopicManager/TopicCard.tsx
 +++ b/src/features/AgentTopicManager/TopicCard.tsx
 @@ -4,13 +4,14 @@ import { AGENT_CHAT_TOPIC_URL } from '@lobechat/const';
@@ -3547,7 +3598,7 @@ index 64f4949b1f..b655f2efd9 100644
  
  import StatusDot from './StatusDot';
  import { useTopicsViewStore } from './store';
-@@ -121,6 +122,8 @@ const TopicCard = memo<TopicCardProps>(({ topic, agentId }) => {
+@@ -122,6 +123,8 @@ const TopicCard = memo<TopicCardProps>(({ topic, agentId }) => {
      [selectMode, topic.id, agentId, toggleSelected, navigate],
    );
  
@@ -3556,25 +3607,27 @@ index 64f4949b1f..b655f2efd9 100644
    const handleCheckboxChange = useCallback(() => {
      if (!selectMode) toggleSelectMode();
      toggleSelected(topic.id);
-@@ -137,8 +140,15 @@ const TopicCard = memo<TopicCardProps>(({ topic, agentId }) => {
-   const BotPlatformIcon = botPlatform ? getPlatformIcon(botPlatform) : undefined;
+@@ -139,10 +142,15 @@ const TopicCard = memo<TopicCardProps>(({ topic, agentId }) => {
    // Preview priority: user-written description → AI history summary → first user
    // message (sliced server-side when neither richer field exists).
+   const firstMessage = topic.firstUserMessage?.trim();
 -  const preview =
--    topic.description?.trim() || topic.historySummary?.trim() || topic.firstUserMessage?.trim();
+-    topic.description?.trim() ||
+-    topic.historySummary?.trim() ||
+-    (firstMessage && topicPreviewText(firstMessage));
 +  const preview = useMemo(
 +    () =>
 +      (
 +        topic.description?.trim() ||
 +        topic.historySummary?.trim() ||
-+        topic.firstUserMessage?.trim()
++        (firstMessage && topicPreviewText(firstMessage))
 +      )?.slice(0, 100),
-+    [topic.description, topic.firstUserMessage, topic.historySummary],
++    [firstMessage, topic.description, topic.historySummary],
 +  );
    const updatedAt = useActivityTime(topic.updatedAt);
    // Postgres `numeric` / `int` round-trip through TRPC/JSON as strings in
    // some shapes, so coerce defensively before any `.toFixed` / format call.
-@@ -174,7 +184,22 @@ const TopicCard = memo<TopicCardProps>(({ topic, agentId }) => {
+@@ -178,7 +186,22 @@ const TopicCard = memo<TopicCardProps>(({ topic, agentId }) => {
            />
          )}
          <Text className={styles.title} fontSize={14} weight={600}>
@@ -3602,7 +3655,7 @@ index 64f4949b1f..b655f2efd9 100644
 2.39.5
 
 
-From daa058220c7d284d074e86346a184917327b2159 Mon Sep 17 00:00:00 2001
+From fd98201b6c31a8dc17d2cc677dcba47341b978a0 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 25 Sep 2026 04:09:38 +0000
 Subject: [PATCH 16/21] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20add=20text=20verb?=
@@ -3821,7 +3874,7 @@ index 0000000000..4b57db4136
 2.39.5
 
 
-From f5204c878007f86776e0c9728a43833eb4a7b065 Mon Sep 17 00:00:00 2001
+From cb47a44f1baf64a0499883e8c50a33b6831f64a4 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 12 Nov 2026 23:31:44 +0000
 Subject: [PATCH 17/21] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20open=20usage=20de?=
@@ -3911,7 +3964,7 @@ index eb4004cf53..a5c45a8e45 100644
 2.39.5
 
 
-From 03012d51af85b9cd1252640e6a81f590086d9a0a Mon Sep 17 00:00:00 2001
+From a19917db3a2f39d99de43b3b00ffd097ac70e232 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 13 Nov 2026 01:26:51 +0000
 Subject: [PATCH 18/21] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20show=20USD=20cost?=
@@ -3934,10 +3987,10 @@ Co-Authored-By: Claude Opus 5.5 <claude@anthropic.com.invalid>
  create mode 100644 src/features/Conversation/Messages/components/Extras/Usage/UsageDetail/usageCost.ts
 
 diff --git a/locales/en-US/chat.json b/locales/en-US/chat.json
-index fbbde4b421..3672795d64 100644
+index f58577408b..b9f54a2212 100644
 --- a/locales/en-US/chat.json
 +++ b/locales/en-US/chat.json
-@@ -1860,16 +1860,16 @@
+@@ -1917,16 +1917,16 @@
    "messageLongCollapse.expand": "Show more",
    "messages.dm.sentTo": "Visible only to {{name}}",
    "messages.dm.title": "DM",
@@ -3958,10 +4011,10 @@ index fbbde4b421..3672795d64 100644
    "messages.tokenDetails.cliCredits.title": "{{value}} Credits",
    "messages.tokenDetails.cliCredits.tooltip": "Subscription credits reported by the agent CLI for this turn. The CLI bills in credits instead of reporting tokens; this is separate from your LobeHub usage.",
 diff --git a/packages/locales/src/default/chat.ts b/packages/locales/src/default/chat.ts
-index 9859d32af5..e3c6db1d76 100644
+index 97cd403361..28bc45bd00 100644
 --- a/packages/locales/src/default/chat.ts
 +++ b/packages/locales/src/default/chat.ts
-@@ -1190,17 +1190,17 @@ export default {
+@@ -1238,17 +1238,17 @@ export default {
    'messageLongCollapse.expand': 'Show more',
    'messages.dm.sentTo': 'Visible only to {{name}}',
    'messages.dm.title': 'DM',
@@ -3983,10 +4036,10 @@ index 9859d32af5..e3c6db1d76 100644
    'messages.tokenDetails.cliCredits.tooltip':
      'Subscription credits reported by the agent CLI for this turn. The CLI bills in credits instead of reporting tokens; this is separate from your LobeHub usage.',
 diff --git a/packages/model-runtime/package.json b/packages/model-runtime/package.json
-index 13a2b47fe3..b3327bc85b 100644
+index 039960bb14..6ef45db4c2 100644
 --- a/packages/model-runtime/package.json
 +++ b/packages/model-runtime/package.json
-@@ -12,6 +12,7 @@
+@@ -14,6 +14,7 @@
      "./providers/deepseek/modelId": "./src/providers/deepseek/modelId.ts",
      "./providers/moonshot/modelId": "./src/providers/moonshot/modelId.ts",
      "./providers/openai/modelId": "./src/providers/openai/modelId.ts",
@@ -4334,7 +4387,7 @@ index 0000000000..1e7e4bf1fc
 2.39.5
 
 
-From 8070967b2e37cf4b4f9365129e9aa9166416d2bd Mon Sep 17 00:00:00 2001
+From ee847301053acd6066ac59ef0926315509659f9f Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 15 Nov 2026 04:10:13 +0000
 Subject: [PATCH 19/21] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20keep=20the=20agen?=
@@ -4398,7 +4451,7 @@ index b0c366822d..f77467d910 100644
 2.39.5
 
 
-From 0768af68dd7a437f24ffa32119d7a6c2a95b484f Mon Sep 17 00:00:00 2001
+From 0f8692531f4872eea7c6f94f24c3eacc70b9229f Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 16 Nov 2026 22:04:46 +0000
 Subject: [PATCH 20/21] =?UTF-8?q?=F0=9F=8F=B7=EF=B8=8F=20fix(types):=20pin?=
@@ -4419,26 +4472,29 @@ Co-Authored-By: Claude Opus 5.5 <claude@anthropic.com.invalid>
  2 files changed, 9 insertions(+), 3 deletions(-)
 
 diff --git a/src/features/MCPApp/appHost.ts b/src/features/MCPApp/appHost.ts
-index 0e518f06ec..cdc64adc92 100644
+index ceba8df6d8..f36440aba1 100644
 --- a/src/features/MCPApp/appHost.ts
 +++ b/src/features/MCPApp/appHost.ts
-@@ -128,7 +128,10 @@ export const connectAppView = ({
-     // Views may only call tools on the server that rendered them, and
-     // under the same approval rules as the conversation.
-     callTool: async (name, toolArgs, request) => {
--      const { agentId, identifier, onThisDevice, server, t } = getContext();
-+      const { agentId, identifier, onThisDevice, server, t: translate } = getContext();
+@@ -161,10 +161,13 @@ export const connectAppView = ({
+         identifier,
+         onThisDevice,
+         server,
+-        t,
++        t: translate,
+         args: initiatingArgs,
+         linkId: viewLinkId,
+       } = getContext();
 +      // One plain signature: the i18next/plain-function union can exceed the
 +      // checker's instantiation depth depending on check order.
 +      const t = translate as (key: string, options?: Record<string, unknown>) => string;
+       const linkId = viewLinkId ?? getMcpAppLinkId(identifier, agentId, initiatingArgs);
        const policy = await getAppToolCallPolicy(identifier, name, { agentId, toolArgs });
        let allowed = policy === 'allow';
-       if (policy === 'confirm') {
 diff --git a/src/features/Recommendations/actions/heteroAgent.ts b/src/features/Recommendations/actions/heteroAgent.ts
-index e0f33efcc6..e20b2084f8 100644
+index 7f8675d8e5..bd55aadafc 100644
 --- a/src/features/Recommendations/actions/heteroAgent.ts
 +++ b/src/features/Recommendations/actions/heteroAgent.ts
-@@ -17,7 +17,7 @@ import {
+@@ -18,7 +18,7 @@ import {
    Qoder,
    Trae,
  } from '@lobehub/icons';
@@ -4447,7 +4503,7 @@ index e0f33efcc6..e20b2084f8 100644
  
  import type { RecommendedAction } from './types';
  
-@@ -46,7 +46,10 @@ const avatarIcons = {
+@@ -48,7 +48,10 @@ const avatarIcons = {
  export const buildHeteroAgentAction = (
    config: HeterogeneousAgentClientConfig,
  ): RecommendedAction => {
@@ -4463,7 +4519,7 @@ index e0f33efcc6..e20b2084f8 100644
 2.39.5
 
 
-From d9b36b227d47f5972c6a0a862036b82d6b9f27ea Mon Sep 17 00:00:00 2001
+From bdf8a8931c8cf12882696cd80728254f07bc5f68 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Tue, 17 Nov 2026 00:14:13 +0000
 Subject: [PATCH 21/21] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20keep=20editors=20?=
@@ -4525,7 +4581,7 @@ Co-Authored-By: Claude Opus 5.5 <claude@anthropic.com.invalid>
  .../PageEditor/TableOfContents/headings.ts    |   6 +-
  .../PageEditor/usePageReadOnlyView.ts         |  32 ++
  .../TopicComments/TopicCommentEditor.tsx      |  20 +-
- .../features/ChatAppearance/index.tsx         |  19 +-
+ .../features/ChatAppearance/index.tsx         |  23 +-
  src/features/SkillViewer/index.tsx            |  13 +-
  src/libs/editor/plainText/PlainTextPlugin.ts  | 288 ++++++++++++++++++
  .../editor/plainText/ReactPlainTextPlugin.tsx |  21 ++
@@ -4536,7 +4592,7 @@ Co-Authored-By: Claude Opus 5.5 <claude@anthropic.com.invalid>
  .../features/EditorCanvas/index.test.tsx      |   4 +-
  .../profile/features/EditorCanvas/index.tsx   |  49 +--
  src/store/document/slices/editor/action.ts    |   6 +-
- 46 files changed, 1026 insertions(+), 695 deletions(-)
+ 46 files changed, 1026 insertions(+), 699 deletions(-)
  create mode 100644 src/features/EditorCanvas/ReadOnlyMarkdown.tsx
  create mode 100644 src/features/PageEditor/usePageReadOnlyView.ts
  create mode 100644 src/libs/editor/plainText/PlainTextPlugin.ts
@@ -4918,7 +4974,7 @@ index 981e725a56..2b66444cdf 100644
  AttachmentMenu.displayName = 'AttachmentMenu';
  
 diff --git a/src/features/Channels/Composer.tsx b/src/features/Channels/Composer.tsx
-index 1775301bc4..aa424eaf2b 100644
+index 8cf6854ca7..24a6d1562b 100644
 --- a/src/features/Channels/Composer.tsx
 +++ b/src/features/Channels/Composer.tsx
 @@ -1,12 +1,6 @@
@@ -5101,30 +5157,30 @@ index af833fdd1d..c7288021d5 100644
        if (actionKey === '---') {
          return {
 diff --git a/src/features/ChatInput/Desktop/index.tsx b/src/features/ChatInput/Desktop/index.tsx
-index e2ec7e80e3..966b006dc1 100644
+index 871bc2db7b..c5e8ff2f2c 100644
 --- a/src/features/ChatInput/Desktop/index.tsx
 +++ b/src/features/ChatInput/Desktop/index.tsx
-@@ -32,7 +32,6 @@ import { useTopicDrop } from '../InputEditor/ReferTopic/useTopicDrop';
- import { useWorkspaceFileDrop } from '../InputEditor/useWorkspaceFileDrop';
+@@ -31,7 +31,6 @@ import { useWorkspaceFileDrop } from '../InputEditor/useWorkspaceFileDrop';
  import { composerHoverMarker } from '../markers.stylex';
+ import { McpAppContextChips } from '../McpAppContextChips';
  import SendArea from '../SendArea';
 -import TypoBar from '../TypoBar';
  import ContextContainer from './ContextContainer';
  
  const styles = stylex.create({
-@@ -132,10 +131,9 @@ const DesktopChatInput = memo<DesktopChatInputProps>(
-     );
-     const uploadContextKey = useChatInputUploadKey();
-     const hasFiles = useFileStore(fileChatSelectors.chatUploadFileListHasItem(uploadContextKey));
--    const [slashMenuRef, expand, showTypoBar, editor, leftActions] = useChatInputStore((s) => [
-+    const [slashMenuRef, expand, editor, leftActions] = useChatInputStore((s) => [
+@@ -125,10 +124,9 @@ const DesktopChatInput = memo<DesktopChatInputProps>(
+       systemStatusSelectors.chatInputHeight(s),
+       s.updateSystemStatus,
+     ]);
+-    const [slashMenuRef, expand, showTypoBar, editor] = useChatInputStore((s) => [
++    const [slashMenuRef, expand, editor] = useChatInputStore((s) => [
        s.slashMenuRef,
        s.expand,
 -      s.showTypoBar,
        s.editor,
-       s.leftActions,
      ]);
-@@ -261,7 +259,6 @@ const DesktopChatInput = memo<DesktopChatInputProps>(
+ 
+@@ -253,7 +251,6 @@ const DesktopChatInput = memo<DesktopChatInputProps>(
            header={
              <Flexbox gap={0}>
                {extentHeaderContent}
@@ -5133,10 +5189,10 @@ index e2ec7e80e3..966b006dc1 100644
              </Flexbox>
            }
 diff --git a/src/features/ChatInput/InputEditor/index.test.tsx b/src/features/ChatInput/InputEditor/index.test.tsx
-index 56f8daec55..ae52981329 100644
+index 0cbf8d654c..ae365858e4 100644
 --- a/src/features/ChatInput/InputEditor/index.test.tsx
 +++ b/src/features/ChatInput/InputEditor/index.test.tsx
-@@ -328,30 +328,26 @@ describe('ChatInput InputEditor', () => {
+@@ -318,30 +318,26 @@ describe('ChatInput InputEditor', () => {
      );
    });
  
@@ -5181,10 +5237,10 @@ index 56f8daec55..ae52981329 100644
  
    it('renders the editor at 16px on mobile', async () => {
 diff --git a/src/features/ChatInput/InputEditor/index.tsx b/src/features/ChatInput/InputEditor/index.tsx
-index c1abd5ee33..71f332cc02 100644
+index 2070708f8a..af40d6d660 100644
 --- a/src/features/ChatInput/InputEditor/index.tsx
 +++ b/src/features/ChatInput/InputEditor/index.tsx
-@@ -25,6 +25,7 @@ import { useEnterToSend } from '@/hooks/useEnterToSend';
+@@ -23,6 +23,7 @@ import { useEnterToSend } from '@/hooks/useEnterToSend';
  import { useIMECompositionEvent } from '@/hooks/useIMECompositionEvent';
  import { usePermission } from '@/hooks/usePermission';
  import { useSingleton } from '@/hooks/useSingleton';
@@ -5192,15 +5248,15 @@ index c1abd5ee33..71f332cc02 100644
  import { aiChatService } from '@/services/aiChat';
  import {
    prepareMentionedMarketAgent,
-@@ -38,7 +39,6 @@ import { useUserStore } from '@/store/user';
+@@ -35,7 +36,6 @@ import { useServerConfigStore } from '@/store/serverConfig';
+ import { useUserStore } from '@/store/user';
  import {
-   settingsSelectors,
    systemAgentSelectors,
 -  userGeneralSettingsSelectors,
    userProfileSelectors,
  } from '@/store/user/selectors';
  
-@@ -307,8 +307,6 @@ const InputEditor = memo<{
+@@ -306,8 +306,6 @@ const InputEditor = memo<{
      };
    }, [state.isEmpty]);
  
@@ -5209,7 +5265,7 @@ index c1abd5ee33..71f332cc02 100644
    const slashActionItems = useSlashActionItems();
    const slashItems = useCallback(
      async (
-@@ -569,6 +567,7 @@ const InputEditor = memo<{
+@@ -568,6 +566,7 @@ const InputEditor = memo<{
    );
  
    const plugins = useMemo(() => {
@@ -5217,7 +5273,7 @@ index c1abd5ee33..71f332cc02 100644
      const basePlugins = createChatInputRichPlugins({ linkPlugin: false });
  
      return autoCompletePlugin ? [...basePlugins, autoCompletePlugin] : basePlugins;
-@@ -610,14 +609,13 @@ const InputEditor = memo<{
+@@ -609,14 +608,13 @@ const InputEditor = memo<{
        />
        <Editor
          autoFocus
@@ -5234,7 +5290,7 @@ index c1abd5ee33..71f332cc02 100644
          plugins={plugins}
          slashOption={slashOption}
 diff --git a/src/features/ChatInput/InputEditor/plugins.ts b/src/features/ChatInput/InputEditor/plugins.ts
-index 116b655625..369ab6646e 100644
+index 224608a3ff..3ba2bdcb11 100644
 --- a/src/features/ChatInput/InputEditor/plugins.ts
 +++ b/src/features/ChatInput/InputEditor/plugins.ts
 @@ -1,15 +1,8 @@
@@ -5254,9 +5310,9 @@ index 116b655625..369ab6646e 100644
 +import ReactPlainTextPlugin from '@/libs/editor/plainText/ReactPlainTextPlugin';
 +
  import { ReactActionTagPlugin } from './ActionTag';
+ import { ReactImageRefTagPlugin } from './ImageRefTag';
  import { ReactLocalFileTagPlugin } from './LocalFileTag';
- import { ReactReferDocumentPlugin } from './ReferDocument';
-@@ -17,6 +10,9 @@ import { ReactReferTopicPlugin } from './ReferTopic';
+@@ -18,6 +11,9 @@ import { ReactReferTopicPlugin } from './ReferTopic';
  
  type EditorPlugins = NonNullable<Parameters<typeof Editor>[0]['plugins']>;
  
@@ -5266,7 +5322,7 @@ index 116b655625..369ab6646e 100644
  interface CreateChatInputRichPluginsOptions {
    linkPlugin?: EditorPlugins[number] | false;
    mathPlugin?: EditorPlugins[number] | false;
-@@ -30,16 +26,31 @@ export const CHAT_INPUT_EMBED_PLUGINS: EditorPlugins = [
+@@ -32,16 +28,31 @@ export const CHAT_INPUT_EMBED_PLUGINS: EditorPlugins = [
    ReactMentionPlugin,
  ];
  
@@ -5937,26 +5993,26 @@ index 16812b2ac2..ed6dc9b69e 100644
  
  export default EditorCanvas;
 diff --git a/src/features/PageEditor/DocumentComments/CommentCard.tsx b/src/features/PageEditor/DocumentComments/CommentCard.tsx
-index 32623bd020..f2137f1364 100644
+index 8399563ce7..967181a306 100644
 --- a/src/features/PageEditor/DocumentComments/CommentCard.tsx
 +++ b/src/features/PageEditor/DocumentComments/CommentCard.tsx
-@@ -17,7 +17,6 @@ import { useTranslation } from 'react-i18next';
- 
+@@ -18,7 +18,6 @@ import { useTranslation } from 'react-i18next';
+ import { useFetchWorkspaceMembers } from '@/business/client/hooks/useFetchWorkspaceMembers';
  import { AttachmentMenu } from '@/features/AttachmentInput';
  import RichTextMessage from '@/features/Conversation/Messages/User/components/RichTextMessage';
 -import { TypoBar } from '@/features/EditorCanvas';
  import {
    getEditorAttachmentStateFromJson,
    insertExistingAttachmentsIntoEditor,
-@@ -25,7 +24,6 @@ import {
- } from '@/features/EditorCanvas/editorAttachments';
+@@ -27,7 +26,6 @@ import {
+ import MemberProfilePopup from '@/features/MemberProfileCard/MemberProfilePopup';
  import { useActivityTime } from '@/hooks/useActivityTime';
  import { useEnterToSend } from '@/hooks/useEnterToSend';
 -import { useLocalStorageState } from '@/hooks/useLocalStorageState';
  import { documentCommentService } from '@/services/documentComment';
  
  import AnchorQuote from './anchor/AnchorQuote';
-@@ -106,10 +104,6 @@ const CommentCard = memo<CommentCardProps>(
+@@ -111,10 +109,6 @@ const CommentCard = memo<CommentCardProps>(
      const editEditor = useEditor();
      const editorRef = useRef<DocumentCommentEditorRef>(null);
      const editInputRef = useRef<HTMLDivElement>(null);
@@ -5967,7 +6023,7 @@ index 32623bd020..f2137f1364 100644
      const [mutating, setMutating] = useState(false);
      const { locateInBody, orphanedRootIds, setHoveredRootId } = useCommentAnchors();
      const anchor = comment.selectionAnchor;
-@@ -320,7 +314,6 @@ const CommentCard = memo<CommentCardProps>(
+@@ -331,7 +325,6 @@ const CommentCard = memo<CommentCardProps>(
            ) : editing ? (
              <ChatInput
                className={styles.editComposer}
@@ -5975,7 +6031,7 @@ index 32623bd020..f2137f1364 100644
                maxHeight={COMMENT_INPUT_MAX_HEIGHT}
                minHeight={64}
                resize={false}
-@@ -331,9 +324,7 @@ const CommentCard = memo<CommentCardProps>(
+@@ -342,9 +335,7 @@ const CommentCard = memo<CommentCardProps>(
                    left={
                      <AttachmentMenu
                        disabled={mutating}
@@ -6655,27 +6711,31 @@ index b74b69d153..64bc98aa37 100644
          variant={'chat'}
          style={{
 diff --git a/src/features/Settings/chat-appearance/features/ChatAppearance/index.tsx b/src/features/Settings/chat-appearance/features/ChatAppearance/index.tsx
-index 2a970a6fe5..b4541a2c53 100644
+index c746d6a928..6e08853f1d 100644
 --- a/src/features/Settings/chat-appearance/features/ChatAppearance/index.tsx
 +++ b/src/features/Settings/chat-appearance/features/ChatAppearance/index.tsx
-@@ -11,7 +11,7 @@ import { ChatAppearanceSectionSkeleton } from '@/components/Skeleton/Settings/ta
+@@ -11,11 +11,7 @@ import { ChatAppearanceSectionSkeleton } from '@/components/Skeleton/Settings/ta
  import { FORM_STYLE } from '@/const/layoutTokens';
  import { useSaveState } from '@/hooks/useSaveState';
  import { useUserStore } from '@/store/user';
--import { settingsSelectors, userGeneralSettingsSelectors } from '@/store/user/selectors';
-+import { settingsSelectors } from '@/store/user/selectors';
+-import {
+-  labPreferSelectors,
+-  settingsSelectors,
+-  userGeneralSettingsSelectors,
+-} from '@/store/user/selectors';
++import { labPreferSelectors, settingsSelectors } from '@/store/user/selectors';
  
  import ChatTransitionPreview from './ChatTransitionPreview';
  import HighlighterPreview from './HighlighterPreview';
-@@ -21,7 +21,6 @@ import MermaidPreview from './MermaidPreview';
+@@ -25,7 +21,6 @@ import MermaidPreview from './MermaidPreview';
  const ChatAppearance = memo(() => {
    const { t } = useTranslation('setting');
    const { general } = useUserStore(settingsSelectors.currentSettings, isEqual);
 -  const enablePasteAutoConvert = useUserStore(userGeneralSettingsSelectors.enablePasteAutoConvert);
-   const [setSettings, isUserStateInit] = useUserStore((s) => [s.setSettings, s.isUserStateInit]);
-   const { status: saveStatus, lastSavedAt, save, retry } = useSaveState();
-   const [savingKey, setSavingKey] = useState<string>();
-@@ -121,20 +120,8 @@ const ChatAppearance = memo(() => {
+   const enableBetterCodingExperience = useUserStore(
+     labPreferSelectors.enableBetterCodingExperience,
+   );
+@@ -142,20 +137,8 @@ const ChatAppearance = memo(() => {
                  label: t('settingChatAppearance.linkIcon.title'),
                  minWidth: undefined,
                },
@@ -6695,9 +6755,9 @@ index 2a970a6fe5..b4541a2c53 100644
 -              },
 +              // No paste auto-convert switch: editors are plain text, so pasted
 +              // Markdown always stays as typed.
-             ],
-             title: t('settingChatAppearance.chatBehavior.title'),
-           },
+               ...(enableBetterCodingExperience
+                 ? [
+                     {
 diff --git a/src/features/SkillViewer/index.tsx b/src/features/SkillViewer/index.tsx
 index 86af085f80..6e3927ea4c 100644
 --- a/src/features/SkillViewer/index.tsx
@@ -7268,7 +7328,7 @@ index e6702d3a58..90caa8d58e 100644
    return (
      <ChatInputAction
 diff --git a/src/routes/(main)/agent/profile/features/EditorCanvas/index.test.tsx b/src/routes/(main)/agent/profile/features/EditorCanvas/index.test.tsx
-index 98da241919..039993e3b4 100644
+index 4b221ef862..10ab054d66 100644
 --- a/src/routes/(main)/agent/profile/features/EditorCanvas/index.test.tsx
 +++ b/src/routes/(main)/agent/profile/features/EditorCanvas/index.test.tsx
 @@ -4,6 +4,7 @@
@@ -7279,7 +7339,7 @@ index 98da241919..039993e3b4 100644
  import { type SaveStatus } from '@/types/saveState';
  
  import EditorCanvas from './index';
-@@ -415,7 +416,8 @@ describe('Agent profile EditorCanvas', () => {
+@@ -428,7 +429,8 @@ describe('Agent profile EditorCanvas', () => {
      });
  
      await waitFor(() => expect(flushSave).toHaveBeenCalledWith('agent-a'));
@@ -7290,7 +7350,7 @@ index 98da241919..039993e3b4 100644
      act(() => editorProps.last?.onInit());
      await waitFor(() => expect(editor.setDocument).toHaveBeenCalledWith('json', agentBEditorData));
 diff --git a/src/routes/(main)/agent/profile/features/EditorCanvas/index.tsx b/src/routes/(main)/agent/profile/features/EditorCanvas/index.tsx
-index 108393dc52..745a81a98a 100644
+index da7cb1dd47..068967e5cf 100644
 --- a/src/routes/(main)/agent/profile/features/EditorCanvas/index.tsx
 +++ b/src/routes/(main)/agent/profile/features/EditorCanvas/index.tsx
 @@ -1,7 +1,7 @@
@@ -7300,7 +7360,7 @@ index 108393dc52..745a81a98a 100644
 -import { ReactMentionPlugin, ReactTablePlugin, ReactToolbarPlugin } from '@lobehub/editor';
 +import { ReactMentionPlugin } from '@lobehub/editor';
  import { Editor } from '@lobehub/editor/react';
- import { ActionIcon, createStaticStyles, cssVar, Flexbox, toast } from '@lobehub/ui';
+ import { ActionIcon, Block, createStaticStyles, Flexbox, toast } from '@lobehub/ui';
  import isEqual from 'fast-deep-equal';
 @@ -18,14 +18,14 @@ import { useResourceAccess } from '@/features/ResourcePermission/useResourceAcce
  import { useLocalStorageState } from '@/hooks/useLocalStorageState';
@@ -7319,7 +7379,7 @@ index 108393dc52..745a81a98a 100644
  
  const styles = createStaticStyles(({ css }) => ({
    editorShell: css`
-@@ -100,7 +100,10 @@ const AgentEditorCanvas = memo<AgentEditorCanvasProps>(({ agentId }) => {
+@@ -94,7 +94,10 @@ const AgentEditorCanvas = memo<AgentEditorCanvasProps>(({ agentId, description,
    const { activeEditorMode, setEditorMode, setSourceMarkdown, sourceMarkdown, syncSourceMarkdown } =
      usePromptEditorMode();
    const config = useAgentStore((s) => s.agentMap[agentId], isEqual);
@@ -7331,7 +7391,7 @@ index 108393dc52..745a81a98a 100644
    const systemRole = config?.systemRole;
    const updateConfigById = useAgentStore((s) => s.updateAgentConfigById);
    const updatePromptConfigById = useCallback<UpdateConfigById>(
-@@ -108,13 +111,12 @@ const AgentEditorCanvas = memo<AgentEditorCanvasProps>(({ agentId }) => {
+@@ -102,13 +105,12 @@ const AgentEditorCanvas = memo<AgentEditorCanvasProps>(({ agentId, description,
        updateConfigById(targetAgentId, payload, { rethrow: true, showErrorMessage: false }),
      [updateConfigById],
    );
@@ -7348,7 +7408,7 @@ index 108393dc52..745a81a98a 100644
  
    // Streaming state from AgentStore
    const streamingSystemRoleAgentId = useAgentStore((s) => s.streamingSystemRoleAgentId);
-@@ -347,9 +349,19 @@ const AgentEditorCanvas = memo<AgentEditorCanvasProps>(({ agentId }) => {
+@@ -341,9 +343,19 @@ const AgentEditorCanvas = memo<AgentEditorCanvasProps>(({ agentId, description,
      // Don't init if streaming is in progress
      if (streamingInProgress) return;
      try {
@@ -7370,7 +7430,7 @@ index 108393dc52..745a81a98a 100644
        } else if (systemRole) {
          setProgrammaticDocument(editor, 'markdown', systemRole, systemRole);
          // Record the displayed role so the external-update re-sync below doesn't
-@@ -399,6 +411,8 @@ const AgentEditorCanvas = memo<AgentEditorCanvasProps>(({ agentId }) => {
+@@ -393,6 +405,8 @@ const AgentEditorCanvas = memo<AgentEditorCanvasProps>(({ agentId, description,
          lastSyncedEditorDataRef.current = structuredClone(editorData);
        } catch (error) {
          console.error('[EditorCanvas] Failed to sync editor content:', error);
@@ -7379,30 +7439,30 @@ index 108393dc52..745a81a98a 100644
        }
        return;
      }
-@@ -496,17 +510,10 @@ const AgentEditorCanvas = memo<AgentEditorCanvasProps>(({ agentId }) => {
-             mentionOption={mentionOptions}
-             placeholder={t('settingAgent.prompt.editorPlaceholder')}
-             style={{ paddingBottom: 0 }}
--            plugins={[
--              ...createChatInputRichPlugins(),
--              ReactTablePlugin,
--              ReactMentionPlugin,
--              Editor.withProps(ReactToolbarPlugin, {
--                children: <TypoBar />,
--              }),
--            ]}
--            slashOption={{
--              items: slashItems,
--            }}
-+            // Plain text with tool / skill chips: no tables, formatting toolbar or
-+            // rich slash blocks.
-+            {...PLAIN_TEXT_EDITOR_PROPS}
-+            plugins={[...createChatInputRichPlugins(), ReactMentionPlugin]}
-             onInit={() => setEditorInit(true)}
-             onTextChange={handleChange}
-           />
+@@ -485,17 +499,10 @@ const AgentEditorCanvas = memo<AgentEditorCanvasProps>(({ agentId, description,
+               mentionOption={mentionOptions}
+               placeholder={t('settingAgent.prompt.editorPlaceholder')}
+               style={{ paddingBottom: 0 }}
+-              plugins={[
+-                ...createChatInputRichPlugins(),
+-                ReactTablePlugin,
+-                ReactMentionPlugin,
+-                Editor.withProps(ReactToolbarPlugin, {
+-                  children: <TypoBar />,
+-                }),
+-              ]}
+-              slashOption={{
+-                items: slashItems,
+-              }}
++              // Plain text with tool / skill chips: no tables, formatting toolbar or
++              // rich slash blocks.
++              {...PLAIN_TEXT_EDITOR_PROPS}
++              plugins={[...createChatInputRichPlugins(), ReactMentionPlugin]}
+               onInit={() => setEditorInit(true)}
+               onTextChange={handleChange}
+             />
 diff --git a/src/store/document/slices/editor/action.ts b/src/store/document/slices/editor/action.ts
-index b4c7b38fb3..9b4c9b28fe 100644
+index c0d830c129..b1c5dc6646 100644
 --- a/src/store/document/slices/editor/action.ts
 +++ b/src/store/document/slices/editor/action.ts
 @@ -8,6 +8,7 @@ import { t } from 'i18next';
@@ -7413,7 +7473,7 @@ index b4c7b38fb3..9b4c9b28fe 100644
  import { documentService } from '@/services/document';
  import type { StoreSetter } from '@/store/types';
  import { composeSkillMarkdown, parseSkillMarkdownFrontmatter } from '@/utils/skillMarkdown';
-@@ -527,7 +528,10 @@ export class EditorActionImpl {
+@@ -544,7 +545,10 @@ export class EditorActionImpl {
        doc.editorData &&
        typeof doc.editorData === 'object' &&
        Object.keys(doc.editorData).length > 0 &&

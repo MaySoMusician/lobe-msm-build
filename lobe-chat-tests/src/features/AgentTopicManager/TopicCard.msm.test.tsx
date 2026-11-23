@@ -111,4 +111,26 @@ describe('msm TopicCard preview', () => {
     expect(screen.getByText('A'.repeat(100))).toBeInTheDocument();
     expect(screen.queryByText(description)).not.toBeInTheDocument();
   });
+
+  it('truncates a formatted wake-up first message to 100 characters', () => {
+    const payload = 'B'.repeat(150);
+
+    render(
+      <TopicCard
+        agentId="agent-1"
+        topic={
+          {
+            firstUserMessage: `<webhookEvent name="GitHub"><event>${payload}</event></webhookEvent>`,
+            id: 'topic-2',
+            title: 'Title',
+            updatedAt: Date.now(),
+          } as any
+        }
+      />,
+    );
+
+    const expected = `GitHub: ${payload}`.slice(0, 100);
+    expect(screen.getByText(expected)).toBeInTheDocument();
+    expect(screen.queryByText(/webhookEvent/)).not.toBeInTheDocument();
+  });
 });

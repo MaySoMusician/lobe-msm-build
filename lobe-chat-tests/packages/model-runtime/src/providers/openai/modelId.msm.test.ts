@@ -12,6 +12,7 @@ describe('msm openai GPT model registrations', () => {
     'gpt-6-astra',
     'gpt-6-sol',
     'gpt-6-luna',
+    'gpt-6.1-terra',
   ] as const;
 
   it('disables streaming for registered GPT-5 and GPT-6 ids', () => {
