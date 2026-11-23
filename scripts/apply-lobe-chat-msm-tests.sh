@@ -27,11 +27,8 @@ echo "Applying msm tests from $TESTS_DIR -> $LOBE_CHAT_DIR"
 find "$LOBE_CHAT_DIR" \
   \( -name '*.msm.test.ts' -o -name '*.msm.test.tsx' \) \
   -type f -delete
-# The Playwright package is intentionally standalone: copying it into the
-# upstream e2e workspace would couple it to upstream package/layout changes.
 mapfile -d '' -t COPIED < <(
   find "$TESTS_DIR" \
-    -path "$TESTS_DIR/playwright" -prune -o \
     \( -name '*.msm.test.ts' -o -name '*.msm.test.tsx' \) -type f -print0 | sort -z
 )
 

@@ -21,7 +21,7 @@ export LOBE_CHAT_DIR=/path/to/lobe-chat   # optional if sibling ../lobe-chat
 node scripts/run-lobe-chat-msm-tests.mjs
 ```
 
-- Overlay deletes existing `*.msm.test.ts(x)` in the lobe-chat tree, then copies `lobe-chat-tests/**/*.msm.test.ts(x)` (skipping `lobe-chat-tests/playwright`). Do not commit those files into the patch branch or regenerate them into `lobe-chat.patch`.
+- Overlay deletes existing `*.msm.test.ts(x)` in the lobe-chat tree, then copies `lobe-chat-tests/**/*.msm.test.ts(x)`. `lobe-chat-tests/` holds only overlay files. Do not commit those files into the patch branch or regenerate them into `lobe-chat.patch`.
 - The Vitest runner runs **only** `*.msm.test.ts(x)` — never full `bun run test` / unfiltered vitest.
 
 # Assembled behavior tests
