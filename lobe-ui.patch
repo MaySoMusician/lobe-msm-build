@@ -1,4 +1,4 @@
-From 8d916cc6cb4916cb7c9608a65d436b1381b2eec7 Mon Sep 17 00:00:00 2001
+From 083306064d46f1edb5c8704d4cd1eca768da5024 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 2 Nov 2026 03:54:27 +0000
 Subject: [PATCH 1/7] Change font list for Japanese
@@ -226,7 +226,7 @@ index 49ea42e3..526336cc 100644
 2.39.5
 
 
-From 99fd57f1ac9fe7e38b8d1e966c0c2208c7799f44 Mon Sep 17 00:00:00 2001
+From 9bc1e79f5cab52af0d565cb53f2bd86149062c73 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 30 Oct 2026 04:07:12 +0000
 Subject: [PATCH 2/7] Do not load default EN & CN fonts
@@ -254,7 +254,7 @@ index 39130fef..be7989ef 100644
 2.39.5
 
 
-From 87a0ad293d714dd93d4938b943f9131f1a749869 Mon Sep 17 00:00:00 2001
+From 425d353f8173dec028647a58182183f8e406a66d Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sat, 13 Dec 2025 07:36:47 +0000
 Subject: [PATCH 3/7] Change colorTextSecondary color
@@ -280,7 +280,7 @@ index 98af6a26..f5b0887b 100644
 2.39.5
 
 
-From 3317071a7837b97fdb58117e6bbd9afd5bda6079 Mon Sep 17 00:00:00 2001
+From 3f91238b3b25331601fccff0e7a28b7138b325e9 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sat, 10 Jan 2026 01:03:48 +0000
 Subject: [PATCH 4/7] Darken slate[12] dark color for text
@@ -306,7 +306,7 @@ index 7341851a..cb38fec6 100644
 2.39.5
 
 
-From 894aca3330eec4d4082c17659da689a7607df345 Mon Sep 17 00:00:00 2001
+From 685f7eebd2d0df904d8887551aa7a63bee5bb9fa Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 27 Jul 2026 19:10:04 +0000
 Subject: [PATCH 5/7] Add workspaces config to package.json
@@ -316,7 +316,7 @@ Subject: [PATCH 5/7] Add workspaces config to package.json
  1 file changed, 3 insertions(+)
 
 diff --git a/package.json b/package.json
-index 88305236..c8642f9d 100644
+index a3693ed2..e97d5ef6 100644
 --- a/package.json
 +++ b/package.json
 @@ -119,6 +119,9 @@
@@ -333,7 +333,7 @@ index 88305236..c8642f9d 100644
 2.39.5
 
 
-From 21ba54f7a5a53a698c5b1af07bbc0ab113278385 Mon Sep 17 00:00:00 2001
+From f4228c97aaa90349ed0e5163880d92b5531d497b Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 23 Sep 2026 22:33:49 +0000
 Subject: [PATCH 6/7] Use the exact same package of this for dependencies
@@ -343,10 +343,10 @@ Subject: [PATCH 6/7] Use the exact same package of this for dependencies
  1 file changed, 3 insertions(+)
 
 diff --git a/package.json b/package.json
-index c8642f9d..c75c4f94 100644
+index e97d5ef6..0d978e65 100644
 --- a/package.json
 +++ b/package.json
-@@ -169,6 +169,9 @@
+@@ -170,6 +170,9 @@
        "eslint --fix"
      ]
    },
@@ -360,9 +360,9 @@ index c8642f9d..c75c4f94 100644
 2.39.5
 
 
-From 1d293fade27881543b666a893f71f061b6cd8f48 Mon Sep 17 00:00:00 2001
+From 06ea493e97e45f637b48e8a636ad6a830a548890 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
-Date: Mon, 2 Nov 2026 03:54:46 +0000
+Date: Mon, 23 Nov 2026 08:47:18 +0000
 Subject: [PATCH 7/7] =?UTF-8?q?=F0=9F=94=92=EF=B8=8F=20build(deps):=20enfo?=
  =?UTF-8?q?rce=20a=207-day=20pnpm=20release=20age?=
 MIME-Version: 1.0
@@ -371,15 +371,16 @@ Content-Transfer-Encoding: 8bit
 
 The install policy now lives in pnpm-workspace.yaml: ignore dependency
 scripts, keep @lobehub/ui on the age exclude list, and link that package
-to this checkout.
+to this checkout. Upstream's exact open-bot-avatar@0.3.0 pin is still
+younger than the gate, so it is excluded by exact version until it ages.
 
 Co-Authored-By: Claude Opus 5.5 <claude@anthropic.com.invalid>
 ---
- pnpm-workspace.yaml | 5 +++++
- 1 file changed, 5 insertions(+)
+ pnpm-workspace.yaml | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
 diff --git a/pnpm-workspace.yaml b/pnpm-workspace.yaml
-index 0873f34a..1ae328fe 100644
+index 0873f34a..bf0cda5c 100644
 --- a/pnpm-workspace.yaml
 +++ b/pnpm-workspace.yaml
 @@ -21,6 +21,7 @@ publicHoistPattern:
@@ -390,11 +391,13 @@ index 0873f34a..1ae328fe 100644
  
  patchedDependencies:
    conventional-changelog-gitmoji-config@1.5.2: patches/conventional-changelog-gitmoji-config@1.5.2.patch
-@@ -55,3 +56,7 @@ minimumReleaseAgeExclude:
+@@ -55,3 +56,9 @@ minimumReleaseAgeExclude:
    - '@lobehub/stylelint-config@2.1.6'
    - '@lobehub/docs-kit@6.2.1'
    - '@pierre/highlights@0.2.0'
 +  - '@lobehub/ui'
++  # Exact upstream pin younger than the 7-day gate (published 2026-11-20); drop once it ages.
++  - open-bot-avatar@0.3.0
 +
 +minimumReleaseAge: 10080
 +ignoreScripts: true
