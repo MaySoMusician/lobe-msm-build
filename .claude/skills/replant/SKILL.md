@@ -156,8 +156,9 @@ Details are in `DEVELOPMENT.md` and `.github/workflows/build.yml`. The audited r
 CI consumes patch files, so verify **candidate** patches written to the scratchpad, never the repo's patch files:
 
 1. **Candidate patches and plain `git am`:**
-   - `git -C ../lobe-ui format-patch --stdout upstream/master..<branch> > <scratch>/lobe-ui.patch`
-   - `git -C ../lobe-chat format-patch --stdout <target sha>..<branch> > <scratch>/lobe-chat.patch`
+   - `git -C ../lobe-ui format-patch --stdout --no-encode-email-headers upstream/master..<branch> > <scratch>/lobe-ui.patch`
+   - `git -C ../lobe-chat format-patch --stdout --no-encode-email-headers <target sha>..<branch> > <scratch>/lobe-chat.patch`
+   - Always pass `--no-encode-email-headers`, so subjects with gitmoji stay readable UTF-8 instead of RFC 2047 `=?UTF-8?q?…?=` words. `git am` reads both forms.
    - On a fresh scratch checkout of each target, run `git am <candidate>` without `-3`, as CI does. `git diff --stat <applied> <branch>` must be empty.
    - Run the remaining steps on these applied scratch trees, as CI does.
 2. **lobe-ui build:** `LOBE_UI_DIR=<scratch lobe-ui tree> node scripts/prepare-lobe-ui-msm.mjs`. It installs under the patched policy, builds, and packs `.artifacts/lobehub-ui.tgz`.
@@ -194,7 +195,7 @@ When a check fails:
 Only when every step of section 9 passed on the current branch heads:
 
 1. Confirm neither branch changed since the last full run (`git rev-parse <branch>` equals the head the candidates were made from). If one did, go back to section 9.
-2. Write the patch files with the same commands as step 9.1, but to `lobe-ui.patch` and `lobe-chat.patch` in this repo.
+2. Write the patch files with the same commands as step 9.1 (including `--no-encode-email-headers`), but to `lobe-ui.patch` and `lobe-chat.patch` in this repo.
 3. `cmp` each file against its verified candidate. They must be identical.
 
 ## 11. Finish
