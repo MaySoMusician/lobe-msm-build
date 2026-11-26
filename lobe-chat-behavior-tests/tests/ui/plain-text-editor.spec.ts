@@ -1,7 +1,7 @@
 import { expect, type Locator, type Page, test } from '@playwright/test';
 
 import { BrowserChatMock } from '../../support/chatMock.js';
-import { updateGeneralSettings } from '../../support/db.js';
+import { readInboxSystemRole, updateGeneralSettings } from '../../support/db.js';
 import {
   findChatInput,
   gotoInbox,
@@ -9,7 +9,6 @@ import {
   openMessageActions,
   visibleButtonByIcon,
   waitForAssistantText,
-  waitForTrpcSave,
 } from '../../support/ui.js';
 
 const ASSISTANT_TEXT = 'MSM deterministic assistant response';
@@ -174,13 +173,15 @@ test.describe('paste conversion stays off whatever the stored setting says', () 
     await pasteText(editor, PASTED_LINES.join('\n'));
     await expectVerbatim(editor);
 
-    // Leave the shared inbox prompt empty again.
-    const saved = waitForTrpcSave(page);
+    // Leave the shared inbox prompt empty again. Clearing before the paste's
+    // autosave flushes sends no save at all, so wait on the stored prompt itself.
     await editor.click();
     await page.keyboard.press('ControlOrMeta+a');
     await page.keyboard.press('Backspace');
-    await saved;
     await expect(editor).not.toContainText('MSM pasted');
+    await expect
+      .poll(async () => (await readInboxSystemRole()) ?? '', { timeout: 20_000 })
+      .toBe('');
   });
 });
 

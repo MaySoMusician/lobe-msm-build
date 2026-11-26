@@ -35,7 +35,7 @@ export const updateGeneralSettings = (
     );
   });
 
-type InboxColumn = 'chat_config' | 'plugins';
+type InboxColumn = 'chat_config' | 'plugins' | 'system_role';
 
 /**
  * The test user's inbox agent row is created on the first inbox visit, so a
@@ -71,6 +71,9 @@ const writeInboxColumn = (column: InboxColumn, value: unknown): Promise<void> =>
 export const readInboxPlugins = () => readInboxColumn<unknown[]>('plugins');
 export const writeInboxPlugins = (plugins: unknown[] | null) =>
   writeInboxColumn('plugins', plugins);
+
+/** The inbox agent's stored prompt, or `null` when it has none. */
+export const readInboxSystemRole = () => readInboxColumn<string>('system_role');
 
 /** The inbox agent's `chat_config`, or `null` when the column is empty. */
 export const readInboxChatConfig = () => readInboxColumn<Record<string, unknown>>('chat_config');
