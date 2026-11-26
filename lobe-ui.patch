@@ -1,4 +1,4 @@
-From 083306064d46f1edb5c8704d4cd1eca768da5024 Mon Sep 17 00:00:00 2001
+From 283e809107d0de0abd9926eacc47c6edb705194b Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 2 Nov 2026 03:54:27 +0000
 Subject: [PATCH 1/7] Change font list for Japanese
@@ -226,7 +226,7 @@ index 49ea42e3..526336cc 100644
 2.39.5
 
 
-From 9bc1e79f5cab52af0d565cb53f2bd86149062c73 Mon Sep 17 00:00:00 2001
+From eac51f1f5de37ea948e2ff4b89e31f65767a35ba Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 30 Oct 2026 04:07:12 +0000
 Subject: [PATCH 2/7] Do not load default EN & CN fonts
@@ -254,7 +254,7 @@ index 39130fef..be7989ef 100644
 2.39.5
 
 
-From 425d353f8173dec028647a58182183f8e406a66d Mon Sep 17 00:00:00 2001
+From 69f2d5a466674ff3daf573cde42416270b7d4577 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sat, 13 Dec 2025 07:36:47 +0000
 Subject: [PATCH 3/7] Change colorTextSecondary color
@@ -280,7 +280,7 @@ index 98af6a26..f5b0887b 100644
 2.39.5
 
 
-From 3f91238b3b25331601fccff0e7a28b7138b325e9 Mon Sep 17 00:00:00 2001
+From fec650ad614b4df490144ae9c61f71f09c933063 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sat, 10 Jan 2026 01:03:48 +0000
 Subject: [PATCH 4/7] Darken slate[12] dark color for text
@@ -306,7 +306,7 @@ index 7341851a..cb38fec6 100644
 2.39.5
 
 
-From 685f7eebd2d0df904d8887551aa7a63bee5bb9fa Mon Sep 17 00:00:00 2001
+From 358f0b1f9699e952e93e14268849fb904609c837 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 27 Jul 2026 19:10:04 +0000
 Subject: [PATCH 5/7] Add workspaces config to package.json
@@ -316,7 +316,7 @@ Subject: [PATCH 5/7] Add workspaces config to package.json
  1 file changed, 3 insertions(+)
 
 diff --git a/package.json b/package.json
-index a3693ed2..e97d5ef6 100644
+index e8d907bc..ac70b390 100644
 --- a/package.json
 +++ b/package.json
 @@ -119,6 +119,9 @@
@@ -333,7 +333,7 @@ index a3693ed2..e97d5ef6 100644
 2.39.5
 
 
-From f4228c97aaa90349ed0e5163880d92b5531d497b Mon Sep 17 00:00:00 2001
+From 6ca58ec9cc1f0d41ce4ce03b5964481744ac7234 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Wed, 23 Sep 2026 22:33:49 +0000
 Subject: [PATCH 6/7] Use the exact same package of this for dependencies
@@ -343,7 +343,7 @@ Subject: [PATCH 6/7] Use the exact same package of this for dependencies
  1 file changed, 3 insertions(+)
 
 diff --git a/package.json b/package.json
-index e97d5ef6..0d978e65 100644
+index ac70b390..b4875a9d 100644
 --- a/package.json
 +++ b/package.json
 @@ -170,6 +170,9 @@
@@ -360,27 +360,28 @@ index e97d5ef6..0d978e65 100644
 2.39.5
 
 
-From 06ea493e97e45f637b48e8a636ad6a830a548890 Mon Sep 17 00:00:00 2001
+From 02d46e56cb35d196f3ea26a17d98736826c2e265 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
-Date: Mon, 23 Nov 2026 08:47:18 +0000
-Subject: [PATCH 7/7] =?UTF-8?q?=F0=9F=94=92=EF=B8=8F=20build(deps):=20enfo?=
- =?UTF-8?q?rce=20a=207-day=20pnpm=20release=20age?=
+Date: Thu, 26 Nov 2026 15:36:43 +0000
+Subject: [PATCH 7/7] 🔒️ build(deps): enforce a 7-day pnpm release age
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 The install policy now lives in pnpm-workspace.yaml: ignore dependency
 scripts, keep @lobehub/ui on the age exclude list, and link that package
-to this checkout. Upstream's exact open-bot-avatar@0.3.0 pin is still
-younger than the gate, so it is excluded by exact version until it ages.
+to this checkout. Upstream's exact open-bot-avatar@0.3.0 and
+@pierre/diffs@1.7.1 pins, and @pierre/diffs' own exact
+@pierre/highlights@0.5.2 and @pierre/theme@2.1.0 pins, are still younger
+than the gate, so they are excluded by exact version until they age.
 
 Co-Authored-By: Claude Opus 5.5 <claude@anthropic.com.invalid>
 ---
- pnpm-workspace.yaml | 7 +++++++
- 1 file changed, 7 insertions(+)
+ pnpm-workspace.yaml | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
 diff --git a/pnpm-workspace.yaml b/pnpm-workspace.yaml
-index 0873f34a..bf0cda5c 100644
+index 0873f34a..67ce2cc8 100644
 --- a/pnpm-workspace.yaml
 +++ b/pnpm-workspace.yaml
 @@ -21,6 +21,7 @@ publicHoistPattern:
@@ -391,13 +392,18 @@ index 0873f34a..bf0cda5c 100644
  
  patchedDependencies:
    conventional-changelog-gitmoji-config@1.5.2: patches/conventional-changelog-gitmoji-config@1.5.2.patch
-@@ -55,3 +56,9 @@ minimumReleaseAgeExclude:
+@@ -55,3 +56,14 @@ minimumReleaseAgeExclude:
    - '@lobehub/stylelint-config@2.1.6'
    - '@lobehub/docs-kit@6.2.1'
    - '@pierre/highlights@0.2.0'
 +  - '@lobehub/ui'
 +  # Exact upstream pin younger than the 7-day gate (published 2026-11-20); drop once it ages.
 +  - open-bot-avatar@0.3.0
++  # Upstream pins @pierre/diffs@1.7.1 exactly, which pins the other two exactly.
++  # Published 2026-11-20..22; drop once they age (all by 2026-11-29T23:20Z).
++  - '@pierre/diffs@1.7.1'
++  - '@pierre/highlights@0.5.2'
++  - '@pierre/theme@2.1.0'
 +
 +minimumReleaseAge: 10080
 +ignoreScripts: true
