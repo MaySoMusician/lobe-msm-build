@@ -1,6 +1,7 @@
-import { expect, type Page, test } from '@playwright/test';
+import { expect, type Locator, type Page, test } from '@playwright/test';
 
 import { BrowserChatMock } from '../../support/chatMock.js';
+import { updateGeneralSettings } from '../../support/db.js';
 import {
   findChatInput,
   gotoInbox,
@@ -8,6 +9,7 @@ import {
   openMessageActions,
   visibleButtonByIcon,
   waitForAssistantText,
+  waitForTrpcSave,
 } from '../../support/ui.js';
 
 const ASSISTANT_TEXT = 'MSM deterministic assistant response';
@@ -101,4 +103,100 @@ test('chips still work in the plain input and come back in the edit dialog', asy
   ).toBeVisible();
   await expect(dialog.locator('svg.lucide-bold')).toHaveCount(0);
   await page.keyboard.press('Escape');
+});
+
+// Markdown a rich editor would turn into a heading, bold text, a list and inline code.
+const PASTED_LINES = [
+  '# MSM pasted heading',
+  '**MSM pasted bold**',
+  '- MSM pasted item',
+  '`msm pasted code`',
+];
+const RICH_NODES = 'strong, b, em, ul, ol, li, h1, h2, h3, code, pre, blockquote';
+
+/** Paste plain text the way a clipboard paste reaches the editor. */
+const pasteText = (target: Locator, text: string) =>
+  target.evaluate((element, value) => {
+    const data = new DataTransfer();
+    data.setData('text/plain', value);
+    element.dispatchEvent(
+      new ClipboardEvent('paste', { bubbles: true, cancelable: true, clipboardData: data }),
+    );
+  }, text);
+
+const expectVerbatim = async (editor: Locator) => {
+  for (const line of PASTED_LINES) {
+    await expect(editor).toContainText(line);
+  }
+  await expect(editor.locator(RICH_NODES)).toHaveCount(0);
+};
+
+test.describe('paste conversion stays off whatever the stored setting says', () => {
+  // The removed "Format Markdown on Paste" switch saved this; a stored `true`
+  // must not turn conversion back on.
+  test.beforeEach(async () => {
+    await updateGeneralSettings({ enablePasteAutoConvert: true });
+  });
+
+  test.afterEach(async () => {
+    await updateGeneralSettings({}, ['enablePasteAutoConvert']);
+  });
+
+  test('pasted Markdown stays verbatim in the chat input and sends verbatim', async ({ page }) => {
+    const chat = new BrowserChatMock();
+    await chat.install(page);
+    await gotoInbox(page);
+
+    const input = await findChatInput(page);
+    await input.click();
+    await pasteText(input, PASTED_LINES.join('\n'));
+    await expectVerbatim(input);
+
+    await send(page, chat);
+    for (const line of PASTED_LINES) {
+      expect(lastRequestBody(chat)).toContain(asJson(line));
+    }
+  });
+
+  test('pasted Markdown stays verbatim in the agent prompt editor', async ({ page }) => {
+    test.skip(test.info().project.name === 'mobile', 'The agent profile editor is a desktop page.');
+    await page.goto('/agent/inbox/profile', { waitUntil: 'domcontentloaded' });
+    await page.getByText('Instruction', { exact: true }).first().click();
+    // The prompt editor, not the Agent Builder sidebar's own composer.
+    const editor = page
+      .locator('[contenteditable="true"]')
+      .filter({ visible: true })
+      .and(page.locator(':not(aside *):not([data-testid="chat-input"] *)'))
+      .first();
+    await expect(editor).toBeVisible({ timeout: 30_000 });
+
+    await editor.click();
+    await pasteText(editor, PASTED_LINES.join('\n'));
+    await expectVerbatim(editor);
+
+    // Leave the shared inbox prompt empty again.
+    const saved = waitForTrpcSave(page);
+    await editor.click();
+    await page.keyboard.press('ControlOrMeta+a');
+    await page.keyboard.press('Backspace');
+    await saved;
+    await expect(editor).not.toContainText('MSM pasted');
+  });
+});
+
+test('Settings and settings search offer no paste conversion switch', async ({ page }) => {
+  test.skip(test.info().project.name === 'mobile', 'Settings search lives in the desktop sidebar.');
+  await page.goto('/settings/conversation', { waitUntil: 'domcontentloaded' });
+  await expect(page.getByText('Voice Message', { exact: true }).first()).toBeVisible({
+    timeout: 30_000,
+  });
+  await expect(page.getByText('Format Markdown on Paste', { exact: true })).toHaveCount(0);
+
+  const search = page.getByPlaceholder('Search settings...').filter({ visible: true }).first();
+  await search.fill('paste');
+  await expect(page.getByText('Format Markdown on Paste')).toHaveCount(0);
+
+  // The search itself still works.
+  await search.fill('voice message');
+  await expect(page.getByText('Voice Message').first()).toBeVisible();
 });

@@ -65,13 +65,15 @@ const seedTestUser = async (databaseURL: string) => {
       ],
     );
 
+    // Better Auth only signs in with a credential account whose account_id is the user id.
     await client.query(
       `INSERT INTO accounts
         (id, user_id, account_id, provider_id, password, created_at, updated_at)
        VALUES ($1, $2, $3, 'credential', $4, $5, $5)
        ON CONFLICT (id) DO UPDATE
-       SET password = EXCLUDED.password, updated_at = EXCLUDED.updated_at`,
-      ['account_msm_behavior', TEST_USER.id, TEST_USER.email, password, now],
+       SET account_id = EXCLUDED.account_id, password = EXCLUDED.password,
+           updated_at = EXCLUDED.updated_at`,
+      ['account_msm_behavior', TEST_USER.id, TEST_USER.id, password, now],
     );
   } finally {
     await client.end();

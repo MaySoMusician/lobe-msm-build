@@ -1,8 +1,7 @@
 import { expect, type Page, test } from '@playwright/test';
-import pg from 'pg';
 
 import { BrowserChatMock } from '../../support/chatMock.js';
-import { TEST_USER } from '../../support/globalSetup.js';
+import { updateGeneralSettings } from '../../support/db.js';
 import {
   gotoInbox,
   messageWrapperWithText,
@@ -12,29 +11,18 @@ import {
 
 const FULL_TOKEN_COUNT = '111,110';
 
-const enableUsageFooter = async () => {
-  const databaseURL = process.env.DATABASE_URL;
-  if (!databaseURL) {
-    throw new Error('DATABASE_URL is required to enable the message usage footer');
-  }
+/**
+ * The usage row shows by default (MSM): return the setting, and the retired
+ * Advanced Tools switch that used to seed it, to "never chosen".
+ */
+const resetUsageSetting = () => updateGeneralSettings({}, ['showMessageUsage', 'isDevMode']);
 
-  const client = new pg.Client({ connectionString: databaseURL });
-  await client.connect();
-  try {
-    await client.query(
-      `INSERT INTO user_settings (id, general)
-       VALUES ($1, $2::jsonb)
-       ON CONFLICT (id) DO UPDATE
-       SET general = COALESCE(user_settings.general, '{}'::jsonb) || EXCLUDED.general`,
-      [TEST_USER.id, JSON.stringify({ isDevMode: true })],
-    );
-  } finally {
-    await client.end();
-  }
-};
+test.afterEach(async () => {
+  await resetUsageSetting();
+});
 
 test('shows the full token count and opens usage details on hover and click', async ({ page }) => {
-  await enableUsageFooter();
+  await resetUsageSetting();
 
   const chat = new BrowserChatMock();
   await chat.install(page);
@@ -60,6 +48,21 @@ test('shows the full token count and opens usage details on hover and click', as
   await expect(totalConsumption).toBeVisible();
   await expect(usageTrigger).toContainText(FULL_TOKEN_COUNT);
   await expect(usageTrigger).not.toContainText(/k$/i);
+});
+
+test('hides the usage row once the user turns it off', async ({ page }) => {
+  await updateGeneralSettings({ showMessageUsage: false });
+
+  const chat = new BrowserChatMock();
+  await chat.install(page);
+  await gotoInbox(page);
+
+  await sendMessage(page, 'MSM usage hidden');
+  await waitForAssistantText(page, 'MSM deterministic assistant response');
+
+  const message = messageWrapperWithText(page, 'MSM deterministic assistant response');
+  await expect(message).toBeVisible();
+  await expect(message.locator('svg.lucide-coins')).toHaveCount(0);
 });
 
 const modelChip = (page: Page) =>
@@ -100,7 +103,7 @@ const selectModel = async (page: Page, name: string) => {
 };
 
 test('shows the USD cost instead of credits', async ({ page }) => {
-  await enableUsageFooter();
+  await resetUsageSetting();
 
   const chat = new BrowserChatMock();
   await chat.install(page);

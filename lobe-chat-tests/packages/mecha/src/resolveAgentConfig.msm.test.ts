@@ -25,3 +25,41 @@ describe('msm resolveAgentConfig locale additives', () => {
     expect(result.agentConfig.systemRole).not.toContain('Preferred reply language:');
   });
 });
+
+describe('msm resolveAgentConfig opt-in tools in Agent mode', () => {
+  const agentMode = { enableAgentMode: true } as never;
+
+  it('loads every entry the agent turned on directly, on-demand builtins included', () => {
+    const result = resolveAgentConfig(
+      { agentId: 'test-agent' },
+      snapshot({
+        agentConfig: {
+          model: 'gpt-5',
+          plugins: [
+            { builtinOverride: true, identifier: 'lobe-activator', mode: 'auto' },
+            { identifier: 'my-connector', mode: 'auto' },
+            'legacy-pinned-plugin',
+            { identifier: 'lobe-skills', mode: 'disabled' },
+          ],
+          provider: 'openai',
+          systemRole: '',
+        } as never,
+        chatConfig: agentMode,
+      }),
+    );
+
+    expect(result.plugins).toEqual(
+      expect.arrayContaining(['lobe-activator', 'my-connector', 'legacy-pinned-plugin']),
+    );
+    expect(result.plugins).not.toContain('lobe-skills');
+  });
+
+  it('loads nothing the agent has not turned on', () => {
+    const result = resolveAgentConfig(
+      { agentId: 'test-agent' },
+      snapshot({ chatConfig: agentMode }),
+    );
+
+    expect(result.plugins).toEqual([]);
+  });
+});

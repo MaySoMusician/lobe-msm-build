@@ -24,3 +24,15 @@ describe('msm opt-in tool visibility', () => {
     expect(tool?.discoverable).not.toBe(false);
   });
 });
+
+describe('msm getUnavailableBuiltinToolIds', () => {
+  it('keeps on-demand builtins the agent did not turn on unavailable in Agent mode', async () => {
+    const { getUnavailableBuiltinToolIds, onDemandBuiltinToolIds } = await import('./index');
+
+    const unavailable = getUnavailableBuiltinToolIds(['lobe-activator'], { enableAgentMode: true });
+
+    expect(onDemandBuiltinToolIds).toContain('lobe-skills');
+    expect(unavailable).toContain('lobe-skills');
+    expect(unavailable).not.toContain('lobe-activator');
+  });
+});

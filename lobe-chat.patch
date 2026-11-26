@@ -1,8 +1,8 @@
-From 634dc094c4b89ec5cff6956352c4be2b990942f1 Mon Sep 17 00:00:00 2001
+From dee332a80e0852d16ae9c31fc274a20d4c0cd8aa Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 12 Nov 2026 23:25:10 +0000
-Subject: [PATCH 01/21] =?UTF-8?q?=F0=9F=94=92=EF=B8=8F=20build(docker):=20?=
- =?UTF-8?q?pin=20images=20and=20harden=20the=20image=20install?=
+Subject: [PATCH 01/22] 🔒️ build(docker): pin images and harden the image
+ install
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -92,30 +92,44 @@ index 0ecae9e760..f043172253 100644
 2.39.5
 
 
-From 790993914cce1b2d03d24bc07f45e562b4b651e6 Mon Sep 17 00:00:00 2001
+From f195ff41966cb7d475fe88eb1465b6c91860374d Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
-Date: Mon, 23 Nov 2026 09:02:40 +0000
-Subject: [PATCH 02/21] =?UTF-8?q?=F0=9F=94=92=EF=B8=8F=20build(deps):=20en?=
- =?UTF-8?q?force=20mature=20trusted=20dependency=20resolution?=
+Date: Thu, 26 Nov 2026 21:32:02 +0000
+Subject: [PATCH 02/22] 🔒️ build(deps): enforce mature trusted dependency
+ resolution
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
+Every workspace now refuses packages younger than 7 days
+(minimumReleaseAge, strict) and trust downgrades (trustPolicy:
+no-downgrade), blocks exotic subdependencies and requires approved build
+scripts. Exceptions are exact versions only.
+
+The patched @lobehub/ui pins open-bot-avatar@0.3.0 and @pierre/diffs@1.7.1
+exactly, and @pierre/diffs pins @pierre/highlights@0.5.2 and
+@pierre/theme@2.1.0 exactly; upstream's request-filtering-agent ^3.3.1
+resolves to 3.3.1, and @lobehub/charts (age-excluded upstream with every
+@lobehub/* package) requires lucide-react ^1.80.0. All are younger than the
+gate, so they are excluded by exact version until they age. Upstream's own
+better-auth excludes stay. @pierre/theme@2.1.0 also needs the trust
+exception 2.0.0 had: same publisher, still without provenance.
+
 Co-Authored-By: Claude Opus 5.5 <claude@anthropic.com.invalid>
 ---
- apps/cli/pnpm-workspace.yaml     | 23 +++++++++++++++++++++++
- apps/desktop/pnpm-workspace.yaml | 23 +++++++++++++++++++++++
- pnpm-workspace.yaml              | 28 +++++++++++++++++++++++++++-
- 3 files changed, 73 insertions(+), 1 deletion(-)
+ apps/cli/pnpm-workspace.yaml     | 23 +++++++++++++++++++
+ apps/desktop/pnpm-workspace.yaml | 23 +++++++++++++++++++
+ pnpm-workspace.yaml              | 39 +++++++++++++++++++++++++++++++-
+ 3 files changed, 84 insertions(+), 1 deletion(-)
 
 diff --git a/apps/cli/pnpm-workspace.yaml b/apps/cli/pnpm-workspace.yaml
-index 75b93c090c..9237148124 100644
+index 5ece7db436..f17292fc51 100644
 --- a/apps/cli/pnpm-workspace.yaml
 +++ b/apps/cli/pnpm-workspace.yaml
-@@ -43,3 +43,26 @@ allowBuilds:
- overrides:
-   '@types/react': 19.2.13
-   antd: 6.3.5
+@@ -47,3 +47,26 @@ overrides:
+   react: 19.2.7
+   react-dom: 19.2.7
+   'zod@^4': 4.6.5
 +
 +minimumReleaseAge: 10080
 +minimumReleaseAgeStrict: true
@@ -171,28 +185,46 @@ index 4bba68fa7e..e989587da0 100644
 +blockExoticSubdeps: true
 +strictDepBuilds: true
 diff --git a/pnpm-workspace.yaml b/pnpm-workspace.yaml
-index 621c06adab..1fb1b9a38b 100644
+index 87ccde3b43..5d3bbd9002 100644
 --- a/pnpm-workspace.yaml
 +++ b/pnpm-workspace.yaml
-@@ -38,7 +38,8 @@ minimumReleaseAgeExclude:
+@@ -38,7 +38,6 @@ minimumReleaseAgeExclude:
    - '@auv-js/sdk@0.0.25'
    - '@lobehub/*'
    - virtua@0.53.5
 -  - local-replica
+   - '@better-auth/core@1.7.16'
+   - '@better-auth/drizzle-adapter@1.7.16'
+   - '@better-auth/expo@1.7.16'
+@@ -50,6 +49,19 @@ minimumReleaseAgeExclude:
+   - '@better-auth/telemetry@1.7.16'
+   - better-auth@1.7.16
+   - better-call@1.4.5
 +  # The patched @lobehub/ui pins this exactly; published 2026-11-20, drop once it ages.
 +  - open-bot-avatar@0.3.0
++  # The patched @lobehub/ui pins @pierre/diffs@1.7.1 exactly, which pins the other two
++  # exactly. Published 2026-11-20..22; drop once they age (all by 2026-11-29T23:20Z).
++  - '@pierre/diffs@1.7.1'
++  - '@pierre/highlights@0.5.2'
++  - '@pierre/theme@2.1.0'
++  # Upstream's ^3.3.1 (packages/ssrf-safe-fetch) resolves to 3.3.1, published
++  # 2026-11-21; drop once it ages (2026-11-28T11:15Z).
++  - request-filtering-agent@3.3.1
++  # @lobehub/charts (age-excluded with every @lobehub/* package) requires ^1.80.0;
++  # published 2026-11-25, drop once it ages (2026-12-02T06:13Z).
++  - lucide-react@1.80.0
  
  # Build scripts run one at a time. Several peer-variant copies of
  # @lobehub/editor resolve in this workspace and every copy's postinstall
-@@ -63,6 +64,7 @@ allowBuilds:
+@@ -74,6 +86,7 @@ allowBuilds:
    workerd: true
  
  overrides:
 +  '@hono/node-server': 1.19.17
-   '@lobehub/ui': ^6.16.1
+   '@lobehub/ui': ^6.18.0
    '@lobehub/icons': ^6.0.0
    # Exact: an editor release can move its lexical version, and the root pins
-@@ -104,3 +106,27 @@ patchedDependencies:
+@@ -115,3 +128,27 @@ patchedDependencies:
    '@upstash/qstash': patches/@upstash__qstash.patch
    micromark@4.0.3: patches/micromark@4.0.3.patch
    micromark-extension-gfm-autolink-literal@2.1.0: patches/micromark-extension-gfm-autolink-literal@2.1.0.patch
@@ -210,7 +242,7 @@ index 621c06adab..1fb1b9a38b 100644
 +  - '@octokit/plugin-paginate-rest@9.2.2'
 +  - '@octokit/endpoint@9.0.6'
 +  - '@trickfilm400/rollup-plugin-off-main-thread@3.0.0-pre1'
-+  - '@pierre/theme@2.0.0'
++  - '@pierre/theme@2.1.0'
 +  - '@vercel/cli-config@0.4.0'
 +  - '@vercel/cli-exec@1.0.1'
 +  - '@vercel/functions@3.11.3'
@@ -224,30 +256,59 @@ index 621c06adab..1fb1b9a38b 100644
 2.39.5
 
 
-From e916e69e0f4e640d6624ce497edbe50ee021e695 Mon Sep 17 00:00:00 2001
+From 9019108b5307b25b43d184a6a007793e20511fa2 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
-Date: Mon, 23 Nov 2026 08:49:01 +0000
-Subject: [PATCH 03/21] =?UTF-8?q?=E2=9C=A8=20feat(openai):=20keep=20GPT=20?=
- =?UTF-8?q?requests=20non-streaming=20and=20summary-free?=
+Date: Thu, 26 Nov 2026 21:24:23 +0000
+Subject: [PATCH 03/22] ✨ feat(openai): keep GPT requests non-streaming and
+ summary-free
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
+GPT models on the OpenAI provider are always sent with stream: false and
+without a reasoning summary. The explicit non-streaming and Responses API
+lists cover every GPT generation, including gpt-6.2-astra and gpt-6.2-sol,
+so routes that read the lists (Azure, aggregators) behave the same.
+
 Co-Authored-By: Claude Opus 5.5 <claude@anthropic.com.invalid>
 ---
+ .../contextEngineering/toolActivation.test.ts | 12 ++-
  .../core/protocols/openaiResponses/chat.ts    |  2 +-
  .../src/providers/openai/index.test.ts        | 25 ++++---
- .../src/providers/openai/index.ts             | 36 +++++++---
- .../src/providers/openai/modelId.ts           | 70 +++++++++++++++++++
+ .../src/providers/openai/index.ts             | 36 +++++++--
+ .../src/providers/openai/modelId.ts           | 74 +++++++++++++++++++
  .../providers/openai/openaiPayload.test.ts    |  2 +-
- 5 files changed, 115 insertions(+), 20 deletions(-)
+ 6 files changed, 130 insertions(+), 21 deletions(-)
 
+diff --git a/packages/mecha/src/contextEngineering/toolActivation.test.ts b/packages/mecha/src/contextEngineering/toolActivation.test.ts
+index 8e2e427b60..01f1ae392d 100644
+--- a/packages/mecha/src/contextEngineering/toolActivation.test.ts
++++ b/packages/mecha/src/contextEngineering/toolActivation.test.ts
+@@ -31,7 +31,17 @@ describe('activation instructions in the outgoing Responses request', () => {
+           apiKey: 'test',
+           baseURL,
+           fetch: async (_url: RequestInfo | URL, init?: RequestInit) => {
+-            requests.push(JSON.parse(String(init?.body)));
++            const body = JSON.parse(String(init?.body));
++            requests.push(body);
++            // GPT requests go out non-streaming (MSM): answer with a completed response.
++            if (body.stream !== true) {
++              return Response.json({
++                id: 'resp_test',
++                object: 'response',
++                output: [],
++                status: 'completed',
++              });
++            }
+             return new Response('data: [DONE]\n\n', {
+               headers: { 'content-type': 'text/event-stream' },
+             });
 diff --git a/packages/model-runtime/src/core/protocols/openaiResponses/chat.ts b/packages/model-runtime/src/core/protocols/openaiResponses/chat.ts
-index 7495e4590c..f54b6c7a42 100644
+index ec6af988c3..100a24821b 100644
 --- a/packages/model-runtime/src/core/protocols/openaiResponses/chat.ts
 +++ b/packages/model-runtime/src/core/protocols/openaiResponses/chat.ts
-@@ -68,7 +68,7 @@ export const chatViaResponses = async (
-     strictToolPairing: true,
+@@ -83,7 +83,7 @@ export const chatViaResponses = async (
+       anchored && { toolAnchors: { byMessageIndex: anchored, mode: toolAnchoringMode } }),
    });
  
 -  const isStreaming = payload.stream !== false;
@@ -256,7 +317,7 @@ index 7495e4590c..f54b6c7a42 100644
      'isStreaming: %s, hasTools: %s, hasReasoning: %s',
      isStreaming,
 diff --git a/packages/model-runtime/src/providers/openai/index.test.ts b/packages/model-runtime/src/providers/openai/index.test.ts
-index a0c87b52f8..0421396800 100644
+index b2761f3d8b..b8071e696e 100644
 --- a/packages/model-runtime/src/providers/openai/index.test.ts
 +++ b/packages/model-runtime/src/providers/openai/index.test.ts
 @@ -33,7 +33,12 @@ describe('LobeOpenAI', () => {
@@ -301,15 +362,15 @@ index a0c87b52f8..0421396800 100644
        expect(createCall.frequency_penalty).toBeUndefined();
        expect(createCall.presence_penalty).toBeUndefined();
 @@ -504,7 +509,7 @@ describe('LobeOpenAI', () => {
-       const createCall = (instance['client'].responses.create as Mock).mock.calls[0][0];
-       expect(createCall).toMatchObject({
-         model: 'gpt-6-astra',
--        reasoning: { effort: 'xhigh', summary: 'auto' },
-+        reasoning: { effort: 'xhigh', summary: undefined },
-       });
-       expect(createCall.temperature).toBeUndefined();
-       expect(createCall.top_logprobs).toBeUndefined();
-@@ -542,7 +547,7 @@ describe('LobeOpenAI', () => {
+         const createCall = (instance['client'].responses.create as Mock).mock.calls[0][0];
+         expect(createCall).toMatchObject({
+           model,
+-          reasoning: { effort: 'xhigh', summary: 'auto' },
++          reasoning: { effort: 'xhigh', summary: undefined },
+         });
+         expect(createCall.temperature).toBeUndefined();
+         expect(createCall.top_logprobs).toBeUndefined();
+@@ -543,7 +548,7 @@ describe('LobeOpenAI', () => {
  
        const createCall = (instance['client'].responses.create as Mock).mock.calls[0][0];
        expect(createCall.truncation).toBe('auto');
@@ -318,7 +379,7 @@ index a0c87b52f8..0421396800 100644
      });
  
      it('should handle reasoning payload models without computer-use truncation', async () => {
-@@ -555,7 +560,7 @@ describe('LobeOpenAI', () => {
+@@ -556,7 +561,7 @@ describe('LobeOpenAI', () => {
        await instance.chat(payload);
  
        const createCall = (instance['client'].responses.create as Mock).mock.calls[0][0];
@@ -327,7 +388,7 @@ index a0c87b52f8..0421396800 100644
        expect(createCall.truncation).toBeUndefined();
      });
  
-@@ -569,7 +574,7 @@ describe('LobeOpenAI', () => {
+@@ -570,7 +575,7 @@ describe('LobeOpenAI', () => {
        await instance.chat(payload);
  
        const createCall = (instance['client'].responses.create as Mock).mock.calls[0][0];
@@ -336,7 +397,7 @@ index a0c87b52f8..0421396800 100644
      });
  
      it('should set reasoning.effort to high for gpt-5-pro-2025-10-06 models', async () => {
-@@ -582,7 +587,7 @@ describe('LobeOpenAI', () => {
+@@ -583,7 +588,7 @@ describe('LobeOpenAI', () => {
        await instance.chat(payload);
  
        const createCall = (instance['client'].responses.create as Mock).mock.calls[0][0];
@@ -345,7 +406,7 @@ index a0c87b52f8..0421396800 100644
      });
  
      it('should set reasoning.effort to high for gpt-5.5-pro', async () => {
-@@ -595,7 +600,7 @@ describe('LobeOpenAI', () => {
+@@ -596,7 +601,7 @@ describe('LobeOpenAI', () => {
        await instance.chat(payload);
  
        const createCall = (instance['client'].responses.create as Mock).mock.calls[0][0];
@@ -355,10 +416,10 @@ index a0c87b52f8..0421396800 100644
  
      it('should convert max_tokens to max_output_tokens for responses API', async () => {
 diff --git a/packages/model-runtime/src/providers/openai/index.ts b/packages/model-runtime/src/providers/openai/index.ts
-index 0b33e5313c..9f1037630c 100644
+index 2d0d8c1836..6cefda1937 100644
 --- a/packages/model-runtime/src/providers/openai/index.ts
 +++ b/packages/model-runtime/src/providers/openai/index.ts
-@@ -24,6 +24,25 @@ const hasAudioInput = (payload: ChatStreamPayload) =>
+@@ -26,6 +26,25 @@ const hasAudioInput = (payload: ChatStreamPayload) =>
        Array.isArray(message.content) && message.content.some((part) => part.type === 'audio_url'),
    );
  
@@ -384,7 +445,7 @@ index 0b33e5313c..9f1037630c 100644
  const oaiSearchContextSize = process.env.OPENAI_SEARCH_CONTEXT_SIZE; // low, medium, high
  const enableServiceTierFlex = process.env.OPENAI_SERVICE_TIER_FLEX === '1';
  
-@@ -40,10 +59,11 @@ export const params = {
+@@ -42,10 +61,11 @@ export const params = {
        }
  
        if (isOpenAIReasoningPayloadModel(model)) {
@@ -397,7 +458,7 @@ index 0b33e5313c..9f1037630c 100644
          } as ChatStreamPayload) as any;
        }
  
-@@ -53,7 +73,7 @@ export const params = {
+@@ -55,7 +75,7 @@ export const params = {
            frequency_penalty: undefined,
            model,
            presence_penalty: undefined,
@@ -406,7 +467,7 @@ index 0b33e5313c..9f1037630c 100644
            temperature: undefined,
            top_p: undefined,
            ...(enableServiceTierFlex &&
-@@ -72,7 +92,7 @@ export const params = {
+@@ -74,7 +94,7 @@ export const params = {
          model,
          ...(enableServiceTierFlex &&
            supportsOpenAIServiceTierFlex(model) && { service_tier: 'flex' }),
@@ -415,7 +476,7 @@ index 0b33e5313c..9f1037630c 100644
        };
      },
      supportsAudioInput: true,
-@@ -111,18 +131,18 @@ export const params = {
+@@ -113,18 +133,18 @@ export const params = {
  
        if (isOpenAIReasoningPayloadModel(model)) {
          const reasoning = payload.reasoning
@@ -438,7 +499,7 @@ index 0b33e5313c..9f1037630c 100644
            tools: openaiTools as any,
            // computer-use series must set truncation as auto
            ...(isOpenAIComputerUseModel(model) && { truncation: 'auto' }),
-@@ -135,7 +155,7 @@ export const params = {
+@@ -137,7 +157,7 @@ export const params = {
          model,
          ...(enableServiceTierFlex &&
            supportsOpenAIServiceTierFlex(model) && { service_tier: 'flex' }),
@@ -448,10 +509,10 @@ index 0b33e5313c..9f1037630c 100644
        } as any;
      },
 diff --git a/packages/model-runtime/src/providers/openai/modelId.ts b/packages/model-runtime/src/providers/openai/modelId.ts
-index 3d55045c23..f00beffb92 100644
+index cda6fd389e..87d9f6950d 100644
 --- a/packages/model-runtime/src/providers/openai/modelId.ts
 +++ b/packages/model-runtime/src/providers/openai/modelId.ts
-@@ -34,6 +34,36 @@ export const disableStreamModels = new Set([
+@@ -34,6 +34,38 @@ export const disableStreamModels = new Set([
    */
    'computer-use-preview',
    'computer-use-preview-2025-03-11',
@@ -485,10 +546,12 @@ index 3d55045c23..f00beffb92 100644
 +  'gpt-6.1-terra',
 +  'gpt-6-sol',
 +  'gpt-6-luna',
++  'gpt-6.2-astra',
++  'gpt-6.2-sol',
  ]);
  
  // Static Responses API-only exceptions that do not follow the parsed GPT-5 rule.
-@@ -49,6 +79,46 @@ export const responsesAPIModels = new Set([
+@@ -49,6 +81,48 @@ export const responsesAPIModels = new Set([
    'codex-mini-latest',
    'computer-use-preview',
    'computer-use-preview-2025-03-11',
@@ -532,6 +595,8 @@ index 3d55045c23..f00beffb92 100644
 +  'gpt-6.1-terra',
 +  'gpt-6-sol',
 +  'gpt-6-luna',
++  'gpt-6.2-astra',
++  'gpt-6.2-sol',
  ]);
  
  /**
@@ -552,11 +617,11 @@ index a7ebcd844c..0b35e2e216 100644
 2.39.5
 
 
-From 9c7c4d4110bd5141b598a60022eba7786367aef7 Mon Sep 17 00:00:00 2001
+From abe40d5b051f66deb7d531ecce160cf8165fec00 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 12 Nov 2026 23:28:02 +0000
-Subject: [PATCH 04/21] =?UTF-8?q?=E2=9C=A8=20feat(openai):=20preserve=20de?=
- =?UTF-8?q?tail=20when=20converting=20non-streaming=20responses?=
+Subject: [PATCH 04/22] ✨ feat(openai): preserve detail when converting
+ non-streaming responses
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -1072,30 +1137,41 @@ index 9de1c3e498..1830ef0949 100644
 2.39.5
 
 
-From 438d13e89da8067e919ea0f96aa828094659f15b Mon Sep 17 00:00:00 2001
+From 5a51f0166ae6b1d1199c91a6d78dfe8813d3b62d Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
-Date: Thu, 12 Nov 2026 23:28:59 +0000
-Subject: [PATCH 05/21] =?UTF-8?q?=F0=9F=90=9B=20fix(openai):=20use=20one?=
- =?UTF-8?q?=20attempt=20and=20a=20one-hour=20timeout?=
+Date: Thu, 26 Nov 2026 21:24:54 +0000
+Subject: [PATCH 05/22] 🐛 fix(openai): use one attempt and a one-hour timeout
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
+LLM calls are never retried automatically, and every OpenAI-compatible
+request gets a one-hour timeout: the instrumentation installs undici's
+fetch with a one-hour dispatcher globally, and clients keep using that
+global fetch so the SSRF guard for user-supplied endpoints still wraps it.
+The guarded connections get the same one-hour idle timeouts. Runners
+without the instrumentation fall back to an explicit undici fetch.
+
 Co-Authored-By: Claude Opus 5.5 <claude@anthropic.com.invalid>
 ---
  .../adapters/ServerLLMTransport.ts            |  60 +--------
+ .../ModelRuntime/userEndpointGuard.test.ts    |  18 ++-
+ .../modules/ModelRuntime/userEndpointGuard.ts |   5 +-
  packages/model-runtime/package.json           |   1 +
- .../src/core/openaiCompatible/index.ts        |  24 ++--
- .../src/core/openaiCompatible/timeout.ts      | 119 ++++++++++++++++++
- .../(backend)/webapi/chat/[provider]/route.ts |  21 +++-
+ .../src/core/openaiCompatible/index.ts        |  24 +++-
+ .../src/core/openaiCompatible/timeout.ts      | 123 ++++++++++++++++++
+ packages/model-runtime/src/index.ts           |   1 +
+ packages/ssrf-safe-fetch/guardedFetch.ts      |  14 +-
+ packages/ssrf-safe-fetch/index.browser.ts     |   3 +-
+ .../(backend)/webapi/chat/[provider]/route.ts |  21 ++-
  src/instrumentation.ts                        |  26 ++++
  src/libs/next/config/define-config.ts         |   1 +
  .../agents/transports/ClientLLMTransport.ts   |   1 +
- 8 files changed, 188 insertions(+), 65 deletions(-)
+ 13 files changed, 227 insertions(+), 71 deletions(-)
  create mode 100644 packages/model-runtime/src/core/openaiCompatible/timeout.ts
 
 diff --git a/apps/server/src/modules/AgentRuntime/adapters/ServerLLMTransport.ts b/apps/server/src/modules/AgentRuntime/adapters/ServerLLMTransport.ts
-index ea04371ce3..db828adad1 100644
+index e21b4462b0..2e085f2ae6 100644
 --- a/apps/server/src/modules/AgentRuntime/adapters/ServerLLMTransport.ts
 +++ b/apps/server/src/modules/AgentRuntime/adapters/ServerLLMTransport.ts
 @@ -24,7 +24,6 @@ import { BRANDING_PROVIDER } from '@lobechat/business-const';
@@ -1200,6 +1276,66 @@ index ea04371ce3..db828adad1 100644
    }
  
    async waitForRetry(delayMs: number): Promise<void> {
+diff --git a/apps/server/src/modules/ModelRuntime/userEndpointGuard.test.ts b/apps/server/src/modules/ModelRuntime/userEndpointGuard.test.ts
+index cb81e8d67a..daacd238ec 100644
+--- a/apps/server/src/modules/ModelRuntime/userEndpointGuard.test.ts
++++ b/apps/server/src/modules/ModelRuntime/userEndpointGuard.test.ts
+@@ -41,7 +41,19 @@ const sseCompletion = [
+   '',
+ ].join('\n\n');
+ 
++let nodeFetch: typeof fetch;
++
+ beforeAll(async () => {
++  // As src/instrumentation.ts does in the server: undici's fetch with a one-hour
++  // dispatcher, which OpenAI-compatible clients keep using through the global fetch.
++  const undici = await import('undici');
++  undici.setGlobalDispatcher(
++    new undici.Agent({ bodyTimeout: 3_600_000, headersTimeout: 3_600_000 }),
++  );
++  nodeFetch = globalThis.fetch;
++  globalThis.fetch = undici.fetch as unknown as typeof fetch;
++  (globalThis as typeof globalThis & { __LOBE_UNDICI__?: unknown }).__LOBE_UNDICI__ = undici;
++
+   server = http.createServer((req, res) => {
+     hits.push(`${req.method} ${req.url}`);
+ 
+@@ -62,7 +74,11 @@ beforeAll(async () => {
+   baseURL = `http://127.0.0.1:${(server.address() as AddressInfo).port}/v1`;
+ });
+ 
+-afterAll(() => new Promise<void>((resolve) => server.close(() => resolve())));
++afterAll(async () => {
++  await new Promise<void>((resolve) => server.close(() => resolve()));
++  globalThis.fetch = nodeFetch;
++  delete (globalThis as typeof globalThis & { __LOBE_UNDICI__?: unknown }).__LOBE_UNDICI__;
++});
+ 
+ afterEach(() => {
+   hits = [];
+diff --git a/apps/server/src/modules/ModelRuntime/userEndpointGuard.ts b/apps/server/src/modules/ModelRuntime/userEndpointGuard.ts
+index c7aa5bbd53..2ac747493c 100644
+--- a/apps/server/src/modules/ModelRuntime/userEndpointGuard.ts
++++ b/apps/server/src/modules/ModelRuntime/userEndpointGuard.ts
+@@ -4,7 +4,7 @@ import https from 'node:https';
+ import net from 'node:net';
+ 
+ import { ENABLE_BUSINESS_FEATURES } from '@lobechat/business-const';
+-import { AgentRuntimeError } from '@lobechat/model-runtime';
++import { AgentRuntimeError, DEFAULT_OPENAI_TIMEOUT } from '@lobechat/model-runtime';
+ import type { SSRFOptions } from '@lobechat/ssrf-safe-fetch';
+ import {
+   createSsrfSafeFetch,
+@@ -268,7 +268,8 @@ const getGuardedFetch = (policy: SSRFOptions, baseFetch: typeof fetch) => {
+   const key = JSON.stringify(policy);
+   let guardedFetch = guardedFetchCache.get(key);
+   if (!guardedFetch) {
+-    guardedFetch = createSsrfSafeFetch(policy, { fetch: baseFetch });
++    // Same one-hour idle timeouts as the global dispatcher in `src/instrumentation.ts`.
++    guardedFetch = createSsrfSafeFetch(policy, { fetch: baseFetch, timeout: DEFAULT_OPENAI_TIMEOUT });
+     guardedFetchCache.set(key, guardedFetch);
+   }
+   return guardedFetch;
 diff --git a/packages/model-runtime/package.json b/packages/model-runtime/package.json
 index a385ebf925..039960bb14 100644
 --- a/packages/model-runtime/package.json
@@ -1269,10 +1405,10 @@ index b6ff0eda0b..d2df52d8a9 100644
  
 diff --git a/packages/model-runtime/src/core/openaiCompatible/timeout.ts b/packages/model-runtime/src/core/openaiCompatible/timeout.ts
 new file mode 100644
-index 0000000000..894a3c87dc
+index 0000000000..447a19f6b2
 --- /dev/null
 +++ b/packages/model-runtime/src/core/openaiCompatible/timeout.ts
-@@ -0,0 +1,119 @@
+@@ -0,0 +1,123 @@
 +export const DEFAULT_OPENAI_TIMEOUT = 3_600_000;
 +
 +export interface OpenAIClientNetworkOptions {
@@ -1287,16 +1423,12 @@ index 0000000000..894a3c87dc
 +};
 +
 +/**
-+ * Prefer the undici instance installed by `src/instrumentation.ts` (same package
-+ * as the global dispatcher). Fall back to a hidden require for non-Next runners.
++ * The undici package for runners without `src/instrumentation.ts` (tests, scripts):
++ * a hidden require, so the fetch and its Agent come from the same package.
 + */
 +const loadUndici = (): UndiciModule | undefined => {
 +  if (typeof window !== 'undefined') return undefined;
 +  if (typeof process === 'undefined' || !process.versions?.node) return undefined;
-+
-+  const fromInstrumentation = (globalThis as typeof globalThis & { __LOBE_UNDICI__?: UndiciModule })
-+    .__LOBE_UNDICI__;
-+  if (fromInstrumentation) return fromInstrumentation;
 +
 +  try {
 +    // Hide from Vite; works when the module graph is CJS.
@@ -1328,6 +1460,20 @@ index 0000000000..894a3c87dc
 +): OpenAIClientNetworkOptions => {
 +  const timeout = Number.isFinite(timeoutMs) && timeoutMs >= 0 ? timeoutMs : DEFAULT_OPENAI_TIMEOUT;
 +
++  // `src/instrumentation.ts` already made the global fetch undici with a one-hour
++  // dispatcher. Leave `fetch` unset so the SDK uses that global fetch: the server's
++  // SSRF guard for user-supplied endpoints wraps it, and an explicit fetch would
++  // bypass the guard. The SDK's own `timeout` still bounds each request.
++  if ((globalThis as typeof globalThis & { __LOBE_UNDICI__?: UndiciModule }).__LOBE_UNDICI__) {
++    if (!loggedUndiciApply) {
++      loggedUndiciApply = true;
++      console.info(
++        `[model-runtime] OpenAI client uses the instrumentation undici fetch timeoutMs=${timeout}`,
++      );
++    }
++    return { timeout };
++  }
++
 +  const undici = loadUndici();
 +  if (!undici) {
 +    console.warn(
@@ -1344,13 +1490,7 @@ index 0000000000..894a3c87dc
 +
 +  if (!loggedUndiciApply) {
 +    loggedUndiciApply = true;
-+    const source = (globalThis as typeof globalThis & { __LOBE_UNDICI__?: UndiciModule })
-+      .__LOBE_UNDICI__
-+      ? 'instrumentation'
-+      : 'require';
-+    console.info(
-+      `[model-runtime] OpenAI undici Agent applied timeoutMs=${timeout} source=${source}`,
-+    );
++    console.info(`[model-runtime] OpenAI undici Agent applied timeoutMs=${timeout} source=require`);
 +  }
 +
 +  return {
@@ -1392,6 +1532,81 @@ index 0000000000..894a3c87dc
 +
 +  return options as O & { maxRetries: 0; timeout: number };
 +};
+diff --git a/packages/model-runtime/src/index.ts b/packages/model-runtime/src/index.ts
+index 8effc5b13c..3d9dab314b 100644
+--- a/packages/model-runtime/src/index.ts
++++ b/packages/model-runtime/src/index.ts
+@@ -8,6 +8,7 @@ export { mergeModelRuntimeHooks } from './core/mergeHooks';
+ export type { ModelRuntimeHooks } from './core/ModelRuntime';
+ export { describeGenerateObjectError, ModelRuntime } from './core/ModelRuntime';
+ export { createOpenAICompatibleRuntime } from './core/openaiCompatible';
++export { DEFAULT_OPENAI_TIMEOUT } from './core/openaiCompatible/timeout';
+ export { StructuredOutputError } from './core/openaiCompatible/structuredOutput';
+ export * from './core/RouterRuntime';
+ export { createCallbacksTransformer } from './core/streams/protocol';
+diff --git a/packages/ssrf-safe-fetch/guardedFetch.ts b/packages/ssrf-safe-fetch/guardedFetch.ts
+index 69303fb9f8..f5b8a5c820 100644
+--- a/packages/ssrf-safe-fetch/guardedFetch.ts
++++ b/packages/ssrf-safe-fetch/guardedFetch.ts
+@@ -68,10 +68,15 @@ const stripBrackets = (hostname: string) => hostname.replaceAll(/^\[|\]$/g, '');
+  * An undici dispatcher whose every connection — including each redirect hop —
+  * is validated against the policy after DNS resolution and before connecting.
+  */
+-export const createSsrfSafeDispatcher = (policy: SSRFOptions) => {
++export const createSsrfSafeDispatcher = (
++  policy: SSRFOptions,
++  /** Headers/body idle timeouts in ms; undici's defaults (300s) when absent. */
++  timeout?: number,
++) => {
+   const connector = buildConnector({ lookup: createGuardedLookup(policy) } as any);
+ 
+   return new Agent({
++    ...(timeout !== undefined && { bodyTimeout: timeout, headersTimeout: timeout }),
+     connect: (options, callback) => {
+       // IP literals never reach `lookup`, so validate them here
+       const host = stripBrackets(options.hostname);
+@@ -212,6 +217,11 @@ const fetchThroughEnvProxy = async (
+ export interface CreateSsrfSafeFetchOptions {
+   /** The fetch to wrap; defaults to the global fetch at call time */
+   fetch?: typeof fetch;
++  /**
++   * Headers/body idle timeouts in ms for the guarded connections, so a long model
++   * response is not cut off at undici's 300s default.
++   */
++  timeout?: number;
+ }
+ 
+ /**
+@@ -234,7 +244,7 @@ export const createSsrfSafeFetch = (
+   if (policy.allowPrivateIPAddress && !policy.denyIPAddressList?.length)
+     return ((input, init) => getBaseFetch()(input, init)) as typeof fetch;
+ 
+-  const dispatcher = createSsrfSafeDispatcher(policy);
++  const dispatcher = createSsrfSafeDispatcher(policy, options.timeout);
+ 
+   return (async (input: RequestInfo | URL, init?: RequestInit) => {
+     if (isEnvProxyActive() || globalDispatcherIsProxy() || isBunRuntime()) {
+diff --git a/packages/ssrf-safe-fetch/index.browser.ts b/packages/ssrf-safe-fetch/index.browser.ts
+index 7739cc47a1..3cf29a35d6 100644
+--- a/packages/ssrf-safe-fetch/index.browser.ts
++++ b/packages/ssrf-safe-fetch/index.browser.ts
+@@ -79,6 +79,7 @@ export const ssrfSafeAgent = (_url: string, _ssrfOptions?: SSRFOptions) => undef
+ 
+ export interface CreateSsrfSafeFetchOptions {
+   fetch?: typeof fetch;
++  timeout?: number;
+ }
+ 
+ /**
+@@ -94,7 +95,7 @@ export const createSsrfSafeFetch = (
+  * Browser parity stub. Dispatchers are an undici (Node.js) transport concept;
+  * the browser never constructs one, so this always returns `undefined`.
+  */
+-export const createSsrfSafeDispatcher = (_policy?: SSRFOptions) => undefined;
++export const createSsrfSafeDispatcher = (_policy?: SSRFOptions, _timeout?: number) => undefined;
+ 
+ /**
+  * Browser parity stub. In the browser the origin enforces connectivity, so no
 diff --git a/src/app/(backend)/webapi/chat/[provider]/route.ts b/src/app/(backend)/webapi/chat/[provider]/route.ts
 index f78a016dfb..27caaec561 100644
 --- a/src/app/(backend)/webapi/chat/[provider]/route.ts
@@ -1473,10 +1688,10 @@ index daa1510fe5..a094abbe6e 100644
    if (process.env.NODE_ENV !== 'production' && process.env.NEXT_RUNTIME === 'nodejs') {
      await import('./libs/debug-file-logger');
 diff --git a/src/libs/next/config/define-config.ts b/src/libs/next/config/define-config.ts
-index eeb7791887..e3c2219830 100644
+index 0de22e65bc..a56c331bfc 100644
 --- a/src/libs/next/config/define-config.ts
 +++ b/src/libs/next/config/define-config.ts
-@@ -393,6 +393,7 @@ export function defineConfig(config: CustomNextConfig) {
+@@ -402,6 +402,7 @@ export function defineConfig(config: CustomNextConfig) {
        'pdfjs-dist',
        'ajv',
        'oidc-provider',
@@ -1500,30 +1715,37 @@ index 0d01692f2c..5df4d46882 100644
 2.39.5
 
 
-From 0f1736f4963e54e6f3e5077577448c1c965e0b59 Mon Sep 17 00:00:00 2001
+From e020e18cd09a2ca86211d4951f5f71723fa35b34 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
-Date: Thu, 12 Nov 2026 23:29:53 +0000
-Subject: [PATCH 06/21] =?UTF-8?q?=E2=9C=A8=20feat(agent):=20keep=20prompts?=
- =?UTF-8?q?=20explicitly=20user-controlled?=
+Date: Thu, 26 Nov 2026 15:19:09 +0000
+Subject: [PATCH 06/22] ✨ feat(agent): keep prompts explicitly user-controlled
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
+Only the agent's own prompt and user-authored text reach the system prompt.
+The inbox gets no default system role, no reply-language line is appended
+to any agent (getAgentRuntimeConfig and resolveAgentConfig), and the
+system-date, model-info and agent-account injectors are gone.
+
 Co-Authored-By: Claude Opus 5.5 <claude@anthropic.com.invalid>
 ---
- .../__tests__/serverMessagesEngine.test.ts    | 35 ++++-------------
+ .../__tests__/serverMessagesEngine.test.ts    | 35 ++++--------------
  .../__tests__/inboxContext.test.ts            | 12 +++---
  .../execAgent.builtinRuntime.test.ts          | 22 ++---------
  .../__tests__/resolveRunAgentConfig.test.ts   |  4 +-
- .../builtin-agents/src/agents/inbox/index.ts  |  6 +--
- .../src/engine/messages/MessagesEngine.ts     | 38 +------------------
+ .../src/agents/agent-builder/index.test.ts    |  6 +--
+ .../builtin-agents/src/agents/inbox/index.ts  |  5 +--
+ .../src/agents/inbox/systemRole.test.ts       |  5 +--
+ packages/builtin-agents/src/index.ts          | 17 ++-------
+ .../src/engine/messages/MessagesEngine.ts     | 37 +------------------
  .../messages/__tests__/MessagesEngine.test.ts | 15 +++-----
- packages/mecha/src/resolveAgentConfig.test.ts |  8 ++--
- packages/mecha/src/resolveAgentConfig.ts      | 29 ++++++--------
+ packages/mecha/src/resolveAgentConfig.test.ts | 11 ++----
+ packages/mecha/src/resolveAgentConfig.ts      | 28 ++++++--------
  src/services/chat/chat.test.ts                | 17 +++------
  .../chat/mecha/agentConfigResolver.test.ts    | 14 +++----
- .../chat/mecha/contextEngineering.test.ts     | 25 ++++--------
- 12 files changed, 59 insertions(+), 166 deletions(-)
+ .../chat/mecha/contextEngineering.test.ts     | 25 ++++---------
+ 15 files changed, 67 insertions(+), 186 deletions(-)
 
 diff --git a/apps/server/src/modules/Mecha/ContextEngineering/__tests__/serverMessagesEngine.test.ts b/apps/server/src/modules/Mecha/ContextEngineering/__tests__/serverMessagesEngine.test.ts
 index 5879513441..b1b7f43592 100644
@@ -1653,7 +1875,7 @@ index 7b59867d4a..6853e972ad 100644
      // body or code reaches the system message.
      expect(system).not.toContain('login@service.com');
 diff --git a/apps/server/src/services/aiAgent/__tests__/execAgent.builtinRuntime.test.ts b/apps/server/src/services/aiAgent/__tests__/execAgent.builtinRuntime.test.ts
-index 15e24e1573..2595c67d20 100644
+index 203232a726..5cb939b645 100644
 --- a/apps/server/src/services/aiAgent/__tests__/execAgent.builtinRuntime.test.ts
 +++ b/apps/server/src/services/aiAgent/__tests__/execAgent.builtinRuntime.test.ts
 @@ -1,7 +1,6 @@
@@ -1664,7 +1886,7 @@ index 15e24e1573..2595c67d20 100644
  import { RequestTrigger } from '@lobechat/types';
  import type * as ModelBankModule from 'model-bank';
  import { beforeEach, describe, expect, it, vi } from 'vitest';
-@@ -443,7 +442,7 @@ describe('AiAgentService.execAgent - builtin agent runtime config', () => {
+@@ -446,7 +445,7 @@ describe('AiAgentService.execAgent - builtin agent runtime config', () => {
      expect(mockGetBuiltinAgent).not.toHaveBeenCalled();
    });
  
@@ -1673,7 +1895,7 @@ index 15e24e1573..2595c67d20 100644
      // Inbox agent with no user-customized systemRole in DB
      mockGetAgentConfig.mockResolvedValue({
        chatConfig: {},
-@@ -457,15 +456,9 @@ describe('AiAgentService.execAgent - builtin agent runtime config', () => {
+@@ -460,15 +459,9 @@ describe('AiAgentService.execAgent - builtin agent runtime config', () => {
  
      await service.execAgent(inboxRunInput());
  
@@ -1690,8 +1912,8 @@ index 15e24e1573..2595c67d20 100644
    });
  
    it('should pass user response language into web onboarding runtime systemRole', async () => {
-@@ -514,12 +507,6 @@ describe('AiAgentService.execAgent - builtin agent runtime config', () => {
-     expect(callArgs.agentConfig.systemRole).toBe(customSystemRole);
+@@ -517,12 +510,6 @@ describe('AiAgentService.execAgent - builtin agent runtime config', () => {
+     expect(callArgs.agentConfig.systemRole).toBe(`${customSystemRole}\n\n${REPLY_LANGUAGE_ONLY}`);
    });
  
 -  // Regular agents get no builtin runtime prompt. They do get the user's reply
@@ -1703,7 +1925,7 @@ index 15e24e1573..2595c67d20 100644
    it('should not apply runtime config for non-builtin agents', async () => {
      mockGetAgentConfig.mockResolvedValue({
        chatConfig: {},
-@@ -537,8 +524,7 @@ describe('AiAgentService.execAgent - builtin agent runtime config', () => {
+@@ -540,8 +527,7 @@ describe('AiAgentService.execAgent - builtin agent runtime config', () => {
      });
  
      const callArgs = mockCreateOperation.mock.calls[0][0];
@@ -1713,7 +1935,7 @@ index 15e24e1573..2595c67d20 100644
    });
  
    it('should not apply runtime config for agents without slug', async () => {
-@@ -557,7 +543,7 @@ describe('AiAgentService.execAgent - builtin agent runtime config', () => {
+@@ -560,7 +546,7 @@ describe('AiAgentService.execAgent - builtin agent runtime config', () => {
      });
  
      const callArgs = mockCreateOperation.mock.calls[0][0];
@@ -1723,7 +1945,7 @@ index 15e24e1573..2595c67d20 100644
  
    it('should persist request trigger metadata on the created user message', async () => {
 diff --git a/apps/server/src/services/aiAgent/__tests__/resolveRunAgentConfig.test.ts b/apps/server/src/services/aiAgent/__tests__/resolveRunAgentConfig.test.ts
-index 68f7056f79..3d42e66c7f 100644
+index cfc7e4b7fe..2fab7e3d29 100644
 --- a/apps/server/src/services/aiAgent/__tests__/resolveRunAgentConfig.test.ts
 +++ b/apps/server/src/services/aiAgent/__tests__/resolveRunAgentConfig.test.ts
 @@ -73,7 +73,7 @@ describe('resolveRunAgentConfig', () => {
@@ -1733,7 +1955,7 @@ index 68f7056f79..3d42e66c7f 100644
 -  it('reads the reply language for the share visitor, not the owner, on a shared-agent run', async () => {
 +  it('reads visitor generation info without appending a reply-language prompt', async () => {
      getInfoForAIGeneration.mockImplementation(async (_db: unknown, userId: string) => ({
-       responseLanguage: userId === 'visitor-1' ? 'ja-JP' : 'en-US',
+       preferredReplyLanguage: userId === 'visitor-1' ? 'ja-JP' : 'en-US',
      }));
 @@ -92,7 +92,7 @@ describe('resolveRunAgentConfig', () => {
      );
@@ -1744,11 +1966,30 @@ index 68f7056f79..3d42e66c7f 100644
    });
  
    it('reads the reply language for the caller on an ordinary run', async () => {
+diff --git a/packages/builtin-agents/src/agents/agent-builder/index.test.ts b/packages/builtin-agents/src/agents/agent-builder/index.test.ts
+index 4088c2a183..6265cbf8da 100644
+--- a/packages/builtin-agents/src/agents/agent-builder/index.test.ts
++++ b/packages/builtin-agents/src/agents/agent-builder/index.test.ts
+@@ -8,11 +8,11 @@ const resolvePlugins = (plugins?: string[]) =>
+   getAgentRuntimeConfig(BUILTIN_AGENT_SLUGS.agentBuilder, { plugins })?.plugins ?? [];
+ 
+ describe('AGENT_BUILDER runtime plugins', () => {
+-  it('adds a reply-language instruction only for an explicit preference', () => {
++  it('adds no reply-language instruction, even for an explicit preference', () => {
+     const slug = BUILTIN_AGENT_SLUGS.agentBuilder;
+     expect(getAgentRuntimeConfig(slug, {})?.systemRole).not.toMatch(/reply in|reply language/i);
+-    expect(getAgentRuntimeConfig(slug, { userLocale: 'ja-JP' })?.systemRole).toContain(
+-      'Preferred reply language: ja-JP.',
++    expect(getAgentRuntimeConfig(slug, { userLocale: 'ja-JP' })?.systemRole).not.toMatch(
++      /reply language/i,
+     );
+   });
+ 
 diff --git a/packages/builtin-agents/src/agents/inbox/index.ts b/packages/builtin-agents/src/agents/inbox/index.ts
-index 871a3ecbaf..3617b8c153 100644
+index 993525528d..4f01b767fe 100644
 --- a/packages/builtin-agents/src/agents/inbox/index.ts
 +++ b/packages/builtin-agents/src/agents/inbox/index.ts
-@@ -4,7 +4,6 @@ import { DEFAULT_INBOX_AVATAR } from '@lobechat/const';
+@@ -3,7 +3,6 @@ import { DEFAULT_INBOX_AVATAR } from '@lobechat/const';
  
  import type { BuiltinAgentDefinition } from '../../types';
  import { BUILTIN_AGENT_SLUGS } from '../../types';
@@ -1756,23 +1997,71 @@ index 871a3ecbaf..3617b8c153 100644
  
  /**
   * Inbox Agent - the default assistant agent for general conversations
-@@ -15,10 +14,7 @@ export const INBOX: BuiltinAgentDefinition = {
+@@ -14,9 +13,7 @@ export const INBOX: BuiltinAgentDefinition = {
    avatar: DEFAULT_INBOX_AVATAR,
    runtime: (ctx) => ({
-     plugins: [AgentDocumentsIdentifier, UserInteractionIdentifier, ...(ctx.plugins || [])],
+     plugins: [UserInteractionIdentifier, ...(ctx.plugins || [])],
 -    // A user-customized prompt wins; the runtime one is only the default.
 -    systemRole:
--      ctx.storedSystemRole ||
--      createSystemRole(ctx.userLocale, { name: ctx.agentName, title: ctx.agentTitle }),
+-      ctx.storedSystemRole || createSystemRole({ name: ctx.agentName, title: ctx.agentTitle }),
 +    systemRole: ctx.storedSystemRole || '',
    }),
  
    slug: BUILTIN_AGENT_SLUGS.inbox,
+diff --git a/packages/builtin-agents/src/agents/inbox/systemRole.test.ts b/packages/builtin-agents/src/agents/inbox/systemRole.test.ts
+index f33e854db5..4e9841bdc6 100644
+--- a/packages/builtin-agents/src/agents/inbox/systemRole.test.ts
++++ b/packages/builtin-agents/src/agents/inbox/systemRole.test.ts
+@@ -32,9 +32,8 @@ describe('inbox createSystemRole', () => {
+     expect(createSystemRole({ name: '  ', title: '' })).toContain('You are Lobe, an AI Agent');
+   });
+ 
+-  it('uses the explicitly selected reply language', () => {
++  it('adds no reply-language line to the inbox, even with a selected language', () => {
+     const result = getAgentRuntimeConfig('inbox', { userLocale: 'zh-CN' })?.systemRole;
+-    expect(result).toContain('Preferred reply language: zh-CN');
+-    expect(result).toContain('Use this language unless the user explicitly asks to switch.');
++    expect(result).toBe('');
+   });
+ });
+diff --git a/packages/builtin-agents/src/index.ts b/packages/builtin-agents/src/index.ts
+index b4aac2dddf..cc8ee6968f 100644
+--- a/packages/builtin-agents/src/index.ts
++++ b/packages/builtin-agents/src/index.ts
+@@ -82,10 +82,6 @@ export const getAgentPersistConfig = (slug: string) => {
+   return { ...agent.persist, slug: agent.slug };
+ };
+ 
+-/** A reply-language preference is injected only when the user chose a locale. */
+-export const getReplyLanguageInstruction = (locale: string) =>
+-  `Preferred reply language: ${locale}. Use this language unless the user explicitly asks to switch.`;
+-
+ /**
+  * Get runtime config for a builtin agent
+  * @param slug - The builtin agent slug
+@@ -98,14 +94,7 @@ export const getAgentRuntimeConfig = (slug: string, ctx: RuntimeContext) => {
+ 
+   // Handle both function and plain object forms
+   const runtime = agent.runtime;
+-  const config = typeof runtime === 'function' ? runtime(ctx) : runtime;
+-  // Web onboarding also localizes its interactive choice labels in its own prompt.
+-  if (!ctx.userLocale || slug === BUILTIN_AGENT_SLUGS.webOnboarding) return config;
+-
+-  return {
+-    ...config,
+-    systemRole: [config.systemRole, getReplyLanguageInstruction(ctx.userLocale)]
+-      .filter(Boolean)
+-      .join('\n\n'),
+-  };
++  // No reply-language line is appended: the system prompt carries only the agent's
++  // own prompt and user-authored text.
++  return typeof runtime === 'function' ? runtime(ctx) : runtime;
+ };
 diff --git a/packages/context-engine/src/engine/messages/MessagesEngine.ts b/packages/context-engine/src/engine/messages/MessagesEngine.ts
-index 61b77d2832..04a8714e67 100644
+index 45bcf7874e..ddf686772c 100644
 --- a/packages/context-engine/src/engine/messages/MessagesEngine.ts
 +++ b/packages/context-engine/src/engine/messages/MessagesEngine.ts
-@@ -34,7 +34,6 @@ import {
+@@ -35,7 +35,6 @@ import {
  } from '../../processors';
  import {
    ActiveTopicDocumentContextInjector,
@@ -1780,7 +2069,7 @@ index 61b77d2832..04a8714e67 100644
    AgentBuilderContextInjector,
    AgentDocumentBeforeSystemInjector,
    AgentDocumentChangesInjector,
-@@ -58,7 +57,6 @@ import {
+@@ -59,7 +58,6 @@ import {
    HistorySummaryProvider,
    KnowledgeInjector,
    LocalSystemToolSnapshotInjector,
@@ -1788,7 +2077,7 @@ index 61b77d2832..04a8714e67 100644
    OnboardingActionHintInjector,
    OnboardingContextInjector,
    OnboardingSyntheticStateInjector,
-@@ -72,7 +70,6 @@ import {
+@@ -73,7 +71,6 @@ import {
    SKILL_STORE_TOOL_ID,
    SkillContextProvider,
    SkillImportRouteInjector,
@@ -1796,7 +2085,7 @@ index 61b77d2832..04a8714e67 100644
    SystemRoleInjector,
    TaskManagerContextInjector,
    TodoInjector,
-@@ -164,12 +161,9 @@ export class MessagesEngine {
+@@ -166,12 +163,9 @@ export class MessagesEngine {
    private buildProcessors(): ContextProcessor[] {
      const {
        model,
@@ -1809,7 +2098,7 @@ index 61b77d2832..04a8714e67 100644
        inputTemplate,
        enableAgentMode,
        enableHistoryCount,
-@@ -209,8 +203,6 @@ export class MessagesEngine {
+@@ -211,8 +205,6 @@ export class MessagesEngine {
        stepContext,
        topicReferences,
        documentReferences,
@@ -1818,22 +2107,20 @@ index 61b77d2832..04a8714e67 100644
      } = this.params;
  
      const isAgentBuilderEnabled = !!agentBuilderContext;
-@@ -242,14 +234,7 @@ export class MessagesEngine {
-           : undefined;
+@@ -245,12 +237,6 @@ export class MessagesEngine {
      const isTodoEnabled = effectiveTodos !== undefined;
  
--    // System date is redundant when web-browsing or memory tools are enabled,
--    // as they already include current date in their system prompts
      const toolIds = toolsConfig?.tools || [];
--    const hasDateAwareTools =
--      toolIds.includes('lobe-web-browsing') || toolIds.includes('lobe-user-memory');
--    const isSystemDateEnabled = enableSystemDate !== false && !hasDateAwareTools;
+-    // Keep SystemDateProvider independent of dynamically activated tools:
+-    // toggling it off when web-browsing or user-memory is activated mid-run
+-    // mutates the leading system message and invalidates the prompt-cache prefix.
+-    const isSystemDateEnabled = enableSystemDate !== false;
 -    // An eval attempt renders "today" from its case clock, never the wall clock.
 -    const evalClock = evalContext?.sessionDate ? new Date(evalContext.sessionDate) : undefined;
      const currentUserMessage = [...messages]
        .reverse()
        .find((m) => m.role === 'user' && typeof m.content === 'string')?.content as
-@@ -333,13 +318,6 @@ export class MessagesEngine {
+@@ -344,13 +330,6 @@ export class MessagesEngine {
          enabled: !isGroupContextEnabled,
          identity: agentIdentity,
        }),
@@ -1847,7 +2134,7 @@ index 61b77d2832..04a8714e67 100644
        // Eval context (appends envPrompt)
        new EvalContextSystemInjector({ enabled: !!evalContext?.envPrompt, evalContext }),
        // Bot platform context (formatting instructions for non-Markdown platforms)
-@@ -347,22 +325,8 @@ export class MessagesEngine {
+@@ -358,22 +337,8 @@ export class MessagesEngine {
          context: botPlatformContext,
          enabled: !!botPlatformContext,
        }),
@@ -1933,10 +2220,10 @@ index d63455d50b..73a13edff2 100644
        expect(userContent).toContain('use an available visual-analysis tool before answering');
        expect(userContent).toMatch(/ref=\\"msg_[^"]+\.image_1\\"/);
 diff --git a/packages/mecha/src/resolveAgentConfig.test.ts b/packages/mecha/src/resolveAgentConfig.test.ts
-index 625e2a6632..3abde4265a 100644
+index 93dfd8fe4e..35b7379e99 100644
 --- a/packages/mecha/src/resolveAgentConfig.test.ts
 +++ b/packages/mecha/src/resolveAgentConfig.test.ts
-@@ -26,10 +26,10 @@ describe('resolveAgentConfig without a host', () => {
+@@ -26,13 +26,10 @@ describe('resolveAgentConfig without a host', () => {
      expect(resolved.chatConfig).toBeDefined();
    });
  
@@ -1944,12 +2231,15 @@ index 625e2a6632..3abde4265a 100644
 +  it('does not append a reply-language instruction from the snapshot', () => {
      const resolved = resolveAgentConfig({ agentId: 'agt_1' }, snapshot({ userLocale: 'zh-CN' }));
  
--    expect(resolved.agentConfig.systemRole).toContain('zh-CN');
+-    expect(resolved.agentConfig.systemRole).toContain('Preferred reply language: zh-CN.');
+-    expect(resolved.agentConfig.systemRole).toContain(
+-      'Use this language unless the user explicitly asks to switch.',
+-    );
 +    expect(resolved.agentConfig.systemRole).toBe('You are helpful.');
    });
  
    it('leaves the system role alone when no locale is supplied', () => {
-@@ -174,9 +174,7 @@ describe('resolveAgentConfig without a host', () => {
+@@ -216,9 +213,7 @@ describe('resolveAgentConfig without a host', () => {
          slug: 'inbox',
        }),
      );
@@ -1961,18 +2251,24 @@ index 625e2a6632..3abde4265a 100644
  });
  
 diff --git a/packages/mecha/src/resolveAgentConfig.ts b/packages/mecha/src/resolveAgentConfig.ts
-index 3c4c01dd8c..b3d3f32e7f 100644
+index a53b738409..5ea9542ace 100644
 --- a/packages/mecha/src/resolveAgentConfig.ts
 +++ b/packages/mecha/src/resolveAgentConfig.ts
-@@ -382,20 +382,13 @@ export const resolveAgentConfig = (
+@@ -2,7 +2,6 @@ import { type BuiltinAgentSlug } from '@lobechat/builtin-agents';
+ import {
+   BUILTIN_AGENT_SLUGS,
+   getAgentRuntimeConfig,
+-  getReplyLanguageInstruction,
+   isCollaborativeBuiltinAgentRow,
+ } from '@lobechat/builtin-agents';
+ import { PageAgentIdentifier } from '@lobechat/builtin-tool-page-agent';
+@@ -391,18 +390,13 @@ export const resolveAgentConfig = (
      // Regular agent - use provided plugins if available, fallback to agent's plugins
      const finalPlugins = plugins && plugins.length > 0 ? plugins : basePlugins;
  
 -    // Inject response language preference into system role for regular agents
 -    const { userLocale } = snapshot;
--    const localeInstruction = userLocale
--      ? `Preferred reply language: ${userLocale}. Use this language unless the user explicitly asks to switch.`
--      : '';
+-    const localeInstruction = userLocale && getReplyLanguageInstruction(userLocale);
 -    const systemRoleWithLocale = localeInstruction
 -      ? agentConfig.systemRole
 -        ? `${agentConfig.systemRole}\n\n${localeInstruction}`
@@ -1989,7 +2285,7 @@ index 3c4c01dd8c..b3d3f32e7f 100644
        chatConfig,
      );
      let finalChatConfig = chatConfig;
-@@ -413,13 +406,13 @@ export const resolveAgentConfig = (
+@@ -420,13 +414,13 @@ export const resolveAgentConfig = (
        const pageAgentRuntime = getAgentRuntimeConfig(BUILTIN_AGENT_SLUGS.pageAgent, {});
        const pageAgentSystemRole = pageAgentRuntime?.systemRole || '';
  
@@ -2007,7 +2303,7 @@ index 3c4c01dd8c..b3d3f32e7f 100644
  
        finalAgentConfig = {
          ...finalAgentConfig,
-@@ -447,10 +440,10 @@ export const resolveAgentConfig = (
+@@ -454,10 +448,10 @@ export const resolveAgentConfig = (
        const taskAgentRuntime = getAgentRuntimeConfig(BUILTIN_AGENT_SLUGS.taskAgent, {});
        const taskAgentSystemRole = taskAgentRuntime?.systemRole || '';
        const mergedSystemRole = taskAgentSystemRole
@@ -2022,7 +2318,7 @@ index 3c4c01dd8c..b3d3f32e7f 100644
        finalAgentConfig = {
          ...finalAgentConfig,
 diff --git a/src/services/chat/chat.test.ts b/src/services/chat/chat.test.ts
-index 59474ec539..eb1f408764 100644
+index 44225797bf..a49257e042 100644
 --- a/src/services/chat/chat.test.ts
 +++ b/src/services/chat/chat.test.ts
 @@ -52,14 +52,9 @@ const mockCreateHeaderWithAuth = vi.hoisted(() =>
@@ -2032,7 +2328,7 @@ index 59474ec539..eb1f408764 100644
 -// Helper to compute expected date content from SystemDateProvider
 +// Automatic date/model additives are disabled; workspace context remains.
  const getCurrentDateContent = () => {
--  const tz = 'UTC';
+-  const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
 -  const today = new Date();
 -  const year = today.toLocaleString('en-US', { timeZone: tz, year: 'numeric' });
 -  const month = today.toLocaleString('en-US', { month: '2-digit', timeZone: tz });
@@ -2079,10 +2375,10 @@ index 59474ec539..eb1f408764 100644
                }),
                {
 diff --git a/src/services/chat/mecha/agentConfigResolver.test.ts b/src/services/chat/mecha/agentConfigResolver.test.ts
-index 91a671193c..192a63d92b 100644
+index e9427971fb..1fc29a64ea 100644
 --- a/src/services/chat/mecha/agentConfigResolver.test.ts
 +++ b/src/services/chat/mecha/agentConfigResolver.test.ts
-@@ -1452,12 +1452,12 @@ describe('resolveAgentConfig', () => {
+@@ -1407,24 +1407,22 @@ describe('resolveAgentConfig', () => {
      });
    });
  
@@ -2094,10 +2390,9 @@ index 91a671193c..192a63d92b 100644
  
 -    it('should append response language to systemRole when userLocale is set', () => {
 +    it('should not append response language to systemRole when userLocale is set', () => {
-       vi.spyOn(
-         userSelectors.userGeneralSettingsSelectors,
-         'currentResponseLanguage',
-@@ -1465,12 +1465,10 @@ describe('resolveAgentConfig', () => {
+       vi.spyOn(userSelectors.userGeneralSettingsSelectors, 'responseLanguage').mockReturnValue(
+         'zh-CN',
+       );
  
        const result = resolveAgentConfig({ agentId: 'test-agent' });
  
@@ -2109,10 +2404,10 @@ index 91a671193c..192a63d92b 100644
  
 -    it('should use locale instruction as systemRole when agent has no systemRole', () => {
 +    it('should keep systemRole empty when the agent has no systemRole', () => {
-       vi.spyOn(
-         userSelectors.userGeneralSettingsSelectors,
-         'currentResponseLanguage',
-@@ -1485,9 +1483,7 @@ describe('resolveAgentConfig', () => {
+       vi.spyOn(userSelectors.userGeneralSettingsSelectors, 'responseLanguage').mockReturnValue(
+         'ja-JP',
+       );
+@@ -1438,9 +1436,7 @@ describe('resolveAgentConfig', () => {
  
        const result = resolveAgentConfig({ agentId: 'test-agent' });
  
@@ -2122,7 +2417,7 @@ index 91a671193c..192a63d92b 100644
 +      expect(result.agentConfig.systemRole).toBe('');
      });
  
-     it('should not modify systemRole when userLocale is falsy', () => {
+     it('should preserve systemRole after switching back to Automatic', () => {
 diff --git a/src/services/chat/mecha/contextEngineering.test.ts b/src/services/chat/mecha/contextEngineering.test.ts
 index 76317a8af7..45589cd5ba 100644
 --- a/src/services/chat/mecha/contextEngineering.test.ts
@@ -2187,98 +2482,58 @@ index 76317a8af7..45589cd5ba 100644
 2.39.5
 
 
-From 82f9d3e3abf03e73a94dbd4c9e75e6de3d4efdad Mon Sep 17 00:00:00 2001
+From a731d3d94cb155b8f1ec72de46be194f66679fea Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
-Date: Mon, 23 Nov 2026 08:49:38 +0000
-Subject: [PATCH 07/21] =?UTF-8?q?=E2=9C=A8=20feat(agent):=20keep=20tools?=
- =?UTF-8?q?=20explicitly=20user-controlled?=
+Date: Thu, 26 Nov 2026 21:25:57 +0000
+Subject: [PATCH 07/22] ✨ feat(agent): keep tools explicitly user-controlled
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
+No tool reaches a run unless the agent turned it on or the runtime adds it:
+
+- No builtin is always on. The activator, Skills and Verify are ordinary,
+  visible tools an agent turns on itself.
+- Agent mode uses the same opt-in rule as Chat and Custom: an untouched
+  builtin, connector or builtin skill is off, and every entry the agent
+  turned on joins the toolset directly. Nothing is discovered by default.
+- The activator, and with it deferred runtime tools and on-demand
+  connectors, exists only when the agent turned it on.
+- Connecting a connector from an agent turns it on for that agent.
+- The agent-account and MCP-events tools are allowed but not defaults.
+
 Co-Authored-By: Claude Opus 5.5 <claude@anthropic.com.invalid>
 ---
- .../AgentToolsEngine/__tests__/index.test.ts  | 44 ++++++++++---------
- packages/builtin-tools/src/index.ts           | 26 +----------
- .../toolSet/resolveToolRules.identity.test.ts |  5 ++-
- .../resolveToolRules.mcpEvents.test.ts        |  5 ++-
- .../src/toolSet/resolveToolRules.test.ts      |  4 +-
- .../mecha/src/toolSet/resolveToolRules.ts     |  8 ++--
- src/helpers/toolEngineering/index.test.ts     | 11 +++--
- .../tool/slices/builtin/selectors.test.ts     | 14 ++----
- src/store/tool/slices/builtin/selectors.ts    |  4 +-
- 9 files changed, 47 insertions(+), 74 deletions(-)
+ .../AgentToolsEngine/__tests__/index.test.ts  |  8 +++--
+ .../aiAgent/pipeline/toolDiscovery/index.ts   | 18 +++-------
+ packages/builtin-tools/src/index.ts           | 24 ++++++--------
+ packages/mecha/src/resolveAgentConfig.test.ts |  6 ++--
+ packages/mecha/src/resolveAgentConfig.ts      | 14 +++-----
+ .../mecha/src/toolSet/builtinSkillGate.ts     | 21 +++++-------
+ .../src/toolSet/connectorActivation.test.ts   | 11 ++++---
+ .../mecha/src/toolSet/connectorActivation.ts  |  7 ++--
+ .../mecha/src/toolSet/discoveryPool.test.ts   | 21 ++++++++++--
+ packages/mecha/src/toolSet/discoveryPool.ts   |  8 ++++-
+ .../toolSet/resolveToolRules.identity.test.ts |  5 +--
+ .../resolveToolRules.mcpEvents.test.ts        |  5 +--
+ .../src/toolSet/resolveToolRules.test.ts      |  4 +--
+ .../mecha/src/toolSet/resolveToolRules.ts     |  8 ++---
+ packages/types/src/agent/pluginConfig.test.ts | 10 +++---
+ packages/types/src/agent/pluginConfig.ts      | 21 ++++++------
+ .../ChatInput/ActionBar/Tools/useControls.tsx |  8 ++---
+ src/features/ProfileEditor/AgentTool.tsx      | 33 +++----------------
+ .../connectorActivation.test.ts               | 19 ++++++-----
+ .../toolEngineering/connectorActivation.ts    | 12 +++----
+ src/helpers/toolEngineering/index.ts          |  9 ++---
+ .../tool/slices/builtin/selectors.test.ts     |  6 ++--
+ src/store/tool/slices/builtin/selectors.ts    |  1 -
+ 23 files changed, 126 insertions(+), 153 deletions(-)
 
 diff --git a/apps/server/src/modules/Mecha/AgentToolsEngine/__tests__/index.test.ts b/apps/server/src/modules/Mecha/AgentToolsEngine/__tests__/index.test.ts
-index 9655452b29..b9b97b0af4 100644
+index 06fd63058d..1287a544f4 100644
 --- a/apps/server/src/modules/Mecha/AgentToolsEngine/__tests__/index.test.ts
 +++ b/apps/server/src/modules/Mecha/AgentToolsEngine/__tests__/index.test.ts
-@@ -618,7 +618,7 @@ describe('createServerAgentToolsEngine', () => {
-     expect(result.enabledToolIds).toContain(LobeAgentManifest.identifier);
-   });
- 
--  it('should enable lobe-agent by default since it is always-on', () => {
-+  it('should not enable lobe-agent unless explicitly selected', () => {
-     const context = createMockContext();
-     const engine = createServerAgentToolsEngine(context, {
-       agentConfig: { plugins: [] },
-@@ -628,26 +628,22 @@ describe('createServerAgentToolsEngine', () => {
- 
-     const result = engine.generateToolsDetailed(deepseekToolInput());
- 
--    // lobe-agent is in alwaysOnToolIds, so its core capabilities are on for every agent-mode turn.
--    expect(result.enabledToolIds).toContain(LobeAgentManifest.identifier);
--
--    // Without a manifest context, the full static manifest is used — callSubAgent stays.
--    const lobeAgent = result.enabledManifests.find(
--      (m) => m.identifier === LobeAgentManifest.identifier,
--    );
--    expect(lobeAgent?.api.map((a) => a.name)).toContain(LobeAgentApiName.callSubAgent);
-+    expect(result.enabledToolIds).not.toContain(LobeAgentManifest.identifier);
-   });
- 
--  it('should honor an explicit disabled policy for an always-on builtin tool', () => {
-+  it('should honor an explicit disabled policy for a selected builtin tool', () => {
-     const context = createMockContext();
-     const engine = createServerAgentToolsEngine(context, {
--      agentConfig: { plugins: [] },
-+      agentConfig: { plugins: [LobeAgentManifest.identifier] },
-       disabledPluginIds: [LobeAgentManifest.identifier],
-       model: 'deepseek-chat',
-       provider: 'deepseek',
-     });
- 
--    const result = engine.generateToolsDetailed(deepseekToolInput());
-+    const result = engine.generateToolsDetailed({
-+      ...deepseekToolInput(),
-+      toolIds: [LobeAgentManifest.identifier],
-+    });
- 
-     expect(result.enabledToolIds).not.toContain(LobeAgentManifest.identifier);
-     expect(result.enabledManifests).not.toContainEqual(
-@@ -658,15 +654,18 @@ describe('createServerAgentToolsEngine', () => {
-   it('hides lobe-agent callSubAgent when manifestContext.isSubAgent is true', () => {
-     const context = createMockContext();
-     const engine = createServerAgentToolsEngine(context, {
--      agentConfig: { plugins: [] },
-+      agentConfig: { plugins: [LobeAgentManifest.identifier] },
-       manifestContext: { isSubAgent: true },
-       model: 'deepseek-chat',
-       provider: 'deepseek',
-     });
- 
--    const result = engine.generateToolsDetailed(deepseekToolInput());
-+    const result = engine.generateToolsDetailed({
-+      ...deepseekToolInput(),
-+      toolIds: [LobeAgentManifest.identifier],
-+    });
- 
--    // lobe-agent's other capabilities (plan / todo / visual-media) stay on...
-+    // lobe-agent's other capabilities (plan / todo / visual-media) stay enabled...
-     expect(result.enabledToolIds).toContain(LobeAgentManifest.identifier);
-     const lobeAgent = result.enabledManifests.find(
-       (m) => m.identifier === LobeAgentManifest.identifier,
-@@ -678,7 +677,7 @@ describe('createServerAgentToolsEngine', () => {
+@@ -682,7 +682,7 @@ describe('createServerAgentToolsEngine', () => {
    it('rewrites lobe-skills exec descriptions when manifestContext.executionEnv is device-unrouted', () => {
      const context = createMockContext();
      const engine = createServerAgentToolsEngine(context, {
@@ -2287,7 +2542,7 @@ index 9655452b29..b9b97b0af4 100644
        manifestContext: {
          executionEnv: 'device-unrouted',
          executionEnvUnroutedReason: 'bound-device-offline',
-@@ -687,9 +686,11 @@ describe('createServerAgentToolsEngine', () => {
+@@ -691,9 +691,11 @@ describe('createServerAgentToolsEngine', () => {
        provider: 'deepseek',
      });
  
@@ -2301,58 +2556,74 @@ index 9655452b29..b9b97b0af4 100644
      const skills = result.enabledManifests.find((m) => m.identifier === SkillsManifest.identifier);
      const runCommand = skills?.api.find((a) => a.name === SkillsApiName.runCommand);
      expect(runCommand?.description).toContain('local device but it is offline');
-@@ -702,13 +703,16 @@ describe('createServerAgentToolsEngine', () => {
-   it('hides lobe-agent callSubAgent inside a group run (scope=group)', () => {
-     const context = createMockContext();
-     const engine = createServerAgentToolsEngine(context, {
--      agentConfig: { plugins: [] },
-+      agentConfig: { plugins: [LobeAgentManifest.identifier] },
-       manifestContext: { scope: 'group' },
-       model: 'deepseek-chat',
-       provider: 'deepseek',
-     });
+diff --git a/apps/server/src/services/aiAgent/pipeline/toolDiscovery/index.ts b/apps/server/src/services/aiAgent/pipeline/toolDiscovery/index.ts
+index 095b180158..6694d2186f 100644
+--- a/apps/server/src/services/aiAgent/pipeline/toolDiscovery/index.ts
++++ b/apps/server/src/services/aiAgent/pipeline/toolDiscovery/index.ts
+@@ -34,12 +34,7 @@ import {
+   resolveInvocationToolIds,
+ } from '@lobechat/mecha';
+ import type { BuiltinToolResolveContext, FrozenCredentialFacts } from '@lobechat/types';
+-import {
+-  getActivePluginIds,
+-  getOptedInPluginIds,
+-  manifestBaseIdentifier,
+-  resolveToolMode,
+-} from '@lobechat/types';
++import { getOptedInPluginIds, manifestBaseIdentifier } from '@lobechat/types';
+ import debug from 'debug';
  
--    const result = engine.generateToolsDetailed(deepseekToolInput());
-+    const result = engine.generateToolsDetailed({
-+      ...deepseekToolInput(),
-+      toolIds: [LobeAgentManifest.identifier],
-+    });
+ import { loadModels } from '@/business/client/model-bank/loadModels';
+@@ -214,11 +209,8 @@ export const discoverTools = async (
+     isInGroupMember,
+     resolvedAgentId,
+   });
+-  const toolMode = resolveToolMode(agentConfig.chatConfig);
+-  const configuredPluginIds =
+-    toolMode === 'agent'
+-      ? getActivePluginIds(agentConfig?.plugins)
+-      : getOptedInPluginIds(agentConfig?.plugins);
++  // MSM: every mode runs exactly the entries the agent turned on (no default activator).
++  const configuredPluginIds = getOptedInPluginIds(agentConfig?.plugins);
+   let agentPlugins: string[] = exclusivePluginIds
+     ? [...new Set(exclusivePluginIds)]
+     : isGoalTurn
+@@ -253,11 +245,11 @@ export const discoverTools = async (
+     agentPlugins = filterPluginsByShareGate(agentPlugins, shareGate);
+   }
  
-     const lobeAgent = result.enabledManifests.find(
-       (m) => m.identifier === LobeAgentManifest.identifier,
+-  // Connected tools are discoverable by default in ordinary agent runs.
++  // MSM: no run discovers connected tools by default; only those the agent turned on.
+   // An exact toolset (verify agent, goal supervisor) names
+   // its tools itself, so the agent's switches do not apply to it.
+   const optedInIds = [...getOptedInPluginIds(agentConfig?.plugins), ...(ctx.autoSkillIds ?? [])];
+-  const discoverByDefault = toolMode === 'agent' && !evalConnectorSnapshots;
++  const discoverByDefault = false;
+   const connectorActivation =
+     exclusivePluginIds || isGoalTurn
+       ? undefined
 diff --git a/packages/builtin-tools/src/index.ts b/packages/builtin-tools/src/index.ts
-index b53a00bb53..c9dc226b17 100644
+index 97e958f61e..a1620cccb7 100644
 --- a/packages/builtin-tools/src/index.ts
 +++ b/packages/builtin-tools/src/index.ts
-@@ -85,25 +85,9 @@ export const defaultToolIds = [
+@@ -92,12 +92,11 @@ export const defaultToolIds = [
+ ];
  
  /**
-  * Tool IDs that are always enabled regardless of user selection.
-- * These are core system tools that the agent needs to function properly.
-- *
-- * `lobe-agent` is listed first: its built-in capabilities (plan + todo management,
-- * sub-agent dispatch, multimodal fallback) should be available on every agent-mode turn,
-- * not gated behind explicit injection. NOTE: these rules only apply in agent mode — chat
-- * mode (`enableAgentMode === false`) drops `alwaysOnToolIds` entirely. In manual
-- * skill-activate mode the discovery tools in `manualModeExcludeToolIds` are still removed
-- * from the defaults before the enable checker runs, so they end up disabled there.
-- *
-- * This list is also the source for builtin entries in the chat-input Tools popover.
-- * They default to pinned but can be explicitly disabled per agent; entries represented by
-- * the activation mode control itself are excluded from that menu.
-+ * MSM keeps all tools under explicit user or runtime control.
+- * Builtins enabled by default in Agent mode. The activator loads other tools
+- * on demand, and Skills loads skill instructions and carries the sandbox
+- * shell. A run with no skill to offer keeps only that shell until a skill
+- * arrives (`planSkillsToolDeferral` in `@lobechat/mecha`).
++ * Builtins enabled by default regardless of user selection.
++ * MSM keeps all tools under explicit user or runtime control: none are always on.
++ * The activator and Skills are ordinary tools an agent turns on itself.
   */
--export const alwaysOnToolIds = [
--  LobeAgentManifest.identifier,
--  LobeActivatorManifest.identifier,
--  SkillsManifest.identifier,
--  SkillStoreManifest.identifier,
--];
-+export const alwaysOnToolIds = [];
+-export const alwaysOnToolIds = [LobeActivatorManifest.identifier, SkillsManifest.identifier];
++export const alwaysOnToolIds: string[] = [];
  
- /**
-  * Runtime tools represented by the skill activation mode control itself. They remain part
-@@ -318,22 +302,16 @@ const builtinToolRegistry: LobeBuiltinTool[] = [
+ /** Ignore stale picker preferences for fixed infrastructure in ordinary Agent mode.
+  * Only use for saved user choices, never for a share allowlist or runtime exclusion. */
+@@ -324,22 +323,16 @@ const builtinToolRegistry: LobeBuiltinTool[] = [
      type: 'builtin',
    },
    {
@@ -2375,6 +2646,254 @@ index b53a00bb53..c9dc226b17 100644
      identifier: SkillsManifest.identifier,
      manifest: SkillsManifest,
      // Context-aware: prefixes exec-class API descriptions with the run's
+@@ -688,15 +681,18 @@ export const getLegacyDisabledBuiltinToolIds = (
+   overrides: readonly string[],
+ ) => uninstalled.filter((id) => isOnDemandBuiltinTool(id) && !overrides.includes(id));
+ 
+-/** Agent mode discovers installed builtins by default. Other modes keep their configured toolset. */
++/**
++ * Every mode keeps its configured toolset: an on-demand builtin the agent has not
++ * turned on is unavailable. MSM never discovers builtins by default, so Agent mode
++ * follows the same opt-in rule as Chat and Custom.
++ */
+ export const getUnavailableBuiltinToolIds = (
+   available: Iterable<string>,
+-  chatConfig?: Pick<LobeAgentChatConfig, 'toolMode' | 'enableAgentMode'> | null,
++  _chatConfig?: Pick<LobeAgentChatConfig, 'toolMode' | 'enableAgentMode'> | null,
+   uninstalled: readonly string[] = [],
+   overrides: readonly string[] = [],
+ ) => {
+   const legacyDisabled = getLegacyDisabledBuiltinToolIds(uninstalled, overrides);
+-  if (resolveToolMode(chatConfig) === 'agent') return legacyDisabled;
+ 
+   const allowed = new Set(available);
+   return onDemandBuiltinToolIds.filter((id) => !allowed.has(id) || legacyDisabled.includes(id));
+diff --git a/packages/mecha/src/resolveAgentConfig.test.ts b/packages/mecha/src/resolveAgentConfig.test.ts
+index 35b7379e99..e2b8d410ed 100644
+--- a/packages/mecha/src/resolveAgentConfig.test.ts
++++ b/packages/mecha/src/resolveAgentConfig.test.ts
+@@ -56,7 +56,7 @@ describe('resolveAgentConfig without a host', () => {
+     expect(resolved.plugins).toContain('lobe-web-browsing');
+   });
+ 
+-  it('treats auto entries as enabled in Chat and Custom modes while keeping disabled entries excluded', () => {
++  it('treats auto entries as enabled in every mode while keeping disabled entries excluded', () => {
+     const plugins = [
+       { identifier: 'lobe-image-generation', mode: 'auto' },
+       { builtinOverride: true, identifier: 'lobe-task', mode: 'auto' },
+@@ -83,7 +83,7 @@ describe('resolveAgentConfig without a host', () => {
+       ).plugins,
+     ).toEqual(['lobe-image-generation', 'lobe-task']);
+ 
+-    // Agent mode still defers auto and on-demand builtins to the activator.
++    // MSM: Agent mode has no default activator, so opted-in entries load directly too.
+     expect(
+       resolveAgentConfig(
+         { agentId: 'agt_1' },
+@@ -92,7 +92,7 @@ describe('resolveAgentConfig without a host', () => {
+           chatConfig: { enableAgentMode: true } as never,
+         }),
+       ).plugins,
+-    ).toEqual([]);
++    ).toEqual(['lobe-image-generation', 'lobe-task']);
+   });
+ 
+   it('prefers the caller plugins over the stored ones', () => {
+diff --git a/packages/mecha/src/resolveAgentConfig.ts b/packages/mecha/src/resolveAgentConfig.ts
+index 5ea9542ace..7af0e3a0ea 100644
+--- a/packages/mecha/src/resolveAgentConfig.ts
++++ b/packages/mecha/src/resolveAgentConfig.ts
+@@ -6,19 +6,16 @@ import {
+ } from '@lobechat/builtin-agents';
+ import { PageAgentIdentifier } from '@lobechat/builtin-tool-page-agent';
+ import { TaskIdentifier } from '@lobechat/builtin-tool-task';
+-import { isOnDemandBuiltinTool } from '@lobechat/builtin-tools';
+ import { type LobeToolManifest } from '@lobechat/context-engine';
+ import {
+   type AgentModelConfig,
+   type AgentModelOverride,
+   type ChatCompletionTool,
+-  getActivePluginIds,
+   getOptedInPluginIds,
+   type LobeAgentChatConfig,
+   type LobeAgentConfig,
+   type MessageMapScope,
+   resolveAgentModelConfig,
+-  resolveToolMode,
+ } from '@lobechat/types';
+ import debug from 'debug';
+ import { produce } from 'immer';
+@@ -328,13 +325,10 @@ export const resolveAgentConfig = (
+       ? sharedChatConfig
+       : { ...sharedChatConfig, enableAgentMode: memberModeOverride };
+ 
+-  // Base plugins from agent config: Agent mode loads on-demand builtins and `auto`
+-  // entries through the activator; Chat and Custom modes have no activator by default,
+-  // so every opted-in entry (`auto` or legacy `pinned`) joins the base toolset directly.
+-  const basePlugins =
+-    resolveToolMode(chatConfig) === 'agent'
+-      ? getActivePluginIds(agentConfig?.plugins).filter((id) => !isOnDemandBuiltinTool(id))
+-      : getOptedInPluginIds(agentConfig?.plugins);
++  // Base plugins from agent config: MSM keeps every tool under explicit user control
++  // and has no default activator, so in every mode each opted-in entry (`auto` or
++  // legacy `pinned`) joins the base toolset directly.
++  const basePlugins = getOptedInPluginIds(agentConfig?.plugins);
+ 
+   // Check if this is a builtin agent
+   // Priority: supervisor check (when in group scope) > agent store slug
+diff --git a/packages/mecha/src/toolSet/builtinSkillGate.ts b/packages/mecha/src/toolSet/builtinSkillGate.ts
+index 7520ddc410..6727ff2327 100644
+--- a/packages/mecha/src/toolSet/builtinSkillGate.ts
++++ b/packages/mecha/src/toolSet/builtinSkillGate.ts
+@@ -3,11 +3,8 @@ import {
+   ArtifactsIdentifier,
+   LobeHubIdentifier,
+ } from '@lobechat/builtin-skills/manifests';
+-import { type LobeAgentChatConfig, resolveToolMode } from '@lobechat/types';
++import { type LobeAgentChatConfig } from '@lobechat/types';
+ 
+-// #23412 changed an absent builtin skill preference from Auto to off. Older
+-// clients did not write an entry even when a user explicitly chose Auto.
+-const SKILL_OPT_IN_SINCE = Date.parse('2026-11-18T15:53:51Z');
+ export const legacyBuiltinSkillIds: readonly string[] = [
+   AgentBrowserIdentifier,
+   ArtifactsIdentifier,
+@@ -28,16 +25,14 @@ export type SkillDiscoveryChatConfig = Pick<
+   'enableAgentMode' | 'skillActivateMode' | 'toolMode'
+ >;
+ 
++/**
++ * MSM: no builtin skill is on implicitly, whatever the agent's age or mode. Every skill
++ * is opt-in per agent, so this always returns none.
++ */
+ export const getImplicitBuiltinSkillIds = (
+-  createdAt: Date | string | undefined,
+-  chatConfig: SkillDiscoveryChatConfig | null | undefined,
+-): readonly string[] =>
+-  createdAt &&
+-  new Date(createdAt).getTime() < SKILL_OPT_IN_SINCE &&
+-  chatConfig?.skillActivateMode !== 'manual' &&
+-  resolveToolMode(chatConfig) === 'agent'
+-    ? legacyBuiltinSkillIds
+-    : noImplicitSkills;
++  _createdAt: Date | string | undefined,
++  _chatConfig: SkillDiscoveryChatConfig | null | undefined,
++): readonly string[] => noImplicitSkills;
+ 
+ /** Builtin skills that only work where the run can execute commands on a device. */
+ const DEVICE_ONLY_BUILTIN_SKILLS = new Set<string>([AgentBrowserIdentifier]);
+diff --git a/packages/mecha/src/toolSet/connectorActivation.test.ts b/packages/mecha/src/toolSet/connectorActivation.test.ts
+index 0654629a31..fb5d2bebcd 100644
+--- a/packages/mecha/src/toolSet/connectorActivation.test.ts
++++ b/packages/mecha/src/toolSet/connectorActivation.test.ts
+@@ -7,14 +7,15 @@ import {
+ } from './connectorActivation';
+ 
+ describe('hasConnectorActivator', () => {
+-  it('has the activator in agent mode, the default', () => {
+-    expect(hasConnectorActivator(undefined)).toBe(true);
+-    expect(hasConnectorActivator({})).toBe(true);
+-    expect(hasConnectorActivator({ skillActivateMode: 'auto' })).toBe(true);
++  it('has no activator in agent mode unless the agent turned it on (MSM)', () => {
++    expect(hasConnectorActivator(undefined)).toBe(false);
++    expect(hasConnectorActivator({})).toBe(false);
++    expect(hasConnectorActivator({ skillActivateMode: 'auto' })).toBe(false);
++    expect(hasConnectorActivator({}, ['lobe-activator'])).toBe(true);
+   });
+ 
+   it('ignores the retired tool discovery switch', () => {
+-    expect(hasConnectorActivator({ skillActivateMode: 'manual' })).toBe(true);
++    expect(hasConnectorActivator({ skillActivateMode: 'manual' }, ['lobe-activator'])).toBe(true);
+   });
+ 
+   it('has none in custom mode, which exposes exactly the declared plugins', () => {
+diff --git a/packages/mecha/src/toolSet/connectorActivation.ts b/packages/mecha/src/toolSet/connectorActivation.ts
+index 76d0a982f2..f2fc0fad47 100644
+--- a/packages/mecha/src/toolSet/connectorActivation.ts
++++ b/packages/mecha/src/toolSet/connectorActivation.ts
+@@ -1,7 +1,10 @@
+ import { LobeActivatorIdentifier } from '@lobechat/builtin-tool-activator';
+ import { type LobeAgentChatConfig, resolveToolMode } from '@lobechat/types';
+ 
+-/** Agent mode provides the activator by default. Custom toolsets can declare it explicitly. */
++/**
++ * No mode provides the activator by default (MSM keeps tools explicitly user-controlled).
++ * Agent mode and custom toolsets have one only when the agent turned it on explicitly.
++ */
+ export const hasConnectorActivator = (
+   chatConfig: Pick<LobeAgentChatConfig, 'enableAgentMode' | 'toolMode'> | null | undefined,
+   pluginIds: readonly string[] = [],
+@@ -9,7 +12,7 @@ export const hasConnectorActivator = (
+ ): boolean => {
+   if (disabledIds.includes(LobeActivatorIdentifier)) return false;
+   const mode = resolveToolMode(chatConfig);
+-  return mode === 'agent' || (mode === 'custom' && pluginIds.includes(LobeActivatorIdentifier));
++  return (mode === 'agent' || mode === 'custom') && pluginIds.includes(LobeActivatorIdentifier);
+ };
+ 
+ export interface ConnectorActivationRequest {
+diff --git a/packages/mecha/src/toolSet/discoveryPool.test.ts b/packages/mecha/src/toolSet/discoveryPool.test.ts
+index 2416bf948e..704ba9d9a7 100644
+--- a/packages/mecha/src/toolSet/discoveryPool.test.ts
++++ b/packages/mecha/src/toolSet/discoveryPool.test.ts
+@@ -69,16 +69,31 @@ describe('resolveInvocationToolIds', () => {
+ });
+ 
+ describe('initialToolSelection', () => {
+-  it('keeps lobe-web-browsing preloaded while deferring other runtime capabilities in agent mode', () => {
++  it('keeps lobe-web-browsing preloaded while deferring other runtime capabilities to an activator', () => {
+     const selection = initialToolSelection(
+-      ['lobe-web-browsing', 'lobe-user-memory', CloudSandboxManifest.identifier, 'my-plugin'],
++      [
++        'lobe-activator',
++        'lobe-web-browsing',
++        'lobe-user-memory',
++        CloudSandboxManifest.identifier,
++        'my-plugin',
++      ],
+       { enableAgentMode: true },
+     );
+ 
+     expect(selection.excludeDefaultToolIds).not.toContain('lobe-web-browsing');
+     expect(selection.excludeDefaultToolIds).toContain('lobe-user-memory');
+     expect(selection.excludeDefaultToolIds).toContain(CloudSandboxManifest.identifier);
+-    expect(selection.toolIds).toEqual(['lobe-web-browsing', 'my-plugin']);
++    expect(selection.toolIds).toEqual(['lobe-activator', 'lobe-web-browsing', 'my-plugin']);
++  });
++
++  it('defers nothing in agent mode without an activator (MSM)', () => {
++    const selection = initialToolSelection(['lobe-web-browsing', 'lobe-user-memory'], {
++      enableAgentMode: true,
++    });
++
++    expect(selection.excludeDefaultToolIds).toBeUndefined();
++    expect(selection.toolIds).toEqual(['lobe-web-browsing', 'lobe-user-memory']);
+   });
+ 
+   it('does not defer capabilities in chat mode or when skipDefaultTools is true', () => {
+diff --git a/packages/mecha/src/toolSet/discoveryPool.ts b/packages/mecha/src/toolSet/discoveryPool.ts
+index 1198aa2782..bf590a6631 100644
+--- a/packages/mecha/src/toolSet/discoveryPool.ts
++++ b/packages/mecha/src/toolSet/discoveryPool.ts
+@@ -1,3 +1,4 @@
++import { LobeActivatorIdentifier } from '@lobechat/builtin-tool-activator';
+ import { AuvManifest } from '@lobechat/builtin-tool-auv';
+ import { CloudSandboxManifest } from '@lobechat/builtin-tool-cloud-sandbox';
+ import { LocalSystemManifest } from '@lobechat/builtin-tool-local-system';
+@@ -67,7 +68,12 @@ export const initialToolSelection = (
+   chatConfig?: Pick<LobeAgentChatConfig, 'enableAgentMode' | 'toolMode'> | null,
+   skipDefaultTools?: boolean,
+ ): Pick<GenerateToolsParams, 'toolIds' | 'excludeDefaultToolIds' | 'skipDefaultTools'> => {
+-  const deferCapabilities = !skipDefaultTools && resolveToolMode(chatConfig) === 'agent';
++  // Deferred tools can only come back through the activator, so defer them only when
++  // the run has one. MSM has no default activator, so a run without it keeps them.
++  const deferCapabilities =
++    !skipDefaultTools &&
++    resolveToolMode(chatConfig) === 'agent' &&
++    !!toolIds?.includes(LobeActivatorIdentifier);
+   if (!deferCapabilities) {
+     return {
+       excludeDefaultToolIds: undefined,
 diff --git a/packages/mecha/src/toolSet/resolveToolRules.identity.test.ts b/packages/mecha/src/toolSet/resolveToolRules.identity.test.ts
 index 6d7f7772fe..e35ea2eb1b 100644
 --- a/packages/mecha/src/toolSet/resolveToolRules.identity.test.ts
@@ -2418,7 +2937,7 @@ index 23a2d85a69..ca403cbb6e 100644
    });
  
 diff --git a/packages/mecha/src/toolSet/resolveToolRules.test.ts b/packages/mecha/src/toolSet/resolveToolRules.test.ts
-index cf43dce9e9..9e1060483c 100644
+index f5970236a5..cf7854db98 100644
 --- a/packages/mecha/src/toolSet/resolveToolRules.test.ts
 +++ b/packages/mecha/src/toolSet/resolveToolRules.test.ts
 @@ -67,14 +67,14 @@ describe('resolveToolRules', () => {
@@ -2433,16 +2952,16 @@ index cf43dce9e9..9e1060483c 100644
      expect(resolved.allowExplicitActivation).toBe(true);
      expect(resolved.rules['my-plugin']).toBe(true);
      expect(resolved.rules['scope-plugin']).toBe(true);
--    expect(resolved.rules['lobe-agent']).toBe(true);
-+    expect(resolved.rules['lobe-agent']).toBeUndefined();
+-    expect(resolved.rules['lobe-activator']).toBe(true);
++    expect(resolved.rules['lobe-activator']).toBeUndefined();
+     expect(resolved.rules['lobe-agent']).toBeUndefined();
+     expect(resolved.rules['lobe-skill-store']).toBeUndefined();
      for (const id of groupSupervisorToolIds) {
-       expect(resolved.rules[id]).toBe(true);
-       expect(resolved.defaultToolIds).toContain(id);
 diff --git a/packages/mecha/src/toolSet/resolveToolRules.ts b/packages/mecha/src/toolSet/resolveToolRules.ts
-index 6ecceaa99a..f502e1abcb 100644
+index c41ec61cad..1446b4c9a6 100644
 --- a/packages/mecha/src/toolSet/resolveToolRules.ts
 +++ b/packages/mecha/src/toolSet/resolveToolRules.ts
-@@ -107,9 +107,9 @@ export const resolveToolRules = (request: ToolRuleRequest): ResolvedToolRules =>
+@@ -111,9 +111,9 @@ export const resolveToolRules = (request: ToolRuleRequest): ResolvedToolRules =>
      [BrowserManifest.identifier]: runtimeMode === 'local' && request.localExecutionReady,
      [MemoryManifest.identifier]: memoryEnabled,
      ...(request.isBotConversation && { [MessageManifest.identifier]: true }),
@@ -2455,7 +2974,7 @@ index 6ecceaa99a..f502e1abcb 100644
      [AgentAccountManifest.identifier]: request.hasIdentityAccount ?? false,
      [McpEventsManifest.identifier]: request.hasEventConnector ?? false,
      ...(request.isGroupSupervisor && enableAll(groupSupervisorToolIds)),
-@@ -145,8 +145,6 @@ export const resolveToolRules = (request: ToolRuleRequest): ResolvedToolRules =>
+@@ -164,8 +164,6 @@ export const resolveToolRules = (request: ToolRuleRequest): ResolvedToolRules =>
            ? [...chatModeAllowedToolIds]
            : [
                ...defaultToolIds,
@@ -2464,99 +2983,332 @@ index 6ecceaa99a..f502e1abcb 100644
                ...(request.isGroupSupervisor ? groupSupervisorToolIds : []),
              ],
      deviceCapable,
-diff --git a/src/helpers/toolEngineering/index.test.ts b/src/helpers/toolEngineering/index.test.ts
-index cc93ed9410..eb57a77ddb 100644
---- a/src/helpers/toolEngineering/index.test.ts
-+++ b/src/helpers/toolEngineering/index.test.ts
-@@ -558,9 +558,8 @@ describe('toolEngineering', () => {
-         provider: 'openai',
-       });
+diff --git a/packages/types/src/agent/pluginConfig.test.ts b/packages/types/src/agent/pluginConfig.test.ts
+index 0525a302af..4d195cd851 100644
+--- a/packages/types/src/agent/pluginConfig.test.ts
++++ b/packages/types/src/agent/pluginConfig.test.ts
+@@ -191,8 +191,8 @@ describe('library skills', () => {
+ });
  
--      // lobe-agent is always-on (alwaysOnToolIds), so it rides along with user tools.
--      expect(result.enabledToolIds).toEqual(['search', 'lobe-web-browsing', 'lobe-agent']);
--      expect(result.enabledToolIds).toHaveLength(3);
-+      expect(result.enabledToolIds).toEqual(['search', 'lobe-web-browsing']);
-+      expect(result.enabledToolIds).toHaveLength(2);
-     });
+ describe('connectors', () => {
+-  it('only enrolls a newly connected tool for an exact toolset without a saved choice', () => {
+-    expect(shouldEnableConnectorOnConnect([], 'notion')).toBe(false);
++  it('enrolls a newly connected tool in every mode without a saved choice (MSM)', () => {
++    expect(shouldEnableConnectorOnConnect([], 'notion')).toBe(true);
+     const custom = { toolMode: 'custom' } as const;
+     expect(shouldEnableConnectorOnConnect([], 'notion', custom)).toBe(true);
+     expect(
+@@ -204,10 +204,10 @@ describe('connectors', () => {
+     ).toBe(false);
+   });
  
-     it('should enable lobe-agent when it is injected into runtime plugin ids', () => {
-@@ -594,7 +593,7 @@ describe('toolEngineering', () => {
-       expect(result.enabledToolIds.includes('lobe-attachments')).toBe(flag);
-     });
+-  it('defaults a connected tool to on demand in Agent mode and preserves custom toolsets', () => {
+-    expect(getConnectorMode(undefined, 'gmail')).toBe('auto');
++  it('keeps an untouched connected tool off in every mode (MSM)', () => {
++    expect(getConnectorMode(undefined, 'gmail')).toBe('disabled');
+     expect(getConnectorMode(undefined, 'gmail', { toolMode: 'custom' })).toBe('disabled');
+-    expect(getConnectorMode(['other'], 'gmail')).toBe('auto');
++    expect(getConnectorMode(['other'], 'gmail')).toBe('disabled');
+   });
  
--    it('should enable lobe-agent by default since it is always-on', () => {
-+    it('should not enable lobe-agent unless explicitly selected', () => {
-       const toolsEngine = createAgentToolsEngine({
-         model: 'deepseek-chat',
-         provider: 'deepseek',
-@@ -606,10 +605,10 @@ describe('toolEngineering', () => {
-         toolIds: [],
-       });
+   it('reads an explicit auto entry as on and a disabled entry as off', () => {
+diff --git a/packages/types/src/agent/pluginConfig.ts b/packages/types/src/agent/pluginConfig.ts
+index bc26048938..44599885cb 100644
+--- a/packages/types/src/agent/pluginConfig.ts
++++ b/packages/types/src/agent/pluginConfig.ts
+@@ -83,10 +83,10 @@ export const getLibrarySkillMode = (
  
--      expect(result.enabledToolIds).toContain('lobe-agent');
-+      expect(result.enabledToolIds).not.toContain('lobe-agent');
-     });
+ /**
+  * Connectors — the user's MCP connectors, Composio and LobeHub connections and
+- * installed plugins — are discoverable by default in agent mode. Custom
+- * toolsets only include their explicitly configured connectors.
++ * installed plugins — are opt-in per agent in every mode: one the agent has no
++ * entry for is off. MSM never discovers connectors by default.
+  */
+-export const CONNECTOR_IMPLICIT_MODE = 'auto' as const;
++export const CONNECTOR_IMPLICIT_MODE = 'disabled' as const;
  
--    it('should honor an explicit disabled policy for an always-on builtin tool', () => {
-+    it('should honor an explicit disabled policy for a builtin tool', () => {
-       mockCurrentAgentDisabledPlugins = ['lobe-agent'];
+ /** The mode the two-state connector switch writes for "on". */
+ export const CONNECTOR_ON_MODE: AgentPluginMode = 'auto';
+@@ -99,21 +99,22 @@ export const CONNECTOR_ON_MODE: AgentPluginMode = 'auto';
+ export const getConnectorMode = (
+   plugins: AgentPluginEntry[] | undefined,
+   identifier: string,
+-  chatConfig?: Parameters<typeof resolveToolMode>[0],
++  _chatConfig?: Parameters<typeof resolveToolMode>[0],
+ ): 'auto' | 'disabled' => {
+   const entry = plugins?.find((item) => parsePluginEntry(item).identifier === identifier);
+-  if (!entry) return resolveToolMode(chatConfig) === 'agent' ? CONNECTOR_IMPLICIT_MODE : 'disabled';
++  if (!entry) return CONNECTOR_IMPLICIT_MODE;
+   return parsePluginEntry(entry).mode === 'disabled' ? 'disabled' : 'auto';
+ };
  
-       const toolsEngine = createAgentToolsEngine({
+-/** A connection initiated from an exact toolset needs an entry unless the agent already chose a mode. */
++/**
++ * A connection initiated from an agent turns the connector on for it unless the agent
++ * already chose a mode. Connectors are opt-in in every mode, so this holds in Agent mode too.
++ */
+ export const shouldEnableConnectorOnConnect = (
+   plugins: AgentPluginEntry[] | undefined,
+   identifier: string,
+-  chatConfig?: Parameters<typeof resolveToolMode>[0],
+-): boolean =>
+-  resolveToolMode(chatConfig) !== 'agent' &&
+-  !plugins?.some((entry) => parsePluginEntry(entry).identifier === identifier);
++  _chatConfig?: Parameters<typeof resolveToolMode>[0],
++): boolean => !plugins?.some((entry) => parsePluginEntry(entry).identifier === identifier);
+ 
+ const getPluginIdsByMode = (
+   plugins: AgentPluginEntry[] | undefined,
+diff --git a/src/features/ChatInput/ActionBar/Tools/useControls.tsx b/src/features/ChatInput/ActionBar/Tools/useControls.tsx
+index 5605954a7d..2009c0d1ec 100644
+--- a/src/features/ChatInput/ActionBar/Tools/useControls.tsx
++++ b/src/features/ChatInput/ActionBar/Tools/useControls.tsx
+@@ -4,7 +4,6 @@ import { isOnDemandBuiltinTool } from '@lobechat/builtin-tools';
+ import { getConnectorCatalog } from '@lobechat/const';
+ import {
+   parsePluginEntry,
+-  resolveToolMode,
+   setBuiltinPluginMode,
+   upsertConnectorEnabled,
+   upsertPluginMode,
+@@ -169,10 +168,9 @@ export const useControls = ({
+   );
+   const marketAgentSkills = useToolStore(agentSkillsSelectors.getMarketAgentSkills, isEqual);
+   const userAgentSkills = useToolStore(agentSkillsSelectors.getUserAgentSkills, isEqual);
+-  const discoverBuiltins = useAgentStore(
+-    (s) =>
+-      resolveToolMode(agentByIdSelectors.getAgentConfigById(agentId)(s)?.chatConfig) === 'agent',
+-  );
++  // MSM: no mode discovers builtins by default. An untouched tool reads as off, and
++  // turning one on writes an explicit entry that loads it directly.
++  const discoverBuiltins = false;
+   const { connectorIds, disabledIdSet, optInIds } = useActivationSets(
+     agentId,
+     rawPlugins,
+diff --git a/src/features/ProfileEditor/AgentTool.tsx b/src/features/ProfileEditor/AgentTool.tsx
+index 0a8c8e1a56..6374cae035 100644
+--- a/src/features/ProfileEditor/AgentTool.tsx
++++ b/src/features/ProfileEditor/AgentTool.tsx
+@@ -15,7 +15,6 @@ import {
+   getDisabledPluginIds,
+   getOptedInPluginIds,
+   parsePluginEntry,
+-  resolveToolMode,
+   setBuiltinPluginMode,
+   upsertConnectorEnabled,
+   upsertPluginMode,
+@@ -41,10 +40,7 @@ import ToolItem from '@/features/ChatInput/ActionBar/Tools/ToolItem';
+ import ToolItemDetailPopover from '@/features/ChatInput/ActionBar/Tools/ToolItemDetailPopover';
+ import { useResourceAccess } from '@/features/ResourcePermission/useResourceAccess';
+ import { createSkillStoreModal } from '@/features/SkillStore';
+-import {
+-  getConnectedConnectorIds,
+-  getConnectorIdentifiers,
+-} from '@/helpers/toolEngineering/connectorActivation';
++import { getConnectorIdentifiers } from '@/helpers/toolEngineering/connectorActivation';
+ import { useFetchInstalledPlugins } from '@/hooks/useFetchInstalledPlugins';
+ import { usePermission } from '@/hooks/usePermission';
+ import { useAgentStore } from '@/store/agent';
+@@ -126,6 +122,8 @@ export interface AgentToolProps {
+   variant?: 'chip' | 'list';
+ }
+ 
++const EMPTY_IMPLICIT_TOOL_IDS: string[] = [];
++
+ const AgentTool = memo<AgentToolProps>(
+   ({
+     agentId,
+@@ -173,10 +171,6 @@ const AgentTool = memo<AgentToolProps>(
+         : builtinToolSelectors.metaList,
+       isEqual,
+     );
+-    const connectedIds = useToolStore(
+-      (s) => getConnectedConnectorIds(s, effectiveAgentId),
+-      isEqual,
+-    );
+     const installedBuiltinSkills = useToolStore(
+       builtinToolSelectors.installedBuiltinSkills,
+       isEqual,
+@@ -193,25 +187,8 @@ const AgentTool = memo<AgentToolProps>(
+     );
+     const createdAt = useAgentStore((s) => s.agentMap[effectiveAgentId]?.createdAt);
+     const implicitSkills = getImplicitBuiltinSkillIds(createdAt, config?.chatConfig);
+-    const implicitToolIds = useMemo(
+-      () =>
+-        resolveToolMode(config?.chatConfig) === 'agent'
+-          ? [
+-              ...profileBuiltinList.map((tool) => tool.identifier).filter(isOnDemandBuiltinTool),
+-              ...connectedIds,
+-              ...installedBuiltinSkills
+-                .map((skill) => skill.identifier)
+-                .filter((id) => implicitSkills.includes(id)),
+-            ]
+-          : [],
+-      [
+-        config?.chatConfig,
+-        profileBuiltinList,
+-        connectedIds,
+-        installedBuiltinSkills,
+-        implicitSkills,
+-      ],
+-    );
++    // MSM: no mode turns tools on implicitly, so the profile counts only explicit entries.
++    const implicitToolIds: string[] = EMPTY_IMPLICIT_TOOL_IDS;
+     const disabledToolIds = useMemo(
+       () => new Set([...getDisabledPluginIds(config?.plugins), ...legacyDisabledBuiltins]),
+       [config?.plugins, legacyDisabledBuiltins],
+diff --git a/src/helpers/toolEngineering/connectorActivation.test.ts b/src/helpers/toolEngineering/connectorActivation.test.ts
+index 53538ceac8..76a659847a 100644
+--- a/src/helpers/toolEngineering/connectorActivation.test.ts
++++ b/src/helpers/toolEngineering/connectorActivation.test.ts
+@@ -39,11 +39,14 @@ describe('getConnectorIdentifiers', () => {
+ });
+ 
+ describe('resolveAgentConnectorActivation', () => {
+-  it('offers a new connection to ordinary agents without injecting it', () => {
++  it('keeps a new connection off until the agent turns it on (MSM)', () => {
+     const { activation, offIds } = resolveAgentConnectorActivation({ plugins: [] }, [], toolState);
+-    expect(offIds).toEqual(['agent-only-mcp']);
+-    expect(resolveAgentConnectorActivation({ id: 'agent-1' }, [], toolState).offIds).toEqual([]);
+-    expect(activation.isAllowed('linear')).toBe(true);
++    expect(offIds).toContain('agent-only-mcp');
++    expect(offIds).toContain('linear');
++    expect(resolveAgentConnectorActivation({ id: 'agent-1' }, [], toolState).offIds).toContain(
++      'linear',
++    );
++    expect(activation.isAllowed('linear')).toBe(false);
+     expect(activation.isInjected('linear')).toBe(false);
+   });
+ 
+@@ -83,7 +86,7 @@ describe('resolveAgentConnectorActivation', () => {
+ });
+ 
+ describe('applyAgentConnectorActivation', () => {
+-  it('leaves a connector that is on to the activator and keeps pinned tools and skills', () => {
++  it('injects a connector that is on next to pinned tools and skills, with no default activator (MSM)', () => {
+     const connectors = resolveAgentConnectorActivation(
+       { plugins: ['gmail', 'lobe-image-generation', 'library-skill'] },
+       [],
+@@ -95,10 +98,10 @@ describe('applyAgentConnectorActivation', () => {
+         ['gmail', 'lobe-image-generation', 'library-skill'],
+         connectors,
+       ),
+-    ).toEqual(['lobe-image-generation', 'library-skill']);
++    ).toEqual(['gmail', 'lobe-image-generation', 'library-skill']);
+   });
+ 
+-  it('keeps an opted-in connector discoverable despite a legacy manual preference', () => {
++  it('injects an opted-in connector despite a legacy manual preference (MSM)', () => {
+     const connectors = resolveAgentConnectorActivation(
+       {
+         chatConfig: { skillActivateMode: 'manual' },
+@@ -109,7 +112,7 @@ describe('applyAgentConnectorActivation', () => {
+     );
+ 
+     expect(connectors.offIds).not.toContain('linear');
+-    expect(applyAgentConnectorActivation(['linear'], connectors)).toEqual([]);
++    expect(applyAgentConnectorActivation(['linear'], connectors)).toEqual(['linear']);
+   });
+ 
+   it('keeps a connector this turn mentions', () => {
+diff --git a/src/helpers/toolEngineering/connectorActivation.ts b/src/helpers/toolEngineering/connectorActivation.ts
+index 20b052dc46..2676a0d3c7 100644
+--- a/src/helpers/toolEngineering/connectorActivation.ts
++++ b/src/helpers/toolEngineering/connectorActivation.ts
+@@ -5,12 +5,7 @@ import {
+   hasConnectorActivator,
+   resolveConnectorActivation,
+ } from '@lobechat/mecha';
+-import {
+-  type AgentPluginEntry,
+-  getActivePluginIds,
+-  getOptedInPluginIds,
+-  resolveToolMode,
+-} from '@lobechat/types';
++import { type AgentPluginEntry, getOptedInPluginIds } from '@lobechat/types';
+ 
+ import { getToolStoreState } from '@/store/tool';
+ import type { ToolStoreState } from '@/store/tool/initialState';
+@@ -94,10 +89,11 @@ export const resolveAgentConnectorActivation = (
+   const unavailable = connectorIds.filter((id) => !available.has(id));
+   const activation = resolveConnectorActivation({
+     disabledIds: [...disabledIds, ...unavailable],
+-    discoverByDefault: resolveToolMode(agent.chatConfig) === 'agent',
++    // MSM: no mode discovers connectors by default; only those the agent turned on.
++    discoverByDefault: false,
+     hasActivator: hasConnectorActivator(
+       agent.chatConfig,
+-      [...(agent.enabledPluginIds ?? getActivePluginIds(agent.plugins)), ...turnIds],
++      [...(agent.enabledPluginIds ?? getOptedInPluginIds(agent.plugins)), ...turnIds],
+       disabledIds,
+     ),
+     optedInIds: getOptedInPluginIds(agent.plugins),
+diff --git a/src/helpers/toolEngineering/index.ts b/src/helpers/toolEngineering/index.ts
+index be5cc52901..50015247b8 100644
+--- a/src/helpers/toolEngineering/index.ts
++++ b/src/helpers/toolEngineering/index.ts
+@@ -5,7 +5,6 @@ import { AuvManifest } from '@lobechat/builtin-tool-auv';
+ import {
+   getUnavailableBuiltinToolIds,
+   getUserDisabledToolIds,
+-  isOnDemandBuiltinTool,
+ } from '@lobechat/builtin-tools';
+ import { getFeatureDisabledToolIds } from '@lobechat/builtin-tools/featureGates';
+ import { serverOnlyToolIds } from '@lobechat/builtin-tools/serverOnly';
+@@ -20,11 +19,9 @@ import {
+   type AgentPluginEntry,
+   type BuiltinToolResolveContext,
+   type ChatCompletionTool,
+-  getActivePluginIds,
+   getBuiltinOverrides,
+   getOptedInPluginIds,
+   type LobeAgentChatConfig,
+-  resolveToolMode,
+   type ToolManifest,
+   type WorkingModel,
+ } from '@lobechat/types';
+@@ -273,11 +270,9 @@ export const createAgentToolsEngine = (
+   const resolved = resolveToolRules({
+     agent: {
+       chatConfig,
++      // MSM: every mode loads exactly the entries the agent turned on (no default activator).
+       plugins: applyAgentConnectorActivation(
+-        options.runAgent?.enabledPluginIds ??
+-          (resolveToolMode(chatConfig) === 'agent'
+-            ? getActivePluginIds(agent.plugins).filter((id) => !isOnDemandBuiltinTool(id))
+-            : getOptedInPluginIds(agent.plugins)),
++        options.runAgent?.enabledPluginIds ?? getOptedInPluginIds(agent.plugins),
+         connectors,
+       ),
+     },
 diff --git a/src/store/tool/slices/builtin/selectors.test.ts b/src/store/tool/slices/builtin/selectors.test.ts
-index 505445f0bd..be4b1a4767 100644
+index 20d3fa3079..f120753e05 100644
 --- a/src/store/tool/slices/builtin/selectors.test.ts
 +++ b/src/store/tool/slices/builtin/selectors.test.ts
-@@ -150,25 +150,17 @@ describe('builtinToolSelectors', () => {
-       uninstalledBuiltinTools: [],
-     } as ToolStoreState;
- 
--    it('should surface app-fixed tools (e.g. lobe-agent) even though they are hidden', () => {
-+    it('should return no fixed tools when alwaysOnToolIds is empty', () => {
-       const result = builtinToolSelectors.fixedDisplayMetaList()(fixedState);
- 
--      // Only fixed-display ids are returned; lobe-agent leads the list, unrelated tools excluded.
--      expect(result.map((item) => item.identifier)).toContain('lobe-agent');
--      expect(result.map((item) => item.identifier)).not.toContain('lobe-activator');
--      expect(result.map((item) => item.identifier)).not.toContain('tool-1');
--      expect(result[0].identifier).toBe('lobe-agent');
-+      expect(result).toEqual([]);
+@@ -129,14 +129,14 @@ describe('builtinToolSelectors', () => {
      });
+   });
  
-     it('should drop manual-mode-excluded discovery tools in manual mode', () => {
-       const result = builtinToolSelectors.fixedDisplayMetaList({ isManualMode: true })(fixedState);
-       const ids = result.map((item) => item.identifier);
- 
--      // activator + skill-store are stripped from defaults in manual mode, so they aren't on.
+-  it('keeps fixed loaders out of both tool pickers but leaves Skill Store configurable', () => {
++  it('lists the activator, Skills and Skill Store as ordinary configurable tools', () => {
+     for (const select of [
+       builtinToolSelectors.metaList,
+       builtinToolSelectors.metaListIncludingHidden,
+     ]) {
+       const ids = select(initialState).map((tool) => tool.identifier);
+-      expect(ids).not.toContain('lobe-skills');
 -      expect(ids).not.toContain('lobe-activator');
--      expect(ids).not.toContain('lobe-skill-store');
--      // lobe-agent stays on in manual mode.
--      expect(ids).toContain('lobe-agent');
-+      expect(ids).toEqual([]);
-     });
- 
-     it('should skip fixed ids that are not registered in builtinTools', () => {
++      expect(ids).toContain('lobe-skills');
++      expect(ids).toContain('lobe-activator');
+       expect(ids).toContain('lobe-skill-store');
+     }
+   });
 diff --git a/src/store/tool/slices/builtin/selectors.ts b/src/store/tool/slices/builtin/selectors.ts
-index c7240e961f..d486b4efee 100644
+index 9cb2e180a8..accecad768 100644
 --- a/src/store/tool/slices/builtin/selectors.ts
 +++ b/src/store/tool/slices/builtin/selectors.ts
-@@ -74,7 +74,7 @@ const getComposioMetasWithAvailability = (s: ToolStoreState): LobeToolMetaWithAv
- 
- // Set form for O(1) lookup inside the filter loop.
- const RUNTIME_MANAGED_TOOL_IDS = new Set(runtimeManagedToolIds);
--const ALWAYS_ON_TOOL_IDS = new Set(alwaysOnToolIds);
-+const ALWAYS_ON_TOOL_IDS = new Set<string>(alwaysOnToolIds);
- const MANUAL_MODE_EXCLUDE_TOOL_IDS = new Set(manualModeExcludeToolIds);
- 
- interface ProfileConfigurableToolOptions {
-@@ -94,6 +94,7 @@ const isProfileConfigurableBuiltinTool = (
- ): boolean => {
-   if (tool.discoverable === false) return false;
-   if (RUNTIME_MANAGED_TOOL_IDS.has(tool.identifier)) return false;
-+  if (!isManualMode && tool.identifier === 'lobe-skill-store') return false;
- 
-   return (
-     !ALWAYS_ON_TOOL_IDS.has(tool.identifier) ||
-@@ -183,7 +184,6 @@ const EXCLUDED_TOOLS = new Set([
+@@ -172,7 +172,6 @@ const EXCLUDED_TOOLS = new Set([
    'lobe-agent-builder',
    'lobe-group-agent-builder',
    'lobe-group-management',
@@ -2568,11 +3320,11 @@ index c7240e961f..d486b4efee 100644
 2.39.5
 
 
-From e9a1b1b2b3e47aa92ba290f1a3302e64ae76607c Mon Sep 17 00:00:00 2001
+From f51bfd821c2a4afd95e744eedce6755146e4b774 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:58:21 +0000
-Subject: [PATCH 08/21] =?UTF-8?q?=E2=9C=A8=20feat(agent):=20summarize=20to?=
- =?UTF-8?q?pics=20in=20the=20conversation=20language?=
+Subject: [PATCH 08/22] ✨ feat(agent): summarize topics in the conversation
+ language
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -2613,11 +3365,11 @@ index f8194b9dfd..8473bf11f9 100644
 2.39.5
 
 
-From 49c34dec131a9ef04787a2d0fe7406e336d7411e Mon Sep 17 00:00:00 2001
+From a77f711465a11eac53cd38d928eec22d784aeb01 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 12 Nov 2026 23:31:23 +0000
-Subject: [PATCH 09/21] =?UTF-8?q?=F0=9F=90=9B=20fix(qstash):=20construct?=
- =?UTF-8?q?=20the=20client=20lazily=20and=20drop=20debug=20logs?=
+Subject: [PATCH 09/22] 🐛 fix(qstash): construct the client lazily and drop
+ debug logs
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -2796,11 +3548,10 @@ index 2d01dae7ed..cb311c47e6 100644
 2.39.5
 
 
-From 7da7692ca2ff5b2925f9b90eea308192f910c95f Mon Sep 17 00:00:00 2001
+From d8e05979dcc098b158b3c44c32f5d042f3885668 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 2 Nov 2026 03:55:50 +0000
-Subject: [PATCH 10/21] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20keep=20patched=20?=
- =?UTF-8?q?fonts=20at=20the=20app=20boundary?=
+Subject: [PATCH 10/22] ✨ feat(ui): keep patched fonts at the app boundary
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -2992,11 +3743,10 @@ index 33486bce1b..7c4cdb6b27 100644
 2.39.5
 
 
-From 4552ef28adf053d02ae7b7418fbb8e24cb306fa8 Mon Sep 17 00:00:00 2001
+From 2ef102f91252e35ee883c615310ca4e92f13fa0b Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:58:41 +0000
-Subject: [PATCH 11/21] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20offer=20only=20En?=
- =?UTF-8?q?glish=20and=20Japanese?=
+Subject: [PATCH 11/22] ✨ feat(ui): offer only English and Japanese
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -3078,11 +3828,10 @@ index 0dd8228306..e3bb30bc76 100644
 2.39.5
 
 
-From be36f5dda380b2cb8e9ffb47201a380c879ccbb8 Mon Sep 17 00:00:00 2001
+From 27ab3431c762ba6131bbe3a49dad3cd3c8218fc3 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 13 Nov 2026 01:05:12 +0000
-Subject: [PATCH 12/21] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20keep=20user-messa?=
- =?UTF-8?q?ge=20edits=20manual?=
+Subject: [PATCH 12/22] ✨ feat(ui): keep user-message edits manual
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -3091,10 +3840,10 @@ Co-Authored-By: Claude Opus 5.5 <claude@anthropic.com.invalid>
 ---
  .../MessageContent/useEditConfirmation.ts     |  5 +-
  .../User/components/MessageContent.test.tsx   |  6 +-
- .../User/components/MessageContent.tsx        | 25 ++-----
+ .../User/components/MessageContent.tsx        | 15 +---
  .../EditorModal/EditorCanvas.test.tsx         | 15 ++--
  src/features/EditorModal/EditorCanvas.tsx     | 75 ++++++++-----------
- 5 files changed, 53 insertions(+), 73 deletions(-)
+ 5 files changed, 48 insertions(+), 68 deletions(-)
 
 diff --git a/src/features/Conversation/ChatItem/components/MessageContent/useEditConfirmation.ts b/src/features/Conversation/ChatItem/components/MessageContent/useEditConfirmation.ts
 index 4c6ffb7dba..5e7c432f4a 100644
@@ -3138,15 +3887,16 @@ index 5fe45fdd48..33ae350ca1 100644
  
    /**
 diff --git a/src/features/Conversation/Messages/User/components/MessageContent.tsx b/src/features/Conversation/Messages/User/components/MessageContent.tsx
-index 199f41e881..c27af032be 100644
+index 61120040ac..3527d84dc6 100644
 --- a/src/features/Conversation/Messages/User/components/MessageContent.tsx
 +++ b/src/features/Conversation/Messages/User/components/MessageContent.tsx
-@@ -3,26 +3,21 @@ import { memo, useMemo } from 'react';
+@@ -3,14 +3,11 @@ import { memo, useMemo } from 'react';
  
  import CollapsibleContent from '@/components/CollapsibleContent';
  import MarkdownMessage from '@/features/Conversation/Markdown';
 -import { StartTopicConversationContext } from '@/features/LocalFile';
  import { cleanSpeakerTag } from '@/store/chat/utils/cleanSpeakerTag';
+ import { parseChannelPrompt } from '@/store/chat/utils/parseChannelPrompt';
  import { splitReferencedMessage } from '@/store/chat/utils/parseReferencedMessage';
  import { type UIChatMessage } from '@/types/index';
  
@@ -3154,7 +3904,8 @@ index 199f41e881..c27af032be 100644
 -import { hasRenderableEditorData } from '../editorData';
  import { useMarkdown } from '../useMarkdown';
  import AudioFileListViewer from './AudioFileListViewer';
- import FileListViewer from './FileListViewer';
+ import ChannelPromptContent from './ChannelPromptContent';
+@@ -18,13 +15,11 @@ import FileListViewer from './FileListViewer';
  import ImageFileListViewer from './ImageFileListViewer';
  import PageSelections from './PageSelections';
  import ReferencedMessage from './ReferencedMessage';
@@ -3169,35 +3920,23 @@ index 199f41e881..c27af032be 100644
      const selections = metadata?.contextSelections?.length
        ? metadata.contextSelections
        : metadata?.pageSelections;
-@@ -35,23 +30,15 @@ const UserMessageContent = memo<UIChatMessage>(
-       return { displayContent: body, reference };
-     }, [content]);
+@@ -40,16 +35,8 @@ const UserMessageContent = memo<UIChatMessage>(
+     // A Channel run's prompt shows as the request it answers, its context folded away.
+     const channelPrompt = useMemo(() => parseChannelPrompt(content), [content]);
  
 -    const hasEditorData = hasRenderableEditorData(editorData);
 -
--    const textBody = hasEditorData ? (
+     const textBody = channelPrompt ? (
+       <ChannelPromptContent markdownProps={markdownProps} prompt={channelPrompt} />
+-    ) : hasEditorData ? (
 -      // Rich-text folder chips render headlessly, so they receive the
 -      // conversation through context rather than props.
 -      <StartTopicConversationContext value={startTopicConversation}>
 -        <RichTextMessage editorState={editorData} />
 -      </StartTopicConversationContext>
--    ) : (
--      displayContent && <MarkdownMessage {...markdownProps}>{displayContent}</MarkdownMessage>
--    );
--
-     return (
-       <Flexbox gap={8} id={id}>
-         {selections && selections.length > 0 && <PageSelections selections={selections} />}
-         {reference && <ReferencedMessage reference={reference} />}
--        {textBody && <CollapsibleContent>{textBody}</CollapsibleContent>}
-+        {displayContent && (
-+          <CollapsibleContent>
-+            <MarkdownMessage {...markdownProps}>{displayContent}</MarkdownMessage>
-+          </CollapsibleContent>
-+        )}
-         {imageList && imageList?.length > 0 && <ImageFileListViewer items={imageList} />}
-         {videoList && videoList?.length > 0 && <VideoFileListViewer items={videoList} />}
-         {audioList && audioList?.length > 0 && (
+     ) : (
+       displayContent && <MarkdownMessage {...markdownProps}>{displayContent}</MarkdownMessage>
+     );
 diff --git a/src/features/EditorModal/EditorCanvas.test.tsx b/src/features/EditorModal/EditorCanvas.test.tsx
 index bc6455158b..2e2d4db98f 100644
 --- a/src/features/EditorModal/EditorCanvas.test.tsx
@@ -3332,11 +4071,10 @@ index d5e11d7aa1..16812b2ac2 100644
 2.39.5
 
 
-From 8fcde117e0ce29800f397df0bc43460c613d25df Mon Sep 17 00:00:00 2001
+From 61c4a0fb334f8878f42dc23b64ffc58f070d7ef6 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 24 Sep 2026 06:58:55 +0000
-Subject: [PATCH 13/21] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20show=20exact=20to?=
- =?UTF-8?q?ken=20counts?=
+Subject: [PATCH 13/22] ✨ feat(ui): show exact token counts
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -3349,10 +4087,10 @@ Co-authored-by: Cursor GPT-5.6 Sol <cursoragent@cursor.com.invalid>
  3 files changed, 17 insertions(+), 22 deletions(-)
 
 diff --git a/packages/utils/src/format.test.ts b/packages/utils/src/format.test.ts
-index 514374a91e..4b5228f991 100644
+index cbdf03621b..63ed97d0ff 100644
 --- a/packages/utils/src/format.test.ts
 +++ b/packages/utils/src/format.test.ts
-@@ -265,16 +265,16 @@ describe('format', () => {
+@@ -263,16 +263,16 @@ describe('format', () => {
    });
  
    describe('formatUsageValue', () => {
@@ -3377,7 +4115,7 @@ index 514374a91e..4b5228f991 100644
      });
  
      it('keeps small token counts readable without suffixes', () => {
-@@ -283,16 +283,16 @@ describe('format', () => {
+@@ -281,16 +281,16 @@ describe('format', () => {
        expect(formatUsageValue(999)).toBe('999');
      });
  
@@ -3417,10 +4155,10 @@ index d1a2efccae..b376602cb9 100644
  };
  
 diff --git a/src/features/Conversation/ChatInput/OpStatusTray.tsx b/src/features/Conversation/ChatInput/OpStatusTray.tsx
-index dab78f1104..dcadb8cf01 100644
+index 70bf5857a9..735d6a713a 100644
 --- a/src/features/Conversation/ChatInput/OpStatusTray.tsx
 +++ b/src/features/Conversation/ChatInput/OpStatusTray.tsx
-@@ -207,9 +207,7 @@ const ActivityGlyph = () => (
+@@ -168,9 +168,7 @@ const ActivityGlyph = () => (
  );
  
  const formatTokens = (n: number) => {
@@ -3435,16 +4173,21 @@ index dab78f1104..dcadb8cf01 100644
 2.39.5
 
 
-From dc9ef665930ee761803a3722d630a46393563cc9 Mon Sep 17 00:00:00 2001
+From ce33b31ce7bb41c79e77869ae7c1c2f47e82f7d9 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
-Date: Wed, 7 Oct 2026 16:25:57 +0000
-Subject: [PATCH 14/21] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20use=20MSM=20defau?=
- =?UTF-8?q?lts=20for=20model=20and=20share=20panels?=
+Date: Thu, 26 Nov 2026 15:36:06 +0000
+Subject: [PATCH 14/22] ✨ feat(ui): use MSM defaults for model and share
+ panels
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Co-authored-by: Cursor Grok 4.7 <cursoragent@cursor.com.invalid>
+The model panel shrinks its saved width to fit a narrower browser, next to
+upstream's display clamp, and the model detail panel starts with its
+rating, abilities and pricing sections collapsed. The share modal opens on
+JSON with the compact export.
+
+Co-Authored-By: Claude Opus 5.5 <claude@anthropic.com.invalid>
 ---
  .../ModelSwitchPanel/components/PanelContent.tsx       | 10 +++++++++-
  src/features/ShareModal/Modal.tsx                      |  2 +-
@@ -3453,7 +4196,7 @@ Co-authored-by: Cursor Grok 4.7 <cursoragent@cursor.com.invalid>
  4 files changed, 11 insertions(+), 6 deletions(-)
 
 diff --git a/src/features/ModelSwitchPanel/components/PanelContent.tsx b/src/features/ModelSwitchPanel/components/PanelContent.tsx
-index 10ac780269..f68bca5f45 100644
+index db2c83b63d..894dd5ebcc 100644
 --- a/src/features/ModelSwitchPanel/components/PanelContent.tsx
 +++ b/src/features/ModelSwitchPanel/components/PanelContent.tsx
 @@ -1,5 +1,5 @@
@@ -3463,7 +4206,7 @@ index 10ac780269..f68bca5f45 100644
  import { useState } from 'react';
  import { Rnd } from 'react-rnd';
  
-@@ -85,6 +85,14 @@ export const PanelContent: FC<PanelContentProps> = ({
+@@ -82,6 +82,14 @@ export const PanelContent: FC<PanelContentProps> = ({
      </>
    );
  
@@ -3475,9 +4218,9 @@ index 10ac780269..f68bca5f45 100644
 +    }
 +  }, [handlePanelWidthChange]);
 +
-   if (isDevMode) {
-     return (
-       <>
+   return (
+     <>
+       <div
 diff --git a/src/features/ShareModal/Modal.tsx b/src/features/ShareModal/Modal.tsx
 index d04d3f80f1..dd5c871f69 100644
 --- a/src/features/ShareModal/Modal.tsx
@@ -3505,10 +4248,10 @@ index dbef53fdd6..a74db2befd 100644
    withSystemRole: true,
  };
 diff --git a/src/store/global/initialState.ts b/src/store/global/initialState.ts
-index fdb6091a00..b74675f157 100644
+index 1acc3f5cf7..1015be4d58 100644
 --- a/src/store/global/initialState.ts
 +++ b/src/store/global/initialState.ts
-@@ -146,9 +146,6 @@ export type ModelDetailPanelExpandedKey = (typeof MODEL_DETAIL_PANEL_EXPANDED_KE
+@@ -151,9 +151,6 @@ export type ModelDetailPanelExpandedKey = (typeof MODEL_DETAIL_PANEL_EXPANDED_KE
   * newly added sections default to expanded automatically.
   */
  export const MODEL_DETAIL_PANEL_EXPANDABLE_KEYS = [
@@ -3522,11 +4265,11 @@ index fdb6091a00..b74675f157 100644
 2.39.5
 
 
-From a8bdf3638082c98c0a96692429d43f8908e726e6 Mon Sep 17 00:00:00 2001
+From e160297e99b81b9d91bbec246e80e00486b76f60 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 23 Nov 2026 08:50:31 +0000
-Subject: [PATCH 15/21] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20shorten=20topic?=
- =?UTF-8?q?=20previews=20and=20honor=20modifier-clicks?=
+Subject: [PATCH 15/22] ✨ feat(ui): shorten topic previews and honor
+ modifier-clicks
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -3538,7 +4281,7 @@ Co-Authored-By: Claude Opus 5.5 <claude@anthropic.com.invalid>
  2 files changed, 40 insertions(+), 11 deletions(-)
 
 diff --git a/src/features/AgentSidebar/Topic/List/Item/index.tsx b/src/features/AgentSidebar/Topic/List/Item/index.tsx
-index 488a6d786a..a8b320770e 100644
+index 56c121a4bc..094e607e12 100644
 --- a/src/features/AgentSidebar/Topic/List/Item/index.tsx
 +++ b/src/features/AgentSidebar/Topic/List/Item/index.tsx
 @@ -20,7 +20,7 @@ import {
@@ -3553,12 +4296,12 @@ index 488a6d786a..a8b320770e 100644
 @@ -49,6 +49,7 @@ import { operationSelectors } from '@/store/chat/selectors';
  import { messageMapKey } from '@/store/chat/utils/messageMapKey';
  import { useUserStore } from '@/store/user';
- import { labPreferSelectors, userProfileSelectors } from '@/store/user/selectors';
+ import { userProfileSelectors } from '@/store/user/selectors';
 +import { isModifierClick } from '@/utils/navigation';
  
  import { useTopicHoverPrefetch } from '../../hooks/topicHoverPrefetch/useTopicHoverPrefetch';
  import { markSidebarTopicActivation } from '../../hooks/useScrollActiveTopicIntoView';
-@@ -340,10 +341,15 @@ const TopicItemRow = memo<TopicItemRowProps>(
+@@ -308,10 +309,15 @@ const TopicItemRow = memo<TopicItemRowProps>(
      // gesture (Cmd/Ctrl+click, middle click, or the context menu): a double
      // click used to open one, and a lagging UI turned repeated clicks into
      // unwanted tabs.
@@ -3655,11 +4398,11 @@ index 2c5916afc9..fa46382842 100644
 2.39.5
 
 
-From fd98201b6c31a8dc17d2cc677dcba47341b978a0 Mon Sep 17 00:00:00 2001
+From 6441095e5dbc3043f8685bdec97f61da054f41e2 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 25 Sep 2026 04:09:38 +0000
-Subject: [PATCH 16/21] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20add=20text=20verb?=
- =?UTF-8?q?osity=20to=20the=20composer=20model=20menu?=
+Subject: [PATCH 16/22] ✨ feat(ui): add text verbosity to the composer model
+ menu
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -3762,10 +4505,10 @@ index 253d561ad8..d1978a01dd 100644
      const modelMeta = (
        <DropdownMenuItemExtra className={stylex.props(styles.meta).className}>
 diff --git a/src/features/ChatInput/ActionBar/Model/index.tsx b/src/features/ChatInput/ActionBar/Model/index.tsx
-index abadb6cfec..718f8f6396 100644
+index 2cd3429d15..8fac11fe87 100644
 --- a/src/features/ChatInput/ActionBar/Model/index.tsx
 +++ b/src/features/ChatInput/ActionBar/Model/index.tsx
-@@ -13,6 +13,7 @@ import { useAgentId } from '../../hooks/useAgentId';
+@@ -15,6 +15,7 @@ import { useAgentId } from '../../hooks/useAgentId';
  import { useAgentModelSelection } from '../../hooks/useAgentModelSelection';
  import { useModelLockTooltip } from '../../hooks/useModelLockTooltip';
  import { useReasoningEffortControl } from '../../hooks/useReasoningEffortControl';
@@ -3773,7 +4516,7 @@ index abadb6cfec..718f8f6396 100644
  import { useActionBarContext } from '../context';
  import SelectorMenu from './SelectorMenu';
  import { useTopicModelSwitch } from './useTopicModelSwitch';
-@@ -52,8 +53,10 @@ const ModelSwitch = memo(() => {
+@@ -57,8 +58,10 @@ const ModelSwitch = memo(() => {
    // second action slot. Like the model, it pins to the composer's topic when
    // there is one and edits the user's per-model default otherwise.
    const effort = useReasoningEffortControl(model, provider, topicId ?? undefined);
@@ -3786,7 +4529,7 @@ index abadb6cfec..718f8f6396 100644
  
    // Both current values on one chip, the way the heterogeneous selector reads:
    // "GPT-5.6 Sol 中". The effort half is dropped for models without one; the
-@@ -75,9 +78,9 @@ const ModelSwitch = memo(() => {
+@@ -80,9 +83,9 @@ const ModelSwitch = memo(() => {
  
    if (!canDisplayModel) return null;
  
@@ -3799,7 +4542,7 @@ index abadb6cfec..718f8f6396 100644
      return (
        <SelectorMenu
          canSelectModel={canSelectModel}
-@@ -88,6 +91,7 @@ const ModelSwitch = memo(() => {
+@@ -93,6 +96,7 @@ const ModelSwitch = memo(() => {
          modelNotice={modelNotice}
          placement={dropdownPlacement ?? 'topRight'}
          provider={provider}
@@ -3874,11 +4617,11 @@ index 0000000000..4b57db4136
 2.39.5
 
 
-From cb47a44f1baf64a0499883e8c50a33b6831f64a4 Mon Sep 17 00:00:00 2001
+From faee66c35fdd0701c32b028a306b9bc3ec0f599d Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Thu, 12 Nov 2026 23:31:44 +0000
-Subject: [PATCH 17/21] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20open=20usage=20de?=
- =?UTF-8?q?tails=20on=20click=20and=20show=20the=20full=20count?=
+Subject: [PATCH 17/22] ✨ feat(ui): open usage details on click and show the
+ full count
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -3964,11 +4707,10 @@ index eb4004cf53..a5c45a8e45 100644
 2.39.5
 
 
-From a19917db3a2f39d99de43b3b00ffd097ac70e232 Mon Sep 17 00:00:00 2001
+From 92110c943fb42e65ee157239678ca841f51e3d94 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Fri, 13 Nov 2026 01:26:51 +0000
-Subject: [PATCH 18/21] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20show=20USD=20cost?=
- =?UTF-8?q?=20in=20the=20usage=20popover?=
+Subject: [PATCH 18/22] ✨ feat(ui): show USD cost in the usage popover
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -3987,11 +4729,11 @@ Co-Authored-By: Claude Opus 5.5 <claude@anthropic.com.invalid>
  create mode 100644 src/features/Conversation/Messages/components/Extras/Usage/UsageDetail/usageCost.ts
 
 diff --git a/locales/en-US/chat.json b/locales/en-US/chat.json
-index f58577408b..b9f54a2212 100644
+index 831f47c5fc..eeb7a9a0f0 100644
 --- a/locales/en-US/chat.json
 +++ b/locales/en-US/chat.json
-@@ -1917,16 +1917,16 @@
-   "messageLongCollapse.expand": "Show more",
+@@ -2018,16 +2018,16 @@
+   "messages.channelPrompt.self": "This Agent",
    "messages.dm.sentTo": "Visible only to {{name}}",
    "messages.dm.title": "DM",
 -  "messages.modelCard.credit": "Cost",
@@ -4011,11 +4753,11 @@ index f58577408b..b9f54a2212 100644
    "messages.tokenDetails.cliCredits.title": "{{value}} Credits",
    "messages.tokenDetails.cliCredits.tooltip": "Subscription credits reported by the agent CLI for this turn. The CLI bills in credits instead of reporting tokens; this is separate from your LobeHub usage.",
 diff --git a/packages/locales/src/default/chat.ts b/packages/locales/src/default/chat.ts
-index 97cd403361..28bc45bd00 100644
+index d3d1d85b3a..639002dbcd 100644
 --- a/packages/locales/src/default/chat.ts
 +++ b/packages/locales/src/default/chat.ts
-@@ -1238,17 +1238,17 @@ export default {
-   'messageLongCollapse.expand': 'Show more',
+@@ -1310,17 +1310,17 @@ export default {
+   'messages.channelPrompt.self': 'This Agent',
    'messages.dm.sentTo': 'Visible only to {{name}}',
    'messages.dm.title': 'DM',
 -  'messages.modelCard.credit': 'Cost',
@@ -4387,11 +5129,10 @@ index 0000000000..1e7e4bf1fc
 2.39.5
 
 
-From ee847301053acd6066ac59ef0926315509659f9f Mon Sep 17 00:00:00 2001
+From 98dbfa55f564711cdf880e7d7f65cd14d51e087f Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Sun, 15 Nov 2026 04:10:13 +0000
-Subject: [PATCH 19/21] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20keep=20the=20agen?=
- =?UTF-8?q?t=20mode=20switch=20on=20mobile?=
+Subject: [PATCH 19/22] ✨ feat(ui): keep the agent mode switch on mobile
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -4451,11 +5192,10 @@ index b0c366822d..f77467d910 100644
 2.39.5
 
 
-From 0f8692531f4872eea7c6f94f24c3eacc70b9229f Mon Sep 17 00:00:00 2001
+From d729ef08f227b787a3855297bca43144ddb2120f Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
 Date: Mon, 16 Nov 2026 22:04:46 +0000
-Subject: [PATCH 20/21] =?UTF-8?q?=F0=9F=8F=B7=EF=B8=8F=20fix(types):=20pin?=
- =?UTF-8?q?=20two=20order-sensitive=20inferences?=
+Subject: [PATCH 20/22] 🏷️ fix(types): pin two order-sensitive inferences
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -4472,15 +5212,16 @@ Co-Authored-By: Claude Opus 5.5 <claude@anthropic.com.invalid>
  2 files changed, 9 insertions(+), 3 deletions(-)
 
 diff --git a/src/features/MCPApp/appHost.ts b/src/features/MCPApp/appHost.ts
-index ceba8df6d8..f36440aba1 100644
+index 8e4e5f172a..c59648cce7 100644
 --- a/src/features/MCPApp/appHost.ts
 +++ b/src/features/MCPApp/appHost.ts
-@@ -161,10 +161,13 @@ export const connectAppView = ({
+@@ -167,11 +167,14 @@ export const connectAppView = ({
          identifier,
          onThisDevice,
          server,
 -        t,
 +        t: translate,
+         topicId,
          args: initiatingArgs,
          linkId: viewLinkId,
        } = getContext();
@@ -4488,7 +5229,7 @@ index ceba8df6d8..f36440aba1 100644
 +      // checker's instantiation depth depending on check order.
 +      const t = translate as (key: string, options?: Record<string, unknown>) => string;
        const linkId = viewLinkId ?? getMcpAppLinkId(identifier, agentId, initiatingArgs);
-       const policy = await getAppToolCallPolicy(identifier, name, { agentId, toolArgs });
+       const policy = await getAppToolCallPolicy(identifier, name, { agentId, toolArgs, topicId });
        let allowed = policy === 'allow';
 diff --git a/src/features/Recommendations/actions/heteroAgent.ts b/src/features/Recommendations/actions/heteroAgent.ts
 index 7f8675d8e5..bd55aadafc 100644
@@ -4519,11 +5260,10 @@ index 7f8675d8e5..bd55aadafc 100644
 2.39.5
 
 
-From bdf8a8931c8cf12882696cd80728254f07bc5f68 Mon Sep 17 00:00:00 2001
+From b2b6be7c33d950319e3e9137492c726606c706b8 Mon Sep 17 00:00:00 2001
 From: MaySoMusician <maysomusician@gmail.com>
-Date: Tue, 17 Nov 2026 00:14:13 +0000
-Subject: [PATCH 21/21] =?UTF-8?q?=E2=9C=A8=20feat(ui):=20keep=20editors=20?=
- =?UTF-8?q?plain=20text?=
+Date: Thu, 26 Nov 2026 15:33:52 +0000
+Subject: [PATCH 21/22] ✨ feat(ui): keep editors plain text
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -4544,17 +5284,22 @@ Pages the user can't write (no permission, view access, locked by someone
 else, view-only room), the room-sync preview and the skill viewer render the
 stored Markdown richly instead.
 
+Paste conversion can no longer be turned on, so Settings > Conversation >
+Sending drops its switch, along with its settings-search entry and skeleton
+row.
+
 Co-Authored-By: Claude Opus 5.5 <claude@anthropic.com.invalid>
 ---
  .../src/client/Intervention/CreatePlan.tsx    |  31 +-
  .../src/client/Intervention/CreateGoal.tsx    |  34 +--
- src/features/AgentSkillEdit/SkillEditForm.tsx |  24 +-
+ .../Skeleton/Settings/tabs/Conversation.tsx   |   8 +-
+ src/features/AgentSkillEdit/SkillEditForm.tsx |  23 +-
  .../AgentTaskDetail/RunReplyEditor.tsx        |   6 +-
  .../AttachmentInput/AttachmentMenu.tsx        | 128 ++++----
  src/features/Channels/Composer.tsx            |  14 +-
  src/features/Channels/useComposerDraft.ts     |  11 +-
  .../ActionBar/ActionToolbar.test.tsx          |   4 +-
- .../ChatInput/ActionBar/Plus/index.tsx        |  20 +-
+ .../ChatInput/ActionBar/Plus/index.tsx        |  19 +-
  src/features/ChatInput/ActionBar/index.tsx    |  17 +-
  src/features/ChatInput/Desktop/index.tsx      |   5 +-
  .../ChatInput/InputEditor/index.test.tsx      |  30 +-
@@ -4567,7 +5312,7 @@ Co-Authored-By: Claude Opus 5.5 <claude@anthropic.com.invalid>
  src/features/EditorCanvas/EditorDataMode.tsx  |  20 +-
  .../InternalEditor.readonly.test.tsx          |  27 +-
  .../EditorCanvas/InternalEditor.test.tsx      |   6 +-
- src/features/EditorCanvas/InternalEditor.tsx  |  67 ++--
+ src/features/EditorCanvas/InternalEditor.tsx  |  64 +---
  .../EditorCanvas/ReadOnlyMarkdown.tsx         | 105 +++++++
  .../EditorModal/EditorCanvas.test.tsx         |   5 +-
  src/features/EditorModal/EditorCanvas.tsx     |  83 +++--
@@ -4581,18 +5326,19 @@ Co-Authored-By: Claude Opus 5.5 <claude@anthropic.com.invalid>
  .../PageEditor/TableOfContents/headings.ts    |   6 +-
  .../PageEditor/usePageReadOnlyView.ts         |  32 ++
  .../TopicComments/TopicCommentEditor.tsx      |  20 +-
- .../features/ChatAppearance/index.tsx         |  23 +-
+ .../conversation/features/Sending.tsx         |  20 +-
+ src/features/SettingsSearch/items.ts          |   7 -
  src/features/SkillViewer/index.tsx            |  13 +-
  src/libs/editor/plainText/PlainTextPlugin.ts  | 288 ++++++++++++++++++
  .../editor/plainText/ReactPlainTextPlugin.tsx |  21 ++
  src/libs/editor/plainText/index.ts            |   4 +
  src/libs/editor/plainText/plainEditorData.ts  | 104 +++++++
  src/libs/editor/plainText/props.ts            |  15 +
- .../HeterogeneousChatInput/HeteroPlus.tsx     |  31 +-
- .../features/EditorCanvas/index.test.tsx      |   4 +-
- .../profile/features/EditorCanvas/index.tsx   |  49 +--
+ .../HeterogeneousChatInput/HeteroPlus.tsx     |  30 +-
+ .../features/EditorCanvas/index.test.tsx      |   3 +-
+ .../profile/features/EditorCanvas/index.tsx   |  47 +--
  src/store/document/slices/editor/action.ts    |   6 +-
- 46 files changed, 1026 insertions(+), 699 deletions(-)
+ 48 files changed, 1023 insertions(+), 705 deletions(-)
  create mode 100644 src/features/EditorCanvas/ReadOnlyMarkdown.tsx
  create mode 100644 src/features/PageEditor/usePageReadOnlyView.ts
  create mode 100644 src/libs/editor/plainText/PlainTextPlugin.ts
@@ -4740,11 +5486,37 @@ index 4b849e6a2a..e858f5478f 100644
                onTextChange={handleInstructionChange}
              />
            </Flexbox>
+diff --git a/src/components/Skeleton/Settings/tabs/Conversation.tsx b/src/components/Skeleton/Settings/tabs/Conversation.tsx
+index f2835b50b4..ce7ed8dee2 100644
+--- a/src/components/Skeleton/Settings/tabs/Conversation.tsx
++++ b/src/components/Skeleton/Settings/tabs/Conversation.tsx
+@@ -77,7 +77,7 @@ export const ChatAssistSectionSkeleton = () => {
+   );
+ };
+ 
+-/** Input & sending: send key (not on mobile) and paste conversion. */
++/** Input & sending: send key (not on mobile) and voice messages. */
+ export const SendingSectionSkeleton = () => {
+   const text = useSkeletonText('setting');
+   return (
+@@ -95,12 +95,6 @@ export const SendingSectionSkeleton = () => {
+                     label: text('hotkey.sendMessage.title', 72, 14),
+                   },
+                 ]),
+-            {
+-              control: SWITCH_CONTROL,
+-              desc: text('settingChatAppearance.pasteAutoConvert.desc', 360, 12),
+-              label: text('settingChatAppearance.pasteAutoConvert.title', 120, 14),
+-              minWidth: undefined,
+-            },
+             {
+               control: SWITCH_CONTROL,
+               desc: text('settingConversation.voiceMessage.desc', 360, 12),
 diff --git a/src/features/AgentSkillEdit/SkillEditForm.tsx b/src/features/AgentSkillEdit/SkillEditForm.tsx
-index 3b41b5a897..5f2e198f16 100644
+index 593a2673da..0c65faa480 100644
 --- a/src/features/AgentSkillEdit/SkillEditForm.tsx
 +++ b/src/features/AgentSkillEdit/SkillEditForm.tsx
-@@ -1,20 +1,14 @@
+@@ -1,20 +1,13 @@
  'use client';
  
 -import {
@@ -4764,11 +5536,10 @@ index 3b41b5a897..5f2e198f16 100644
  
 +import { PLAIN_TEXT_PLUGINS } from '@/libs/editor/plainText';
 +import { PLAIN_TEXT_EDITOR_PROPS } from '@/libs/editor/plainText/props';
-+
+ import { densityVars } from '@/styles/densityVars';
+ 
  const styles = createStaticStyles(({ css }) => ({
-   editorWrapper: css`
-     min-height: 200px;
-@@ -31,15 +25,8 @@ const styles = createStaticStyles(({ css }) => ({
+@@ -33,15 +26,8 @@ const styles = createStaticStyles(({ css }) => ({
    `,
  }));
  
@@ -4786,7 +5557,7 @@ index 3b41b5a897..5f2e198f16 100644
  
  export interface SkillEditFormValues {
    content: string;
-@@ -118,6 +105,7 @@ const SkillEditForm = memo<SkillEditFormProps>(({ name, disabled, form, initialV
+@@ -120,6 +106,7 @@ const SkillEditForm = memo<SkillEditFormProps>(({ name, disabled, form, initialV
            style={{ pointerEvents: disabled ? 'none' : undefined }}
          >
            <Editor
@@ -4974,7 +5745,7 @@ index 981e725a56..2b66444cdf 100644
  AttachmentMenu.displayName = 'AttachmentMenu';
  
 diff --git a/src/features/Channels/Composer.tsx b/src/features/Channels/Composer.tsx
-index 8cf6854ca7..24a6d1562b 100644
+index 0b7eb4f734..bb3a3f25ee 100644
 --- a/src/features/Channels/Composer.tsx
 +++ b/src/features/Channels/Composer.tsx
 @@ -1,12 +1,6 @@
@@ -4991,7 +5762,7 @@ index 8cf6854ca7..24a6d1562b 100644
  import { ChatInput, Editor, SendButton, useEditor } from '@lobehub/editor/react';
  import { ActionIcon, Flexbox, Text } from '@lobehub/ui';
  import { cssVar } from '@lobehub/ui/stylex/cssVar.stylex';
-@@ -24,6 +18,8 @@ import WideScreenContainer from '@/features/WideScreenContainer';
+@@ -25,6 +19,8 @@ import WideScreenContainer from '@/features/WideScreenContainer';
  import { useEnterToSend } from '@/hooks/useEnterToSend';
  import { usePermission } from '@/hooks/usePermission';
  import { useSingleton } from '@/hooks/useSingleton';
@@ -5000,7 +5771,7 @@ index 8cf6854ca7..24a6d1562b 100644
  import { cacheScope } from '@/libs/replica';
  import type { ChannelQueuedSendInput } from '@/store/channel';
  import { useHomeStore } from '@/store/home';
-@@ -76,7 +72,8 @@ type ComposerDelivery =
+@@ -77,7 +73,8 @@ type ComposerDelivery =
        onSend: ChannelComposerSend;
      };
  
@@ -5010,7 +5781,7 @@ index 8cf6854ca7..24a6d1562b 100644
  
  /** Highlighted text like the rest of the line, not the editor's default boxed tag. */
  const mentionTheme = { mention: stylex.props(styles.composerMention).className };
-@@ -289,6 +286,7 @@ export function Composer({
+@@ -312,6 +309,7 @@ export function Composer({
              <div {...stylex.props(styles.composerEditor)}>
                <Editor
                  autoFocus
@@ -5019,32 +5790,32 @@ index 8cf6854ca7..24a6d1562b 100644
                  content=""
                  editable={!busy}
 diff --git a/src/features/Channels/useComposerDraft.ts b/src/features/Channels/useComposerDraft.ts
-index 80cb69f295..4bf181a44f 100644
+index 7b4fb06da1..ac6a85e053 100644
 --- a/src/features/Channels/useComposerDraft.ts
 +++ b/src/features/Channels/useComposerDraft.ts
-@@ -7,7 +7,8 @@ import {
-   removeDraftIfUnchanged,
+@@ -8,6 +8,7 @@ import {
    saveDraft,
  } from '@/features/ChatInput/draftStorage';
--import { canSerialize, readDocument, writeDocument } from '@/features/ChatInput/editorDocument';
-+import { canSerialize, readDocument } from '@/features/ChatInput/editorDocument';
+ import { canSerialize, readDocument, writeDocument } from '@/features/ChatInput/editorDocument';
 +import { loadPlainDocument } from '@/libs/editor/plainText/plainEditorData';
  
  const SAVE_DEBOUNCE_MS = 500;
  
-@@ -43,7 +44,13 @@ export const useComposerDraft = (editor: IEditor, draftKey: string) => {
-     if (!canSerialize(editor)) return;
+@@ -48,8 +49,14 @@ export const useComposerDraft = (editor: IEditor, draftKey: string, starter?: st
      const draft = getDraftEntry(draftKey);
      loaded.current = draft?.updatedAt;
--    if (draft && editor.isEmpty) writeDocument(editor, 'json', draft.json);
-+    if (!draft || !editor.isEmpty) return;
-+    try {
-+      // A draft saved by a rich editor falls back to its text instead of blanking.
-+      loadPlainDocument(editor, { editorData: draft.json });
-+    } catch {
-+      /* the composer this content belongs to went away mid write */
-+    }
-   }, [draftKey, editor]);
+     if (!editor.isEmpty) return;
+-    if (draft) writeDocument(editor, 'json', draft.json);
+-    else if (starter) writeDocument(editor, 'markdown', starter);
++    if (draft) {
++      try {
++        // A draft saved by a rich editor falls back to its text instead of blanking.
++        loadPlainDocument(editor, { editorData: draft.json });
++      } catch {
++        /* the composer this content belongs to went away mid write */
++      }
++    } else if (starter) writeDocument(editor, 'markdown', starter);
+   }, [draftKey, editor, starter]);
  
    /** Saves pending input and returns its stored revision, taken when a send starts. */
 diff --git a/src/features/ChatInput/ActionBar/ActionToolbar.test.tsx b/src/features/ChatInput/ActionBar/ActionToolbar.test.tsx
@@ -5065,33 +5836,33 @@ index df33840a23..866b3af742 100644
  
    it('leaves the action size unset without an outer context', () => {
 diff --git a/src/features/ChatInput/ActionBar/Plus/index.tsx b/src/features/ChatInput/ActionBar/Plus/index.tsx
-index 52452006d5..d78bd5912a 100644
+index e84acae16d..14fe6b51da 100644
 --- a/src/features/ChatInput/ActionBar/Plus/index.tsx
 +++ b/src/features/ChatInput/ActionBar/Plus/index.tsx
-@@ -13,7 +13,6 @@ import {
+@@ -11,7 +11,6 @@ import {
    PlusIcon,
    Settings2Icon,
    TargetIcon,
 -  TypeIcon,
  } from 'lucide-react';
- import type { ReactNode } from 'react';
- import { memo, Suspense, useCallback, useMemo, useRef } from 'react';
-@@ -240,7 +239,6 @@ const usePlusMenuItems = ({ close }: { close: () => void }): ActionDropdownMenuI
+ import { memo, Suspense, useCallback, useMemo } from 'react';
+ import { useTranslation } from 'react-i18next';
+@@ -112,7 +111,6 @@ const usePlusMenuItemsBase = ({
    );
-   const isGatewayModeEnabled = (disableGatewayMode ?? defaultDisableGatewayMode) !== true;
+   const isParamsPanelActive = Boolean(showRightPanel) && workingSidebarTab === 'params';
  
 -  const [showTypoBar, setShowTypoBar] = useChatInputStore((s) => [s.showTypoBar, s.setShowTypoBar]);
    const editor = useChatInputStore((s) => s.editor);
    const routeLargeFilesToLocalPaths = useLargeFileLocalPath(agentId, editor);
    const { canUploadImage, canUploadVideo, canUploadAudio } = useMediaUploadAbility(
-@@ -417,19 +415,9 @@ const usePlusMenuItems = ({ close }: { close: () => void }): ActionDropdownMenuI
-     // so this menu only owns the route to them.
-     const coreItems: ActionDropdownMenuItems = canConfigureResource ? [...toolsItems] : [];
+@@ -214,18 +212,9 @@ const usePlusMenuItemsBase = ({
+       skillsMenuItem,
+     ];
  
--    // Formatting toolbar is always available; Agent Gateway + advanced params
--    // only when the user can configure resources.
-+    // Editors are plain text, so there is no formatting toolbar to toggle; Agent
-+    // Gateway + advanced params only when the user can configure resources.
+-    // Formatting toolbar is always available; advanced params only when the
+-    // user can configure resources.
++    // Editors are plain text, so there is no formatting toolbar to toggle; advanced
++    // params only when the user can configure resources.
      const formatItems: ActionDropdownMenuItems = [
 -      // Formatting toolbar toggle — trailing switch; toggle by clicking the switch or the whole row
 -      {
@@ -5102,33 +5873,32 @@ index 52452006d5..d78bd5912a 100644
 -        onCheckedChange: (checked: boolean) => setShowTypoBar(checked),
 -        type: 'switch',
 -      },
--      // Agent Gateway directly below the formatting toolbar.
-       ...gatewayItem,
        // Advanced parameter settings — only when resources can be configured.
        ...(canConfigureResource
-@@ -496,7 +484,7 @@ const usePlusMenuItems = ({ close }: { close: () => void }): ActionDropdownMenuI
-       : [];
+         ? [
+@@ -289,7 +278,7 @@ const usePlusMenuItemsBase = ({
+     ];
  
      // Grouped with a single divider only between non-empty groups:
--    // [attachments] | [memory · search · skills] | [set goal] | [formatting · gateway · params]
-+    // [attachments] | [memory · search · skills] | [set goal] | [gateway · params]
+-    // [attachments] | [tools · skills] | [set goal] | [formatting · params]
++    // [attachments] | [tools · skills] | [set goal] | [params]
      const menuGroups: ActionDropdownMenuItems[] = [
        attachmentsItems,
        coreItems,
-@@ -525,8 +513,6 @@ const usePlusMenuItems = ({ close }: { close: () => void }): ActionDropdownMenuI
+@@ -312,8 +301,6 @@ const usePlusMenuItemsBase = ({
+     isAgentModeEnabled,
      isParamsPanelActive,
-     isSkillPolicyMenuOpen,
      knowledgeEnabledCount,
 -    setShowTypoBar,
 -    showTypoBar,
-     skillActivateMode,
-     skillAutoCount,
-     skillPinnedCount,
+     knowledgeItems,
+     knowledgeFooter,
+     t,
 diff --git a/src/features/ChatInput/ActionBar/index.tsx b/src/features/ChatInput/ActionBar/index.tsx
-index af833fdd1d..c7288021d5 100644
+index 2da4dbe4ab..f9caf8f2d3 100644
 --- a/src/features/ChatInput/ActionBar/index.tsx
 +++ b/src/features/ChatInput/ActionBar/index.tsx
-@@ -25,11 +25,26 @@ const mapActionToItem = (actionKey: ActionKey) => {
+@@ -29,11 +29,26 @@ const mapActionToItem = (actionKey: ActionKey) => {
    };
  };
  
@@ -5189,7 +5959,7 @@ index 871bc2db7b..c5e8ff2f2c 100644
              </Flexbox>
            }
 diff --git a/src/features/ChatInput/InputEditor/index.test.tsx b/src/features/ChatInput/InputEditor/index.test.tsx
-index 0cbf8d654c..ae365858e4 100644
+index bef20e27c5..ae365858e4 100644
 --- a/src/features/ChatInput/InputEditor/index.test.tsx
 +++ b/src/features/ChatInput/InputEditor/index.test.tsx
 @@ -318,30 +318,26 @@ describe('ChatInput InputEditor', () => {
@@ -5207,7 +5977,7 @@ index 0cbf8d654c..ae365858e4 100644
 +    expect(props.autoFormatMarkdown).toBe(false);
    });
  
--  it('converts pasted markdown when paste auto-convert is on', async () => {
+-  it('enables the editor markdown-paste option when auto-convert is on', async () => {
 -    render(<InputEditor />);
 -
 -    const props = await getEditorProps();
@@ -5215,7 +5985,7 @@ index 0cbf8d654c..ae365858e4 100644
 -    expect(props.pasteAsPlainText).toBe(true);
 -  });
 -
--  it('pastes verbatim when paste auto-convert is off', async () => {
+-  it('disables the editor markdown-paste option when auto-convert is off', async () => {
 -    userSettings.enablePasteAutoConvert = false;
 +  it('pastes verbatim whatever the paste auto-convert setting says', async () => {
 +    for (const enabled of [true, false]) {
@@ -5290,7 +6060,7 @@ index 2070708f8a..af40d6d660 100644
          plugins={plugins}
          slashOption={slashOption}
 diff --git a/src/features/ChatInput/InputEditor/plugins.ts b/src/features/ChatInput/InputEditor/plugins.ts
-index 224608a3ff..3ba2bdcb11 100644
+index 8297c27cdc..9d450466b9 100644
 --- a/src/features/ChatInput/InputEditor/plugins.ts
 +++ b/src/features/ChatInput/InputEditor/plugins.ts
 @@ -1,15 +1,8 @@
@@ -5312,7 +6082,7 @@ index 224608a3ff..3ba2bdcb11 100644
  import { ReactActionTagPlugin } from './ActionTag';
  import { ReactImageRefTagPlugin } from './ImageRefTag';
  import { ReactLocalFileTagPlugin } from './LocalFileTag';
-@@ -18,6 +11,9 @@ import { ReactReferTopicPlugin } from './ReferTopic';
+@@ -19,6 +12,9 @@ import { ReactReferTopicPlugin } from './ReferTopic';
  
  type EditorPlugins = NonNullable<Parameters<typeof Editor>[0]['plugins']>;
  
@@ -5322,7 +6092,7 @@ index 224608a3ff..3ba2bdcb11 100644
  interface CreateChatInputRichPluginsOptions {
    linkPlugin?: EditorPlugins[number] | false;
    mathPlugin?: EditorPlugins[number] | false;
-@@ -32,16 +28,31 @@ export const CHAT_INPUT_EMBED_PLUGINS: EditorPlugins = [
+@@ -34,16 +30,31 @@ export const CHAT_INPUT_EMBED_PLUGINS: EditorPlugins = [
    ReactMentionPlugin,
  ];
  
@@ -5569,7 +6339,7 @@ index 14549ce6fc..959493afc5 100644
  
      it('registers nothing when not editable and there is nothing to act on', () => {
 diff --git a/src/features/EditorCanvas/InternalEditor.test.tsx b/src/features/EditorCanvas/InternalEditor.test.tsx
-index ffaff33531..7debcf3d9d 100644
+index 15bab56b53..249c55c9b0 100644
 --- a/src/features/EditorCanvas/InternalEditor.test.tsx
 +++ b/src/features/EditorCanvas/InternalEditor.test.tsx
 @@ -155,7 +155,7 @@ describe('InternalEditor', () => {
@@ -5593,10 +6363,10 @@ index ffaff33531..7debcf3d9d 100644
        );
      });
 diff --git a/src/features/EditorCanvas/InternalEditor.tsx b/src/features/EditorCanvas/InternalEditor.tsx
-index 5a84b952dd..37d9cc4618 100644
+index 527685afe4..d934d851f2 100644
 --- a/src/features/EditorCanvas/InternalEditor.tsx
 +++ b/src/features/EditorCanvas/InternalEditor.tsx
-@@ -3,15 +3,9 @@
+@@ -3,17 +3,11 @@
  import { isDesktop } from '@lobechat/const';
  import type { IEditor } from '@lobehub/editor';
  import {
@@ -5608,11 +6378,13 @@ index 5a84b952dd..37d9cc4618 100644
    ReactLiteXmlPlugin,
 -  ReactMathPlugin,
    ReactMentionPlugin,
+   ReactSlashOption,
+   ReactSlashPlugin,
 -  ReactTablePlugin,
    ReactToolbarPlugin,
    ReactVideoPlugin,
  } from '@lobehub/editor';
-@@ -24,6 +18,8 @@ import { useTranslation } from 'react-i18next';
+@@ -26,6 +20,8 @@ import { useTranslation } from 'react-i18next';
  
  import { createChatInputRichPlugins } from '@/features/ChatInput/InputEditor/plugins';
  import { writeTopicCommentMentionMarkdown } from '@/features/Portal/TopicComments/editorUtils';
@@ -5621,7 +6393,7 @@ index 5a84b952dd..37d9cc4618 100644
  
  import { type EditorCanvasProps } from './EditorCanvas';
  import InlineToolbar from './InlineToolbar';
-@@ -33,8 +29,7 @@ import { registerBlockDecoratorCaretGuard } from './registerBlockDecoratorCaretG
+@@ -35,8 +31,7 @@ import { registerBlockDecoratorCaretGuard } from './registerBlockDecoratorCaretG
  import { registerBlockDecoratorClickToWrite } from './registerBlockDecoratorClickToWrite';
  import { registerImageFilePastePreference } from './registerImageFilePastePreference';
  import { needsImageRehost, rehostImage } from './rehostImage';
@@ -5631,7 +6403,7 @@ index 5a84b952dd..37d9cc4618 100644
  import { useFileUpload, useImageUpload } from './useImageUpload';
  
  interface FileFilter {
-@@ -150,23 +145,19 @@ const listMarkerStyles = createStaticStyles(({ css, cssVar }) => {
+@@ -152,23 +147,19 @@ const listMarkerStyles = createStaticStyles(({ css, cssVar }) => {
  });
  
  /**
@@ -5659,7 +6431,7 @@ index 5a84b952dd..37d9cc4618 100644
  ];
  
  const EDITOR_INIT_DATA_SOURCE_TYPES = ['json', 'markdown'] as const;
-@@ -227,7 +218,6 @@ const InternalEditor = memo<InternalEditorProps>(
+@@ -229,7 +220,6 @@ const InternalEditor = memo<InternalEditorProps>(
      disabled,
      editable = true,
      editor,
@@ -5667,7 +6439,7 @@ index 5a84b952dd..37d9cc4618 100644
      extraPlugins,
      floatingToolbar = true,
      getPopupContainer,
-@@ -275,8 +265,8 @@ const InternalEditor = memo<InternalEditorProps>(
+@@ -307,8 +297,8 @@ const InternalEditor = memo<InternalEditorProps>(
  
      // Build plugins array
      const plugins = useMemo(() => {
@@ -5678,18 +6450,24 @@ index 5a84b952dd..37d9cc4618 100644
  
        const imagePlugin = Editor.withProps(ReactImagePlugin, {
          defaultBlockImage: true,
-@@ -297,38 +287,18 @@ const InternalEditor = memo<InternalEditorProps>(
+@@ -329,8 +319,6 @@ const InternalEditor = memo<InternalEditorProps>(
          theme: { file: fileNodeStyles.fileWrapper as unknown as string },
        });
  
 -      const mathPlugin = Editor.withProps(ReactMathPlugin, { enableInlineMath });
 -
-       // Build base plugins with optional extra plugins prepended
-       const basePlugins = extraPlugins
--        ? [...extraPlugins, ...STATIC_PLUGINS, mathPlugin, imagePlugin, videoPlugin, filePlugin]
--        : [...STATIC_PLUGINS, mathPlugin, imagePlugin, videoPlugin, filePlugin];
-+        ? [...extraPlugins, ...STATIC_PLUGINS, imagePlugin, videoPlugin, filePlugin]
-+        : [...STATIC_PLUGINS, imagePlugin, videoPlugin, filePlugin];
+       // Build base plugins with optional extra plugins prepended. The slash
+       // plugin leads so its element keeps a stable position (plugins are
+       // keyed by index) when `extraPlugins` grows, e.g. once collab attaches.
+@@ -338,7 +326,6 @@ const InternalEditor = memo<InternalEditorProps>(
+         ...(slashPlugin ? [slashPlugin] : []),
+         ...(extraPlugins ?? []),
+         ...STATIC_PLUGINS,
+-        mathPlugin,
+         imagePlugin,
+         videoPlugin,
+         filePlugin,
+@@ -346,29 +333,11 @@ const InternalEditor = memo<InternalEditorProps>(
  
        if (!floatingToolbar || disabled) return basePlugins;
  
@@ -5724,7 +6502,7 @@ index 5a84b952dd..37d9cc4618 100644
          return [
            ...basePlugins,
            Editor.withProps(ReactToolbarPlugin, {
-@@ -338,7 +308,7 @@ const InternalEditor = memo<InternalEditorProps>(
+@@ -378,7 +347,7 @@ const InternalEditor = memo<InternalEditorProps>(
                  selectionOnly
                  editor={editor}
                  editorState={editorState}
@@ -5733,7 +6511,7 @@ index 5a84b952dd..37d9cc4618 100644
                />
              ),
            }),
-@@ -352,7 +322,6 @@ const InternalEditor = memo<InternalEditorProps>(
+@@ -392,7 +361,6 @@ const InternalEditor = memo<InternalEditorProps>(
        editable,
        editor,
        editorState,
@@ -5741,7 +6519,7 @@ index 5a84b952dd..37d9cc4618 100644
        extraPlugins,
        floatingToolbar,
        handleFileUpload,
-@@ -513,10 +482,10 @@ const InternalEditor = memo<InternalEditorProps>(
+@@ -556,10 +524,10 @@ const InternalEditor = memo<InternalEditorProps>(
                ...style,
                ...contentStyle,
              }}
@@ -6710,56 +7488,67 @@ index b74b69d153..64bc98aa37 100644
          type={type}
          variant={'chat'}
          style={{
-diff --git a/src/features/Settings/chat-appearance/features/ChatAppearance/index.tsx b/src/features/Settings/chat-appearance/features/ChatAppearance/index.tsx
-index c746d6a928..6e08853f1d 100644
---- a/src/features/Settings/chat-appearance/features/ChatAppearance/index.tsx
-+++ b/src/features/Settings/chat-appearance/features/ChatAppearance/index.tsx
-@@ -11,11 +11,7 @@ import { ChatAppearanceSectionSkeleton } from '@/components/Skeleton/Settings/ta
- import { FORM_STYLE } from '@/const/layoutTokens';
- import { useSaveState } from '@/hooks/useSaveState';
- import { useUserStore } from '@/store/user';
--import {
--  labPreferSelectors,
--  settingsSelectors,
--  userGeneralSettingsSelectors,
--} from '@/store/user/selectors';
-+import { labPreferSelectors, settingsSelectors } from '@/store/user/selectors';
+diff --git a/src/features/Settings/conversation/features/Sending.tsx b/src/features/Settings/conversation/features/Sending.tsx
+index 1d6e175c1d..b6c3d22e34 100644
+--- a/src/features/Settings/conversation/features/Sending.tsx
++++ b/src/features/Settings/conversation/features/Sending.tsx
+@@ -43,11 +43,10 @@ const SEND_KEY_OPTIONS = (['enter', 'modEnter'] as const).map((sendKey) => ({
+   value: sendKey,
+ }));
  
- import ChatTransitionPreview from './ChatTransitionPreview';
- import HighlighterPreview from './HighlighterPreview';
-@@ -25,7 +21,6 @@ import MermaidPreview from './MermaidPreview';
- const ChatAppearance = memo(() => {
-   const { t } = useTranslation('setting');
-   const { general } = useUserStore(settingsSelectors.currentSettings, isEqual);
+-/** How messages get into the conversation: send key, paste handling, sending mid-run. */
++/** How messages get into the conversation: send key, voice messages, sending mid-run. */
+ const Sending = memo(() => {
+   const { t } = useTranslation(['setting', 'chat']);
+   const general = useUserStore((s) => settingsSelectors.currentSettings(s).general, isEqual);
 -  const enablePasteAutoConvert = useUserStore(userGeneralSettingsSelectors.enablePasteAutoConvert);
-   const enableBetterCodingExperience = useUserStore(
-     labPreferSelectors.enableBetterCodingExperience,
-   );
-@@ -142,20 +137,8 @@ const ChatAppearance = memo(() => {
-                 label: t('settingChatAppearance.linkIcon.title'),
-                 minWidth: undefined,
-               },
--              {
--                children: (
--                  <Flexbox horizontal align={'center'} gap={8}>
--                    {renderSaveHint('enablePasteAutoConvert')}
--                    <Switch
--                      checked={enablePasteAutoConvert}
--                      onChange={(checked) => handleChange('enablePasteAutoConvert', checked)}
--                    />
--                  </Flexbox>
--                ),
--                desc: t('settingChatAppearance.pasteAutoConvert.desc'),
--                label: t('settingChatAppearance.pasteAutoConvert.title'),
--                minWidth: undefined,
--              },
-+              // No paste auto-convert switch: editors are plain text, so pasted
-+              // Markdown always stays as typed.
-               ...(enableBetterCodingExperience
-                 ? [
-                     {
+   const enableVoiceMessage = useUserStore(userGeneralSettingsSelectors.enableVoiceMessage);
+   const [setSettings, isUserStateInit] = useUserStore((s) => [s.setSettings, s.isUserStateInit]);
+   const { sendKey, setSendKey } = useSendKeyPreference();
+@@ -106,21 +105,8 @@ const Sending = memo(() => {
+   const group: FormGroupItem = {
+     children: [
+       sendKeyItem,
+-      {
+-        children: (
+-          <Switch
+-            checked={enablePasteAutoConvert}
+-            onChange={(checked) => update({ enablePasteAutoConvert: checked })}
+-          />
+-        ),
+-        desc: t('settingChatAppearance.pasteAutoConvert.desc'),
+-        label: (
+-          <SettingsSearchAnchor id={'conversation-paste-auto-convert'}>
+-            {t('settingChatAppearance.pasteAutoConvert.title')}
+-          </SettingsSearchAnchor>
+-        ),
+-        minWidth: undefined,
+-      },
++      // No paste auto-convert switch: editors are plain text, so pasted
++      // Markdown always stays as typed.
+       {
+         children: (
+           <Switch
+diff --git a/src/features/SettingsSearch/items.ts b/src/features/SettingsSearch/items.ts
+index c8f17efbe9..9577a9769f 100644
+--- a/src/features/SettingsSearch/items.ts
++++ b/src/features/SettingsSearch/items.ts
+@@ -488,13 +488,6 @@ export const SETTINGS_SEARCH_ITEMS: SettingsSearchItem[] = [
+     tab: SettingsTabs.Conversation,
+     visible: (ctx) => !ctx.isMobile,
+   },
+-  {
+-    anchor: 'conversation-paste-auto-convert',
+-    descKey: 'settingChatAppearance.pasteAutoConvert.desc',
+-    keywords: ['paste', 'markdown', 'rich text', 'format'],
+-    labelKey: 'settingChatAppearance.pasteAutoConvert.title',
+-    tab: SettingsTabs.Conversation,
+-  },
+   {
+     anchor: 'conversation-voice-message',
+     descKey: 'settingConversation.voiceMessage.desc',
 diff --git a/src/features/SkillViewer/index.tsx b/src/features/SkillViewer/index.tsx
-index 86af085f80..6e3927ea4c 100644
+index 96133f8d15..8aea027dad 100644
 --- a/src/features/SkillViewer/index.tsx
 +++ b/src/features/SkillViewer/index.tsx
 @@ -1,6 +1,5 @@
@@ -6777,8 +7566,8 @@ index 86af085f80..6e3927ea4c 100644
 +import ReadOnlyMarkdown from '@/features/EditorCanvas/ReadOnlyMarkdown';
  import FileTree from '@/features/FileTree';
  import SkillFrontmatterCard from '@/features/Portal/Document/SkillFrontmatterCard';
- import { parseSkillMarkdownFrontmatter } from '@/utils/skillMarkdown';
-@@ -99,7 +98,6 @@ const SkillViewer = ({
+ import { densityTokens } from '@/styles/density.stylex';
+@@ -100,7 +99,6 @@ const SkillViewer = ({
    notice,
  }: SkillViewerProps) => {
    const { t } = useTranslation('chat');
@@ -6786,7 +7575,7 @@ index 86af085f80..6e3927ea4c 100644
    const [selectedFile, setSelectedFile] = useState(SKILL_INDEX);
    const [filesOpen, setFilesOpen] = useState(true);
    const resourceTree = useMemo(() => skillFileTree(files), [files]);
-@@ -176,13 +174,8 @@ const SkillViewer = ({
+@@ -177,13 +175,8 @@ const SkillViewer = ({
            {atStart && intro}
            {shown === SKILL_INDEX ? (
              <div {...stylex.props(styles.index)}>
@@ -7265,7 +8054,7 @@ index 0000000000..e8aeafa2ef
 +  pasteVSCodeAsCodeBlock: false,
 +} as const;
 diff --git a/src/routes/(main)/agent/features/Conversation/HeterogeneousChatInput/HeteroPlus.tsx b/src/routes/(main)/agent/features/Conversation/HeterogeneousChatInput/HeteroPlus.tsx
-index e6702d3a58..90caa8d58e 100644
+index 4a33775111..53e1bacc8b 100644
 --- a/src/routes/(main)/agent/features/Conversation/HeterogeneousChatInput/HeteroPlus.tsx
 +++ b/src/routes/(main)/agent/features/Conversation/HeterogeneousChatInput/HeteroPlus.tsx
 @@ -3,7 +3,7 @@
@@ -7277,7 +8066,7 @@ index e6702d3a58..90caa8d58e 100644
  import { memo, useCallback, useMemo, useState } from 'react';
  import { useTranslation } from 'react-i18next';
  
-@@ -56,11 +56,7 @@ const HeteroPlus = memo<HeteroPlusProps>(({ providerType }) => {
+@@ -54,11 +54,7 @@ const HeteroPlus = memo<HeteroPlusProps>(({ providerType }) => {
    const { t: tEditor } = useTranslation('editor');
    const [open, setOpen] = useState(false);
  
@@ -7290,7 +8079,7 @@ index e6702d3a58..90caa8d58e 100644
  
    const scheduledSendAt = useConversationStore((s) => s.scheduledSendAt);
    const setScheduledSendAt = useConversationStore((s) => s.setScheduledSendAt);
-@@ -119,16 +115,6 @@ const HeteroPlus = memo<HeteroPlusProps>(({ providerType }) => {
+@@ -116,16 +112,6 @@ const HeteroPlus = memo<HeteroPlusProps>(({ providerType }) => {
          key: 'scheduleSend',
          label: t('input.schedule.title'),
        },
@@ -7305,11 +8094,11 @@ index e6702d3a58..90caa8d58e 100644
 -        type: 'switch',
 -      },
        // Goal creation shares the standard input's goal chip.
-       ...(enableGoals
-         ? ([
-@@ -146,18 +132,7 @@ const HeteroPlus = memo<HeteroPlusProps>(({ providerType }) => {
-           ] as ActionDropdownMenuItems)
-         : []),
+       { type: 'divider' },
+       {
+@@ -139,17 +125,7 @@ const HeteroPlus = memo<HeteroPlusProps>(({ providerType }) => {
+         },
+       },
      ];
 -  }, [
 -    t,
@@ -7318,28 +8107,19 @@ index e6702d3a58..90caa8d58e 100644
 -    setShowTypoBar,
 -    armSchedule,
 -    scheduledSendAt,
--    enableGoals,
 -    editor,
 -    beforeUpload,
 -    onFiles,
 -  ]);
-+  }, [t, tEditor, armSchedule, scheduledSendAt, enableGoals, editor, beforeUpload, onFiles]);
++  }, [t, tEditor, armSchedule, scheduledSendAt, editor, beforeUpload, onFiles]);
  
    return (
      <ChatInputAction
 diff --git a/src/routes/(main)/agent/profile/features/EditorCanvas/index.test.tsx b/src/routes/(main)/agent/profile/features/EditorCanvas/index.test.tsx
-index 4b221ef862..10ab054d66 100644
+index 894315567f..8dc7913dd0 100644
 --- a/src/routes/(main)/agent/profile/features/EditorCanvas/index.test.tsx
 +++ b/src/routes/(main)/agent/profile/features/EditorCanvas/index.test.tsx
-@@ -4,6 +4,7 @@
- import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
- import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
- 
-+import { EMPTY_EDITOR_STATE } from '@/libs/editor/constants';
- import { type SaveStatus } from '@/types/saveState';
- 
- import EditorCanvas from './index';
-@@ -428,7 +429,8 @@ describe('Agent profile EditorCanvas', () => {
+@@ -429,7 +429,8 @@ describe('Agent profile EditorCanvas', () => {
      });
  
      await waitFor(() => expect(flushSave).toHaveBeenCalledWith('agent-a'));
@@ -7350,7 +8130,7 @@ index 4b221ef862..10ab054d66 100644
      act(() => editorProps.last?.onInit());
      await waitFor(() => expect(editor.setDocument).toHaveBeenCalledWith('json', agentBEditorData));
 diff --git a/src/routes/(main)/agent/profile/features/EditorCanvas/index.tsx b/src/routes/(main)/agent/profile/features/EditorCanvas/index.tsx
-index da7cb1dd47..068967e5cf 100644
+index 2c35b990fc..3b3b4b7f3f 100644
 --- a/src/routes/(main)/agent/profile/features/EditorCanvas/index.tsx
 +++ b/src/routes/(main)/agent/profile/features/EditorCanvas/index.tsx
 @@ -1,7 +1,7 @@
@@ -7362,10 +8142,10 @@ index da7cb1dd47..068967e5cf 100644
  import { Editor } from '@lobehub/editor/react';
  import { ActionIcon, Block, createStaticStyles, Flexbox, toast } from '@lobehub/ui';
  import isEqual from 'fast-deep-equal';
-@@ -18,14 +18,14 @@ import { useResourceAccess } from '@/features/ResourcePermission/useResourceAcce
- import { useLocalStorageState } from '@/hooks/useLocalStorageState';
+@@ -19,14 +19,14 @@ import { useLocalStorageState } from '@/hooks/useLocalStorageState';
  import { usePermission } from '@/hooks/usePermission';
  import { EMPTY_EDITOR_STATE } from '@/libs/editor/constants';
+ import { isValidEditorData } from '@/libs/editor/isValidEditorData';
 +import { hasRichEditorNodes } from '@/libs/editor/plainText/plainEditorData';
 +import { PLAIN_TEXT_EDITOR_PROPS } from '@/libs/editor/plainText/props';
  import { useAgentStore } from '@/store/agent';
@@ -7379,7 +8159,7 @@ index da7cb1dd47..068967e5cf 100644
  
  const styles = createStaticStyles(({ css }) => ({
    editorShell: css`
-@@ -94,7 +94,10 @@ const AgentEditorCanvas = memo<AgentEditorCanvasProps>(({ agentId, description,
+@@ -95,7 +95,10 @@ const AgentEditorCanvas = memo<AgentEditorCanvasProps>(({ agentId, description,
    const { activeEditorMode, setEditorMode, setSourceMarkdown, sourceMarkdown, syncSourceMarkdown } =
      usePromptEditorMode();
    const config = useAgentStore((s) => s.agentMap[agentId], isEqual);
@@ -7391,13 +8171,11 @@ index da7cb1dd47..068967e5cf 100644
    const systemRole = config?.systemRole;
    const updateConfigById = useAgentStore((s) => s.updateAgentConfigById);
    const updatePromptConfigById = useCallback<UpdateConfigById>(
-@@ -102,13 +105,12 @@ const AgentEditorCanvas = memo<AgentEditorCanvasProps>(({ agentId, description,
+@@ -103,11 +106,12 @@ const AgentEditorCanvas = memo<AgentEditorCanvasProps>(({ agentId, description,
        updateConfigById(targetAgentId, payload, { rethrow: true, showErrorMessage: false }),
      [updateConfigById],
    );
--  const [initialLoad] = useState(
--    editorData === undefined || editorData?.root === undefined ? EMPTY_EDITOR_STATE : editorData,
--  );
+-  const [initialLoad] = useState(isValidEditorData(editorData) ? editorData : EMPTY_EDITOR_STATE);
 +  // Start empty; the content-init effect below loads the saved prompt with a
 +  // fallback, which the editor's own initial load could not do.
 +  const [initialLoad] = useState(EMPTY_EDITOR_STATE);
@@ -7408,12 +8186,12 @@ index da7cb1dd47..068967e5cf 100644
  
    // Streaming state from AgentStore
    const streamingSystemRoleAgentId = useAgentStore((s) => s.streamingSystemRoleAgentId);
-@@ -341,9 +343,19 @@ const AgentEditorCanvas = memo<AgentEditorCanvasProps>(({ agentId, description,
+@@ -340,9 +344,19 @@ const AgentEditorCanvas = memo<AgentEditorCanvasProps>(({ agentId, description,
      // Don't init if streaming is in progress
      if (streamingInProgress) return;
      try {
 +      let loadedJson = false;
-       if (editorData && editorData?.root !== undefined) {
+       if (isValidEditorData(editorData)) {
 -        setProgrammaticDocument(editor, 'json', editorData, systemRole);
 -        lastSyncedEditorDataRef.current = structuredClone(editorData);
 +        try {
@@ -7430,7 +8208,7 @@ index da7cb1dd47..068967e5cf 100644
        } else if (systemRole) {
          setProgrammaticDocument(editor, 'markdown', systemRole, systemRole);
          // Record the displayed role so the external-update re-sync below doesn't
-@@ -393,6 +405,8 @@ const AgentEditorCanvas = memo<AgentEditorCanvasProps>(({ agentId, description,
+@@ -392,6 +406,8 @@ const AgentEditorCanvas = memo<AgentEditorCanvasProps>(({ agentId, description,
          lastSyncedEditorDataRef.current = structuredClone(editorData);
        } catch (error) {
          console.error('[EditorCanvas] Failed to sync editor content:', error);
@@ -7439,7 +8217,7 @@ index da7cb1dd47..068967e5cf 100644
        }
        return;
      }
-@@ -485,17 +499,10 @@ const AgentEditorCanvas = memo<AgentEditorCanvasProps>(({ agentId, description,
+@@ -484,17 +500,10 @@ const AgentEditorCanvas = memo<AgentEditorCanvasProps>(({ agentId, description,
                mentionOption={mentionOptions}
                placeholder={t('settingAgent.prompt.editorPlaceholder')}
                style={{ paddingBottom: 0 }}
@@ -7485,6 +8263,79 @@ index c0d830c129..b1c5dc6646 100644
  
      // SKILL.md frontmatter is metadata, not editable document body. Keep it out of the rich
      // Markdown editor because `---` fences are otherwise parsed as Markdown dividers/headings,
+-- 
+2.39.5
+
+
+From e3e496c46d886c9ecd03ae8961dff1386598a256 Mon Sep 17 00:00:00 2001
+From: MaySoMusician <maysomusician@gmail.com>
+Date: Thu, 26 Nov 2026 15:36:26 +0000
+Subject: [PATCH 22/22] ✨ feat(ui): show message usage by default
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+The model and token usage row under replies shows unless the user turns
+off "Show model and token usage" in Settings > Conversation > Display,
+instead of following the retired Advanced Tools switch.
+
+Co-Authored-By: Claude Opus 5.5 <claude@anthropic.com.invalid>
+---
+ .../user/slices/settings/selectors/general.test.ts   | 12 ++++++------
+ src/store/user/slices/settings/selectors/general.ts  |  8 ++------
+ 2 files changed, 8 insertions(+), 12 deletions(-)
+
+diff --git a/src/store/user/slices/settings/selectors/general.test.ts b/src/store/user/slices/settings/selectors/general.test.ts
+index 16932cc5cb..6f745b350e 100644
+--- a/src/store/user/slices/settings/selectors/general.test.ts
++++ b/src/store/user/slices/settings/selectors/general.test.ts
+@@ -45,21 +45,21 @@ describe('settingsSelectors', () => {
+   });
+ 
+   describe('showMessageUsage', () => {
+-    it('is off when nothing was chosen', () => {
+-      expect(userGeneralSettingsSelectors.showMessageUsage(initialState as UserStore)).toBe(false);
++    it('is on when nothing was chosen', () => {
++      expect(userGeneralSettingsSelectors.showMessageUsage(initialState as UserStore)).toBe(true);
+     });
+ 
+-    it('keeps it on for people who had the retired Advanced Tools switch on', () => {
++    it('stays on whatever the retired Advanced Tools switch says', () => {
+       const s = merge(initialState, {
+-        settings: { general: { isDevMode: true } },
++        settings: { general: { isDevMode: false } },
+       }) as unknown as UserStore;
+ 
+       expect(userGeneralSettingsSelectors.showMessageUsage(s)).toBe(true);
+     });
+ 
+-    it('lets the explicit choice win over the retired switch', () => {
++    it('lets the user turn it off', () => {
+       const s = merge(initialState, {
+-        settings: { general: { isDevMode: true, showMessageUsage: false } },
++        settings: { general: { showMessageUsage: false } },
+       }) as unknown as UserStore;
+ 
+       expect(userGeneralSettingsSelectors.showMessageUsage(s)).toBe(false);
+diff --git a/src/store/user/slices/settings/selectors/general.ts b/src/store/user/slices/settings/selectors/general.ts
+index 3d6705c301..bbbec1470d 100644
+--- a/src/store/user/slices/settings/selectors/general.ts
++++ b/src/store/user/slices/settings/selectors/general.ts
+@@ -44,12 +44,8 @@ const enablePasteAutoConvert = (s: UserStore) =>
+   generalConfig(s).enablePasteAutoConvert ?? s.preference.lab?.enableInputMarkdown !== false;
+ const enableVoiceMessage = (s: UserStore) => generalConfig(s).enableVoiceMessage ?? false;
+ const showImageReadPreview = (s: UserStore) => generalConfig(s).showImageReadPreview ?? true;
+-// `isDevMode` (the retired Advanced Tools switch) used to gate the usage row,
+-// so it seeds the default for people who never chose this setting.
+-const showMessageUsage = (s: UserStore) =>
+-  generalConfig(s).showMessageUsage ??
+-  (generalConfig(s) as { isDevMode?: boolean }).isDevMode ??
+-  false;
++// MSM: the model and token usage row shows unless the user turns it off.
++const showMessageUsage = (s: UserStore) => generalConfig(s).showMessageUsage ?? true;
+ const fontAntialiasing = (s: UserStore) => generalConfig(s).fontAntialiasing ?? true;
+ const interfaceDensity = (s: UserStore): InterfaceDensity =>
+   generalConfig(s).interfaceDensity ?? 'loose';
 -- 
 2.39.5
 

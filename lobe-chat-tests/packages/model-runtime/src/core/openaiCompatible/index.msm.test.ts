@@ -13,7 +13,7 @@ describe('msm openaiCompatible', () => {
     vi.restoreAllMocks();
   });
 
-  it('gives a client rebuilt for a per-model base URL the same one-attempt, one-hour defaults', async () => {
+  it('gives a client rebuilt for a per-model base URL the same one-attempt, one-hour defaults on the global fetch', async () => {
     const undiciFetch = vi.fn() as unknown as typeof fetch;
     (globalThis as UndiciGlobal).__LOBE_UNDICI__ = {
       Agent: vi.fn(function MockAgent() {
@@ -70,8 +70,10 @@ describe('msm openaiCompatible', () => {
         maxRetries: 0,
         timeout: DEFAULT_OPENAI_TIMEOUT,
       });
-      expect(rebuilt.fetch).toBe(undiciFetch);
-      expect(rebuilt.fetchOptions).toEqual(expect.objectContaining({ dispatcher: {} }));
+      // The instrumentation fetch is global: the client must not pin it, or the
+      // server's SSRF guard (which wraps globalThis.fetch) would be bypassed.
+      expect(rebuilt.fetch).toBeUndefined();
+      expect(rebuilt.fetchOptions).toBeUndefined();
     } finally {
       delete (globalThis as UndiciGlobal).__LOBE_UNDICI__;
     }

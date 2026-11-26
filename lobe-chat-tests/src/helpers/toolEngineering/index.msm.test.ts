@@ -3,7 +3,8 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import { createAgentToolsEngine } from './index';
 
-const agentPlugins = vi.hoisted(() => ({ current: [] as string[] }));
+const agentPlugins = vi.hoisted(() => ({ current: [] as unknown[] }));
+const chatConfig = vi.hoisted(() => ({ current: { enableAgentMode: false } as Record<string, unknown> }));
 
 vi.mock('@/store/tool', () => ({
   getToolStoreState: () => ({
@@ -76,7 +77,7 @@ vi.mock('@/store/agent', () => ({
 
 vi.mock('@/store/agent/selectors', () => ({
   agentChatConfigSelectors: {
-    currentChatConfig: () => ({ enableAgentMode: false }),
+    currentChatConfig: () => chatConfig.current,
     isCloudSandboxEnabled: () => false,
     isLocalSystemEnabled: () => false,
     isMemoryToolEnabled: () => false,
@@ -85,8 +86,10 @@ vi.mock('@/store/agent/selectors', () => ({
     getExecutionTargetById: () => () => undefined,
   },
   agentSelectors: {
+    currentAgentConfig: () => ({ plugins: agentPlugins.current }),
     currentAgentDisabledPlugins: () => [],
     currentAgentPlugins: () => agentPlugins.current,
+    currentAgentVisibility: () => 'private',
     hasEnabledKnowledgeBases: () => false,
   },
 }));
@@ -114,14 +117,18 @@ vi.mock('@/helpers/getSearchConfig', () => ({
 describe('msm createAgentToolsEngine chat-mode image generation', () => {
   afterEach(() => {
     agentPlugins.current = [];
+    chatConfig.current = { enableAgentMode: false };
     vi.clearAllMocks();
   });
 
   it('does not enable lobe-image-generation when it is not pinned', () => {
-    const toolsEngine = createAgentToolsEngine({
-      model: 'claude-sonnet',
-      provider: 'anthropic',
-    });
+    // A real run passes the confirmed (here: empty) uninstalled-builtins list.
+    const toolsEngine = createAgentToolsEngine(
+      { model: 'claude-sonnet', provider: 'anthropic' },
+      undefined,
+      undefined,
+      { uninstalledBuiltinTools: [] },
+    );
 
     const result = toolsEngine.generateToolsDetailed({
       model: 'claude-sonnet',
@@ -134,10 +141,13 @@ describe('msm createAgentToolsEngine chat-mode image generation', () => {
 
   it('enables lobe-image-generation when pinned for a function-calling model', () => {
     agentPlugins.current = ['lobe-image-generation'];
-    const toolsEngine = createAgentToolsEngine({
-      model: 'claude-sonnet',
-      provider: 'anthropic',
-    });
+    // A real run passes the confirmed (here: empty) uninstalled-builtins list.
+    const toolsEngine = createAgentToolsEngine(
+      { model: 'claude-sonnet', provider: 'anthropic' },
+      undefined,
+      undefined,
+      { uninstalledBuiltinTools: [] },
+    );
 
     const result = toolsEngine.generateToolsDetailed({
       model: 'claude-sonnet',
@@ -146,5 +156,48 @@ describe('msm createAgentToolsEngine chat-mode image generation', () => {
     });
 
     expect(result.enabledToolIds).toContain('lobe-image-generation');
+  });
+});
+
+describe('msm createAgentToolsEngine Agent mode opt-in', () => {
+  afterEach(() => {
+    agentPlugins.current = [];
+    chatConfig.current = { enableAgentMode: false };
+  });
+
+  // A run hands the engine the ids `resolveAgentConfig` resolved: every entry the
+  // agent turned on (see resolveAgentConfig.msm.test.ts).
+  const generate = (resolvedPluginIds: string[]) =>
+    createAgentToolsEngine(
+      { model: 'claude-sonnet', provider: 'anthropic' },
+      resolvedPluginIds,
+      undefined,
+      { uninstalledBuiltinTools: [] },
+    ).generateToolsDetailed({
+      model: 'claude-sonnet',
+      provider: 'anthropic',
+      toolIds: resolvedPluginIds,
+    });
+
+  it('loads a builtin the agent turned on directly, without an activator', () => {
+    chatConfig.current = { enableAgentMode: true };
+    agentPlugins.current = [
+      { builtinOverride: true, identifier: 'lobe-image-generation', mode: 'auto' },
+    ];
+
+    const result = generate(['lobe-image-generation']);
+
+    expect(result.enabledToolIds).toContain('lobe-image-generation');
+    expect(result.enabledToolIds).not.toContain('lobe-activator');
+    expect(result.enabledToolIds).not.toContain('lobe-skills');
+  });
+
+  it('loads no builtin the agent did not turn on', () => {
+    chatConfig.current = { enableAgentMode: true };
+
+    const result = generate([]);
+
+    expect(result.enabledToolIds).not.toContain('lobe-image-generation');
+    expect(result.enabledToolIds).not.toContain('lobe-activator');
   });
 });

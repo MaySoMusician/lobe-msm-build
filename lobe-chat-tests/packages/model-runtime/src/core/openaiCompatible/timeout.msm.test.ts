@@ -7,14 +7,25 @@ import {
   resolveOpenAIClientNetworkOptions,
 } from './timeout';
 
+type UndiciGlobal = typeof globalThis & { __LOBE_UNDICI__?: unknown };
+
+const installInstrumentationUndici = () => {
+  const Agent = vi.fn(function MockAgent(this: unknown, options?: unknown) {
+    return { options };
+  });
+  const fetch = vi.fn();
+  (globalThis as UndiciGlobal).__LOBE_UNDICI__ = { Agent, fetch };
+  return { Agent, fetch };
+};
+
 describe('msm openai timeout', () => {
   beforeEach(() => {
     vi.clearAllMocks();
-    delete (globalThis as typeof globalThis & { __LOBE_UNDICI__?: unknown }).__LOBE_UNDICI__;
+    delete (globalThis as UndiciGlobal).__LOBE_UNDICI__;
   });
 
   afterEach(() => {
-    delete (globalThis as typeof globalThis & { __LOBE_UNDICI__?: unknown }).__LOBE_UNDICI__;
+    delete (globalThis as UndiciGlobal).__LOBE_UNDICI__;
     vi.restoreAllMocks();
   });
 
@@ -22,67 +33,42 @@ describe('msm openai timeout', () => {
     expect(DEFAULT_OPENAI_TIMEOUT).toBe(3_600_000);
   });
 
-  it('applies undici Agent body/headers timeouts from the default', () => {
-    const Agent = vi.fn(function MockAgent(this: unknown, options?: unknown) {
-      return { options };
+  describe('with the instrumentation undici fetch installed', () => {
+    it('keeps the client on the global fetch so the SSRF guard still wraps it', () => {
+      const { Agent } = installInstrumentationUndici();
+
+      const result = resolveOpenAIClientNetworkOptions();
+
+      expect(result).toEqual({ timeout: DEFAULT_OPENAI_TIMEOUT });
+      expect(Agent).not.toHaveBeenCalled();
     });
-    const fetch = vi.fn();
 
-    (globalThis as typeof globalThis & { __LOBE_UNDICI__?: unknown }).__LOBE_UNDICI__ = {
-      Agent,
-      fetch,
-    };
+    it('still honors an explicit timeout', () => {
+      installInstrumentationUndici();
 
-    const result = resolveOpenAIClientNetworkOptions();
-
-    expect(Agent).toHaveBeenCalledWith({
-      bodyTimeout: DEFAULT_OPENAI_TIMEOUT,
-      headersTimeout: DEFAULT_OPENAI_TIMEOUT,
-    });
-    expect(result.timeout).toBe(DEFAULT_OPENAI_TIMEOUT);
-    expect(result.fetch).toBe(fetch);
-    expect(result.fetchOptions?.dispatcher).toEqual({
-      options: {
-        bodyTimeout: DEFAULT_OPENAI_TIMEOUT,
-        headersTimeout: DEFAULT_OPENAI_TIMEOUT,
-      },
+      expect(resolveOpenAIClientNetworkOptions(12_000)).toEqual({ timeout: 12_000 });
     });
   });
 
-  it('honors an explicit timeout override with undici Agent', () => {
-    const Agent = vi.fn(function MockAgent(this: unknown, options?: unknown) {
-      return { options };
+  describe('without the instrumentation (tests, scripts)', () => {
+    it('falls back to an explicit undici fetch with a matching dispatcher', () => {
+      const result = resolveOpenAIClientNetworkOptions(12_000);
+
+      expect(result.timeout).toBe(12_000);
+      expect(typeof result.fetch).toBe('function');
+      expect(result.fetchOptions?.dispatcher).toBeDefined();
     });
-    const fetch = vi.fn();
-
-    (globalThis as typeof globalThis & { __LOBE_UNDICI__?: unknown }).__LOBE_UNDICI__ = {
-      Agent,
-      fetch,
-    };
-
-    const result = resolveOpenAIClientNetworkOptions(12_000);
-
-    expect(Agent).toHaveBeenCalledWith({
-      bodyTimeout: 12_000,
-      headersTimeout: 12_000,
-    });
-    expect(result.timeout).toBe(12_000);
   });
 
   describe('applyOpenAIClientNetworkDefaults', () => {
-    it('forces one attempt and the one-hour timeout with the undici fetch', () => {
-      const undiciFetch = vi.fn();
-      (globalThis as typeof globalThis & { __LOBE_UNDICI__?: unknown }).__LOBE_UNDICI__ = {
-        Agent: vi.fn(function MockAgent() {
-          return {};
-        }),
-        fetch: undiciFetch,
-      };
+    it('forces one attempt and the one-hour timeout without pinning the global fetch', () => {
+      installInstrumentationUndici();
 
       const options = applyOpenAIClientNetworkDefaults({ apiKey: 'k', maxRetries: 3 });
 
       expect(options).toMatchObject({ apiKey: 'k', maxRetries: 0, timeout: DEFAULT_OPENAI_TIMEOUT });
-      expect(options.fetch).toBe(undiciFetch);
+      expect(options).not.toHaveProperty('fetch');
+      expect(options).not.toHaveProperty('fetchOptions');
     });
 
     it('takes the first numeric timeout candidate and keeps a caller fetch', () => {
